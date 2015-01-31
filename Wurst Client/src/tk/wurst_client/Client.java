@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client;
 
 import net.minecraft.client.gui.ServerListEntryNormal;
@@ -22,7 +29,7 @@ public class Client
 	public String currentServerIP = "127.0.0.1:25565";
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
-	
+
 	public ModuleManager moduleManager;
 	public GuiManager guiManager;
 	public CommandManager commandManager;
@@ -30,23 +37,23 @@ public class Client
 	public Updater updater;
 	public ChatMessenger chat;
 	public Options options;
-	
+
 	public static final Client Wurst = new Client();
-	
+
 	public void startClient()
 	{
-		this.moduleManager = new ModuleManager();
-		this.guiManager = new GuiManager();
-		this.commandManager = new CommandManager();
-		this.fileManager = new FileManager();
-		this.updater = new Updater();
-		this.chat = new ChatMessenger();
-		this.options = new Options();
-		
-		this.guiManager.setTheme(new WurstTheme());
-		this.guiManager.setup();
-		this.fileManager.init();
-		this.updater.check("Wurst 1.8", this.CLIENT_VERSION);
-		logger.info("[Wurst Updater] " + (this.updater.updateAvailable ? "Found update: " + this.updater.latestVersion : "No update found."));
+		moduleManager = new ModuleManager();
+		guiManager = new GuiManager();
+		commandManager = new CommandManager();
+		fileManager = new FileManager();
+		updater = new Updater();
+		chat = new ChatMessenger();
+		options = new Options();
+
+		guiManager.setTheme(new WurstTheme());
+		guiManager.setup();
+		fileManager.init();
+		updater.check("Wurst 1.8", CLIENT_VERSION);
+		logger.info("[Wurst Updater] " + (updater.updateAvailable ? "Found update: " + updater.latestVersion : "No update found."));
 	}
 }

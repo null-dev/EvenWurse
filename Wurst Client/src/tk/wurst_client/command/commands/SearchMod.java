@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.command.commands;
 
 import net.minecraft.block.Block;
@@ -8,7 +15,7 @@ import tk.wurst_client.utils.MiscUtils;
 
 public class SearchMod extends Command
 {
-
+	
 	private static String[] commandHelp =
 	{
 		"Changes the settings of Search or toggles it.",
@@ -16,12 +23,13 @@ public class SearchMod extends Command
 		".search id <block id>",
 		".search name <block name>"
 	};
-	
+
 	public SearchMod()
 	{
 		super("search", commandHelp);
 	}
-	
+
+	@Override
 	public void onEnable(String input, String[] args)
 	{
 		if(args == null)
@@ -31,9 +39,8 @@ public class SearchMod extends Command
 		}else if(args[0].toLowerCase().equals("id"))
 		{
 			if(MiscUtils.isInteger(args[1]))
-			{
 				Client.Wurst.options.searchID = Integer.valueOf(args[1]);
-			}else
+			else
 			{
 				commandError();
 				return;

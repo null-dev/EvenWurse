@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.utils;
 
 import java.awt.Component;
@@ -18,24 +25,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.Sys;
 
-
-
 public class MiscUtils
 {
 	private static final Logger logger = LogManager.getLogger();
-	
+
 	public static boolean isInteger(String s)
 	{
-	    try
-	    { 
-	        Integer.parseInt(s);
-	    }catch(NumberFormatException e)
-	    { 
-	        return false; 
-	    }
-	    return true;
+		try
+		{
+			Integer.parseInt(s);
+		}catch(NumberFormatException e)
+		{
+			return false;
+		}
+		return true;
 	}
-	
+
 	public static int countMatches(String string, String regex)
 	{
 		Matcher matcher = Pattern.compile(regex).matcher(string);
@@ -44,35 +49,42 @@ public class MiscUtils
 			count++;
 		return count;
 	}
-	
+
 	public static boolean openLink(String url)
 	{
 		try
-        {
-        	Desktop.getDesktop().browse(new URI(url));
-        	return true;
-        }
-        catch (Exception e)
-        {
-        	logger.error("Failed to open link", e);
-        	return false;
-        }
+		{
+			Desktop.getDesktop().browse(new URI(url));
+			return true;
+		}catch(Exception e)
+		{
+			logger.error("Failed to open link", e);
+			return false;
+		}
 	}
-	
+
 	public static void openFile(File file)
 	{
 		openFile(file.getPath());
 	}
-	
+
 	public static void openFile(String path)
 	{
 		File file = new File(path);
 		String apath = file.getAbsolutePath();
 		
+		try
+		{
+			Desktop.getDesktop().open(file);
+		}catch(IOException e)
+		{
+			logger.error("Failed to open file via Desktop.", e);
+		}
+
 		if(Util.getOSType() == Util.EnumOS.WINDOWS)
 		{
-			String command = String.format("cmd.exe /C start \"Open file\" \"%s\"", new Object[] {apath});
-			
+			String command = String.format("cmd.exe /C start \"Open file\" \"%s\"", new Object[]{apath});
+
 			try
 			{
 				Runtime.getRuntime().exec(command);
@@ -82,38 +94,34 @@ public class MiscUtils
 				logger.error("Failed to open file", var8);
 			}
 		}else if(Util.getOSType() == Util.EnumOS.OSX)
-		{
 			try
-			{
+		{
 				logger.info(apath);
-				Runtime.getRuntime().exec(new String[] {"/usr/bin/open", apath});
+				Runtime.getRuntime().exec(new String[]{"/usr/bin/open", apath});
 				return;
-			}catch(IOException var9)
-			{
-				logger.error("Failed to open file", var9);
-			}
+		}catch(IOException var9)
+		{
+			logger.error("Failed to open file", var9);
 		}
-		
+
 		boolean browserFailed = false;
-		
+
 		try
 		{
-			Class var5 = Class.forName("java.awt.Desktop");
-			Object var6 = var5.getMethod("getDesktop", new Class[0]).invoke((Object)null, new Object[0]);
-			var5.getMethod("browse", new Class[] {URI.class}).invoke(var6, new Object[] {file.toURI()});
+			Desktop.getDesktop().browse(file.toURI());
 		}catch(Throwable var7)
 		{
 			logger.error("Failed to open file", var7);
 			browserFailed = true;
 		}
-		
+
 		if(browserFailed)
 		{
 			logger.info("Opening via system class!");
 			Sys.openURL("file://" + apath);
 		}
 	}
-	
+
 	public static void simpleError(Exception e, Component parent)
 	{
 		StringWriter writer = new StringWriter();

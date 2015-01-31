@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
@@ -7,27 +14,28 @@ import tk.wurst_client.utils.MiscUtils;
 public class Friends extends Command
 {
 	private static String[] commandHelp =
-		{
-			"Adds or removes a friend or lists all friends.",
-			".friends <add|remove> <player name>",
-			".friends list",
-			".friends list <page>"
-		};
-	
+	{
+		"Adds or removes a friend or lists all friends.",
+		".friends <add|remove> <player name>",
+		".friends list",
+		".friends list <page>"
+	};
+
 	public Friends()
 	{
 		super("friends", commandHelp);
 	}
-	
+
 	private int friendsPerPage = 8;
-	
+
+	@Override
 	public void onEnable(String input, String[] args)
 	{
 		if(args[0].equalsIgnoreCase("list"))
 		{
 			int totalFriends = Client.Wurst.options.friends.size();
-			float pagesF = (float) ((double)totalFriends / (double)friendsPerPage);
-			int pages = (int) (Math.round(pagesF) == pagesF ? pagesF : pagesF + 1);
+			float pagesF = (float)((double)totalFriends / (double)friendsPerPage);
+			int pages = (int)(Math.round(pagesF) == pagesF ? pagesF : pagesF + 1);
 			friendsPerPage = 8;
 			if(args.length == 1)
 			{
@@ -46,25 +54,25 @@ public class Friends extends Command
 				}
 			}else
 			{
-					if(MiscUtils.isInteger(args[1]))
+				if(MiscUtils.isInteger(args[1]))
+				{
+					int page = Integer.valueOf(args[1]);
+					if(page > pages || page == 0)
 					{
-						int page = Integer.valueOf(args[1]);
-						if(page > pages || page == 0)
-						{
-							commandError();
-							return;
-						}
-						Client.Wurst.chat.message("Current friends: " + Integer.toString(totalFriends));
-						Client.Wurst.chat.message("Friends list (page " + page + "/" + pages + "):");
-						int i2 = 0;
-						for(int i = 0; i < Client.Wurst.options.friends.size() && i2 < (page - 1) * friendsPerPage + friendsPerPage; i++)
-						{
-							if(i2 >= (page - 1) * friendsPerPage)
-								Client.Wurst.chat.message(Client.Wurst.options.friends.get(i));
-							i2++;
-						}
+						commandError();
 						return;
 					}
+					Client.Wurst.chat.message("Current friends: " + Integer.toString(totalFriends));
+					Client.Wurst.chat.message("Friends list (page " + page + "/" + pages + "):");
+					int i2 = 0;
+					for(int i = 0; i < Client.Wurst.options.friends.size() && i2 < (page - 1) * friendsPerPage + friendsPerPage; i++)
+					{
+						if(i2 >= (page - 1) * friendsPerPage)
+							Client.Wurst.chat.message(Client.Wurst.options.friends.get(i));
+						i2++;
+					}
+					return;
+				}
 				commandError();
 			}
 		}else if(args[0].equalsIgnoreCase("add"))
@@ -80,7 +88,6 @@ public class Friends extends Command
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
 			for(int i = 0; i < Client.Wurst.options.friends.size(); i++)
-			{
 				if(Client.Wurst.options.friends.get(i).toLowerCase().equals(args[1].toLowerCase()))
 				{
 					Client.Wurst.options.friends.remove(i);
@@ -88,7 +95,6 @@ public class Friends extends Command
 					Client.Wurst.chat.message("Removed friend \"" + args[1] + "\".");
 					return;
 				}
-			}
 			Client.Wurst.chat.error("\"" + args[1] + "\" is not in your friends list.");
 		}else
 			commandError();

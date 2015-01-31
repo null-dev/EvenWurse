@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.files;
 
 import java.io.BufferedReader;
@@ -12,8 +19,6 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
@@ -28,7 +33,6 @@ import tk.wurst_client.utils.XRayUtils;
 
 public class FileManager
 {
-	private static final Logger logger = LogManager.getLogger();
 	public final File WurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
 	public final File SkinDir = new File(WurstDir, "skins");
 	public final File ServerlistDir = new File(WurstDir, "serverlists");
@@ -43,7 +47,7 @@ public class FileManager
 	public final File AutoMaximizeFile = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.txt");
 	public final File XRay = new File(WurstDir, "xray.txt");
 	private String split = "§";
-	
+
 	public void init()
 	{
 		if(!WurstDir.exists())
@@ -79,7 +83,7 @@ public class FileManager
 			loadXRayBlocks();
 		loadBuildings();
 	}
-	
+
 	public void saveGUI(Frame[] frames)
 	{
 		try
@@ -89,22 +93,20 @@ public class FileManager
 				if(!frame.getTitle().equalsIgnoreCase("ArenaBrawl"))
 					save.println(frame.getTitle() + split + frame.isMinimized() + split + frame.isPinned() + split + frame.getX() + split + frame.getY());
 			save.close();
-		} catch(IOException e)
-		{
+		}catch(IOException e)
+		{	
 			
 		}
 	}
-	
+
 	public void loadGUI(Frame[] frames)
 	{
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(GUI));
 			int i = 0;
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
+			for(; (load.readLine()) != null;)
 				i++;
-			}
 			load.close();
 			if(i != frames.length)
 			{
@@ -112,7 +114,7 @@ public class FileManager
 				return;
 			}
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 		try
@@ -122,7 +124,6 @@ public class FileManager
 			{
 				String data[] = line.split(split);
 				for(Frame frame : frames)
-				{
 					if(frame.getTitle().equals(data[0]))
 					{
 						frame.setMinimized(Boolean.valueOf(data[1]));
@@ -130,15 +131,14 @@ public class FileManager
 						frame.setX(Integer.parseInt(data[3]));
 						frame.setY(Integer.parseInt(data[4]));
 					}
-				}
 			}
 			load.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void saveModules()
 	{
 		try
@@ -151,11 +151,11 @@ public class FileManager
 			}
 			save.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	private String[] moduleBlacklist =
 	{
 		ForceOP.class.getName(),
@@ -175,7 +175,7 @@ public class FileManager
 		RemoteView.class.getName(),
 		Spammer.class.getName(),
 	};
-	
+
 	public void loadModules()
 	{
 		boolean shouldUpdate = false;
@@ -183,17 +183,13 @@ public class FileManager
 		{
 			BufferedReader load = new BufferedReader(new FileReader(Modules));
 			int i = 0;
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
+			for(; (load.readLine()) != null;)
 				i++;
-			}
 			load.close();
 			if(i != Client.Wurst.moduleManager.activeModules.size())
-			{
 				shouldUpdate = true;
-			}
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 		try
@@ -212,8 +208,8 @@ public class FileManager
 				if(module.getCategory() != Category.HIDDEN && module.getCategory() != Category.WIP)
 				{
 					boolean shouldSkip = false;
-					for(int i = 0; i < moduleBlacklist.length; i++)
-						if(module.getClass().getName().equalsIgnoreCase(moduleBlacklist[i]))
+					for(String element : moduleBlacklist)
+						if(module.getClass().getName().equalsIgnoreCase(element))
 						{
 							shouldSkip = true;
 							break;
@@ -228,45 +224,39 @@ public class FileManager
 			if(shouldUpdate)
 				saveModules();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void saveOptions()
 	{
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(Values));
 			for(Field field : Client.Wurst.options.getClass().getFields())
-			{
 				try
-				{
+			{
 					if(field.getType().getName().equals("boolean"))
-					{
 						save.println(field.getName() + split + field.getBoolean(Client.Wurst.options));
-					}else if(field.getType().getName().equals("int"))
-					{
+					else if(field.getType().getName().equals("int"))
 						save.println(field.getName() + split + field.getInt(Client.Wurst.options));
-					}else if(field.getType().getName().equals("java.lang.String"))
-					{
-						save.println(field.getName() + split + (String) field.get(Client.Wurst.options));
-					}
-				}catch(IllegalArgumentException e)
-				{
-					e.printStackTrace();
-				}catch(IllegalAccessException e)
-				{
-					e.printStackTrace();
-				}
+					else if(field.getType().getName().equals("java.lang.String"))
+						save.println(field.getName() + split + (String)field.get(Client.Wurst.options));
+			}catch(IllegalArgumentException e)
+			{
+				e.printStackTrace();
+			}catch(IllegalAccessException e)
+			{
+				e.printStackTrace();
 			}
 			save.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void loadOptions()
 	{
 		boolean shouldUpdate = false;
@@ -277,21 +267,17 @@ public class FileManager
 			{
 				String data[] = line.split(split);
 				for(Field field : Client.Wurst.options.getClass().getFields())
-				{
 					if(data[0].equals(field.getName()))
 					{
 						try
 						{
 							if(field.getType().getName().equals("boolean"))
-							{
 								field.setBoolean(Client.Wurst.options, Boolean.valueOf(data[1]));
-							}else if(field.getType().getName().equals("int"))
-							{
+							else if(field.getType().getName().equals("int"))
 								field.setInt(Client.Wurst.options, Integer.valueOf(data[1]));
-							}else if(field.getType().getName().equals("java.lang.String"))
-							{
+							else if(field.getType().getName().equals("java.lang.String"))
 								field.set(Client.Wurst.options, data[1]);
-							}else
+							else
 								shouldUpdate = true;
 						}catch(IllegalArgumentException e)
 						{
@@ -304,41 +290,40 @@ public class FileManager
 						}
 						break;
 					}
-				}
 			}
 			load.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 		if(shouldUpdate)
 			saveOptions();
 	}
-
-    public boolean loadAutoResize()
+	
+	public boolean loadAutoResize()
 	{
-    	boolean autoMaximizeEnabled = false;
-        if(!AutoMaximizeFile.exists())
-        	saveAutoMaximize(true);
-        try
-    	{
-    		BufferedReader load = new BufferedReader(new FileReader(AutoMaximizeFile));
-    		String line = load.readLine();
-    		load.close();
-    		autoMaximizeEnabled = line.equals("true") && !Minecraft.isRunningOnMac;
-    	}catch(IOException e)
-    	{
-    		e.printStackTrace();
-    	}
+		boolean autoMaximizeEnabled = false;
+		if(!AutoMaximizeFile.exists())
+			saveAutoMaximize(true);
+		try
+		{
+			BufferedReader load = new BufferedReader(new FileReader(AutoMaximizeFile));
+			String line = load.readLine();
+			load.close();
+			autoMaximizeEnabled = line.equals("true") && !Minecraft.isRunningOnMac;
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 		return autoMaximizeEnabled;
 	}
 	
-    public void saveAutoMaximize(boolean autoMaximizeEnabled)
+	public void saveAutoMaximize(boolean autoMaximizeEnabled)
 	{
-    	try
+		try
 		{
-    		if(!AutoMaximizeFile.getParentFile().exists())
-    			AutoMaximizeFile.getParentFile().mkdirs();
+			if(!AutoMaximizeFile.getParentFile().exists())
+				AutoMaximizeFile.getParentFile().mkdirs();
 			PrintWriter save = new PrintWriter(new FileWriter(AutoMaximizeFile));
 			save.println(Boolean.toString(autoMaximizeEnabled));
 			save.close();
@@ -347,50 +332,40 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void saveSliders()
 	{
 		ArrayList<BasicSlider> allSliders = new ArrayList<BasicSlider>();
 		for(Module module : Client.Wurst.moduleManager.activeModules)
-		{
 			for(BasicSlider slider : module.getSliders())
-			{
 				allSliders.add(slider);
-			}
-		}
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(Sliders));
 			for(int i = 0; i < allSliders.size(); i++)
 			{
 				BasicSlider slider = allSliders.get(i);
-				save.println(i + split + (double)((long)(Math.round(slider.getValue() / slider.getIncrement()) * 1000000) * (long)(slider.getIncrement() * 1000000)) / 1000000 / 1000000);
+				save.println(i + split + (double)(Math.round(slider.getValue() / slider.getIncrement()) * 1000000 * (long)(slider.getIncrement() * 1000000)) / 1000000 / 1000000);
 			}
 			save.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void loadSliders()
 	{
 		ArrayList<BasicSlider> allSliders = new ArrayList<BasicSlider>();
 		for(Module module : Client.Wurst.moduleManager.activeModules)
-		{
 			for(BasicSlider slider : module.getSliders())
-			{
 				allSliders.add(slider);
-			}
-		}
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(Sliders));
 			int i = 0;
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
+			for(; (load.readLine()) != null;)
 				i++;
-			}
 			load.close();
 			if(i != allSliders.size())
 			{
@@ -398,7 +373,7 @@ public class FileManager
 				return;
 			}
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 		try
@@ -411,11 +386,11 @@ public class FileManager
 			}
 			load.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void saveAlts()
 	{
 		try
@@ -429,11 +404,11 @@ public class FileManager
 			}
 			save.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void loadAlts()
 	{
 		if(!Alts.exists())
@@ -457,11 +432,11 @@ public class FileManager
 			GuiAltList.sortAlts();
 			load.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void saveFriends()
 	{
 		Client.Wurst.options.sortFriends();
@@ -472,11 +447,11 @@ public class FileManager
 				save.println(Client.Wurst.options.friends.get(i));
 			save.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void loadFriends()
 	{
 		boolean shouldUpdate = false;
@@ -484,17 +459,13 @@ public class FileManager
 		{
 			BufferedReader load = new BufferedReader(new FileReader(Friends));
 			int i = 0;
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
+			for(; (load.readLine()) != null;)
 				i++;
-			}
 			load.close();
 			if(i != 1)
-			{
 				shouldUpdate = true;
-			}
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 		try
@@ -508,13 +479,13 @@ public class FileManager
 			load.close();
 			Client.Wurst.options.sortFriends();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 		if(shouldUpdate)
 			saveFriends();
 	}
-	
+
 	public void saveXRayBlocks()
 	{
 		try
@@ -524,11 +495,11 @@ public class FileManager
 				save.println(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i)));
 			save.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void loadXRayBlocks()
 	{
 		try
@@ -541,11 +512,11 @@ public class FileManager
 			}
 			load.close();
 		}catch(IOException e)
-		{
+		{	
 			
 		}
 	}
-	
+
 	public void loadBuildings()
 	{
 		int[][] bridge =
@@ -788,9 +759,8 @@ public class FileManager
 		};
 		AutoBuild.buildings.add(wurst);
 		if(!Client.Wurst.fileManager.AutoBuildCustom.exists())
-		{
 			try
-			{
+		{
 				PrintWriter save = new PrintWriter(new FileWriter(Client.Wurst.fileManager.AutoBuildCustom));
 				save.println("WARNING! This is complicated!");
 				save.println("");
@@ -866,35 +836,34 @@ public class FileManager
 				save.println("0§0§-1");
 				save.println("0§1§0");
 				save.close();
-			}catch(IOException e){}
-		}
+		}catch(IOException e)
+			{}
 		ArrayList<String> fileText = new ArrayList<String>();
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(AutoBuildCustom));
 			for(String line = ""; (line = load.readLine()) != null;)
-			{
 				fileText.add(line);
-			}
 			load.close();
-		}catch(IOException e){}
-		ArrayList<String> buildingText = (ArrayList<String>) fileText.clone();
-		for(int i = 0; i < fileText.size(); i++)//Removes all the text before "Make your own structure here:".
+		}catch(IOException e)
+		{}
+		@SuppressWarnings("unchecked")
+		ArrayList<String> buildingText = (ArrayList<String>)fileText.clone();
+		for(int i = 0; i < fileText.size(); i++)// Removes all the text before
+												// "Make your own structure here:".
 		{
 			if(fileText.get(i).contains("Make your own structure here:"))
 				break;
 			buildingText.remove(0);
 		}
-		buildingText.remove(0);//Removes "Make your own structure here:".
+		buildingText.remove(0);// Removes "Make your own structure here:".
 		ArrayList<int[]> loadedBuilding = new ArrayList<int[]>();
 		for(int i = 0; i < buildingText.size(); i++)
 		{
 			String data[] = buildingText.get(i).split(split);
 			int[] block = new int[data.length];
 			for(int i2 = 0; i2 < data.length; i2++)
-			{
 				block[i2] = Integer.valueOf(data[i2]);
-			}
 			loadedBuilding.add(block);
 		}
 		int[][] custom = new int[loadedBuilding.size()][loadedBuilding.get(0).length];

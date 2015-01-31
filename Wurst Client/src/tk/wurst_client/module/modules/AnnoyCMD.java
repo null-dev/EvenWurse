@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -9,18 +16,17 @@ public class AnnoyCMD extends Module
 {
 	public AnnoyCMD()
 	{
-		super
-		(
+		super(
 			"Annoy",
 			"",
 			0,
-			Category.HIDDEN
-		);
+			Category.HIDDEN);
 	}
-	
+
 	private static boolean toggled;
 	private static String name;
-	
+
+	@Override
 	public String getRenderName()
 	{
 		if(name != null)
@@ -28,7 +34,7 @@ public class AnnoyCMD extends Module
 		else
 			return "Annoy";
 	}
-	
+
 	public static void onToggledByCommand(String name)
 	{
 		if(name == null)
@@ -42,7 +48,8 @@ public class AnnoyCMD extends Module
 		toggled = !toggled;
 		AnnoyCMD.name = name;
 	}
-	
+
+	@Override
 	public void onEnable()
 	{
 		if(name == null)
@@ -55,16 +62,18 @@ public class AnnoyCMD extends Module
 		if(name.equals(Minecraft.getMinecraft().thePlayer.getName()))
 			Client.Wurst.chat.warning("Annoying yourself is a bad idea!");
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(this.getToggled() != toggled)
-			this.setToggled(toggled);
+		if(getToggled() != toggled)
+			setToggled(toggled);
 	}
-	
+
+	@Override
 	public void onReceivedMessage(String message)
 	{
-		if(!this.getToggled() || message.startsWith("§c[§6" + Client.Wurst.CLIENT_NAME + "§c]§f "))
+		if(!getToggled() || message.startsWith("§c[§6" + Client.Wurst.CLIENT_NAME + "§c]§f "))
 			return;
 		if(message.startsWith("<" + name + ">") || message.contains(name + ">"))
 		{
@@ -76,7 +85,8 @@ public class AnnoyCMD extends Module
 			Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);
 		}
 	}
-	
+
+	@Override
 	public void onDisable()
 	{
 		if(name != null)

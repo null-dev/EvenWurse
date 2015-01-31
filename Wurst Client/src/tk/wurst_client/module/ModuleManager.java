@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module;
 
 import java.util.ArrayList;
@@ -8,113 +15,109 @@ import tk.wurst_client.module.modules.*;
 public class ModuleManager
 {
 	public final ArrayList<Module> activeModules = new ArrayList<Module>();
-	
+
 	public Module getModuleFromClass(Class moduleClass)
 	{
 		for(int i = 0; i < Client.Wurst.moduleManager.activeModules.size(); i++)
-		{
 			if(Client.Wurst.moduleManager.activeModules.get(i).getClass().getName().equals(moduleClass.getName()))
 				return Client.Wurst.moduleManager.activeModules.get(i);
-		}
-		throw(new IllegalArgumentException("There is no module called \"" + moduleClass.getName() + "\"."));
+		throw new IllegalArgumentException("There is no module called \"" + moduleClass.getName() + "\".");
 	}
-	
+
 	public Module getModuleByName(String name)
 	{
 		for(int i = 0; i < Client.Wurst.moduleManager.activeModules.size(); i++)
-		{
 			if(Client.Wurst.moduleManager.activeModules.get(i).getName().equals(name))
 				return Client.Wurst.moduleManager.activeModules.get(i);
-		}
 		return null;
 	}
-	
+
 	public ModuleManager()
 	{
-		this.activeModules.add(new AnnoyCMD());
-		this.activeModules.add(new AntiBlind());
-		this.activeModules.add(new AntiKnockback());
-		this.activeModules.add(new AntiSpam());
-		this.activeModules.add(new ArenaBrawl());
-		this.activeModules.add(new AutoFish());
-		this.activeModules.add(new AutoMine());
-		this.activeModules.add(new AutoRespawn());
-		this.activeModules.add(new AutoSign());
-		this.activeModules.add(new AutoSprint());
-		this.activeModules.add(new AutoSwitch());
-		this.activeModules.add(new AutoTool());
-		this.activeModules.add(new AutoWalk());
-		this.activeModules.add(new BaseFinder());
-		this.activeModules.add(new Blink());
-		this.activeModules.add(new BowAimbot());
-		this.activeModules.add(new BuildRandom());
-		this.activeModules.add(new BunnyHop());
-		this.activeModules.add(new ChestESP());
-		this.activeModules.add(new ClickGUI());
-		this.activeModules.add(new Criticals());
-		this.activeModules.add(new Derp());
-		this.activeModules.add(new Dolphin());
-		this.activeModules.add(new DropCMD());
-		this.activeModules.add(new FastBreak());
-		this.activeModules.add(new FastBow());
-		this.activeModules.add(new FastEat());
-		this.activeModules.add(new FastLadder());
-		this.activeModules.add(new FastPlace());
-		this.activeModules.add(new FightBot());
-		this.activeModules.add(new Flight());
-		this.activeModules.add(new Follow());
-		this.activeModules.add(new ForceOP());
-		this.activeModules.add(new Freecam());
-		this.activeModules.add(new Fullbright());
-		this.activeModules.add(new Glide());
-		this.activeModules.add(new Headless());
-		this.activeModules.add(new HealthTags());
-		this.activeModules.add(new HighJump());
-		this.activeModules.add(new Home());
-		this.activeModules.add(new InstantBunker());
-		this.activeModules.add(new Invisibility());
-		this.activeModules.add(new ItemESP());
-		this.activeModules.add(new Jesus());
-		this.activeModules.add(new Jetpack());
-		this.activeModules.add(new Kaboom());
-		this.activeModules.add(new Killaura());
-		this.activeModules.add(new KillauraLegit());
-		this.activeModules.add(new Liquids());
-		this.activeModules.add(new LSD());
-		this.activeModules.add(new MassTPA());
-		this.activeModules.add(new MileyCyrus());
-		this.activeModules.add(new MobESP());
-		this.activeModules.add(new MultiAura());
-		this.activeModules.add(new NameProtect());
-		this.activeModules.add(new NameTags());
-		this.activeModules.add(new NoFall());
-		this.activeModules.add(new NoHurtcam());
-		this.activeModules.add(new NoWeb());
-		this.activeModules.add(new Nuker());
-		this.activeModules.add(new NukerLegit());
-		this.activeModules.add(new Overlay());
-		this.activeModules.add(new Panic());
-		this.activeModules.add(new Phase());
-		this.activeModules.add(new PlayerESP());
-		this.activeModules.add(new ProphuntESP());
-		this.activeModules.add(new Protect());
-		this.activeModules.add(new Pwnage());
-		this.activeModules.add(new Regen());
-		this.activeModules.add(new RemoteView());
-		this.activeModules.add(new Search());
-		this.activeModules.add(new Sneak());
-		this.activeModules.add(new Spammer());
-		this.activeModules.add(new SpeedNuker());
-		this.activeModules.add(new Spider());
-		this.activeModules.add(new Step());
-		this.activeModules.add(new TacoCMD());
-		this.activeModules.add(new Throw());
-		this.activeModules.add(new Timer());
-		this.activeModules.add(new Tracers());
-		this.activeModules.add(new TriggerBot());
-		this.activeModules.add(new TrueSight());
-		this.activeModules.add(new XRay());
-		this.activeModules.add(new YesCheat());
-		this.activeModules.add(new AutoBuild());
+		activeModules.add(new AnnoyCMD());
+		activeModules.add(new AntiBlind());
+		activeModules.add(new AntiKnockback());
+		activeModules.add(new AntiSpam());
+		activeModules.add(new ArenaBrawl());
+		activeModules.add(new AutoFish());
+		activeModules.add(new AutoMine());
+		activeModules.add(new AutoRespawn());
+		activeModules.add(new AutoSign());
+		activeModules.add(new AutoSprint());
+		activeModules.add(new AutoSwitch());
+		activeModules.add(new AutoTool());
+		activeModules.add(new AutoWalk());
+		activeModules.add(new BaseFinder());
+		activeModules.add(new Blink());
+		activeModules.add(new BowAimbot());
+		activeModules.add(new BuildRandom());
+		activeModules.add(new BunnyHop());
+		activeModules.add(new ChestESP());
+		activeModules.add(new ClickGUI());
+		activeModules.add(new Criticals());
+		activeModules.add(new Derp());
+		activeModules.add(new Dolphin());
+		activeModules.add(new DropCMD());
+		activeModules.add(new FastBreak());
+		activeModules.add(new FastBow());
+		activeModules.add(new FastEat());
+		activeModules.add(new FastLadder());
+		activeModules.add(new FastPlace());
+		activeModules.add(new FightBot());
+		activeModules.add(new Flight());
+		activeModules.add(new Follow());
+		activeModules.add(new ForceOP());
+		activeModules.add(new Freecam());
+		activeModules.add(new Fullbright());
+		activeModules.add(new Glide());
+		activeModules.add(new Headless());
+		activeModules.add(new HealthTags());
+		activeModules.add(new HighJump());
+		activeModules.add(new Home());
+		activeModules.add(new InstantBunker());
+		activeModules.add(new Invisibility());
+		activeModules.add(new ItemESP());
+		activeModules.add(new Jesus());
+		activeModules.add(new Jetpack());
+		activeModules.add(new Kaboom());
+		activeModules.add(new Killaura());
+		activeModules.add(new KillauraLegit());
+		activeModules.add(new Liquids());
+		activeModules.add(new LSD());
+		activeModules.add(new MassTPA());
+		activeModules.add(new MileyCyrus());
+		activeModules.add(new MobESP());
+		activeModules.add(new MultiAura());
+		activeModules.add(new NameProtect());
+		activeModules.add(new NameTags());
+		activeModules.add(new NoFall());
+		activeModules.add(new NoHurtcam());
+		activeModules.add(new NoWeb());
+		activeModules.add(new Nuker());
+		activeModules.add(new NukerLegit());
+		activeModules.add(new Overlay());
+		activeModules.add(new Panic());
+		activeModules.add(new Phase());
+		activeModules.add(new PlayerESP());
+		activeModules.add(new ProphuntESP());
+		activeModules.add(new Protect());
+		activeModules.add(new Pwnage());
+		activeModules.add(new Regen());
+		activeModules.add(new RemoteView());
+		activeModules.add(new Search());
+		activeModules.add(new Sneak());
+		activeModules.add(new Spammer());
+		activeModules.add(new SpeedNuker());
+		activeModules.add(new Spider());
+		activeModules.add(new Step());
+		activeModules.add(new TacoCMD());
+		activeModules.add(new Throw());
+		activeModules.add(new Timer());
+		activeModules.add(new Tracers());
+		activeModules.add(new TriggerBot());
+		activeModules.add(new TrueSight());
+		activeModules.add(new XRay());
+		activeModules.add(new YesCheat());
+		activeModules.add(new AutoBuild());
 	}
 }

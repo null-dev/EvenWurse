@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module;
 
 import java.util.ArrayList;
@@ -16,128 +23,139 @@ public class Module
 	protected ArrayList<BasicSlider> moduleSliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
-	
+
 	public Module(String moduleName, String moduleDescription, int moduleBind, Category moduleCategory)
 	{
 		this.moduleName = moduleName;
 		this.moduleDescription = moduleDescription;
 		this.moduleBind = moduleBind;
 		this.moduleCategory = moduleCategory;
-		this.initSliders();
-	}
-	
-	public String getName()
-	{
-		return this.moduleName;
-	}
-	
-	public String getRenderName()
-	{
-		return this.moduleName;
+		initSliders();
 	}
 
+	public String getName()
+	{
+		return moduleName;
+	}
+
+	public String getRenderName()
+	{
+		return moduleName;
+	}
+	
 	public String getDescription()
 	{
-		return this.moduleDescription;
+		return moduleDescription;
 	}
-	
+
 	public int getBind()
 	{
-		return this.moduleBind;
+		return moduleBind;
 	}
-	
+
 	public void setBind(int newBind)
 	{
-		this.moduleBind = newBind;
+		moduleBind = newBind;
 	}
-	
+
 	public Category getCategory()
 	{
-		return this.moduleCategory;
+		return moduleCategory;
 	}
-	
+
 	public boolean getToggled()
 	{
-		return this.isToggled;
+		return isToggled;
 	}
-	
+
 	public void setToggled(boolean shouldToggle)
 	{
-		this.onToggle();
+		onToggle();
 		if(shouldToggle)
 		{
-			this.onEnable();
-			this.isToggled = true;
+			onEnable();
+			isToggled = true;
 		}else
 		{
-			this.onDisable();
-			this.isToggled = false;
+			onDisable();
+			isToggled = false;
 		}
 		Client.Wurst.fileManager.saveModules();
 	}
-	
+
 	public void toggleModule()
 	{
-		this.setToggled(!this.getToggled());
+		setToggled(!getToggled());
 	}
-	
+
 	public ArrayList<BasicSlider> getSliders()
 	{
-		return this.moduleSliders;
+		return moduleSliders;
 	}
-	
+
 	public void setSliders(ArrayList<BasicSlider> newSliders)
 	{
-		this.moduleSliders = newSliders;
+		moduleSliders = newSliders;
 	}
-	
+
 	public void noCheatMessage()
 	{
-		Client.Wurst.chat.warning(this.moduleName + " cannot bypass NoCheat+.");
+		Client.Wurst.chat.warning(moduleName + " cannot bypass NoCheat+.");
 	}
-	
+
 	public void updateMS()
 	{
-		this.currentMS = System.currentTimeMillis();
+		currentMS = System.currentTimeMillis();
 	}
-	
+
 	public void updateLastMS()
 	{
-		this.lastMS = System.currentTimeMillis();
+		lastMS = System.currentTimeMillis();
 	}
-	
+
 	public boolean hasTimePassedM(long MS)
 	{
-		return this.currentMS >= this.lastMS + MS;
+		return currentMS >= lastMS + MS;
 	}
-	
+
 	public boolean hasTimePassedS(float speed)
 	{
-		return this.currentMS >= this.lastMS + (long)(1000 / speed);
+		return currentMS >= lastMS + (long)(1000 / speed);
 	}
-	
-	public void onToggle(){}
-	
-	public void onEnable(){}
-	
-	public void onDisable(){}
-	
-	public void onUpdate(){}
-	
-	public void onRender(){}
-	
-	public void onRenderGUI(){}
-	
-	public void onDeath(){}
-	
+
+	public void onToggle()
+	{}
+
+	public void onEnable()
+	{}
+
+	public void onDisable()
+	{}
+
+	public void onUpdate()
+	{}
+
+	public void onRender()
+	{}
+
+	public void onRenderGUI()
+	{}
+
+	public void onDeath()
+	{}
+
 	/**
 	 * Note: This runs before the swing animation.
 	 */
-	public void onLeftClick(){}
-	
-	public void initSliders(){}
-	
-	public void updateSettings(){}
-	
-	public void onReceivedMessage(String message){}
+	public void onLeftClick()
+	{}
+
+	public void initSliders()
+	{}
+
+	public void updateSettings()
+	{}
+
+	public void onReceivedMessage(String message)
+	{}
 }

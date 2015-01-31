@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.command;
 
 import java.util.ArrayList;
@@ -10,29 +17,29 @@ public class CommandManager
 	
 	public CommandManager()
 	{
-		this.activeCommands.add(new AddAlt());
-		this.activeCommands.add(new Annoy());
-		this.activeCommands.add(new Bind());
-		this.activeCommands.add(new Clear());
-		this.activeCommands.add(new Drop());
-		this.activeCommands.add(new Enchant());
-		this.activeCommands.add(new FastBreakMod());
-		this.activeCommands.add(new Features());
-		this.activeCommands.add(new Friends());
-		this.activeCommands.add(new GM());
-		this.activeCommands.add(new Help());
-		this.activeCommands.add(new IP());
-		this.activeCommands.add(new NukerMod());
-		this.activeCommands.add(new RenameForceOPEvenThoughTheNameIsTechnicallyCorrect());
-		this.activeCommands.add(new RV());
-		this.activeCommands.add(new Say());
-		this.activeCommands.add(new SearchMod());
-		this.activeCommands.add(new SpammerMod());
-		this.activeCommands.add(new Taco());
-		this.activeCommands.add(new ThrowMod());
-		this.activeCommands.add(new Toggle());
-		this.activeCommands.add(new TP());
-		this.activeCommands.add(new VClip());
-		this.activeCommands.add(new XRay());
+		activeCommands.add(new AddAlt());
+		activeCommands.add(new Annoy());
+		activeCommands.add(new Bind());
+		activeCommands.add(new Clear());
+		activeCommands.add(new Drop());
+		activeCommands.add(new Enchant());
+		activeCommands.add(new FastBreakMod());
+		activeCommands.add(new Features());
+		activeCommands.add(new Friends());
+		activeCommands.add(new GM());
+		activeCommands.add(new Help());
+		activeCommands.add(new IP());
+		activeCommands.add(new NukerMod());
+		activeCommands.add(new RenameForceOPEvenThoughTheNameIsTechnicallyCorrect());
+		activeCommands.add(new RV());
+		activeCommands.add(new Say());
+		activeCommands.add(new SearchMod());
+		activeCommands.add(new SpammerMod());
+		activeCommands.add(new Taco());
+		activeCommands.add(new ThrowMod());
+		activeCommands.add(new Toggle());
+		activeCommands.add(new TP());
+		activeCommands.add(new VClip());
+		activeCommands.add(new XRay());
 	}
 }

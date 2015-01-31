@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
@@ -27,28 +34,31 @@ import org.darkstorm.minecraft.gui.component.ProgressBar;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 
-public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar> {
+public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar>
+{
 	private WurstTheme theme;
-
-	public WurstProgressBarUI(WurstTheme theme) {
+	
+	public WurstProgressBarUI(WurstTheme theme)
+	{
 		super(ProgressBar.class);
 		this.theme = theme;
-
+		
 		foreground = Color.LIGHT_GRAY;
 		background = new Color(128, 128, 128, 128 + 128 / 2);
 	}
-
+	
 	@Override
-	protected void renderComponent(ProgressBar component) {
+	protected void renderComponent(ProgressBar component)
+	{
 		Rectangle area = component.getArea();
 		int fontSize = theme.getFontRenderer().FONT_HEIGHT;
 		FontRenderer fontRenderer = theme.getFontRenderer();
-
+		
 		translateComponent(component, false);
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
-
+		
 		RenderUtil.setColor(component.getBackgroundColor());
 		glLineWidth(0.9f);
 		glBegin(GL_LINE_LOOP);
@@ -59,7 +69,7 @@ public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar> {
 			glVertex2d(0, area.height);
 		}
 		glEnd();
-
+		
 		double barPercentage = (component.getValue() - component.getMinimumValue()) / (component.getMaximumValue() - component.getMinimumValue());
 		RenderUtil.setColor(component.getForegroundColor());
 		glBegin(GL_QUADS);
@@ -70,22 +80,24 @@ public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar> {
 			glVertex2d(0, area.height);
 		}
 		glEnd();
-
+		
 		glEnable(GL_TEXTURE_2D);
 		String content = null;
-		switch(component.getValueDisplay()) {
-		case DECIMAL:
-			content = String.format("%,.3f", component.getValue());
-			break;
-		case INTEGER:
-			content = String.format("%,d", Long.valueOf(Math.round(component.getValue())));
-			break;
-		case PERCENTAGE:
-			int percent = (int) Math.round((component.getValue() - component.getMinimumValue()) / (component.getMaximumValue() - component.getMinimumValue()) * 100D);
-			content = String.format("%d%%", percent);
-		default:
+		switch(component.getValueDisplay())
+		{
+			case DECIMAL:
+				content = String.format("%,.3f", component.getValue());
+				break;
+			case INTEGER:
+				content = String.format("%,d", Long.valueOf(Math.round(component.getValue())));
+				break;
+			case PERCENTAGE:
+				int percent = (int)Math.round((component.getValue() - component.getMinimumValue()) / (component.getMaximumValue() - component.getMinimumValue()) * 100D);
+				content = String.format("%d%%", percent);
+			default:
 		}
-		if(content != null) {
+		if(content != null)
+		{
 			glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR);
 			fontRenderer.drawString(content, component.getWidth() / 2 - fontRenderer.getStringWidth(content) / 2, component.getHeight() / 2 - fontSize / 2, RenderUtil.toRGBA(component.getForegroundColor()));
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -94,14 +106,16 @@ public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar> {
 		glDisable(GL_BLEND);
 		translateComponent(component, true);
 	}
-
+	
 	@Override
-	protected Dimension getDefaultComponentSize(ProgressBar component) {
+	protected Dimension getDefaultComponentSize(ProgressBar component)
+	{
 		return new Dimension(100, 4 + theme.getFontRenderer().FONT_HEIGHT);
 	}
-
+	
 	@Override
-	protected Rectangle[] getInteractableComponentRegions(ProgressBar component) {
+	protected Rectangle[] getInteractableComponentRegions(ProgressBar component)
+	{
 		return new Rectangle[0];
 	}
 }

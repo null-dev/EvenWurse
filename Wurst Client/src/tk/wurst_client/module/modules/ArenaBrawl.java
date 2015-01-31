@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import java.awt.Color;
@@ -6,7 +13,6 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGameOver;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.settings.KeyBinding;
@@ -36,22 +42,18 @@ public class ArenaBrawl extends Module
 {
 	public ArenaBrawl()
 	{
-		super
-		(
+		super(
 			"ArenaBrawl",
 			"Makes ArenaBrawl on mc.hypixel.net a lot easier.\n"
-			+ "This is a collection of mods that have been optimized\n"
-			+ "for ArenaBrawl. It will bypass everything that Hypixel\n"
-			+ "has to offer.",
-			0,
-			Category.MISC
-		);
+				+ "This is a collection of mods that have been optimized\n"
+				+ "for ArenaBrawl. It will bypass everything that Hypixel\n"
+				+ "has to offer.",
+				0,
+				Category.MISC);
 	}
-	
+
 	private EntityLivingBase friend;
 	public static float range = 4.25F;
-	private double distanceF = 2D;
-	private double distanceE = 4D;
 	public static ArrayList<String> scoreboard = new ArrayList<String>();
 	private ArrayList<int[]> matchingBlocks = new ArrayList<int[]>();
 	private ArrayList<int[]> enemyTotems = new ArrayList<int[]>();
@@ -64,7 +66,8 @@ public class ArenaBrawl extends Module
 	private int[] blockTarget;
 	private long lastAttack = 0L;
 	public static int level = 40;
-	
+
+	@Override
 	public String getRenderName()
 	{
 		if(friendsName != null)
@@ -72,25 +75,29 @@ public class ArenaBrawl extends Module
 		else
 			return "ArenaBrawl";
 	}
-	
+
+	@Override
 	public void initSliders()
 	{
-		this.moduleSliders.add(new BasicSlider("ArenaBrawl level", level, 20, 100, 10, ValueDisplay.INTEGER));
+		moduleSliders.add(new BasicSlider("ArenaBrawl level", level, 20, 100, 10, ValueDisplay.INTEGER));
 	}
-	
+
+	@Override
 	public void updateSettings()
 	{
-		this.level = (int) this.moduleSliders.get(0).getValue();
+		level = (int)moduleSliders.get(0).getValue();
 	}
-	
+
+	@Override
 	public void onEnable()
 	{
 		reset();
 	}
-
+	
+	@Override
 	public void onRender()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(targetType == TargetType.BLOCK_E)
 		{
@@ -133,18 +140,15 @@ public class ArenaBrawl extends Module
 			RenderUtils.tracerLine(friend, RenderUtils.team);
 		}
 		if(!enemyTotems.isEmpty())
-		{
 			for(int[] totem : enemyTotems)
 			{
 				double x = totem[0];
 				double y = totem[1];
 				double z = totem[2];
 				RenderUtils.frame(x, y, z, x + 1, y + 2, z + 1, new Color(255, 0, 0, 128));
-				RenderUtils.tracerLine((int) x, (int) y, (int) z, new Color(255, 0, 0, 128));
+				RenderUtils.tracerLine((int)x, (int)y, (int)z, new Color(255, 0, 0, 128));
 			}
-		}
 		if(!friendTotems.isEmpty())
-		{
 			for(int[] totem : friendTotems)
 			{
 				double x = totem[0];
@@ -152,45 +156,42 @@ public class ArenaBrawl extends Module
 				double z = totem[2];
 				RenderUtils.frame(x, y, z, x + 1, y + 2, z + 1, new Color(0, 255, 0, 128));
 			}
-		}
 	}
-	
+
+	@Override
 	public void onReceivedMessage(String message)
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(message.startsWith("[Arena]: ") && message.endsWith(" has won the game!"))
 		{
 			Client.Wurst.chat.message(message.substring(9));
-			this.setToggled(false);
+			setToggled(false);
 		}
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(scoreboard != null && (scoreboard.size() == 13 || scoreboard.size() == 11))
-		{//If you are in the lobby:
+		{// If you are in the lobby:
 			Client.Wurst.chat.message("You need to be in a 2v2 arena.");
-			this.setToggled(false);
+			setToggled(false);
 			return;
 		}
 		if(scoreboard == null)
-		{//If the scoreboard isn't there yet:
 			return;
-		}
 		if(frame == null && scoreboard.size() == 8)
-		{//When the scoreboard appears:
 			try
-			{
+		{
 				setupFrame();
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-				frame = null;
-				return;
-			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			frame = null;
+			return;
 		}
 		if(friend == null || friend.isDead)
 			friend = EntityUtils.searchEntityByName(friendsName);
@@ -200,24 +201,21 @@ public class ArenaBrawl extends Module
 			scanTotems();
 			getTarget();
 			updateFrame();
-			if
-			(
-				!Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
+			if(!Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
 				&& Minecraft.getMinecraft().thePlayer.moveForward > 0
-				&& !Minecraft.getMinecraft().thePlayer.isSneaking()
-			)
-			{//Built-in AutoSprint and BunnyHop:
+				&& !Minecraft.getMinecraft().thePlayer.isSneaking())
+			{// Built-in AutoSprint and BunnyHop:
 				Minecraft.getMinecraft().thePlayer.setSprinting(true);
 				if(Minecraft.getMinecraft().thePlayer.onGround && Minecraft.getMinecraft().thePlayer.isSprinting())
 					Minecraft.getMinecraft().thePlayer.jump();
 			}
 			if(targetType == TargetType.BLOCK_E)
 			{
-				float distX = (float) (blockTarget[0] - Minecraft.getMinecraft().thePlayer.posX);
-				float distY = (float) (blockTarget[1] - Minecraft.getMinecraft().thePlayer.posY);
-				float distZ = (float) (blockTarget[2] - Minecraft.getMinecraft().thePlayer.posZ);
+				float distX = (float)(blockTarget[0] - Minecraft.getMinecraft().thePlayer.posX);
+				float distY = (float)(blockTarget[1] - Minecraft.getMinecraft().thePlayer.posY);
+				float distZ = (float)(blockTarget[2] - Minecraft.getMinecraft().thePlayer.posZ);
 				if(BlockUtils.getBlockDistance(distX, distY, distZ) <= 4.25)
-				{//If the target is an enemy totem in range:
+				{// If the target is an enemy totem in range:
 					faceTarget();
 					attackTarget();
 				}else
@@ -228,7 +226,7 @@ public class ArenaBrawl extends Module
 			}else if(targetType == TargetType.ENTITY_E)
 			{
 				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entityTarget) <= 4.25)
-				{//If the target is an enemy in range:
+				{// If the target is an enemy in range:
 					faceTarget();
 					attackTarget();
 				}else
@@ -246,7 +244,7 @@ public class ArenaBrawl extends Module
 			e.printStackTrace();
 		}
 	}
-
+	
 	private void setupFrame()
 	{
 		friendsName = formatSBName(0);
@@ -274,20 +272,20 @@ public class ArenaBrawl extends Module
 		frame.layoutChildren();
 		Client.Wurst.guiManager.addFrame(frame);
 		frame.setBackgroundColor(new Color(64, 64, 64, 224));
-		((Label) frame.getChildren()[0]).setForegroundColor(Color.CYAN);
-		((Label) frame.getChildren()[1]).setForegroundColor(Color.CYAN);
-		((Label) frame.getChildren()[2]).setForegroundColor(Color.GREEN);
-		((Label) frame.getChildren()[4]).setForegroundColor(Color.GREEN);
-		((Label) frame.getChildren()[6]).setForegroundColor(Color.BLUE);
-		((Label) frame.getChildren()[8]).setForegroundColor(Color.BLUE);
+		((Label)frame.getChildren()[0]).setForegroundColor(Color.CYAN);
+		((Label)frame.getChildren()[1]).setForegroundColor(Color.CYAN);
+		((Label)frame.getChildren()[2]).setForegroundColor(Color.GREEN);
+		((Label)frame.getChildren()[4]).setForegroundColor(Color.GREEN);
+		((Label)frame.getChildren()[6]).setForegroundColor(Color.BLUE);
+		((Label)frame.getChildren()[8]).setForegroundColor(Color.BLUE);
 		frame.setVisible(true);
 	}
-	
+
 	private void updateFrame()
 	{
-        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
-        int width = sr.getScaledWidth();
-        int height = sr.getScaledHeight();
+		ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
+		int width = sr.getScaledWidth();
+		int height = sr.getScaledHeight();
 		frame.setX(width - frame.getWidth() - 1);
 		frame.setY((height - frame.getHeight()) / 2 - 16);
 		frame.setDragging(false);
@@ -302,16 +300,16 @@ public class ArenaBrawl extends Module
 		{
 			frame.add(new BasicLabel("Totem " + (i + 1)), HorizontalGridConstraint.LEFT);
 			frame.add(new BasicLabel(""), HorizontalGridConstraint.RIGHT);
-			((Label) frame.getChildren()[8 + (i + 1) * 2]).setForegroundColor(Color.GREEN);
+			((Label)frame.getChildren()[8 + (i + 1) * 2]).setForegroundColor(Color.GREEN);
 		}
 		for(int i = 0; i < enemyTotems.size(); i++)
 		{
 			frame.add(new BasicLabel("Totem " + (friendTotems.size() + i + 1)), HorizontalGridConstraint.LEFT);
 			frame.add(new BasicLabel(""), HorizontalGridConstraint.RIGHT);
-			((Label) frame.getChildren()[8 + (friendTotems.size() + i + 1) * 2]).setForegroundColor(Color.BLUE);
+			((Label)frame.getChildren()[8 + (friendTotems.size() + i + 1) * 2]).setForegroundColor(Color.BLUE);
 		}
 	}
-
+	
 	private Color getColorForHealth(String health)
 	{
 		if(health.endsWith(" / 2000"))
@@ -321,7 +319,7 @@ public class ArenaBrawl extends Module
 		else
 			return new Color(0, Integer.valueOf(health) * 255 / 2200, 255 - Integer.valueOf(health) * 255 / 2200);
 	}
-	
+
 	private String formatSBName(int index)
 	{
 		try
@@ -332,7 +330,7 @@ public class ArenaBrawl extends Module
 			return null;
 		}
 	}
-
+	
 	private String formatSBHealth(int index)
 	{
 		try
@@ -347,61 +345,47 @@ public class ArenaBrawl extends Module
 			return "???? / 2000";
 		}
 	}
-
+	
 	private void updateLabel(int labelIndex, int sbIndex)
 	{
-		((Label) frame.getChildren()[labelIndex]).setText((target == labelIndex ? ">" : "") + formatSBName(sbIndex));
-		((Label) frame.getChildren()[labelIndex]).setHorizontalAlignment(TextAlignment.LEFT);
-		((Label) frame.getChildren()[labelIndex + 1]).setText(formatSBHealth(sbIndex));
-		((Label) frame.getChildren()[labelIndex + 1]).setHorizontalAlignment(TextAlignment.RIGHT);
-		((Label) frame.getChildren()[labelIndex + 1]).setForegroundColor(getColorForHealth(formatSBHealth(sbIndex)));
+		((Label)frame.getChildren()[labelIndex]).setText((target == labelIndex ? ">" : "") + formatSBName(sbIndex));
+		((Label)frame.getChildren()[labelIndex]).setHorizontalAlignment(TextAlignment.LEFT);
+		((Label)frame.getChildren()[labelIndex + 1]).setText(formatSBHealth(sbIndex));
+		((Label)frame.getChildren()[labelIndex + 1]).setHorizontalAlignment(TextAlignment.RIGHT);
+		((Label)frame.getChildren()[labelIndex + 1]).setForegroundColor(getColorForHealth(formatSBHealth(sbIndex)));
 	}
-	
+
 	private void scanTotems()
 	{
 		matchingBlocks.clear();
 		for(int y = 3; y >= -3; y--)
-		{
 			for(int x = 50; x >= -50; x--)
-			{
 				for(int z = 50; z >= -50; z--)
 				{
-					int posX = (int) (Minecraft.getMinecraft().thePlayer.posX + x);
-					int posY = (int) (Minecraft.getMinecraft().thePlayer.posY + y);
-					int posZ = (int) (Minecraft.getMinecraft().thePlayer.posZ + z);
+					int posX = (int)(Minecraft.getMinecraft().thePlayer.posX + x);
+					int posY = (int)(Minecraft.getMinecraft().thePlayer.posY + y);
+					int posZ = (int)(Minecraft.getMinecraft().thePlayer.posZ + z);
 					if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos(posX, posY, posZ)).getBlock()) == Block.getIdFromBlock(Block.getBlockFromName("wool")))
 						matchingBlocks.add(new int[]{posX, posY, posZ});
 				}
-			}
-		}
 		enemyTotems.clear();
 		for(int i = 0; i < matchingBlocks.size(); i++)
 		{
-			IBlockState blockState = Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos(matchingBlocks.get(i)[0],matchingBlocks.get(i)[1] + 1,matchingBlocks.get(i)[2]));
-			if
-			(
-				blockState.getBlock().getMetaFromState(blockState) == 14//red
-				&& Block.getIdFromBlock(blockState.getBlock()) != 0
-			)
-			{
+			IBlockState blockState = Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos(matchingBlocks.get(i)[0], matchingBlocks.get(i)[1] + 1, matchingBlocks.get(i)[2]));
+			if(blockState.getBlock().getMetaFromState(blockState) == 14// red
+				&& Block.getIdFromBlock(blockState.getBlock()) != 0)
 				enemyTotems.add(new int[]{matchingBlocks.get(i)[0], matchingBlocks.get(i)[1] + 1, matchingBlocks.get(i)[2]});
-			}
 		}
 		friendTotems.clear();
 		for(int i = 0; i < matchingBlocks.size(); i++)
 		{
-			IBlockState blockState = Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos(matchingBlocks.get(i)[0],matchingBlocks.get(i)[1] + 1,matchingBlocks.get(i)[2]));
-			if
-			(
-				blockState.getBlock().getMetaFromState(blockState) == 5//lime
-				&& Block.getIdFromBlock(blockState.getBlock()) != 0
-			)
-			{
+			IBlockState blockState = Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos(matchingBlocks.get(i)[0], matchingBlocks.get(i)[1] + 1, matchingBlocks.get(i)[2]));
+			if(blockState.getBlock().getMetaFromState(blockState) == 5// lime
+				&& Block.getIdFromBlock(blockState.getBlock()) != 0)
 				friendTotems.add(new int[]{matchingBlocks.get(i)[0], matchingBlocks.get(i)[1] + 1, matchingBlocks.get(i)[2]});
-			}
 		}
 	}
-	
+
 	private void getTarget()
 	{
 		blockTarget = null;
@@ -409,22 +393,22 @@ public class ArenaBrawl extends Module
 		target = -1;
 		targetType = null;
 		if(!enemyTotems.isEmpty())
-		{//If there is an enemy totem:
+		{// If there is an enemy totem:
 			int[] closestTotem = null;
 			float dist = 999999999;
 			for(int[] totem : enemyTotems)
 			{
-				float distX = (float) (totem[0] - Minecraft.getMinecraft().thePlayer.posX);
-				float distY = (float) (totem[1] - Minecraft.getMinecraft().thePlayer.posY);
-				float distZ = (float) (totem[2] - Minecraft.getMinecraft().thePlayer.posZ);
+				float distX = (float)(totem[0] - Minecraft.getMinecraft().thePlayer.posX);
+				float distY = (float)(totem[1] - Minecraft.getMinecraft().thePlayer.posY);
+				float distZ = (float)(totem[2] - Minecraft.getMinecraft().thePlayer.posZ);
 				dist = BlockUtils.getBlockDistance(distX, distY, distZ);
 				if(closestTotem == null)
 					closestTotem = totem;
 				else
 				{
-					float distXC = (float) (closestTotem[0] - Minecraft.getMinecraft().thePlayer.posX);
-					float distYC = (float) (closestTotem[1] - Minecraft.getMinecraft().thePlayer.posY);
-					float distZC = (float) (closestTotem[2] - Minecraft.getMinecraft().thePlayer.posZ);
+					float distXC = (float)(closestTotem[0] - Minecraft.getMinecraft().thePlayer.posX);
+					float distYC = (float)(closestTotem[1] - Minecraft.getMinecraft().thePlayer.posY);
+					float distZC = (float)(closestTotem[2] - Minecraft.getMinecraft().thePlayer.posZ);
 					float distC = BlockUtils.getBlockDistance(distXC, distYC, distZC);
 					if(dist < distC)
 						closestTotem = totem;
@@ -434,12 +418,10 @@ public class ArenaBrawl extends Module
 			targetType = TargetType.BLOCK_E;
 			blockTarget = closestTotem;
 			if(dist <= 4.25)
-			{//If the enemy totem is in range:
 				return;
-			}//Enemy totems in range have the highest priority.
 		}
 		if(EntityUtils.searchEntityByName(formatSBName(4)) != null || EntityUtils.searchEntityByName(formatSBName(5)) != null)
-		{//If one of the enemies can be seen:
+		{// If one of the enemies can be seen:
 			EntityLivingBase enemy1 = EntityUtils.searchEntityByName(formatSBName(5));
 			EntityLivingBase enemy2 = EntityUtils.searchEntityByName(formatSBName(4));
 			if(enemy2 == null)
@@ -462,24 +444,24 @@ public class ArenaBrawl extends Module
 			targetType = TargetType.ENTITY_E;
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entityTarget) <= 4.25)
 				return;
-		}//Enemies have a lower priority than enemy totems.
+		}// Enemies have a lower priority than enemy totems.
 		if(!friendTotems.isEmpty())
-		{//If there is a friend totem:
+		{// If there is a friend totem:
 			int[] closestTotem = null;
 			float dist = 999999999;
 			for(int[] totem : friendTotems)
 			{
-				float distX = (float) (totem[0] - Minecraft.getMinecraft().thePlayer.posX);
-				float distY = (float) (totem[1] - Minecraft.getMinecraft().thePlayer.posY);
-				float distZ = (float) (totem[2] - Minecraft.getMinecraft().thePlayer.posZ);
+				float distX = (float)(totem[0] - Minecraft.getMinecraft().thePlayer.posX);
+				float distY = (float)(totem[1] - Minecraft.getMinecraft().thePlayer.posY);
+				float distZ = (float)(totem[2] - Minecraft.getMinecraft().thePlayer.posZ);
 				dist = BlockUtils.getBlockDistance(distX, distY, distZ);
 				if(closestTotem == null)
 					closestTotem = totem;
 				else
 				{
-					float distXC = (float) (closestTotem[0] - Minecraft.getMinecraft().thePlayer.posX);
-					float distYC = (float) (closestTotem[1] - Minecraft.getMinecraft().thePlayer.posY);
-					float distZC = (float) (closestTotem[2] - Minecraft.getMinecraft().thePlayer.posZ);
+					float distXC = (float)(closestTotem[0] - Minecraft.getMinecraft().thePlayer.posX);
+					float distYC = (float)(closestTotem[1] - Minecraft.getMinecraft().thePlayer.posY);
+					float distZC = (float)(closestTotem[2] - Minecraft.getMinecraft().thePlayer.posZ);
 					float distC = BlockUtils.getBlockDistance(distXC, distYC, distZC);
 					if(dist < distC)
 						closestTotem = totem;
@@ -489,16 +471,17 @@ public class ArenaBrawl extends Module
 			targetType = TargetType.BLOCK_F;
 			blockTarget = closestTotem;
 			return;
-		}//Friend totems have a lower priority than enemies in range, but a higher priority than enemies out of range.
+		}// Friend totems have a lower priority than enemies in range, but a
+			// higher priority than enemies out of range.
 		if(target == -1)
-		{//If there is no other target:
+		{// If there is no other target:
 			entityTarget = friend;
 			target = 4;
 			targetType = TargetType.ENTITY_F;
 			return;
-		}//The friend has the lowest priority.
+		}// The friend has the lowest priority.
 	}
-	
+
 	private enum TargetType
 	{
 		BLOCK_E,
@@ -506,22 +489,19 @@ public class ArenaBrawl extends Module
 		ENTITY_E,
 		ENTITY_F;
 	}
-	
+
 	private void faceTarget()
 	{
 		if(targetType == TargetType.BLOCK_E)
-		{
 			BlockUtils.faceBlockClient(new BlockPos(blockTarget[0], blockTarget[1], blockTarget[2]));
-		}else if(targetType == TargetType.ENTITY_E || targetType == TargetType.ENTITY_F)
-		{
+		else if(targetType == TargetType.ENTITY_E || targetType == TargetType.ENTITY_F)
 			EntityUtils.faceEntityClient(entityTarget);
-		}
 	}
-	
+
 	private void attackTarget()
 	{
 		if(targetType == TargetType.BLOCK_E)
-		{//Attacks the totem with the sword:
+		{// Attacks the totem with the sword:
 			if(System.currentTimeMillis() >= lastAttack + 50)
 			{
 				Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = !Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed;
@@ -529,7 +509,6 @@ public class ArenaBrawl extends Module
 				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed = false;
 			}
 		}else if(targetType == TargetType.ENTITY_E)
-		{//Attacks the player with the sword and the offensive skill.
 			if(System.currentTimeMillis() >= lastAttack + 100)
 			{
 				if(Minecraft.getMinecraft().thePlayer.experienceLevel >= level)
@@ -542,9 +521,8 @@ public class ArenaBrawl extends Module
 				}
 				lastAttack = System.currentTimeMillis();
 			}
-		}
 	}
-	
+
 	private void reset()
 	{
 		Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed = false;
@@ -559,17 +537,19 @@ public class ArenaBrawl extends Module
 		targetType = null;
 		friendsName = null;
 	}
-
+	
+	@Override
 	public void onDeath()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		Minecraft.getMinecraft().thePlayer.respawnPlayer();
-        GuiGameOver.mc.displayGuiScreen((GuiScreen)null);
-        Client.Wurst.chat.message("You died.");
-        this.setToggled(false);
+		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
+		Client.Wurst.chat.message("You died.");
+		setToggled(false);
 	}
-
+	
+	@Override
 	public void onDisable()
 	{
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;

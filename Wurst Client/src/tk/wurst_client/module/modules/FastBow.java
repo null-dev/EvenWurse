@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -15,57 +22,53 @@ public class FastBow extends Module
 {
 	public FastBow()
 	{
-		super
-		(
+		super(
 			"FastBow",
 			"Turns your bow into a machine gun.\n"
-			+ "Tip: This works with BowAimbot.",
-			0,
-			Category.COMBAT
-		);
+				+ "Tip: This works with BowAimbot.",
+				0,
+				Category.COMBAT);
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
-			this.setToggled(false);
+			setToggled(false);
 			return;
 		}
-		if
-		(
-			Minecraft.getMinecraft().thePlayer.getHealth() > 0
+		if(Minecraft.getMinecraft().thePlayer.getHealth() > 0
 			&& (Minecraft.getMinecraft().thePlayer.onGround || Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() != null
 			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem().getItem() instanceof ItemBow
-			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed
-		)
+			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 		{
 			Minecraft.getMinecraft().playerController.sendUseItem
-			(
-				Minecraft.getMinecraft().thePlayer,
-				Minecraft.getMinecraft().theWorld,
-				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem()
-			);
+				(
+					Minecraft.getMinecraft().thePlayer,
+					Minecraft.getMinecraft().theWorld,
+					Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem()
+				);
 			Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem().getItem().onItemRightClick
-			(
-				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem(),
-				Minecraft.getMinecraft().theWorld,
-				Minecraft.getMinecraft().thePlayer
-			);
+				(
+					Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem(),
+					Minecraft.getMinecraft().theWorld,
+					Minecraft.getMinecraft().thePlayer
+				);
 			for(int i = 0; i < 20; i++)
 				Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer(false));
-	        Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(Action.RELEASE_USE_ITEM, new BlockPos(0, 0, 0), EnumFacing.DOWN));
+			Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(Action.RELEASE_USE_ITEM, new BlockPos(0, 0, 0), EnumFacing.DOWN));
 			Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem().getItem().onPlayerStoppedUsing
-			(
-				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem(),
-				Minecraft.getMinecraft().theWorld,
-				Minecraft.getMinecraft().thePlayer,
-				10
-			);
+				(
+					Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem(),
+					Minecraft.getMinecraft().theWorld,
+					Minecraft.getMinecraft().thePlayer,
+					10
+				);
 		}
 	}
 }

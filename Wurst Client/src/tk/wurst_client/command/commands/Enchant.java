@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.command.commands;
 
 import net.minecraft.client.Minecraft;
@@ -14,12 +21,13 @@ public class Enchant extends Command
 		".enchant",
 		".enchant all"
 	};
-	
+
 	public Enchant()
 	{
 		super("enchant", commandHelp);
 	}
-	
+
+	@Override
 	public void onEnable(String input, String[] args)
 	{
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
@@ -36,17 +44,15 @@ public class Enchant extends Command
 				return;
 			}
 			for(Enchantment enchantment : Enchantment.enchantmentsList)
-			{
 				try
-				{
+			{
 					if(enchantment == Enchantment.silkTouch)
 						continue;
 					currentItem.addEnchantment(enchantment, 127);
-				}catch(Exception e)
-				{
+			}catch(Exception e)
+			{	
 					
 				}
-			}
 		}else if(args[0].equals("all"))
 		{
 			int items = 0;
@@ -57,17 +63,15 @@ public class Enchant extends Command
 					continue;
 				items++;
 				for(Enchantment enchantment : Enchantment.enchantmentsList)
-				{
 					try
-					{
+				{
 						if(enchantment == Enchantment.silkTouch)
 							continue;
 						currentItem.addEnchantment(enchantment, 127);
-					}catch(Exception e)
-					{
+				}catch(Exception e)
+				{	
 						
 					}
-				}
 			}
 			if(items == 1)
 				Client.Wurst.chat.message("Enchanted 1 item.");

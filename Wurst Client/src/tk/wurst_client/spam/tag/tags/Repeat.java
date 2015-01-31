@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.spam.tag.tags;
 
 import tk.wurst_client.spam.exceptions.InvalidArgumentException;
@@ -11,19 +18,17 @@ public class Repeat extends Tag
 {
 	public Repeat()
 	{
-		super
-		(
+		super(
 			"repeat",
 			"Repeats a chat message or a part of a chat message.",
 			"<repeat number>",
 			"Repeating a part of a message:\n"
-			+ "Spam<repeat 2>, spam</repeat>!\n"
-			+ "\n"
-			+ "Repeating a message:<repeat 3>\n"
-			+ "Spam!</repeat>"
-		);
+				+ "Spam<repeat 2>, spam</repeat>!\n"
+				+ "\n"
+				+ "Repeating a message:<repeat 3>\n"
+				+ "Spam!</repeat>");
 	}
-	
+
 	@Override
 	public String process(TagData tagData) throws SpamException
 	{
@@ -34,9 +39,7 @@ public class Repeat extends Tag
 			throw new InvalidArgumentException("Invalid number in <repeat> tag: \"" + tagData.getTagArgs()[0] + "\"", tagData.getTagLine(), this);
 		int count = Integer.parseInt(tagData.getTagArgs()[0]);
 		for(int i = 0; i < count; i++)
-		{
 			processed += tagData.getTagContent();
-		}
 		return processed;
 	}
 }

@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -11,22 +18,21 @@ public class Protect extends Module
 {
 	public Protect()
 	{
-		super
-		(
+		super(
 			"Protect",
 			"A bot that follows the closest entity and protects it.",
 			0,
-			Category.COMBAT
-		);
+			Category.COMBAT);
 	}
-	
+
 	private EntityLivingBase friend;
 	private EntityLivingBase enemy;
 	private float range = 6F;
 	private double distanceF = 2D;
 	private double distanceE = 3D;
 	private float speed;
-	
+
+	@Override
 	public String getRenderName()
 	{
 		if(friend != null)
@@ -34,7 +40,8 @@ public class Protect extends Module
 		else
 			return "Protect";
 	}
-	
+
+	@Override
 	public void onEnable()
 	{
 		friend = null;
@@ -45,16 +52,17 @@ public class Protect extends Module
 				friend = en;
 		}
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(friend == null || friend.isDead || friend.getHealth() <= 0 || Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
 		{
 			friend = null;
 			enemy = null;
-			this.setToggled(false);
+			setToggled(false);
 			return;
 		}
 		if(enemy != null && (enemy.getHealth() <= 0 || enemy.isDead))
@@ -69,28 +77,18 @@ public class Protect extends Module
 			zDistE = Math.abs(Minecraft.getMinecraft().thePlayer.posZ - enemy.posZ);
 		}else
 			EntityUtils.faceEntityClient(friend);
-		if(((xDistF > distanceF || zDistF > distanceF) && (enemy == null || Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) > range)) || xDistE > distanceE || zDistE > distanceE)
-		{
+		if((xDistF > distanceF || zDistF > distanceF) && (enemy == null || Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) > range) || xDistE > distanceE || zDistE > distanceE)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
-		}else
-		{
+		else
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
-		}
 		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally && Minecraft.getMinecraft().thePlayer.onGround)
-		{
 			Minecraft.getMinecraft().thePlayer.jump();
-		}
-		if (Minecraft.getMinecraft().thePlayer.isInWater() && Minecraft.getMinecraft().thePlayer.posY < friend.posY)
-		{
+		if(Minecraft.getMinecraft().thePlayer.isInWater() && Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		}
 		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
-		{
 			speed = Killaura.yesCheatSpeed;
-		}else
-		{
+		else
 			speed = Killaura.normalSpeed;
-		}
 		updateMS();
 		if(hasTimePassedS(speed) && EntityUtils.getClosestEnemy(friend) != null)
 		{
@@ -105,7 +103,8 @@ public class Protect extends Module
 			}
 		}
 	}
-	
+
+	@Override
 	public void onDisable()
 	{
 		if(friend != null)

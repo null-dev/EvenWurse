@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -11,15 +18,14 @@ public class TriggerBot extends Module
 {
 	public TriggerBot()
 	{
-		super
-		(
+		super(
 			"TriggerBot",
 			"Automatically attacks the entity you're looking at.",
 			0,
-			Category.COMBAT
-		);
+			Category.COMBAT);
 	}
-	
+
+	@Override
 	public void onEnable()
 	{
 		if(Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
@@ -29,25 +35,20 @@ public class TriggerBot extends Module
 		if(Client.Wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
 			Client.Wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if
-		(
-			this.getToggled()
+		if(getToggled()
 			&& Minecraft.getMinecraft().objectMouseOver != null
-			&& Minecraft.getMinecraft().objectMouseOver.entityHit != null
-		)
+			&& Minecraft.getMinecraft().objectMouseOver.entityHit != null)
 		{
 			updateMS();
 			if(hasTimePassedS(Killaura.realSpeed))
 			{
 				EntityLivingBase en = (EntityLivingBase)Minecraft.getMinecraft().objectMouseOver.entityHit;
-				if
-				(
-					Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= Killaura.realRange
-					&& EntityUtils.isCorrectEntity(en, true)
-				)
+				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= Killaura.realRange
+					&& EntityUtils.isCorrectEntity(en, true))
 				{
 					Criticals.doCritical();
 					Minecraft.getMinecraft().thePlayer.swingItem();

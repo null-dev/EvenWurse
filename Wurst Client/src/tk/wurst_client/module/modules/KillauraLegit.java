@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -9,19 +16,18 @@ import tk.wurst_client.utils.EntityUtils;
 
 public class KillauraLegit extends Module
 {
-
+	
 	public KillauraLegit()
 	{
-		super
-		(
+		super(
 			"KillauraLegit",
 			"Slower Killaura that bypasses any cheat prevention\n"
-			+ "PlugIn. Not required on most NoCheat+ servers!",
-			0,
-			Category.COMBAT
-		);
+				+ "PlugIn. Not required on most NoCheat+ servers!",
+				0,
+				Category.COMBAT);
 	}
-	
+
+	@Override
 	public void onEnable()
 	{
 		if(Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
@@ -31,10 +37,11 @@ public class KillauraLegit extends Module
 		if(Client.Wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
 			Client.Wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(this.getToggled())
+		if(getToggled())
 		{
 			updateMS();
 			if(hasTimePassedS(Killaura.yesCheatSpeed) && EntityUtils.getClosestEntity(true) != null)

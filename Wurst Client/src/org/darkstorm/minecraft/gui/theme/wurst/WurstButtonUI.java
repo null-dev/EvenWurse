@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
@@ -31,13 +38,15 @@ import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class WurstButtonUI extends AbstractComponentUI<Button> {
+public class WurstButtonUI extends AbstractComponentUI<Button>
+{
 	private final WurstTheme theme;
 	private long lastMS;
 	private Button describedButton;
 	private Button rightButton;
 
-	WurstButtonUI(WurstTheme theme) {
+	WurstButtonUI(WurstTheme theme)
+	{
 		super(Button.class);
 		this.theme = theme;
 
@@ -46,7 +55,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button> {
 	}
 
 	@Override
-	protected void renderComponent(Button button) {
+	protected void renderComponent(Button button)
+	{
 		translateComponent(button, false);
 		Rectangle area = button.getArea();
 		area.width = button.getParent().getWidth() - 4;
@@ -74,9 +84,10 @@ public class WurstButtonUI extends AbstractComponentUI<Button> {
 		glEnd();
 		Point mouse = RenderUtil.calculateMouseLocation();
 		Point rawMouse = RenderUtil.calculateMouseLocation();
-		int fontHeight = theme.getFontRenderer().FONT_HEIGHT;
+		theme.getFontRenderer();
 		Component parent = button.getParent();
-		while(parent != null) {
+		while(parent != null)
+		{
 			mouse.x -= parent.getX();
 			mouse.y -= parent.getY();
 			parent = parent.getParent();
@@ -100,7 +111,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button> {
 			area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
 			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
 			RenderUtil.toRGBA(button.getForegroundColor())
-		);
+			);
 		translateComponent(button, true);
 		if(area.contains(mouse) && describedButton != button)
 		{
@@ -129,16 +140,10 @@ public class WurstButtonUI extends AbstractComponentUI<Button> {
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
 			for(Module module : Client.Wurst.moduleManager.activeModules)
-			{
 				if(button.getText().equals(module.getName()))
-				{
 					for(org.darkstorm.minecraft.gui.component.Frame frame : Client.Wurst.guiManager.getFrames())
-					{
 						if(frame.getTitle().equalsIgnoreCase(module.getCategory().name()))
 							Client.Wurst.guiManager.bringForward(frame);
-					}
-				}
-			}
 			int scale = Minecraft.getMinecraft().gameSettings.guiScale;
 			if(scale == 0)
 				scale = 1000;
@@ -196,36 +201,35 @@ public class WurstButtonUI extends AbstractComponentUI<Button> {
 			return false;
 		boolean isLastButton = false;
 		for(Module module : Client.Wurst.moduleManager.activeModules)
-		{
 			if(buttonCategory == module.getCategory())
-			{
 				if(button.getText().equals(module.getName()))
 					isLastButton = true;
 				else
 					isLastButton = false;
-			}
-		}
 		return isLastButton;
 	}
 
 	@Override
-	protected Dimension getDefaultComponentSize(Button component) {
+	protected Dimension getDefaultComponentSize(Button component)
+	{
 		return new Dimension(theme.getFontRenderer().getStringWidth(
-				component.getText()) + 4,
-				theme.getFontRenderer().FONT_HEIGHT + 4);
+			component.getText()) + 4,
+			theme.getFontRenderer().FONT_HEIGHT + 4);
 	}
 
 	@Override
-	protected Rectangle[] getInteractableComponentRegions(Button component) {
-		return new Rectangle[] { new Rectangle(0, 0, component.getWidth(),
-				component.getHeight()) };
+	protected Rectangle[] getInteractableComponentRegions(Button component)
+	{
+		return new Rectangle[]{new Rectangle(0, 0, component.getWidth(),
+			component.getHeight())};
 	}
 
 	@Override
 	protected void handleComponentInteraction(Button component, Point location,
-			int button) {
+		int button)
+	{
 		if(location.x <= component.getWidth()
-				&& location.y <= component.getHeight() && button == 0)
+			&& location.y <= component.getHeight() && button == 0)
 			component.press();
 	}
 }

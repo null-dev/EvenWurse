@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -12,37 +19,39 @@ import tk.wurst_client.module.Module;
 
 public class Flight extends Module
 {
-	public Flight() {
-		super
-		(
+	public Flight()
+	{
+		super(
 			"Flight",
 			"Makes you fly.\n"
-			+ "This is one of the oldest hacks in Minecraft.",
-			Keyboard.KEY_G,
-			Category.MOVEMENT
-		);
+				+ "This is one of the oldest hacks in Minecraft.",
+				Keyboard.KEY_G,
+				Category.MOVEMENT);
 	}
-	
+
 	public static float speed = 1F;
-	
+
+	@Override
 	public void initSliders()
 	{
-		this.moduleSliders.add(new BasicSlider("Flight speed", speed, 0.05, 5, 0.05, ValueDisplay.DECIMAL));
+		moduleSliders.add(new BasicSlider("Flight speed", speed, 0.05, 5, 0.05, ValueDisplay.DECIMAL));
 	}
-	
+
+	@Override
 	public void updateSettings()
 	{
-		this.speed = (float) this.moduleSliders.get(0).getValue();
+		speed = (float)moduleSliders.get(0).getValue();
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
-			this.setToggled(false);
+			setToggled(false);
 		}else
 		{
 			Minecraft.getMinecraft().thePlayer.capabilities.isFlying = false;
@@ -51,13 +60,9 @@ public class Flight extends Module
 			Minecraft.getMinecraft().thePlayer.motionZ = 0;
 			Minecraft.getMinecraft().thePlayer.jumpMovementFactor = speed;
 			if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
-			{
 				Minecraft.getMinecraft().thePlayer.motionY += speed;
-			}
 			if(Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
-			{
 				Minecraft.getMinecraft().thePlayer.motionY -= speed;
-			}
 		}
 	}
 }

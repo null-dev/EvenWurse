@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.gui;
 
 import net.minecraft.client.Minecraft;
@@ -23,17 +30,15 @@ public class UIRenderer
 			if(arrayModule instanceof ClickGUI)
 				continue;
 			if(arrayModule.getToggled())
-			{
 				arrayListLength++;
-			}
 		}
 		int yCount = 19;
 		ScaledResolution sr = new ScaledResolution
-		(
-			Minecraft.getMinecraft(),
-			Minecraft.getMinecraft().displayWidth,
-			Minecraft.getMinecraft().displayHeight
-		);
+			(
+				Minecraft.getMinecraft(),
+				Minecraft.getMinecraft().displayWidth,
+				Minecraft.getMinecraft().displayHeight
+			);
 		if(yCount + arrayListLength * 9 > sr.getScaledHeight() || Client.Wurst.options.arrayListMode == 1)
 		{
 			String tooManyMods = "";
@@ -46,7 +51,6 @@ public class UIRenderer
 			Fonts.segoe18.drawString(tooManyMods, 3, yCount + 1, 0xFF000000);
 			Fonts.segoe18.drawString(tooManyMods, 2, yCount, 0xFFFFFFFF);
 		}else
-		{
 			for(Module arrayModule : Client.Wurst.moduleManager.activeModules)
 			{
 				if(arrayModule instanceof ClickGUI)
@@ -58,21 +62,18 @@ public class UIRenderer
 					yCount += 9;
 				}
 			}
-		}
 	}
-	
+
 	public static void renderUI()
 	{
 		Fonts.segoe22.drawString("v" + Client.Wurst.CLIENT_VERSION, 74, 4, 0xFF000000);
 		renderArrayList();
 	}
-	
+
 	public static void renderPinnedFrames()
 	{
 		for(Frame moduleFrame : Client.Wurst.guiManager.getFrames())
-		{
 			if(moduleFrame.isPinned() && !(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
 				moduleFrame.render();
-		}
 	}
 }

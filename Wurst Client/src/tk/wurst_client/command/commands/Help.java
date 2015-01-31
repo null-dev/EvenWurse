@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
@@ -13,19 +20,20 @@ public class Help extends Command
 		".help <page>",
 		".help <command>"
 	};
-	
+
 	public Help()
 	{
 		super("help", commandHelp);
 	}
-	
+
 	private int commandsPerPage = 8;
-	
+
+	@Override
 	public void onEnable(String input, String[] args)
 	{
 		commandsPerPage = 8;
 		float pagesF = (float)Client.Wurst.commandManager.activeCommands.size() / commandsPerPage;
-		int pages = (int) (Math.floor(pagesF) == pagesF ? pagesF : pagesF + 1);
+		int pages = (int)(Math.floor(pagesF) == pagesF ? pagesF : pagesF + 1);
 		if(args == null)
 		{
 			if(pages <= 1)
@@ -44,7 +52,6 @@ public class Help extends Command
 		}else
 		{
 			for(int i = 0; i < Client.Wurst.commandManager.activeCommands.size(); i++)
-			{
 				if(Client.Wurst.commandManager.activeCommands.get(i).getName().equals(args[0]))
 				{
 					Client.Wurst.chat.message("Available help for ." + args[0] + ":");
@@ -65,7 +72,6 @@ public class Help extends Command
 						Client.Wurst.chat.message("." + Client.Wurst.commandManager.activeCommands.get(i2).getName());
 					return;
 				}
-			}
 			commandError();
 		}
 	}

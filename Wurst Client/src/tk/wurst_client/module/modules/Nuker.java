@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.block.Block;
@@ -24,16 +31,14 @@ public class Nuker extends Module
 {
 	public Nuker()
 	{
-		super
-		(
+		super(
 			"Nuker",
 			"Destroys blocks around you.\n"
-			+ "Use .nuker mode <mode> to change the mode.",
-			Keyboard.KEY_L,
-			Category.BLOCKS
-		);
+				+ "Use .nuker mode <mode> to change the mode.",
+				Keyboard.KEY_L,
+				Category.BLOCKS);
 	}
-	
+
 	public static float normalRange = 5F;
 	public static float yesCheatRange = 4.25F;
 	private float realRange;
@@ -45,7 +50,8 @@ public class Nuker extends Module
 	private BlockPos pos;
 	private boolean shouldRenderESP;
 	private int oldSlot = -1;
-	
+
+	@Override
 	public String getRenderName()
 	{
 		if(Client.Wurst.options.nukerMode == 1)
@@ -57,18 +63,21 @@ public class Nuker extends Module
 		else
 			return "Nuker";
 	}
-	
+
+	@Override
 	public void initSliders()
 	{
-		this.moduleSliders.add(new BasicSlider("Nuker range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
+		moduleSliders.add(new BasicSlider("Nuker range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
 	}
-	
+
+	@Override
 	public void updateSettings()
 	{
-		this.normalRange = (float) this.moduleSliders.get(0).getValue();
-		this.yesCheatRange = Math.min(normalRange, 4.25F);
+		normalRange = (float)moduleSliders.get(0).getValue();
+		yesCheatRange = Math.min(normalRange, 4.25F);
 	}
-	
+
+	@Override
 	public void onEnable()
 	{
 		if(Client.Wurst.moduleManager.getModuleFromClass(NukerLegit.class).getToggled())
@@ -76,15 +85,13 @@ public class Nuker extends Module
 		if(Client.Wurst.moduleManager.getModuleFromClass(SpeedNuker.class).getToggled())
 			Client.Wurst.moduleManager.getModuleFromClass(SpeedNuker.class).setToggled(false);
 	}
-	
+
+	@Override
 	public void onLeftClick()
 	{
-		if
-		(
-			!this.getToggled()
+		if(!getToggled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
-			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null
-		)
+			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
 		if(Client.Wurst.options.nukerMode == 1 && Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
 		{
@@ -92,29 +99,26 @@ public class Nuker extends Module
 			Client.Wurst.fileManager.saveOptions();
 		}
 	}
-	
+
+	@Override
 	public void onRender()
 	{
-		if (blockHitDelay == 0 && shouldRenderESP)
-		{
+		if(blockHitDelay == 0 && shouldRenderESP)
 			if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode && currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos) < 1)
 				RenderUtils.nukerBox(pos, currentDamage);
 			else
 				RenderUtils.nukerBox(pos, 1);
-		}
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
-		{
 			realRange = yesCheatRange;
-		}else
-		{
+		else
 			realRange = normalRange;
-		}
 		shouldRenderESP = false;
 		BlockPos newPos = find();
 		if(newPos == null)
@@ -130,7 +134,7 @@ public class Nuker extends Module
 			currentDamage = 0;
 		pos = newPos;
 		currentBlock = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
-		if (blockHitDelay > 0)
+		if(blockHitDelay > 0)
 		{
 			blockHitDelay--;
 			return;
@@ -145,9 +149,8 @@ public class Nuker extends Module
 			{
 				currentDamage = 0;
 				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode && !Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
-				{
 					nukeAll();
-				}else
+				else
 				{
 					shouldRenderESP = true;
 					Minecraft.getMinecraft().thePlayer.swingItem();
@@ -162,19 +165,18 @@ public class Nuker extends Module
 		shouldRenderESP = true;
 		BlockUtils.faceBlockPacket(pos);
 		currentDamage += currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos) * (Client.Wurst.moduleManager.getModuleFromClass(FastBreak.class).getToggled() && Client.Wurst.options.fastbreakMode == 0 ? FastBreak.speed : 1);
-		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(Minecraft.getMinecraft().thePlayer.getEntityId(), pos, (int)(this.currentDamage * 10.0F) - 1);
-		if (currentDamage >= 1)
+		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(Minecraft.getMinecraft().thePlayer.getEntityId(), pos, (int)(currentDamage * 10.0F) - 1);
+		if(currentDamage >= 1)
 		{
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.STOP_DESTROY_BLOCK, pos, side));
 			Minecraft.getMinecraft().playerController.onPlayerDestroyBlock(pos, side);
-			blockHitDelay = (byte) (4);
+			blockHitDelay = (byte)4;
 			currentDamage = 0;
 		}else if(Client.Wurst.moduleManager.getModuleFromClass(FastBreak.class).getToggled() && Client.Wurst.options.fastbreakMode == 1)
-        {
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.STOP_DESTROY_BLOCK, pos, side));
-        }
 	}
-	
+
+	@Override
 	public void onDisable()
 	{
 		if(oldSlot != -1)
@@ -187,22 +189,20 @@ public class Nuker extends Module
 		id = 0;
 		Client.Wurst.fileManager.saveOptions();
 	}
-	
+
 	private BlockPos find()
 	{
 		BlockPos closest = null;
 		float closestDistance = realRange + 1;
-		for(int y = (int) realRange; y >= (Client.Wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
-		{
-			for(int x = (int) realRange; x >= -realRange - 1; x--)
-			{
-				for(int z = (int) realRange; z >= -realRange; z--)
+		for(int y = (int)realRange; y >= (Client.Wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
+			for(int x = (int)realRange; x >= -realRange - 1; x--)
+				for(int z = (int)realRange; z >= -realRange; z--)
 				{
 					if(Minecraft.getMinecraft().thePlayer == null)
 						continue;
-					int posX = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
-					int posY = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
-					int posZ = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
+					int posX = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
+					int posY = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
+					int posZ = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
 					BlockPos blockPos = new BlockPos(posX, posY, posZ);
 					Block block = Minecraft.getMinecraft().theWorld.getBlockState(blockPos).getBlock();
 					float xDiff = (float)(Minecraft.getMinecraft().thePlayer.posX - posX);
@@ -231,22 +231,18 @@ public class Nuker extends Module
 						}
 					}
 				}
-			}
-		}
 		return closest;
 	}
-	
+
 	private void nukeAll()
 	{
-		for(int y = (int) realRange; y >= (Client.Wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
-		{
-			for(int x = (int) realRange; x >= -realRange - 1; x--)
-			{
-				for(int z = (int) realRange; z >= -realRange; z--)
+		for(int y = (int)realRange; y >= (Client.Wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
+			for(int x = (int)realRange; x >= -realRange - 1; x--)
+				for(int z = (int)realRange; z >= -realRange; z--)
 				{
-					int posX = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
-					int posY = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
-					int posZ = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
+					int posX = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
+					int posY = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
+					int posZ = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
 					BlockPos blockPos = new BlockPos(posX, posY, posZ);
 					Block block = Minecraft.getMinecraft().theWorld.getBlockState(blockPos).getBlock();
 					float xDiff = (float)(Minecraft.getMinecraft().thePlayer.posX - posX);
@@ -268,7 +264,5 @@ public class Nuker extends Module
 						block.onBlockDestroyedByPlayer(Minecraft.getMinecraft().theWorld, blockPos, Minecraft.getMinecraft().theWorld.getBlockState(blockPos));
 					}
 				}
-			}
-		}
 	}
 }

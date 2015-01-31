@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.command.commands;
 
 import java.util.Iterator;
@@ -7,7 +14,7 @@ import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.StringUtils;
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
-import tk.wurst_client.alts.GuiAlts;
+import tk.wurst_client.alts.GuiAltList;
 import tk.wurst_client.command.Command;
 
 public class AddAlt extends Command
@@ -25,6 +32,7 @@ public class AddAlt extends Command
 		super("addalt", commandHelp);
 	}
 	
+	@Override
 	public void onEnable(String input, String[] args)
 	{
 		if(args[0].equals("all"))
@@ -33,28 +41,25 @@ public class AddAlt extends Command
 			Iterator itr = Minecraft.getMinecraft().getNetHandler().getPlayerInfo().iterator();
 			while(itr.hasNext())
 			{
-    			NetworkPlayerInfo info = (NetworkPlayerInfo)itr.next();
+				NetworkPlayerInfo info = (NetworkPlayerInfo)itr.next();
 				String name = StringUtils.stripControlCodes(info.getPlayerNameForReal());
-				if
-				(
-					name.equals(Minecraft.getMinecraft().thePlayer.getName())
+				if(name.equals(Minecraft.getMinecraft().thePlayer.getName())
 					|| name.equals("Alexander01998")
-					|| GuiAlts.altList.alts.contains(new Alt(name, null))
-				)
+					|| GuiAltList.alts.contains(new Alt(name, null)))
 					continue;
-				GuiAlts.altList.alts.add(new Alt(name, null));
+				GuiAltList.alts.add(new Alt(name, null));
 				alts++;
 			}
 			if(alts == 1)
 				Client.Wurst.chat.message("Added 1 alt to the alt list.");
 			else
 				Client.Wurst.chat.message("Added " + alts + " alts to the alt list.");
-			GuiAlts.altList.sortAlts();
+			GuiAltList.sortAlts();
 			Client.Wurst.fileManager.saveAlts();
 		}else if(!args[0].equals("Alexander01998"))
 		{
-			GuiAlts.altList.alts.add(new Alt(args[0], null));
-			GuiAlts.altList.sortAlts();
+			GuiAltList.alts.add(new Alt(args[0], null));
+			GuiAltList.sortAlts();
 			Client.Wurst.fileManager.saveAlts();
 			Client.Wurst.chat.message("Added \"" + args[0] + "\" to the alt list.");
 		}else

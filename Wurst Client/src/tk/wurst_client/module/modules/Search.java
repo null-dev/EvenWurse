@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import java.util.ArrayList;
@@ -14,45 +21,45 @@ public class Search extends Module
 {
 	public Search()
 	{
-		super
-		(
+		super(
 			"Search",
 			"Helps you to find specific blocks.\n"
-			+ "Use .search id <block id> or .search name <block name>\n"
-			+ "to specify it.",
-			0,
-			Category.RENDER
-		);
+				+ "Use .search id <block id> or .search name <block name>\n"
+				+ "to specify it.",
+				0,
+				Category.RENDER);
 	}
-	
+
 	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
 	private int range = 50;
 	private int maxBlocks = 1000;
 	public static boolean shouldInform = true;
-	
+
+	@Override
 	public String getRenderName()
 	{
-		return this.getName() + " [" + Client.Wurst.options.searchID + "]";
+		return getName() + " [" + Client.Wurst.options.searchID + "]";
 	}
-	
+
+	@Override
 	public void onEnable()
 	{
 		shouldInform = true;
 	}
-	
+
+	@Override
 	public void onRender()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		for(BlockPos blockPos : matchingBlocks)
-		{
 			RenderUtils.searchBox(blockPos);
-		}
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		updateMS();
 		if(hasTimePassedM(3000))
@@ -64,9 +71,9 @@ public class Search extends Module
 				{
 					for(int z = range; z >= -range; z--)
 					{
-						int posX = (int) (Minecraft.getMinecraft().thePlayer.posX + x);
-						int posY = (int) (Minecraft.getMinecraft().thePlayer.posY + y);
-						int posZ = (int) (Minecraft.getMinecraft().thePlayer.posZ + z);
+						int posX = (int)(Minecraft.getMinecraft().thePlayer.posX + x);
+						int posY = (int)(Minecraft.getMinecraft().thePlayer.posY + y);
+						int posZ = (int)(Minecraft.getMinecraft().thePlayer.posZ + z);
 						BlockPos pos = new BlockPos(posX, posY, posZ);
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()) == Client.Wurst.options.searchID)
 							matchingBlocks.add(pos);

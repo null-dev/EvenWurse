@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import java.util.UUID;
@@ -15,31 +22,29 @@ public class RemoteView extends Module
 {
 	public RemoteView()
 	{
-		super
-		(
+		super(
 			"RemoteView",
 			"Allows you to see the world as someone else.\n"
-			+ "Use .rv <entity name> to make it target a specific entity.",
-			0,
-			Category.RENDER
-		);
+				+ "Use .rv <entity name> to make it target a specific entity.",
+				0,
+				Category.RENDER);
 	}
-
+	
 	private EntityPlayerSP newView = null;
 	private double oldX;
 	private double oldY;
 	private double oldZ;
 	private EntityLivingBase otherView = null;
 	private static UUID otherID = null;
-	private EntityOtherPlayerMP fakePlayer = null;
 	private boolean wasInvisible;
-	
+
+	@Override
 	public void onEnable()
 	{
 		if(EntityUtils.getClosestEntityRaw(false) == null)
 		{
 			Client.Wurst.chat.message("There is no nearby entity.");
-			this.setToggled(false);
+			setToggled(false);
 			return;
 		}
 		oldX = Minecraft.getMinecraft().thePlayer.posX;
@@ -47,7 +52,7 @@ public class RemoteView extends Module
 		oldZ = Minecraft.getMinecraft().thePlayer.posZ;
 		Minecraft.getMinecraft().thePlayer.noClip = true;
 		if(otherID == null)
-			otherID  = EntityUtils.getClosestEntityRaw(false).getUniqueID();
+			otherID = EntityUtils.getClosestEntityRaw(false).getUniqueID();
 		otherView = EntityUtils.searchEntityByIdRaw(otherID);
 		wasInvisible = otherView.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
 		EntityOtherPlayerMP fakePlayer = new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft().thePlayer.getGameProfile());
@@ -57,21 +62,22 @@ public class RemoteView extends Module
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
 		Client.Wurst.chat.message("Now viewing " + otherView.getName() + ".");
 	}
-	
+
 	public static void onEnabledByCommand(String viewName)
 	{
 		if(otherID == null && !viewName.equals(""))
 			otherID = EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
 		Client.Wurst.moduleManager.getModuleFromClass(RemoteView.class).toggleModule();
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(EntityUtils.searchEntityByIdRaw(otherID) == null)
 		{
-			this.setToggled(false);
+			setToggled(false);
 			return;
 		}
 		newView = Minecraft.getMinecraft().thePlayer;
@@ -83,7 +89,8 @@ public class RemoteView extends Module
 		Minecraft.getMinecraft().thePlayer = newView;
 		otherView.setInvisible(true);
 	}
-	
+
+	@Override
 	public void onDisable()
 	{
 		if(otherView != null)
@@ -97,6 +104,5 @@ public class RemoteView extends Module
 		newView = null;
 		otherView = null;
 		otherID = null;
-		fakePlayer = null;
 	}
 }

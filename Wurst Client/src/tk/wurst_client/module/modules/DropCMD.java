@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -9,27 +16,27 @@ public class DropCMD extends Module
 {
 	public DropCMD()
 	{
-		super
-		(
+		super(
 			"Drop",
 			"",
 			0,
-			Category.HIDDEN
-		);
+			Category.HIDDEN);
 	}
-	
+
 	private int timer;
 	private int counter;
-	
+
+	@Override
 	public void onEnable()
 	{
 		timer = 0;
 		counter = 9;
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
@@ -40,13 +47,13 @@ public class DropCMD extends Module
 				counter++;
 				timer = 0;
 				if(counter >= 45)
-					this.setToggled(false);
+					setToggled(false);
 			}
 		}else
 		{
 			for(int i = 9; i < 45; i++)
 				Minecraft.getMinecraft().playerController.windowClick(0, i, 1, 4, Minecraft.getMinecraft().thePlayer);
-			this.setToggled(false);
+			setToggled(false);
 		}
 	}
 }

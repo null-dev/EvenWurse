@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -11,38 +18,32 @@ public class FastEat extends Module
 {
 	public FastEat()
 	{
-		super
-		(
+		super(
 			"FastEat",
 			"Allows you to eat food ten times faster.\n"
-			+ "OM! NOM! NOM!",
-			0,
-			Category.MISC
-		);
+				+ "OM! NOM! NOM!",
+				0,
+				Category.MISC);
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
-			this.setToggled(false);
+			setToggled(false);
 			return;
 		}
-		if
-		(
-			Minecraft.getMinecraft().thePlayer.getHealth() > 0
+		if(Minecraft.getMinecraft().thePlayer.getHealth() > 0
 			&& Minecraft.getMinecraft().thePlayer.onGround
 			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() != null
 			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem().getItem() instanceof ItemFood
 			&& Minecraft.getMinecraft().thePlayer.getFoodStats().needFood()
-			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed
-		)
-		{
+			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 			for(int i = 0; i < 10; i++)
 				Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer(false));
-		}
 	}
 }

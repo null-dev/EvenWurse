@@ -1,34 +1,57 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_LINE_LOOP;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor4f;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glLineWidth;
+import static org.lwjgl.opengl.GL11.glVertex2d;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Rectangle;
 
-import org.lwjgl.input.Mouse;
-
-import org.darkstorm.minecraft.gui.component.*;
+import org.darkstorm.minecraft.gui.component.CheckButton;
 import org.darkstorm.minecraft.gui.component.Component;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
+import org.lwjgl.input.Mouse;
 
-public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton> {
+public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton>
+{
 	private final WurstTheme theme;
-
-	WurstCheckButtonUI(WurstTheme theme) {
+	
+	WurstCheckButtonUI(WurstTheme theme)
+	{
 		super(CheckButton.class);
 		this.theme = theme;
-
+		
 		foreground = Color.WHITE;
 		background = new Color(128, 128, 128, 128);
 	}
-
+	
 	@Override
-	protected void renderComponent(CheckButton button) {
+	protected void renderComponent(CheckButton button)
+	{
 		translateComponent(button, false);
 		Rectangle area = button.getArea();
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
-
+		
 		glDisable(GL_TEXTURE_2D);
 		RenderUtil.setColor(button.getBackgroundColor());
 		int size = area.height - 4;
@@ -40,7 +63,8 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton> {
 			glVertex2d(2, size + 2);
 		}
 		glEnd();
-		if(button.isSelected()) {
+		if(button.isSelected())
+		{
 			glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
 			glBegin(GL_QUADS);
 			{
@@ -63,12 +87,14 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton> {
 		glEnd();
 		Point mouse = RenderUtil.calculateMouseLocation();
 		Component parent = button.getParent();
-		while(parent != null) {
+		while(parent != null)
+		{
 			mouse.x -= parent.getX();
 			mouse.y -= parent.getY();
 			parent = parent.getParent();
 		}
-		if(area.contains(mouse)) {
+		if(area.contains(mouse))
+		{
 			glColor4f(0.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f : 0.3f);
 			glBegin(GL_QUADS);
 			{
@@ -80,36 +106,39 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton> {
 			glEnd();
 		}
 		glEnable(GL_TEXTURE_2D);
-
+		
 		String text = button.getText();
 		theme.getFontRenderer().drawString(text, size + 4,
-				area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
-				RenderUtil.toRGBA(button.getForegroundColor()));
-
+			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
+			RenderUtil.toRGBA(button.getForegroundColor()));
+		
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
 		translateComponent(button, true);
 	}
-
+	
 	@Override
-	protected Dimension getDefaultComponentSize(CheckButton component) {
+	protected Dimension getDefaultComponentSize(CheckButton component)
+	{
 		return new Dimension(theme.getFontRenderer().getStringWidth(
-				component.getText())
-				+ theme.getFontRenderer().FONT_HEIGHT + 6,
-				theme.getFontRenderer().FONT_HEIGHT + 4);
+			component.getText())
+			+ theme.getFontRenderer().FONT_HEIGHT + 6,
+			theme.getFontRenderer().FONT_HEIGHT + 4);
 	}
-
+	
 	@Override
-	protected Rectangle[] getInteractableComponentRegions(CheckButton component) {
-		return new Rectangle[] { new Rectangle(0, 0, component.getWidth(),
-				component.getHeight()) };
+	protected Rectangle[] getInteractableComponentRegions(CheckButton component)
+	{
+		return new Rectangle[]{new Rectangle(0, 0, component.getWidth(),
+			component.getHeight())};
 	}
-
+	
 	@Override
 	protected void handleComponentInteraction(CheckButton component,
-			Point location, int button) {
+		Point location, int button)
+	{
 		if(location.x <= component.getWidth()
-				&& location.y <= component.getHeight() && button == 0)
+			&& location.y <= component.getHeight() && button == 0)
 			component.press();
 	}
 }

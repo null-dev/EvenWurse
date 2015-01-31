@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -8,19 +15,18 @@ public class NoWeb extends Module
 {
 	public NoWeb()
 	{
-		super
-		(
+		super(
 			"NoWeb",
 			"Prevents you from getting slowed down in webs.\n"
-			+ "Note: This has nothing to do with websites.",
-			0,
-			Category.MOVEMENT
-		);
+				+ "Note: This has nothing to do with websites.",
+				0,
+				Category.MOVEMENT);
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		Minecraft.getMinecraft().thePlayer.isInWeb = false;
 	}

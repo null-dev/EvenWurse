@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.gui.options;
 
 import static org.lwjgl.opengl.GL11.GL_LIGHTING;
@@ -22,23 +29,24 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 	public GuiXRayBlocksList(Minecraft par1Minecraft, GuiScreen prevMenu)
 	{
 		super(par1Minecraft, prevMenu.width, prevMenu.height, 36, prevMenu.height - 56, 30);
-		this.mc = par1Minecraft;
+		mc = par1Minecraft;
 	}
-
+	
 	private int selectedSlot;
 	private Minecraft mc;
 	public static ArrayList<Block> blocks = new ArrayList<Block>();
-	
+
 	public static void sortBlocks()
 	{
 		blocks = XRay.xrayBlocks;
 		Collections.sort(blocks, new Comparator<Block>()
-		{
+			{
+			@Override
 			public int compare(Block o1, Block o2)
 			{
 				return o1.getLocalizedName().compareToIgnoreCase(o2.getLocalizedName());
 			}
-		});
+			});
 		ArrayList<Block> newBlocks = new ArrayList<Block>();
 		for(Block block : blocks)
 			if(XRay.xrayBlocks.contains(block))
@@ -48,29 +56,35 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 				newBlocks.add(block);
 		blocks = newBlocks;
 	}
-	
+
+	@Override
 	protected boolean isSelected(int id)
 	{
-		return this.selectedSlot == id;
+		return selectedSlot == id;
 	}
-	
+
 	protected int getSelectedSlot()
 	{
-		return this.selectedSlot;
+		return selectedSlot;
 	}
-	
+
+	@Override
 	protected int getSize()
 	{
 		return blocks.size();
 	}
-	
+
+	@Override
 	protected void elementClicked(int var1, boolean var2, int var3, int var4)
 	{
-		this.selectedSlot = var1;
+		selectedSlot = var1;
 	}
-	
-	protected void drawBackground(){}
-	
+
+	@Override
+	protected void drawBackground()
+	{}
+
+	@Override
 	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
 	{
 		Block block = blocks.get(id);
@@ -80,23 +94,22 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		if(itemStack.getItem() != null)
-		{
 			try
-			{
+		{
 				Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, x + 4, y + 4);
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-		}else
-			this.mc.fontRendererObj.drawString("?", x + 10, y + 9, 10526880);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		else
+			mc.fontRendererObj.drawString("?", x + 10, y + 9, 10526880);
 		Minecraft.getMinecraft().getRenderItem().func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack, x + 4, y + 4);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.disableBlend();
 		glDisable(GL_LIGHTING);
-		this.mc.fontRendererObj.drawString("Name: " + (itemStack.getItem() == null ? block.getLocalizedName() : itemStack.getDisplayName()), x + 31, y + 3, 10526880);
-		int blockID = block.getIdFromBlock(block);
-		this.mc.fontRendererObj.drawString("ID: " + blockID, x + 31, y + 15, 10526880);
+		mc.fontRendererObj.drawString("Name: " + (itemStack.getItem() == null ? block.getLocalizedName() : itemStack.getDisplayName()), x + 31, y + 3, 10526880);
+		int blockID = Block.getIdFromBlock(block);
+		mc.fontRendererObj.drawString("ID: " + blockID, x + 31, y + 15, 10526880);
 	}
 }

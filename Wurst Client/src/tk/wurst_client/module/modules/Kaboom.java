@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.block.Block;
@@ -22,56 +29,57 @@ public class Kaboom extends Module
 {
 	public Kaboom()
 	{
-		super
-		(
+		super(
 			"Kaboom",
 			"Breaks blocks around you like an explosion.\n"
-			+ "This can be a lot faster than Nuker if the server\n"
-			+ "doesn't have NoCheat+. It works best with fast tools\n"
-			+ "and weak blocks.\n"
-			+ "Note that this is not an actual explosion.",
-			0,
-			Category.BLOCKS
-		);
+				+ "This can be a lot faster than Nuker if the server\n"
+				+ "doesn't have NoCheat+. It works best with fast tools\n"
+				+ "and weak blocks.\n"
+				+ "Note that this is not an actual explosion.",
+				0,
+				Category.BLOCKS);
 	}
-	
+
 	private int range = 6;
 	public static int power = 128;
-	
+
+	@Override
 	public void initSliders()
 	{
-		this.moduleSliders.add(new BasicSlider("Kaboom power", power, 32, 512, 32, ValueDisplay.INTEGER));
+		moduleSliders.add(new BasicSlider("Kaboom power", power, 32, 512, 32, ValueDisplay.INTEGER));
 	}
-	
+
+	@Override
 	public void updateSettings()
 	{
-		this.power = (int) this.moduleSliders.get(0).getValue();
+		power = (int)moduleSliders.get(0).getValue();
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
-			this.setToggled(false);
+			setToggled(false);
 			return;
 		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
 			Client.Wurst.chat.error("Surivival mode only.");
-			this.setToggled(false);
+			setToggled(false);
 			return;
 		}
 		new Thread("Kaboom")
 		{
+			@Override
 			public void run()
 			{
 				for(int y = range; y >= -range; y--)
 				{
-					new Explosion
-					(
+					new Explosion(
 						Minecraft.getMinecraft().theWorld,
 						Minecraft.getMinecraft().thePlayer,
 						Minecraft.getMinecraft().thePlayer.posX,
@@ -79,15 +87,13 @@ public class Kaboom extends Module
 						Minecraft.getMinecraft().thePlayer.posZ,
 						6F,
 						false,
-						true
-					).doExplosionB(true);
+						true).doExplosionB(true);
 					for(int x = range; x >= -range - 1; x--)
-					{
 						for(int z = range; z >= -range; z--)
 						{
-							int posX = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
-							int posY = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
-							int posZ = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
+							int posX = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
+							int posY = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
+							int posZ = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
 							if(x == 0 && y == -1 && z == 0)
 								continue;
 							BlockPos pos = new BlockPos(posX, posY, posZ);
@@ -111,10 +117,9 @@ public class Kaboom extends Module
 								block.onBlockDestroyedByPlayer(Minecraft.getMinecraft().theWorld, pos, Minecraft.getMinecraft().theWorld.getBlockState(pos));
 							}
 						}
-					}
 				}
 			}
 		}.start();
-		this.setToggled(false);
+		setToggled(false);
 	}
 }

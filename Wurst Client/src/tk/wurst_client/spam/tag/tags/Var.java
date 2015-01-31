@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.spam.tag.tags;
 
 import tk.wurst_client.spam.SpamProcessor;
@@ -11,16 +18,14 @@ public class Var extends Tag
 {
 	public Var()
 	{
-		super
-		(
+		super(
 			"var",
 			"Defines a new variable.",
 			"<var name>value</var>",
 			"<var link>example.com</var><!--\n"
-			+ "-->Check out my website: §link;"
-		);
+				+ "-->Check out my website: §link;");
 	}
-	
+
 	@Override
 	public String process(TagData tagData) throws SpamException
 	{

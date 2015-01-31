@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.spam.tag.tags;
 
 import net.minecraft.util.ChatAllowedCharacters;
@@ -12,37 +19,31 @@ public class Random extends Tag
 {
 	public Random()
 	{
-		super
-		(
+		super(
 			"random",
 			"Generates random strings, numbers and junk.",
 			"<random \"number\"|\"string\"|\"junk\" length>",
 			"Random number: <random number 3>\n"
-			+ "Random string: <random string 5>\n"
-			+ "Random junk: <random junk 8>"
-		);
+				+ "Random string: <random string 5>\n"
+				+ "Random junk: <random junk 8>");
 	}
-	
+
 	@Override
 	public String process(TagData tagData) throws SpamException
 	{
 		if(tagData.getTagArgs().length < 2)
 			throw new MissingArgumentException("The <random> tag requires at least two arguments.", tagData.getTagLine(), this);
-		if
-		(
-			!tagData.getTagArgs()[0].equals("number")
+		if(!tagData.getTagArgs()[0].equals("number")
 			&& !tagData.getTagArgs()[0].equals("string")
-			&& !tagData.getTagArgs()[0].equals("junk")
-		)
+			&& !tagData.getTagArgs()[0].equals("junk"))
 			throw new InvalidArgumentException("Invalid type in <random> tag: \"" + tagData.getTagArgs()[0] + "\"", tagData.getTagLine(), this);
 		if(!MiscUtils.isInteger(tagData.getTagArgs()[1]))
 			throw new InvalidArgumentException("Invalid number in <random> tag: \"" + tagData.getTagArgs()[1] + "\"", tagData.getTagLine(), this);
 		String random = "";
 		if(tagData.getTagArgs()[0].equals("number"))
-		{
 			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
 				random += new java.util.Random().nextInt(10);
-		}else if(tagData.getTagArgs()[0].equals("string"))
+		else if(tagData.getTagArgs()[0].equals("string"))
 		{
 			String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
@@ -51,7 +52,6 @@ public class Random extends Tag
 				random += new String(new char[]{nextChar});
 			}
 		}else if(tagData.getTagArgs()[0].equals("junk"))
-		{
 			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]);)
 			{
 				byte[] nextChar = new byte[1];
@@ -59,13 +59,12 @@ public class Random extends Tag
 				if(ChatAllowedCharacters.isAllowedCharacter((char)nextChar[0]))
 				{
 					String nextString = new String(nextChar)
-						.replace("<", "§_lt;")
-						.replace("§", "");
+					.replace("<", "§_lt;")
+					.replace("§", "");
 					random += nextString;
 					i++;
 				}
 			}
-		}
 		return random + tagData.getTagContent();
 	}
 }

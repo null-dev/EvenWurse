@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.block.Block;
@@ -13,24 +20,21 @@ public class Overlay extends Module
 {
 	public Overlay()
 	{
-		super
-		(
+		super(
 			"Overlay",
 			"Renders the Nuker animation when you mine a block.",
 			0,
-			Category.RENDER
-		);
+			Category.RENDER);
 	}
-	
+
+	@Override
 	public void onRender()
 	{
-		if(!this.getToggled() || Minecraft.getMinecraft().objectMouseOver == null || Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
+		if(!getToggled() || Minecraft.getMinecraft().objectMouseOver == null || Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
 		Block mouseOverBlock = Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock();
 		if(Block.getIdFromBlock(mouseOverBlock) != 0)
-		{
 			RenderUtils.nukerBox(pos, PlayerControllerMP.curBlockDamageMP);
-		}
 	}
 }

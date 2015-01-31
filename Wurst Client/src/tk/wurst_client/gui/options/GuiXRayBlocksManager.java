@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.gui.options;
 
 import java.io.IOException;
@@ -11,89 +18,89 @@ public class GuiXRayBlocksManager extends GuiScreen
 {
 	private GuiScreen prevMenu;
 	public static GuiXRayBlocksList blockList;
-
-	public GuiXRayBlocksManager(GuiScreen par1GuiScreen)
-    {
-        this.prevMenu = par1GuiScreen;
-    }
 	
+	public GuiXRayBlocksManager(GuiScreen par1GuiScreen)
+	{
+		prevMenu = par1GuiScreen;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
 	public void initGui()
 	{
-		this.blockList = new GuiXRayBlocksList(this.mc, this);
-		this.blockList.registerScrollButtons(7, 8);
-		this.blockList.sortBlocks();
-		this.blockList.elementClicked(-1, false, 0, 0);
-		this.buttonList.clear();
-		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 52, 98, 20, "Add"));
-		this.buttonList.add(new GuiButton(1, this.width / 2 + 2, this.height - 52, 98, 20, "Remove"));
-		this.buttonList.add(new GuiButton(2, this.width / 2 - 100, this.height - 28, 200, 20, "Back"));
+		blockList = new GuiXRayBlocksList(mc, this);
+		blockList.registerScrollButtons(7, 8);
+		GuiXRayBlocksList.sortBlocks();
+		blockList.elementClicked(-1, false, 0, 0);
+		buttonList.clear();
+		buttonList.add(new GuiButton(0, width / 2 - 100, height - 52, 98, 20, "Add"));
+		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 98, 20, "Remove"));
+		buttonList.add(new GuiButton(2, width / 2 - 100, height - 28, 200, 20, "Back"));
+	}
+
+	/**
+	 * Called from the main game loop to update the screen.
+	 */
+	@Override
+	public void updateScreen()
+	{
+		((GuiButton)buttonList.get(1)).enabled = blockList.getSelectedSlot() != -1;
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton clickedButton)
+	{
+		if(clickedButton.enabled)
+			if(clickedButton.id == 0)
+				mc.displayGuiScreen(new GuiXRayBlocksAdd(this));
+			else if(clickedButton.id == 1)
+			{// Remove
+				XRay.xrayBlocks.remove(blockList.getSelectedSlot());
+				GuiXRayBlocksList.sortBlocks();
+				Client.Wurst.fileManager.saveXRayBlocks();
+			}else if(clickedButton.id == 2)
+				mc.displayGuiScreen(prevMenu);
+	}
+
+	/**
+	 * Fired when a key is typed. This is the equivalent of
+	 * KeyListener.keyTyped(KeyEvent e).
+	 */
+	@Override
+	protected void keyTyped(char par1, int par2)
+	{
+		if(par2 == 28 || par2 == 156)
+			actionPerformed((GuiButton)buttonList.get(0));
 	}
 	
 	/**
-     * Called from the main game loop to update the screen.
-     */
-    public void updateScreen()
-    {
-        ((GuiButton)this.buttonList.get(1)).enabled = this.blockList.getSelectedSlot() != - 1;
-    }
-	
-	protected void actionPerformed(GuiButton clickedButton)
-    {
-		if(clickedButton.enabled)
-        {
-            if(clickedButton.id == 0)
-            {//Add
-            	this.mc.displayGuiScreen(new GuiXRayBlocksAdd(this));
-            }else if(clickedButton.id == 1)
-            {//Remove
-            	XRay.xrayBlocks.remove(this.blockList.getSelectedSlot());
-            	this.blockList.sortBlocks();
-            	Client.Wurst.fileManager.saveXRayBlocks();
-            }else if(clickedButton.id == 2)
-            {//Back
-            	this.mc.displayGuiScreen(this.prevMenu);
-            }
-        }
-    }
+	 * Called when the mouse is clicked.
+	 * 
+	 * @throws IOException
+	 */
+	@Override
+	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	{
+		if(par2 >= 36 && par2 <= height - 57)
+			if(par1 >= width / 2 + 140 || par1 <= width / 2 - 126)
+				blockList.elementClicked(-1, false, 0, 0);
+		super.mouseClicked(par1, par2, par3);
+	}
 	
 	/**
-     * Fired when a key is typed. This is the equivalent of KeyListener.keyTyped(KeyEvent e).
-     */
-    protected void keyTyped(char par1, int par2)
-    {
-        if (par2 == 28 || par2 == 156)
-        {
-            this.actionPerformed((GuiButton)this.buttonList.get(0));
-        }
-    }
-    
-    /**
-     * Called when the mouse is clicked.
-     * @throws IOException 
-     */
-    protected void mouseClicked(int par1, int par2, int par3) throws IOException
-    {
-    	if(par2 >= 36 && par2 <= this.height - 57)
-    		if(par1 >= this.width / 2 + 140 || par1 <= this.width / 2 - 126)
-    			this.blockList.elementClicked(- 1, false, 0, 0);
-        super.mouseClicked(par1, par2, par3);
-    }
-    
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int par1, int par2, float par3)
-    {
-        this.drawDefaultBackground();
-        this.blockList.drawScreen(par1, par2, par3);
-        this.drawCenteredString(this.fontRendererObj, "X-Ray Block Manager", this.width / 2, 8, 16777215);
-        int totalBlocks = 0;
-		for(int i = 0; i < this.blockList.blocks.size(); i++)
-		{
-			if(XRay.xrayBlocks.contains(this.blockList.blocks.get(i)))
+	 * Draws the screen and all the components in it.
+	 */
+	@Override
+	public void drawScreen(int par1, int par2, float par3)
+	{
+		drawDefaultBackground();
+		blockList.drawScreen(par1, par2, par3);
+		drawCenteredString(fontRendererObj, "X-Ray Block Manager", width / 2, 8, 16777215);
+		int totalBlocks = 0;
+		for(int i = 0; i < GuiXRayBlocksList.blocks.size(); i++)
+			if(XRay.xrayBlocks.contains(GuiXRayBlocksList.blocks.get(i)))
 				totalBlocks++;
-		}
-        this.drawCenteredString(this.fontRendererObj, "Blocks: " + totalBlocks, this.width / 2, 20, 16777215);
-        super.drawScreen(par1, par2, par3);
-    }
+		drawCenteredString(fontRendererObj, "Blocks: " + totalBlocks, width / 2, 20, 16777215);
+		super.drawScreen(par1, par2, par3);
+	}
 }

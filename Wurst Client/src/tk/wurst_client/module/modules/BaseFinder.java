@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import java.awt.Color;
@@ -15,90 +22,89 @@ public class BaseFinder extends Module
 {
 	public BaseFinder()
 	{
-		super
-		(
+		super(
 			"BaseFinder",
 			"Finds player bases by searching for man-made blocks.\n"
-			+ "Good for finding faction bases.",
-			0,
-			Category.RENDER
-		);
+				+ "Good for finding faction bases.",
+				0,
+				Category.RENDER);
 		initBlocks();
 	}
-
+	
 	private ArrayList<Block> naturalBlocks = new ArrayList<Block>();
 	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
 	private int range = 50;
 	private int maxBlocks = 1024;
 	private boolean shouldInform = true;
-	
+
 	private void initBlocks()
 	{
-		this.naturalBlocks.add(Block.getBlockFromName("air"));
-		this.naturalBlocks.add(Block.getBlockFromName("stone"));
-		this.naturalBlocks.add(Block.getBlockFromName("dirt"));
-		this.naturalBlocks.add(Block.getBlockFromName("grass"));
-		this.naturalBlocks.add(Block.getBlockFromName("gravel"));
-		this.naturalBlocks.add(Block.getBlockFromName("sand"));
-		this.naturalBlocks.add(Block.getBlockFromName("clay"));
-		this.naturalBlocks.add(Block.getBlockFromName("sandstone"));
-		this.naturalBlocks.add(Block.getBlockById(8));
-		this.naturalBlocks.add(Block.getBlockById(9));
-		this.naturalBlocks.add(Block.getBlockById(10));
-		this.naturalBlocks.add(Block.getBlockById(11));
-		this.naturalBlocks.add(Block.getBlockFromName("log"));
-		this.naturalBlocks.add(Block.getBlockFromName("log2"));
-		this.naturalBlocks.add(Block.getBlockFromName("leaves"));
-		this.naturalBlocks.add(Block.getBlockFromName("leaves2"));
-		this.naturalBlocks.add(Block.getBlockFromName("deadbush"));
-		this.naturalBlocks.add(Block.getBlockFromName("iron_ore"));
-		this.naturalBlocks.add(Block.getBlockFromName("coal_ore"));
-		this.naturalBlocks.add(Block.getBlockFromName("gold_ore"));
-		this.naturalBlocks.add(Block.getBlockFromName("diamond_ore"));
-		this.naturalBlocks.add(Block.getBlockFromName("emerald_ore"));
-		this.naturalBlocks.add(Block.getBlockFromName("redstone_ore"));
-		this.naturalBlocks.add(Block.getBlockFromName("lapis_ore"));
-		this.naturalBlocks.add(Block.getBlockFromName("bedrock"));
-		this.naturalBlocks.add(Block.getBlockFromName("mob_spawner"));
-		this.naturalBlocks.add(Block.getBlockFromName("mossy_cobblestone"));
-		this.naturalBlocks.add(Block.getBlockFromName("tallgrass"));
-		this.naturalBlocks.add(Block.getBlockFromName("yellow_flower"));
-		this.naturalBlocks.add(Block.getBlockFromName("red_flower"));
-		this.naturalBlocks.add(Block.getBlockFromName("cobweb"));
-		this.naturalBlocks.add(Block.getBlockFromName("brown_mushroom"));
-		this.naturalBlocks.add(Block.getBlockFromName("red_mushroom"));
-		this.naturalBlocks.add(Block.getBlockFromName("snow_layer"));
-		this.naturalBlocks.add(Block.getBlockFromName("vine"));
-		this.naturalBlocks.add(Block.getBlockFromName("waterlily"));
-		this.naturalBlocks.add(Block.getBlockFromName("double_plant"));
-		this.naturalBlocks.add(Block.getBlockFromName("hardened_clay"));
-		this.naturalBlocks.add(Block.getBlockFromName("red_sandstone"));
-		this.naturalBlocks.add(Block.getBlockFromName("ice"));
-		this.naturalBlocks.add(Block.getBlockFromName("quartz_ore"));
-		this.naturalBlocks.add(Block.getBlockFromName("obsidian"));
-		this.naturalBlocks.add(Block.getBlockFromName("monster_egg"));
-		this.naturalBlocks.add(Block.getBlockFromName("red_mushroom_block"));
-		this.naturalBlocks.add(Block.getBlockFromName("brown_mushroom_block"));
+		naturalBlocks.add(Block.getBlockFromName("air"));
+		naturalBlocks.add(Block.getBlockFromName("stone"));
+		naturalBlocks.add(Block.getBlockFromName("dirt"));
+		naturalBlocks.add(Block.getBlockFromName("grass"));
+		naturalBlocks.add(Block.getBlockFromName("gravel"));
+		naturalBlocks.add(Block.getBlockFromName("sand"));
+		naturalBlocks.add(Block.getBlockFromName("clay"));
+		naturalBlocks.add(Block.getBlockFromName("sandstone"));
+		naturalBlocks.add(Block.getBlockById(8));
+		naturalBlocks.add(Block.getBlockById(9));
+		naturalBlocks.add(Block.getBlockById(10));
+		naturalBlocks.add(Block.getBlockById(11));
+		naturalBlocks.add(Block.getBlockFromName("log"));
+		naturalBlocks.add(Block.getBlockFromName("log2"));
+		naturalBlocks.add(Block.getBlockFromName("leaves"));
+		naturalBlocks.add(Block.getBlockFromName("leaves2"));
+		naturalBlocks.add(Block.getBlockFromName("deadbush"));
+		naturalBlocks.add(Block.getBlockFromName("iron_ore"));
+		naturalBlocks.add(Block.getBlockFromName("coal_ore"));
+		naturalBlocks.add(Block.getBlockFromName("gold_ore"));
+		naturalBlocks.add(Block.getBlockFromName("diamond_ore"));
+		naturalBlocks.add(Block.getBlockFromName("emerald_ore"));
+		naturalBlocks.add(Block.getBlockFromName("redstone_ore"));
+		naturalBlocks.add(Block.getBlockFromName("lapis_ore"));
+		naturalBlocks.add(Block.getBlockFromName("bedrock"));
+		naturalBlocks.add(Block.getBlockFromName("mob_spawner"));
+		naturalBlocks.add(Block.getBlockFromName("mossy_cobblestone"));
+		naturalBlocks.add(Block.getBlockFromName("tallgrass"));
+		naturalBlocks.add(Block.getBlockFromName("yellow_flower"));
+		naturalBlocks.add(Block.getBlockFromName("red_flower"));
+		naturalBlocks.add(Block.getBlockFromName("cobweb"));
+		naturalBlocks.add(Block.getBlockFromName("brown_mushroom"));
+		naturalBlocks.add(Block.getBlockFromName("red_mushroom"));
+		naturalBlocks.add(Block.getBlockFromName("snow_layer"));
+		naturalBlocks.add(Block.getBlockFromName("vine"));
+		naturalBlocks.add(Block.getBlockFromName("waterlily"));
+		naturalBlocks.add(Block.getBlockFromName("double_plant"));
+		naturalBlocks.add(Block.getBlockFromName("hardened_clay"));
+		naturalBlocks.add(Block.getBlockFromName("red_sandstone"));
+		naturalBlocks.add(Block.getBlockFromName("ice"));
+		naturalBlocks.add(Block.getBlockFromName("quartz_ore"));
+		naturalBlocks.add(Block.getBlockFromName("obsidian"));
+		naturalBlocks.add(Block.getBlockFromName("monster_egg"));
+		naturalBlocks.add(Block.getBlockFromName("red_mushroom_block"));
+		naturalBlocks.add(Block.getBlockFromName("brown_mushroom_block"));
 	}
-	
+
+	@Override
 	public void onEnable()
 	{
 		shouldInform = true;
 	}
-	
+
+	@Override
 	public void onRender()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		for(BlockPos blockPos : matchingBlocks)
-		{
 			RenderUtils.framelessBlockESP(blockPos, new Color(255, 0, 0));
-		}
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		updateMS();
 		if(hasTimePassedM(3000))
@@ -108,11 +114,11 @@ public class BaseFinder extends Module
 			{
 				for(int x = range; x >= -range; x--)
 				{
-					for(int z = range ; z >= -range; z--)
+					for(int z = range; z >= -range; z--)
 					{
-						int posX = (int) (Minecraft.getMinecraft().thePlayer.posX + x);
-						int posY = (int) (Minecraft.getMinecraft().thePlayer.posY + y);
-						int posZ = (int) (Minecraft.getMinecraft().thePlayer.posZ + z);
+						int posX = (int)(Minecraft.getMinecraft().thePlayer.posX + x);
+						int posY = (int)(Minecraft.getMinecraft().thePlayer.posY + y);
+						int posZ = (int)(Minecraft.getMinecraft().thePlayer.posZ + z);
 						BlockPos pos = new BlockPos(posX, posY, posZ);
 						if(!naturalBlocks.contains(Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()))
 							matchingBlocks.add(pos);
@@ -125,7 +131,7 @@ public class BaseFinder extends Module
 				if(matchingBlocks.size() >= maxBlocks)
 					break;
 			}
-			if(matchingBlocks.size() >= maxBlocks && shouldInform )
+			if(matchingBlocks.size() >= maxBlocks && shouldInform)
 			{
 				Client.Wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
 				Client.Wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");

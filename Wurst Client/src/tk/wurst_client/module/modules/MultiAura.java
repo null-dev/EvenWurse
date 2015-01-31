@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
@@ -9,19 +16,19 @@ import tk.wurst_client.utils.EntityUtils;
 
 public class MultiAura extends Module
 {
-
+	
 	public MultiAura()
 	{
-		super
-		(
+		super(
 			"MultiAura",
 			"Faster Killaura that attacks multiple entities at once.",
 			0,
-			Category.COMBAT
-		);
+			Category.COMBAT);
 	}
-	private float range = 6F;
 	
+	private float range = 6F;
+
+	@Override
 	public void onEnable()
 	{
 		if(Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
@@ -31,15 +38,16 @@ public class MultiAura extends Module
 		if(Client.Wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
 			Client.Wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
 	}
-	
+
+	@Override
 	public void onUpdate()
 	{
-		if(!this.getToggled())
+		if(!getToggled())
 			return;
 		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
-			this.setToggled(false);
+			setToggled(false);
 			Client.Wurst.chat.message("Switching to " + Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).getName() + ".");
 			Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(true);
 			return;

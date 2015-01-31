@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.gui.options;
 
 import java.io.IOException;
@@ -19,132 +26,134 @@ import tk.wurst_client.module.modules.XRay;
 
 public class GuiXRayBlocksAdd extends GuiScreen
 {
-    private GuiScreen prevMenu;
-    private GuiTextField nameBox;
-    private static final String __OBFID = "CL_00000709";
-
-    public GuiXRayBlocksAdd(GuiScreen par1GuiScreen)
-    {
-        this.prevMenu = par1GuiScreen;
-    }
-
-    /**
-     * Called from the main game loop to update the screen.
-     */
-    public void updateScreen()
-    {
-        this.nameBox.updateCursorCounter();
-        Block block = Block.getBlockFromName(this.nameBox.getText());
-        ((GuiButton)this.buttonList.get(0)).enabled = this.nameBox.getText().trim().length() > 0 && block != null;
-    }
-
-    /**
-     * Adds the buttons (and other controls) to the screen in question.
-     */
-    public void initGui()
-    {
-        Keyboard.enableRepeatEvents(true);
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120 + 12, "Add"));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 144 + 12, "Cancel"));
-        this.nameBox = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 100, 80, 200, 20);
-        this.nameBox.setFocused(true);
-    }
-
-    /**
-     * "Called when the screen is unloaded. Used to disable keyboard repeat events."
-     */
-    public void onGuiClosed()
-    {
-        Keyboard.enableRepeatEvents(false);
-    }
-
-    protected void actionPerformed(GuiButton clickedButton)
-    {
-        if (clickedButton.enabled)
-        {
-            if (clickedButton.id == 0)
-            {//Add
-                Block block = Block.getBlockFromName(this.nameBox.getText());
-                XRay.xrayBlocks.add(block);
-                GuiXRayBlocksManager.blockList.sortBlocks();
-                Client.Wurst.fileManager.saveXRayBlocks();
-                this.mc.displayGuiScreen(this.prevMenu);
-            }else if (clickedButton.id == 1)
-            {//Cancel
-                this.mc.displayGuiScreen(this.prevMenu);
-            }
-        }
-    }
-
+	private GuiScreen prevMenu;
+	private GuiTextField nameBox;
+	
+	public GuiXRayBlocksAdd(GuiScreen par1GuiScreen)
+	{
+		prevMenu = par1GuiScreen;
+	}
+	
 	/**
-     * Fired when a key is typed. This is the equivalent of KeyListener.keyTyped(KeyEvent e).
-     */
-    protected void keyTyped(char par1, int par2)
-    {
-        this.nameBox.textboxKeyTyped(par1, par2);
-
-        if (par2 == 28 || par2 == 156)
-        {
-            this.actionPerformed((GuiButton)this.buttonList.get(0));
-        }
-    }
-
-    /**
-     * Called when the mouse is clicked.
-     * @throws IOException 
-     */
-    protected void mouseClicked(int par1, int par2, int par3) throws IOException
-    {
-        super.mouseClicked(par1, par2, par3);
-        this.nameBox.mouseClicked(par1, par2, par3);
-    }
-
-    /**
-     * Draws the screen and all the components in it.
-     */
-    public void drawScreen(int par1, int par2, float par3)
-    {
-        this.drawDefaultBackground();
-        this.drawBackground(0);
-        Block block = Block.getBlockFromName(this.nameBox.getText());
-		int x = this.width / 2 - 9;
-		int y = this.height / 2 - 32;
+	 * Called from the main game loop to update the screen.
+	 */
+	@Override
+	public void updateScreen()
+	{
+		nameBox.updateCursorCounter();
+		Block block = Block.getBlockFromName(nameBox.getText());
+		((GuiButton)buttonList.get(0)).enabled = nameBox.getText().trim().length() > 0 && block != null;
+	}
+	
+	/**
+	 * Adds the buttons (and other controls) to the screen in question.
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void initGui()
+	{
+		Keyboard.enableRepeatEvents(true);
+		buttonList.clear();
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12, "Add"));
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 144 + 12, "Cancel"));
+		nameBox = new GuiTextField(0, fontRendererObj, width / 2 - 100, 80, 200, 20);
+		nameBox.setFocused(true);
+	}
+	
+	/**
+	 * "Called when the screen is unloaded. Used to disable keyboard repeat events."
+	 */
+	@Override
+	public void onGuiClosed()
+	{
+		Keyboard.enableRepeatEvents(false);
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton clickedButton)
+	{
+		if(clickedButton.enabled)
+			if(clickedButton.id == 0)
+			{// Add
+				Block block = Block.getBlockFromName(nameBox.getText());
+				XRay.xrayBlocks.add(block);
+				GuiXRayBlocksList.sortBlocks();
+				Client.Wurst.fileManager.saveXRayBlocks();
+				mc.displayGuiScreen(prevMenu);
+			}else if(clickedButton.id == 1)
+				mc.displayGuiScreen(prevMenu);
+	}
+	
+	/**
+	 * Fired when a key is typed. This is the equivalent of
+	 * KeyListener.keyTyped(KeyEvent e).
+	 */
+	@Override
+	protected void keyTyped(char par1, int par2)
+	{
+		nameBox.textboxKeyTyped(par1, par2);
+		
+		if(par2 == 28 || par2 == 156)
+			actionPerformed((GuiButton)buttonList.get(0));
+	}
+	
+	/**
+	 * Called when the mouse is clicked.
+	 * 
+	 * @throws IOException
+	 */
+	@Override
+	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	{
+		super.mouseClicked(par1, par2, par3);
+		nameBox.mouseClicked(par1, par2, par3);
+	}
+	
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	@Override
+	public void drawScreen(int par1, int par2, float par3)
+	{
+		drawDefaultBackground();
+		drawBackground(0);
+		Block block = Block.getBlockFromName(nameBox.getText());
+		int x = width / 2 - 9;
+		int y = height / 2 - 32;
 		ItemStack itemStack = new ItemStack(Item.getItemFromBlock(block));
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		if(itemStack.getItem() != null)
-		{
 			try
-			{
+		{
 				Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, x, y);
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-		}else
-			this.mc.fontRendererObj.drawString("?", x + 6, y + 5, 10526880);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		else
+			mc.fontRendererObj.drawString("?", x + 6, y + 5, 10526880);
 		Minecraft.getMinecraft().getRenderItem().func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack, x + 4, y + 4);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.disableBlend();
 		try
 		{
-			this.drawCenteredString(this.fontRendererObj, "Name: " + (itemStack.getItem() == null ? block.getLocalizedName() : itemStack.getDisplayName()), this.width / 2, y + 24, 10526880);
-			this.drawCenteredString(this.fontRendererObj, "ID: " + Block.getIdFromBlock(block), this.width / 2, y + 36, 10526880);
-			this.drawCenteredString(this.fontRendererObj, "Block exists: " + (block != null), this.width / 2, y + 48, 10526880);
+			drawCenteredString(fontRendererObj, "Name: " + (itemStack.getItem() == null ? block.getLocalizedName() : itemStack.getDisplayName()), width / 2, y + 24, 10526880);
+			drawCenteredString(fontRendererObj, "ID: " + Block.getIdFromBlock(block), width / 2, y + 36, 10526880);
+			drawCenteredString(fontRendererObj, "Block exists: " + (block != null), width / 2, y + 48, 10526880);
 		}catch(Exception e)
 		{
-			this.mc.fontRendererObj.drawString("?", x + 6, y + 5, 10526880);
-			this.drawCenteredString(this.fontRendererObj, "Name: unknown", this.width / 2, y + 24, 10526880);
-			this.drawCenteredString(this.fontRendererObj, "ID: unknown", this.width / 2, y + 36, 10526880);
-			this.drawCenteredString(this.fontRendererObj, "Block exists: " + (block != null), this.width / 2, y + 48, 10526880);
+			mc.fontRendererObj.drawString("?", x + 6, y + 5, 10526880);
+			drawCenteredString(fontRendererObj, "Name: unknown", width / 2, y + 24, 10526880);
+			drawCenteredString(fontRendererObj, "ID: unknown", width / 2, y + 36, 10526880);
+			drawCenteredString(fontRendererObj, "Block exists: " + (block != null), width / 2, y + 48, 10526880);
 		}
-        this.drawCenteredString(this.fontRendererObj, "Add a Block", this.width / 2, 20, 16777215);
-        this.drawString(this.fontRendererObj, "Name or ID", this.width / 2 - 100, 67, 10526880);
-        this.nameBox.drawTextBox();
-        super.drawScreen(par1, par2, par3);
-    }
+		drawCenteredString(fontRendererObj, "Add a Block", width / 2, 20, 16777215);
+		drawString(fontRendererObj, "Name or ID", width / 2 - 100, 67, 10526880);
+		nameBox.drawTextBox();
+		super.drawScreen(par1, par2, par3);
+	}
 }

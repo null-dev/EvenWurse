@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.spam.tag;
 
 import tk.wurst_client.spam.SpamProcessor;
@@ -9,7 +16,7 @@ public abstract class Tag
 	private String description;
 	private String syntax;
 	private String example;
-	
+
 	public Tag(String name, String description, String syntax, String example)
 	{
 		this.name = name;
@@ -17,27 +24,27 @@ public abstract class Tag
 		this.syntax = syntax;
 		this.example = example;
 	}
-	
+
 	public String getName()
 	{
 		return name;
 	}
-	
+
 	public String getDescription()
 	{
 		return description;
 	}
-	
+
 	public String getSyntax()
 	{
 		return syntax;
 	}
-	
+
 	public String getExample()
 	{
 		return example;
 	}
-	
+
 	public String getHelp()
 	{
 		return "<html>"
@@ -60,7 +67,7 @@ public abstract class Tag
 			+ "</td></tr></table>"
 			+ "</html>";
 	}
-	
+
 	private String format(String string)
 	{
 		return string
@@ -68,6 +75,6 @@ public abstract class Tag
 			.replaceAll(">", "&gt;")
 			.replaceAll("\n", "<br>");
 	}
-	
+
 	public abstract String process(TagData tagData) throws SpamException;
 }
