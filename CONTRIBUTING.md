@@ -30,7 +30,7 @@ Markdown can make your text look very pretty, but if you don't use it correctly,
 Emojis are awesome! :octocat: :space_invader: :trollface: A full list of emojis can be found [here](http://www.emoji-cheat-sheet.com/).
 
 ## Tips
-At the moment, there are no tips in this section. You can help us by adding some.
+At the moment, there are no tips in this section. You can help by adding some.
 
 ## Tutorials
 - [Contributing to Open Source on GitHub (6 minute text tutorial)](https://guides.github.com/activities/contributing-to-open-source/#contributing)
