@@ -108,8 +108,8 @@ public class EntityUtils
 		else
 			throw new IllegalArgumentException("Unknown target mode selected: " + Client.Wurst.options.targetMode);
 		if(ignoreFriends && o instanceof EntityPlayer)
-			for(int i = 0; i < Client.Wurst.options.friends.size(); i++)
-				if(((EntityPlayer)o).getName().equals(Client.Wurst.options.friends.get(i)))
+			for(int i = 0; i < Client.Wurst.friends.size(); i++)
+				if(((EntityPlayer)o).getName().equals(Client.Wurst.friends.get(i)))
 					condition = false;
 		return condition;
 	}

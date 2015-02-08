@@ -7,10 +7,6 @@
  */
 package tk.wurst_client.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import tk.wurst_client.Client;
 
 public class Options
@@ -38,18 +34,4 @@ public class Options
 	public int throwAmount = 16;
 
 	public String forceOPList = Client.Wurst.fileManager.WurstDir.getPath();
-
-	public ArrayList<String> friends = new ArrayList<String>();
-
-	public void sortFriends()
-	{
-		Collections.sort(friends, new Comparator<String>()
-			{
-			@Override
-			public int compare(String o1, String o2)
-			{
-				return o1.compareToIgnoreCase(o2);
-			}
-			});
-	}
 }

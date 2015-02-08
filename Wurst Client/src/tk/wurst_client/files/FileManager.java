@@ -430,12 +430,12 @@ public class FileManager
 	
 	public void saveFriends()
 	{
-		Client.Wurst.options.sortFriends();
+		Client.Wurst.friends.sort();
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(Friends));
-			for(int i = 0; i < Client.Wurst.options.friends.size(); i++)
-				save.println(Client.Wurst.options.friends.get(i));
+			for(int i = 0; i < Client.Wurst.friends.size(); i++)
+				save.println(Client.Wurst.friends.get(i));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -465,10 +465,10 @@ public class FileManager
 			for(String line = ""; (line = load.readLine()) != null;)
 			{
 				String data[] = line.split(split);
-				Client.Wurst.options.friends.add(data[0]);
+				Client.Wurst.friends.add(data[0]);
 			}
 			load.close();
-			Client.Wurst.options.sortFriends();
+			Client.Wurst.friends.sort();
 		}catch(IOException e)
 		{	
 			

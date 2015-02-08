@@ -33,7 +33,7 @@ public class Friends extends Command
 	{
 		if(args[0].equalsIgnoreCase("list"))
 		{
-			int totalFriends = Client.Wurst.options.friends.size();
+			int totalFriends = Client.Wurst.friends.size();
 			float pagesF = (float)((double)totalFriends / (double)friendsPerPage);
 			int pages = (int)(Math.round(pagesF) == pagesF ? pagesF : pagesF + 1);
 			friendsPerPage = 8;
@@ -43,14 +43,14 @@ public class Friends extends Command
 				{
 					friendsPerPage = totalFriends;
 					Client.Wurst.chat.message("Current friends: " + totalFriends);
-					for(int i = 0; i < Client.Wurst.options.friends.size() && i < friendsPerPage; i++)
-						Client.Wurst.chat.message(Client.Wurst.options.friends.get(i));
+					for(int i = 0; i < Client.Wurst.friends.size() && i < friendsPerPage; i++)
+						Client.Wurst.chat.message(Client.Wurst.friends.get(i));
 				}else
 				{
 					Client.Wurst.chat.message("Current friends: " + totalFriends);
 					Client.Wurst.chat.message("Friends list (page 1/" + pages + "):");
-					for(int i = 0; i < Client.Wurst.options.friends.size() && i < friendsPerPage; i++)
-						Client.Wurst.chat.message(Client.Wurst.options.friends.get(i));
+					for(int i = 0; i < Client.Wurst.friends.size() && i < friendsPerPage; i++)
+						Client.Wurst.chat.message(Client.Wurst.friends.get(i));
 				}
 			}else
 			{
@@ -65,10 +65,10 @@ public class Friends extends Command
 					Client.Wurst.chat.message("Current friends: " + Integer.toString(totalFriends));
 					Client.Wurst.chat.message("Friends list (page " + page + "/" + pages + "):");
 					int i2 = 0;
-					for(int i = 0; i < Client.Wurst.options.friends.size() && i2 < (page - 1) * friendsPerPage + friendsPerPage; i++)
+					for(int i = 0; i < Client.Wurst.friends.size() && i2 < (page - 1) * friendsPerPage + friendsPerPage; i++)
 					{
 						if(i2 >= (page - 1) * friendsPerPage)
-							Client.Wurst.chat.message(Client.Wurst.options.friends.get(i));
+							Client.Wurst.chat.message(Client.Wurst.friends.get(i));
 						i2++;
 					}
 					return;
@@ -77,20 +77,20 @@ public class Friends extends Command
 			}
 		}else if(args[0].equalsIgnoreCase("add"))
 		{
-			if(Client.Wurst.options.friends.contains(args[1]))
+			if(Client.Wurst.friends.contains(args[1]))
 			{
 				Client.Wurst.chat.error("\"" + args[1] + "\" is already in your friends list.");
 				return;
 			}
-			Client.Wurst.options.friends.add(args[1]);
+			Client.Wurst.friends.add(args[1]);
 			Client.Wurst.fileManager.saveFriends();
 			Client.Wurst.chat.message("Added friend \"" + args[1] + "\".");
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
-			for(int i = 0; i < Client.Wurst.options.friends.size(); i++)
-				if(Client.Wurst.options.friends.get(i).toLowerCase().equals(args[1].toLowerCase()))
+			for(int i = 0; i < Client.Wurst.friends.size(); i++)
+				if(Client.Wurst.friends.get(i).toLowerCase().equals(args[1].toLowerCase()))
 				{
-					Client.Wurst.options.friends.remove(i);
+					Client.Wurst.friends.remove(i);
 					Client.Wurst.fileManager.saveFriends();
 					Client.Wurst.chat.message("Removed friend \"" + args[1] + "\".");
 					return;

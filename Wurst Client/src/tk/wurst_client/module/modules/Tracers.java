@@ -33,6 +33,6 @@ public class Tracers extends Module
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityPlayer && !((Entity)entity).getName().equals(Minecraft.getMinecraft().getSession().getUsername()))
-				RenderUtils.tracerLine((Entity)entity, Client.Wurst.options.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
+				RenderUtils.tracerLine((Entity)entity, Client.Wurst.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
 	}
 }

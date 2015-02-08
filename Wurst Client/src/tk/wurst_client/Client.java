@@ -18,6 +18,7 @@ import tk.wurst_client.command.CommandManager;
 import tk.wurst_client.files.FileManager;
 import tk.wurst_client.gui.GuiManager;
 import tk.wurst_client.module.ModuleManager;
+import tk.wurst_client.options.Friends;
 import tk.wurst_client.options.Options;
 import tk.wurst_client.update.Updater;
 
@@ -30,13 +31,14 @@ public class Client
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
 
-	public ModuleManager moduleManager;
-	public GuiManager guiManager;
+	public ChatMessenger chat;
 	public CommandManager commandManager;
 	public FileManager fileManager;
-	public Updater updater;
-	public ChatMessenger chat;
+	public Friends friends;
+	public GuiManager guiManager;
+	public ModuleManager moduleManager;
 	public Options options;
+	public Updater updater;
 
 	public static final Client Wurst = new Client();
 
@@ -49,6 +51,7 @@ public class Client
 		updater = new Updater();
 		chat = new ChatMessenger();
 		options = new Options();
+		friends = new Friends();
 
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();

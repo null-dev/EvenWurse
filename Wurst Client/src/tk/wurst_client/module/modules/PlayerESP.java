@@ -33,6 +33,6 @@ public class PlayerESP extends Module
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityPlayer && !((Entity)entity).getName().equals(Minecraft.getMinecraft().getSession().getUsername()))
-				RenderUtils.entityESPBox((Entity)entity, Client.Wurst.options.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
+				RenderUtils.entityESPBox((Entity)entity, Client.Wurst.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
 	}
 }
