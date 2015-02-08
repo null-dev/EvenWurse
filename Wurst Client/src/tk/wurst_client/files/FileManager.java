@@ -22,6 +22,11 @@ import net.minecraft.client.Minecraft;
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.GuiAltList;
@@ -47,6 +52,7 @@ public class FileManager
 	public final File AutoMaximizeFile = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.txt");
 	public final File XRay = new File(WurstDir, "xray.txt");
 	private String split = "§";
+	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public void init()
 	{
@@ -89,9 +95,21 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(GUI));
+			JsonArray json = new JsonArray();
 			for(Frame frame : frames)
+			{
 				if(!frame.getTitle().equalsIgnoreCase("ArenaBrawl"))
-					save.println(frame.getTitle() + split + frame.isMinimized() + split + frame.isPinned() + split + frame.getX() + split + frame.getY());
+				{
+					JsonObject jsonFrame = new JsonObject();
+					jsonFrame.addProperty("title", frame.getTitle());
+					jsonFrame.addProperty("minimized", frame.isMinimized());
+					jsonFrame.addProperty("pinned", frame.isPinned());
+					jsonFrame.addProperty("posX", frame.getX());
+					jsonFrame.addProperty("posY", frame.getY());
+					json.add(jsonFrame);
+				}
+			}
+			save.print(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
