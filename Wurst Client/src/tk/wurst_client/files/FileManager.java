@@ -43,14 +43,14 @@ public class FileManager
 	public final File ServerlistDir = new File(WurstDir, "serverlists");
 	public final File SpamDir = new File(WurstDir, "spam");
 	public final File Alts = new File(WurstDir, "alts.wurst");
-	public final File AutoBuildCustom = new File(WurstDir, "autobuild_custom.txt");
-	public final File Friends = new File(WurstDir, "friends.txt");
-	public final File GUI = new File(WurstDir, "gui.txt");
-	public final File Modules = new File(WurstDir, "modules.txt");
-	public final File Sliders = new File(WurstDir, "sliders.txt");
-	public final File Values = new File(WurstDir, "values.txt");
+	public final File AutoBuildCustom = new File(WurstDir, "autobuild_custom.json");
+	public final File Friends = new File(WurstDir, "friends.json");
+	public final File GUI = new File(WurstDir, "gui.json");
+	public final File Modules = new File(WurstDir, "modules.json");
+	public final File Sliders = new File(WurstDir, "sliders.json");
+	public final File Values = new File(WurstDir, "values.json");
 	public final File AutoMaximizeFile = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.txt");
-	public final File XRay = new File(WurstDir, "xray.txt");
+	public final File XRay = new File(WurstDir, "xray.json");
 	private String split = "§";
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
