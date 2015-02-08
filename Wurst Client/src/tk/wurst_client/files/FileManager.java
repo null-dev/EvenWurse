@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -23,6 +24,7 @@ import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
+import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
@@ -97,7 +99,6 @@ public class FileManager
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(GUI));
 			JsonObject json = new JsonObject();
 			for(Frame frame : frames)
 				if(!frame.getTitle().equalsIgnoreCase("ArenaBrawl"))
@@ -109,6 +110,7 @@ public class FileManager
 					jsonFrame.addProperty("posY", frame.getY());
 					json.add(frame.getTitle(), jsonFrame);
 				}
+			PrintWriter save = new PrintWriter(new FileWriter(GUI));
 			save.print(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
@@ -149,12 +151,16 @@ public class FileManager
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Modules));
-			for(int i = 0; i < Client.Wurst.moduleManager.activeModules.size(); i++)
+			JsonObject json = new JsonObject();
+			for(Module module : Client.Wurst.moduleManager.activeModules)
 			{
-				Module module = Client.Wurst.moduleManager.activeModules.get(i);
-				save.println(module.getName() + split + module.getToggled() + split + module.getBind());
+				JsonObject jsonModule = new JsonObject();
+				jsonModule.addProperty("enabled", module.getToggled());
+				jsonModule.addProperty("keybind", Keyboard.getKeyName(module.getBind()));
+				json.add(module.getName(), jsonModule);
 			}
+			PrintWriter save = new PrintWriter(new FileWriter(Modules));
+			save.print(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -184,51 +190,30 @@ public class FileManager
 	
 	public void loadModules()
 	{
-		boolean shouldUpdate = false;
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(Modules));
-			int i = 0;
-			for(; load.readLine() != null;)
-				i++;
+			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			if(i != Client.Wurst.moduleManager.activeModules.size())
-				shouldUpdate = true;
-		}catch(IOException e)
-		{	
-			
-		}
-		try
-		{
-			BufferedReader load = new BufferedReader(new FileReader(Modules));
-			for(String line = ""; (line = load.readLine()) != null;)
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			while(itr.hasNext())
 			{
-				String data[] = line.split(split);
-				Module module = Client.Wurst.moduleManager.getModuleByName(data[0]);
-				if(module == null || data.length != 3)
+				Entry<String, JsonElement> entry = itr.next();
+				Module module = Client.Wurst.moduleManager.getModuleByName(entry.getKey());
+				if(module != null
+					&& module.getCategory() != Category.HIDDEN
+					&& module.getCategory() != Category.WIP
+					&& !Arrays.asList(moduleBlacklist).contains(module.getClass().getName()))
 				{
-					if(data.length != 0)
-						shouldUpdate = true;
-					continue;
+					JsonObject jsonModule = (JsonObject)entry.getValue();
+					boolean enabled = jsonModule.get("enabled").getAsBoolean();
+					if(module.getToggled() != enabled)
+						module.setToggled(enabled);
+					int keybind = Keyboard.getKeyIndex(jsonModule.get("keybind").getAsString());
+					if(module.getBind() != keybind)
+						module.setBind(keybind);
 				}
-				if(module.getCategory() != Category.HIDDEN && module.getCategory() != Category.WIP)
-				{
-					boolean shouldSkip = false;
-					for(String element : moduleBlacklist)
-						if(module.getClass().getName().equalsIgnoreCase(element))
-						{
-							shouldSkip = true;
-							break;
-						}
-					if(module.getToggled() != Boolean.valueOf(data[1]) && !shouldSkip)
-						module.setToggled(Boolean.valueOf(data[1]));
-				}
-				if(module.getBind() != Integer.valueOf(data[2]))
-					module.setBind(Integer.valueOf(data[2]));
 			}
-			load.close();
-			if(shouldUpdate)
-				saveModules();
 		}catch(IOException e)
 		{	
 			
