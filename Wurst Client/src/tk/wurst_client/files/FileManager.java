@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -34,7 +35,6 @@ import tk.wurst_client.utils.XRayUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -98,18 +98,17 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(GUI));
-			JsonArray json = new JsonArray();
+			JsonObject json = new JsonObject();
 			for(Frame frame : frames)
 			{
 				if(!frame.getTitle().equalsIgnoreCase("ArenaBrawl"))
 				{
 					JsonObject jsonFrame = new JsonObject();
-					jsonFrame.addProperty("title", frame.getTitle());
 					jsonFrame.addProperty("minimized", frame.isMinimized());
 					jsonFrame.addProperty("pinned", frame.isPinned());
 					jsonFrame.addProperty("posX", frame.getX());
 					jsonFrame.addProperty("posY", frame.getY());
-					json.add(jsonFrame);
+					json.add(frame.getTitle(), jsonFrame);
 				}
 			}
 			save.print(gson.toJson(json));
@@ -125,17 +124,17 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(GUI));
-			JsonArray json = (JsonArray)new JsonParser().parse(load);
+			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			Iterator<JsonElement> itr = json.iterator();
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
 			while(itr.hasNext())
 			{
-				JsonObject jsonFrame = (JsonObject)itr.next();
-				System.out.println(jsonFrame.get("title").getAsString());
+				Entry<String, JsonElement> entry = itr.next();
 				for(Frame frame : frames)
 				{
-					if(frame.getTitle().equals(jsonFrame.get("title").getAsString()))
+					if(frame.getTitle().equals(entry.getKey()))
 					{
+						JsonObject jsonFrame = (JsonObject)entry.getValue();
 						frame.setMinimized(jsonFrame.get("minimized").getAsBoolean());
 						frame.setPinned(jsonFrame.get("pinned").getAsBoolean());
 						frame.setX(jsonFrame.get("posX").getAsInt());
