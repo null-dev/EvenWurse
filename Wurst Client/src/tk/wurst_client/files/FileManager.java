@@ -249,7 +249,7 @@ public class FileManager
 		}
 	}
 	
-	public boolean loadAutoResize()
+	public boolean loadAutoMaximize()
 	{
 		boolean autoMaximizeEnabled = false;
 		if(!autoMaximize.exists())

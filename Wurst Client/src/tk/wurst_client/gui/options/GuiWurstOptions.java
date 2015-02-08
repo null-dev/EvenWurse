@@ -66,7 +66,7 @@ public class GuiWurstOptions extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		autoMaximize = Client.wurst.fileManager.loadAutoResize();
+		autoMaximize = Client.wurst.fileManager.loadAutoMaximize();
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 144 - 16, 200, 20, "Back"));
 		buttonList.add(new GuiButton(1, width / 2 - 154, height / 4 + 24 - 16, 100, 20, "Click Friends: " + (Client.wurst.options.middleClickFriends ? "ON" : "OFF")));
