@@ -55,7 +55,7 @@ public class FileManager
 	public final File modules = new File(wurstDir, "modules.json");
 	public final File sliders = new File(wurstDir, "sliders.json");
 	public final File options = new File(wurstDir, "options.json");
-	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.txt");
+	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
 	public final File xray = new File(wurstDir, "xray.json");
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	
@@ -114,7 +114,7 @@ public class FileManager
 					json.add(frame.getTitle(), jsonFrame);
 				}
 			PrintWriter save = new PrintWriter(new FileWriter(gui));
-			save.print(gson.toJson(json));
+			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -163,7 +163,7 @@ public class FileManager
 				json.add(module.getName(), jsonModule);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(modules));
-			save.print(gson.toJson(json));
+			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -228,7 +228,7 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(options));
-			save.print(gson.toJson(Client.wurst.options));
+			save.println(gson.toJson(Client.wurst.options));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -257,9 +257,8 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(autoMaximize));
-			String line = load.readLine();
+			autoMaximizeEnabled = gson.fromJson(load, Boolean.class) && !Minecraft.isRunningOnMac;
 			load.close();
-			autoMaximizeEnabled = line.equals("true") && !Minecraft.isRunningOnMac;
 		}catch(IOException e)
 		{
 			e.printStackTrace();
@@ -274,7 +273,7 @@ public class FileManager
 			if(!autoMaximize.getParentFile().exists())
 				autoMaximize.getParentFile().mkdirs();
 			PrintWriter save = new PrintWriter(new FileWriter(autoMaximize));
-			save.println(Boolean.toString(autoMaximizeEnabled));
+			save.println(gson.toJson(autoMaximizeEnabled));
 			save.close();
 		}catch(IOException e)
 		{
