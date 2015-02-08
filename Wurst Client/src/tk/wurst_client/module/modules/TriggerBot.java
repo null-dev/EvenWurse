@@ -28,12 +28,12 @@ public class TriggerBot extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(false);
-		if(Client.Wurst.moduleManager.getModuleFromClass(KillauraLegit.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(KillauraLegit.class).setToggled(false);
-		if(Client.Wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
 	}
 
 	@Override

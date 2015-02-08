@@ -32,7 +32,7 @@ public class Enchant extends Command
 	{
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
-			Client.Wurst.chat.error("You have to be in creative mode.");
+			Client.wurst.chat.error("You have to be in creative mode.");
 			return;
 		}
 		if(args == null)
@@ -40,7 +40,7 @@ public class Enchant extends Command
 			ItemStack currentItem = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
 			if(currentItem == null)
 			{
-				Client.Wurst.chat.error("There is no item in your hand.");
+				Client.wurst.chat.error("There is no item in your hand.");
 				return;
 			}
 			for(Enchantment enchantment : Enchantment.enchantmentsList)
@@ -74,9 +74,9 @@ public class Enchant extends Command
 					}
 			}
 			if(items == 1)
-				Client.Wurst.chat.message("Enchanted 1 item.");
+				Client.wurst.chat.message("Enchanted 1 item.");
 			else
-				Client.Wurst.chat.message("Enchanted " + items + " items.");
+				Client.wurst.chat.message("Enchanted " + items + " items.");
 		}else
 			commandError();
 	}

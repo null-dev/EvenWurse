@@ -29,10 +29,10 @@ public class Tracers extends Module
 	@Override
 	public void onRender()
 	{
-		if(!getToggled() || Client.Wurst.moduleManager.getModuleFromClass(ArenaBrawl.class).getToggled())
+		if(!getToggled() || Client.wurst.moduleManager.getModuleFromClass(ArenaBrawl.class).getToggled())
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityPlayer && !((Entity)entity).getName().equals(Minecraft.getMinecraft().getSession().getUsername()))
-				RenderUtils.tracerLine((Entity)entity, Client.Wurst.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
+				RenderUtils.tracerLine((Entity)entity, Client.wurst.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
 	}
 }

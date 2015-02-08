@@ -40,7 +40,7 @@ public class Client
 	public Options options;
 	public Updater updater;
 
-	public static final Client Wurst = new Client();
+	public static final Client wurst = new Client();
 
 	public void startClient()
 	{

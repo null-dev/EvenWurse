@@ -78,7 +78,7 @@ public class GuiXRayBlocksAdd extends GuiScreen
 				Block block = Block.getBlockFromName(nameBox.getText());
 				XRay.xrayBlocks.add(block);
 				GuiXRayBlocksList.sortBlocks();
-				Client.Wurst.fileManager.saveXRayBlocks();
+				Client.wurst.fileManager.saveXRayBlocks();
 				mc.displayGuiScreen(prevMenu);
 			}else if(clickedButton.id == 1)
 				mc.displayGuiScreen(prevMenu);

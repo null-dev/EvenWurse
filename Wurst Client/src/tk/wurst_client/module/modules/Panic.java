@@ -28,9 +28,9 @@ public class Panic extends Module
 	{
 		if(!getToggled())
 			return;
-		for(int i = 0; i < Client.Wurst.moduleManager.activeModules.size(); i++)
-			if(!Client.Wurst.moduleManager.activeModules.get(i).equals(this) && Client.Wurst.moduleManager.activeModules.get(i).getCategory() != Category.HIDDEN && Client.Wurst.moduleManager.activeModules.get(i).getToggled())
-				Client.Wurst.moduleManager.activeModules.get(i).setToggled(false);
+		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
+			if(!Client.wurst.moduleManager.activeModules.get(i).equals(this) && Client.wurst.moduleManager.activeModules.get(i).getCategory() != Category.HIDDEN && Client.wurst.moduleManager.activeModules.get(i).getToggled())
+				Client.wurst.moduleManager.activeModules.get(i).setToggled(false);
 		setToggled(false);
 	}
 }

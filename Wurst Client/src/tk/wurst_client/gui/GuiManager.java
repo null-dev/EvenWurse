@@ -115,15 +115,15 @@ public final class GuiManager extends AbstractGuiManager
 		settings.setPinnable(true);
 		addFrame(settings);
 		categoryFrames.put(Category.SETTINGS, settings);
-		for(final Module module : Client.Wurst.moduleManager.activeModules)
+		for(final Module module : Client.wurst.moduleManager.activeModules)
 		{
 			ModuleFrame frame = categoryFrames.get(module.getCategory());
 			if(frame == null)
 			{
 				String name = module.getCategory().name().toLowerCase();
-				if(Client.Wurst.fileManager.Values.exists())
-					Client.Wurst.fileManager.loadOptions();
-				if(name.equalsIgnoreCase("HIDDEN") || name.equalsIgnoreCase("WIP") && !Client.Wurst.options.WIP)
+				if(Client.wurst.fileManager.values.exists())
+					Client.wurst.fileManager.loadOptions();
+				if(name.equalsIgnoreCase("HIDDEN") || name.equalsIgnoreCase("WIP") && !Client.wurst.options.WIP)
 					continue;
 				name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
 				if(name.equalsIgnoreCase("WIP"))
@@ -173,7 +173,7 @@ public final class GuiManager extends AbstractGuiManager
 							{
 								int id = moduleSliders.indexOf(slider);
 								moduleSliders.set(id, (BasicSlider)slider);
-								Client.Wurst.fileManager.saveSliders();
+								Client.wurst.fileManager.saveSliders();
 							}
 							module.setSliders(moduleSliders);
 							module.updateSettings();
@@ -191,11 +191,11 @@ public final class GuiManager extends AbstractGuiManager
 			@Override
 			public void onComboBoxSelectionChanged(ComboBox comboBox)
 			{
-				Client.Wurst.options.autobuildMode = comboBox.getSelectedIndex();
-				Client.Wurst.fileManager.saveOptions();
+				Client.wurst.options.autobuildMode = comboBox.getSelectedIndex();
+				Client.wurst.fileManager.saveOptions();
 			}
 		});
-		autoBuildBox.setSelectedIndex(Client.Wurst.options.autobuildMode);
+		autoBuildBox.setSelectedIndex(Client.wurst.options.autobuildMode);
 		blocksFrame.add(autoBuildBox, HorizontalGridConstraint.CENTER);
 
 		// Target
@@ -207,17 +207,17 @@ public final class GuiManager extends AbstractGuiManager
 			@Override
 			public void onComboBoxSelectionChanged(ComboBox comboBox)
 			{
-				Client.Wurst.options.targetMode = comboBox.getSelectedIndex();
-				Client.Wurst.fileManager.saveOptions();
+				Client.wurst.options.targetMode = comboBox.getSelectedIndex();
+				Client.wurst.fileManager.saveOptions();
 			}
 		});
-		targetBox.setSelectedIndex(Client.Wurst.options.targetMode);
+		targetBox.setSelectedIndex(Client.wurst.options.targetMode);
 		combatFrame.add(targetBox, HorizontalGridConstraint.CENTER);
 
-		if(!Client.Wurst.fileManager.Sliders.exists())
-			Client.Wurst.fileManager.saveSliders();
+		if(!Client.wurst.fileManager.sliders.exists())
+			Client.wurst.fileManager.saveSliders();
 		else
-			Client.Wurst.fileManager.loadSliders();
+			Client.wurst.fileManager.loadSliders();
 		resizeComponents();
 		Minecraft minecraft = Minecraft.getMinecraft();
 		Dimension maxSize = recalculateSizes();
@@ -239,8 +239,8 @@ public final class GuiManager extends AbstractGuiManager
 				offsetY += maxSize.height + 5;
 			}
 		}
-		if(Client.Wurst.fileManager.GUI.exists())
-			Client.Wurst.fileManager.loadGUI(getFrames());
+		if(Client.wurst.fileManager.gui.exists())
+			Client.wurst.fileManager.loadGUI(getFrames());
 	}
 	
 	@Override

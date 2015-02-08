@@ -105,7 +105,7 @@ public class GuiAltLogin extends GuiScreen
 			else if(clickedButton.id == 4)
 				displayText = AltUtils.stealSkin(nameBox.getText());
 			else if(clickedButton.id == 5)
-				MiscUtils.openFile(Client.Wurst.fileManager.SkinDir);
+				MiscUtils.openFile(Client.wurst.fileManager.skinDir);
 	}
 	
 	/**

@@ -84,7 +84,7 @@ public class GuiAlts extends GuiScreen
 						if(reply.equals("§4§lWrong password!"))
 						{
 							GuiAltList.alts.remove(GuiAltList.alts.indexOf(alt));
-							Client.Wurst.fileManager.saveAlts();
+							Client.wurst.fileManager.saveAlts();
 						}
 					}
 				}
@@ -116,7 +116,7 @@ public class GuiAlts extends GuiScreen
 				for(int i = 0; i < 8; i++)
 					GuiAltList.alts.add(new Alt(AltUtils.generateName(), null));
 				GuiAltList.sortAlts();
-				Client.Wurst.fileManager.saveAlts();
+				Client.wurst.fileManager.saveAlts();
 			}
 			shouldAsk = false;
 		}else if(par2 == 1)
@@ -125,7 +125,7 @@ public class GuiAlts extends GuiScreen
 			if(par1)
 			{
 				GuiAltList.alts.remove(GuiAltList.alts.indexOf(alt));
-				Client.Wurst.fileManager.saveAlts();
+				Client.wurst.fileManager.saveAlts();
 			}
 		}
 		mc.displayGuiScreen(this);

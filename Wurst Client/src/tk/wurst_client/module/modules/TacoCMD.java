@@ -51,11 +51,11 @@ public class TacoCMD extends Module
 		WorldRenderer var4 = var3.getWorldRenderer();
 		ScaledResolution screenRes = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		Client.Wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateMS();
-		if(Client.Wurst.moduleManager.getModuleFromClass(TacoCMD.class).hasTimePassedM(400))
+		Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateMS();
+		if(Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).hasTimePassedM(400))
 		{
 			i++;
-			Client.Wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateLastMS();
+			Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateLastMS();
 			if(i == 4)
 				i = 0;
 		}

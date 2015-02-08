@@ -75,7 +75,7 @@ public class Spammer extends Module
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						Client.Wurst.moduleManager.getModuleFromClass(Spammer.class).setToggled(false);
+						Client.wurst.moduleManager.getModuleFromClass(Spammer.class).setToggled(false);
 					}
 				});
 				JPanel panel = new JPanel();
@@ -90,7 +90,7 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						JFileChooser fileChooser = new JFileChooser(Client.Wurst.fileManager.SpamDir)
+						JFileChooser fileChooser = new JFileChooser(Client.wurst.fileManager.spamDir)
 						{
 							@Override
 							protected JDialog createDialog(Component parent) throws HeadlessException
@@ -131,7 +131,7 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						JFileChooser fileChooser = new JFileChooser(Client.Wurst.fileManager.SpamDir)
+						JFileChooser fileChooser = new JFileChooser(Client.wurst.fileManager.spamDir)
 						{
 							@Override
 							protected JDialog createDialog(Component parent) throws HeadlessException
@@ -171,7 +171,7 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						MiscUtils.openFile(Client.Wurst.fileManager.SpamDir);
+						MiscUtils.openFile(Client.wurst.fileManager.spamDir);
 					}
 				});
 				fileMenu.add(fileOpenFolder);
@@ -235,14 +235,14 @@ public class Spammer extends Module
 				menubar.add(editMenu);
 
 				JMenu viewMenu = new JMenu("View");
-				JCheckBoxMenuItem viewFont = new JCheckBoxMenuItem("Simulate ingame font", Client.Wurst.options.spamFont);
+				JCheckBoxMenuItem viewFont = new JCheckBoxMenuItem("Simulate ingame font", Client.wurst.options.spamFont);
 				viewFont.addActionListener(new ActionListener()
 				{
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						Client.Wurst.options.spamFont = !Client.Wurst.options.spamFont;
-						Client.Wurst.fileManager.saveOptions();
+						Client.wurst.options.spamFont = !Client.wurst.options.spamFont;
+						Client.wurst.fileManager.saveOptions();
 						updateFont();
 					}
 				});
@@ -349,14 +349,14 @@ public class Spammer extends Module
 				JPanel delayPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
 				JLabel delayLabel = new JLabel("Delay between messages:");
 				delayPanel.add(delayLabel);
-				delaySpinner = new JSpinner(new SpinnerNumberModel(Client.Wurst.options.spamDelay, 0, 3600000, 50));
+				delaySpinner = new JSpinner(new SpinnerNumberModel(Client.wurst.options.spamDelay, 0, 3600000, 50));
 				delaySpinner.addChangeListener(new ChangeListener()
 				{
 					@Override
 					public void stateChanged(ChangeEvent e)
 					{
-						Client.Wurst.options.spamDelay = (Integer)delaySpinner.getValue();
-						Client.Wurst.fileManager.saveOptions();
+						Client.wurst.options.spamDelay = (Integer)delaySpinner.getValue();
+						Client.wurst.fileManager.saveOptions();
 					}
 				});
 				delaySpinner.setEditor(new JSpinner.NumberEditor(delaySpinner, "#'ms'"));
@@ -413,7 +413,7 @@ public class Spammer extends Module
 									{
 										String message = spam.split("\n")[i];
 										Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
-										Thread.sleep(Client.Wurst.options.spamDelay);
+										Thread.sleep(Client.wurst.options.spamDelay);
 									}
 								}catch(Exception e)
 								{
@@ -454,7 +454,7 @@ public class Spammer extends Module
 			Font mcfont = Font.createFont(Font.TRUETYPE_FONT, this.getClass().getClassLoader().getResourceAsStream("assets/minecraft/font/mcfont.ttf"));
 			mcfont = mcfont.deriveFont(12F);
 			Font defaultFont = new Font("Monospaced", Font.PLAIN, 14);
-			spamArea.setFont(Client.Wurst.options.spamFont ? mcfont : defaultFont);
+			spamArea.setFont(Client.wurst.options.spamFont ? mcfont : defaultFont);
 		}catch(Exception e1)
 		{
 			e1.printStackTrace();
@@ -463,7 +463,7 @@ public class Spammer extends Module
 
 	public static void updateDelaySpinner()
 	{
-		delaySpinner.setValue(Client.Wurst.options.spamDelay);
+		delaySpinner.setValue(Client.wurst.options.spamDelay);
 	}
 
 	public JDialog getDialog()

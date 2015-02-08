@@ -102,11 +102,11 @@ public class InstantBunker extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.Wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled())
 			speed = 1000000000;
 		else
 			speed = 5;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			i = 0;
 			shouldBuild = true;
@@ -188,7 +188,7 @@ public class InstantBunker extends Module
 		updateMS();
 		if(shouldBuild)
 		{
-			if((hasTimePassedS(speed) || Client.Wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled()) && i < building.length)
+			if((hasTimePassedS(speed) || Client.wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled()) && i < building.length)
 			{
 				BuildUtils.advancedInstantBuildNext(building, MouseOver, playerYaw, posX + 1, posY, posZ, i);
 				if(playerYaw > -45 && playerYaw <= 45)

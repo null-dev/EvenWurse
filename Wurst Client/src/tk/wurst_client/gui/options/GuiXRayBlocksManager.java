@@ -57,7 +57,7 @@ public class GuiXRayBlocksManager extends GuiScreen
 			{// Remove
 				XRay.xrayBlocks.remove(blockList.getSelectedSlot());
 				GuiXRayBlocksList.sortBlocks();
-				Client.Wurst.fileManager.saveXRayBlocks();
+				Client.wurst.fileManager.saveXRayBlocks();
 			}else if(clickedButton.id == 2)
 				mc.displayGuiScreen(prevMenu);
 	}

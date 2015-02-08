@@ -60,7 +60,7 @@ public class Kaboom extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
@@ -68,7 +68,7 @@ public class Kaboom extends Module
 		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
-			Client.Wurst.chat.error("Surivival mode only.");
+			Client.wurst.chat.error("Surivival mode only.");
 			setToggled(false);
 			return;
 		}

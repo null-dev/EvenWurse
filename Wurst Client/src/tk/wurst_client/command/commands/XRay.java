@@ -47,15 +47,15 @@ public class XRay extends Command
 				if(pages <= 1)
 				{
 					blocksPerPage = totalBlocks;
-					Client.Wurst.chat.message("Current X-Ray blocks: " + totalBlocks);
+					Client.wurst.chat.message("Current X-Ray blocks: " + totalBlocks);
 					for(int i = 0; i < tk.wurst_client.module.modules.XRay.xrayBlocks.size() && i < blocksPerPage; i++)
-						Client.Wurst.chat.message(Integer.toString(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i))));
+						Client.wurst.chat.message(Integer.toString(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i))));
 				}else
 				{
-					Client.Wurst.chat.message("Current X-Ray blocks: " + totalBlocks);
-					Client.Wurst.chat.message("X-Ray blocks list (page 1/" + pages + "):");
+					Client.wurst.chat.message("Current X-Ray blocks: " + totalBlocks);
+					Client.wurst.chat.message("X-Ray blocks list (page 1/" + pages + "):");
 					for(int i = 0; i < tk.wurst_client.module.modules.XRay.xrayBlocks.size() && i < blocksPerPage; i++)
-						Client.Wurst.chat.message(Integer.toString(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i))));
+						Client.wurst.chat.message(Integer.toString(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i))));
 				}
 			}else
 			{
@@ -67,13 +67,13 @@ public class XRay extends Command
 						commandError();
 						return;
 					}
-					Client.Wurst.chat.message("Current X-Ray blocks: " + Integer.toString(totalBlocks));
-					Client.Wurst.chat.message("X-Ray blocks list (page " + page + "/" + pages + "):");
+					Client.wurst.chat.message("Current X-Ray blocks: " + Integer.toString(totalBlocks));
+					Client.wurst.chat.message("X-Ray blocks list (page " + page + "/" + pages + "):");
 					int i2 = 0;
 					for(int i = 0; i < tk.wurst_client.module.modules.XRay.xrayBlocks.size() && i2 < (page - 1) * blocksPerPage + blocksPerPage; i++)
 					{
 						if(i2 >= (page - 1) * blocksPerPage)
-							Client.Wurst.chat.message(Integer.toString(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i))));
+							Client.wurst.chat.message(Integer.toString(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i))));
 						i2++;
 					}
 					return;
@@ -86,24 +86,24 @@ public class XRay extends Command
 			{
 				if(tk.wurst_client.module.modules.XRay.xrayBlocks.contains(Block.getBlockById(Integer.valueOf(args[2]))))
 				{
-					Client.Wurst.chat.error("\"" + args[2] + "\" is already in your X-Ray blocks list.");
+					Client.wurst.chat.error("\"" + args[2] + "\" is already in your X-Ray blocks list.");
 					return;
 				}
 				tk.wurst_client.module.modules.XRay.xrayBlocks.add(Block.getBlockById(Integer.valueOf(args[2])));
-				Client.Wurst.fileManager.saveXRayBlocks();
-				Client.Wurst.chat.message("Added block " + args[2] + ".");
+				Client.wurst.fileManager.saveXRayBlocks();
+				Client.wurst.chat.message("Added block " + args[2] + ".");
 				Minecraft.getMinecraft().renderGlobal.loadRenderers();
 			}else if(args[1].equalsIgnoreCase("name"))
 			{
 				int newID = Block.getIdFromBlock(Block.getBlockFromName(args[2]));
 				if(newID == -1)
 				{
-					Client.Wurst.chat.message("The block \"" + args[1] + "\" could not be found.");
+					Client.wurst.chat.message("The block \"" + args[1] + "\" could not be found.");
 					return;
 				}
 				tk.wurst_client.module.modules.XRay.xrayBlocks.add(Block.getBlockById(newID));
-				Client.Wurst.fileManager.saveXRayBlocks();
-				Client.Wurst.chat.message("Added block " + newID + " (\"" + args[2] + "\").");
+				Client.wurst.fileManager.saveXRayBlocks();
+				Client.wurst.chat.message("Added block " + newID + " (\"" + args[2] + "\").");
 				Minecraft.getMinecraft().renderGlobal.loadRenderers();
 			}else
 				commandError();
@@ -115,30 +115,30 @@ public class XRay extends Command
 					if(Integer.toString(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i))).toLowerCase().equals(args[2].toLowerCase()))
 					{
 						tk.wurst_client.module.modules.XRay.xrayBlocks.remove(i);
-						Client.Wurst.fileManager.saveXRayBlocks();
-						Client.Wurst.chat.message("Removed block " + args[2] + ".");
+						Client.wurst.fileManager.saveXRayBlocks();
+						Client.wurst.chat.message("Removed block " + args[2] + ".");
 						Minecraft.getMinecraft().renderGlobal.loadRenderers();
 						return;
 					}
-				Client.Wurst.chat.error("Block " + args[2] + " is not in your X-Ray blocks list.");
+				Client.wurst.chat.error("Block " + args[2] + " is not in your X-Ray blocks list.");
 			}else if(args[1].equalsIgnoreCase("name"))
 			{
 				int newID = Block.getIdFromBlock(Block.getBlockFromName(args[2]));
 				if(newID == -1)
 				{
-					Client.Wurst.chat.message("The block \"" + args[2] + "\" could not be found.");
+					Client.wurst.chat.message("The block \"" + args[2] + "\" could not be found.");
 					return;
 				}
 				for(int i = 0; i < tk.wurst_client.module.modules.XRay.xrayBlocks.size(); i++)
 					if(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i)) == newID)
 					{
 						tk.wurst_client.module.modules.XRay.xrayBlocks.remove(i);
-						Client.Wurst.fileManager.saveXRayBlocks();
-						Client.Wurst.chat.message("Removed block " + newID + " (\"" + args[2] + "\").");
+						Client.wurst.fileManager.saveXRayBlocks();
+						Client.wurst.chat.message("Removed block " + newID + " (\"" + args[2] + "\").");
 						Minecraft.getMinecraft().renderGlobal.loadRenderers();
 						return;
 					}
-				Client.Wurst.chat.error("Block " + newID + " (\"" + args[2] + "\") is not in your X-Ray blocks list.");
+				Client.wurst.chat.error("Block " + newID + " (\"" + args[2] + "\") is not in your X-Ray blocks list.");
 			}else
 				commandError();
 		}else

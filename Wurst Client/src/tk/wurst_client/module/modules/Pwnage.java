@@ -48,8 +48,8 @@ public class Pwnage extends Module
 			);
 		connector.connect
 			(
-				Client.Wurst.currentServerIP.split(":")[0],
-				Integer.valueOf(Client.Wurst.currentServerIP.split(":")[1]),
+				Client.wurst.currentServerIP.split(":")[0],
+				Integer.valueOf(Client.wurst.currentServerIP.split(":")[1]),
 				new Session(AltUtils.generateName(), "", "", "mojang")
 			);
 	}

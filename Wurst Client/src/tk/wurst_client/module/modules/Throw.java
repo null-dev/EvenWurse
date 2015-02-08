@@ -29,7 +29,7 @@ public class Throw extends Module
 	@Override
 	public String getRenderName()
 	{
-		return getName() + " [" + Client.Wurst.options.throwAmount + "]";
+		return getName() + " [" + Client.wurst.options.throwAmount + "]";
 	}
 
 	@Override
@@ -37,11 +37,11 @@ public class Throw extends Module
 	{
 		if(!getToggled())
 			return;
-		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.Wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled()) && Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
+		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled()) && Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 		{
 			if(Minecraft.getMinecraft().objectMouseOver == null || Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() == null)
 				return;
-			for(int i = 0; i < Client.Wurst.options.throwAmount - 1; i++)
+			for(int i = 0; i < Client.wurst.options.throwAmount - 1; i++)
 				Minecraft.getMinecraft().rightClickMouse();
 		}
 	}

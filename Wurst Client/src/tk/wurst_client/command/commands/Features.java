@@ -34,25 +34,25 @@ public class Features extends Command
 	{
 		if(args == null)
 		{
-			Client.Wurst.chat.message("Features in this release of Wurst:");
-			double wurstMods = Client.Wurst.moduleManager.activeModules.size();
+			Client.wurst.chat.message("Features in this release of Wurst:");
+			double wurstMods = Client.wurst.moduleManager.activeModules.size();
 			int hiddenMods = 0;
-			for(Module module : Client.Wurst.moduleManager.activeModules)
+			for(Module module : Client.wurst.moduleManager.activeModules)
 				if(module.getCategory() == Category.HIDDEN || module.getCategory() == Category.WIP)
 					hiddenMods++;
-			Client.Wurst.chat.message(">" + (int)wurstMods + " mods (" + hiddenMods + " of them are hidden)");
+			Client.wurst.chat.message(">" + (int)wurstMods + " mods (" + hiddenMods + " of them are hidden)");
 			int wurstBinds = 0;
-			for(int i = 0; i < Client.Wurst.moduleManager.activeModules.size(); i++)
-				if(Client.Wurst.moduleManager.activeModules.get(i).getBind() != 0)
+			for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
+				if(Client.wurst.moduleManager.activeModules.get(i).getBind() != 0)
 					wurstBinds++;
-			Client.Wurst.chat.message(">" + wurstBinds + " keybinds in your current configuration");
-			int wurstCommands = Client.Wurst.commandManager.activeCommands.size();
-			Client.Wurst.chat.message(">" + wurstCommands + " commands");
+			Client.wurst.chat.message(">" + wurstBinds + " keybinds in your current configuration");
+			int wurstCommands = Client.wurst.commandManager.activeCommands.size();
+			Client.wurst.chat.message(">" + wurstCommands + " commands");
 			ArrayList<BasicSlider> wurstSliders = new ArrayList<BasicSlider>();
-			for(Module module : Client.Wurst.moduleManager.activeModules)
+			for(Module module : Client.wurst.moduleManager.activeModules)
 				for(BasicSlider slider : module.getSliders())
 					wurstSliders.add(slider);
-			Client.Wurst.chat.message(">" + wurstSliders.size() + " values that can be changed through sliders");
+			Client.wurst.chat.message(">" + wurstSliders.size() + " values that can be changed through sliders");
 		}
 		else
 			commandError();

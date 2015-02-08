@@ -43,7 +43,7 @@ public class RemoteView extends Module
 	{
 		if(EntityUtils.getClosestEntityRaw(false) == null)
 		{
-			Client.Wurst.chat.message("There is no nearby entity.");
+			Client.wurst.chat.message("There is no nearby entity.");
 			setToggled(false);
 			return;
 		}
@@ -60,14 +60,14 @@ public class RemoteView extends Module
 		fakePlayer.posY -= 1.62;
 		fakePlayer.rotationYawHead = Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		Client.Wurst.chat.message("Now viewing " + otherView.getName() + ".");
+		Client.wurst.chat.message("Now viewing " + otherView.getName() + ".");
 	}
 
 	public static void onEnabledByCommand(String viewName)
 	{
 		if(otherID == null && !viewName.equals(""))
 			otherID = EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
-		Client.Wurst.moduleManager.getModuleFromClass(RemoteView.class).toggleModule();
+		Client.wurst.moduleManager.getModuleFromClass(RemoteView.class).toggleModule();
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class RemoteView extends Module
 	{
 		if(otherView != null)
 		{
-			Client.Wurst.chat.message("No longer viewing " + otherView.getName() + ".");
+			Client.wurst.chat.message("No longer viewing " + otherView.getName() + ".");
 			otherView.setInvisible(wasInvisible);
 			Minecraft.getMinecraft().thePlayer.noClip = false;
 			Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY, oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw, Minecraft.getMinecraft().thePlayer.rotationPitch);

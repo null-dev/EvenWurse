@@ -48,15 +48,15 @@ public class MassTPA extends Module
 	@Override
 	public void onReceivedMessage(String message)
 	{
-		if(!getToggled() || message.startsWith("§c[§6" + Client.Wurst.CLIENT_NAME + "§c]§f "))
+		if(!getToggled() || message.startsWith("§c[§6" + Client.wurst.CLIENT_NAME + "§c]§f "))
 			return;
 		if(message.toLowerCase().contains("/help") || message.toLowerCase().contains("permission"))
 		{
-			Client.Wurst.chat.message("§4§lERROR:§f This server doesn't have TPA.");
+			Client.wurst.chat.message("§4§lERROR:§f This server doesn't have TPA.");
 			setToggled(false);
 		}else if(message.toLowerCase().contains("accepted") && message.toLowerCase().contains("request") || message.toLowerCase().contains("akzeptiert") && message.toLowerCase().contains("anfrage"))
 		{
-			Client.Wurst.chat.message("Someone accepted your TPA request. Stopping.");
+			Client.wurst.chat.message("Someone accepted your TPA request. Stopping.");
 			setToggled(false);
 		}
 	}

@@ -32,11 +32,11 @@ public class IP extends Command
 	public void onEnable(String input, String[] args)
 	{
 		if(args == null)
-			Client.Wurst.chat.message("IP: " + Client.Wurst.currentServerIP);
+			Client.wurst.chat.message("IP: " + Client.wurst.currentServerIP);
 		else if(args[0].toLowerCase().equals("copy"))
 		{
-			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(Client.Wurst.currentServerIP), null);
-			Client.Wurst.chat.message("IP copied to clipboard.");
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(Client.wurst.currentServerIP), null);
+			Client.wurst.chat.message("IP copied to clipboard.");
 		}else
 			commandError();
 	}

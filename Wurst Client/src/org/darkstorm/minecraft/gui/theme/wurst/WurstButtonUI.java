@@ -139,11 +139,11 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			int textHeight = (theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
-			for(Module module : Client.Wurst.moduleManager.activeModules)
+			for(Module module : Client.wurst.moduleManager.activeModules)
 				if(button.getText().equals(module.getName()))
-					for(org.darkstorm.minecraft.gui.component.Frame frame : Client.Wurst.guiManager.getFrames())
+					for(org.darkstorm.minecraft.gui.component.Frame frame : Client.wurst.guiManager.getFrames())
 						if(frame.getTitle().equalsIgnoreCase(module.getCategory().name()))
-							Client.Wurst.guiManager.bringForward(frame);
+							Client.wurst.guiManager.bringForward(frame);
 			int scale = Minecraft.getMinecraft().gameSettings.guiScale;
 			if(scale == 0)
 				scale = 1000;
@@ -194,13 +194,13 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 	{
 		Category buttonCategory = null;
 		Category dButtonCategory = null;
-		buttonCategory = Client.Wurst.moduleManager.getModuleByName(button.getText()).getCategory();
-		dButtonCategory = Client.Wurst.moduleManager.getModuleByName(dButton.getText()).getCategory();
+		buttonCategory = Client.wurst.moduleManager.getModuleByName(button.getText()).getCategory();
+		dButtonCategory = Client.wurst.moduleManager.getModuleByName(dButton.getText()).getCategory();
 		boolean isRightFrame = buttonCategory == dButtonCategory && buttonCategory != null;
 		if(!isRightFrame)
 			return false;
 		boolean isLastButton = false;
-		for(Module module : Client.Wurst.moduleManager.activeModules)
+		for(Module module : Client.wurst.moduleManager.activeModules)
 			if(buttonCategory == module.getCategory())
 				if(button.getText().equals(module.getName()))
 					isLastButton = true;

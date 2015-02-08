@@ -34,7 +34,7 @@ public class GuiKeybindList extends GuiWurstSlot
 
 	public static void sortModules()
 	{
-		modules = Client.Wurst.moduleManager.activeModules;
+		modules = Client.wurst.moduleManager.activeModules;
 		Collections.sort(modules, new Comparator<Module>()
 			{
 			@Override

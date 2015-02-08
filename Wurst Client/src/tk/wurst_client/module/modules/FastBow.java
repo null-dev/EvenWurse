@@ -35,7 +35,7 @@ public class FastBow extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);

@@ -68,7 +68,7 @@ public class GuiKeybindChange extends GuiScreen
 			else if(clickedButton.id == 0)
 			{// Save
 				module.setBind(key);
-				Client.Wurst.fileManager.saveModules();
+				Client.wurst.fileManager.saveModules();
 				GuiKeybindList.sortModules();
 				mc.displayGuiScreen(prevMenu);
 			}

@@ -45,7 +45,7 @@ public class GuiKeybindManager extends GuiScreen
 	public void updateScreen()
 	{
 		((GuiButton)buttonList.get(0)).enabled = bindList.getSelectedSlot() != -1;
-		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1 && Client.Wurst.moduleManager.activeModules.get(Client.Wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot()))).getBind() != 0;
+		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1 && Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot()))).getBind() != 0;
 	}
 
 	@Override
@@ -54,13 +54,13 @@ public class GuiKeybindManager extends GuiScreen
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
 			{// Change Bind
-				Module module = Client.Wurst.moduleManager.activeModules.get(Client.Wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
+				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
 				mc.displayGuiScreen(new GuiKeybindChange(this, module));
 			}else if(clickedButton.id == 1)
 			{// Clear Bind
-				Module module = Client.Wurst.moduleManager.activeModules.get(Client.Wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
+				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
 				module.setBind(0);
-				Client.Wurst.fileManager.saveModules();
+				Client.wurst.fileManager.saveModules();
 				GuiKeybindList.sortModules();
 			}else if(clickedButton.id == 2)
 				mc.displayGuiScreen(prevMenu);
@@ -104,7 +104,7 @@ public class GuiKeybindManager extends GuiScreen
 		for(int i = 0; i < GuiKeybindList.modules.size(); i++)
 			if(GuiKeybindList.modules.get(i).getBind() != 0)
 				totalBinds++;
-		drawCenteredString(fontRendererObj, "Keybinds: " + totalBinds + ", Mods: " + Client.Wurst.moduleManager.activeModules.size(), width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "Keybinds: " + totalBinds + ", Mods: " + Client.wurst.moduleManager.activeModules.size(), width / 2, 20, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }

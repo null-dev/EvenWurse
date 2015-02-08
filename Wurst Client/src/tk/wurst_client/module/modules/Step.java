@@ -27,7 +27,7 @@ public class Step extends Module
 	public void onUpdate()
 	{
 		if(getToggled())
-			if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+			if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 			{
 				Minecraft.getMinecraft().thePlayer.stepHeight = 0.5F;
 				if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally && Minecraft.getMinecraft().thePlayer.onGround)

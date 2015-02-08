@@ -259,7 +259,7 @@ public class AltUtils
 			URL skinURL = new URL("http://skins.minecraft.net/MinecraftSkins/" + name + ".png");
 			URLConnection skinCon = skinURL.openConnection();
 			BufferedInputStream skinputStream = new BufferedInputStream(skinCon.getInputStream());
-			File skin = new File(Client.Wurst.fileManager.SkinDir, name + ".png");
+			File skin = new File(Client.wurst.fileManager.skinDir, name + ".png");
 			FileOutputStream outputStream = new FileOutputStream(skin);
 			int i;
 			while((i = skinputStream.read()) != -1)

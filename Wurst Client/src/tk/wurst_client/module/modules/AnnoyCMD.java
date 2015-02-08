@@ -42,7 +42,7 @@ public class AnnoyCMD extends Module
 			if(toggled)
 				toggled = false;
 			else
-				Client.Wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
+				Client.wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
 			return;
 		}
 		toggled = !toggled;
@@ -54,13 +54,13 @@ public class AnnoyCMD extends Module
 	{
 		if(name == null)
 		{
-			Client.Wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
+			Client.wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
 			toggled = false;
 			return;
 		}
-		Client.Wurst.chat.message("Now annoying " + name + ".");
+		Client.wurst.chat.message("Now annoying " + name + ".");
 		if(name.equals(Minecraft.getMinecraft().thePlayer.getName()))
-			Client.Wurst.chat.warning("Annoying yourself is a bad idea!");
+			Client.wurst.chat.warning("Annoying yourself is a bad idea!");
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class AnnoyCMD extends Module
 	@Override
 	public void onReceivedMessage(String message)
 	{
-		if(!getToggled() || message.startsWith("§c[§6" + Client.Wurst.CLIENT_NAME + "§c]§f "))
+		if(!getToggled() || message.startsWith("§c[§6" + Client.wurst.CLIENT_NAME + "§c]§f "))
 			return;
 		if(message.startsWith("<" + name + ">") || message.contains(name + ">"))
 		{
@@ -91,7 +91,7 @@ public class AnnoyCMD extends Module
 	{
 		if(name != null)
 		{
-			Client.Wurst.chat.message("No longer annoying " + name + ".");
+			Client.wurst.chat.message("No longer annoying " + name + ".");
 			name = null;
 		}
 		toggled = false;

@@ -95,21 +95,21 @@ public class EntityUtils
 	public static boolean isCorrectEntity(Object o, boolean ignoreFriends)
 	{
 		boolean condition;
-		if(Client.Wurst.options.targetMode == 0)
+		if(Client.wurst.options.targetMode == 0)
 			condition = o instanceof EntityLivingBase;
-		else if(Client.Wurst.options.targetMode == 1)
+		else if(Client.wurst.options.targetMode == 1)
 			condition = o instanceof EntityPlayer;
-		else if(Client.Wurst.options.targetMode == 2)
+		else if(Client.wurst.options.targetMode == 2)
 			condition = o instanceof EntityLiving;
-		else if(Client.Wurst.options.targetMode == 3)
+		else if(Client.wurst.options.targetMode == 3)
 			condition = o instanceof EntityAnimal;
-		else if(Client.Wurst.options.targetMode == 4)
+		else if(Client.wurst.options.targetMode == 4)
 			condition = o instanceof EntityMob;
 		else
-			throw new IllegalArgumentException("Unknown target mode selected: " + Client.Wurst.options.targetMode);
+			throw new IllegalArgumentException("Unknown target mode selected: " + Client.wurst.options.targetMode);
 		if(ignoreFriends && o instanceof EntityPlayer)
-			for(int i = 0; i < Client.Wurst.friends.size(); i++)
-				if(((EntityPlayer)o).getName().equals(Client.Wurst.friends.get(i)))
+			for(int i = 0; i < Client.wurst.friends.size(); i++)
+				if(((EntityPlayer)o).getName().equals(Client.wurst.friends.get(i)))
 					condition = false;
 		return condition;
 	}

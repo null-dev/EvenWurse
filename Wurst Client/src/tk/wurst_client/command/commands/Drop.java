@@ -28,7 +28,7 @@ public class Drop extends Command
 	public void onEnable(String input, String[] args)
 	{
 		if(args == null)
-			Client.Wurst.moduleManager.getModuleFromClass(DropCMD.class).setToggled(true);
+			Client.wurst.moduleManager.getModuleFromClass(DropCMD.class).setToggled(true);
 		else
 			commandError();
 	}

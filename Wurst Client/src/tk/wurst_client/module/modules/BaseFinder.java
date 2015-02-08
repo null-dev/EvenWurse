@@ -133,8 +133,8 @@ public class BaseFinder extends Module
 			}
 			if(matchingBlocks.size() >= maxBlocks && shouldInform)
 			{
-				Client.Wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
-				Client.Wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");
+				Client.wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
+				Client.wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");
 				shouldInform = false;
 			}else if(matchingBlocks.size() < maxBlocks)
 				shouldInform = true;

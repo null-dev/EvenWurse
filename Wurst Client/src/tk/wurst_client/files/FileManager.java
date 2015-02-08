@@ -43,49 +43,52 @@ import com.google.gson.JsonParser;
 
 public class FileManager
 {
-	public final File WurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
-	public final File SkinDir = new File(WurstDir, "skins");
-	public final File ServerlistDir = new File(WurstDir, "serverlists");
-	public final File SpamDir = new File(WurstDir, "spam");
-	public final File Alts = new File(WurstDir, "alts.wurst");
-	public final File AutoBuildCustom = new File(WurstDir, "autobuild_custom.json");
-	public final File Friends = new File(WurstDir, "friends.json");
-	public final File GUI = new File(WurstDir, "gui.json");
-	public final File Modules = new File(WurstDir, "modules.json");
-	public final File Sliders = new File(WurstDir, "sliders.json");
-	public final File Values = new File(WurstDir, "values.json");
-	public final File AutoMaximizeFile = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.txt");
-	public final File XRay = new File(WurstDir, "xray.json");
-	private String split = "§";
+	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
+	public final File skinDir = new File(wurstDir, "skins");
+	public final File serverlistsDir = new File(wurstDir, "serverlists");
+	public final File spamDir = new File(wurstDir, "spam");
+	
+	public final File alts = new File(wurstDir, "alts.wurst");
+	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.json");
+	public final File friends = new File(wurstDir, "friends.json");
+	public final File gui = new File(wurstDir, "gui.json");
+	public final File modules = new File(wurstDir, "modules.json");
+	public final File sliders = new File(wurstDir, "sliders.json");
+	public final File values = new File(wurstDir, "values.json");
+	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.txt");
+	public final File xray = new File(wurstDir, "xray.json");
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	
+	@Deprecated
+	private String split = "§";
 	
 	public void init()
 	{
-		if(!WurstDir.exists())
-			WurstDir.mkdir();
-		if(!SkinDir.exists())
-			SkinDir.mkdir();
-		if(!ServerlistDir.exists())
-			ServerlistDir.mkdir();
-		if(!SpamDir.exists())
-			SpamDir.mkdir();
-		if(!Values.exists())
+		if(!wurstDir.exists())
+			wurstDir.mkdir();
+		if(!skinDir.exists())
+			skinDir.mkdir();
+		if(!serverlistsDir.exists())
+			serverlistsDir.mkdir();
+		if(!spamDir.exists())
+			spamDir.mkdir();
+		if(!values.exists())
 			saveOptions();
 		else
 			loadOptions();
-		if(!Modules.exists())
+		if(!modules.exists())
 			saveModules();
 		else
 			loadModules();
-		if(!Alts.exists())
+		if(!alts.exists())
 			saveAlts();
 		else
 			loadAlts();
-		if(!Friends.exists())
+		if(!friends.exists())
 			saveFriends();
 		else
 			loadFriends();
-		if(!XRay.exists())
+		if(!xray.exists())
 		{
 			XRayUtils.initXRayBlocks();
 			saveXRayBlocks();
@@ -110,7 +113,7 @@ public class FileManager
 					jsonFrame.addProperty("posY", frame.getY());
 					json.add(frame.getTitle(), jsonFrame);
 				}
-			PrintWriter save = new PrintWriter(new FileWriter(GUI));
+			PrintWriter save = new PrintWriter(new FileWriter(gui));
 			save.print(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
@@ -123,7 +126,7 @@ public class FileManager
 	{
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(GUI));
+			BufferedReader load = new BufferedReader(new FileReader(gui));
 			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
 			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
@@ -152,14 +155,14 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Module module : Client.Wurst.moduleManager.activeModules)
+			for(Module module : Client.wurst.moduleManager.activeModules)
 			{
 				JsonObject jsonModule = new JsonObject();
 				jsonModule.addProperty("enabled", module.getToggled());
 				jsonModule.addProperty("keybind", Keyboard.getKeyName(module.getBind()));
 				json.add(module.getName(), jsonModule);
 			}
-			PrintWriter save = new PrintWriter(new FileWriter(Modules));
+			PrintWriter save = new PrintWriter(new FileWriter(modules));
 			save.print(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
@@ -192,14 +195,14 @@ public class FileManager
 	{
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Modules));
+			BufferedReader load = new BufferedReader(new FileReader(modules));
 			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
 			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Module module = Client.Wurst.moduleManager.getModuleByName(entry.getKey());
+				Module module = Client.wurst.moduleManager.getModuleByName(entry.getKey());
 				if(module != null
 					&& module.getCategory() != Category.HIDDEN
 					&& module.getCategory() != Category.WIP
@@ -224,16 +227,16 @@ public class FileManager
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Values));
-			for(Field field : Client.Wurst.options.getClass().getFields())
+			PrintWriter save = new PrintWriter(new FileWriter(values));
+			for(Field field : Client.wurst.options.getClass().getFields())
 				try
 				{
 					if(field.getType().getName().equals("boolean"))
-						save.println(field.getName() + split + field.getBoolean(Client.Wurst.options));
+						save.println(field.getName() + split + field.getBoolean(Client.wurst.options));
 					else if(field.getType().getName().equals("int"))
-						save.println(field.getName() + split + field.getInt(Client.Wurst.options));
+						save.println(field.getName() + split + field.getInt(Client.wurst.options));
 					else if(field.getType().getName().equals("java.lang.String"))
-						save.println(field.getName() + split + (String)field.get(Client.Wurst.options));
+						save.println(field.getName() + split + (String)field.get(Client.wurst.options));
 				}catch(IllegalArgumentException e)
 				{
 					e.printStackTrace();
@@ -253,21 +256,21 @@ public class FileManager
 		boolean shouldUpdate = false;
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Values));
+			BufferedReader load = new BufferedReader(new FileReader(values));
 			for(String line = ""; (line = load.readLine()) != null;)
 			{
 				String data[] = line.split(split);
-				for(Field field : Client.Wurst.options.getClass().getFields())
+				for(Field field : Client.wurst.options.getClass().getFields())
 					if(data[0].equals(field.getName()))
 					{
 						try
 						{
 							if(field.getType().getName().equals("boolean"))
-								field.setBoolean(Client.Wurst.options, Boolean.valueOf(data[1]));
+								field.setBoolean(Client.wurst.options, Boolean.valueOf(data[1]));
 							else if(field.getType().getName().equals("int"))
-								field.setInt(Client.Wurst.options, Integer.valueOf(data[1]));
+								field.setInt(Client.wurst.options, Integer.valueOf(data[1]));
 							else if(field.getType().getName().equals("java.lang.String"))
-								field.set(Client.Wurst.options, data[1]);
+								field.set(Client.wurst.options, data[1]);
 							else
 								shouldUpdate = true;
 						}catch(IllegalArgumentException e)
@@ -294,11 +297,11 @@ public class FileManager
 	public boolean loadAutoResize()
 	{
 		boolean autoMaximizeEnabled = false;
-		if(!AutoMaximizeFile.exists())
+		if(!autoMaximize.exists())
 			saveAutoMaximize(true);
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(AutoMaximizeFile));
+			BufferedReader load = new BufferedReader(new FileReader(autoMaximize));
 			String line = load.readLine();
 			load.close();
 			autoMaximizeEnabled = line.equals("true") && !Minecraft.isRunningOnMac;
@@ -313,9 +316,9 @@ public class FileManager
 	{
 		try
 		{
-			if(!AutoMaximizeFile.getParentFile().exists())
-				AutoMaximizeFile.getParentFile().mkdirs();
-			PrintWriter save = new PrintWriter(new FileWriter(AutoMaximizeFile));
+			if(!autoMaximize.getParentFile().exists())
+				autoMaximize.getParentFile().mkdirs();
+			PrintWriter save = new PrintWriter(new FileWriter(autoMaximize));
 			save.println(Boolean.toString(autoMaximizeEnabled));
 			save.close();
 		}catch(IOException e)
@@ -327,12 +330,12 @@ public class FileManager
 	public void saveSliders()
 	{
 		ArrayList<BasicSlider> allSliders = new ArrayList<BasicSlider>();
-		for(Module module : Client.Wurst.moduleManager.activeModules)
+		for(Module module : Client.wurst.moduleManager.activeModules)
 			for(BasicSlider slider : module.getSliders())
 				allSliders.add(slider);
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Sliders));
+			PrintWriter save = new PrintWriter(new FileWriter(sliders));
 			for(int i = 0; i < allSliders.size(); i++)
 			{
 				BasicSlider slider = allSliders.get(i);
@@ -348,12 +351,12 @@ public class FileManager
 	public void loadSliders()
 	{
 		ArrayList<BasicSlider> allSliders = new ArrayList<BasicSlider>();
-		for(Module module : Client.Wurst.moduleManager.activeModules)
+		for(Module module : Client.wurst.moduleManager.activeModules)
 			for(BasicSlider slider : module.getSliders())
 				allSliders.add(slider);
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Sliders));
+			BufferedReader load = new BufferedReader(new FileReader(sliders));
 			int i = 0;
 			for(; load.readLine() != null;)
 				i++;
@@ -369,7 +372,7 @@ public class FileManager
 		}
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Sliders));
+			BufferedReader load = new BufferedReader(new FileReader(sliders));
 			for(String line = ""; (line = load.readLine()) != null;)
 			{
 				String data[] = line.split(split);
@@ -386,7 +389,7 @@ public class FileManager
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Alts));
+			PrintWriter save = new PrintWriter(new FileWriter(alts));
 			for(Alt alt : GuiAltList.alts)
 			{
 				String saveName = Encryption.encrypt(alt.name);
@@ -402,14 +405,14 @@ public class FileManager
 	
 	public void loadAlts()
 	{
-		if(!Alts.exists())
+		if(!alts.exists())
 		{
 			saveAlts();
 			return;
 		}
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Alts));
+			BufferedReader load = new BufferedReader(new FileReader(alts));
 			GuiAltList.alts.clear();
 			for(String line = ""; (line = load.readLine()) != null;)
 			{
@@ -430,12 +433,12 @@ public class FileManager
 	
 	public void saveFriends()
 	{
-		Client.Wurst.friends.sort();
+		Client.wurst.friends.sort();
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Friends));
-			for(int i = 0; i < Client.Wurst.friends.size(); i++)
-				save.println(Client.Wurst.friends.get(i));
+			PrintWriter save = new PrintWriter(new FileWriter(friends));
+			for(int i = 0; i < Client.wurst.friends.size(); i++)
+				save.println(Client.wurst.friends.get(i));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -448,7 +451,7 @@ public class FileManager
 		boolean shouldUpdate = false;
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Friends));
+			BufferedReader load = new BufferedReader(new FileReader(friends));
 			int i = 0;
 			for(; load.readLine() != null;)
 				i++;
@@ -461,14 +464,14 @@ public class FileManager
 		}
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Friends));
+			BufferedReader load = new BufferedReader(new FileReader(friends));
 			for(String line = ""; (line = load.readLine()) != null;)
 			{
 				String data[] = line.split(split);
-				Client.Wurst.friends.add(data[0]);
+				Client.wurst.friends.add(data[0]);
 			}
 			load.close();
-			Client.Wurst.friends.sort();
+			Client.wurst.friends.sort();
 		}catch(IOException e)
 		{	
 			
@@ -481,7 +484,7 @@ public class FileManager
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(XRay));
+			PrintWriter save = new PrintWriter(new FileWriter(xray));
 			for(int i = 0; i < tk.wurst_client.module.modules.XRay.xrayBlocks.size(); i++)
 				save.println(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i)));
 			save.close();
@@ -495,7 +498,7 @@ public class FileManager
 	{
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(XRay));
+			BufferedReader load = new BufferedReader(new FileReader(xray));
 			for(String line = ""; (line = load.readLine()) != null;)
 			{
 				String data[] = line.split(split);
@@ -749,10 +752,10 @@ public class FileManager
 			{-2, 2, 0, 1},
 		};
 		AutoBuild.buildings.add(wurst);
-		if(!Client.Wurst.fileManager.AutoBuildCustom.exists())
+		if(!Client.wurst.fileManager.autoBuild_custom.exists())
 			try
 			{
-				PrintWriter save = new PrintWriter(new FileWriter(Client.Wurst.fileManager.AutoBuildCustom));
+				PrintWriter save = new PrintWriter(new FileWriter(Client.wurst.fileManager.autoBuild_custom));
 				save.println("WARNING! This is complicated!");
 				save.println("");
 				save.println("How to make a custom structure for AutoBuild:");
@@ -832,7 +835,7 @@ public class FileManager
 		ArrayList<String> fileText = new ArrayList<String>();
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(AutoBuildCustom));
+			BufferedReader load = new BufferedReader(new FileReader(autoBuild_custom));
 			for(String line = ""; (line = load.readLine()) != null;)
 				fileText.add(line);
 			load.close();

@@ -165,7 +165,7 @@ public class ArenaBrawl extends Module
 			return;
 		if(message.startsWith("[Arena]: ") && message.endsWith(" has won the game!"))
 		{
-			Client.Wurst.chat.message(message.substring(9));
+			Client.wurst.chat.message(message.substring(9));
 			setToggled(false);
 		}
 	}
@@ -177,7 +177,7 @@ public class ArenaBrawl extends Module
 			return;
 		if(scoreboard != null && (scoreboard.size() == 13 || scoreboard.size() == 11))
 		{// If you are in the lobby:
-			Client.Wurst.chat.message("You need to be in a 2v2 arena.");
+			Client.wurst.chat.message("You need to be in a 2v2 arena.");
 			setToggled(false);
 			return;
 		}
@@ -248,7 +248,7 @@ public class ArenaBrawl extends Module
 	private void setupFrame()
 	{
 		friendsName = formatSBName(0);
-		Client.Wurst.chat.message("Now playing ArenaBrawl with " + friendsName + ".");
+		Client.wurst.chat.message("Now playing ArenaBrawl with " + friendsName + ".");
 		frame = new BasicFrame("ArenaBrawl");
 		frame.setTheme(new WurstTheme());
 		frame.setLayoutManager(new GridLayoutManager(2, 0));
@@ -270,7 +270,7 @@ public class ArenaBrawl extends Module
 		frame.add(new BasicLabel("???? / 2000"), HorizontalGridConstraint.RIGHT);
 		frame.setHeight(frame.getTheme().getUIForComponent(frame).getDefaultSize(frame).height);
 		frame.layoutChildren();
-		Client.Wurst.guiManager.addFrame(frame);
+		Client.wurst.guiManager.addFrame(frame);
 		frame.setBackgroundColor(new Color(64, 64, 64, 224));
 		((Label)frame.getChildren()[0]).setForegroundColor(Color.CYAN);
 		((Label)frame.getChildren()[1]).setForegroundColor(Color.CYAN);
@@ -529,7 +529,7 @@ public class ArenaBrawl extends Module
 		matchingBlocks.clear();
 		enemyTotems.clear();
 		friendTotems.clear();
-		Client.Wurst.guiManager.removeFrame(frame);
+		Client.wurst.guiManager.removeFrame(frame);
 		frame = null;
 		friend = null;
 		entityTarget = null;
@@ -545,7 +545,7 @@ public class ArenaBrawl extends Module
 			return;
 		Minecraft.getMinecraft().thePlayer.respawnPlayer();
 		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
-		Client.Wurst.chat.message("You died.");
+		Client.wurst.chat.message("You died.");
 		setToggled(false);
 	}
 	
@@ -554,7 +554,7 @@ public class ArenaBrawl extends Module
 	{
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
-			Client.Wurst.chat.message("No longer playing ArenaBrawl with " + friendsName + ".");
+			Client.wurst.chat.message("No longer playing ArenaBrawl with " + friendsName + ".");
 		reset();
 	}
 }

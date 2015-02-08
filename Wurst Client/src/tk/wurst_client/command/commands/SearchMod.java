@@ -34,32 +34,32 @@ public class SearchMod extends Command
 	{
 		if(args == null)
 		{
-			Client.Wurst.moduleManager.getModuleFromClass(Search.class).toggleModule();
-			Client.Wurst.chat.message("Search turned " + (Client.Wurst.moduleManager.getModuleFromClass(Search.class).getToggled() == true ? "on" : "off") + ".");
+			Client.wurst.moduleManager.getModuleFromClass(Search.class).toggleModule();
+			Client.wurst.chat.message("Search turned " + (Client.wurst.moduleManager.getModuleFromClass(Search.class).getToggled() == true ? "on" : "off") + ".");
 		}else if(args[0].toLowerCase().equals("id"))
 		{
 			if(MiscUtils.isInteger(args[1]))
-				Client.Wurst.options.searchID = Integer.valueOf(args[1]);
+				Client.wurst.options.searchID = Integer.valueOf(args[1]);
 			else
 			{
 				commandError();
 				return;
 			}
-			Client.Wurst.fileManager.saveOptions();
+			Client.wurst.fileManager.saveOptions();
 			Search.shouldInform = true;
-			Client.Wurst.chat.message("Search ID set to " + args[1] + ".");
+			Client.wurst.chat.message("Search ID set to " + args[1] + ".");
 		}else if(args[0].equalsIgnoreCase("name"))
 		{
 			int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
 			if(newID == -1)
 			{
-				Client.Wurst.chat.message("The block \"" + args[1] + "\" could not be found.");
+				Client.wurst.chat.message("The block \"" + args[1] + "\" could not be found.");
 				return;
 			}
-			Client.Wurst.options.searchID = Integer.valueOf(newID);
-			Client.Wurst.fileManager.saveOptions();
+			Client.wurst.options.searchID = Integer.valueOf(newID);
+			Client.wurst.fileManager.saveOptions();
 			Search.shouldInform = true;
-			Client.Wurst.chat.message("Search ID set to " + newID + " (" + args[1] + ").");
+			Client.wurst.chat.message("Search ID set to " + newID + " (" + args[1] + ").");
 		}else
 			commandError();
 	}

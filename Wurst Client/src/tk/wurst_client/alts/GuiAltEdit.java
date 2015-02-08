@@ -107,7 +107,7 @@ public class GuiAltEdit extends GuiScreen
 				if(displayText.equals(""))
 				{
 					GuiAltList.sortAlts();
-					Client.Wurst.fileManager.saveAlts();
+					Client.wurst.fileManager.saveAlts();
 					mc.displayGuiScreen(prevMenu);
 					GuiAlts.altList.elementClicked(GuiAltList.alts.indexOf(newAlt), false, 0, 0);
 				}else
@@ -117,7 +117,7 @@ public class GuiAltEdit extends GuiScreen
 			else if(clickedButton.id == 4)
 				displayText = AltUtils.stealSkin(newAlt.name);
 			else if(clickedButton.id == 5)
-				MiscUtils.openFile(Client.Wurst.fileManager.SkinDir);
+				MiscUtils.openFile(Client.wurst.fileManager.skinDir);
 		}
 	}
 	

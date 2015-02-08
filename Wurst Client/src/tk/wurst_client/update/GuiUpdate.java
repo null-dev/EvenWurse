@@ -42,7 +42,7 @@ public class GuiUpdate extends GuiScreen
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12, "Close Minecraft"));
-		Client.Wurst.updater.openUpdateLink();
+		Client.wurst.updater.openUpdateLink();
 	}
 	
 	/**

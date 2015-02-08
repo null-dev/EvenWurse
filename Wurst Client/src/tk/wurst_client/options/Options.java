@@ -33,5 +33,5 @@ public class Options
 	public int spamDelay = 1000;
 	public int throwAmount = 16;
 
-	public String forceOPList = Client.Wurst.fileManager.WurstDir.getPath();
+	public String forceOPList = Client.wurst.fileManager.wurstDir.getPath();
 }

@@ -80,7 +80,7 @@ public class Module
 			onDisable();
 			isToggled = false;
 		}
-		Client.Wurst.fileManager.saveModules();
+		Client.wurst.fileManager.saveModules();
 	}
 
 	public void toggleModule()
@@ -100,7 +100,7 @@ public class Module
 
 	public void noCheatMessage()
 	{
-		Client.Wurst.chat.warning(moduleName + " cannot bypass NoCheat+.");
+		Client.wurst.chat.warning(moduleName + " cannot bypass NoCheat+.");
 	}
 
 	public void updateMS()

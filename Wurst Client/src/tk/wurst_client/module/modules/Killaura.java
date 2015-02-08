@@ -57,12 +57,12 @@ public class Killaura extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.Wurst.moduleManager.getModuleFromClass(KillauraLegit.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(KillauraLegit.class).setToggled(false);
-		if(Client.Wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
-		if(Client.Wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class Killaura extends Module
 	{
 		if(getToggled())
 		{
-			if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+			if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 			{
 				realSpeed = yesCheatSpeed;
 				realRange = yesCheatRange;

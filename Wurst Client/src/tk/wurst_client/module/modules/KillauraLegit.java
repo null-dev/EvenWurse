@@ -30,12 +30,12 @@ public class KillauraLegit extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(false);
-		if(Client.Wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
-		if(Client.Wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class KillauraLegit extends Module
 				EntityLivingBase en = EntityUtils.getClosestEntity(true);
 				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= Killaura.yesCheatRange)
 				{
-					if(Client.Wurst.moduleManager.getModuleFromClass(Criticals.class).getToggled() && Minecraft.getMinecraft().thePlayer.onGround)
+					if(Client.wurst.moduleManager.getModuleFromClass(Criticals.class).getToggled() && Minecraft.getMinecraft().thePlayer.onGround)
 						Minecraft.getMinecraft().thePlayer.jump();
 					if(EntityUtils.getDistanceFromMouse(en) > 55)
 						EntityUtils.faceEntityClient(en);

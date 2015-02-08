@@ -83,7 +83,7 @@ public class GuiServerFinder extends GuiScreen
 		maxThreadsBox = new GuiTextField(1, fontRendererObj, width / 2 - 32, height / 4 + 58, 26, 12);
 		maxThreadsBox.setMaxStringLength(3);
 		maxThreadsBox.setFocused(false);
-		maxThreadsBox.setText(Integer.toString(Client.Wurst.options.serverFinderThreads));
+		maxThreadsBox.setText(Integer.toString(Client.wurst.options.serverFinderThreads));
 		running = false;
 		terminated = false;
 	}
@@ -97,8 +97,8 @@ public class GuiServerFinder extends GuiScreen
 		terminated = true;
 		if(MiscUtils.isInteger(maxThreadsBox.getText()))
 		{
-			Client.Wurst.options.serverFinderThreads = Integer.valueOf(maxThreadsBox.getText());
-			Client.Wurst.fileManager.saveOptions();
+			Client.wurst.options.serverFinderThreads = Integer.valueOf(maxThreadsBox.getText());
+			Client.wurst.fileManager.saveOptions();
 		}
 		Keyboard.enableRepeatEvents(false);
 	}
@@ -111,8 +111,8 @@ public class GuiServerFinder extends GuiScreen
 			{// Search
 				if(MiscUtils.isInteger(maxThreadsBox.getText()))
 				{
-					Client.Wurst.options.serverFinderThreads = Integer.valueOf(maxThreadsBox.getText());
-					Client.Wurst.fileManager.saveOptions();
+					Client.wurst.options.serverFinderThreads = Integer.valueOf(maxThreadsBox.getText());
+					Client.wurst.fileManager.saveOptions();
 				}
 				running = true;
 				new Thread("Server Finder")
@@ -136,7 +136,7 @@ public class GuiServerFinder extends GuiScreen
 								ServerPinger pinger = new ServerPinger();
 								pinger.ping(ip);
 								pingers.add(pinger);
-								while(pingers.size() >= Client.Wurst.options.serverFinderThreads)
+								while(pingers.size() >= Client.wurst.options.serverFinderThreads)
 									pingers = updatePingers(pingers);
 							}
 						while(pingers.size() > 0)

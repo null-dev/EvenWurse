@@ -50,9 +50,9 @@ public class Home extends Module
 	@Override
 	public void onReceivedMessage(String message)
 	{
-		if(!getToggled() || message.startsWith("§c[§6" + Client.Wurst.CLIENT_NAME + "§c]§f "))
+		if(!getToggled() || message.startsWith("§c[§6" + Client.wurst.CLIENT_NAME + "§c]§f "))
 			return;
 		if(message.toLowerCase().contains("/help") || message.toLowerCase().contains("permission"))
-			Client.Wurst.chat.error("This server doesn't have /home.");
+			Client.wurst.chat.error("This server doesn't have /home.");
 	}
 }

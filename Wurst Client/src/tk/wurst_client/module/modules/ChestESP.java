@@ -84,8 +84,8 @@ public class ChestESP extends Module
 		}
 		if(i >= maxChests && shouldInform)
 		{
-			Client.Wurst.chat.warning(getName() + " found §lA LOT§r of chests.");
-			Client.Wurst.chat.message("To prevent lag, it will only show the first " + maxChests + " chests.");
+			Client.wurst.chat.warning(getName() + " found §lA LOT§r of chests.");
+			Client.wurst.chat.message("To prevent lag, it will only show the first " + maxChests + " chests.");
 			shouldInform = false;
 		}else if(i < maxChests)
 			shouldInform = true;

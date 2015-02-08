@@ -15,7 +15,7 @@ public class ChatMessenger
 {
 	public void message(String message)
 	{
-		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§c[§6" + Client.Wurst.CLIENT_NAME + "§c]§f " + message));
+		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§c[§6" + Client.wurst.CLIENT_NAME + "§c]§f " + message));
 	}
 
 	public void info(String message)

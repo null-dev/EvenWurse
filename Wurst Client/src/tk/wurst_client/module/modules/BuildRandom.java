@@ -35,13 +35,13 @@ public class BuildRandom extends Module
 	public void onUpdate()
 	{
 		if(!getToggled()
-			|| Client.Wurst.moduleManager.getModuleFromClass(Freecam.class).getToggled()
-			|| Client.Wurst.moduleManager.getModuleFromClass(RemoteView.class).getToggled()
+			|| Client.wurst.moduleManager.getModuleFromClass(Freecam.class).getToggled()
+			|| Client.wurst.moduleManager.getModuleFromClass(RemoteView.class).getToggled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		if(Minecraft.getMinecraft().rightClickDelayTimer > 0
-			&& !Client.Wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled())
+			&& !Client.wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled())
 			return;
 		float xDiff = 0;
 		float yDiff = 0;

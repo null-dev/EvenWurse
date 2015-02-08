@@ -85,7 +85,7 @@ public class Protect extends Module
 			Minecraft.getMinecraft().thePlayer.jump();
 		if(Minecraft.getMinecraft().thePlayer.isInWater() && Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 			speed = Killaura.yesCheatSpeed;
 		else
 			speed = Killaura.normalSpeed;
