@@ -121,7 +121,7 @@ public final class GuiManager extends AbstractGuiManager
 			if(frame == null)
 			{
 				String name = module.getCategory().name().toLowerCase();
-				if(Client.wurst.fileManager.values.exists())
+				if(Client.wurst.fileManager.options.exists())
 					Client.wurst.fileManager.loadOptions();
 				if(name.equalsIgnoreCase("HIDDEN") || name.equalsIgnoreCase("WIP") && !Client.wurst.options.WIP)
 					continue;

@@ -13,7 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -33,6 +32,7 @@ import tk.wurst_client.encryption_api.Encryption;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.*;
+import tk.wurst_client.options.Options;
 import tk.wurst_client.utils.XRayUtils;
 
 import com.google.gson.Gson;
@@ -54,7 +54,7 @@ public class FileManager
 	public final File gui = new File(wurstDir, "gui.json");
 	public final File modules = new File(wurstDir, "modules.json");
 	public final File sliders = new File(wurstDir, "sliders.json");
-	public final File values = new File(wurstDir, "values.json");
+	public final File options = new File(wurstDir, "options.json");
 	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.txt");
 	public final File xray = new File(wurstDir, "xray.json");
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -72,7 +72,7 @@ public class FileManager
 			serverlistsDir.mkdir();
 		if(!spamDir.exists())
 			spamDir.mkdir();
-		if(!values.exists())
+		if(!options.exists())
 			saveOptions();
 		else
 			loadOptions();
@@ -227,23 +227,8 @@ public class FileManager
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(values));
-			for(Field field : Client.wurst.options.getClass().getFields())
-				try
-				{
-					if(field.getType().getName().equals("boolean"))
-						save.println(field.getName() + split + field.getBoolean(Client.wurst.options));
-					else if(field.getType().getName().equals("int"))
-						save.println(field.getName() + split + field.getInt(Client.wurst.options));
-					else if(field.getType().getName().equals("java.lang.String"))
-						save.println(field.getName() + split + (String)field.get(Client.wurst.options));
-				}catch(IllegalArgumentException e)
-				{
-					e.printStackTrace();
-				}catch(IllegalAccessException e)
-				{
-					e.printStackTrace();
-				}
+			PrintWriter save = new PrintWriter(new FileWriter(options));
+			save.print(gson.toJson(Client.wurst.options));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -253,45 +238,15 @@ public class FileManager
 	
 	public void loadOptions()
 	{
-		boolean shouldUpdate = false;
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(values));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
-				for(Field field : Client.wurst.options.getClass().getFields())
-					if(data[0].equals(field.getName()))
-					{
-						try
-						{
-							if(field.getType().getName().equals("boolean"))
-								field.setBoolean(Client.wurst.options, Boolean.valueOf(data[1]));
-							else if(field.getType().getName().equals("int"))
-								field.setInt(Client.wurst.options, Integer.valueOf(data[1]));
-							else if(field.getType().getName().equals("java.lang.String"))
-								field.set(Client.wurst.options, data[1]);
-							else
-								shouldUpdate = true;
-						}catch(IllegalArgumentException e)
-						{
-							shouldUpdate = true;
-							e.printStackTrace();
-						}catch(IllegalAccessException e)
-						{
-							shouldUpdate = true;
-							e.printStackTrace();
-						}
-						break;
-					}
-			}
+			BufferedReader load = new BufferedReader(new FileReader(options));
+			Client.wurst.options = gson.fromJson(load, Options.class);
 			load.close();
 		}catch(IOException e)
 		{	
 			
 		}
-		if(shouldUpdate)
-			saveOptions();
 	}
 	
 	public boolean loadAutoResize()
