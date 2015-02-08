@@ -15,17 +15,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
@@ -35,6 +31,13 @@ import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.*;
 import tk.wurst_client.utils.XRayUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class FileManager
 {
@@ -122,35 +125,25 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(GUI));
-			int i = 0;
-			for(; (load.readLine()) != null;)
-				i++;
+			JsonArray json = (JsonArray)new JsonParser().parse(load);
 			load.close();
-			if(i != frames.length)
+			Iterator<JsonElement> itr = json.iterator();
+			while(itr.hasNext())
 			{
-				saveGUI(frames);
-				return;
-			}
-		}catch(IOException e)
-		{	
-			
-		}
-		try
-		{
-			BufferedReader load = new BufferedReader(new FileReader(GUI));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
+				JsonObject jsonFrame = (JsonObject)itr.next();
+				System.out.println(jsonFrame.get("title").getAsString());
 				for(Frame frame : frames)
-					if(frame.getTitle().equals(data[0]))
+				{
+					if(frame.getTitle().equals(jsonFrame.get("title").getAsString()))
 					{
-						frame.setMinimized(Boolean.valueOf(data[1]));
-						frame.setPinned(Boolean.valueOf(data[2]));
-						frame.setX(Integer.parseInt(data[3]));
-						frame.setY(Integer.parseInt(data[4]));
+						frame.setMinimized(jsonFrame.get("minimized").getAsBoolean());
+						frame.setPinned(jsonFrame.get("pinned").getAsBoolean());
+						frame.setX(jsonFrame.get("posX").getAsInt());
+						frame.setY(jsonFrame.get("posY").getAsInt());
 					}
+				}
+				
 			}
-			load.close();
 		}catch(IOException e)
 		{	
 			
