@@ -32,6 +32,7 @@ import tk.wurst_client.encryption_api.Encryption;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.*;
+import tk.wurst_client.options.Friends;
 import tk.wurst_client.options.Options;
 import tk.wurst_client.utils.XRayUtils;
 
@@ -383,12 +384,11 @@ public class FileManager
 	
 	public void saveFriends()
 	{
-		Client.wurst.friends.sort();
 		try
 		{
+			Client.wurst.friends.sort();
 			PrintWriter save = new PrintWriter(new FileWriter(friends));
-			for(int i = 0; i < Client.wurst.friends.size(); i++)
-				save.println(Client.wurst.friends.get(i));
+			save.println(gson.toJson(Client.wurst.friends));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -398,36 +398,16 @@ public class FileManager
 	
 	public void loadFriends()
 	{
-		boolean shouldUpdate = false;
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(friends));
-			int i = 0;
-			for(; load.readLine() != null;)
-				i++;
-			load.close();
-			if(i != 1)
-				shouldUpdate = true;
-		}catch(IOException e)
-		{	
-			
-		}
-		try
-		{
-			BufferedReader load = new BufferedReader(new FileReader(friends));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
-				Client.wurst.friends.add(data[0]);
-			}
+			Client.wurst.friends = gson.fromJson(load, Friends.class);
 			load.close();
 			Client.wurst.friends.sort();
 		}catch(IOException e)
 		{	
 			
 		}
-		if(shouldUpdate)
-			saveFriends();
 	}
 	
 	public void saveXRayBlocks()
