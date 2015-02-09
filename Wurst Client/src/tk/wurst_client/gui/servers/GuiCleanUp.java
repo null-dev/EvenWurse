@@ -178,7 +178,7 @@ public class GuiCleanUp extends GuiScreen
 	
 	/**
 	 * Called when the mouse is clicked.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	@Override

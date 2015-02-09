@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -22,18 +22,18 @@ public class FastBreak extends Module
 			"FastBreak",
 			"Allows you to break blocks faster.\n"
 				+ "Tip: This works with Nuker.",
-				Keyboard.KEY_B,
-				Category.BLOCKS);
+			Keyboard.KEY_B,
+			Category.BLOCKS);
 	}
-
+	
 	public static float speed = 2;
-
+	
 	@Override
 	public void initSliders()
 	{
 		moduleSliders.add(new BasicSlider("FastBreak speed", speed, 1, 5, 0.05, ValueDisplay.DECIMAL));
 	}
-
+	
 	@Override
 	public void updateSettings()
 	{

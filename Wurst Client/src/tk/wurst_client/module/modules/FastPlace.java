@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -23,10 +23,10 @@ public class FastPlace extends Module
 			"FastPlace",
 			"Allows you to place blocks 5 times faster.\n"
 				+ "Tip: This can speed up AutoBuild in YesCheat+ mode.",
-				Keyboard.KEY_F,
-				Category.BLOCKS);
+			Keyboard.KEY_F,
+			Category.BLOCKS);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -24,7 +24,7 @@ public class TriggerBot extends Module
 			0,
 			Category.COMBAT);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -35,7 +35,7 @@ public class TriggerBot extends Module
 		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

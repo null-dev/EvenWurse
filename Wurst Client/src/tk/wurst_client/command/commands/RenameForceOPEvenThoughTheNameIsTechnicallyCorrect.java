@@ -18,12 +18,12 @@ public class RenameForceOPEvenThoughTheNameIsTechnicallyCorrect extends Command
 		"Note that it is case sensitive.",
 		".RenameForceOPEvenThoughTheNameIsTechnicallyCorrect"
 	};
-
+	
 	public RenameForceOPEvenThoughTheNameIsTechnicallyCorrect()
 	{
 		super("RenameForceOPEvenThoughTheNameIsTechnicallyCorrect", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

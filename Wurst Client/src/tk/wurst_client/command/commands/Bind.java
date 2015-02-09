@@ -23,14 +23,14 @@ public class Bind extends Command
 		".bind list",
 		".bind list <page>"
 	};
-
+	
 	public Bind()
 	{
 		super("bind", commandHelp);
 	}
-
+	
 	private int bindsPerPage = 8;
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

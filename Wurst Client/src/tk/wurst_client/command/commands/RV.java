@@ -18,12 +18,12 @@ public class RV extends Command
 		".rv",
 		".rv <Player>"
 	};
-
+	
 	public RV()
 	{
 		super("rv", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

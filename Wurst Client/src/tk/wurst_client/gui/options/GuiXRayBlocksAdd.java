@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -99,7 +99,7 @@ public class GuiXRayBlocksAdd extends GuiScreen
 	
 	/**
 	 * Called when the mouse is clicked.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	@Override
@@ -127,12 +127,12 @@ public class GuiXRayBlocksAdd extends GuiScreen
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		if(itemStack.getItem() != null)
 			try
-		{
+			{
 				Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, x, y);
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		else
 			mc.fontRendererObj.drawString("?", x + 6, y + 5, 10526880);
 		Minecraft.getMinecraft().getRenderItem().func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack, x + 4, y + 4);

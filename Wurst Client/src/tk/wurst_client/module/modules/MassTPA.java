@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -25,14 +25,14 @@ public class MassTPA extends Module
 			"MassTPA",
 			"Sends a TPA requests to all players.\n"
 				+ "Stops if someone accepts.",
-				0,
-				Category.CHAT);
+			0,
+			Category.CHAT);
 	}
-
+	
 	private float speed = 1F;
 	private int i;
 	private String[] players;
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -44,7 +44,7 @@ public class MassTPA extends Module
 		players = playerList.toArray(new String[playerList.size()]);
 		
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{
@@ -60,7 +60,7 @@ public class MassTPA extends Module
 			setToggled(false);
 		}
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

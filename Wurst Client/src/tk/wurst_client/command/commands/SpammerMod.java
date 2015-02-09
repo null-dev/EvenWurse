@@ -19,12 +19,12 @@ public class SpammerMod extends Command
 		"Changes the delay of Spammer.",
 		".spammer delay <delay in ms>"
 	};
-
+	
 	public SpammerMod()
 	{
 		super("spammer", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

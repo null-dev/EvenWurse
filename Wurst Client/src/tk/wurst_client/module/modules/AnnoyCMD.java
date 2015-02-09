@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -22,10 +22,10 @@ public class AnnoyCMD extends Module
 			0,
 			Category.HIDDEN);
 	}
-
+	
 	private static boolean toggled;
 	private static String name;
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -34,7 +34,7 @@ public class AnnoyCMD extends Module
 		else
 			return "Annoy";
 	}
-
+	
 	public static void onToggledByCommand(String name)
 	{
 		if(name == null)
@@ -48,7 +48,7 @@ public class AnnoyCMD extends Module
 		toggled = !toggled;
 		AnnoyCMD.name = name;
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -62,14 +62,14 @@ public class AnnoyCMD extends Module
 		if(name.equals(Minecraft.getMinecraft().thePlayer.getName()))
 			Client.wurst.chat.warning("Annoying yourself is a bad idea!");
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(getToggled() != toggled)
 			setToggled(toggled);
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{
@@ -85,7 +85,7 @@ public class AnnoyCMD extends Module
 			Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);
 		}
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

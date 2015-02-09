@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -51,15 +51,15 @@ public class Spammer extends Module
 				+ ">HTML-like tags that make spamming more efficient\n"
 				+ ">HTML comments\n"
 				+ ">Integrated help system",
-				0,
-				Category.CHAT);
+			0,
+			Category.CHAT);
 	}
-
+	
 	private JDialog dialog;
 	private static JSpinner delaySpinner;
 	private JTextArea spamArea;
 	private String spam;
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -80,9 +80,9 @@ public class Spammer extends Module
 				});
 				JPanel panel = new JPanel();
 				panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
+				
 				JMenuBar menubar = new JMenuBar();
-
+				
 				JMenu fileMenu = new JMenu("File");
 				JMenuItem fileLoad = new JMenuItem("Load spam from file");
 				fileLoad.addActionListener(new ActionListener()
@@ -108,7 +108,7 @@ public class Spammer extends Module
 						int action = fileChooser.showOpenDialog(dialog);
 						if(action == JFileChooser.APPROVE_OPTION)
 							try
-						{
+							{
 								File file = fileChooser.getSelectedFile();
 								BufferedReader load = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 								String newspam = load.readLine();
@@ -117,11 +117,11 @@ public class Spammer extends Module
 								load.close();
 								spamArea.setText(newspam);
 								updateSpam();
-						}catch(IOException e1)
-						{
-							e1.printStackTrace();
-							MiscUtils.simpleError(e1, fileChooser);
-						}
+							}catch(IOException e1)
+							{
+								e1.printStackTrace();
+								MiscUtils.simpleError(e1, fileChooser);
+							}
 					}
 				});
 				fileMenu.add(fileLoad);
@@ -147,7 +147,7 @@ public class Spammer extends Module
 						int action = fileChooser.showSaveDialog(dialog);
 						if(action == JFileChooser.APPROVE_OPTION)
 							try
-						{
+							{
 								File file = fileChooser.getSelectedFile();
 								if(!file.getName().endsWith(".wspam"))
 									file = new File(file.getPath() + ".wspam");
@@ -156,11 +156,11 @@ public class Spammer extends Module
 								for(String line : spam.split("\n"))
 									save.println(line);
 								save.close();
-						}catch(IOException e1)
-						{
-							e1.printStackTrace();
-							MiscUtils.simpleError(e1, fileChooser);
-						}
+							}catch(IOException e1)
+							{
+								e1.printStackTrace();
+								MiscUtils.simpleError(e1, fileChooser);
+							}
 					}
 				});
 				fileMenu.add(fileSave);
@@ -187,7 +187,7 @@ public class Spammer extends Module
 				});
 				fileMenu.add(fileOpenLink);
 				menubar.add(fileMenu);
-
+				
 				JMenu editMenu = new JMenu("Edit");
 				JMenuItem editNewVar = new JMenuItem("New variable");
 				editNewVar.addActionListener(new ActionListener()
@@ -233,7 +233,7 @@ public class Spammer extends Module
 				});
 				editMenu.add(editNewVar);
 				menubar.add(editMenu);
-
+				
 				JMenu viewMenu = new JMenu("View");
 				JCheckBoxMenuItem viewFont = new JCheckBoxMenuItem("Simulate ingame font", Client.wurst.options.spamFont);
 				viewFont.addActionListener(new ActionListener()
@@ -248,7 +248,7 @@ public class Spammer extends Module
 				});
 				viewMenu.add(viewFont);
 				menubar.add(viewMenu);
-
+				
 				JMenu helpMenu = new JMenu("Help");
 				JMenuItem helpIntro = new JMenuItem("Introduction to WSPAM");
 				helpIntro.addActionListener(new ActionListener()
@@ -261,7 +261,7 @@ public class Spammer extends Module
 							case 1:
 								MiscUtils.openLink("http://wspam.wurst-client.tk/");
 								break;
-
+							
 							default:
 								break;
 						}
@@ -341,11 +341,11 @@ public class Spammer extends Module
 				});
 				helpMenu.add(helpRef);
 				menubar.add(helpMenu);
-
+				
 				menubar.add(Box.createHorizontalGlue());
-
+				
 				panel.add(menubar);
-
+				
 				JPanel delayPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
 				JLabel delayLabel = new JLabel("Delay between messages:");
 				delayPanel.add(delayLabel);
@@ -362,7 +362,7 @@ public class Spammer extends Module
 				delaySpinner.setEditor(new JSpinner.NumberEditor(delaySpinner, "#'ms'"));
 				delayPanel.add(delaySpinner);
 				panel.add(delayPanel);
-
+				
 				spamArea = new JTextArea();
 				spamArea.getDocument().addDocumentListener(new DocumentListener()
 				{
@@ -371,13 +371,13 @@ public class Spammer extends Module
 					{
 						updateSpam();
 					}
-
+					
 					@Override
 					public void insertUpdate(DocumentEvent e)
 					{
 						updateSpam();
 					}
-
+					
 					@Override
 					public void changedUpdate(DocumentEvent e)
 					{
@@ -388,7 +388,7 @@ public class Spammer extends Module
 				updateFont();
 				spamPane.setPreferredSize(new Dimension(500, 200));
 				panel.add(spamPane);
-
+				
 				JButton startButton = new JButton("Spam");
 				startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 				startButton.setFont(new Font(startButton.getFont().getFamily(), Font.BOLD, 18));
@@ -425,7 +425,7 @@ public class Spammer extends Module
 					}
 				});
 				panel.add(startButton);
-
+				
 				dialog.setContentPane(panel);
 				dialog.pack();
 				dialog.setLocationRelativeTo(Minecraft.getMinecraft().getFrame());
@@ -435,7 +435,7 @@ public class Spammer extends Module
 			}
 		}.start();
 	}
-
+	
 	private void updateSpam()
 	{
 		try
@@ -446,7 +446,7 @@ public class Spammer extends Module
 			e.printStackTrace();
 		}
 	}
-
+	
 	private void updateFont()
 	{
 		try
@@ -460,17 +460,17 @@ public class Spammer extends Module
 			e1.printStackTrace();
 		}
 	}
-
+	
 	public static void updateDelaySpinner()
 	{
 		delaySpinner.setValue(Client.wurst.options.spamDelay);
 	}
-
+	
 	public JDialog getDialog()
 	{
 		return dialog;
 	}
-
+	
 	public void goToLine(int line)
 	{
 		int lineStart = 0;
@@ -495,7 +495,7 @@ public class Spammer extends Module
 		spamArea.setSelectionEnd(lineEnd);
 		spamArea.requestFocus();
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

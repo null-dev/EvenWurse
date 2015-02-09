@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -15,7 +15,7 @@ import tk.wurst_client.module.modules.*;
 public class ModuleManager
 {
 	public final ArrayList<Module> activeModules = new ArrayList<Module>();
-
+	
 	public Module getModuleFromClass(Class moduleClass)
 	{
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
@@ -23,7 +23,7 @@ public class ModuleManager
 				return Client.wurst.moduleManager.activeModules.get(i);
 		throw new IllegalArgumentException("There is no module called \"" + moduleClass.getName() + "\".");
 	}
-
+	
 	public Module getModuleByName(String name)
 	{
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
@@ -31,7 +31,7 @@ public class ModuleManager
 				return Client.wurst.moduleManager.activeModules.get(i);
 		return null;
 	}
-
+	
 	public ModuleManager()
 	{
 		activeModules.add(new AnnoyCMD());

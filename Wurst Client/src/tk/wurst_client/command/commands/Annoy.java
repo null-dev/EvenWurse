@@ -18,12 +18,12 @@ public class Annoy extends Command
 		".annoy",
 		".annoy <player>"
 	};
-
+	
 	public Annoy()
 	{
 		super("annoy", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

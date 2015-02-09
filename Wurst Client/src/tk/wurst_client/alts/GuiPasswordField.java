@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -340,14 +340,14 @@ public class GuiPasswordField extends Gui
 		boolean var4 = p_146192_1_ >= field_146209_f && p_146192_1_ < field_146209_f + field_146218_h && p_146192_2_ >= field_146210_g && p_146192_2_ < field_146210_g + field_146219_i;
 		
 		if(field_146212_n)
-			 setFocused(var4);
+			setFocused(var4);
 		
 		if(field_146213_o && p_146192_3_ == 0)
 		{
 			int var5 = p_146192_1_ - field_146209_f;
 			
 			if(field_146215_m)
-				 var5 -= 4;
+				var5 -= 4;
 			
 			String var6 = field_146211_a.trimStringToWidth(field_146216_j.substring(field_146225_q), func_146200_o());
 			func_146190_e(field_146211_a.trimStringToWidth(var6, var5).length() + field_146225_q);
@@ -378,7 +378,7 @@ public class GuiPasswordField extends Gui
 			int var9 = var7;
 			
 			if(var3 > var4.length())
-				 var3 = var4.length();
+				var3 = var4.length();
 			
 			if(var4.length() > 0)
 			{
@@ -393,8 +393,8 @@ public class GuiPasswordField extends Gui
 			int var11 = var9;
 			
 			if(!var5)
-				 var11 = var2 > 0 ? var7 + field_146218_h : var7;
-				 else if(var13)
+				var11 = var2 > 0 ? var7 + field_146218_h : var7;
+			else if(var13)
 			{
 				var11 = var9 - 1;
 				--var9;
@@ -409,10 +409,10 @@ public class GuiPasswordField extends Gui
 			}
 			
 			if(var6)
-				 if(var13)
-					 Gui.drawRect(var11, var8 - 1, var11 + 1, var8 + 1 + field_146211_a.FONT_HEIGHT, -3092272);
-				 else
-					 field_146211_a.drawStringWithShadow("_", var11, var8, var1);
+				if(var13)
+					Gui.drawRect(var11, var8 - 1, var11 + 1, var8 + 1 + field_146211_a.FONT_HEIGHT, -3092272);
+				else
+					field_146211_a.drawStringWithShadow("_", var11, var8, var1);
 			
 			if(var3 != var2)
 			{
@@ -444,10 +444,10 @@ public class GuiPasswordField extends Gui
 		}
 		
 		if(p_146188_3_ > field_146209_f + field_146218_h)
-			 p_146188_3_ = field_146209_f + field_146218_h;
+			p_146188_3_ = field_146209_f + field_146218_h;
 		
 		if(p_146188_1_ > field_146209_f + field_146218_h)
-			 p_146188_1_ = field_146209_f + field_146218_h;
+			p_146188_1_ = field_146209_f + field_146218_h;
 		
 		WorldRenderer var6 = Tessellator.getInstance().getWorldRenderer();
 		GL11.glColor4f(0.0F, 0.0F, 255.0F, 255.0F);
@@ -469,7 +469,7 @@ public class GuiPasswordField extends Gui
 		field_146217_k = p_146203_1_;
 		
 		if(field_146216_j.length() > p_146203_1_)
-			 field_146216_j = field_146216_j.substring(0, p_146203_1_);
+			field_146216_j = field_146216_j.substring(0, p_146203_1_);
 	}
 	
 	public int func_146208_g()
@@ -508,7 +508,7 @@ public class GuiPasswordField extends Gui
 	public void setFocused(boolean p_146195_1_)
 	{
 		if(p_146195_1_ && !field_146213_o)
-			  field_146214_l = 0;
+			field_146214_l = 0;
 		
 		field_146213_o = p_146195_1_;
 	}
@@ -541,35 +541,35 @@ public class GuiPasswordField extends Gui
 		int var2 = field_146216_j.length();
 		
 		if(p_146199_1_ > var2)
-			  p_146199_1_ = var2;
+			p_146199_1_ = var2;
 		
 		if(p_146199_1_ < 0)
-			  p_146199_1_ = 0;
+			p_146199_1_ = 0;
 		
 		field_146223_s = p_146199_1_;
 		
 		if(field_146211_a != null)
 		{
 			if(field_146225_q > var2)
-				  field_146225_q = var2;
+				field_146225_q = var2;
 			
 			int var3 = func_146200_o();
 			String var4 = field_146211_a.trimStringToWidth(field_146216_j.substring(field_146225_q), var3);
 			int var5 = var4.length() + field_146225_q;
 			
 			if(p_146199_1_ == field_146225_q)
-				  field_146225_q -= field_146211_a.trimStringToWidth(field_146216_j, var3, true).length();
+				field_146225_q -= field_146211_a.trimStringToWidth(field_146216_j, var3, true).length();
 			
 			if(p_146199_1_ > var5)
-				  field_146225_q += p_146199_1_ - var5;
-			  else if(p_146199_1_ <= field_146225_q)
-				  field_146225_q -= field_146225_q - p_146199_1_;
+				field_146225_q += p_146199_1_ - var5;
+			else if(p_146199_1_ <= field_146225_q)
+				field_146225_q -= field_146225_q - p_146199_1_;
 			
 			if(field_146225_q < 0)
-				  field_146225_q = 0;
+				field_146225_q = 0;
 			
 			if(field_146225_q > var2)
-				  field_146225_q = var2;
+				field_146225_q = var2;
 		}
 	}
 	

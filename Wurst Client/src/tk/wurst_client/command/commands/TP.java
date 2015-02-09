@@ -19,12 +19,12 @@ public class TP extends Command
 		"Only works on vanilla servers.",
 		".tp <x> <y> <z>"
 	};
-
+	
 	public TP()
 	{
 		super("tp", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

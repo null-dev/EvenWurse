@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -37,14 +37,14 @@ public class Killaura extends Module
 	public static float yesCheatRange = 4.25F;
 	public static float realSpeed;
 	public static float realRange;
-
+	
 	@Override
 	public void initSliders()
 	{
 		moduleSliders.add(new BasicSlider("Killaura speed", normalSpeed, 2, 20, 0.1, ValueDisplay.DECIMAL));
 		moduleSliders.add(new BasicSlider("Killaura range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
 	}
-
+	
 	@Override
 	public void updateSettings()
 	{
@@ -53,7 +53,7 @@ public class Killaura extends Module
 		normalRange = (float)moduleSliders.get(1).getValue();
 		yesCheatRange = Math.min(normalRange, 4.25F);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -64,7 +64,7 @@ public class Killaura extends Module
 		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

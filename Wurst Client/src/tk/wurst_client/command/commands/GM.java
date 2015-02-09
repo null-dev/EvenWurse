@@ -20,12 +20,12 @@ public class GM extends Command
 		".gm <s | c | a>",
 		".gm <survival | creative | adventure>"
 	};
-
+	
 	public GM()
 	{
 		super("gm", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

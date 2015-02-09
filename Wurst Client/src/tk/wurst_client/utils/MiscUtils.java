@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -28,7 +28,7 @@ import org.lwjgl.Sys;
 public class MiscUtils
 {
 	private static final Logger logger = LogManager.getLogger();
-
+	
 	public static boolean isInteger(String s)
 	{
 		try
@@ -40,7 +40,7 @@ public class MiscUtils
 		}
 		return true;
 	}
-
+	
 	public static int countMatches(String string, String regex)
 	{
 		Matcher matcher = Pattern.compile(regex).matcher(string);
@@ -49,7 +49,7 @@ public class MiscUtils
 			count++;
 		return count;
 	}
-
+	
 	public static boolean openLink(String url)
 	{
 		try
@@ -62,12 +62,12 @@ public class MiscUtils
 			return false;
 		}
 	}
-
+	
 	public static void openFile(File file)
 	{
 		openFile(file.getPath());
 	}
-
+	
 	public static void openFile(String path)
 	{
 		File file = new File(path);
@@ -80,11 +80,11 @@ public class MiscUtils
 		{
 			logger.error("Failed to open file via Desktop.", e);
 		}
-
+		
 		if(Util.getOSType() == Util.EnumOS.WINDOWS)
 		{
 			String command = String.format("cmd.exe /C start \"Open file\" \"%s\"", new Object[]{apath});
-
+			
 			try
 			{
 				Runtime.getRuntime().exec(command);
@@ -95,17 +95,17 @@ public class MiscUtils
 			}
 		}else if(Util.getOSType() == Util.EnumOS.OSX)
 			try
-		{
+			{
 				logger.info(apath);
 				Runtime.getRuntime().exec(new String[]{"/usr/bin/open", apath});
 				return;
-		}catch(IOException var9)
-		{
-			logger.error("Failed to open file", var9);
-		}
-
+			}catch(IOException var9)
+			{
+				logger.error("Failed to open file", var9);
+			}
+		
 		boolean browserFailed = false;
-
+		
 		try
 		{
 			Desktop.getDesktop().browse(file.toURI());
@@ -114,14 +114,14 @@ public class MiscUtils
 			logger.error("Failed to open file", var7);
 			browserFailed = true;
 		}
-
+		
 		if(browserFailed)
 		{
 			logger.info("Opening via system class!");
 			Sys.openURL("file://" + apath);
 		}
 	}
-
+	
 	public static void simpleError(Exception e, Component parent)
 	{
 		StringWriter writer = new StringWriter();

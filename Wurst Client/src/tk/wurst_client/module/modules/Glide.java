@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -23,7 +23,7 @@ public class Glide extends Module
 			0,
 			Category.MOVEMENT);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -34,9 +34,9 @@ public class Glide extends Module
 			noCheatMessage();
 			setToggled(false);
 		}else if(Minecraft.getMinecraft().thePlayer.motionY < 0 && Minecraft.getMinecraft().thePlayer.isAirBorne && !Minecraft.getMinecraft().thePlayer.isInWater() && !Minecraft.getMinecraft().thePlayer.isOnLadder() && !Minecraft.getMinecraft().thePlayer.isInsideOfMaterial(Material.lava))
-			{
-				Minecraft.getMinecraft().thePlayer.motionY = -0.125f;
-				Minecraft.getMinecraft().thePlayer.jumpMovementFactor *= 1.21337f;
-			}
+		{
+			Minecraft.getMinecraft().thePlayer.motionY = -0.125f;
+			Minecraft.getMinecraft().thePlayer.jumpMovementFactor *= 1.21337f;
+		}
 	}
 }

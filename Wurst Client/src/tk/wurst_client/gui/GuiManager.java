@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * Modifications made by Alexander01998 in this Source Code Form are subject
  * to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL
  * was not distributed with this file, You can obtain one at
@@ -182,7 +182,7 @@ public final class GuiManager extends AbstractGuiManager
 					settings.add(slider);
 				}
 		}
-
+		
 		// AutoBuild
 		ModuleFrame blocksFrame = categoryFrames.get(Category.BLOCKS);
 		ComboBox autoBuildBox = new BasicComboBox(AutoBuild.modeNames);
@@ -197,7 +197,7 @@ public final class GuiManager extends AbstractGuiManager
 		});
 		autoBuildBox.setSelectedIndex(Client.wurst.options.autobuildMode);
 		blocksFrame.add(autoBuildBox, HorizontalGridConstraint.CENTER);
-
+		
 		// Target
 		ModuleFrame combatFrame = categoryFrames.get(Category.COMBAT);
 		combatFrame.add(new BasicLabel("Target"), HorizontalGridConstraint.CENTER);
@@ -213,7 +213,7 @@ public final class GuiManager extends AbstractGuiManager
 		});
 		targetBox.setSelectedIndex(Client.wurst.options.targetMode);
 		combatFrame.add(targetBox, HorizontalGridConstraint.CENTER);
-
+		
 		if(!Client.wurst.fileManager.sliders.exists())
 			Client.wurst.fileManager.saveSliders();
 		else

@@ -18,12 +18,12 @@ public class Taco extends Command
 		"\"I love that little guy. So cute!\" -WiZARDHAX",
 		".taco"
 	};
-
+	
 	public Taco()
 	{
 		super("taco", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

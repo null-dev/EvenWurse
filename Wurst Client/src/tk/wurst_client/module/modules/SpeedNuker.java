@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -33,11 +33,11 @@ public class SpeedNuker extends Module
 			Keyboard.KEY_GRAVE,
 			Category.BLOCKS);
 	}
-
+	
 	private static Block currentBlock;
 	private BlockPos pos;
 	private int oldSlot = -1;
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -50,7 +50,7 @@ public class SpeedNuker extends Module
 		else
 			return "SpeedNuker";
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -59,7 +59,7 @@ public class SpeedNuker extends Module
 		if(Client.wurst.moduleManager.getModuleFromClass(NukerLegit.class).getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(NukerLegit.class).setToggled(false);
 	}
-
+	
 	@Override
 	public void onLeftClick()
 	{
@@ -73,7 +73,7 @@ public class SpeedNuker extends Module
 			Client.wurst.fileManager.saveOptions();
 		}
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -115,7 +115,7 @@ public class SpeedNuker extends Module
 			AutoTool.setSlot(pos);
 		nukeAll();
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -127,7 +127,7 @@ public class SpeedNuker extends Module
 		Nuker.id = 0;
 		Client.wurst.fileManager.saveOptions();
 	}
-
+	
 	private BlockPos find()
 	{
 		BlockPos closest = null;
@@ -172,7 +172,7 @@ public class SpeedNuker extends Module
 				}
 		return closest;
 	}
-
+	
 	private void nukeAll()
 	{
 		for(int y = (int)Nuker.normalRange; y >= (Client.wurst.options.nukerMode == 2 ? 0 : -Nuker.normalRange); y--)

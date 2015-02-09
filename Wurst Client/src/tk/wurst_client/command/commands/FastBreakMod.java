@@ -18,12 +18,12 @@ public class FastBreakMod extends Command
 		"Changes the settings of FastBreak.",
 		".fastbreak mode <normal | instant>"
 	};
-
+	
 	public FastBreakMod()
 	{
 		super("fastbreak", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

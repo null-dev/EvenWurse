@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -32,6 +32,7 @@ public class GuiAltLogin extends GuiScreen
 	private GuiPasswordField passwordBox;
 	private String displayText = "";
 	private int errorTimer;
+	
 	public GuiAltLogin(GuiScreen par1GuiScreen)
 	{
 		prevMenu = par1GuiScreen;
@@ -124,7 +125,7 @@ public class GuiAltLogin extends GuiScreen
 	
 	/**
 	 * Called when the mouse is clicked.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	@Override

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -22,16 +22,16 @@ public class Throw extends Module
 				+ "This can cause a lot of lag and even crash a server.\n"
 				+ "Works best with snowballs or eggs.\n"
 				+ "Type .throw <amount> to change the amount of uses per click.",
-				0,
-				Category.MISC);
+			0,
+			Category.MISC);
 	}
-
+	
 	@Override
 	public String getRenderName()
 	{
 		return getName() + " [" + Client.wurst.options.throwAmount + "]";
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

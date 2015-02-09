@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,7 +27,7 @@ public class Random extends Tag
 				+ "Random string: <random string 5>\n"
 				+ "Random junk: <random junk 8>");
 	}
-
+	
 	@Override
 	public String process(TagData tagData) throws SpamException
 	{
@@ -59,8 +59,8 @@ public class Random extends Tag
 				if(ChatAllowedCharacters.isAllowedCharacter((char)nextChar[0]))
 				{
 					String nextString = new String(nextChar)
-					.replace("<", "§_lt;")
-					.replace("§", "");
+						.replace("<", "§_lt;")
+						.replace("§", "");
 					random += nextString;
 					i++;
 				}

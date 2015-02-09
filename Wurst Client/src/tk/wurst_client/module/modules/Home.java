@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -25,9 +25,9 @@ public class Home extends Module
 			Keyboard.KEY_H,
 			Category.CHAT);
 	}
-
+	
 	private int disableTimer;
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -40,13 +40,13 @@ public class Home extends Module
 			disableTimer++;
 		}
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
 		disableTimer = 0;
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{

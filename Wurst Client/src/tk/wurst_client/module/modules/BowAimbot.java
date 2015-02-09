@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -34,13 +34,13 @@ public class BowAimbot extends Module
 			"BowAimbot",
 			"Automatically aims your bow at the closest entity.\n"
 				+ "Tip: This works with FastBow.",
-				0,
-				Category.COMBAT);
+			0,
+			Category.COMBAT);
 	}
-
+	
 	private Entity target;
 	private float velocity;
-
+	
 	@Override
 	public void onRender()
 	{
@@ -48,7 +48,7 @@ public class BowAimbot extends Module
 			return;
 		RenderUtils.entityESPBox(target, 3);
 	}
-
+	
 	@Override
 	public void onRenderGUI()
 	{
@@ -76,7 +76,7 @@ public class BowAimbot extends Module
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -91,7 +91,7 @@ public class BowAimbot extends Module
 			aimAtTarget();
 		}
 	}
-
+	
 	private void aimAtTarget()
 	{
 		if(target == null)

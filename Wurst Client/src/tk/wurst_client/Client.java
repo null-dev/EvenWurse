@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -30,7 +30,7 @@ public class Client
 	public String currentServerIP = "127.0.0.1:25565";
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
-
+	
 	public ChatMessenger chat;
 	public CommandManager commandManager;
 	public FileManager fileManager;
@@ -39,9 +39,9 @@ public class Client
 	public ModuleManager moduleManager;
 	public Options options;
 	public Updater updater;
-
+	
 	public static final Client wurst = new Client();
-
+	
 	public void startClient()
 	{
 		moduleManager = new ModuleManager();
@@ -52,7 +52,7 @@ public class Client
 		chat = new ChatMessenger();
 		options = new Options();
 		friends = new Friends();
-
+		
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();
 		fileManager.init();

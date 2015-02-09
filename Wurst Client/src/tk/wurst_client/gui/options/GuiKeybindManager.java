@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -23,7 +23,7 @@ public class GuiKeybindManager extends GuiScreen
 	{
 		prevMenu = par1GuiScreen;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
@@ -37,7 +37,7 @@ public class GuiKeybindManager extends GuiScreen
 		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 98, 20, "Clear Bind"));
 		buttonList.add(new GuiButton(2, width / 2 - 100, height - 28, 200, 20, "Back"));
 	}
-
+	
 	/**
 	 * Called from the main game loop to update the screen.
 	 */
@@ -47,7 +47,7 @@ public class GuiKeybindManager extends GuiScreen
 		((GuiButton)buttonList.get(0)).enabled = bindList.getSelectedSlot() != -1;
 		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1 && Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot()))).getBind() != 0;
 	}
-
+	
 	@Override
 	protected void actionPerformed(GuiButton clickedButton)
 	{
@@ -65,7 +65,7 @@ public class GuiKeybindManager extends GuiScreen
 			}else if(clickedButton.id == 2)
 				mc.displayGuiScreen(prevMenu);
 	}
-
+	
 	/**
 	 * Fired when a key is typed. This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e).
@@ -79,7 +79,7 @@ public class GuiKeybindManager extends GuiScreen
 	
 	/**
 	 * Called when the mouse is clicked.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	@Override

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -31,12 +31,12 @@ public class GuiAltAdd extends GuiScreen
 	private GuiPasswordField passwordBox;
 	private String displayText = "";
 	private int errorTimer;
-
+	
 	public GuiAltAdd(GuiScreen par1GuiScreen)
 	{
 		prevMenu = par1GuiScreen;
 	}
-
+	
 	/**
 	 * Called from the main game loop to update the screen.
 	 */
@@ -47,10 +47,10 @@ public class GuiAltAdd extends GuiScreen
 		passwordBox.updateCursorCounter();
 		((GuiButton)buttonList.get(0)).enabled =
 			nameBox.getText().trim().length() > 0
-			&& (!nameBox.getText().trim().equalsIgnoreCase("Alexander01998") || passwordBox.getText().length() != 0);
-			((GuiButton)buttonList.get(3)).enabled = !nameBox.getText().trim().equalsIgnoreCase("Alexander01998");
+				&& (!nameBox.getText().trim().equalsIgnoreCase("Alexander01998") || passwordBox.getText().length() != 0);
+		((GuiButton)buttonList.get(3)).enabled = !nameBox.getText().trim().equalsIgnoreCase("Alexander01998");
 	}
-
+	
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
 	 */
@@ -72,7 +72,7 @@ public class GuiAltAdd extends GuiScreen
 		passwordBox = new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
 		passwordBox.setFocused(false);
 	}
-
+	
 	/**
 	 * "Called when the screen is unloaded. Used to disable keyboard repeat events."
 	 */
@@ -81,7 +81,7 @@ public class GuiAltAdd extends GuiScreen
 	{
 		Keyboard.enableRepeatEvents(false);
 	}
-
+	
 	@Override
 	protected void actionPerformed(GuiButton clickedButton)
 	{
@@ -114,7 +114,7 @@ public class GuiAltAdd extends GuiScreen
 			else if(clickedButton.id == 5)
 				MiscUtils.openFile(Client.wurst.fileManager.skinDir);
 	}
-
+	
 	/**
 	 * Fired when a key is typed. This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e).
@@ -124,11 +124,11 @@ public class GuiAltAdd extends GuiScreen
 	{
 		nameBox.textboxKeyTyped(par1, par2);
 		passwordBox.textboxKeyTyped(par1, par2);
-
+		
 		if(par2 == 28 || par2 == 156)
 			actionPerformed((GuiButton)buttonList.get(0));
 	}
-
+	
 	/**
 	 * Called when the mouse is clicked.
 	 *
@@ -143,7 +143,7 @@ public class GuiAltAdd extends GuiScreen
 		if(nameBox.isFocused() || passwordBox.isFocused())
 			displayText = "";
 	}
-
+	
 	/**
 	 * Draws the screen and all the components in it.
 	 */

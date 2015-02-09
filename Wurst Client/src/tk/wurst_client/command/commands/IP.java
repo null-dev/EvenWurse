@@ -22,12 +22,12 @@ public class IP extends Command
 		".ip",
 		".ip copy"
 	};
-
+	
 	public IP()
 	{
 		super("ip", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

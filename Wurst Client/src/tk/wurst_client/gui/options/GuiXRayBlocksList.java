@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -35,18 +35,18 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 	private int selectedSlot;
 	private Minecraft mc;
 	public static ArrayList<Block> blocks = new ArrayList<Block>();
-
+	
 	public static void sortBlocks()
 	{
 		blocks = XRay.xrayBlocks;
 		Collections.sort(blocks, new Comparator<Block>()
-			{
+		{
 			@Override
 			public int compare(Block o1, Block o2)
 			{
 				return o1.getLocalizedName().compareToIgnoreCase(o2.getLocalizedName());
 			}
-			});
+		});
 		ArrayList<Block> newBlocks = new ArrayList<Block>();
 		for(Block block : blocks)
 			if(XRay.xrayBlocks.contains(block))
@@ -56,34 +56,34 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 				newBlocks.add(block);
 		blocks = newBlocks;
 	}
-
+	
 	@Override
 	protected boolean isSelected(int id)
 	{
 		return selectedSlot == id;
 	}
-
+	
 	protected int getSelectedSlot()
 	{
 		return selectedSlot;
 	}
-
+	
 	@Override
 	protected int getSize()
 	{
 		return blocks.size();
 	}
-
+	
 	@Override
 	protected void elementClicked(int var1, boolean var2, int var3, int var4)
 	{
 		selectedSlot = var1;
 	}
-
+	
 	@Override
 	protected void drawBackground()
 	{}
-
+	
 	@Override
 	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
 	{
@@ -95,12 +95,12 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		if(itemStack.getItem() != null)
 			try
-		{
+			{
 				Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, x + 4, y + 4);
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		else
 			mc.fontRendererObj.drawString("?", x + 10, y + 9, 10526880);
 		Minecraft.getMinecraft().getRenderItem().func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack, x + 4, y + 4);

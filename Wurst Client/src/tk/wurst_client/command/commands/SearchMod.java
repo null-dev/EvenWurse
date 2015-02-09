@@ -23,12 +23,12 @@ public class SearchMod extends Command
 		".search id <block id>",
 		".search name <block name>"
 	};
-
+	
 	public SearchMod()
 	{
 		super("search", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

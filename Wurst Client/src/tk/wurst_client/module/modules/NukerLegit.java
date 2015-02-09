@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -30,10 +30,10 @@ public class NukerLegit extends Module
 			"NukerLegit",
 			"Slower Nuker that bypasses any cheat prevention\n"
 				+ "PlugIn. Not required on most NoCheat+ servers!",
-				0,
-				Category.BLOCKS);
+			0,
+			Category.BLOCKS);
 	}
-
+	
 	private static Block currentBlock;
 	private float currentDamage;
 	private EnumFacing side = EnumFacing.UP;
@@ -41,7 +41,7 @@ public class NukerLegit extends Module
 	private BlockPos pos;
 	private boolean shouldRenderESP;
 	private int oldSlot = -1;
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -54,7 +54,7 @@ public class NukerLegit extends Module
 		else
 			return "NukerLegit";
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -63,7 +63,7 @@ public class NukerLegit extends Module
 		if(Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class).getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class).setToggled(false);
 	}
-
+	
 	@Override
 	public void onLeftClick()
 	{
@@ -77,7 +77,7 @@ public class NukerLegit extends Module
 			Client.wurst.fileManager.saveOptions();
 		}
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -87,7 +87,7 @@ public class NukerLegit extends Module
 			else
 				RenderUtils.nukerBox(pos, 1);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -143,7 +143,7 @@ public class NukerLegit extends Module
 			currentDamage = 0;
 		}
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -157,7 +157,7 @@ public class NukerLegit extends Module
 		Nuker.id = 0;
 		Client.wurst.fileManager.saveOptions();
 	}
-
+	
 	private BlockPos find()
 	{
 		BlockPos closest = null;

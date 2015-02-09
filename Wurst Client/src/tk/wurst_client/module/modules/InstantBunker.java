@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,7 +27,7 @@ public class InstantBunker extends Module
 			0,
 			Category.BLOCKS);
 	}
-
+	
 	private float speed = 5;
 	private int i;
 	private boolean shouldBuild;
@@ -36,7 +36,7 @@ public class InstantBunker extends Module
 	private double posX;
 	private double posY;
 	private double posZ;
-
+	
 	// Bottom = 0, Top = 1, Front = 2, Back = 3, Right = 4, Left = 5.
 	private int[][] building =
 	{
@@ -98,7 +98,7 @@ public class InstantBunker extends Module
 		{-2, 4, 0, 5},
 		{0, 4, 1, 2},
 	};
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -121,7 +121,7 @@ public class InstantBunker extends Module
 				playerYaw += 360;
 		}
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -179,7 +179,7 @@ public class InstantBunker extends Module
 					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY, renderZ));
 				}
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -193,7 +193,7 @@ public class InstantBunker extends Module
 				BuildUtils.advancedInstantBuildNext(building, MouseOver, playerYaw, posX + 1, posY, posZ, i);
 				if(playerYaw > -45 && playerYaw <= 45)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								(int)posX + BuildUtils.convertPosInAdvancedBuiling(1, i, building),
@@ -201,11 +201,11 @@ public class InstantBunker extends Module
 								(int)posZ + BuildUtils.convertPosInAdvancedBuiling(3, i, building)
 							)).getBlock()) != 0)
 							i += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > 45 && playerYaw <= 135)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								(int)posX - BuildUtils.convertPosInAdvancedBuiling(3, i, building),
@@ -213,11 +213,11 @@ public class InstantBunker extends Module
 								(int)posZ + BuildUtils.convertPosInAdvancedBuiling(1, i, building)
 							)).getBlock()) != 0)
 							i += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > 135 || playerYaw <= -135)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								(int)posX - BuildUtils.convertPosInAdvancedBuiling(1, i, building),
@@ -225,11 +225,11 @@ public class InstantBunker extends Module
 								(int)posZ - BuildUtils.convertPosInAdvancedBuiling(3, i, building)
 							)).getBlock()) != 0)
 							i += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > -135 && playerYaw <= -45)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								(int)posX + BuildUtils.convertPosInAdvancedBuiling(3, i, building),
@@ -237,7 +237,7 @@ public class InstantBunker extends Module
 								(int)posZ - BuildUtils.convertPosInAdvancedBuiling(1, i, building)
 							)).getBlock()) != 0)
 							i += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				updateLastMS();
 			}else if(i == building.length)
@@ -251,7 +251,7 @@ public class InstantBunker extends Module
 			setToggled(false);
 		}
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

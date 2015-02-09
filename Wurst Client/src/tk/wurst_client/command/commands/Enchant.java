@@ -21,12 +21,12 @@ public class Enchant extends Command
 		".enchant",
 		".enchant all"
 	};
-
+	
 	public Enchant()
 	{
 		super("enchant", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
@@ -45,12 +45,12 @@ public class Enchant extends Command
 			}
 			for(Enchantment enchantment : Enchantment.enchantmentsList)
 				try
-			{
+				{
 					if(enchantment == Enchantment.silkTouch)
 						continue;
 					currentItem.addEnchantment(enchantment, 127);
-			}catch(Exception e)
-			{	
+				}catch(Exception e)
+				{	
 					
 				}
 		}else if(args[0].equals("all"))
@@ -64,12 +64,12 @@ public class Enchant extends Command
 				items++;
 				for(Enchantment enchantment : Enchantment.enchantmentsList)
 					try
-				{
+					{
 						if(enchantment == Enchantment.silkTouch)
 							continue;
 						currentItem.addEnchantment(enchantment, 127);
-				}catch(Exception e)
-				{	
+					}catch(Exception e)
+					{	
 						
 					}
 			}

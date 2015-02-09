@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -63,13 +63,13 @@ public class UIRenderer
 				}
 			}
 	}
-
+	
 	public static void renderUI()
 	{
 		Fonts.segoe22.drawString("v" + Client.wurst.CLIENT_VERSION, 74, 4, 0xFF000000);
 		renderArrayList();
 	}
-
+	
 	public static void renderPinnedFrames()
 	{
 		for(Frame moduleFrame : Client.wurst.guiManager.getFrames())

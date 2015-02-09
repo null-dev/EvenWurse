@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -21,13 +21,13 @@ public class Follow extends Module
 			"Follow",
 			"A bot that follows the closest entity.\n"
 				+ "Very annoying.",
-				0,
-				Category.COMBAT);
+			0,
+			Category.COMBAT);
 	}
-
+	
 	private EntityLivingBase entity;
 	private float range = 12F;
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -36,7 +36,7 @@ public class Follow extends Module
 		else
 			return "Follow";
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -48,7 +48,7 @@ public class Follow extends Module
 				entity = en;
 		}
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -77,7 +77,7 @@ public class Follow extends Module
 		if(Minecraft.getMinecraft().thePlayer.isInWater() && Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

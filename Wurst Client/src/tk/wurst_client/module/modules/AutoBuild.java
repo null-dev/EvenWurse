@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -30,10 +30,10 @@ public class AutoBuild extends Module
 				+ "you place a block. Use the combo box below to select a\n"
 				+ "structure.\n"
 				+ "This can bypass NoCheat+ while YesCheat+ is enabled.",
-				0,
-				Category.BLOCKS);
+			0,
+			Category.BLOCKS);
 	}
-
+	
 	public static String[] modeNames = {"Bridge", "Floor", "Nazi", "Penis", "Pillar", "Wall", "Wurst", "Custom"};
 	public static ArrayList<int[][]> buildings = new ArrayList<int[][]>();
 	private float speed = 5;
@@ -41,13 +41,13 @@ public class AutoBuild extends Module
 	private boolean shouldBuild;
 	private float playerYaw;
 	private MovingObjectPosition mouseOver;
-
+	
 	@Override
 	public String getRenderName()
 	{
 		return getName() + " [" + modeNames[Client.wurst.options.autobuildMode] + "]";
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -58,7 +58,7 @@ public class AutoBuild extends Module
 		else
 			renderSimple();
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -75,7 +75,7 @@ public class AutoBuild extends Module
 	{
 		shouldBuild = false;
 	}
-
+	
 	private void renderAdvanced()
 	{
 		if(shouldBuild && blockIndex < buildings.get(Client.wurst.options.autobuildMode).length && blockIndex >= 0)
@@ -139,7 +139,7 @@ public class AutoBuild extends Module
 					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY, renderZ));
 				}
 	}
-
+	
 	private void renderSimple()
 	{
 		if(shouldBuild && blockIndex < buildings.get(Client.wurst.options.autobuildMode).length && blockIndex >= 0)
@@ -203,7 +203,7 @@ public class AutoBuild extends Module
 					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY, renderZ));
 				}
 	}
-
+	
 	private void buildAdvanced()
 	{
 		updateMS();
@@ -239,7 +239,7 @@ public class AutoBuild extends Module
 				BuildUtils.advancedBuildNext(buildings.get(Client.wurst.options.autobuildMode), mouseOver, playerYaw, blockIndex);
 				if(playerYaw > -45 && playerYaw <= 45)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								BuildUtils.convertPosNext(1, mouseOver) + BuildUtils.convertPosInAdvancedBuiling(1, blockIndex, buildings.get(Client.wurst.options.autobuildMode)),
@@ -247,11 +247,11 @@ public class AutoBuild extends Module
 								BuildUtils.convertPosNext(3, mouseOver) + BuildUtils.convertPosInAdvancedBuiling(3, blockIndex, buildings.get(Client.wurst.options.autobuildMode))
 							)).getBlock()) != 0)
 							blockIndex += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > 45 && playerYaw <= 135)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								BuildUtils.convertPosNext(1, mouseOver) - BuildUtils.convertPosInAdvancedBuiling(3, blockIndex, buildings.get(Client.wurst.options.autobuildMode)),
@@ -259,11 +259,11 @@ public class AutoBuild extends Module
 								BuildUtils.convertPosNext(3, mouseOver) + BuildUtils.convertPosInAdvancedBuiling(1, blockIndex, buildings.get(Client.wurst.options.autobuildMode))
 							)).getBlock()) != 0)
 							blockIndex += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > 135 || playerYaw <= -135)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								BuildUtils.convertPosNext(1, mouseOver) - BuildUtils.convertPosInAdvancedBuiling(1, blockIndex, buildings.get(Client.wurst.options.autobuildMode)),
@@ -271,11 +271,11 @@ public class AutoBuild extends Module
 								BuildUtils.convertPosNext(3, mouseOver) - BuildUtils.convertPosInAdvancedBuiling(3, blockIndex, buildings.get(Client.wurst.options.autobuildMode))
 							)).getBlock()) != 0)
 							blockIndex += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > -135 && playerYaw <= -45)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								BuildUtils.convertPosNext(1, mouseOver) + BuildUtils.convertPosInAdvancedBuiling(3, blockIndex, buildings.get(Client.wurst.options.autobuildMode)),
@@ -283,13 +283,13 @@ public class AutoBuild extends Module
 								BuildUtils.convertPosNext(3, mouseOver) - BuildUtils.convertPosInAdvancedBuiling(1, blockIndex, buildings.get(Client.wurst.options.autobuildMode))
 							)).getBlock()) != 0)
 							blockIndex += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				updateLastMS();
 			}else if(blockIndex == buildings.get(Client.wurst.options.autobuildMode).length)
 				shouldBuild = false;
 	}
-
+	
 	private void buildSimple()
 	{
 		updateMS();
@@ -325,7 +325,7 @@ public class AutoBuild extends Module
 				BuildUtils.buildNext(buildings.get(Client.wurst.options.autobuildMode), mouseOver, playerYaw, blockIndex);
 				if(playerYaw > -45 && playerYaw <= 45)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								mouseOver.getBlockPos().getX() + BuildUtils.convertPosInBuiling(1, blockIndex, buildings.get(Client.wurst.options.autobuildMode), mouseOver),
@@ -333,11 +333,11 @@ public class AutoBuild extends Module
 								mouseOver.getBlockPos().getZ() + BuildUtils.convertPosInBuiling(3, blockIndex, buildings.get(Client.wurst.options.autobuildMode), mouseOver)
 							)).getBlock()) != 0)
 							blockIndex += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > 45 && playerYaw <= 135)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								mouseOver.getBlockPos().getX() - BuildUtils.convertPosInBuiling(3, blockIndex, buildings.get(Client.wurst.options.autobuildMode), mouseOver),
@@ -345,11 +345,11 @@ public class AutoBuild extends Module
 								mouseOver.getBlockPos().getZ() + BuildUtils.convertPosInBuiling(1, blockIndex, buildings.get(Client.wurst.options.autobuildMode), mouseOver)
 							)).getBlock()) != 0)
 							blockIndex += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > 135 || playerYaw <= -135)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								mouseOver.getBlockPos().getX() - BuildUtils.convertPosInBuiling(1, blockIndex, buildings.get(Client.wurst.options.autobuildMode), mouseOver),
@@ -357,11 +357,11 @@ public class AutoBuild extends Module
 								mouseOver.getBlockPos().getZ() - BuildUtils.convertPosInBuiling(3, blockIndex, buildings.get(Client.wurst.options.autobuildMode), mouseOver)
 							)).getBlock()) != 0)
 							blockIndex += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > -135 && playerYaw <= -45)
 					try
-				{
+					{
 						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
 							(
 								mouseOver.getBlockPos().getX() + BuildUtils.convertPosInBuiling(3, blockIndex, buildings.get(Client.wurst.options.autobuildMode), mouseOver),
@@ -369,7 +369,7 @@ public class AutoBuild extends Module
 								mouseOver.getBlockPos().getZ() - BuildUtils.convertPosInBuiling(1, blockIndex, buildings.get(Client.wurst.options.autobuildMode), mouseOver)
 							)).getBlock()) != 0)
 							blockIndex += 1;
-				}catch(NullPointerException e)
+					}catch(NullPointerException e)
 					{}// If the current item is null.
 				updateLastMS();
 			}else if(blockIndex == buildings.get(Client.wurst.options.autobuildMode).length)

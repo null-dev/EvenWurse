@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -26,8 +26,8 @@ public class RemoteView extends Module
 			"RemoteView",
 			"Allows you to see the world as someone else.\n"
 				+ "Use .rv <entity name> to make it target a specific entity.",
-				0,
-				Category.RENDER);
+			0,
+			Category.RENDER);
 	}
 	
 	private EntityPlayerSP newView = null;
@@ -37,7 +37,7 @@ public class RemoteView extends Module
 	private EntityLivingBase otherView = null;
 	private static UUID otherID = null;
 	private boolean wasInvisible;
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -62,14 +62,14 @@ public class RemoteView extends Module
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
 		Client.wurst.chat.message("Now viewing " + otherView.getName() + ".");
 	}
-
+	
 	public static void onEnabledByCommand(String viewName)
 	{
 		if(otherID == null && !viewName.equals(""))
 			otherID = EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
 		Client.wurst.moduleManager.getModuleFromClass(RemoteView.class).toggleModule();
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -89,7 +89,7 @@ public class RemoteView extends Module
 		Minecraft.getMinecraft().thePlayer = newView;
 		otherView.setInvisible(true);
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -20,8 +20,8 @@ public class Regen extends Module
 			"Regen",
 			"Regenerates your health 100 times faster.\n"
 				+ "Can cause unwanted \"Flying is not enabled!\" kicks.",
-				0,
-				Category.COMBAT);
+			0,
+			Category.COMBAT);
 	}
 	
 	@Override

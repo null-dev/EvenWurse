@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -26,27 +26,27 @@ public class Search extends Module
 			"Helps you to find specific blocks.\n"
 				+ "Use .search id <block id> or .search name <block name>\n"
 				+ "to specify it.",
-				0,
-				Category.RENDER);
+			0,
+			Category.RENDER);
 	}
-
+	
 	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
 	private int range = 50;
 	private int maxBlocks = 1000;
 	public static boolean shouldInform = true;
-
+	
 	@Override
 	public String getRenderName()
 	{
 		return getName() + " [" + Client.wurst.options.searchID + "]";
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
 		shouldInform = true;
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -55,7 +55,7 @@ public class Search extends Module
 		for(BlockPos blockPos : matchingBlocks)
 			RenderUtils.searchBox(blockPos);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

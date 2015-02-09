@@ -21,12 +21,12 @@ public class ThrowMod extends Command
 		".throw",
 		".throw amount <amount>",
 	};
-
+	
 	public ThrowMod()
 	{
 		super("throw", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

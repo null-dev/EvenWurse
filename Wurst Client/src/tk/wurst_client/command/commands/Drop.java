@@ -18,12 +18,12 @@ public class Drop extends Command
 		"Drops all your items on the ground.",
 		".drop"
 	};
-
+	
 	public Drop()
 	{
 		super("drop", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

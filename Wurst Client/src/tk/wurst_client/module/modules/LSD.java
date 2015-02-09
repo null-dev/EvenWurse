@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -28,25 +28,25 @@ public class LSD extends Module
 			0,
 			Category.FUN);
 	}
-
+	
 	private static float speed = 2;
 	private static long currentMS = 0L;
 	private static long lastMS = -1L;
 	private static Color color = Color.WHITE;
-
+	
 	@Override
 	public void onEnable()
 	{
 		Minecraft.getMinecraft().entityRenderer.activateLSD();
 	}
-
+	
 	@Override
 	public void onToggle()
 	{
 		if(!OpenGlHelper.shadersSupported)
 			Minecraft.getMinecraft().renderGlobal.loadRenderers();
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -56,7 +56,7 @@ public class LSD extends Module
 			Minecraft.getMinecraft().thePlayer.addPotionEffect(new PotionEffect(Potion.confusion.getId(), 10801220));
 		Minecraft.getMinecraft().gameSettings.smoothCamera = true;
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -69,7 +69,7 @@ public class LSD extends Module
 		}
 		Tessellator.shouldRenderLSD = false;
 	}
-
+	
 	public static Color randomColor()
 	{
 		currentMS = System.currentTimeMillis();

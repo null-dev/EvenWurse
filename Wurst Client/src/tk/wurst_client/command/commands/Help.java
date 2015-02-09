@@ -20,14 +20,14 @@ public class Help extends Command
 		".help <page>",
 		".help <command>"
 	};
-
+	
 	public Help()
 	{
 		super("help", commandHelp);
 	}
-
+	
 	private int commandsPerPage = 8;
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

@@ -20,14 +20,14 @@ public class Friends extends Command
 		".friends list",
 		".friends list <page>"
 	};
-
+	
 	public Friends()
 	{
 		super("friends", commandHelp);
 	}
-
+	
 	private int friendsPerPage = 8;
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

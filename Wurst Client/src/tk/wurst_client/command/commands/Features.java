@@ -23,12 +23,12 @@ public class Features extends Command
 		"Counts the features in this release of Wurst.",
 		".features"
 	};
-
+	
 	public Features()
 	{
 		super("features", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

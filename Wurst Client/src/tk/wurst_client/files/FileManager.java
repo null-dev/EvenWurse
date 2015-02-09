@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -47,7 +47,7 @@ public class FileManager
 	public final File skinDir = new File(wurstDir, "skins");
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
-
+	
 	public final File alts = new File(wurstDir, "alts.wurst");
 	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.json");
 	public final File friends = new File(wurstDir, "friends.json");
@@ -58,10 +58,10 @@ public class FileManager
 	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
 	public final File xray = new File(wurstDir, "xray.json");
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+	
 	@Deprecated
 	private String split = "§";
-
+	
 	public void init()
 	{
 		if(!wurstDir.exists())
@@ -97,7 +97,7 @@ public class FileManager
 			loadXRayBlocks();
 		loadBuildings();
 	}
-
+	
 	public void saveGUI(Frame[] frames)
 	{
 		try
@@ -117,11 +117,11 @@ public class FileManager
 			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void loadGUI(Frame[] frames)
 	{
 		try
@@ -142,14 +142,14 @@ public class FileManager
 						frame.setX(jsonFrame.get("posX").getAsInt());
 						frame.setY(jsonFrame.get("posY").getAsInt());
 					}
-
+				
 			}
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void saveModules()
 	{
 		try
@@ -166,11 +166,11 @@ public class FileManager
 			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	private String[] moduleBlacklist =
 	{
 		ForceOP.class.getName(),
@@ -190,7 +190,7 @@ public class FileManager
 		RemoteView.class.getName(),
 		Spammer.class.getName(),
 	};
-
+	
 	public void loadModules()
 	{
 		try
@@ -218,11 +218,11 @@ public class FileManager
 				}
 			}
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void saveOptions()
 	{
 		try
@@ -231,11 +231,11 @@ public class FileManager
 			save.println(gson.toJson(Client.wurst.options));
 			save.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void loadOptions()
 	{
 		try
@@ -244,11 +244,11 @@ public class FileManager
 			Client.wurst.options = gson.fromJson(load, Options.class);
 			load.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public boolean loadAutoMaximize()
 	{
 		boolean autoMaximizeEnabled = false;
@@ -265,7 +265,7 @@ public class FileManager
 		}
 		return autoMaximizeEnabled;
 	}
-
+	
 	public void saveAutoMaximize(boolean autoMaximizeEnabled)
 	{
 		try
@@ -280,7 +280,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void saveSliders()
 	{
 		try
@@ -303,7 +303,7 @@ public class FileManager
 			
 		}
 	}
-
+	
 	public void loadSliders()
 	{
 		try
@@ -334,7 +334,7 @@ public class FileManager
 			
 		}
 	}
-
+	
 	public void saveAlts()
 	{
 		try
@@ -348,11 +348,11 @@ public class FileManager
 			}
 			save.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void loadAlts()
 	{
 		if(!alts.exists())
@@ -376,11 +376,11 @@ public class FileManager
 			GuiAltList.sortAlts();
 			load.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void saveFriends()
 	{
 		Client.wurst.friends.sort();
@@ -391,11 +391,11 @@ public class FileManager
 				save.println(Client.wurst.friends.get(i));
 			save.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void loadFriends()
 	{
 		boolean shouldUpdate = false;
@@ -409,8 +409,8 @@ public class FileManager
 			if(i != 1)
 				shouldUpdate = true;
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 		try
 		{
@@ -423,13 +423,13 @@ public class FileManager
 			load.close();
 			Client.wurst.friends.sort();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 		if(shouldUpdate)
 			saveFriends();
 	}
-
+	
 	public void saveXRayBlocks()
 	{
 		try
@@ -439,11 +439,11 @@ public class FileManager
 				save.println(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i)));
 			save.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void loadXRayBlocks()
 	{
 		try
@@ -456,11 +456,11 @@ public class FileManager
 			}
 			load.close();
 		}catch(IOException e)
-		{
-
+		{	
+			
 		}
 	}
-
+	
 	public void loadBuildings()
 	{
 		int[][] bridge =
@@ -704,7 +704,7 @@ public class FileManager
 		AutoBuild.buildings.add(wurst);
 		if(!Client.wurst.fileManager.autoBuild_custom.exists())
 			try
-		{
+			{
 				PrintWriter save = new PrintWriter(new FileWriter(Client.wurst.fileManager.autoBuild_custom));
 				save.println("WARNING! This is complicated!");
 				save.println("");
@@ -780,8 +780,8 @@ public class FileManager
 				save.println("0§0§-1");
 				save.println("0§1§0");
 				save.close();
-		}catch(IOException e)
-		{}
+			}catch(IOException e)
+			{}
 		ArrayList<String> fileText = new ArrayList<String>();
 		try
 		{
@@ -794,7 +794,7 @@ public class FileManager
 		@SuppressWarnings("unchecked")
 		ArrayList<String> buildingText = (ArrayList<String>)fileText.clone();
 		for(int i = 0; i < fileText.size(); i++)// Removes all the text before
-			// "Make your own structure here:".
+		// "Make your own structure here:".
 		{
 			if(fileText.get(i).contains("Make your own structure here:"))
 				break;

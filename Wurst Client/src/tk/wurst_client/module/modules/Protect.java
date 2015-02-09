@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -24,14 +24,14 @@ public class Protect extends Module
 			0,
 			Category.COMBAT);
 	}
-
+	
 	private EntityLivingBase friend;
 	private EntityLivingBase enemy;
 	private float range = 6F;
 	private double distanceF = 2D;
 	private double distanceE = 3D;
 	private float speed;
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -40,7 +40,7 @@ public class Protect extends Module
 		else
 			return "Protect";
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -52,7 +52,7 @@ public class Protect extends Module
 				friend = en;
 		}
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -103,7 +103,7 @@ public class Protect extends Module
 			}
 		}
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

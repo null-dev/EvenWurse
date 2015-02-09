@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -21,10 +21,10 @@ public class Jesus extends Module
 				+ "The real Jesus used this hack ~2000 years ago.\n"
 				+ "The Christians might get mad at me for this joke, but\n"
 				+ "who cares?",
-				0,
-				Category.MOVEMENT);
+			0,
+			Category.MOVEMENT);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

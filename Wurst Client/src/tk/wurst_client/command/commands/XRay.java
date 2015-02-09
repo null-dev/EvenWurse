@@ -23,14 +23,14 @@ public class XRay extends Command
 		".xray list",
 		".xray list <page>"
 	};
-
+	
 	public XRay()
 	{
 		super("xray", commandHelp);
 	}
-
+	
 	private int blocksPerPage = 8;
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

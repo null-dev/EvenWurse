@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -48,10 +48,10 @@ public class ArenaBrawl extends Module
 				+ "This is a collection of mods that have been optimized\n"
 				+ "for ArenaBrawl. It will bypass everything that Hypixel\n"
 				+ "has to offer.",
-				0,
-				Category.MISC);
+			0,
+			Category.MISC);
 	}
-
+	
 	private EntityLivingBase friend;
 	public static float range = 4.25F;
 	public static ArrayList<String> scoreboard = new ArrayList<String>();
@@ -66,7 +66,7 @@ public class ArenaBrawl extends Module
 	private int[] blockTarget;
 	private long lastAttack = 0L;
 	public static int level = 40;
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -75,19 +75,19 @@ public class ArenaBrawl extends Module
 		else
 			return "ArenaBrawl";
 	}
-
+	
 	@Override
 	public void initSliders()
 	{
 		moduleSliders.add(new BasicSlider("ArenaBrawl level", level, 20, 100, 10, ValueDisplay.INTEGER));
 	}
-
+	
 	@Override
 	public void updateSettings()
 	{
 		level = (int)moduleSliders.get(0).getValue();
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -157,7 +157,7 @@ public class ArenaBrawl extends Module
 				RenderUtils.frame(x, y, z, x + 1, y + 2, z + 1, new Color(0, 255, 0, 128));
 			}
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{
@@ -169,7 +169,7 @@ public class ArenaBrawl extends Module
 			setToggled(false);
 		}
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -185,14 +185,14 @@ public class ArenaBrawl extends Module
 			return;
 		if(frame == null && scoreboard.size() == 8)
 			try
-		{
+			{
 				setupFrame();
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			frame = null;
-			return;
-		}
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+				frame = null;
+				return;
+			}
 		if(friend == null || friend.isDead)
 			friend = EntityUtils.searchEntityByName(friendsName);
 		updateMS();
@@ -280,7 +280,7 @@ public class ArenaBrawl extends Module
 		((Label)frame.getChildren()[8]).setForegroundColor(Color.BLUE);
 		frame.setVisible(true);
 	}
-
+	
 	private void updateFrame()
 	{
 		ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
@@ -319,7 +319,7 @@ public class ArenaBrawl extends Module
 		else
 			return new Color(0, Integer.valueOf(health) * 255 / 2200, 255 - Integer.valueOf(health) * 255 / 2200);
 	}
-
+	
 	private String formatSBName(int index)
 	{
 		try
@@ -354,7 +354,7 @@ public class ArenaBrawl extends Module
 		((Label)frame.getChildren()[labelIndex + 1]).setHorizontalAlignment(TextAlignment.RIGHT);
 		((Label)frame.getChildren()[labelIndex + 1]).setForegroundColor(getColorForHealth(formatSBHealth(sbIndex)));
 	}
-
+	
 	private void scanTotems()
 	{
 		matchingBlocks.clear();
@@ -385,7 +385,7 @@ public class ArenaBrawl extends Module
 				friendTotems.add(new int[]{matchingBlocks.get(i)[0], matchingBlocks.get(i)[1] + 1, matchingBlocks.get(i)[2]});
 		}
 	}
-
+	
 	private void getTarget()
 	{
 		blockTarget = null;
@@ -481,7 +481,7 @@ public class ArenaBrawl extends Module
 			return;
 		}// The friend has the lowest priority.
 	}
-
+	
 	private enum TargetType
 	{
 		BLOCK_E,
@@ -489,7 +489,7 @@ public class ArenaBrawl extends Module
 		ENTITY_E,
 		ENTITY_F;
 	}
-
+	
 	private void faceTarget()
 	{
 		if(targetType == TargetType.BLOCK_E)
@@ -497,7 +497,7 @@ public class ArenaBrawl extends Module
 		else if(targetType == TargetType.ENTITY_E || targetType == TargetType.ENTITY_F)
 			EntityUtils.faceEntityClient(entityTarget);
 	}
-
+	
 	private void attackTarget()
 	{
 		if(targetType == TargetType.BLOCK_E)
@@ -522,7 +522,7 @@ public class ArenaBrawl extends Module
 				lastAttack = System.currentTimeMillis();
 			}
 	}
-
+	
 	private void reset()
 	{
 		Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed = false;

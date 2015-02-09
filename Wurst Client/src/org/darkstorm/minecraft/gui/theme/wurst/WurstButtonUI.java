@@ -7,18 +7,7 @@
  */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-import static org.lwjgl.opengl.GL11.GL_LINE_LOOP;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLineWidth;
-import static org.lwjgl.opengl.GL11.glVertex2d;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -44,16 +33,16 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 	private long lastMS;
 	private Button describedButton;
 	private Button rightButton;
-
+	
 	WurstButtonUI(WurstTheme theme)
 	{
 		super(Button.class);
 		this.theme = theme;
-
+		
 		foreground = Color.WHITE;
 		background = new Color(0, 0, 0, 0);
 	}
-
+	
 	@Override
 	protected void renderComponent(Button button)
 	{
@@ -106,11 +95,11 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		}
 		String text = button.getText();
 		theme.getFontRenderer().drawString
-		(
-			text,
-			area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
-			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
-			RenderUtil.toRGBA(button.getForegroundColor())
+			(
+				text,
+				area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
+				area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
+				RenderUtil.toRGBA(button.getForegroundColor())
 			);
 		translateComponent(button, true);
 		if(area.contains(mouse) && describedButton != button)
@@ -189,7 +178,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	}
-
+	
 	private boolean isRightButton(Button button, Button dButton)
 	{
 		Category buttonCategory = null;
@@ -208,7 +197,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 					isLastButton = false;
 		return isLastButton;
 	}
-
+	
 	@Override
 	protected Dimension getDefaultComponentSize(Button component)
 	{
@@ -216,14 +205,14 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			component.getText()) + 4,
 			theme.getFontRenderer().FONT_HEIGHT + 4);
 	}
-
+	
 	@Override
 	protected Rectangle[] getInteractableComponentRegions(Button component)
 	{
 		return new Rectangle[]{new Rectangle(0, 0, component.getWidth(),
 			component.getHeight())};
 	}
-
+	
 	@Override
 	protected void handleComponentInteraction(Button component, Point location,
 		int button)

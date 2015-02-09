@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -35,10 +35,10 @@ public class Nuker extends Module
 			"Nuker",
 			"Destroys blocks around you.\n"
 				+ "Use .nuker mode <mode> to change the mode.",
-				Keyboard.KEY_L,
-				Category.BLOCKS);
+			Keyboard.KEY_L,
+			Category.BLOCKS);
 	}
-
+	
 	public static float normalRange = 5F;
 	public static float yesCheatRange = 4.25F;
 	private float realRange;
@@ -50,7 +50,7 @@ public class Nuker extends Module
 	private BlockPos pos;
 	private boolean shouldRenderESP;
 	private int oldSlot = -1;
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -63,20 +63,20 @@ public class Nuker extends Module
 		else
 			return "Nuker";
 	}
-
+	
 	@Override
 	public void initSliders()
 	{
 		moduleSliders.add(new BasicSlider("Nuker range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
 	}
-
+	
 	@Override
 	public void updateSettings()
 	{
 		normalRange = (float)moduleSliders.get(0).getValue();
 		yesCheatRange = Math.min(normalRange, 4.25F);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -85,7 +85,7 @@ public class Nuker extends Module
 		if(Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class).getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class).setToggled(false);
 	}
-
+	
 	@Override
 	public void onLeftClick()
 	{
@@ -99,7 +99,7 @@ public class Nuker extends Module
 			Client.wurst.fileManager.saveOptions();
 		}
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -109,7 +109,7 @@ public class Nuker extends Module
 			else
 				RenderUtils.nukerBox(pos, 1);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -175,7 +175,7 @@ public class Nuker extends Module
 		}else if(Client.wurst.moduleManager.getModuleFromClass(FastBreak.class).getToggled() && Client.wurst.options.fastbreakMode == 1)
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.STOP_DESTROY_BLOCK, pos, side));
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -189,7 +189,7 @@ public class Nuker extends Module
 		id = 0;
 		Client.wurst.fileManager.saveOptions();
 	}
-
+	
 	private BlockPos find()
 	{
 		BlockPos closest = null;
@@ -233,7 +233,7 @@ public class Nuker extends Module
 				}
 		return closest;
 	}
-
+	
 	private void nukeAll()
 	{
 		for(int y = (int)realRange; y >= (Client.wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
