@@ -7,6 +7,9 @@
  */
 package tk.wurst_client.utils;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import net.minecraft.block.Block;
 import tk.wurst_client.module.modules.XRay;
 
@@ -56,5 +59,17 @@ public class XRayUtils
 		if(XRay.xrayBlocks.contains(blockToCheck))
 			return true;
 		return false;
+	}
+	
+	public static void sortBlocks()
+	{
+		Collections.sort(XRay.xrayBlocks, new Comparator<Block>()
+		{
+			@Override
+			public int compare(Block o1, Block o2)
+			{
+				return Block.getIdFromBlock(o1) - Block.getIdFromBlock(o2);
+			}
+		});
 	}
 }

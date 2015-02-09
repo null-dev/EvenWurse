@@ -38,6 +38,7 @@ import tk.wurst_client.utils.XRayUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -414,9 +415,12 @@ public class FileManager
 	{
 		try
 		{
+			XRayUtils.sortBlocks();
+			JsonArray json = new JsonArray();
+			for(int i = 0; i < XRay.xrayBlocks.size(); i++)
+				json.add(gson.toJsonTree(Block.getIdFromBlock(XRay.xrayBlocks.get(i))));
 			PrintWriter save = new PrintWriter(new FileWriter(xray));
-			for(int i = 0; i < tk.wurst_client.module.modules.XRay.xrayBlocks.size(); i++)
-				save.println(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i)));
+			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
@@ -429,12 +433,21 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(xray));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
-				tk.wurst_client.module.modules.XRay.xrayBlocks.add(Block.getBlockById(Integer.valueOf(data[0])));
-			}
+			JsonArray json = new JsonParser().parse(load).getAsJsonArray();
 			load.close();
+			Iterator<JsonElement> itr = json.iterator();
+			while(itr.hasNext())
+			{
+				try
+				{
+					String jsonBlock = itr.next().getAsString();
+					XRay.xrayBlocks.add(Block.getBlockFromName(jsonBlock));
+				}catch(Exception e)
+				{
+					
+				}
+			}
+			XRayUtils.sortBlocks();
 		}catch(IOException e)
 		{	
 			
