@@ -20,20 +20,20 @@ public class Friends extends Command
 		".friends list",
 		".friends list <page>"
 	};
-
+	
 	public Friends()
 	{
 		super("friends", commandHelp);
 	}
-
+	
 	private int friendsPerPage = 8;
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
 		if(args[0].equalsIgnoreCase("list"))
 		{
-			int totalFriends = Client.Wurst.options.friends.size();
+			int totalFriends = Client.wurst.friends.size();
 			float pagesF = (float)((double)totalFriends / (double)friendsPerPage);
 			int pages = (int)(Math.round(pagesF) == pagesF ? pagesF : pagesF + 1);
 			friendsPerPage = 8;
@@ -42,15 +42,15 @@ public class Friends extends Command
 				if(pages <= 1)
 				{
 					friendsPerPage = totalFriends;
-					Client.Wurst.chat.message("Current friends: " + totalFriends);
-					for(int i = 0; i < Client.Wurst.options.friends.size() && i < friendsPerPage; i++)
-						Client.Wurst.chat.message(Client.Wurst.options.friends.get(i));
+					Client.wurst.chat.message("Current friends: " + totalFriends);
+					for(int i = 0; i < Client.wurst.friends.size() && i < friendsPerPage; i++)
+						Client.wurst.chat.message(Client.wurst.friends.get(i));
 				}else
 				{
-					Client.Wurst.chat.message("Current friends: " + totalFriends);
-					Client.Wurst.chat.message("Friends list (page 1/" + pages + "):");
-					for(int i = 0; i < Client.Wurst.options.friends.size() && i < friendsPerPage; i++)
-						Client.Wurst.chat.message(Client.Wurst.options.friends.get(i));
+					Client.wurst.chat.message("Current friends: " + totalFriends);
+					Client.wurst.chat.message("Friends list (page 1/" + pages + "):");
+					for(int i = 0; i < Client.wurst.friends.size() && i < friendsPerPage; i++)
+						Client.wurst.chat.message(Client.wurst.friends.get(i));
 				}
 			}else
 			{
@@ -62,13 +62,13 @@ public class Friends extends Command
 						commandError();
 						return;
 					}
-					Client.Wurst.chat.message("Current friends: " + Integer.toString(totalFriends));
-					Client.Wurst.chat.message("Friends list (page " + page + "/" + pages + "):");
+					Client.wurst.chat.message("Current friends: " + Integer.toString(totalFriends));
+					Client.wurst.chat.message("Friends list (page " + page + "/" + pages + "):");
 					int i2 = 0;
-					for(int i = 0; i < Client.Wurst.options.friends.size() && i2 < (page - 1) * friendsPerPage + friendsPerPage; i++)
+					for(int i = 0; i < Client.wurst.friends.size() && i2 < (page - 1) * friendsPerPage + friendsPerPage; i++)
 					{
 						if(i2 >= (page - 1) * friendsPerPage)
-							Client.Wurst.chat.message(Client.Wurst.options.friends.get(i));
+							Client.wurst.chat.message(Client.wurst.friends.get(i));
 						i2++;
 					}
 					return;
@@ -77,25 +77,25 @@ public class Friends extends Command
 			}
 		}else if(args[0].equalsIgnoreCase("add"))
 		{
-			if(Client.Wurst.options.friends.contains(args[1]))
+			if(Client.wurst.friends.contains(args[1]))
 			{
-				Client.Wurst.chat.error("\"" + args[1] + "\" is already in your friends list.");
+				Client.wurst.chat.error("\"" + args[1] + "\" is already in your friends list.");
 				return;
 			}
-			Client.Wurst.options.friends.add(args[1]);
-			Client.Wurst.fileManager.saveFriends();
-			Client.Wurst.chat.message("Added friend \"" + args[1] + "\".");
+			Client.wurst.friends.add(args[1]);
+			Client.wurst.fileManager.saveFriends();
+			Client.wurst.chat.message("Added friend \"" + args[1] + "\".");
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
-			for(int i = 0; i < Client.Wurst.options.friends.size(); i++)
-				if(Client.Wurst.options.friends.get(i).toLowerCase().equals(args[1].toLowerCase()))
+			for(int i = 0; i < Client.wurst.friends.size(); i++)
+				if(Client.wurst.friends.get(i).toLowerCase().equals(args[1].toLowerCase()))
 				{
-					Client.Wurst.options.friends.remove(i);
-					Client.Wurst.fileManager.saveFriends();
-					Client.Wurst.chat.message("Removed friend \"" + args[1] + "\".");
+					Client.wurst.friends.remove(i);
+					Client.wurst.fileManager.saveFriends();
+					Client.wurst.chat.message("Removed friend \"" + args[1] + "\".");
 					return;
 				}
-			Client.Wurst.chat.error("\"" + args[1] + "\" is not in your friends list.");
+			Client.wurst.chat.error("\"" + args[1] + "\" is not in your friends list.");
 		}else
 			commandError();
 	}

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -37,7 +37,7 @@ public class TacoCMD extends Module
 	private static final ResourceLocation tacoTexture4 = new ResourceLocation("textures/gui/wurst/dancingtaco4.png");
 	private static final ResourceLocation[] tacoTextures = {tacoTexture1, tacoTexture2, tacoTexture3, tacoTexture4};
 	private int i = 0;
-
+	
 	@Override
 	public void onRenderGUI()
 	{
@@ -51,11 +51,11 @@ public class TacoCMD extends Module
 		WorldRenderer var4 = var3.getWorldRenderer();
 		ScaledResolution screenRes = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		Client.Wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateMS();
-		if(Client.Wurst.moduleManager.getModuleFromClass(TacoCMD.class).hasTimePassedM(400))
+		Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateMS();
+		if(Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).hasTimePassedM(400))
 		{
 			i++;
-			Client.Wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateLastMS();
+			Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateLastMS();
 			if(i == 4)
 				i = 0;
 		}

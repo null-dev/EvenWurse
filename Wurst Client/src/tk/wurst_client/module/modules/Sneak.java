@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,18 +27,18 @@ public class Sneak extends Module
 			Keyboard.KEY_Z,
 			Category.MOVEMENT);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(!getToggled())
 			return;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = true;
 		else
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(Minecraft.getMinecraft().thePlayer, Action.START_SNEAKING));
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

@@ -21,12 +21,12 @@ public class VClip extends Command
 		"and 10 blocks on Bukkit servers.",
 		".vclip <height>"
 	};
-
+	
 	public VClip()
 	{
 		super("vclip", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

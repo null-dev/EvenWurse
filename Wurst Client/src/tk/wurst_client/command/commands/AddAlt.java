@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -51,17 +51,17 @@ public class AddAlt extends Command
 				alts++;
 			}
 			if(alts == 1)
-				Client.Wurst.chat.message("Added 1 alt to the alt list.");
+				Client.wurst.chat.message("Added 1 alt to the alt list.");
 			else
-				Client.Wurst.chat.message("Added " + alts + " alts to the alt list.");
+				Client.wurst.chat.message("Added " + alts + " alts to the alt list.");
 			GuiAltList.sortAlts();
-			Client.Wurst.fileManager.saveAlts();
+			Client.wurst.fileManager.saveAlts();
 		}else if(!args[0].equals("Alexander01998"))
 		{
 			GuiAltList.alts.add(new Alt(args[0], null));
 			GuiAltList.sortAlts();
-			Client.Wurst.fileManager.saveAlts();
-			Client.Wurst.chat.message("Added \"" + args[0] + "\" to the alt list.");
+			Client.wurst.fileManager.saveAlts();
+			Client.wurst.chat.message("Added \"" + args[0] + "\" to the alt list.");
 		}else
 			commandError();
 	}

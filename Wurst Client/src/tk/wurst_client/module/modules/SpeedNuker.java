@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -33,33 +33,33 @@ public class SpeedNuker extends Module
 			Keyboard.KEY_GRAVE,
 			Category.BLOCKS);
 	}
-
+	
 	private static Block currentBlock;
 	private BlockPos pos;
 	private int oldSlot = -1;
-
+	
 	@Override
 	public String getRenderName()
 	{
-		if(Client.Wurst.options.nukerMode == 1)
+		if(Client.wurst.options.nukerMode == 1)
 			return "IDSpeedNuker [" + Nuker.id + "]";
-		else if(Client.Wurst.options.nukerMode == 2)
+		else if(Client.wurst.options.nukerMode == 2)
 			return "FlatSpeedNuker";
-		else if(Client.Wurst.options.nukerMode == 3)
+		else if(Client.wurst.options.nukerMode == 3)
 			return "SmashSpeedNuker";
 		else
 			return "SpeedNuker";
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
-		if(Client.Wurst.moduleManager.getModuleFromClass(Nuker.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(Nuker.class).setToggled(false);
-		if(Client.Wurst.moduleManager.getModuleFromClass(NukerLegit.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(NukerLegit.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(Nuker.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(Nuker.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(NukerLegit.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(NukerLegit.class).setToggled(false);
 	}
-
+	
 	@Override
 	public void onLeftClick()
 	{
@@ -67,32 +67,32 @@ public class SpeedNuker extends Module
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
-		if(Client.Wurst.options.nukerMode == 1 && Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
+		if(Client.wurst.options.nukerMode == 1 && Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
 		{
 			Nuker.id = Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock());
-			Client.Wurst.fileManager.saveOptions();
+			Client.wurst.fileManager.saveOptions();
 		}
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(!getToggled())
 			return;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
-			Client.Wurst.chat.message("Switching to " + Client.Wurst.moduleManager.getModuleFromClass(Nuker.class).getName() + ".");
-			Client.Wurst.moduleManager.getModuleFromClass(Nuker.class).setToggled(true);
+			Client.wurst.chat.message("Switching to " + Client.wurst.moduleManager.getModuleFromClass(Nuker.class).getName() + ".");
+			Client.wurst.moduleManager.getModuleFromClass(Nuker.class).setToggled(true);
 			return;
 		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
-			Client.Wurst.chat.error(getName() + " doesn't work in creative mode.");
+			Client.wurst.chat.error(getName() + " doesn't work in creative mode.");
 			setToggled(false);
-			Client.Wurst.chat.message("Switching to " + Client.Wurst.moduleManager.getModuleFromClass(Nuker.class).getName() + ".");
-			Client.Wurst.moduleManager.getModuleFromClass(Nuker.class).setToggled(true);
+			Client.wurst.chat.message("Switching to " + Client.wurst.moduleManager.getModuleFromClass(Nuker.class).getName() + ".");
+			Client.wurst.moduleManager.getModuleFromClass(Nuker.class).setToggled(true);
 			return;
 		}
 		BlockPos newPos = find();
@@ -107,15 +107,15 @@ public class SpeedNuker extends Module
 		}
 		pos = newPos;
 		currentBlock = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
-		if(Client.Wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled() && oldSlot == -1)
+		if(Client.wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled() && oldSlot == -1)
 			oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-			&& Client.Wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled()
+			&& Client.wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled()
 			&& currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos) < 1)
 			AutoTool.setSlot(pos);
 		nukeAll();
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -125,14 +125,14 @@ public class SpeedNuker extends Module
 			oldSlot = -1;
 		}
 		Nuker.id = 0;
-		Client.Wurst.fileManager.saveOptions();
+		Client.wurst.fileManager.saveOptions();
 	}
-
+	
 	private BlockPos find()
 	{
 		BlockPos closest = null;
 		float closestDistance = Nuker.yesCheatRange + 1;
-		for(int y = (int)Nuker.yesCheatRange; y >= (Client.Wurst.options.nukerMode == 2 ? 0 : -Nuker.yesCheatRange); y--)
+		for(int y = (int)Nuker.yesCheatRange; y >= (Client.wurst.options.nukerMode == 2 ? 0 : -Nuker.yesCheatRange); y--)
 			for(int x = (int)Nuker.yesCheatRange; x >= -Nuker.yesCheatRange - 1; x--)
 				for(int z = (int)Nuker.yesCheatRange; z >= -Nuker.yesCheatRange; z--)
 				{
@@ -155,9 +155,9 @@ public class SpeedNuker extends Module
 					fakeObjectMouseOver.setBlockPos(blockPos);
 					if(Block.getIdFromBlock(block) != 0 && posY >= 0 && currentDistance <= Nuker.yesCheatRange)
 					{
-						if(Client.Wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != Nuker.id)
+						if(Client.wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != Nuker.id)
 							continue;
-						if(Client.Wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
+						if(Client.wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
 							continue;
 						if(closest == null)
 						{
@@ -172,10 +172,10 @@ public class SpeedNuker extends Module
 				}
 		return closest;
 	}
-
+	
 	private void nukeAll()
 	{
-		for(int y = (int)Nuker.normalRange; y >= (Client.Wurst.options.nukerMode == 2 ? 0 : -Nuker.normalRange); y--)
+		for(int y = (int)Nuker.normalRange; y >= (Client.wurst.options.nukerMode == 2 ? 0 : -Nuker.normalRange); y--)
 			for(int x = (int)Nuker.normalRange; x >= -Nuker.normalRange - 1; x--)
 				for(int z = (int)Nuker.normalRange; z >= -Nuker.normalRange; z--)
 				{
@@ -194,9 +194,9 @@ public class SpeedNuker extends Module
 					fakeObjectMouseOver.setBlockPos(new BlockPos(posX, posY, posZ));
 					if(Block.getIdFromBlock(block) != 0 && posY >= 0 && currentDistance <= Nuker.normalRange)
 					{
-						if(Client.Wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != Nuker.id)
+						if(Client.wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != Nuker.id)
 							continue;
-						if(Client.Wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
+						if(Client.wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
 							continue;
 						if(!Minecraft.getMinecraft().thePlayer.onGround)
 							continue;

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,17 +27,17 @@ public class ClickGUI extends Module
 			Keyboard.KEY_LCONTROL,
 			Category.HIDDEN);
 	}
-
+	
 	@Override
 	public void onToggle()
 	{
 		if(!(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
-			Minecraft.getMinecraft().displayGuiScreen(new GuiManagerDisplayScreen(Client.Wurst.guiManager));
+			Minecraft.getMinecraft().displayGuiScreen(new GuiManagerDisplayScreen(Client.wurst.guiManager));
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
-		Client.Wurst.guiManager.update();
+		Client.wurst.guiManager.update();
 	}
 }

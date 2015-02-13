@@ -13,14 +13,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
+import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
@@ -29,52 +32,65 @@ import tk.wurst_client.encryption_api.Encryption;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.*;
+import tk.wurst_client.options.Friends;
+import tk.wurst_client.options.Options;
 import tk.wurst_client.utils.XRayUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class FileManager
 {
-	public final File WurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
-	public final File SkinDir = new File(WurstDir, "skins");
-	public final File ServerlistDir = new File(WurstDir, "serverlists");
-	public final File SpamDir = new File(WurstDir, "spam");
-	public final File Alts = new File(WurstDir, "alts.wurst");
-	public final File AutoBuildCustom = new File(WurstDir, "autobuild_custom.txt");
-	public final File Friends = new File(WurstDir, "friends.txt");
-	public final File GUI = new File(WurstDir, "gui.txt");
-	public final File Modules = new File(WurstDir, "modules.txt");
-	public final File Sliders = new File(WurstDir, "sliders.txt");
-	public final File Values = new File(WurstDir, "values.txt");
-	public final File AutoMaximizeFile = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.txt");
-	public final File XRay = new File(WurstDir, "xray.txt");
+	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
+	public final File skinDir = new File(wurstDir, "skins");
+	public final File serverlistsDir = new File(wurstDir, "serverlists");
+	public final File spamDir = new File(wurstDir, "spam");
+	
+	public final File alts = new File(wurstDir, "alts.wurst");
+	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.json");
+	public final File friends = new File(wurstDir, "friends.json");
+	public final File gui = new File(wurstDir, "gui.json");
+	public final File modules = new File(wurstDir, "modules.json");
+	public final File sliders = new File(wurstDir, "sliders.json");
+	public final File options = new File(wurstDir, "options.json");
+	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
+	public final File xray = new File(wurstDir, "xray.json");
+	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	
+	@Deprecated
 	private String split = "§";
-
+	
 	public void init()
 	{
-		if(!WurstDir.exists())
-			WurstDir.mkdir();
-		if(!SkinDir.exists())
-			SkinDir.mkdir();
-		if(!ServerlistDir.exists())
-			ServerlistDir.mkdir();
-		if(!SpamDir.exists())
-			SpamDir.mkdir();
-		if(!Values.exists())
+		if(!wurstDir.exists())
+			wurstDir.mkdir();
+		if(!skinDir.exists())
+			skinDir.mkdir();
+		if(!serverlistsDir.exists())
+			serverlistsDir.mkdir();
+		if(!spamDir.exists())
+			spamDir.mkdir();
+		if(!options.exists())
 			saveOptions();
 		else
 			loadOptions();
-		if(!Modules.exists())
+		if(!modules.exists())
 			saveModules();
 		else
 			loadModules();
-		if(!Alts.exists())
+		if(!alts.exists())
 			saveAlts();
 		else
 			loadAlts();
-		if(!Friends.exists())
+		if(!friends.exists())
 			saveFriends();
 		else
 			loadFriends();
-		if(!XRay.exists())
+		if(!xray.exists())
 		{
 			XRayUtils.initXRayBlocks();
 			saveXRayBlocks();
@@ -83,79 +99,80 @@ public class FileManager
 			loadXRayBlocks();
 		loadBuildings();
 	}
-
+	
 	public void saveGUI(Frame[] frames)
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(GUI));
+			JsonObject json = new JsonObject();
 			for(Frame frame : frames)
 				if(!frame.getTitle().equalsIgnoreCase("ArenaBrawl"))
-					save.println(frame.getTitle() + split + frame.isMinimized() + split + frame.isPinned() + split + frame.getX() + split + frame.getY());
+				{
+					JsonObject jsonFrame = new JsonObject();
+					jsonFrame.addProperty("minimized", frame.isMinimized());
+					jsonFrame.addProperty("pinned", frame.isPinned());
+					jsonFrame.addProperty("posX", frame.getX());
+					jsonFrame.addProperty("posY", frame.getY());
+					json.add(frame.getTitle(), jsonFrame);
+				}
+			PrintWriter save = new PrintWriter(new FileWriter(gui));
+			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void loadGUI(Frame[] frames)
 	{
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(GUI));
-			int i = 0;
-			for(; (load.readLine()) != null;)
-				i++;
+			BufferedReader load = new BufferedReader(new FileReader(gui));
+			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			if(i != frames.length)
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			while(itr.hasNext())
 			{
-				saveGUI(frames);
-				return;
-			}
-		}catch(IOException e)
-		{	
-			
-		}
-		try
-		{
-			BufferedReader load = new BufferedReader(new FileReader(GUI));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
+				Entry<String, JsonElement> entry = itr.next();
 				for(Frame frame : frames)
-					if(frame.getTitle().equals(data[0]))
+					if(frame.getTitle().equals(entry.getKey()))
 					{
-						frame.setMinimized(Boolean.valueOf(data[1]));
-						frame.setPinned(Boolean.valueOf(data[2]));
-						frame.setX(Integer.parseInt(data[3]));
-						frame.setY(Integer.parseInt(data[4]));
+						JsonObject jsonFrame = (JsonObject)entry.getValue();
+						frame.setMinimized(jsonFrame.get("minimized").getAsBoolean());
+						frame.setPinned(jsonFrame.get("pinned").getAsBoolean());
+						frame.setX(jsonFrame.get("posX").getAsInt());
+						frame.setY(jsonFrame.get("posY").getAsInt());
 					}
+				
 			}
-			load.close();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void saveModules()
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Modules));
-			for(int i = 0; i < Client.Wurst.moduleManager.activeModules.size(); i++)
+			JsonObject json = new JsonObject();
+			for(Module module : Client.wurst.moduleManager.activeModules)
 			{
-				Module module = Client.Wurst.moduleManager.activeModules.get(i);
-				save.println(module.getName() + split + module.getToggled() + split + module.getBind());
+				JsonObject jsonModule = new JsonObject();
+				jsonModule.addProperty("enabled", module.getToggled());
+				jsonModule.addProperty("keybind", Keyboard.getKeyName(module.getBind()));
+				json.add(module.getName(), jsonModule);
 			}
+			PrintWriter save = new PrintWriter(new FileWriter(modules));
+			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	private String[] moduleBlacklist =
 	{
 		ForceOP.class.getName(),
@@ -175,142 +192,75 @@ public class FileManager
 		RemoteView.class.getName(),
 		Spammer.class.getName(),
 	};
-
+	
 	public void loadModules()
 	{
-		boolean shouldUpdate = false;
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Modules));
-			int i = 0;
-			for(; (load.readLine()) != null;)
-				i++;
+			BufferedReader load = new BufferedReader(new FileReader(modules));
+			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			if(i != Client.Wurst.moduleManager.activeModules.size())
-				shouldUpdate = true;
-		}catch(IOException e)
-		{	
-			
-		}
-		try
-		{
-			BufferedReader load = new BufferedReader(new FileReader(Modules));
-			for(String line = ""; (line = load.readLine()) != null;)
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			while(itr.hasNext())
 			{
-				String data[] = line.split(split);
-				Module module = Client.Wurst.moduleManager.getModuleByName(data[0]);
-				if(module == null || data.length != 3)
+				Entry<String, JsonElement> entry = itr.next();
+				Module module = Client.wurst.moduleManager.getModuleByName(entry.getKey());
+				if(module != null
+					&& module.getCategory() != Category.HIDDEN
+					&& module.getCategory() != Category.WIP
+					&& !Arrays.asList(moduleBlacklist).contains(module.getClass().getName()))
 				{
-					if(data.length != 0)
-						shouldUpdate = true;
-					continue;
+					JsonObject jsonModule = (JsonObject)entry.getValue();
+					boolean enabled = jsonModule.get("enabled").getAsBoolean();
+					if(module.getToggled() != enabled)
+						module.setToggled(enabled);
+					int keybind = Keyboard.getKeyIndex(jsonModule.get("keybind").getAsString());
+					if(module.getBind() != keybind)
+						module.setBind(keybind);
 				}
-				if(module.getCategory() != Category.HIDDEN && module.getCategory() != Category.WIP)
-				{
-					boolean shouldSkip = false;
-					for(String element : moduleBlacklist)
-						if(module.getClass().getName().equalsIgnoreCase(element))
-						{
-							shouldSkip = true;
-							break;
-						}
-					if(module.getToggled() != Boolean.valueOf(data[1]) && !shouldSkip)
-						module.setToggled(Boolean.valueOf(data[1]));
-				}
-				if(module.getBind() != Integer.valueOf(data[2]))
-					module.setBind(Integer.valueOf(data[2]));
 			}
-			load.close();
-			if(shouldUpdate)
-				saveModules();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void saveOptions()
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Values));
-			for(Field field : Client.Wurst.options.getClass().getFields())
-				try
-			{
-					if(field.getType().getName().equals("boolean"))
-						save.println(field.getName() + split + field.getBoolean(Client.Wurst.options));
-					else if(field.getType().getName().equals("int"))
-						save.println(field.getName() + split + field.getInt(Client.Wurst.options));
-					else if(field.getType().getName().equals("java.lang.String"))
-						save.println(field.getName() + split + (String)field.get(Client.Wurst.options));
-			}catch(IllegalArgumentException e)
-			{
-				e.printStackTrace();
-			}catch(IllegalAccessException e)
-			{
-				e.printStackTrace();
-			}
+			PrintWriter save = new PrintWriter(new FileWriter(options));
+			save.println(gson.toJson(Client.wurst.options));
 			save.close();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void loadOptions()
 	{
-		boolean shouldUpdate = false;
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Values));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
-				for(Field field : Client.Wurst.options.getClass().getFields())
-					if(data[0].equals(field.getName()))
-					{
-						try
-						{
-							if(field.getType().getName().equals("boolean"))
-								field.setBoolean(Client.Wurst.options, Boolean.valueOf(data[1]));
-							else if(field.getType().getName().equals("int"))
-								field.setInt(Client.Wurst.options, Integer.valueOf(data[1]));
-							else if(field.getType().getName().equals("java.lang.String"))
-								field.set(Client.Wurst.options, data[1]);
-							else
-								shouldUpdate = true;
-						}catch(IllegalArgumentException e)
-						{
-							shouldUpdate = true;
-							e.printStackTrace();
-						}catch(IllegalAccessException e)
-						{
-							shouldUpdate = true;
-							e.printStackTrace();
-						}
-						break;
-					}
-			}
+			BufferedReader load = new BufferedReader(new FileReader(options));
+			Client.wurst.options = gson.fromJson(load, Options.class);
 			load.close();
 		}catch(IOException e)
 		{	
 			
 		}
-		if(shouldUpdate)
-			saveOptions();
 	}
 	
-	public boolean loadAutoResize()
+	public boolean loadAutoMaximize()
 	{
 		boolean autoMaximizeEnabled = false;
-		if(!AutoMaximizeFile.exists())
+		if(!autoMaximize.exists())
 			saveAutoMaximize(true);
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(AutoMaximizeFile));
-			String line = load.readLine();
+			BufferedReader load = new BufferedReader(new FileReader(autoMaximize));
+			autoMaximizeEnabled = gson.fromJson(load, Boolean.class) && !Minecraft.isRunningOnMac;
 			load.close();
-			autoMaximizeEnabled = line.equals("true") && !Minecraft.isRunningOnMac;
 		}catch(IOException e)
 		{
 			e.printStackTrace();
@@ -322,80 +272,76 @@ public class FileManager
 	{
 		try
 		{
-			if(!AutoMaximizeFile.getParentFile().exists())
-				AutoMaximizeFile.getParentFile().mkdirs();
-			PrintWriter save = new PrintWriter(new FileWriter(AutoMaximizeFile));
-			save.println(Boolean.toString(autoMaximizeEnabled));
+			if(!autoMaximize.getParentFile().exists())
+				autoMaximize.getParentFile().mkdirs();
+			PrintWriter save = new PrintWriter(new FileWriter(autoMaximize));
+			save.println(gson.toJson(autoMaximizeEnabled));
 			save.close();
 		}catch(IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void saveSliders()
 	{
-		ArrayList<BasicSlider> allSliders = new ArrayList<BasicSlider>();
-		for(Module module : Client.Wurst.moduleManager.activeModules)
-			for(BasicSlider slider : module.getSliders())
-				allSliders.add(slider);
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Sliders));
-			for(int i = 0; i < allSliders.size(); i++)
+			JsonObject json = new JsonObject();
+			for(Module module : Client.wurst.moduleManager.activeModules)
 			{
-				BasicSlider slider = allSliders.get(i);
-				save.println(i + split + (double)(Math.round(slider.getValue() / slider.getIncrement()) * 1000000 * (long)(slider.getIncrement() * 1000000)) / 1000000 / 1000000);
+				if(module.getSliders().isEmpty())
+					continue;
+				JsonObject jsonModule = new JsonObject();
+				for(BasicSlider slider : module.getSliders())
+					jsonModule.addProperty(slider.getText(), (double)(Math.round(slider.getValue() / slider.getIncrement()) * 1000000 * (long)(slider.getIncrement() * 1000000)) / 1000000 / 1000000);
+				json.add(module.getName(), jsonModule);
 			}
+			PrintWriter save = new PrintWriter(new FileWriter(sliders));
+			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void loadSliders()
 	{
-		ArrayList<BasicSlider> allSliders = new ArrayList<BasicSlider>();
-		for(Module module : Client.Wurst.moduleManager.activeModules)
-			for(BasicSlider slider : module.getSliders())
-				allSliders.add(slider);
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Sliders));
-			int i = 0;
-			for(; (load.readLine()) != null;)
-				i++;
+			BufferedReader load = new BufferedReader(new FileReader(sliders));
+			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			if(i != allSliders.size())
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			while(itr.hasNext())
 			{
-				saveSliders();
-				return;
+				Entry<String, JsonElement> entry = itr.next();
+				Module module = Client.wurst.moduleManager.getModuleByName(entry.getKey());
+				if(module != null)
+				{
+					JsonObject jsonModule = (JsonObject)entry.getValue();
+					for(BasicSlider slider : module.getSliders())
+						try
+						{
+							slider.setValue(jsonModule.get(slider.getText()).getAsDouble());
+						}catch(Exception e)
+						{	
+							
+						}
+				}
 			}
-		}catch(IOException e)
-		{	
-			
-		}
-		try
-		{
-			BufferedReader load = new BufferedReader(new FileReader(Sliders));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
-				allSliders.get(Integer.valueOf(data[0])).setValue(Double.valueOf(data[1]));
-			}
-			load.close();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void saveAlts()
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Alts));
+			PrintWriter save = new PrintWriter(new FileWriter(alts));
 			for(Alt alt : GuiAltList.alts)
 			{
 				String saveName = Encryption.encrypt(alt.name);
@@ -408,17 +354,17 @@ public class FileManager
 			
 		}
 	}
-
+	
 	public void loadAlts()
 	{
-		if(!Alts.exists())
+		if(!alts.exists())
 		{
 			saveAlts();
 			return;
 		}
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Alts));
+			BufferedReader load = new BufferedReader(new FileReader(alts));
 			GuiAltList.alts.clear();
 			for(String line = ""; (line = load.readLine()) != null;)
 			{
@@ -436,87 +382,78 @@ public class FileManager
 			
 		}
 	}
-
+	
 	public void saveFriends()
 	{
-		Client.Wurst.options.sortFriends();
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(Friends));
-			for(int i = 0; i < Client.Wurst.options.friends.size(); i++)
-				save.println(Client.Wurst.options.friends.get(i));
+			Client.wurst.friends.sort();
+			PrintWriter save = new PrintWriter(new FileWriter(friends));
+			save.println(gson.toJson(Client.wurst.friends));
 			save.close();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void loadFriends()
 	{
-		boolean shouldUpdate = false;
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(Friends));
-			int i = 0;
-			for(; (load.readLine()) != null;)
-				i++;
+			BufferedReader load = new BufferedReader(new FileReader(friends));
+			Client.wurst.friends = gson.fromJson(load, Friends.class);
 			load.close();
-			if(i != 1)
-				shouldUpdate = true;
+			Client.wurst.friends.sort();
 		}catch(IOException e)
 		{	
 			
 		}
-		try
-		{
-			BufferedReader load = new BufferedReader(new FileReader(Friends));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
-				Client.Wurst.options.friends.add(data[0]);
-			}
-			load.close();
-			Client.Wurst.options.sortFriends();
-		}catch(IOException e)
-		{	
-			
-		}
-		if(shouldUpdate)
-			saveFriends();
 	}
-
+	
 	public void saveXRayBlocks()
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(XRay));
-			for(int i = 0; i < tk.wurst_client.module.modules.XRay.xrayBlocks.size(); i++)
-				save.println(Block.getIdFromBlock(tk.wurst_client.module.modules.XRay.xrayBlocks.get(i)));
+			XRayUtils.sortBlocks();
+			JsonArray json = new JsonArray();
+			for(int i = 0; i < XRay.xrayBlocks.size(); i++)
+				json.add(gson.toJsonTree(Block.getIdFromBlock(XRay.xrayBlocks.get(i))));
+			PrintWriter save = new PrintWriter(new FileWriter(xray));
+			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void loadXRayBlocks()
 	{
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(XRay));
-			for(String line = ""; (line = load.readLine()) != null;)
-			{
-				String data[] = line.split(split);
-				tk.wurst_client.module.modules.XRay.xrayBlocks.add(Block.getBlockById(Integer.valueOf(data[0])));
-			}
+			BufferedReader load = new BufferedReader(new FileReader(xray));
+			JsonArray json = new JsonParser().parse(load).getAsJsonArray();
 			load.close();
+			Iterator<JsonElement> itr = json.iterator();
+			while(itr.hasNext())
+			{
+				try
+				{
+					String jsonBlock = itr.next().getAsString();
+					XRay.xrayBlocks.add(Block.getBlockFromName(jsonBlock));
+				}catch(Exception e)
+				{
+					
+				}
+			}
+			XRayUtils.sortBlocks();
 		}catch(IOException e)
 		{	
 			
 		}
 	}
-
+	
 	public void loadBuildings()
 	{
 		int[][] bridge =
@@ -758,10 +695,10 @@ public class FileManager
 			{-2, 2, 0, 1},
 		};
 		AutoBuild.buildings.add(wurst);
-		if(!Client.Wurst.fileManager.AutoBuildCustom.exists())
+		if(!Client.wurst.fileManager.autoBuild_custom.exists())
 			try
-		{
-				PrintWriter save = new PrintWriter(new FileWriter(Client.Wurst.fileManager.AutoBuildCustom));
+			{
+				PrintWriter save = new PrintWriter(new FileWriter(Client.wurst.fileManager.autoBuild_custom));
 				save.println("WARNING! This is complicated!");
 				save.println("");
 				save.println("How to make a custom structure for AutoBuild:");
@@ -836,12 +773,12 @@ public class FileManager
 				save.println("0§0§-1");
 				save.println("0§1§0");
 				save.close();
-		}catch(IOException e)
+			}catch(IOException e)
 			{}
 		ArrayList<String> fileText = new ArrayList<String>();
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(AutoBuildCustom));
+			BufferedReader load = new BufferedReader(new FileReader(autoBuild_custom));
 			for(String line = ""; (line = load.readLine()) != null;)
 				fileText.add(line);
 			load.close();
@@ -850,7 +787,7 @@ public class FileManager
 		@SuppressWarnings("unchecked")
 		ArrayList<String> buildingText = (ArrayList<String>)fileText.clone();
 		for(int i = 0; i < fileText.size(); i++)// Removes all the text before
-												// "Make your own structure here:".
+		// "Make your own structure here:".
 		{
 			if(fileText.get(i).contains("Make your own structure here:"))
 				break;

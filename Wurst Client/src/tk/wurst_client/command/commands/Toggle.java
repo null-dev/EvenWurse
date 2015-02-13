@@ -17,19 +17,19 @@ public class Toggle extends Command
 		"Toggles a command.",
 		".t <command>"
 	};
-
+	
 	public Toggle()
 	{
 		super("t", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		for(int i = 0; i < Client.Wurst.moduleManager.activeModules.size(); i++)
-			if(Client.Wurst.moduleManager.activeModules.get(i).getName().toLowerCase().equals(args[0].toLowerCase()))
+		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
+			if(Client.wurst.moduleManager.activeModules.get(i).getName().toLowerCase().equals(args[0].toLowerCase()))
 			{
-				Client.Wurst.moduleManager.activeModules.get(i).toggleModule();
+				Client.wurst.moduleManager.activeModules.get(i).toggleModule();
 				return;
 			}
 		commandError();

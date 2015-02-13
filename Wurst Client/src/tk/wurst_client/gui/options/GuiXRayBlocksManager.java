@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -23,7 +23,7 @@ public class GuiXRayBlocksManager extends GuiScreen
 	{
 		prevMenu = par1GuiScreen;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
@@ -37,7 +37,7 @@ public class GuiXRayBlocksManager extends GuiScreen
 		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 98, 20, "Remove"));
 		buttonList.add(new GuiButton(2, width / 2 - 100, height - 28, 200, 20, "Back"));
 	}
-
+	
 	/**
 	 * Called from the main game loop to update the screen.
 	 */
@@ -46,7 +46,7 @@ public class GuiXRayBlocksManager extends GuiScreen
 	{
 		((GuiButton)buttonList.get(1)).enabled = blockList.getSelectedSlot() != -1;
 	}
-
+	
 	@Override
 	protected void actionPerformed(GuiButton clickedButton)
 	{
@@ -57,11 +57,11 @@ public class GuiXRayBlocksManager extends GuiScreen
 			{// Remove
 				XRay.xrayBlocks.remove(blockList.getSelectedSlot());
 				GuiXRayBlocksList.sortBlocks();
-				Client.Wurst.fileManager.saveXRayBlocks();
+				Client.wurst.fileManager.saveXRayBlocks();
 			}else if(clickedButton.id == 2)
 				mc.displayGuiScreen(prevMenu);
 	}
-
+	
 	/**
 	 * Fired when a key is typed. This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e).
@@ -75,7 +75,7 @@ public class GuiXRayBlocksManager extends GuiScreen
 	
 	/**
 	 * Called when the mouse is clicked.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	@Override

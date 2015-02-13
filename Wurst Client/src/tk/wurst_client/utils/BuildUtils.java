@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -88,7 +88,7 @@ public class BuildUtils
 						(float)Minecraft.getMinecraft().objectMouseOver.hitVec.xCoord - (Minecraft.getMinecraft().objectMouseOver.getBlockPos().getZ() - element[0])
 					));
 	}
-
+	
 	public static void buildNext(int[][] building, MovingObjectPosition mouseOver, float playerYaw, int i)
 	{
 		if(playerYaw > -45 && playerYaw <= 45)
@@ -185,7 +185,7 @@ public class BuildUtils
 				));
 		}
 	}
-
+	
 	public static void advancedBuild(int[][] building)
 	{
 		float playerYaw = Minecraft.getMinecraft().thePlayer.rotationYaw;
@@ -258,7 +258,7 @@ public class BuildUtils
 						(float)Minecraft.getMinecraft().objectMouseOver.hitVec.xCoord - (Minecraft.getMinecraft().objectMouseOver.getBlockPos().getZ() - element[0])
 					));
 	}
-
+	
 	public static void advancedBuildNext(int[][] building, MovingObjectPosition mouseOver, float playerYaw, int i)
 	{
 		if(playerYaw > -45 && playerYaw <= 45)
@@ -355,7 +355,7 @@ public class BuildUtils
 				));
 		}
 	}
-
+	
 	public static int convertSide(int side, int f)
 	{
 		int convertedSide = 6;
@@ -394,7 +394,7 @@ public class BuildUtils
 				convertedSide = 2;
 		return convertedSide;
 	}
-
+	
 	public static int convertPos(int xyz, int side)
 	{
 		int convertedPos = 256;
@@ -447,7 +447,7 @@ public class BuildUtils
 				convertedPos = Minecraft.getMinecraft().objectMouseOver.getBlockPos().getZ();
 		return convertedPos;
 	}
-
+	
 	public static int convertPosNext(int xyz, MovingObjectPosition mouseOver)
 	{
 		int convertedPos = 256;
@@ -500,7 +500,7 @@ public class BuildUtils
 				convertedPos = mouseOver.getBlockPos().getZ();
 		return convertedPos;
 	}
-
+	
 	public static int convertPosInBuiling(int xyz, int i, int[][] building, MovingObjectPosition mouseOver)
 	{
 		int convertedPos = 256;
@@ -555,7 +555,7 @@ public class BuildUtils
 				convertedPos = building[i][2];
 		return convertedPos;
 	}
-
+	
 	public static int convertPosInAdvancedBuiling(int xyz, int i, int[][] building)
 	{
 		int convertedPos = 256;
@@ -610,7 +610,7 @@ public class BuildUtils
 				convertedPos = building[i][2];
 		return convertedPos;
 	}
-
+	
 	public static void advancedInstantBuild(int[][] building)
 	{
 		float playerYaw = Minecraft.getMinecraft().thePlayer.rotationYaw;
@@ -683,7 +683,7 @@ public class BuildUtils
 						(float)Minecraft.getMinecraft().objectMouseOver.hitVec.xCoord - (Minecraft.getMinecraft().objectMouseOver.getBlockPos().getZ() - element[0])
 					));
 	}
-
+	
 	public static void advancedInstantBuildNext(int[][] building, MovingObjectPosition mouseOver, float playerYaw, double posX, double posY, double posZ, int i)
 	{
 		if(playerYaw > -45 && playerYaw <= 45)

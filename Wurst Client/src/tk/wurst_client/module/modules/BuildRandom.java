@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -28,20 +28,20 @@ public class BuildRandom extends Module
 			0,
 			Category.BLOCKS);
 	}
-
+	
 	private float range = 6;
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(!getToggled()
-			|| Client.Wurst.moduleManager.getModuleFromClass(Freecam.class).getToggled()
-			|| Client.Wurst.moduleManager.getModuleFromClass(RemoteView.class).getToggled()
+			|| Client.wurst.moduleManager.getModuleFromClass(Freecam.class).getToggled()
+			|| Client.wurst.moduleManager.getModuleFromClass(RemoteView.class).getToggled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		if(Minecraft.getMinecraft().rightClickDelayTimer > 0
-			&& !Client.Wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled())
+			&& !Client.wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled())
 			return;
 		float xDiff = 0;
 		float yDiff = 0;

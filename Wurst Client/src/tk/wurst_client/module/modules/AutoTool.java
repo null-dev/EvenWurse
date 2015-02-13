@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -23,13 +23,13 @@ public class AutoTool extends Module
 			"AutoTool",
 			"Automatically uses the best tool in your hotbar to\n"
 				+ "mine blocks. Tip: This works with Nuker.",
-				0,
-				Category.BLOCKS);
+			0,
+			Category.BLOCKS);
 	}
-
+	
 	private boolean isActive = false;
 	private int oldSlot;
-
+	
 	@Override
 	public void onLeftClick()
 	{
@@ -44,7 +44,7 @@ public class AutoTool extends Module
 			setSlot(Minecraft.getMinecraft().objectMouseOver.getBlockPos());
 		}
 	}
-
+	
 	public static void setSlot(BlockPos blockPos)
 	{
 		float bestSpeed = 1F;
@@ -65,7 +65,7 @@ public class AutoTool extends Module
 		if(bestSlot != -1)
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = bestSlot;
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -80,7 +80,7 @@ public class AutoTool extends Module
 			&& Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
 			setSlot(Minecraft.getMinecraft().objectMouseOver.getBlockPos());
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

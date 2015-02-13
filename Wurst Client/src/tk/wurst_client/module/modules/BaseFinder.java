@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -26,8 +26,8 @@ public class BaseFinder extends Module
 			"BaseFinder",
 			"Finds player bases by searching for man-made blocks.\n"
 				+ "Good for finding faction bases.",
-				0,
-				Category.RENDER);
+			0,
+			Category.RENDER);
 		initBlocks();
 	}
 	
@@ -36,7 +36,7 @@ public class BaseFinder extends Module
 	private int range = 50;
 	private int maxBlocks = 1024;
 	private boolean shouldInform = true;
-
+	
 	private void initBlocks()
 	{
 		naturalBlocks.add(Block.getBlockFromName("air"));
@@ -85,13 +85,13 @@ public class BaseFinder extends Module
 		naturalBlocks.add(Block.getBlockFromName("red_mushroom_block"));
 		naturalBlocks.add(Block.getBlockFromName("brown_mushroom_block"));
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
 		shouldInform = true;
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -100,7 +100,7 @@ public class BaseFinder extends Module
 		for(BlockPos blockPos : matchingBlocks)
 			RenderUtils.framelessBlockESP(blockPos, new Color(255, 0, 0));
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -133,8 +133,8 @@ public class BaseFinder extends Module
 			}
 			if(matchingBlocks.size() >= maxBlocks && shouldInform)
 			{
-				Client.Wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
-				Client.Wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");
+				Client.wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
+				Client.wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");
 				shouldInform = false;
 			}else if(matchingBlocks.size() < maxBlocks)
 				shouldInform = true;

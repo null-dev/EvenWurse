@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -25,14 +25,14 @@ public class MassTPA extends Module
 			"MassTPA",
 			"Sends a TPA requests to all players.\n"
 				+ "Stops if someone accepts.",
-				0,
-				Category.CHAT);
+			0,
+			Category.CHAT);
 	}
-
+	
 	private float speed = 1F;
 	private int i;
 	private String[] players;
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -44,23 +44,23 @@ public class MassTPA extends Module
 		players = playerList.toArray(new String[playerList.size()]);
 		
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{
-		if(!getToggled() || message.startsWith("§c[§6" + Client.Wurst.CLIENT_NAME + "§c]§f "))
+		if(!getToggled() || message.startsWith("§c[§6" + Client.wurst.CLIENT_NAME + "§c]§f "))
 			return;
 		if(message.toLowerCase().contains("/help") || message.toLowerCase().contains("permission"))
 		{
-			Client.Wurst.chat.message("§4§lERROR:§f This server doesn't have TPA.");
+			Client.wurst.chat.message("§4§lERROR:§f This server doesn't have TPA.");
 			setToggled(false);
 		}else if(message.toLowerCase().contains("accepted") && message.toLowerCase().contains("request") || message.toLowerCase().contains("akzeptiert") && message.toLowerCase().contains("anfrage"))
 		{
-			Client.Wurst.chat.message("Someone accepted your TPA request. Stopping.");
+			Client.wurst.chat.message("Someone accepted your TPA request. Stopping.");
 			setToggled(false);
 		}
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

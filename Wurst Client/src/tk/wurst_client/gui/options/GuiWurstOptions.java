@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -54,6 +54,7 @@ public class GuiWurstOptions extends GuiScreen
 		"Online feedback survey",
 	};
 	private boolean autoMaximize;
+	
 	public GuiWurstOptions(GuiScreen par1GuiScreen)
 	{
 		prevMenu = par1GuiScreen;
@@ -66,12 +67,12 @@ public class GuiWurstOptions extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		autoMaximize = Client.Wurst.fileManager.loadAutoResize();
+		autoMaximize = Client.wurst.fileManager.loadAutoMaximize();
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 144 - 16, 200, 20, "Back"));
-		buttonList.add(new GuiButton(1, width / 2 - 154, height / 4 + 24 - 16, 100, 20, "Click Friends: " + (Client.Wurst.options.middleClickFriends ? "ON" : "OFF")));
-		buttonList.add(new GuiButton(2, width / 2 - 154, height / 4 + 48 - 16, 100, 20, "WIP Mods: " + (Client.Wurst.options.WIP ? "ON" : "OFF")));
-		buttonList.add(new GuiButton(3, width / 2 - 154, height / 4 + 72 - 16, 100, 20, "ArrayList: " + arrayListModes[Client.Wurst.options.arrayListMode]));
+		buttonList.add(new GuiButton(1, width / 2 - 154, height / 4 + 24 - 16, 100, 20, "Click Friends: " + (Client.wurst.options.middleClickFriends ? "ON" : "OFF")));
+		buttonList.add(new GuiButton(2, width / 2 - 154, height / 4 + 48 - 16, 100, 20, "WIP Mods: " + (Client.wurst.options.WIP ? "ON" : "OFF")));
+		buttonList.add(new GuiButton(3, width / 2 - 154, height / 4 + 72 - 16, 100, 20, "ArrayList: " + arrayListModes[Client.wurst.options.arrayListMode]));
 		buttonList.add(new GuiButton(4, width / 2 - 154, height / 4 + 96 - 16, 100, 20, "AutoMaximize: " + (autoMaximize ? "ON" : "OFF")));
 		// this.buttonList.add(new GuiButton(5, this.width / 2 - 154,
 		// this.height / 4 + 120 - 16, 100, 20, "???"));
@@ -99,26 +100,26 @@ public class GuiWurstOptions extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			else if(clickedButton.id == 1)
 			{// Middle Click Friends
-				Client.Wurst.options.middleClickFriends = !Client.Wurst.options.middleClickFriends;
-				clickedButton.displayString = "Click Friends: " + (Client.Wurst.options.middleClickFriends ? "ON" : "OFF");
-				Client.Wurst.fileManager.saveOptions();
+				Client.wurst.options.middleClickFriends = !Client.wurst.options.middleClickFriends;
+				clickedButton.displayString = "Click Friends: " + (Client.wurst.options.middleClickFriends ? "ON" : "OFF");
+				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 2)
 			{// WIP
-				Client.Wurst.options.WIP = !Client.Wurst.options.WIP;
-				clickedButton.displayString = "WIP Mods: " + (Client.Wurst.options.WIP ? "ON" : "OFF");
-				Client.Wurst.fileManager.saveOptions();
+				Client.wurst.options.WIP = !Client.wurst.options.WIP;
+				clickedButton.displayString = "WIP Mods: " + (Client.wurst.options.WIP ? "ON" : "OFF");
+				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 3)
 			{// ArrayList
-				Client.Wurst.options.arrayListMode++;
-				if(Client.Wurst.options.arrayListMode > 2)
-					Client.Wurst.options.arrayListMode = 0;
-				clickedButton.displayString = "ArrayList: " + arrayListModes[Client.Wurst.options.arrayListMode];
-				Client.Wurst.fileManager.saveOptions();
+				Client.wurst.options.arrayListMode++;
+				if(Client.wurst.options.arrayListMode > 2)
+					Client.wurst.options.arrayListMode = 0;
+				clickedButton.displayString = "ArrayList: " + arrayListModes[Client.wurst.options.arrayListMode];
+				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 4)
 			{// AutoMaximize
 				autoMaximize = !autoMaximize;
 				clickedButton.displayString = "AutoMaximize: " + (autoMaximize ? "ON" : "OFF");
-				Client.Wurst.fileManager.saveAutoMaximize(autoMaximize);
+				Client.wurst.fileManager.saveAutoMaximize(autoMaximize);
 			}else if(clickedButton.id == 5)
 			{	
 				

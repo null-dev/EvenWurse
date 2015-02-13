@@ -19,12 +19,12 @@ public class SpammerMod extends Command
 		"Changes the delay of Spammer.",
 		".spammer delay <delay in ms>"
 	};
-
+	
 	public SpammerMod()
 	{
 		super("spammer", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
@@ -38,9 +38,9 @@ public class SpammerMod extends Command
 			int newDelay = Integer.valueOf(args[1]);
 			if(newDelay % 50 > 0)
 				newDelay = newDelay - newDelay % 50;
-			Client.Wurst.options.spamDelay = newDelay;
+			Client.wurst.options.spamDelay = newDelay;
 			Spammer.updateDelaySpinner();
-			Client.Wurst.chat.message("Spammer delay set to " + newDelay + "ms.");
+			Client.wurst.chat.message("Spammer delay set to " + newDelay + "ms.");
 		}
 	}
 }

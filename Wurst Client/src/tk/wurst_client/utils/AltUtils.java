@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -43,7 +43,7 @@ import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 public class AltUtils
 {
 	private static final Logger logger = LogManager.getLogger();
-
+	
 	public static String login(String name, String password)
 	{
 		YggdrasilAuthenticationService authenticationService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
@@ -78,7 +78,7 @@ public class AltUtils
 		}
 		return displayText;
 	}
-
+	
 	public static String check(String name, String password)
 	{
 		YggdrasilAuthenticationService authenticationService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
@@ -106,12 +106,12 @@ public class AltUtils
 		}
 		return displayText;
 	}
-
+	
 	public static void changeCrackedName(String newName)
 	{
 		Minecraft.getMinecraft().session = new Session(newName, "", "", "mojang");
 	}
-
+	
 	public static String generateName()
 	{
 		String name = "";
@@ -250,7 +250,7 @@ public class AltUtils
 			name = name.concat("HD");
 		return name;
 	}
-
+	
 	public static String stealSkin(String name)
 	{
 		String reply = "";
@@ -259,7 +259,7 @@ public class AltUtils
 			URL skinURL = new URL("http://skins.minecraft.net/MinecraftSkins/" + name + ".png");
 			URLConnection skinCon = skinURL.openConnection();
 			BufferedInputStream skinputStream = new BufferedInputStream(skinCon.getInputStream());
-			File skin = new File(Client.Wurst.fileManager.SkinDir, name + ".png");
+			File skin = new File(Client.wurst.fileManager.skinDir, name + ".png");
 			FileOutputStream outputStream = new FileOutputStream(skin);
 			int i;
 			while((i = skinputStream.read()) != -1)
@@ -276,7 +276,7 @@ public class AltUtils
 		}
 		return reply;
 	}
-
+	
 	public static void drawAltFace(String name, int x, int y, int w, int h, boolean selected)
 	{
 		try
@@ -318,7 +318,7 @@ public class AltUtils
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void drawAltBody(String name, int x, int y, int width, int height)
 	{
 		try
@@ -516,7 +516,7 @@ public class AltUtils
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void drawAltBack(String name, int x, int y, int width, int height)
 	{
 		try

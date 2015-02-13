@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -24,7 +24,7 @@ public class SpamProcessor
 {
 	public static TagManager tagManager = new TagManager();
 	public static VarManager varManager = new VarManager();
-
+	
 	public static String process(String spam, Spammer spammer, boolean test)
 	{
 		try
@@ -163,7 +163,7 @@ public class SpamProcessor
 							case 1:
 								MiscUtils.openLink("http://wspam.wurst-client.tk/");
 								break;
-
+							
 							default:
 								break;
 						}
@@ -172,7 +172,7 @@ public class SpamProcessor
 						e1.printStackTrace();
 					}
 					break;
-
+				
 				default:
 					break;
 			}
@@ -185,7 +185,7 @@ public class SpamProcessor
 		}
 		return spam;
 	}
-
+	
 	private static void log(String log)
 	{
 		if("".isEmpty())// Manual switch for debugging

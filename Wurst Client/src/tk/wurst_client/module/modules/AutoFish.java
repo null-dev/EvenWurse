@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -14,7 +14,7 @@ import tk.wurst_client.module.Module;
 
 public class AutoFish extends Module
 {
-
+	
 	public AutoFish()
 	{
 		super(
@@ -23,9 +23,9 @@ public class AutoFish extends Module
 			0,
 			Category.MISC);
 	}
-
+	
 	private boolean catching = false;
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -54,7 +54,7 @@ public class AutoFish extends Module
 			}.start();
 		}
 	}
-
+	
 	private boolean isHooked(EntityFishHook hook)
 	{
 		return hook.motionX == 0.0D && hook.motionZ == 0.0D && hook.motionY != 0.0D;

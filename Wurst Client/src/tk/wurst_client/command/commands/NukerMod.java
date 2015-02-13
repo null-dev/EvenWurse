@@ -23,12 +23,12 @@ public class NukerMod extends Command
 		".nuker id <block id>",
 		".nuker name <block name>"
 	};
-
+	
 	public NukerMod()
 	{
 		super("nuker", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
@@ -38,53 +38,53 @@ public class NukerMod extends Command
 		{// 0=normal, 1=id, 2=flat, 3=smash
 			if(args[1].toLowerCase().equals("normal"))
 			{
-				Client.Wurst.options.nukerMode = 0;
+				Client.wurst.options.nukerMode = 0;
 				Nuker.id = 0;
 			}else if(args[1].toLowerCase().equals("id"))
 			{
-				Client.Wurst.options.nukerMode = 1;
+				Client.wurst.options.nukerMode = 1;
 				Nuker.id = 0;
 			}else if(args[1].toLowerCase().equals("flat"))
 			{
-				Client.Wurst.options.nukerMode = 2;
+				Client.wurst.options.nukerMode = 2;
 				Nuker.id = 0;
 			}else if(args[1].toLowerCase().equals("smash"))
 			{
-				Client.Wurst.options.nukerMode = 3;
+				Client.wurst.options.nukerMode = 3;
 				Nuker.id = 0;
 			}else
 			{
 				commandError();
 				return;
 			}
-			Client.Wurst.fileManager.saveOptions();
-			Client.Wurst.chat.message("Nuker mode set to \"" + args[1] + "\".");
+			Client.wurst.fileManager.saveOptions();
+			Client.wurst.chat.message("Nuker mode set to \"" + args[1] + "\".");
 		}else if(args[0].equalsIgnoreCase("id") && MiscUtils.isInteger(args[1]))
 		{
-			if(Client.Wurst.options.nukerMode != 1)
+			if(Client.wurst.options.nukerMode != 1)
 			{
-				Client.Wurst.options.nukerMode = 1;
-				Client.Wurst.chat.message("Nuker mode set to \"" + args[0] + "\".");
+				Client.wurst.options.nukerMode = 1;
+				Client.wurst.chat.message("Nuker mode set to \"" + args[0] + "\".");
 			}
 			Nuker.id = Integer.valueOf(args[1]);
-			Client.Wurst.fileManager.saveOptions();
-			Client.Wurst.chat.message("Nuker ID set to " + args[1] + ".");
+			Client.wurst.fileManager.saveOptions();
+			Client.wurst.chat.message("Nuker ID set to " + args[1] + ".");
 		}else if(args[0].equalsIgnoreCase("name"))
 		{
-			if(Client.Wurst.options.nukerMode != 1)
+			if(Client.wurst.options.nukerMode != 1)
 			{
-				Client.Wurst.options.nukerMode = 1;
-				Client.Wurst.chat.message("Nuker mode set to \"" + args[0] + "\".");
+				Client.wurst.options.nukerMode = 1;
+				Client.wurst.chat.message("Nuker mode set to \"" + args[0] + "\".");
 			}
 			int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
 			if(newID == -1)
 			{
-				Client.Wurst.chat.message("The block \"" + args[1] + "\" could not be found.");
+				Client.wurst.chat.message("The block \"" + args[1] + "\" could not be found.");
 				return;
 			}
 			Nuker.id = Integer.valueOf(newID);
-			Client.Wurst.fileManager.saveOptions();
-			Client.Wurst.chat.message("Nuker ID set to " + newID + " (" + args[1] + ").");
+			Client.wurst.fileManager.saveOptions();
+			Client.wurst.chat.message("Nuker ID set to " + newID + " (" + args[1] + ").");
 		}else
 			commandError();
 	}

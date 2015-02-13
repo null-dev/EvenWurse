@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -22,16 +22,16 @@ public class FastEat extends Module
 			"FastEat",
 			"Allows you to eat food ten times faster.\n"
 				+ "OM! NOM! NOM!",
-				0,
-				Category.MISC);
+			0,
+			Category.MISC);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(!getToggled())
 			return;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);

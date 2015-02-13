@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -29,21 +29,21 @@ public class ChestESP extends Module
 			"ChestESP",
 			"Allows you to see chests through walls.\n"
 				+ "Tip: This works with the piston crates on HiveMC.",
-				0,
-				Category.RENDER);
+			0,
+			Category.RENDER);
 	}
-
+	
 	private int range = 50;
 	private int maxChests = 1000;
 	public boolean shouldInform = true;
 	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
-
+	
 	@Override
 	public void onEnable()
 	{
 		shouldInform = true;
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -84,13 +84,13 @@ public class ChestESP extends Module
 		}
 		if(i >= maxChests && shouldInform)
 		{
-			Client.Wurst.chat.warning(getName() + " found §lA LOT§r of chests.");
-			Client.Wurst.chat.message("To prevent lag, it will only show the first " + maxChests + " chests.");
+			Client.wurst.chat.warning(getName() + " found §lA LOT§r of chests.");
+			Client.wurst.chat.message("To prevent lag, it will only show the first " + maxChests + " chests.");
 			shouldInform = false;
 		}else if(i < maxChests)
 			shouldInform = true;
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -113,7 +113,7 @@ public class ChestESP extends Module
 						int metadata = block.getMetaFromState(state);
 						if(Block.getIdFromBlock(block) == 33 &&
 							(
-								metadata == 6
+							metadata == 6
 								|| metadata == 7
 								|| metadata == 15
 							))

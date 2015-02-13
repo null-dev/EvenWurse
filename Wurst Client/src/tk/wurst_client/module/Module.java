@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -23,7 +23,7 @@ public class Module
 	protected ArrayList<BasicSlider> moduleSliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
-
+	
 	public Module(String moduleName, String moduleDescription, int moduleBind, Category moduleCategory)
 	{
 		this.moduleName = moduleName;
@@ -32,12 +32,12 @@ public class Module
 		this.moduleCategory = moduleCategory;
 		initSliders();
 	}
-
+	
 	public String getName()
 	{
 		return moduleName;
 	}
-
+	
 	public String getRenderName()
 	{
 		return moduleName;
@@ -47,27 +47,27 @@ public class Module
 	{
 		return moduleDescription;
 	}
-
+	
 	public int getBind()
 	{
 		return moduleBind;
 	}
-
+	
 	public void setBind(int newBind)
 	{
 		moduleBind = newBind;
 	}
-
+	
 	public Category getCategory()
 	{
 		return moduleCategory;
 	}
-
+	
 	public boolean getToggled()
 	{
 		return isToggled;
 	}
-
+	
 	public void setToggled(boolean shouldToggle)
 	{
 		onToggle();
@@ -80,82 +80,82 @@ public class Module
 			onDisable();
 			isToggled = false;
 		}
-		Client.Wurst.fileManager.saveModules();
+		Client.wurst.fileManager.saveModules();
 	}
-
+	
 	public void toggleModule()
 	{
 		setToggled(!getToggled());
 	}
-
+	
 	public ArrayList<BasicSlider> getSliders()
 	{
 		return moduleSliders;
 	}
-
+	
 	public void setSliders(ArrayList<BasicSlider> newSliders)
 	{
 		moduleSliders = newSliders;
 	}
-
+	
 	public void noCheatMessage()
 	{
-		Client.Wurst.chat.warning(moduleName + " cannot bypass NoCheat+.");
+		Client.wurst.chat.warning(moduleName + " cannot bypass NoCheat+.");
 	}
-
+	
 	public void updateMS()
 	{
 		currentMS = System.currentTimeMillis();
 	}
-
+	
 	public void updateLastMS()
 	{
 		lastMS = System.currentTimeMillis();
 	}
-
+	
 	public boolean hasTimePassedM(long MS)
 	{
 		return currentMS >= lastMS + MS;
 	}
-
+	
 	public boolean hasTimePassedS(float speed)
 	{
 		return currentMS >= lastMS + (long)(1000 / speed);
 	}
-
+	
 	public void onToggle()
 	{}
-
+	
 	public void onEnable()
 	{}
-
+	
 	public void onDisable()
 	{}
-
+	
 	public void onUpdate()
 	{}
-
+	
 	public void onRender()
 	{}
-
+	
 	public void onRenderGUI()
 	{}
-
+	
 	public void onDeath()
 	{}
-
+	
 	/**
 	 * Note: This runs before the swing animation.
 	 */
 	public void onLeftClick()
 	{}
-
+	
 	public void initSliders()
 	{}
-
+	
 	public void updateSettings()
 	{}
-
+	
 	public void onReceivedMessage(String message)
 	{}
 }

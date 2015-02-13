@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -35,10 +35,10 @@ public class Nuker extends Module
 			"Nuker",
 			"Destroys blocks around you.\n"
 				+ "Use .nuker mode <mode> to change the mode.",
-				Keyboard.KEY_L,
-				Category.BLOCKS);
+			Keyboard.KEY_L,
+			Category.BLOCKS);
 	}
-
+	
 	public static float normalRange = 5F;
 	public static float yesCheatRange = 4.25F;
 	private float realRange;
@@ -50,42 +50,42 @@ public class Nuker extends Module
 	private BlockPos pos;
 	private boolean shouldRenderESP;
 	private int oldSlot = -1;
-
+	
 	@Override
 	public String getRenderName()
 	{
-		if(Client.Wurst.options.nukerMode == 1)
+		if(Client.wurst.options.nukerMode == 1)
 			return "IDNuker [" + id + "]";
-		else if(Client.Wurst.options.nukerMode == 2)
+		else if(Client.wurst.options.nukerMode == 2)
 			return "FlatNuker";
-		else if(Client.Wurst.options.nukerMode == 3)
+		else if(Client.wurst.options.nukerMode == 3)
 			return "SmashNuker";
 		else
 			return "Nuker";
 	}
-
+	
 	@Override
 	public void initSliders()
 	{
 		moduleSliders.add(new BasicSlider("Nuker range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
 	}
-
+	
 	@Override
 	public void updateSettings()
 	{
 		normalRange = (float)moduleSliders.get(0).getValue();
 		yesCheatRange = Math.min(normalRange, 4.25F);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
-		if(Client.Wurst.moduleManager.getModuleFromClass(NukerLegit.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(NukerLegit.class).setToggled(false);
-		if(Client.Wurst.moduleManager.getModuleFromClass(SpeedNuker.class).getToggled())
-			Client.Wurst.moduleManager.getModuleFromClass(SpeedNuker.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(NukerLegit.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(NukerLegit.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class).getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class).setToggled(false);
 	}
-
+	
 	@Override
 	public void onLeftClick()
 	{
@@ -93,13 +93,13 @@ public class Nuker extends Module
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
-		if(Client.Wurst.options.nukerMode == 1 && Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
+		if(Client.wurst.options.nukerMode == 1 && Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
 		{
 			id = Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock());
-			Client.Wurst.fileManager.saveOptions();
+			Client.wurst.fileManager.saveOptions();
 		}
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -109,13 +109,13 @@ public class Nuker extends Module
 			else
 				RenderUtils.nukerBox(pos, 1);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(!getToggled())
 			return;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 			realRange = yesCheatRange;
 		else
 			realRange = normalRange;
@@ -143,12 +143,12 @@ public class Nuker extends Module
 		if(currentDamage == 0)
 		{
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.START_DESTROY_BLOCK, pos, side));
-			if(Client.Wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled() && oldSlot == -1)
+			if(Client.wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled() && oldSlot == -1)
 				oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode || currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos) >= 1)
 			{
 				currentDamage = 0;
-				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode && !Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode && !Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 					nukeAll();
 				else
 				{
@@ -159,12 +159,12 @@ public class Nuker extends Module
 				return;
 			}
 		}
-		if(Client.Wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled())
 			AutoTool.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
 		shouldRenderESP = true;
 		BlockUtils.faceBlockPacket(pos);
-		currentDamage += currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos) * (Client.Wurst.moduleManager.getModuleFromClass(FastBreak.class).getToggled() && Client.Wurst.options.fastbreakMode == 0 ? FastBreak.speed : 1);
+		currentDamage += currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos) * (Client.wurst.moduleManager.getModuleFromClass(FastBreak.class).getToggled() && Client.wurst.options.fastbreakMode == 0 ? FastBreak.speed : 1);
 		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(Minecraft.getMinecraft().thePlayer.getEntityId(), pos, (int)(currentDamage * 10.0F) - 1);
 		if(currentDamage >= 1)
 		{
@@ -172,10 +172,10 @@ public class Nuker extends Module
 			Minecraft.getMinecraft().playerController.onPlayerDestroyBlock(pos, side);
 			blockHitDelay = (byte)4;
 			currentDamage = 0;
-		}else if(Client.Wurst.moduleManager.getModuleFromClass(FastBreak.class).getToggled() && Client.Wurst.options.fastbreakMode == 1)
+		}else if(Client.wurst.moduleManager.getModuleFromClass(FastBreak.class).getToggled() && Client.wurst.options.fastbreakMode == 1)
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.STOP_DESTROY_BLOCK, pos, side));
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -187,14 +187,14 @@ public class Nuker extends Module
 		currentDamage = 0;
 		shouldRenderESP = false;
 		id = 0;
-		Client.Wurst.fileManager.saveOptions();
+		Client.wurst.fileManager.saveOptions();
 	}
-
+	
 	private BlockPos find()
 	{
 		BlockPos closest = null;
 		float closestDistance = realRange + 1;
-		for(int y = (int)realRange; y >= (Client.Wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
+		for(int y = (int)realRange; y >= (Client.wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
 			for(int x = (int)realRange; x >= -realRange - 1; x--)
 				for(int z = (int)realRange; z >= -realRange; z--)
 				{
@@ -215,9 +215,9 @@ public class Nuker extends Module
 					fakeObjectMouseOver.setBlockPos(blockPos);
 					if(Block.getIdFromBlock(block) != 0 && posY >= 0 && currentDistance <= realRange)
 					{
-						if(Client.Wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != id)
+						if(Client.wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != id)
 							continue;
-						if(Client.Wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
+						if(Client.wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
 							continue;
 						side = fakeObjectMouseOver.sideHit;
 						if(closest == null)
@@ -233,10 +233,10 @@ public class Nuker extends Module
 				}
 		return closest;
 	}
-
+	
 	private void nukeAll()
 	{
-		for(int y = (int)realRange; y >= (Client.Wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
+		for(int y = (int)realRange; y >= (Client.wurst.options.nukerMode == 2 ? 0 : -realRange); y--)
 			for(int x = (int)realRange; x >= -realRange - 1; x--)
 				for(int z = (int)realRange; z >= -realRange; z--)
 				{
@@ -253,9 +253,9 @@ public class Nuker extends Module
 					fakeObjectMouseOver.setBlockPos(blockPos);
 					if(Block.getIdFromBlock(block) != 0 && posY >= 0 && currentDistance <= realRange)
 					{
-						if(Client.Wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != id)
+						if(Client.wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != id)
 							continue;
-						if(Client.Wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
+						if(Client.wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
 							continue;
 						side = fakeObjectMouseOver.sideHit;
 						shouldRenderESP = true;

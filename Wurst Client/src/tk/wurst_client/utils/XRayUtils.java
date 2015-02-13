@@ -1,11 +1,14 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.utils;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 import net.minecraft.block.Block;
 import tk.wurst_client.module.modules.XRay;
@@ -50,11 +53,23 @@ public class XRayUtils
 		XRay.xrayBlocks.add(Block.getBlockFromName("bookshelf"));
 		XRay.xrayBlocks.add(Block.getBlockFromName("command_block"));
 	}
-
+	
 	public static boolean isXRayBlock(Block blockToCheck)
 	{
 		if(XRay.xrayBlocks.contains(blockToCheck))
 			return true;
 		return false;
+	}
+	
+	public static void sortBlocks()
+	{
+		Collections.sort(XRay.xrayBlocks, new Comparator<Block>()
+		{
+			@Override
+			public int compare(Block o1, Block o2)
+			{
+				return Block.getIdFromBlock(o1) - Block.getIdFromBlock(o2);
+			}
+		});
 	}
 }

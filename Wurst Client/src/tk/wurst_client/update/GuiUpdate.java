@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -42,7 +42,7 @@ public class GuiUpdate extends GuiScreen
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12, "Close Minecraft"));
-		Client.Wurst.updater.openUpdateLink();
+		Client.wurst.updater.openUpdateLink();
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class GuiUpdate extends GuiScreen
 	
 	/**
 	 * Called when the mouse is clicked.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	@Override

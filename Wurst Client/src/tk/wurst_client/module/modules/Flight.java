@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -25,30 +25,30 @@ public class Flight extends Module
 			"Flight",
 			"Makes you fly.\n"
 				+ "This is one of the oldest hacks in Minecraft.",
-				Keyboard.KEY_G,
-				Category.MOVEMENT);
+			Keyboard.KEY_G,
+			Category.MOVEMENT);
 	}
-
+	
 	public static float speed = 1F;
-
+	
 	@Override
 	public void initSliders()
 	{
 		moduleSliders.add(new BasicSlider("Flight speed", speed, 0.05, 5, 0.05, ValueDisplay.DECIMAL));
 	}
-
+	
 	@Override
 	public void updateSettings()
 	{
 		speed = (float)moduleSliders.get(0).getValue();
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(!getToggled())
 			return;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);

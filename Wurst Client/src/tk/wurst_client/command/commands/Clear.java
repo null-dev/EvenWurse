@@ -17,12 +17,12 @@ public class Clear extends Command
 		"Clears the chat completely.",
 		".clear"
 	};
-
+	
 	public Clear()
 	{
 		super("clear", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{

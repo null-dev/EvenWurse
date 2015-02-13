@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -22,10 +22,10 @@ public class UIRenderer
 {
 	private static void renderArrayList()
 	{
-		if(Client.Wurst.options.arrayListMode == 2)
+		if(Client.wurst.options.arrayListMode == 2)
 			return;
 		int arrayListLength = 0;
-		for(Module arrayModule : Client.Wurst.moduleManager.activeModules)
+		for(Module arrayModule : Client.wurst.moduleManager.activeModules)
 		{
 			if(arrayModule instanceof ClickGUI)
 				continue;
@@ -39,7 +39,7 @@ public class UIRenderer
 				Minecraft.getMinecraft().displayWidth,
 				Minecraft.getMinecraft().displayHeight
 			);
-		if(yCount + arrayListLength * 9 > sr.getScaledHeight() || Client.Wurst.options.arrayListMode == 1)
+		if(yCount + arrayListLength * 9 > sr.getScaledHeight() || Client.wurst.options.arrayListMode == 1)
 		{
 			String tooManyMods = "";
 			if(arrayListLength == 0)
@@ -51,7 +51,7 @@ public class UIRenderer
 			Fonts.segoe18.drawString(tooManyMods, 3, yCount + 1, 0xFF000000);
 			Fonts.segoe18.drawString(tooManyMods, 2, yCount, 0xFFFFFFFF);
 		}else
-			for(Module arrayModule : Client.Wurst.moduleManager.activeModules)
+			for(Module arrayModule : Client.wurst.moduleManager.activeModules)
 			{
 				if(arrayModule instanceof ClickGUI)
 					continue;
@@ -63,16 +63,16 @@ public class UIRenderer
 				}
 			}
 	}
-
+	
 	public static void renderUI()
 	{
-		Fonts.segoe22.drawString("v" + Client.Wurst.CLIENT_VERSION, 74, 4, 0xFF000000);
+		Fonts.segoe22.drawString("v" + Client.wurst.CLIENT_VERSION, 74, 4, 0xFF000000);
 		renderArrayList();
 	}
-
+	
 	public static void renderPinnedFrames()
 	{
-		for(Frame moduleFrame : Client.Wurst.guiManager.getFrames())
+		for(Frame moduleFrame : Client.wurst.guiManager.getFrames())
 			if(moduleFrame.isPinned() && !(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
 				moduleFrame.render();
 	}

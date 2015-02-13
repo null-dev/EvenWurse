@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,7 +27,7 @@ public class RenderUtils
 {
 	/**
 	 * Renders a box with any size and any color.
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -73,10 +73,10 @@ public class RenderUtils
 		GL11.glDepthMask(true);
 		GL11.glDisable(GL_BLEND);
 	}
-
+	
 	/**
 	 * Renders a frame with any size and any color.
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -114,11 +114,11 @@ public class RenderUtils
 		GL11.glDepthMask(true);
 		GL11.glDisable(GL_BLEND);
 	}
-
+	
 	/**
 	 * Renders an ESP box with the size of a normal block at the specified
 	 * coordinates.
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -157,7 +157,7 @@ public class RenderUtils
 		GL11.glDepthMask(true);
 		GL11.glDisable(GL_BLEND);
 	}
-
+	
 	public static void framelessBlockESP(BlockPos blockPos, Color color)
 	{
 		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
@@ -188,7 +188,7 @@ public class RenderUtils
 		GL11.glDepthMask(true);
 		GL11.glDisable(GL_BLEND);
 	}
-
+	
 	public static void emptyBlockESPBox(BlockPos blockPos)
 	{
 		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
@@ -215,13 +215,13 @@ public class RenderUtils
 		GL11.glDepthMask(true);
 		GL11.glDisable(GL_BLEND);
 	}
-
+	
 	public static int enemy = 0;
 	public static int friend = 1;
 	public static int other = 2;
 	public static int target = 3;
 	public static int team = 4;
-
+	
 	public static void entityESPBox(Entity entity, int mode)
 	{
 		GL11.glBlendFunc(770, 771);
@@ -255,7 +255,7 @@ public class RenderUtils
 		GL11.glDepthMask(true);
 		GL11.glDisable(GL_BLEND);
 	}
-
+	
 	public static void nukerBox(BlockPos blockPos, float damage)
 	{
 		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
@@ -290,7 +290,7 @@ public class RenderUtils
 		GL11.glDepthMask(true);
 		GL11.glDisable(GL_BLEND);
 	}
-
+	
 	public static void searchBox(BlockPos blockPos)
 	{
 		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
@@ -326,7 +326,7 @@ public class RenderUtils
 		GL11.glDepthMask(true);
 		GL11.glDisable(GL_BLEND);
 	}
-
+	
 	public static void drawColorBox(AxisAlignedBB axisalignedbb)
 	{
 		Tessellator ts = Tessellator.getInstance();
@@ -392,7 +392,7 @@ public class RenderUtils
 		wr.addVertex(axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ);
 		ts.draw();// Ends Z.
 	}
-
+	
 	public static void tracerLine(Entity entity, int mode)
 	{
 		double x = entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX;
@@ -425,7 +425,7 @@ public class RenderUtils
 		glDepthMask(true);
 		glDisable(GL_BLEND);
 	}
-
+	
 	public static void tracerLine(Entity entity, Color color)
 	{
 		double x = entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX;
@@ -449,7 +449,7 @@ public class RenderUtils
 		glDepthMask(true);
 		glDisable(GL_BLEND);
 	}
-
+	
 	public static void tracerLine(int x, int y, int z, Color color)
 	{
 		x += 0.5 - Minecraft.getMinecraft().getRenderManager().renderPosX;

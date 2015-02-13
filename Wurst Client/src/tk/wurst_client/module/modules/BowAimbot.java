@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -34,13 +34,13 @@ public class BowAimbot extends Module
 			"BowAimbot",
 			"Automatically aims your bow at the closest entity.\n"
 				+ "Tip: This works with FastBow.",
-				0,
-				Category.COMBAT);
+			0,
+			Category.COMBAT);
 	}
-
+	
 	private Entity target;
 	private float velocity;
-
+	
 	@Override
 	public void onRender()
 	{
@@ -48,7 +48,7 @@ public class BowAimbot extends Module
 			return;
 		RenderUtils.entityESPBox(target, 3);
 	}
-
+	
 	@Override
 	public void onRenderGUI()
 	{
@@ -66,17 +66,17 @@ public class BowAimbot extends Module
 		glBegin(GL_QUADS);
 		{
 			glVertex2d(width / 2 + 1, height / 2 + 1);
-			glVertex2d(width / 2 + ((WurstTheme)Client.Wurst.guiManager.getTheme()).getFontRenderer().getStringWidth(targetLocked) + 4, height / 2 + 1);
-			glVertex2d(width / 2 + ((WurstTheme)Client.Wurst.guiManager.getTheme()).getFontRenderer().getStringWidth(targetLocked) + 4, height / 2 + ((WurstTheme)Client.Wurst.guiManager.getTheme()).getFontRenderer().FONT_HEIGHT);
-			glVertex2d(width / 2 + 1, height / 2 + ((WurstTheme)Client.Wurst.guiManager.getTheme()).getFontRenderer().FONT_HEIGHT);
+			glVertex2d(width / 2 + ((WurstTheme)Client.wurst.guiManager.getTheme()).getFontRenderer().getStringWidth(targetLocked) + 4, height / 2 + 1);
+			glVertex2d(width / 2 + ((WurstTheme)Client.wurst.guiManager.getTheme()).getFontRenderer().getStringWidth(targetLocked) + 4, height / 2 + ((WurstTheme)Client.wurst.guiManager.getTheme()).getFontRenderer().FONT_HEIGHT);
+			glVertex2d(width / 2 + 1, height / 2 + ((WurstTheme)Client.wurst.guiManager.getTheme()).getFontRenderer().FONT_HEIGHT);
 		}
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
-		((WurstTheme)Client.Wurst.guiManager.getTheme()).getFontRenderer().drawStringWithShadow(targetLocked, width / 2 + 2, height / 2, RenderUtil.toRGBA(Color.WHITE));
+		((WurstTheme)Client.wurst.guiManager.getTheme()).getFontRenderer().drawStringWithShadow(targetLocked, width / 2 + 2, height / 2, RenderUtil.toRGBA(Color.WHITE));
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -91,7 +91,7 @@ public class BowAimbot extends Module
 			aimAtTarget();
 		}
 	}
-
+	
 	private void aimAtTarget()
 	{
 		if(target == null)
@@ -99,7 +99,7 @@ public class BowAimbot extends Module
 		int bowCharge = Minecraft.getMinecraft().thePlayer.getItemInUseDuration();
 		velocity = bowCharge / 20;
 		velocity = (velocity * velocity + velocity * 2) / 3;
-		if(Client.Wurst.moduleManager.getModuleFromClass(FastBow.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(FastBow.class).getToggled())
 			velocity = 1;
 		if(velocity < 0.1)
 		{

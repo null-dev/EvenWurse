@@ -18,12 +18,12 @@ public class FastBreakMod extends Command
 		"Changes the settings of FastBreak.",
 		".fastbreak mode <normal | instant>"
 	};
-
+	
 	public FastBreakMod()
 	{
 		super("fastbreak", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
@@ -32,16 +32,16 @@ public class FastBreakMod extends Command
 		else if(args[0].toLowerCase().equals("mode"))
 		{// 0=normal, 1=instant
 			if(args[1].toLowerCase().equals("normal"))
-				Client.Wurst.options.fastbreakMode = 0;
+				Client.wurst.options.fastbreakMode = 0;
 			else if(args[1].toLowerCase().equals("instant"))
-				Client.Wurst.options.fastbreakMode = 1;
+				Client.wurst.options.fastbreakMode = 1;
 			else
 			{
 				commandError();
 				return;
 			}
-			Client.Wurst.fileManager.saveOptions();
-			Client.Wurst.chat.message("FastBreak mode set to \"" + args[1] + "\".");
+			Client.wurst.fileManager.saveOptions();
+			Client.wurst.chat.message("FastBreak mode set to \"" + args[1] + "\".");
 		}
 	}
 }

@@ -7,18 +7,7 @@
  */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-import static org.lwjgl.opengl.GL11.GL_LINE_LOOP;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLineWidth;
-import static org.lwjgl.opengl.GL11.glVertex2d;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -44,16 +33,16 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 	private long lastMS;
 	private Button describedButton;
 	private Button rightButton;
-
+	
 	WurstButtonUI(WurstTheme theme)
 	{
 		super(Button.class);
 		this.theme = theme;
-
+		
 		foreground = Color.WHITE;
 		background = new Color(0, 0, 0, 0);
 	}
-
+	
 	@Override
 	protected void renderComponent(Button button)
 	{
@@ -106,11 +95,11 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		}
 		String text = button.getText();
 		theme.getFontRenderer().drawString
-		(
-			text,
-			area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
-			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
-			RenderUtil.toRGBA(button.getForegroundColor())
+			(
+				text,
+				area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
+				area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
+				RenderUtil.toRGBA(button.getForegroundColor())
 			);
 		translateComponent(button, true);
 		if(area.contains(mouse) && describedButton != button)
@@ -139,11 +128,11 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			int textHeight = (theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
-			for(Module module : Client.Wurst.moduleManager.activeModules)
+			for(Module module : Client.wurst.moduleManager.activeModules)
 				if(button.getText().equals(module.getName()))
-					for(org.darkstorm.minecraft.gui.component.Frame frame : Client.Wurst.guiManager.getFrames())
+					for(org.darkstorm.minecraft.gui.component.Frame frame : Client.wurst.guiManager.getFrames())
 						if(frame.getTitle().equalsIgnoreCase(module.getCategory().name()))
-							Client.Wurst.guiManager.bringForward(frame);
+							Client.wurst.guiManager.bringForward(frame);
 			int scale = Minecraft.getMinecraft().gameSettings.guiScale;
 			if(scale == 0)
 				scale = 1000;
@@ -189,18 +178,18 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	}
-
+	
 	private boolean isRightButton(Button button, Button dButton)
 	{
 		Category buttonCategory = null;
 		Category dButtonCategory = null;
-		buttonCategory = Client.Wurst.moduleManager.getModuleByName(button.getText()).getCategory();
-		dButtonCategory = Client.Wurst.moduleManager.getModuleByName(dButton.getText()).getCategory();
+		buttonCategory = Client.wurst.moduleManager.getModuleByName(button.getText()).getCategory();
+		dButtonCategory = Client.wurst.moduleManager.getModuleByName(dButton.getText()).getCategory();
 		boolean isRightFrame = buttonCategory == dButtonCategory && buttonCategory != null;
 		if(!isRightFrame)
 			return false;
 		boolean isLastButton = false;
-		for(Module module : Client.Wurst.moduleManager.activeModules)
+		for(Module module : Client.wurst.moduleManager.activeModules)
 			if(buttonCategory == module.getCategory())
 				if(button.getText().equals(module.getName()))
 					isLastButton = true;
@@ -208,7 +197,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 					isLastButton = false;
 		return isLastButton;
 	}
-
+	
 	@Override
 	protected Dimension getDefaultComponentSize(Button component)
 	{
@@ -216,14 +205,14 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			component.getText()) + 4,
 			theme.getFontRenderer().FONT_HEIGHT + 4);
 	}
-
+	
 	@Override
 	protected Rectangle[] getInteractableComponentRegions(Button component)
 	{
 		return new Rectangle[]{new Rectangle(0, 0, component.getWidth(),
 			component.getHeight())};
 	}
-
+	
 	@Override
 	protected void handleComponentInteraction(Button component, Point location,
 		int button)

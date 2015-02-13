@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -22,10 +22,10 @@ public class AnnoyCMD extends Module
 			0,
 			Category.HIDDEN);
 	}
-
+	
 	private static boolean toggled;
 	private static String name;
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -34,7 +34,7 @@ public class AnnoyCMD extends Module
 		else
 			return "Annoy";
 	}
-
+	
 	public static void onToggledByCommand(String name)
 	{
 		if(name == null)
@@ -42,38 +42,38 @@ public class AnnoyCMD extends Module
 			if(toggled)
 				toggled = false;
 			else
-				Client.Wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
+				Client.wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
 			return;
 		}
 		toggled = !toggled;
 		AnnoyCMD.name = name;
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
 		if(name == null)
 		{
-			Client.Wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
+			Client.wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
 			toggled = false;
 			return;
 		}
-		Client.Wurst.chat.message("Now annoying " + name + ".");
+		Client.wurst.chat.message("Now annoying " + name + ".");
 		if(name.equals(Minecraft.getMinecraft().thePlayer.getName()))
-			Client.Wurst.chat.warning("Annoying yourself is a bad idea!");
+			Client.wurst.chat.warning("Annoying yourself is a bad idea!");
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(getToggled() != toggled)
 			setToggled(toggled);
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{
-		if(!getToggled() || message.startsWith("§c[§6" + Client.Wurst.CLIENT_NAME + "§c]§f "))
+		if(!getToggled() || message.startsWith("§c[§6" + Client.wurst.CLIENT_NAME + "§c]§f "))
 			return;
 		if(message.startsWith("<" + name + ">") || message.contains(name + ">"))
 		{
@@ -85,13 +85,13 @@ public class AnnoyCMD extends Module
 			Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);
 		}
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
 		if(name != null)
 		{
-			Client.Wurst.chat.message("No longer annoying " + name + ".");
+			Client.wurst.chat.message("No longer annoying " + name + ".");
 			name = null;
 		}
 		toggled = false;

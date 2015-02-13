@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -24,17 +24,17 @@ public class Criticals extends Module
 			0,
 			Category.COMBAT);
 	}
-
+	
 	@Override
 	public void onLeftClick()
 	{
 		if(Minecraft.getMinecraft().objectMouseOver != null && Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase)
 			doCritical();
 	}
-
+	
 	public static void doCritical()
 	{
-		if(!Client.Wurst.moduleManager.getModuleFromClass(Criticals.class).getToggled())
+		if(!Client.wurst.moduleManager.getModuleFromClass(Criticals.class).getToggled())
 			return;
 		if(!Minecraft.getMinecraft().thePlayer.isInWater() && !Minecraft.getMinecraft().thePlayer.isInsideOfMaterial(Material.lava) && Minecraft.getMinecraft().thePlayer.onGround)
 		{

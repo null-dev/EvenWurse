@@ -27,7 +27,7 @@ public class GuiAlts extends GuiScreen
 	private boolean shouldAsk = true;
 	private int errorTimer;
 	public static GuiAltList altList;
-
+	
 	public GuiAlts(GuiScreen par1GuiScreen)
 	{
 		prevMenu = par1GuiScreen;
@@ -84,7 +84,7 @@ public class GuiAlts extends GuiScreen
 						if(reply.equals("§4§lWrong password!"))
 						{
 							GuiAltList.alts.remove(GuiAltList.alts.indexOf(alt));
-							Client.Wurst.fileManager.saveAlts();
+							Client.wurst.fileManager.saveAlts();
 						}
 					}
 				}
@@ -116,7 +116,7 @@ public class GuiAlts extends GuiScreen
 				for(int i = 0; i < 8; i++)
 					GuiAltList.alts.add(new Alt(AltUtils.generateName(), null));
 				GuiAltList.sortAlts();
-				Client.Wurst.fileManager.saveAlts();
+				Client.wurst.fileManager.saveAlts();
 			}
 			shouldAsk = false;
 		}else if(par2 == 1)
@@ -125,7 +125,7 @@ public class GuiAlts extends GuiScreen
 			if(par1)
 			{
 				GuiAltList.alts.remove(GuiAltList.alts.indexOf(alt));
-				Client.Wurst.fileManager.saveAlts();
+				Client.wurst.fileManager.saveAlts();
 			}
 		}
 		mc.displayGuiScreen(this);
@@ -141,7 +141,7 @@ public class GuiAlts extends GuiScreen
 		if(par2 == 28 || par2 == 156)
 			actionPerformed((GuiButton)buttonList.get(0));
 	}
-
+	
 	/**
 	 * Called when the mouse is clicked.
 	 *
@@ -155,7 +155,7 @@ public class GuiAlts extends GuiScreen
 				altList.elementClicked(-1, false, 0, 0);
 		super.mouseClicked(par1, par2, par3);
 	}
-
+	
 	/**
 	 * Draws the screen and all the components in it.
 	 */

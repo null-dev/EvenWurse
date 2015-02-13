@@ -18,17 +18,17 @@ public class Drop extends Command
 		"Drops all your items on the ground.",
 		".drop"
 	};
-
+	
 	public Drop()
 	{
 		super("drop", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
 		if(args == null)
-			Client.Wurst.moduleManager.getModuleFromClass(DropCMD.class).setToggled(true);
+			Client.wurst.moduleManager.getModuleFromClass(DropCMD.class).setToggled(true);
 		else
 			commandError();
 	}

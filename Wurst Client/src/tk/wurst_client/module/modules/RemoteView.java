@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -26,8 +26,8 @@ public class RemoteView extends Module
 			"RemoteView",
 			"Allows you to see the world as someone else.\n"
 				+ "Use .rv <entity name> to make it target a specific entity.",
-				0,
-				Category.RENDER);
+			0,
+			Category.RENDER);
 	}
 	
 	private EntityPlayerSP newView = null;
@@ -37,13 +37,13 @@ public class RemoteView extends Module
 	private EntityLivingBase otherView = null;
 	private static UUID otherID = null;
 	private boolean wasInvisible;
-
+	
 	@Override
 	public void onEnable()
 	{
 		if(EntityUtils.getClosestEntityRaw(false) == null)
 		{
-			Client.Wurst.chat.message("There is no nearby entity.");
+			Client.wurst.chat.message("There is no nearby entity.");
 			setToggled(false);
 			return;
 		}
@@ -60,16 +60,16 @@ public class RemoteView extends Module
 		fakePlayer.posY -= 1.62;
 		fakePlayer.rotationYawHead = Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		Client.Wurst.chat.message("Now viewing " + otherView.getName() + ".");
+		Client.wurst.chat.message("Now viewing " + otherView.getName() + ".");
 	}
-
+	
 	public static void onEnabledByCommand(String viewName)
 	{
 		if(otherID == null && !viewName.equals(""))
 			otherID = EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
-		Client.Wurst.moduleManager.getModuleFromClass(RemoteView.class).toggleModule();
+		Client.wurst.moduleManager.getModuleFromClass(RemoteView.class).toggleModule();
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -89,13 +89,13 @@ public class RemoteView extends Module
 		Minecraft.getMinecraft().thePlayer = newView;
 		otherView.setInvisible(true);
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
 		if(otherView != null)
 		{
-			Client.Wurst.chat.message("No longer viewing " + otherView.getName() + ".");
+			Client.wurst.chat.message("No longer viewing " + otherView.getName() + ".");
 			otherView.setInvisible(wasInvisible);
 			Minecraft.getMinecraft().thePlayer.noClip = false;
 			Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY, oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw, Minecraft.getMinecraft().thePlayer.rotationPitch);

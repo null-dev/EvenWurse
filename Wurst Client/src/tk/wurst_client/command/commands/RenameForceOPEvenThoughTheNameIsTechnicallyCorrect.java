@@ -18,18 +18,18 @@ public class RenameForceOPEvenThoughTheNameIsTechnicallyCorrect extends Command
 		"Note that it is case sensitive.",
 		".RenameForceOPEvenThoughTheNameIsTechnicallyCorrect"
 	};
-
+	
 	public RenameForceOPEvenThoughTheNameIsTechnicallyCorrect()
 	{
 		super("RenameForceOPEvenThoughTheNameIsTechnicallyCorrect", commandHelp);
 	}
-
+	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		Client.Wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect = !Client.Wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect;
-		Client.Wurst.fileManager.saveOptions();
-		Client.Wurst.chat.message("Congratulations! You spelled that correctly.");
-		Client.Wurst.chat.message("Now you need to restart Wurst.");
+		Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect = !Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect;
+		Client.wurst.fileManager.saveOptions();
+		Client.wurst.chat.message("Congratulations! You spelled that correctly.");
+		Client.wurst.chat.message("Now you need to restart Wurst.");
 	}
 }

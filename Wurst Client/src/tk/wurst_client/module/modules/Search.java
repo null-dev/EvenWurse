@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -26,27 +26,27 @@ public class Search extends Module
 			"Helps you to find specific blocks.\n"
 				+ "Use .search id <block id> or .search name <block name>\n"
 				+ "to specify it.",
-				0,
-				Category.RENDER);
+			0,
+			Category.RENDER);
 	}
-
+	
 	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
 	private int range = 50;
 	private int maxBlocks = 1000;
 	public static boolean shouldInform = true;
-
+	
 	@Override
 	public String getRenderName()
 	{
-		return getName() + " [" + Client.Wurst.options.searchID + "]";
+		return getName() + " [" + Client.wurst.options.searchID + "]";
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
 		shouldInform = true;
 	}
-
+	
 	@Override
 	public void onRender()
 	{
@@ -55,7 +55,7 @@ public class Search extends Module
 		for(BlockPos blockPos : matchingBlocks)
 			RenderUtils.searchBox(blockPos);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -75,7 +75,7 @@ public class Search extends Module
 						int posY = (int)(Minecraft.getMinecraft().thePlayer.posY + y);
 						int posZ = (int)(Minecraft.getMinecraft().thePlayer.posZ + z);
 						BlockPos pos = new BlockPos(posX, posY, posZ);
-						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()) == Client.Wurst.options.searchID)
+						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()) == Client.wurst.options.searchID)
 							matchingBlocks.add(pos);
 						if(matchingBlocks.size() >= maxBlocks)
 							break;
@@ -88,8 +88,8 @@ public class Search extends Module
 			}
 			if(matchingBlocks.size() >= maxBlocks && shouldInform)
 			{
-				Client.Wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
-				Client.Wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");
+				Client.wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
+				Client.wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");
 				shouldInform = false;
 			}else if(matchingBlocks.size() < maxBlocks)
 				shouldInform = true;

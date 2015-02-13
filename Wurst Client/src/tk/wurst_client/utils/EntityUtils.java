@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -30,7 +30,7 @@ public class EntityUtils
 		if(rotations != null)
 		{
 			Minecraft.getMinecraft().thePlayer.rotationYaw = limitAngleChange(Minecraft.getMinecraft().thePlayer.prevRotationYaw, rotations[0], 55);// NoCheat+
-																																					// bypass!!!
+			// bypass!!!
 			Minecraft.getMinecraft().thePlayer.rotationPitch = rotations[1];
 		}
 	}
@@ -45,7 +45,7 @@ public class EntityUtils
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch, Minecraft.getMinecraft().thePlayer.onGround));
 		}
 	}
-
+	
 	public static float[] getRotationsNeeded(Entity entity)
 	{
 		if(entity == null)
@@ -69,7 +69,7 @@ public class EntityUtils
 		};
 		
 	}
-
+	
 	private final static float limitAngleChange(final float current, final float intended, final float maxChange)
 	{
 		float change = intended - current;
@@ -79,7 +79,7 @@ public class EntityUtils
 			change = -maxChange;
 		return current + change;
 	}
-
+	
 	public static int getDistanceFromMouse(EntityLivingBase entity)
 	{
 		float[] neededRotations = getRotationsNeeded(entity);
@@ -91,29 +91,29 @@ public class EntityUtils
 		}
 		return -1;
 	}
-
+	
 	public static boolean isCorrectEntity(Object o, boolean ignoreFriends)
 	{
 		boolean condition;
-		if(Client.Wurst.options.targetMode == 0)
+		if(Client.wurst.options.targetMode == 0)
 			condition = o instanceof EntityLivingBase;
-		else if(Client.Wurst.options.targetMode == 1)
+		else if(Client.wurst.options.targetMode == 1)
 			condition = o instanceof EntityPlayer;
-		else if(Client.Wurst.options.targetMode == 2)
+		else if(Client.wurst.options.targetMode == 2)
 			condition = o instanceof EntityLiving;
-		else if(Client.Wurst.options.targetMode == 3)
+		else if(Client.wurst.options.targetMode == 3)
 			condition = o instanceof EntityAnimal;
-		else if(Client.Wurst.options.targetMode == 4)
+		else if(Client.wurst.options.targetMode == 4)
 			condition = o instanceof EntityMob;
 		else
-			throw new IllegalArgumentException("Unknown target mode selected: " + Client.Wurst.options.targetMode);
+			throw new IllegalArgumentException("Unknown target mode selected: " + Client.wurst.options.targetMode);
 		if(ignoreFriends && o instanceof EntityPlayer)
-			for(int i = 0; i < Client.Wurst.options.friends.size(); i++)
-				if(((EntityPlayer)o).getName().equals(Client.Wurst.options.friends.get(i)))
+			for(int i = 0; i < Client.wurst.friends.size(); i++)
+				if(((EntityPlayer)o).getName().equals(Client.wurst.friends.get(i)))
 					condition = false;
 		return condition;
 	}
-
+	
 	public static EntityLivingBase getClosestEntity(boolean ignoreFriends)
 	{
 		EntityLivingBase closestEntity = null;
@@ -127,7 +127,7 @@ public class EntityUtils
 			}
 		return closestEntity;
 	}
-
+	
 	public static ArrayList<EntityLivingBase> getCloseEntities(boolean ignoreFriends, float range)
 	{
 		ArrayList<EntityLivingBase> closeEntities = new ArrayList<EntityLivingBase>();
@@ -143,7 +143,7 @@ public class EntityUtils
 			}
 		return closeEntities;
 	}
-
+	
 	public static EntityLivingBase getClosestEntityRaw(boolean ignoreFriends)
 	{
 		EntityLivingBase closestEntity = null;
@@ -157,7 +157,7 @@ public class EntityUtils
 			}
 		return closestEntity;
 	}
-
+	
 	public static EntityLivingBase getClosestEnemy(EntityLivingBase friend)
 	{
 		EntityLivingBase closestEnemy = null;
@@ -171,7 +171,7 @@ public class EntityUtils
 			}
 		return closestEnemy;
 	}
-
+	
 	public static EntityLivingBase searchEntityByIdRaw(UUID ID)
 	{
 		EntityLivingBase newEntity = null;
@@ -185,7 +185,7 @@ public class EntityUtils
 			}
 		return newEntity;
 	}
-
+	
 	public static EntityLivingBase searchEntityByName(String name)
 	{
 		EntityLivingBase newEntity = null;
@@ -199,7 +199,7 @@ public class EntityUtils
 			}
 		return newEntity;
 	}
-
+	
 	public static EntityLivingBase searchEntityByNameRaw(String name)
 	{
 		EntityLivingBase newEntity = null;

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -23,15 +23,15 @@ public class FightBot extends Module
 			"A bot that automatically fights for you.\n"
 				+ "It walks around and kills everything.\n"
 				+ "Good for MobArena.",
-				0,
-				Category.COMBAT);
+			0,
+			Category.COMBAT);
 	}
-
+	
 	private float speed;
 	private float range = 6F;
 	private double distance = 3D;
 	private EntityLivingBase entity;
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -58,7 +58,7 @@ public class FightBot extends Module
 			Minecraft.getMinecraft().thePlayer.jump();
 		if(Minecraft.getMinecraft().thePlayer.isInWater() && Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 			speed = Killaura.yesCheatSpeed;
 		else
 			speed = Killaura.normalSpeed;
@@ -78,7 +78,7 @@ public class FightBot extends Module
 				updateLastMS();
 			}
 	}
-
+	
 	@Override
 	public void onDisable()
 	{

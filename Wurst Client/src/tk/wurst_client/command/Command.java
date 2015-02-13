@@ -14,29 +14,29 @@ public class Command
 	private String commandName;
 	
 	private String[] commandHelp;
-
+	
 	public Command(String commandName, String[] commandHelp)
 	{
 		this.commandName = commandName;
 		this.commandHelp = commandHelp;
 	}
-
+	
 	public String getName()
 	{
 		return commandName;
 	}
-
+	
 	public String[] getHelp()
 	{
 		return commandHelp;
 	}
-
+	
 	public void commandError()
 	{
-		Client.Wurst.chat.error("Something went wrong.");
-		Client.Wurst.chat.message("If you need help, type \".help " + commandName + "\".");
+		Client.wurst.chat.error("Something went wrong.");
+		Client.wurst.chat.message("If you need help, type \".help " + commandName + "\".");
 	}
-
+	
 	public void onEnable(String input, String[] args)
 	{}
 }

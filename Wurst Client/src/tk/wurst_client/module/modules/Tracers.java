@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -25,14 +25,14 @@ public class Tracers extends Module
 			0,
 			Category.RENDER);
 	}
-
+	
 	@Override
 	public void onRender()
 	{
-		if(!getToggled() || Client.Wurst.moduleManager.getModuleFromClass(ArenaBrawl.class).getToggled())
+		if(!getToggled() || Client.wurst.moduleManager.getModuleFromClass(ArenaBrawl.class).getToggled())
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityPlayer && !((Entity)entity).getName().equals(Minecraft.getMinecraft().getSession().getUsername()))
-				RenderUtils.tracerLine((Entity)entity, Client.Wurst.options.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
+				RenderUtils.tracerLine((Entity)entity, Client.wurst.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
 	}
 }

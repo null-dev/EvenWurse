@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -34,17 +34,17 @@ public class GuiAltList extends GuiWurstSlot
 	private int selectedSlot;
 	private Minecraft mc;
 	public static ArrayList<Alt> alts = new ArrayList<Alt>();
-
+	
 	public static void sortAlts()
 	{
 		Collections.sort(alts, new Comparator<Alt>()
-			{
+		{
 			@Override
 			public int compare(Alt o1, Alt o2)
 			{
 				return o1.name.compareToIgnoreCase(o2.name);
 			}
-			});
+		});
 		ArrayList<Alt> newAlts = new ArrayList<Alt>();
 		for(int i = 0; i < alts.size(); i++)
 			if(!alts.get(i).cracked)
@@ -60,34 +60,34 @@ public class GuiAltList extends GuiWurstSlot
 					newAlts.remove(i2);
 		alts = newAlts;
 	}
-
+	
 	@Override
 	protected boolean isSelected(int id)
 	{
 		return selectedSlot == id;
 	}
-
+	
 	protected int getSelectedSlot()
 	{
 		return selectedSlot;
 	}
-
+	
 	@Override
 	protected int getSize()
 	{
 		return alts.size();
 	}
-
+	
 	@Override
 	protected void elementClicked(int var1, boolean var2, int var3, int var4)
 	{
 		selectedSlot = var1;
 	}
-
+	
 	@Override
 	protected void drawBackground()
 	{}
-
+	
 	@Override
 	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
 	{

@@ -19,7 +19,7 @@ public class Say extends Command
 		"with a dot.",
 		".say <message>"
 	};
-
+	
 	public Say()
 	{
 		super("say", commandHelp);

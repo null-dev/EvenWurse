@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -36,31 +36,31 @@ public class Kaboom extends Module
 				+ "doesn't have NoCheat+. It works best with fast tools\n"
 				+ "and weak blocks.\n"
 				+ "Note that this is not an actual explosion.",
-				0,
-				Category.BLOCKS);
+			0,
+			Category.BLOCKS);
 	}
-
+	
 	private int range = 6;
 	public static int power = 128;
-
+	
 	@Override
 	public void initSliders()
 	{
 		moduleSliders.add(new BasicSlider("Kaboom power", power, 32, 512, 32, ValueDisplay.INTEGER));
 	}
-
+	
 	@Override
 	public void updateSettings()
 	{
 		power = (int)moduleSliders.get(0).getValue();
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
 		if(!getToggled())
 			return;
-		if(Client.Wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
@@ -68,7 +68,7 @@ public class Kaboom extends Module
 		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
-			Client.Wurst.chat.error("Surivival mode only.");
+			Client.wurst.chat.error("Surivival mode only.");
 			setToggled(false);
 			return;
 		}

@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- *
+ * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -31,18 +31,18 @@ public class GuiKeybindList extends GuiWurstSlot
 	private int selectedSlot;
 	private Minecraft mc;
 	public static ArrayList<Module> modules = new ArrayList<Module>();
-
+	
 	public static void sortModules()
 	{
-		modules = Client.Wurst.moduleManager.activeModules;
+		modules = Client.wurst.moduleManager.activeModules;
 		Collections.sort(modules, new Comparator<Module>()
-			{
+		{
 			@Override
 			public int compare(Module o1, Module o2)
 			{
 				return o1.getName().compareToIgnoreCase(o2.getName());
 			}
-			});
+		});
 		ArrayList<Module> newModules = new ArrayList<Module>();
 		for(Module module : modules)
 			if(module.getBind() != 0)
@@ -52,34 +52,34 @@ public class GuiKeybindList extends GuiWurstSlot
 				newModules.add(module);
 		modules = newModules;
 	}
-
+	
 	@Override
 	protected boolean isSelected(int id)
 	{
 		return selectedSlot == id;
 	}
-
+	
 	protected int getSelectedSlot()
 	{
 		return selectedSlot;
 	}
-
+	
 	@Override
 	protected int getSize()
 	{
 		return modules.size();
 	}
-
+	
 	@Override
 	protected void elementClicked(int var1, boolean var2, int var3, int var4)
 	{
 		selectedSlot = var1;
 	}
-
+	
 	@Override
 	protected void drawBackground()
 	{}
-
+	
 	@Override
 	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
 	{
