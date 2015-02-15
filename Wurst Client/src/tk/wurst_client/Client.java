@@ -26,7 +26,7 @@ public class Client
 {
 	private static final Logger logger = LogManager.getLogger();
 	public final String CLIENT_NAME = "Wurst";
-	public final String CLIENT_VERSION = "1.4.2";
+	public final String CLIENT_VERSION = "1.5";
 	public String currentServerIP = "127.0.0.1:25565";
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
