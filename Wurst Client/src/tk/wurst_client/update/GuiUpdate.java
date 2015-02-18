@@ -42,7 +42,7 @@ public class GuiUpdate extends GuiScreen
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12, "Close Minecraft"));
-		Client.wurst.updater.openUpdateLink();
+		Client.wurst.updater.update();
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class GuiUpdate extends GuiScreen
 	{
 		drawDefaultBackground();
 		drawCenteredString(fontRendererObj, "The link to the new version of Wurst", width / 2, height / 2 - 64, 16777215);
-		drawCenteredString(fontRendererObj, "should have openened in your browser.", width / 2, height / 2 - 52, 16777215);
+		drawCenteredString(fontRendererObj, "should have been openened in your browser.", width / 2, height / 2 - 52, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }
