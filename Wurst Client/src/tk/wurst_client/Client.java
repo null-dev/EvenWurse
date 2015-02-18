@@ -9,8 +9,6 @@ package tk.wurst_client;
 
 import net.minecraft.client.gui.ServerListEntryNormal;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.command.ChatMessenger;
@@ -24,7 +22,6 @@ import tk.wurst_client.update.Updater;
 
 public class Client
 {
-	private static final Logger logger = LogManager.getLogger();
 	public final String CLIENT_NAME = "Wurst";
 	public final String CLIENT_VERSION = "1.5";
 	public String currentServerIP = "127.0.0.1:25565";
@@ -56,7 +53,6 @@ public class Client
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();
 		fileManager.init();
-		updater.check("Wurst 1.8", CLIENT_VERSION);
-		logger.info("[Wurst Updater] " + (updater.updateAvailable ? "Found update: " + updater.latestVersion : "No update found."));
+		updater.checkForUpdate();
 	}
 }
