@@ -170,8 +170,9 @@ public class GuiAlts extends GuiScreen
 			AltUtils.drawAltBack(alt.name, (width / 2 - 125) / 2 - 32, height / 2 - 64 - 9, 64, 128);
 			AltUtils.drawAltBody(alt.name, width - (width / 2 - 140) / 2 - 32, height / 2 - 64 - 9, 64, 128);
 		}
-		drawCenteredString(fontRendererObj, "Alt Manager", width / 2, 8, 16777215);
-		drawCenteredString(fontRendererObj, "Alts: " + GuiAltList.alts.size(), width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "Alt Manager", width / 2, 4, 16777215);
+		drawCenteredString(fontRendererObj, "Alts: " + GuiAltList.alts.size(), width / 2, 14, 10526880);
+		drawCenteredString(fontRendererObj, "premium: " + GuiAltList.premiumAlts + ", cracked: " + GuiAltList.crackedAlts, width / 2, 24, 10526880);
 		if(errorTimer > 0)
 		{
 			GL11.glDisable(GL11.GL_TEXTURE_2D);

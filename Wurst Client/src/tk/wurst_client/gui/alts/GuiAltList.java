@@ -34,6 +34,8 @@ public class GuiAltList extends GuiWurstSlot
 	private int selectedSlot;
 	private Minecraft mc;
 	public static ArrayList<Alt> alts = new ArrayList<Alt>();
+	public static int premiumAlts;
+	public static int crackedAlts;
 	
 	public static void sortAlts()
 	{
@@ -46,12 +48,20 @@ public class GuiAltList extends GuiWurstSlot
 			}
 		});
 		ArrayList<Alt> newAlts = new ArrayList<Alt>();
+		premiumAlts = 0;
 		for(int i = 0; i < alts.size(); i++)
 			if(!alts.get(i).cracked)
+			{
 				newAlts.add(alts.get(i));
+				premiumAlts++;
+			}
+		crackedAlts = 0;
 		for(int i = 0; i < alts.size(); i++)
 			if(alts.get(i).cracked)
+			{
 				newAlts.add(alts.get(i));
+				crackedAlts++;
+			}
 		for(int i = 0; i < newAlts.size(); i++)
 			for(int i2 = 0; i2 < newAlts.size(); i2++)
 				if(i != i2
@@ -113,9 +123,6 @@ public class GuiAltList extends GuiWurstSlot
 		GL11.glDisable(GL_BLEND);
 		AltUtils.drawAltFace(alt.name, x + 1, y + 1, 24, 24, GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
 		mc.fontRendererObj.drawString("Name: " + alt.name, x + 31, y + 3, 10526880);
-		String stars = "";
-		for(int i = 0; i < alt.password.length(); i++)
-			stars = stars.concat("*");
-		mc.fontRendererObj.drawString(alt.cracked ? "cracked" : "Password: " + stars, x + 31, y + 15, 10526880);
+		mc.fontRendererObj.drawString(alt.cracked ? "§8Cracked" : "§2Premium", x + 31, y + 15, 10526880);
 	}
 }
