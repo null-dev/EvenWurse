@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package tk.wurst_client.alts;
+package tk.wurst_client.gui.alts;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 
@@ -24,7 +25,7 @@ import tk.wurst_client.Client;
 import tk.wurst_client.utils.AltUtils;
 import tk.wurst_client.utils.MiscUtils;
 
-public class GuiAltAdd extends GuiScreen
+public class GuiAltLogin extends GuiScreen
 {
 	private GuiScreen prevMenu;
 	private GuiTextField nameBox;
@@ -32,7 +33,7 @@ public class GuiAltAdd extends GuiScreen
 	private String displayText = "";
 	private int errorTimer;
 	
-	public GuiAltAdd(GuiScreen par1GuiScreen)
+	public GuiAltLogin(GuiScreen par1GuiScreen)
 	{
 		prevMenu = par1GuiScreen;
 	}
@@ -60,7 +61,7 @@ public class GuiAltAdd extends GuiScreen
 	{
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 72 + 12, "Add"));
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 72 + 12, "Login"));
 		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 96 + 12, "Random Name"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12, "Cancel"));
 		buttonList.add(new GuiButton(4, width - (width / 2 - 100) / 2 - 64, height - 32, 128, 20, "Steal Skin"));
@@ -89,23 +90,16 @@ public class GuiAltAdd extends GuiScreen
 			if(clickedButton.id == 1)
 				mc.displayGuiScreen(prevMenu);
 			else if(clickedButton.id == 0)
-			{// Add
+			{// Login
 				if(passwordBox.getText().length() == 0)
 				{// Cracked
-					GuiAltList.alts.add(new Alt(nameBox.getText(), null));
+					AltUtils.changeCrackedName(nameBox.getText());
 					displayText = "";
 				}else
-				{// Premium
-					displayText = AltUtils.check(nameBox.getText(), passwordBox.getText());
-					if(displayText.equals(""))
-						GuiAltList.alts.add(new Alt(nameBox.getText(), passwordBox.getText()));
-				}
+					displayText = AltUtils.login(nameBox.getText(), passwordBox.getText());
 				if(displayText.equals(""))
-				{
-					GuiAltList.sortAlts();
-					Client.wurst.fileManager.saveAlts();
-					mc.displayGuiScreen(prevMenu);
-				}else
+					mc.displayGuiScreen(new GuiMainMenu());
+				else
 					errorTimer = 8;
 			}else if(clickedButton.id == 3)
 				nameBox.setText(AltUtils.generateName());
@@ -153,7 +147,7 @@ public class GuiAltAdd extends GuiScreen
 		drawDefaultBackground();
 		AltUtils.drawAltBack(nameBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
 		AltUtils.drawAltBody(nameBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
-		drawCenteredString(fontRendererObj, "Add an Alt", width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "Login", width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47, 10526880);
 		drawString(fontRendererObj, "Password", width / 2 - 100, 87, 10526880);
 		drawCenteredString(fontRendererObj, displayText, width / 2, 142, 16777215);

@@ -13,9 +13,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.StringUtils;
 import tk.wurst_client.Client;
-import tk.wurst_client.alts.Alt;
-import tk.wurst_client.alts.GuiAltList;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.gui.alts.Alt;
+import tk.wurst_client.gui.alts.GuiAltList;
 
 public class AddAlt extends Command
 {
