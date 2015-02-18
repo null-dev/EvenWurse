@@ -120,8 +120,6 @@ public class Updater
 				logger.info("Update found: " + latestVersion);
 			else
 				logger.info("No update found.");
-			System.out.println(currentMajor + "." + currentMinor + "." + currentPatch + "pre" + currentPreRelease);
-			System.out.println(latestMajor + "." + latestMinor + "." + latestPatch + "pre" + latestPreRelease);
 		}catch(Exception e)
 		{
 			logger.error("Unable to check for updates!", e);
