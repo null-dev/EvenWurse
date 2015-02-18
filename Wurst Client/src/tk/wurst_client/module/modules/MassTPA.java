@@ -8,7 +8,9 @@
 package tk.wurst_client.module.modules;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -31,18 +33,25 @@ public class MassTPA extends Module
 	
 	private float speed = 1F;
 	private int i;
-	private String[] players;
+	private ArrayList<String> players;
 	
 	@Override
 	public void onEnable()
 	{
 		i = 0;
 		Iterator itr = Minecraft.getMinecraft().getNetHandler().getPlayerInfo().iterator();
-		ArrayList<String> playerList = new ArrayList<String>();
+		players = new ArrayList<String>();
 		while(itr.hasNext())
-			playerList.add(StringUtils.stripControlCodes(((NetworkPlayerInfo)itr.next()).getPlayerNameForReal()));
-		players = playerList.toArray(new String[playerList.size()]);
-		
+			players.add(StringUtils.stripControlCodes(((NetworkPlayerInfo)itr.next()).getPlayerNameForReal()));
+		players.sort(new Comparator<String>()
+		{
+			Random random = new Random();
+			
+			@Override
+			public int compare(String o1, String o2)
+			{
+				return random.nextInt();
+			}});
 	}
 	
 	@Override
@@ -69,12 +78,12 @@ public class MassTPA extends Module
 			updateMS();
 			if(hasTimePassedS(speed))
 			{
-				String name = players[i];
+				String name = players.get(i);
 				if(!name.equals(Minecraft.getMinecraft().thePlayer.getName()))
 					Minecraft.getMinecraft().thePlayer.sendChatMessage("/tpa " + name);
 				updateLastMS();
 				i++;
-				if(i == players.length)
+				if(i == players.size())
 					setToggled(false);
 			}
 		}
