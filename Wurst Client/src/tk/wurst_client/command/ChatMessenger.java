@@ -9,13 +9,12 @@ package tk.wurst_client.command;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
-import tk.wurst_client.Client;
 
 public class ChatMessenger
 {
 	public void message(String message)
 	{
-		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§c[§6" + Client.wurst.CLIENT_NAME + "§c]§f " + message));
+		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§c[§6Wurst§c]§f " + message));
 	}
 	
 	public void info(String message)
