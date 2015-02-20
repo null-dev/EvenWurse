@@ -41,6 +41,22 @@ public class Encryption
 		return string;
 	}
 	
+	private static void checkKey()
+	{
+		if(!hasKey())
+			generateKey();
+		else
+			loadKey();
+	}
+
+	private static boolean hasKey()
+	{
+		return private_file != null
+			&& private_file.exists()
+			&& public_file != null
+			&& public_file.exists();
+	}
+
 	public static void generateKey()
 	{
 		try
@@ -141,21 +157,5 @@ public class Encryption
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	private static boolean hasKey()
-	{
-		return private_file != null
-			&& private_file.exists()
-			&& public_file != null
-			&& public_file.exists();
-	}
-	
-	private static void checkKey()
-	{
-		if(!hasKey())
-			generateKey();
-		else
-			loadKey();
 	}
 }
