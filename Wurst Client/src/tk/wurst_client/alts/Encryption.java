@@ -7,8 +7,12 @@
  */
 package tk.wurst_client.alts;
 
+import java.security.KeyPair;
+
 public class Encryption
 {
+	private static KeyPair key;
+
 	public static String encrypt(String string)
 	{
 		return string;
@@ -17,5 +21,27 @@ public class Encryption
 	public static String decrypt(String string)
 	{
 		return string;
+	}
+	
+	private static KeyPair getKey()
+	{
+		checkKey();
+		return key;
+	}
+	
+	private static void generateKey()
+	{
+		
+	}
+	
+	private static boolean hasKey()
+	{
+		return false;
+	}
+	
+	private static void checkKey()
+	{
+		if(!hasKey())
+			generateKey();
 	}
 }
