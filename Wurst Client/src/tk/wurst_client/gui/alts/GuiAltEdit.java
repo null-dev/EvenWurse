@@ -22,6 +22,7 @@ import org.lwjgl.opengl.GL11;
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.AltUtils;
+import tk.wurst_client.alts.SkinStealer;
 import tk.wurst_client.utils.MiscUtils;
 
 public class GuiAltEdit extends GuiScreen
@@ -116,7 +117,7 @@ public class GuiAltEdit extends GuiScreen
 			}else if(clickedButton.id == 3)
 				nameBox.setText(AltUtils.generateName());
 			else if(clickedButton.id == 4)
-				displayText = AltUtils.stealSkin(newAlt.name);
+				displayText = SkinStealer.stealSkin(newAlt.name);
 			else if(clickedButton.id == 5)
 				MiscUtils.openFile(Client.wurst.fileManager.skinDir);
 		}

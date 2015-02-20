@@ -7,13 +7,7 @@
  */
 package tk.wurst_client.alts;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.net.Proxy;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.UnknownHostException;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
@@ -21,8 +15,6 @@ import net.minecraft.util.Session;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import tk.wurst_client.Client;
 
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.exceptions.AuthenticationException;
@@ -239,31 +231,5 @@ public class AltUtils
 		else if(special == 5)
 			name = name.concat("HD");
 		return name;
-	}
-	
-	public static String stealSkin(String name)
-	{
-		String reply = "";
-		try
-		{
-			URL skinURL = new URL("http://skins.minecraft.net/MinecraftSkins/" + name + ".png");
-			URLConnection skinCon = skinURL.openConnection();
-			BufferedInputStream skinputStream = new BufferedInputStream(skinCon.getInputStream());
-			File skin = new File(Client.wurst.fileManager.skinDir, name + ".png");
-			FileOutputStream outputStream = new FileOutputStream(skin);
-			int i;
-			while((i = skinputStream.read()) != -1)
-				outputStream.write(i);
-			outputStream.close();
-			skinputStream.close();
-			reply = "§a§lSaved skin to wurst/skins/" + name + ".png.";
-		}catch(UnknownHostException e)
-		{
-			reply = "§4§lCannot contact skin server!";
-		}catch(Exception e)
-		{
-			reply = "§4§lUnable to steal skin.";
-		}
-		return reply;
 	}
 }
