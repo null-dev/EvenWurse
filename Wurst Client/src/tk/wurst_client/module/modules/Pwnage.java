@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 import net.minecraft.util.Session;
 import tk.wurst_client.Client;
-import tk.wurst_client.alts.AltUtils;
+import tk.wurst_client.alts.NameGenerator;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.servers.ServerConnector;
@@ -50,7 +50,7 @@ public class Pwnage extends Module
 			(
 				Client.wurst.currentServerIP.split(":")[0],
 				Integer.valueOf(Client.wurst.currentServerIP.split(":")[1]),
-				new Session(AltUtils.generateName(), "", "", "mojang")
+				new Session(NameGenerator.generateName(), "", "", "mojang")
 			);
 	}
 }

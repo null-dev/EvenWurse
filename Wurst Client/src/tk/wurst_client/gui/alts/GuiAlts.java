@@ -21,6 +21,7 @@ import org.lwjgl.opengl.GL11;
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.AltUtils;
+import tk.wurst_client.alts.NameGenerator;
 
 public class GuiAlts extends GuiScreen
 {
@@ -115,7 +116,7 @@ public class GuiAlts extends GuiScreen
 			if(par1)
 			{
 				for(int i = 0; i < 8; i++)
-					GuiAltList.alts.add(new Alt(AltUtils.generateName(), null));
+					GuiAltList.alts.add(new Alt(NameGenerator.generateName(), null));
 				GuiAltList.sortAlts();
 				Client.wurst.fileManager.saveAlts();
 			}
