@@ -121,7 +121,7 @@ public class GuiAltList extends GuiWurstSlot
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_CULL_FACE);
 		GL11.glDisable(GL_BLEND);
-		AltRenderUtils.drawAltFace(alt.name, x + 1, y + 1, 24, 24, GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
+		AltRenderer.drawAltFace(alt.name, x + 1, y + 1, 24, 24, GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
 		mc.fontRendererObj.drawString("Name: " + alt.name, x + 31, y + 3, 10526880);
 		mc.fontRendererObj.drawString(alt.cracked ? "§8Cracked" : "§2Premium", x + 31, y + 15, 10526880);
 	}

@@ -158,8 +158,8 @@ public class GuiAltEdit extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawDefaultBackground();
-		AltRenderUtils.drawAltBack(nameBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
-		AltRenderUtils.drawAltBody(nameBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderer.drawAltBack(nameBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderer.drawAltBody(nameBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
 		drawCenteredString(fontRendererObj, "Edit this Alt", width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47, 10526880);
 		drawString(fontRendererObj, "Password", width / 2 - 100, 87, 10526880);

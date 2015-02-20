@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class AltRenderUtils
+public class AltRenderer
 {
 	public static void drawAltFace(String name, int x, int y, int w, int h, boolean selected)
 	{
