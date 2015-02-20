@@ -25,11 +25,11 @@ public class LoginManager
 {
 	private static final Logger logger = LogManager.getLogger();
 	
-	public static String login(String name, String password)
+	public static String login(String email, String password)
 	{
 		YggdrasilAuthenticationService authenticationService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
 		YggdrasilUserAuthentication authentication = (YggdrasilUserAuthentication)authenticationService.createUserAuthentication(Agent.MINECRAFT);
-		authentication.setUsername(name);
+		authentication.setUsername(email);
 		authentication.setPassword(password);
 		String displayText;
 		try
@@ -60,11 +60,11 @@ public class LoginManager
 		return displayText;
 	}
 	
-	public static String check(String name, String password)
+	public static String check(String email, String password)
 	{
 		YggdrasilAuthenticationService authenticationService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
 		YggdrasilUserAuthentication authentication = (YggdrasilUserAuthentication)authenticationService.createUserAuthentication(Agent.MINECRAFT);
-		authentication.setUsername(name);
+		authentication.setUsername(email);
 		authentication.setPassword(password);
 		String displayText;
 		try
