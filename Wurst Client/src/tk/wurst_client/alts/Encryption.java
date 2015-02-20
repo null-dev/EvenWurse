@@ -18,6 +18,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 
+import javax.crypto.Cipher;
 import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
@@ -32,13 +33,31 @@ public class Encryption
 	public static String encrypt(String string)
 	{
 		checkKey();
-		return string;
+		try
+		{
+			Cipher cipher = Cipher.getInstance("RSA");
+			cipher.init(Cipher.ENCRYPT_MODE, key.getPublic());
+			return new String(cipher.doFinal(string.getBytes()));
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static String decrypt(String string)
 	{
 		checkKey();
-		return string;
+		try
+		{
+			Cipher cipher = Cipher.getInstance("RSA");
+			cipher.init(Cipher.DECRYPT_MODE, key.getPrivate());
+			return new String(cipher.doFinal(string.getBytes()));
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private static void checkKey()
