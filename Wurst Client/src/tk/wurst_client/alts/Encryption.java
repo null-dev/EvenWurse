@@ -8,10 +8,14 @@
 package tk.wurst_client.alts;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 
 import javax.swing.JOptionPane;
@@ -75,7 +79,68 @@ public class Encryption
 
 	private static void loadKey()
 	{
-		
+		try
+		{
+			if(private_file == null || public_file == null)
+			{
+				JOptionPane.showMessageDialog(null, "Cannot load RSA key.\nThis is a bug, please report it!", "Error", JOptionPane.ERROR_MESSAGE);
+				MiscUtils.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=cannot+load+RSA+key");
+				Minecraft.getMinecraft().shutdown();
+			}
+			if(hasKey())
+				generateKey();
+			else
+			{
+				ObjectInputStream loadPrivate = new ObjectInputStream(new FileInputStream(private_file));
+				ObjectInputStream loadPublic = new ObjectInputStream(new FileInputStream(public_file));
+				final byte[] privateKey = (byte[])loadPrivate.readObject();
+				final byte[] publicKey = (byte[])loadPublic.readObject();
+				loadPrivate.close();
+				loadPublic.close();
+				key = new KeyPair(new PublicKey()
+				{
+					@Override
+					public String getFormat()
+					{
+						return null;
+					}
+					
+					@Override
+					public byte[] getEncoded()
+					{
+						return publicKey;
+					}
+					
+					@Override
+					public String getAlgorithm()
+					{
+						return "RSA";
+					}
+				}, new PrivateKey()
+				{
+					@Override
+					public String getFormat()
+					{
+						return null;
+					}
+					
+					@Override
+					public byte[] getEncoded()
+					{
+						return privateKey;
+					}
+					
+					@Override
+					public String getAlgorithm()
+					{
+						return "RSA";
+					}
+				});
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	private static boolean hasKey()
