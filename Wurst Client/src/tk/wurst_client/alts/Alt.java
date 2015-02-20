@@ -14,11 +14,11 @@ public class Alt
 	private String password;
 	private boolean cracked;
 	
-	public Alt(String name, String password)
+	public Alt(String email, String password)
 	{
 		if(password == null)
 			password = "";
-		this.name = name;
+		this.email = email;
 		this.password = password;
 		if(password.length() == 0)
 			cracked = true;
