@@ -341,13 +341,16 @@ public class FileManager
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(alts));
+			JsonObject json = new JsonObject();
 			for(Alt alt : GuiAltList.alts)
 			{
-				String saveName = Encryption.encrypt(alt.name);
-				String savePassword = Encryption.encrypt(alt.password);
-				save.println(saveName + split + savePassword);
+				JsonObject jsonAlt = new JsonObject();
+				jsonAlt.addProperty("name", Encryption.encrypt(alt.name));
+				jsonAlt.addProperty("password", Encryption.decrypt(alt.password));
+				json.add(alt.name/*TODO: alt.email*/, jsonAlt);
 			}
+			PrintWriter save = new PrintWriter(new FileWriter(sliders));
+			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
 		{	
