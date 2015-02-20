@@ -29,7 +29,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class GuiAltEdit extends GuiScreen
 {
 	private GuiScreen prevMenu;
-	private GuiTextField nameBox;
+	private GuiTextField emailBox;
 	private GuiPasswordField passwordBox;
 	private String displayText = "";
 	private int errorTimer;
@@ -47,12 +47,12 @@ public class GuiAltEdit extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		nameBox.updateCursorCounter();
+		emailBox.updateCursorCounter();
 		passwordBox.updateCursorCounter();
 		((GuiButton)buttonList.get(0)).enabled =
-			nameBox.getText().trim().length() > 0
-				&& (!nameBox.getText().trim().equalsIgnoreCase("Alexander01998") || passwordBox.getText().length() != 0);
-		((GuiButton)buttonList.get(3)).enabled = !nameBox.getText().trim().equalsIgnoreCase("Alexander01998");
+			emailBox.getText().trim().length() > 0
+				&& (!emailBox.getText().trim().equalsIgnoreCase("Alexander01998") || passwordBox.getText().length() != 0);
+		((GuiButton)buttonList.get(3)).enabled = !emailBox.getText().trim().equalsIgnoreCase("Alexander01998");
 	}
 	
 	/**
@@ -69,10 +69,10 @@ public class GuiAltEdit extends GuiScreen
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12, "Cancel"));
 		buttonList.add(new GuiButton(4, width - (width / 2 - 100) / 2 - 64, height - 32, 128, 20, "Steal Skin"));
 		buttonList.add(new GuiButton(5, (width / 2 - 100) / 2 - 64, height - 32, 128, 20, "Open Skin Folder"));
-		nameBox = new GuiTextField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
-		nameBox.setMaxStringLength(48);
-		nameBox.setFocused(true);
-		nameBox.setText(alt.getName());
+		emailBox = new GuiTextField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
+		emailBox.setMaxStringLength(48);
+		emailBox.setFocused(true);
+		emailBox.setText(alt.getName());
 		passwordBox = new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
 		passwordBox.setFocused(false);
 		passwordBox.setText(alt.getPassword());
@@ -92,7 +92,7 @@ public class GuiAltEdit extends GuiScreen
 	{
 		if(clickedButton.enabled)
 		{
-			Alt newAlt = new Alt(nameBox.getText(), passwordBox.getText());
+			Alt newAlt = new Alt(emailBox.getText(), passwordBox.getText());
 			if(clickedButton.id == 1)
 				mc.displayGuiScreen(prevMenu);
 			else if(clickedButton.id == 0)
@@ -103,7 +103,7 @@ public class GuiAltEdit extends GuiScreen
 					displayText = "";
 				}else
 				{// Premium
-					displayText = LoginManager.check(nameBox.getText(), passwordBox.getText());
+					displayText = LoginManager.check(emailBox.getText(), passwordBox.getText());
 					if(displayText.equals(""))
 						GuiAltList.alts.set(GuiAltList.alts.indexOf(alt), newAlt);
 				}
@@ -116,7 +116,7 @@ public class GuiAltEdit extends GuiScreen
 				}else
 					errorTimer = 8;
 			}else if(clickedButton.id == 3)
-				nameBox.setText(NameGenerator.generateName());
+				emailBox.setText(NameGenerator.generateName());
 			else if(clickedButton.id == 4)
 				displayText = SkinStealer.stealSkin(newAlt.getName());
 			else if(clickedButton.id == 5)
@@ -131,7 +131,7 @@ public class GuiAltEdit extends GuiScreen
 	@Override
 	protected void keyTyped(char par1, int par2)
 	{
-		nameBox.textboxKeyTyped(par1, par2);
+		emailBox.textboxKeyTyped(par1, par2);
 		passwordBox.textboxKeyTyped(par1, par2);
 		
 		if(par2 == 28 || par2 == 156)
@@ -147,9 +147,9 @@ public class GuiAltEdit extends GuiScreen
 	protected void mouseClicked(int par1, int par2, int par3) throws IOException
 	{
 		super.mouseClicked(par1, par2, par3);
-		nameBox.mouseClicked(par1, par2, par3);
+		emailBox.mouseClicked(par1, par2, par3);
 		passwordBox.mouseClicked(par1, par2, par3);
-		if(nameBox.isFocused() || passwordBox.isFocused())
+		if(emailBox.isFocused() || passwordBox.isFocused())
 			displayText = "";
 	}
 	
@@ -160,13 +160,13 @@ public class GuiAltEdit extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawDefaultBackground();
-		AltRenderer.drawAltBack(nameBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
-		AltRenderer.drawAltBody(nameBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderer.drawAltBack(emailBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderer.drawAltBody(emailBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
 		drawCenteredString(fontRendererObj, "Edit this Alt", width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47, 10526880);
 		drawString(fontRendererObj, "Password", width / 2 - 100, 87, 10526880);
 		drawCenteredString(fontRendererObj, displayText, width / 2, 142, 16777215);
-		nameBox.drawTextBox();
+		emailBox.drawTextBox();
 		passwordBox.drawTextBox();
 		if(errorTimer > 0)
 		{
