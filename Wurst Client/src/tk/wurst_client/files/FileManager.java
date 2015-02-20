@@ -50,7 +50,7 @@ public class FileManager
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
 	
-	public final File alts = new File(wurstDir, "alts.rsa");
+	public final File alts = new File(wurstDir, "alts.json");
 	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.txt");
 	public final File friends = new File(wurstDir, "friends.json");
 	public final File gui = new File(wurstDir, "gui.json");
