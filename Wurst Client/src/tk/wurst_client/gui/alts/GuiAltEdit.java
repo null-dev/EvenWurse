@@ -72,10 +72,10 @@ public class GuiAltEdit extends GuiScreen
 		nameBox = new GuiTextField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
 		nameBox.setMaxStringLength(48);
 		nameBox.setFocused(true);
-		nameBox.setText(alt.name);
+		nameBox.setText(alt.getName());
 		passwordBox = new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
 		passwordBox.setFocused(false);
-		passwordBox.setText(alt.password);
+		passwordBox.setText(alt.getPassword());
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class GuiAltEdit extends GuiScreen
 			}else if(clickedButton.id == 3)
 				nameBox.setText(NameGenerator.generateName());
 			else if(clickedButton.id == 4)
-				displayText = SkinStealer.stealSkin(newAlt.name);
+				displayText = SkinStealer.stealSkin(newAlt.getName());
 			else if(clickedButton.id == 5)
 				MiscUtils.openFile(Client.wurst.fileManager.skinDir);
 		}

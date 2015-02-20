@@ -71,13 +71,13 @@ public class GuiAlts extends GuiScreen
 			if(clickedButton.id == 0)
 			{// Use
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
-				if(alt.cracked)
+				if(alt.isCracked())
 				{// Cracked
-					LoginManager.changeCrackedName(alt.name);
+					LoginManager.changeCrackedName(alt.getName());
 					mc.displayGuiScreen(prevMenu);
 				}else
 				{// Premium
-					String reply = LoginManager.login(alt.name, alt.password);
+					String reply = LoginManager.login(alt.getName(), alt.getPassword());
 					if(reply.equals(""))
 						mc.displayGuiScreen(prevMenu);
 					else
@@ -102,7 +102,7 @@ public class GuiAlts extends GuiScreen
 			{// Delete
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				String deleteQuestion = "Are you sure you want to remove this alt?";
-				String deleteWarning = "\"" + alt.name + "\" will be lost forever! (A long time!)";
+				String deleteWarning = "\"" + alt.getName() + "\" will be lost forever! (A long time!)";
 				mc.displayGuiScreen(new GuiYesNo(this, deleteQuestion, deleteWarning, "Delete", "Cancel", 1));
 			}else if(clickedButton.id == 5)
 				mc.displayGuiScreen(prevMenu);
@@ -169,8 +169,8 @@ public class GuiAlts extends GuiScreen
 		if(altList.getSelectedSlot() != -1)
 		{
 			Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
-			AltRenderer.drawAltBack(alt.name, (width / 2 - 125) / 2 - 32, height / 2 - 64 - 9, 64, 128);
-			AltRenderer.drawAltBody(alt.name, width - (width / 2 - 140) / 2 - 32, height / 2 - 64 - 9, 64, 128);
+			AltRenderer.drawAltBack(alt.getName(), (width / 2 - 125) / 2 - 32, height / 2 - 64 - 9, 64, 128);
+			AltRenderer.drawAltBody(alt.getName(), width - (width / 2 - 140) / 2 - 32, height / 2 - 64 - 9, 64, 128);
 		}
 		drawCenteredString(fontRendererObj, "Alt Manager", width / 2, 4, 16777215);
 		drawCenteredString(fontRendererObj, "Alts: " + GuiAltList.alts.size(), width / 2, 14, 10526880);

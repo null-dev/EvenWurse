@@ -345,10 +345,10 @@ public class FileManager
 			for(Alt alt : GuiAltList.alts)
 			{
 				JsonObject jsonAlt = new JsonObject();
-				jsonAlt.addProperty("name", Encryption.encrypt(alt.name));
-				jsonAlt.addProperty("password", Encryption.decrypt(alt.password));
-				jsonAlt.addProperty("cracked", alt.cracked);
-				json.add(alt.name/*TODO: alt.email*/, jsonAlt);
+				jsonAlt.addProperty("name", Encryption.encrypt(alt.getName()));
+				jsonAlt.addProperty("password", Encryption.decrypt(alt.getPassword()));
+				jsonAlt.addProperty("cracked", alt.isCracked());
+				json.add(alt.getName(), jsonAlt);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(sliders));
 			save.println(gson.toJson(json));
