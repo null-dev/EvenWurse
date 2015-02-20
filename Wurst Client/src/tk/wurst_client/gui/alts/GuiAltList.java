@@ -21,7 +21,6 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.alts.Alt;
-import tk.wurst_client.alts.AltUtils;
 import tk.wurst_client.gui.GuiWurstSlot;
 
 public class GuiAltList extends GuiWurstSlot
@@ -122,7 +121,7 @@ public class GuiAltList extends GuiWurstSlot
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_CULL_FACE);
 		GL11.glDisable(GL_BLEND);
-		AltUtils.drawAltFace(alt.name, x + 1, y + 1, 24, 24, GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
+		AltRenderUtils.drawAltFace(alt.name, x + 1, y + 1, 24, 24, GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
 		mc.fontRendererObj.drawString("Name: " + alt.name, x + 31, y + 3, 10526880);
 		mc.fontRendererObj.drawString(alt.cracked ? "§8Cracked" : "§2Premium", x + 31, y + 15, 10526880);
 	}

@@ -145,8 +145,8 @@ public class GuiAltLogin extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawDefaultBackground();
-		AltUtils.drawAltBack(nameBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
-		AltUtils.drawAltBody(nameBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderUtils.drawAltBack(nameBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderUtils.drawAltBody(nameBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
 		drawCenteredString(fontRendererObj, "Login", width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47, 10526880);
 		drawString(fontRendererObj, "Password", width / 2 - 100, 87, 10526880);

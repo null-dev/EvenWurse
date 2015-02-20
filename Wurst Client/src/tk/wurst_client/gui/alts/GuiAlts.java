@@ -168,8 +168,8 @@ public class GuiAlts extends GuiScreen
 		if(altList.getSelectedSlot() != -1)
 		{
 			Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
-			AltUtils.drawAltBack(alt.name, (width / 2 - 125) / 2 - 32, height / 2 - 64 - 9, 64, 128);
-			AltUtils.drawAltBody(alt.name, width - (width / 2 - 140) / 2 - 32, height / 2 - 64 - 9, 64, 128);
+			AltRenderUtils.drawAltBack(alt.name, (width / 2 - 125) / 2 - 32, height / 2 - 64 - 9, 64, 128);
+			AltRenderUtils.drawAltBody(alt.name, width - (width / 2 - 140) / 2 - 32, height / 2 - 64 - 9, 64, 128);
 		}
 		drawCenteredString(fontRendererObj, "Alt Manager", width / 2, 4, 16777215);
 		drawCenteredString(fontRendererObj, "Alts: " + GuiAltList.alts.size(), width / 2, 14, 10526880);
