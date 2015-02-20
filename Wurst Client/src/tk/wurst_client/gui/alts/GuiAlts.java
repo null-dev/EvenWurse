@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
-import tk.wurst_client.alts.AltUtils;
+import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.alts.NameGenerator;
 
 public class GuiAlts extends GuiScreen
@@ -73,11 +73,11 @@ public class GuiAlts extends GuiScreen
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				if(alt.cracked)
 				{// Cracked
-					AltUtils.changeCrackedName(alt.name);
+					LoginManager.changeCrackedName(alt.name);
 					mc.displayGuiScreen(prevMenu);
 				}else
 				{// Premium
-					String reply = AltUtils.login(alt.name, alt.password);
+					String reply = LoginManager.login(alt.name, alt.password);
 					if(reply.equals(""))
 						mc.displayGuiScreen(prevMenu);
 					else

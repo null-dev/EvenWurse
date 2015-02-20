@@ -22,7 +22,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.alts.AltUtils;
+import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.alts.NameGenerator;
 import tk.wurst_client.alts.SkinStealer;
 import tk.wurst_client.utils.MiscUtils;
@@ -95,10 +95,10 @@ public class GuiAltLogin extends GuiScreen
 			{// Login
 				if(passwordBox.getText().length() == 0)
 				{// Cracked
-					AltUtils.changeCrackedName(nameBox.getText());
+					LoginManager.changeCrackedName(nameBox.getText());
 					displayText = "";
 				}else
-					displayText = AltUtils.login(nameBox.getText(), passwordBox.getText());
+					displayText = LoginManager.login(nameBox.getText(), passwordBox.getText());
 				if(displayText.equals(""))
 					mc.displayGuiScreen(new GuiMainMenu());
 				else

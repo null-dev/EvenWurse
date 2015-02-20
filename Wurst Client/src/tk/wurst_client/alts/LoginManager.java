@@ -21,7 +21,7 @@ import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 
-public class AltUtils
+public class LoginManager
 {
 	private static final Logger logger = LogManager.getLogger();
 	
