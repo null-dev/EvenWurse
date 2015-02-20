@@ -11,11 +11,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 import net.minecraft.util.Session;
 import tk.wurst_client.Client;
+import tk.wurst_client.alts.AltUtils;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.servers.ServerConnector;
 import tk.wurst_client.servers.ServerConnector.Connection;
-import tk.wurst_client.utils.AltUtils;
 import tk.wurst_client.utils.EmptyFutureListener;
 
 public class Pwnage extends Module

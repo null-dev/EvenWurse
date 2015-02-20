@@ -20,8 +20,9 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import tk.wurst_client.alts.Alt;
+import tk.wurst_client.alts.AltUtils;
 import tk.wurst_client.gui.GuiWurstSlot;
-import tk.wurst_client.utils.AltUtils;
 
 public class GuiAltList extends GuiWurstSlot
 {

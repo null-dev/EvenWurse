@@ -19,7 +19,8 @@ import net.minecraft.client.gui.GuiYesNo;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.utils.AltUtils;
+import tk.wurst_client.alts.Alt;
+import tk.wurst_client.alts.AltUtils;
 
 public class GuiAlts extends GuiScreen
 {
