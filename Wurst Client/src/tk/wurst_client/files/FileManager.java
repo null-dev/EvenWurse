@@ -348,7 +348,7 @@ public class FileManager
 				jsonAlt.addProperty("name", Encryption.encrypt(alt.getName()));
 				jsonAlt.addProperty("password", Encryption.decrypt(alt.getPassword()));
 				jsonAlt.addProperty("cracked", alt.isCracked());
-				json.add(alt.getName(), jsonAlt);
+				json.add(alt.getEmail(), jsonAlt);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(sliders));
 			save.println(gson.toJson(json));

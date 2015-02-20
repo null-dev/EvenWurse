@@ -72,7 +72,7 @@ public class GuiAltEdit extends GuiScreen
 		emailBox = new GuiTextField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
 		emailBox.setMaxStringLength(48);
 		emailBox.setFocused(true);
-		emailBox.setText(alt.getName());
+		emailBox.setText(alt.getEmail());
 		passwordBox = new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
 		passwordBox.setFocused(false);
 		passwordBox.setText(alt.getPassword());
