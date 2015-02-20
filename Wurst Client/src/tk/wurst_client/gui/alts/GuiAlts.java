@@ -77,7 +77,7 @@ public class GuiAlts extends GuiScreen
 					mc.displayGuiScreen(prevMenu);
 				}else
 				{// Premium
-					String reply = LoginManager.login(alt.getName(), alt.getPassword());
+					String reply = LoginManager.login(alt.getEmail(), alt.getPassword());
 					if(reply.equals(""))
 						mc.displayGuiScreen(prevMenu);
 					else
