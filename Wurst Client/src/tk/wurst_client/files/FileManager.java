@@ -27,6 +27,7 @@ import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
+import tk.wurst_client.alts.Encryption;
 import tk.wurst_client.gui.alts.GuiAltList;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
