@@ -31,10 +31,10 @@ public class TacoCMD extends Module
 			Category.HIDDEN);
 	}
 	
-	private static final ResourceLocation tacoTexture1 = new ResourceLocation("textures/gui/wurst/dancingtaco1.png");
-	private static final ResourceLocation tacoTexture2 = new ResourceLocation("textures/gui/wurst/dancingtaco2.png");
-	private static final ResourceLocation tacoTexture3 = new ResourceLocation("textures/gui/wurst/dancingtaco3.png");
-	private static final ResourceLocation tacoTexture4 = new ResourceLocation("textures/gui/wurst/dancingtaco4.png");
+	private static final ResourceLocation tacoTexture1 = new ResourceLocation("wurst/dancingtaco1.png");
+	private static final ResourceLocation tacoTexture2 = new ResourceLocation("wurst/dancingtaco2.png");
+	private static final ResourceLocation tacoTexture3 = new ResourceLocation("wurst/dancingtaco3.png");
+	private static final ResourceLocation tacoTexture4 = new ResourceLocation("wurst/dancingtaco4.png");
 	private static final ResourceLocation[] tacoTextures = {tacoTexture1, tacoTexture2, tacoTexture3, tacoTexture4};
 	private int i = 0;
 	
