@@ -67,17 +67,17 @@ public class GuiChest extends GuiContainer
 				{
 					for(int i = 0; i < inventoryRows * 9; i++)
 					{
-						if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
-							try
-							{
+						try
+						{
+							if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 								Thread.sleep(250);
-							}catch(InterruptedException e)
-							{
-								e.printStackTrace();
-							}
-						Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
-						handleMouseClick(slot, slot.slotNumber, 0, 1);
-						handleMouseClick(slot, slot.slotNumber, 0, 6);
+							Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
+							handleMouseClick(slot, slot.slotNumber, 0, 1);
+							handleMouseClick(slot, slot.slotNumber, 0, 6);
+						}catch(Exception e)
+						{
+							e.printStackTrace();
+						}
 					}
 				}
 			}).start();
@@ -89,15 +89,15 @@ public class GuiChest extends GuiContainer
 				{
 					for(Object slot : inventorySlots.inventorySlots)
 					{
-						if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
-							try
-							{
+						try
+						{
+							if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 								Thread.sleep(250);
-							}catch(InterruptedException e)
-							{
-								e.printStackTrace();
-							}
-						handleMouseClick((Slot)slot, ((Slot)slot).slotNumber, 0, 1);
+							handleMouseClick((Slot)slot, ((Slot)slot).slotNumber, 0, 1);
+						}catch(Exception e)
+						{
+							e.printStackTrace();
+						}
 					}
 				}
 			}).start();
