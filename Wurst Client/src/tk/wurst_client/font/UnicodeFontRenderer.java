@@ -9,36 +9,23 @@ package tk.wurst_client.font;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import java.awt.Color;
 import java.awt.Font;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.ColorEffect;
+import org.newdawn.slick.TrueTypeFont;
 
 public class UnicodeFontRenderer extends FontRenderer
 {
-	private final UnicodeFont font;
+	private final TrueTypeFont font;
 	
-	@SuppressWarnings("unchecked")
 	public UnicodeFontRenderer(Font awtFont)
 	{
 		super(Minecraft.getMinecraft().gameSettings, new ResourceLocation("textures/font/ascii.png"), Minecraft.getMinecraft().getTextureManager(), false);
 		
-		font = new UnicodeFont(awtFont);
-		font.addAsciiGlyphs();
-		font.getEffects().add(new ColorEffect(Color.WHITE));
-		try
-		{
-			font.loadGlyphs();
-		}catch(SlickException exception)
-		{
-			throw new RuntimeException(exception);
-		}
+		font = new TrueTypeFont(awtFont, false);
 		String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 		FONT_HEIGHT = font.getHeight(alphabet) / 2;
 	}
@@ -48,15 +35,6 @@ public class UnicodeFontRenderer extends FontRenderer
 	{
 		if(string == null)
 			return 0;
-		// glClear(256);
-		// glMatrixMode(GL_PROJECTION);
-		// glLoadIdentity();
-		// IntBuffer buffer = BufferUtils.createIntBuffer(16);
-		// glGetInteger(GL_VIEWPORT, buffer);
-		// glOrtho(0, buffer.get(2), buffer.get(3), 0, 1000, 3000);
-		// glMatrixMode(GL_MODELVIEW);
-		// glLoadIdentity();
-		// glTranslatef(0, 0, -2000);
 		glPushMatrix();
 		glScaled(0.5, 0.5, 0.5);
 		
@@ -67,14 +45,10 @@ public class UnicodeFontRenderer extends FontRenderer
 			glEnable(GL_BLEND);
 		if(lighting)
 			glDisable(GL_LIGHTING);
-		if(texture)
-			glDisable(GL_TEXTURE_2D);
+		if(!texture)
+			glEnable(GL_TEXTURE_2D);
 		x *= 2;
 		y *= 2;
-		// glBegin(GL_LINES);
-		// glVertex3d(x, y, 0);
-		// glVertex3d(x + getStringWidth(string), y + FONT_HEIGHT, 0);
-		// glEnd();
 		
 		font.drawString(x, y, string, new org.newdawn.slick.Color(color));
 		
