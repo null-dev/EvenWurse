@@ -95,7 +95,7 @@ public class GuiAltAdd extends GuiScreen
 			{// Add
 				if(passwordBox.getText().length() == 0)
 				{// Cracked
-					GuiAltList.alts.add(new Alt(emailBox.getText(), null));
+					GuiAltList.alts.add(new Alt(emailBox.getText()));
 					displayText = "";
 				}else
 				{// Premium

@@ -116,7 +116,7 @@ public class GuiAlts extends GuiScreen
 			if(par1)
 			{
 				for(int i = 0; i < 8; i++)
-					GuiAltList.alts.add(new Alt(NameGenerator.generateName(), null));
+					GuiAltList.alts.add(new Alt(NameGenerator.generateName()));
 				GuiAltList.sortAlts();
 				Client.wurst.fileManager.saveAlts();
 			}
