@@ -381,7 +381,12 @@ public class FileManager
 					jsonAlt.get("name").getAsString());
 				String password = Encryption.decrypt(
 					jsonAlt.get("password").getAsString());
-				GuiAltList.alts.add(new Alt(email, password));//TODO: new constructor
+				boolean cracked = Boolean.getBoolean(Encryption.decrypt(
+					jsonAlt.get("cracked").getAsString()));
+				if(cracked)
+					GuiAltList.alts.add(new Alt(email));
+				else
+					GuiAltList.alts.add(new Alt(email, name, password));
 			}
 			GuiAltList.sortAlts();
 		}catch(IOException e)
