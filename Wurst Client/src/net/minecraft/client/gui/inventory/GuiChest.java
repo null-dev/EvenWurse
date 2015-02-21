@@ -65,19 +65,19 @@ public class GuiChest extends GuiContainer
 				@Override
 				public void run()
 				{
-					for(int i = 0; i < inventoryRows * 9; i++)
+					try
 					{
-						try
+						for(int i = 0; i < inventoryRows * 9; i++)
 						{
 							if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 								Thread.sleep(250);
 							Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
 							handleMouseClick(slot, slot.slotNumber, 0, 1);
 							handleMouseClick(slot, slot.slotNumber, 0, 6);
-						}catch(Exception e)
-						{
-							e.printStackTrace();
 						}
+					}catch(Exception e)
+					{
+						e.printStackTrace();
 					}
 				}
 			}).start();
@@ -87,17 +87,17 @@ public class GuiChest extends GuiContainer
 				@Override
 				public void run()
 				{
-					for(Object slot : inventorySlots.inventorySlots)
+					try
 					{
-						try
+						for(Object slot : inventorySlots.inventorySlots)
 						{
 							if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
 								Thread.sleep(250);
 							handleMouseClick((Slot)slot, ((Slot)slot).slotNumber, 0, 1);
-						}catch(Exception e)
-						{
-							e.printStackTrace();
 						}
+					}catch(Exception e)
+					{
+						e.printStackTrace();
 					}
 				}
 			}).start();
