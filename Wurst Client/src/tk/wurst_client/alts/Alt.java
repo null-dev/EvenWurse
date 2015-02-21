@@ -16,11 +16,20 @@ public class Alt
 	
 	public Alt(String email, String password)
 	{
-		if(password == null)
-			password = "";
 		this.email = email;
 		this.password = password;
-		if(password.length() == 0)
+		if(password == null || password.isEmpty())
+			cracked = true;
+		else
+			cracked = false;
+	}
+
+	public Alt(String email, String name, String password)
+	{
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		if(password == null || password.isEmpty())
 			cracked = true;
 		else
 			cracked = false;
