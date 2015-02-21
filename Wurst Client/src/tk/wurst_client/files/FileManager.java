@@ -345,9 +345,12 @@ public class FileManager
 			for(Alt alt : GuiAltList.alts)
 			{
 				JsonObject jsonAlt = new JsonObject();
-				jsonAlt.addProperty("name", Encryption.encrypt(alt.getName()));
-				jsonAlt.addProperty("password", Encryption.decrypt(alt.getPassword()));
-				jsonAlt.addProperty("cracked", Encryption.encrypt(Boolean.toString(alt.isCracked())));
+				jsonAlt.addProperty("name",
+					Encryption.encrypt(alt.getName()));
+				jsonAlt.addProperty("password",
+					Encryption.decrypt(alt.getPassword()));
+				jsonAlt.addProperty("cracked",
+					Encryption.encrypt(Boolean.toString(alt.isCracked())));
 				json.add(Encryption.encrypt(alt.getEmail()), jsonAlt);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(alts));
@@ -364,18 +367,23 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(alts));
+			JsonObject json = (JsonObject)new JsonParser().parse(load);
+			load.close();
 			GuiAltList.alts.clear();
-			for(String line = ""; (line = load.readLine()) != null;)
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			while(itr.hasNext())
 			{
-				String data[] = line.split(split);
-				String name = Encryption.decrypt(data[0]);
-				String password = "";
-				if(data.length == 2)
-					password = Encryption.decrypt(data[1]);
-				GuiAltList.alts.add(new Alt(name, password));
+				Entry<String, JsonElement> entry = itr.next();
+				JsonObject jsonAlt = entry.getValue().getAsJsonObject();
+				String email = Encryption.decrypt(
+					entry.getKey());
+				String name = Encryption.decrypt(
+					jsonAlt.get("name").getAsString());
+				String password = Encryption.decrypt(
+					jsonAlt.get("password").getAsString());
+				GuiAltList.alts.add(new Alt(email, password));//TODO: new constructor
 			}
 			GuiAltList.sortAlts();
-			load.close();
 		}catch(IOException e)
 		{	
 			
