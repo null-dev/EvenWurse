@@ -69,7 +69,8 @@ public class GuiChest extends GuiContainer
 					{
 						for(int i = 0; i < inventoryRows * 9; i++)
 						{
-							if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+							if(Client.wurst.moduleManager
+								.getModuleFromClass(YesCheat.class).getToggled())
 								Thread.sleep(250);
 							Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
 							handleMouseClick(slot, slot.slotNumber, 0, 1);
@@ -89,11 +90,14 @@ public class GuiChest extends GuiContainer
 				{
 					try
 					{
-						for(Object slot : inventorySlots.inventorySlots)
+						for(int i = inventoryRows * 9; i < inventoryRows * 9 + 44; i++)
 						{
-							if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+							if(Client.wurst.moduleManager
+								.getModuleFromClass(YesCheat.class).getToggled())
 								Thread.sleep(250);
-							handleMouseClick((Slot)slot, ((Slot)slot).slotNumber, 0, 1);
+							Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
+							handleMouseClick(slot, slot.slotNumber, 0, 1);
+							handleMouseClick(slot, slot.slotNumber, 0, 6);
 						}
 					}catch(Exception e)
 					{
