@@ -35,6 +35,12 @@ public class Alt
 			cracked = false;
 	}
 
+	public Alt(String crackedName)
+	{
+		this.email = crackedName;
+		this.name = crackedName;
+	}
+
 	public String getEmail()
 	{
 		return email;
