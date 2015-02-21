@@ -350,7 +350,7 @@ public class FileManager
 				jsonAlt.addProperty("cracked", Encryption.encrypt(Boolean.toString(alt.isCracked())));
 				json.add(Encryption.encrypt(alt.getEmail()), jsonAlt);
 			}
-			PrintWriter save = new PrintWriter(new FileWriter(sliders));
+			PrintWriter save = new PrintWriter(new FileWriter(alts));
 			save.println(gson.toJson(json));
 			save.close();
 		}catch(IOException e)
