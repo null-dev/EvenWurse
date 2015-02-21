@@ -7,6 +7,8 @@ import net.minecraft.inventory.ContainerChest;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
+import tk.wurst_client.Client;
+import tk.wurst_client.module.modules.YesCheat;
 
 public class GuiChest extends GuiContainer
 {
@@ -57,16 +59,48 @@ public class GuiChest extends GuiContainer
 	@Override
 	protected void actionPerformed(GuiButton button)
 	{
-		if(button.id == 0)
-			for(int i = 0; i < inventoryRows * 9; i++)
+		if(button.id == 0)// Steal
+			new Thread(new Runnable()
 			{
-				Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
-				handleMouseClick(slot, slot.slotNumber, 0, 1);
-				handleMouseClick(slot, slot.slotNumber, 0, 6);
-			}
-		else if(button.id == 1)
-			for(Object slot : inventorySlots.inventorySlots)
-				handleMouseClick((Slot)slot, ((Slot)slot).slotNumber, 0, 1);
+				@Override
+				public void run()
+				{
+					for(int i = 0; i < inventoryRows * 9; i++)
+					{
+						if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+							try
+							{
+								Thread.sleep(250);
+							}catch(InterruptedException e)
+							{
+								e.printStackTrace();
+							}
+						Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
+						handleMouseClick(slot, slot.slotNumber, 0, 1);
+						handleMouseClick(slot, slot.slotNumber, 0, 6);
+					}
+				}
+			}).start();
+		else if(button.id == 1)// Store
+			new Thread(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					for(Object slot : inventorySlots.inventorySlots)
+					{
+						if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+							try
+							{
+								Thread.sleep(250);
+							}catch(InterruptedException e)
+							{
+								e.printStackTrace();
+							}
+						handleMouseClick((Slot)slot, ((Slot)slot).slotNumber, 0, 1);
+					}
+				}
+			}).start();
 	}
 	
 	/**
