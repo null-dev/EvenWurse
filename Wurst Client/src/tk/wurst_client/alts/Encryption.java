@@ -62,18 +62,25 @@ public class Encryption
 	
 	private static void checkKey()
 	{
-		if(!hasKey())
+		if(!hasKeyFiles())
 			generateKey();
-		else
+		if(!hasKey())
 			loadKey();
 	}
 
-	private static boolean hasKey()
+	private static boolean hasKeyFiles()
 	{
 		return private_file != null
 			&& private_file.exists()
 			&& public_file != null
 			&& public_file.exists();
+	}
+	
+	private static boolean hasKey()
+	{
+		return key != null
+			&& key.getPrivate().getEncoded() != null
+			&& key.getPublic().getEncoded() != null;
 	}
 
 	public static void generateKey()
@@ -122,7 +129,7 @@ public class Encryption
 				MiscUtils.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=cannot+load+RSA+key");
 				Minecraft.getMinecraft().shutdown();
 			}
-			if(hasKey())
+			if(hasKeyFiles())
 				generateKey();
 			else
 			{
