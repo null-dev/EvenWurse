@@ -348,7 +348,7 @@ public class FileManager
 				jsonAlt.addProperty("name",
 					Encryption.encrypt(alt.getName()));
 				jsonAlt.addProperty("password",
-					Encryption.decrypt(alt.getPassword()));
+					Encryption.encrypt(alt.getPassword()));
 				jsonAlt.addProperty("cracked",
 					Encryption.encrypt(Boolean.toString(alt.isCracked())));
 				json.add(Encryption.encrypt(alt.getEmail()), jsonAlt);
