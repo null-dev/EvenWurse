@@ -16,29 +16,31 @@ public class Alt
 	
 	public Alt(String email, String password)
 	{
+		if(password == null || password.isEmpty())
+			throw new IllegalArgumentException("No password.");
+		
 		this.email = email;
 		this.password = password;
-		if(password == null || password.isEmpty())
-			cracked = true;
-		else
-			cracked = false;
+		cracked = false;
 	}
 
 	public Alt(String email, String name, String password)
 	{
+		if(password == null || password.isEmpty())
+			throw new IllegalArgumentException("No password.");
+		
 		this.email = email;
 		this.name = name;
 		this.password = password;
-		if(password == null || password.isEmpty())
-			cracked = true;
-		else
-			cracked = false;
+		cracked = false;
 	}
 
 	public Alt(String crackedName)
 	{
 		this.email = crackedName;
 		this.name = crackedName;
+		this.password = null;
+		this.cracked = true;
 	}
 
 	public String getEmail()
