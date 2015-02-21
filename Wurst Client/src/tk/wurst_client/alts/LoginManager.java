@@ -88,6 +88,22 @@ public class LoginManager
 		return displayText;
 	}
 	
+	public static String getName(String email, String password)
+	{
+		YggdrasilAuthenticationService authenticationService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
+		YggdrasilUserAuthentication authentication = (YggdrasilUserAuthentication)authenticationService.createUserAuthentication(Agent.MINECRAFT);
+		authentication.setUsername(email);
+		authentication.setPassword(password);
+		try
+		{
+			authentication.logIn();
+			return authentication.getSelectedProfile().getName();
+		}catch(Exception e)
+		{
+			return null;
+		}
+	}
+	
 	public static void changeCrackedName(String newName)
 	{
 		Minecraft.getMinecraft().session = new Session(newName, "", "", "mojang");

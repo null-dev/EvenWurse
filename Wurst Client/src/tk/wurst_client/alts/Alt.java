@@ -20,6 +20,7 @@ public class Alt
 			throw new IllegalArgumentException("No password.");
 		
 		this.email = email;
+		this.name = LoginManager.getName(email, password);
 		this.password = password;
 		cracked = false;
 	}
