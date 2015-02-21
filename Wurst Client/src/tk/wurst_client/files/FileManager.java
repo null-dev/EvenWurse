@@ -361,11 +361,6 @@ public class FileManager
 	
 	public void loadAlts()
 	{
-		if(!alts.exists())
-		{
-			saveAlts();
-			return;
-		}
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(alts));
