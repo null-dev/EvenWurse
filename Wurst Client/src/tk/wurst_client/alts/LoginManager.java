@@ -55,7 +55,7 @@ public class LoginManager
 			logger.error(e.getMessage());
 		}catch(NullPointerException e)
 		{
-			displayText = "§4§lWeird error: This alt doesn't have a username!";
+			displayText = "§4§lWrong password!";
 		}
 		return displayText;
 	}
@@ -83,7 +83,7 @@ public class LoginManager
 			logger.error(e.getMessage());
 		}catch(NullPointerException e)
 		{
-			displayText = "§4§lWeird error: This alt doesn't have a username!";
+			displayText = "§4§lWrong password!";
 		}
 		return displayText;
 	}
