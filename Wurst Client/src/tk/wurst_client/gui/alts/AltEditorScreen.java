@@ -12,7 +12,6 @@ import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
 
 import java.io.IOException;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -53,6 +52,10 @@ public abstract class AltEditorScreen extends GuiScreen
 	
 	protected abstract String getDoneButtonText();
 	
+	protected abstract String getPasswordBoxText();
+
+	protected abstract String getEmailBoxText();
+	
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
 	 */
@@ -70,11 +73,12 @@ public abstract class AltEditorScreen extends GuiScreen
 		emailBox = new GuiEmailField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
 		emailBox.setMaxStringLength(48);
 		emailBox.setFocused(true);
-		emailBox.setText(Minecraft.getMinecraft().session.getUsername());
+		emailBox.setText(getEmailBoxText());
 		passwordBox = new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
 		passwordBox.setFocused(false);
+		passwordBox.setText(getPasswordBoxText());
 	}
-	
+
 	/**
 	 * "Called when the screen is unloaded. Used to disable keyboard repeat events."
 	 */

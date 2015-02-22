@@ -7,6 +7,7 @@
  */
 package tk.wurst_client.gui.alts;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.Client;
@@ -24,6 +25,18 @@ public class GuiAltAdd extends AltEditorScreen
 	protected String getDoneButtonText()
 	{
 		return "Add";
+	}
+
+	@Override
+	protected String getEmailBoxText()
+	{
+		return Minecraft.getMinecraft().session.getUsername();
+	}
+
+	@Override
+	protected String getPasswordBoxText()
+	{
+		return "";
 	}
 
 	@Override

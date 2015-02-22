@@ -31,6 +31,18 @@ public class GuiAltEdit extends AltEditorScreen
 	}
 
 	@Override
+	protected String getEmailBoxText()
+	{
+		return alt.getEmail();
+	}
+
+	@Override
+	protected String getPasswordBoxText()
+	{
+		return alt.getPassword();
+	}
+
+	@Override
 	protected void onDoneButtonClick(GuiButton button)
 	{// Save
 		if(passwordBox.getText().length() == 0)

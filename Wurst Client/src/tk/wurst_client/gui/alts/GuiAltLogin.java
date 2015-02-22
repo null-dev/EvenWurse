@@ -7,6 +7,7 @@
  */
 package tk.wurst_client.gui.alts;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
@@ -23,6 +24,18 @@ public class GuiAltLogin extends AltEditorScreen
 	protected String getDoneButtonText()
 	{
 		return "Login";
+	}
+
+	@Override
+	protected String getEmailBoxText()
+	{
+		return Minecraft.getMinecraft().session.getUsername();
+	}
+
+	@Override
+	protected String getPasswordBoxText()
+	{
+		return "";
 	}
 
 	@Override
