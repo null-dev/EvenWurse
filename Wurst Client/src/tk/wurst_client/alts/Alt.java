@@ -56,7 +56,10 @@ public class Alt
 
 	public String getName()
 	{
-		return name;
+		if(name != null)
+			return name;
+		else
+			return email;
 	}
 
 	public void setName(String name)

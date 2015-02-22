@@ -364,6 +364,7 @@ public class FileManager
 		{
 			JsonObject json = (JsonObject)new JsonParser().parse(Encryption.decrypt(new String(
 				Files.readAllBytes(alts.toPath()), Encryption.CHARSET)));
+			System.out.println(gson.toJson(json));
 			GuiAltList.alts.clear();
 			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
 			while(itr.hasNext())
@@ -371,7 +372,7 @@ public class FileManager
 				Entry<String, JsonElement> entry = itr.next();
 				JsonObject jsonAlt = entry.getValue().getAsJsonObject();
 				String email = entry.getKey();
-				String name = jsonAlt.get("name").getAsString();
+				String name = jsonAlt.get("name") == null || jsonAlt.get("name").isJsonNull() ? null : jsonAlt.get("name").getAsString();
 				String password = jsonAlt.get("password").getAsString();
 				boolean cracked = jsonAlt.get("cracked").getAsBoolean();
 				if(cracked)
