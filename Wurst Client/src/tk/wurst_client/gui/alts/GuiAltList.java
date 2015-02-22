@@ -20,8 +20,8 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import tk.wurst_client.alts.Alt;
 import tk.wurst_client.gui.GuiWurstSlot;
-import tk.wurst_client.utils.AltUtils;
 
 public class GuiAltList extends GuiWurstSlot
 {
@@ -44,20 +44,20 @@ public class GuiAltList extends GuiWurstSlot
 			@Override
 			public int compare(Alt o1, Alt o2)
 			{
-				return o1.name.compareToIgnoreCase(o2.name);
+				return o1.getName().compareToIgnoreCase(o2.getName());
 			}
 		});
 		ArrayList<Alt> newAlts = new ArrayList<Alt>();
 		premiumAlts = 0;
 		for(int i = 0; i < alts.size(); i++)
-			if(!alts.get(i).cracked)
+			if(!alts.get(i).isCracked())
 			{
 				newAlts.add(alts.get(i));
 				premiumAlts++;
 			}
 		crackedAlts = 0;
 		for(int i = 0; i < alts.size(); i++)
-			if(alts.get(i).cracked)
+			if(alts.get(i).isCracked())
 			{
 				newAlts.add(alts.get(i));
 				crackedAlts++;
@@ -65,8 +65,8 @@ public class GuiAltList extends GuiWurstSlot
 		for(int i = 0; i < newAlts.size(); i++)
 			for(int i2 = 0; i2 < newAlts.size(); i2++)
 				if(i != i2
-					&& newAlts.get(i).name.equals(newAlts.get(i2).name)
-					&& newAlts.get(i).cracked == newAlts.get(i2).cracked)
+					&& newAlts.get(i).getName().equals(newAlts.get(i2).getName())
+					&& newAlts.get(i).isCracked() == newAlts.get(i2).isCracked())
 					newAlts.remove(i2);
 		alts = newAlts;
 	}
@@ -105,7 +105,7 @@ public class GuiAltList extends GuiWurstSlot
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL_CULL_FACE);
 		GL11.glEnable(GL_BLEND);
-		if(Minecraft.getMinecraft().getSession().getUsername().equals(alt.name))
+		if(Minecraft.getMinecraft().getSession().getUsername().equals(alt.getName()))
 		{
 			float opacity = 0.3F - MathHelper.abs(MathHelper.sin(Minecraft.getSystemTime() % 10000L / 10000.0F * (float)Math.PI * 2.0F) * 0.15F);
 			GL11.glColor4f(0.0F, 1.0F, 0.0F, opacity);
@@ -121,8 +121,8 @@ public class GuiAltList extends GuiWurstSlot
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_CULL_FACE);
 		GL11.glDisable(GL_BLEND);
-		AltUtils.drawAltFace(alt.name, x + 1, y + 1, 24, 24, GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
-		mc.fontRendererObj.drawString("Name: " + alt.name, x + 31, y + 3, 10526880);
-		mc.fontRendererObj.drawString(alt.cracked ? "§8Cracked" : "§2Premium", x + 31, y + 15, 10526880);
+		AltRenderer.drawAltFace(alt.getName(), x + 1, y + 1, 24, 24, GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
+		mc.fontRendererObj.drawString("Name: " + alt.getName(), x + 31, y + 3, 10526880);
+		mc.fontRendererObj.drawString(alt.isCracked() ? "§8Cracked" : "§2Premium", x + 31, y + 15, 10526880);
 	}
 }

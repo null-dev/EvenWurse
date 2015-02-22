@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -26,8 +27,8 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.encryption_api.Encryption;
-import tk.wurst_client.gui.alts.Alt;
+import tk.wurst_client.alts.Alt;
+import tk.wurst_client.alts.Encryption;
 import tk.wurst_client.gui.alts.GuiAltList;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
@@ -50,7 +51,7 @@ public class FileManager
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
 	
-	public final File alts = new File(wurstDir, "alts.wurst");
+	public final File alts = new File(wurstDir, "alts.json");
 	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.txt");
 	public final File friends = new File(wurstDir, "friends.json");
 	public final File gui = new File(wurstDir, "gui.json");
@@ -341,14 +342,16 @@ public class FileManager
 	{
 		try
 		{
-			PrintWriter save = new PrintWriter(new FileWriter(alts));
+			JsonObject json = new JsonObject();
 			for(Alt alt : GuiAltList.alts)
 			{
-				String saveName = Encryption.encrypt(alt.name);
-				String savePassword = Encryption.encrypt(alt.password);
-				save.println(saveName + split + savePassword);
+				JsonObject jsonAlt = new JsonObject();
+				jsonAlt.addProperty("name", alt.getName());
+				jsonAlt.addProperty("password", alt.getPassword());
+				jsonAlt.addProperty("cracked", alt.isCracked());
+				json.add(alt.getEmail(), jsonAlt);
 			}
-			save.close();
+			Files.write(alts.toPath(), Encryption.encrypt(gson.toJson(json)).getBytes(Encryption.CHARSET));
 		}catch(IOException e)
 		{	
 			
@@ -357,26 +360,27 @@ public class FileManager
 	
 	public void loadAlts()
 	{
-		if(!alts.exists())
-		{
-			saveAlts();
-			return;
-		}
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(alts));
+			JsonObject json = (JsonObject)new JsonParser().parse(Encryption.decrypt(new String(
+				Files.readAllBytes(alts.toPath()), Encryption.CHARSET)));
+			System.out.println(gson.toJson(json));
 			GuiAltList.alts.clear();
-			for(String line = ""; (line = load.readLine()) != null;)
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			while(itr.hasNext())
 			{
-				String data[] = line.split(split);
-				String name = Encryption.decrypt(data[0]);
-				String password = "";
-				if(data.length == 2)
-					password = Encryption.decrypt(data[1]);
-				GuiAltList.alts.add(new Alt(name, password));
+				Entry<String, JsonElement> entry = itr.next();
+				JsonObject jsonAlt = entry.getValue().getAsJsonObject();
+				String email = entry.getKey();
+				String name = jsonAlt.get("name") == null || jsonAlt.get("name").isJsonNull() ? null : jsonAlt.get("name").getAsString();
+				String password = jsonAlt.get("password").getAsString();
+				boolean cracked = jsonAlt.get("cracked").getAsBoolean();
+				if(cracked)
+					GuiAltList.alts.add(new Alt(email));
+				else
+					GuiAltList.alts.add(new Alt(email, name, password));
 			}
 			GuiAltList.sortAlts();
-			load.close();
 		}catch(IOException e)
 		{	
 			

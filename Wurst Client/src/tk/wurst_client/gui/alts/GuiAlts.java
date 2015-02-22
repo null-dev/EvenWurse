@@ -19,7 +19,9 @@ import net.minecraft.client.gui.GuiYesNo;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.utils.AltUtils;
+import tk.wurst_client.alts.Alt;
+import tk.wurst_client.alts.LoginManager;
+import tk.wurst_client.alts.NameGenerator;
 
 public class GuiAlts extends GuiScreen
 {
@@ -69,13 +71,13 @@ public class GuiAlts extends GuiScreen
 			if(clickedButton.id == 0)
 			{// Use
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
-				if(alt.cracked)
+				if(alt.isCracked())
 				{// Cracked
-					AltUtils.changeCrackedName(alt.name);
+					LoginManager.changeCrackedName(alt.getName());
 					mc.displayGuiScreen(prevMenu);
 				}else
 				{// Premium
-					String reply = AltUtils.login(alt.name, alt.password);
+					String reply = LoginManager.login(alt.getEmail(), alt.getPassword());
 					if(reply.equals(""))
 						mc.displayGuiScreen(prevMenu);
 					else
@@ -100,7 +102,7 @@ public class GuiAlts extends GuiScreen
 			{// Delete
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				String deleteQuestion = "Are you sure you want to remove this alt?";
-				String deleteWarning = "\"" + alt.name + "\" will be lost forever! (A long time!)";
+				String deleteWarning = "\"" + alt.getName() + "\" will be lost forever! (A long time!)";
 				mc.displayGuiScreen(new GuiYesNo(this, deleteQuestion, deleteWarning, "Delete", "Cancel", 1));
 			}else if(clickedButton.id == 5)
 				mc.displayGuiScreen(prevMenu);
@@ -114,7 +116,7 @@ public class GuiAlts extends GuiScreen
 			if(par1)
 			{
 				for(int i = 0; i < 8; i++)
-					GuiAltList.alts.add(new Alt(AltUtils.generateName(), null));
+					GuiAltList.alts.add(new Alt(NameGenerator.generateName()));
 				GuiAltList.sortAlts();
 				Client.wurst.fileManager.saveAlts();
 			}
@@ -167,8 +169,8 @@ public class GuiAlts extends GuiScreen
 		if(altList.getSelectedSlot() != -1)
 		{
 			Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
-			AltUtils.drawAltBack(alt.name, (width / 2 - 125) / 2 - 32, height / 2 - 64 - 9, 64, 128);
-			AltUtils.drawAltBody(alt.name, width - (width / 2 - 140) / 2 - 32, height / 2 - 64 - 9, 64, 128);
+			AltRenderer.drawAltBack(alt.getName(), (width / 2 - 125) / 2 - 32, height / 2 - 64 - 9, 64, 128);
+			AltRenderer.drawAltBody(alt.getName(), width - (width / 2 - 140) / 2 - 32, height / 2 - 64 - 9, 64, 128);
 		}
 		drawCenteredString(fontRendererObj, "Alt Manager", width / 2, 4, 16777215);
 		drawCenteredString(fontRendererObj, "Alts: " + GuiAltList.alts.size(), width / 2, 14, 10526880);
