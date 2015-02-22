@@ -70,8 +70,10 @@ public class Alt
 	{
 		if(name != null)
 			return name;
-		else
+		else if(email != null)
 			return email;
+		else
+			return "";
 	}
 
 	public void setName(String name)

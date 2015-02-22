@@ -16,7 +16,6 @@ import tk.wurst_client.alts.LoginManager;
 public class GuiAltEdit extends AltEditorScreen
 {
 	private Alt alt;
-	private Alt newAlt;
 
 	public GuiAltEdit(GuiScreen par1GuiScreen, Alt alt)
 	{
@@ -45,6 +44,7 @@ public class GuiAltEdit extends AltEditorScreen
 	@Override
 	protected void onDoneButtonClick(GuiButton button)
 	{// Save
+		Alt newAlt = new Alt(emailBox.getText(), passwordBox.getText());
 		if(passwordBox.getText().length() == 0)
 		{// Cracked
 			GuiAltList.alts.set(GuiAltList.alts.indexOf(alt), newAlt);

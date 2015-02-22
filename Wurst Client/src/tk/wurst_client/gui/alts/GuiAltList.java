@@ -44,6 +44,8 @@ public class GuiAltList extends GuiWurstSlot
 			@Override
 			public int compare(Alt o1, Alt o2)
 			{
+				if(o1 == null || o2 == null)
+					return 0;
 				return o1.getName().compareToIgnoreCase(o2.getName());
 			}
 		});
