@@ -364,7 +364,6 @@ public class FileManager
 		{
 			JsonObject json = (JsonObject)new JsonParser().parse(Encryption.decrypt(new String(
 				Files.readAllBytes(alts.toPath()), Encryption.CHARSET)));
-			System.out.println(gson.toJson(json));
 			GuiAltList.alts.clear();
 			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
 			while(itr.hasNext())
