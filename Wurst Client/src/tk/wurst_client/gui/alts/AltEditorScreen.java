@@ -20,13 +20,11 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.alts.Alt;
-import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.alts.NameGenerator;
 import tk.wurst_client.alts.SkinStealer;
 import tk.wurst_client.utils.MiscUtils;
 
-public class GuiAltAdd extends GuiScreen
+public abstract class AltEditorScreen extends GuiScreen
 {
 	private GuiScreen prevMenu;
 	private GuiEmailField emailBox;
@@ -34,7 +32,7 @@ public class GuiAltAdd extends GuiScreen
 	private String displayText = "";
 	private int errorTimer;
 	
-	public GuiAltAdd(GuiScreen par1GuiScreen)
+	public AltEditorScreen(GuiScreen par1GuiScreen)
 	{
 		prevMenu = par1GuiScreen;
 	}
@@ -53,6 +51,8 @@ public class GuiAltAdd extends GuiScreen
 		((GuiButton)buttonList.get(3)).enabled = !emailBox.getText().trim().equalsIgnoreCase("Alexander01998");
 	}
 	
+	protected abstract String getDoneButtonText();
+	
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
 	 */
@@ -62,7 +62,7 @@ public class GuiAltAdd extends GuiScreen
 	{
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 72 + 12, "Add"));
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 72 + 12, getDoneButtonText()));
 		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 96 + 12, "Random Name"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12, "Cancel"));
 		buttonList.add(new GuiButton(4, width - (width / 2 - 100) / 2 - 64, height - 32, 128, 20, "Steal Skin"));
@@ -84,36 +84,22 @@ public class GuiAltAdd extends GuiScreen
 		Keyboard.enableRepeatEvents(false);
 	}
 	
+	protected abstract void onDoneButtonClick(GuiButton button);
+	
 	@Override
-	protected void actionPerformed(GuiButton clickedButton)
+	protected void actionPerformed(GuiButton button)
 	{
-		if(clickedButton.enabled)
-			if(clickedButton.id == 1)
+		if(button.enabled)
+			if(button.id == 1)
 				mc.displayGuiScreen(prevMenu);
-			else if(clickedButton.id == 0)
-			{// Add
-				if(passwordBox.getText().length() == 0)
-				{// Cracked
-					GuiAltList.alts.add(new Alt(emailBox.getText()));
-					displayText = "";
-				}else
-				{// Premium
-					displayText = LoginManager.check(emailBox.getText(), passwordBox.getText());
-					if(displayText.equals(""))
-						GuiAltList.alts.add(new Alt(emailBox.getText(), passwordBox.getText()));
-				}
-				if(displayText.equals(""))
-				{
-					GuiAltList.sortAlts();
-					Client.wurst.fileManager.saveAlts();
-					mc.displayGuiScreen(prevMenu);
-				}else
-					errorTimer = 8;
-			}else if(clickedButton.id == 3)
+			else if(button.id == 0)
+			{
+				onDoneButtonClick(button);
+			}else if(button.id == 3)
 				emailBox.setText(NameGenerator.generateName());
-			else if(clickedButton.id == 4)
+			else if(button.id == 4)
 				displayText = SkinStealer.stealSkin(emailBox.getText());
-			else if(clickedButton.id == 5)
+			else if(button.id == 5)
 				MiscUtils.openFile(Client.wurst.fileManager.skinDir);
 	}
 	
@@ -146,6 +132,8 @@ public class GuiAltAdd extends GuiScreen
 			displayText = "";
 	}
 	
+	protected abstract String getTitle();
+	
 	/**
 	 * Draws the screen and all the components in it.
 	 */
@@ -155,7 +143,7 @@ public class GuiAltAdd extends GuiScreen
 		drawDefaultBackground();
 		AltRenderer.drawAltBack(emailBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
 		AltRenderer.drawAltBody(emailBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
-		drawCenteredString(fontRendererObj, "Add an Alt", width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, getTitle(), width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47, 10526880);
 		drawString(fontRendererObj, "Password", width / 2 - 100, 87, 10526880);
 		drawCenteredString(fontRendererObj, displayText, width / 2, 142, 16777215);
