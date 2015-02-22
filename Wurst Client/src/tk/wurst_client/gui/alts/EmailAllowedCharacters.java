@@ -17,7 +17,7 @@ public class EmailAllowedCharacters
 	
 	public static boolean isAllowedCharacter(char character)
 	{
-		return character != 167 && character >= 32 && character != 127;
+		return character >= 32 && character != 127;
 	}
 	
 	/**

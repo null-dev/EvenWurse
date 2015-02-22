@@ -14,7 +14,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.MathHelper;
 
 import com.google.common.base.Predicate;
@@ -141,7 +140,7 @@ public class GuiEmailField extends Gui
 	public void writeText(String p_146191_1_)
 	{
 		String var2 = "";
-		String var3 = ChatAllowedCharacters.filterAllowedCharacters(p_146191_1_);
+		String var3 = EmailAllowedCharacters.filterAllowedCharacters(p_146191_1_);
 		int var4 = cursorPosition < selectionEnd ? cursorPosition : selectionEnd;
 		int var5 = cursorPosition < selectionEnd ? selectionEnd : cursorPosition;
 		int var6 = maxStringLength - text.length() - (var4 - var5);
@@ -413,7 +412,7 @@ public class GuiEmailField extends Gui
 					return true;
 					
 				default:
-					if(ChatAllowedCharacters.isAllowedCharacter(p_146201_1_))
+					if(EmailAllowedCharacters.isAllowedCharacter(p_146201_1_))
 					{
 						if(isEnabled)
 							writeText(Character.toString(p_146201_1_));
