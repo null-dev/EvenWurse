@@ -26,11 +26,11 @@ import tk.wurst_client.utils.MiscUtils;
 
 public abstract class AltEditorScreen extends GuiScreen
 {
-	private GuiScreen prevMenu;
-	private GuiEmailField emailBox;
-	private GuiPasswordField passwordBox;
-	private String displayText = "";
-	private int errorTimer;
+	protected GuiScreen prevMenu;
+	protected GuiEmailField emailBox;
+	protected GuiPasswordField passwordBox;
+	protected String displayText = "";
+	protected int errorTimer;
 	
 	public AltEditorScreen(GuiScreen par1GuiScreen)
 	{
