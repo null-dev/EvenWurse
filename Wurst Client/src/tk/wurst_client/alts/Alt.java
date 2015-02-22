@@ -27,13 +27,13 @@ public class Alt
 
 	public Alt(String email, String name, String password)
 	{
-		if(password == null || password.isEmpty())
-			throw new IllegalArgumentException("No password.");
-		
 		this.email = email;
 		this.name = name;
 		this.password = password;
-		cracked = false;
+		if(password == null || password.isEmpty())
+			cracked = true;
+		else
+			cracked = false;
 	}
 
 	public Alt(String crackedName)
@@ -66,6 +66,11 @@ public class Alt
 
 	public String getPassword()
 	{
+		if(password == null || password.isEmpty())
+		{
+			cracked = true;
+			return "";
+		}else
 		return password;
 	}
 
