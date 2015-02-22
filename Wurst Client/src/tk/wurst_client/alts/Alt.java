@@ -17,23 +17,35 @@ public class Alt
 	public Alt(String email, String password)
 	{
 		if(password == null || password.isEmpty())
-			throw new IllegalArgumentException("No password.");
-		
-		this.email = email;
-		this.name = LoginManager.getName(email, password);
-		this.password = password;
-		cracked = false;
+		{	
+			this.email = email;
+			this.name = email;
+			this.password = null;
+			this.cracked = true;
+		}else
+		{
+			this.email = email;
+			this.name = LoginManager.getName(email, password);
+			this.password = password;
+			cracked = false;
+		}
 	}
 
 	public Alt(String email, String name, String password)
 	{
-		this.email = email;
-		this.name = name;
-		this.password = password;
 		if(password == null || password.isEmpty())
-			cracked = true;
-		else
+		{	
+			this.email = email;
+			this.name = email;
+			this.password = null;
+			this.cracked = true;
+		}else
+		{
+			this.email = email;
+			this.name = name;
+			this.password = password;
 			cracked = false;
+		}
 	}
 
 	public Alt(String crackedName)
