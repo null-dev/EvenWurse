@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -345,17 +346,12 @@ public class FileManager
 			for(Alt alt : GuiAltList.alts)
 			{
 				JsonObject jsonAlt = new JsonObject();
-				jsonAlt.addProperty("name",
-					Encryption.encrypt(alt.getName()));
-				jsonAlt.addProperty("password",
-					Encryption.encrypt(alt.getPassword()));
-				jsonAlt.addProperty("cracked",
-					Encryption.encrypt(Boolean.toString(alt.isCracked())));
-				json.add(Encryption.encrypt(alt.getEmail()), jsonAlt);
+				jsonAlt.addProperty("name", alt.getName());
+				jsonAlt.addProperty("password", alt.getPassword());
+				jsonAlt.addProperty("cracked", alt.isCracked());
+				json.add(alt.getEmail(), jsonAlt);
 			}
-			PrintWriter save = new PrintWriter(new FileWriter(alts));
-			save.println(gson.toJson(json));
-			save.close();
+			Files.write(alts.toPath(), Encryption.encrypt(gson.toJson(json)).getBytes(Encryption.CHARSET));
 		}catch(IOException e)
 		{	
 			
@@ -366,23 +362,18 @@ public class FileManager
 	{
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(alts));
-			JsonObject json = (JsonObject)new JsonParser().parse(load);
-			load.close();
+			JsonObject json = (JsonObject)new JsonParser().parse(Encryption.decrypt(new String(
+				Files.readAllBytes(alts.toPath()), Encryption.CHARSET)));
 			GuiAltList.alts.clear();
 			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				JsonObject jsonAlt = entry.getValue().getAsJsonObject();
-				String email = Encryption.decrypt(
-					entry.getKey());
-				String name = Encryption.decrypt(
-					jsonAlt.get("name").getAsString());
-				String password = Encryption.decrypt(
-					jsonAlt.get("password").getAsString());
-				boolean cracked = Boolean.getBoolean(Encryption.decrypt(
-					jsonAlt.get("cracked").getAsString()));
+				String email = entry.getKey();
+				String name = jsonAlt.get("name").getAsString();
+				String password = jsonAlt.get("password").getAsString();
+				boolean cracked = jsonAlt.get("cracked").getAsBoolean();
 				if(cracked)
 					GuiAltList.alts.add(new Alt(email));
 				else
