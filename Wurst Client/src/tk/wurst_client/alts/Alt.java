@@ -17,18 +17,25 @@ public class Alt
 	
 	public Alt(String email, String password)
 	{
+		this(email, password, false);
+	}
+	
+	public Alt(String email, String password, boolean starred)
+	{
 		if(password == null || password.isEmpty())
 		{	
 			this.email = email;
 			this.name = email;
 			this.password = null;
 			this.cracked = true;
+			this.starred = starred;
 		}else
 		{
 			this.email = email;
 			this.name = LoginManager.getName(email, password);
 			this.password = password;
 			cracked = false;
+			this.starred = starred;
 		}
 	}
 
@@ -45,12 +52,14 @@ public class Alt
 			this.name = email;
 			this.password = null;
 			this.cracked = true;
+			this.starred = starred;
 		}else
 		{
 			this.email = email;
 			this.name = name;
 			this.password = password;
 			cracked = false;
+			this.starred = starred;
 		}
 	}
 
