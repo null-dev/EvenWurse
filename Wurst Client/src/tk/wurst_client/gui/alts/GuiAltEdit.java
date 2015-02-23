@@ -16,7 +16,7 @@ import tk.wurst_client.alts.LoginManager;
 public class GuiAltEdit extends AltEditorScreen
 {
 	private Alt editedAlt;
-
+	
 	public GuiAltEdit(GuiScreen par1GuiScreen, Alt editedAlt)
 	{
 		super(par1GuiScreen);
@@ -28,19 +28,19 @@ public class GuiAltEdit extends AltEditorScreen
 	{
 		return "Save";
 	}
-
+	
 	@Override
 	protected String getEmailBoxText()
 	{
 		return editedAlt.getEmail();
 	}
-
+	
 	@Override
 	protected String getPasswordBoxText()
 	{
 		return editedAlt.getPassword();
 	}
-
+	
 	@Override
 	protected void onDoneButtonClick(GuiButton button)
 	{// Save
@@ -64,7 +64,7 @@ public class GuiAltEdit extends AltEditorScreen
 		}else
 			errorTimer = 8;
 	}
-
+	
 	@Override
 	protected String getTitle()
 	{

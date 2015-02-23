@@ -26,19 +26,19 @@ public class GuiAltAdd extends AltEditorScreen
 	{
 		return "Add";
 	}
-
+	
 	@Override
 	protected String getEmailBoxText()
 	{
 		return Minecraft.getMinecraft().session.getUsername();
 	}
-
+	
 	@Override
 	protected String getPasswordBoxText()
 	{
 		return "";
 	}
-
+	
 	@Override
 	protected void onDoneButtonClick(GuiButton button)
 	{
@@ -60,7 +60,7 @@ public class GuiAltAdd extends AltEditorScreen
 		}else
 			errorTimer = 8;
 	}
-
+	
 	@Override
 	protected String getTitle()
 	{

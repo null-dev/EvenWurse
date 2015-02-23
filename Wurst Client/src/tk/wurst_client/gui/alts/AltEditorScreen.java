@@ -54,11 +54,11 @@ public abstract class AltEditorScreen extends GuiScreen
 	}
 	
 	protected abstract String getDoneButtonText();
-
+	
 	protected abstract String getEmailBoxText();
 	
 	protected abstract String getPasswordBoxText();
-
+	
 	protected String getName()
 	{
 		if(alt == null)
@@ -96,7 +96,7 @@ public abstract class AltEditorScreen extends GuiScreen
 		passwordBox.setFocused(false);
 		passwordBox.setText(getPasswordBoxText());
 	}
-
+	
 	/**
 	 * "Called when the screen is unloaded. Used to disable keyboard repeat events."
 	 */
@@ -115,9 +115,8 @@ public abstract class AltEditorScreen extends GuiScreen
 			if(button.id == 1)
 				mc.displayGuiScreen(prevMenu);
 			else if(button.id == 0)
-			{
 				onDoneButtonClick(button);
-			}else if(button.id == 3)
+			else if(button.id == 3)
 				emailBox.setText(NameGenerator.generateName());
 			else if(button.id == 4)
 				displayText = SkinStealer.stealSkin(getName());

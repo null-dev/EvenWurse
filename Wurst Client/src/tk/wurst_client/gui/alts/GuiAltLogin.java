@@ -19,25 +19,25 @@ public class GuiAltLogin extends AltEditorScreen
 	{
 		super(par1GuiScreen);
 	}
-
+	
 	@Override
 	protected String getDoneButtonText()
 	{
 		return "Login";
 	}
-
+	
 	@Override
 	protected String getEmailBoxText()
 	{
 		return Minecraft.getMinecraft().session.getUsername();
 	}
-
+	
 	@Override
 	protected String getPasswordBoxText()
 	{
 		return "";
 	}
-
+	
 	@Override
 	protected void onDoneButtonClick(GuiButton button)
 	{
@@ -52,7 +52,7 @@ public class GuiAltLogin extends AltEditorScreen
 		else
 			errorTimer = 8;
 	}
-
+	
 	@Override
 	protected String getTitle()
 	{

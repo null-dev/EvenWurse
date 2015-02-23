@@ -140,7 +140,7 @@ public class Updater
 			return true;
 		else if(latestPatch < currentPatch)
 			return false;
-		else if(latestPreRelease > currentPreRelease || (latestPreRelease == 0 && currentPreRelease > 0))
+		else if(latestPreRelease > currentPreRelease || latestPreRelease == 0 && currentPreRelease > 0)
 			return true;
 		else
 			return false;
@@ -171,7 +171,7 @@ public class Updater
 	{
 		return currentVersion;
 	}
-
+	
 	public String getLatestVersion()
 	{
 		return latestVersion;

@@ -442,16 +442,14 @@ public class FileManager
 			load.close();
 			Iterator<JsonElement> itr = json.iterator();
 			while(itr.hasNext())
-			{
 				try
 				{
 					String jsonBlock = itr.next().getAsString();
 					XRay.xrayBlocks.add(Block.getBlockFromName(jsonBlock));
 				}catch(Exception e)
-				{
+				{	
 					
 				}
-			}
 			XRayUtils.sortBlocks();
 		}catch(IOException e)
 		{	

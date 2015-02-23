@@ -51,7 +51,8 @@ public class MassTPA extends Module
 			public int compare(String o1, String o2)
 			{
 				return random.nextInt();
-			}});
+			}
+		});
 	}
 	
 	@Override
