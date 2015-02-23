@@ -44,20 +44,31 @@ public class GuiAltList extends GuiWurstSlot
 			@Override
 			public int compare(Alt o1, Alt o2)
 			{
+				if(o1 == null || o2 == null)
+					return 0;
 				return o1.getName().compareToIgnoreCase(o2.getName());
 			}
 		});
 		ArrayList<Alt> newAlts = new ArrayList<Alt>();
 		premiumAlts = 0;
+		crackedAlts = 0;
 		for(int i = 0; i < alts.size(); i++)
-			if(!alts.get(i).isCracked())
+			if(alts.get(i).isStarred())
+			{
+				newAlts.add(alts.get(i));
+				if(alts.get(i).isCracked())
+					crackedAlts++;
+				else
+					premiumAlts++;
+			}
+		for(int i = 0; i < alts.size(); i++)
+			if(!alts.get(i).isCracked() && !alts.get(i).isStarred())
 			{
 				newAlts.add(alts.get(i));
 				premiumAlts++;
 			}
-		crackedAlts = 0;
 		for(int i = 0; i < alts.size(); i++)
-			if(alts.get(i).isCracked())
+			if(alts.get(i).isCracked() && !alts.get(i).isStarred())
 			{
 				newAlts.add(alts.get(i));
 				crackedAlts++;
@@ -123,6 +134,6 @@ public class GuiAltList extends GuiWurstSlot
 		GL11.glDisable(GL_BLEND);
 		AltRenderer.drawAltFace(alt.getName(), x + 1, y + 1, 24, 24, GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
 		mc.fontRendererObj.drawString("Name: " + alt.getName(), x + 31, y + 3, 10526880);
-		mc.fontRendererObj.drawString(alt.isCracked() ? "§8Cracked" : "§2Premium", x + 31, y + 15, 10526880);
+		mc.fontRendererObj.drawString((alt.isCracked() ? "§8cracked" : "§2premium") + (alt.isStarred() ? "§r & §estarred" : ""), x + 31, y + 15, 10526880);
 	}
 }

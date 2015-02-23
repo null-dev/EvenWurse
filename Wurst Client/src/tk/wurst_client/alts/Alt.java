@@ -13,35 +13,64 @@ public class Alt
 	private String name;
 	private String password;
 	private boolean cracked;
+	private boolean starred;
 	
 	public Alt(String email, String password)
 	{
-		if(password == null || password.isEmpty())
-			throw new IllegalArgumentException("No password.");
-		
+		this(email, password, false);
+	}
+	
+	public Alt(String email, String password, boolean starred)
+	{
 		this.email = email;
-		this.name = LoginManager.getName(email, password);
-		this.password = password;
-		cracked = false;
+		this.starred = starred;
+		if(password == null || password.isEmpty())
+		{	
+			this.name = email;
+			this.password = null;
+			this.cracked = true;
+		}else
+		{
+			this.name = LoginManager.getName(email, password);
+			this.password = password;
+			cracked = false;
+		}
 	}
 
 	public Alt(String email, String name, String password)
 	{
+		this(email, name, password, false);
+	}
+
+	public Alt(String email, String name, String password, boolean starred)
+	{
 		this.email = email;
-		this.name = name;
-		this.password = password;
+		this.starred = starred;
 		if(password == null || password.isEmpty())
-			cracked = true;
-		else
+		{	
+			this.name = email;
+			this.password = null;
+			this.cracked = true;
+		}else
+		{
+			this.name = name;
+			this.password = password;
 			cracked = false;
+		}
 	}
 
 	public Alt(String crackedName)
+	{
+		this(crackedName, false);
+	}
+
+	public Alt(String crackedName, boolean starred)
 	{
 		this.email = crackedName;
 		this.name = crackedName;
 		this.password = null;
 		this.cracked = true;
+		this.starred = starred;
 	}
 
 	public String getEmail()
@@ -52,14 +81,26 @@ public class Alt
 	public void setEmail(String email)
 	{
 		this.email = email;
+		if(password == null || password.isEmpty())
+		{	
+			this.name = email;
+			this.password = null;
+			this.cracked = true;
+		}else
+		{
+			this.name = LoginManager.getName(email, password);
+			cracked = false;
+		}
 	}
 
 	public String getName()
 	{
 		if(name != null)
 			return name;
-		else
+		else if(email != null)
 			return email;
+		else
+			return "";
 	}
 
 	public void setName(String name)
@@ -80,6 +121,17 @@ public class Alt
 	public void setPassword(String password)
 	{
 		this.password = password;
+		if(password == null || password.isEmpty())
+		{	
+			this.name = email;
+			this.password = null;
+			this.cracked = true;
+		}else
+		{
+			this.name = LoginManager.getName(email, password);
+			this.password = password;
+			cracked = false;
+		}
 	}
 
 	public boolean isCracked()
@@ -87,8 +139,20 @@ public class Alt
 		return cracked;
 	}
 
-	public void setCracked(boolean cracked)
+	public void setCracked()
 	{
-		this.cracked = cracked;
+		this.name = email;
+		this.password = null;
+		this.cracked = true;
+	}
+
+	public boolean isStarred()
+	{
+		return starred;
+	}
+
+	public void setStarred(boolean starred)
+	{
+		this.starred = starred;
 	}
 }
