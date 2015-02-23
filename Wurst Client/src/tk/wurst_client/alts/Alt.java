@@ -13,6 +13,7 @@ public class Alt
 	private String name;
 	private String password;
 	private boolean cracked;
+	private boolean starred;
 	
 	public Alt(String email, String password)
 	{
@@ -33,6 +34,11 @@ public class Alt
 
 	public Alt(String email, String name, String password)
 	{
+		this(email, name, password, false);
+	}
+
+	public Alt(String email, String name, String password, boolean starred)
+	{
 		if(password == null || password.isEmpty())
 		{	
 			this.email = email;
@@ -50,10 +56,16 @@ public class Alt
 
 	public Alt(String crackedName)
 	{
+		this(crackedName, false);
+	}
+
+	public Alt(String crackedName, boolean starred)
+	{
 		this.email = crackedName;
 		this.name = crackedName;
 		this.password = null;
 		this.cracked = true;
+		this.starred = starred;
 	}
 
 	public String getEmail()
@@ -127,5 +139,15 @@ public class Alt
 		this.name = email;
 		this.password = null;
 		this.cracked = true;
+	}
+
+	public boolean isStarred()
+	{
+		return starred;
+	}
+
+	public void setStarred(boolean starred)
+	{
+		this.starred = starred;
 	}
 }

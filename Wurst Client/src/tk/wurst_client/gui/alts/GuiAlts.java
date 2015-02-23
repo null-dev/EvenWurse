@@ -48,9 +48,10 @@ public class GuiAlts extends GuiScreen
 		buttonList.add(new GuiButton(0, width / 2 - 154, height - 52, 100, 20, "Use"));
 		buttonList.add(new GuiButton(1, width / 2 - 50, height - 52, 100, 20, "Direct Login"));
 		buttonList.add(new GuiButton(2, width / 2 + 54, height - 52, 100, 20, "Add"));
-		buttonList.add(new GuiButton(3, width / 2 - 154, height - 28, 100, 20, "Edit"));
-		buttonList.add(new GuiButton(4, width / 2 - 50, height - 28, 100, 20, "Delete"));
-		buttonList.add(new GuiButton(5, width / 2 + 54, height - 28, 100, 20, "Cancel"));
+		buttonList.add(new GuiButton(3, width / 2 - 156, height - 28, 75, 20, "Star"));
+		buttonList.add(new GuiButton(4, width / 2 - 77, height - 28, 75, 20, "Edit"));
+		buttonList.add(new GuiButton(5, width / 2 + 2, height - 28, 75, 20, "Delete"));
+		buttonList.add(new GuiButton(6, width / 2 + 81, height - 28, 75, 20, "Cancel"));
 	}
 	
 	/**
@@ -62,15 +63,16 @@ public class GuiAlts extends GuiScreen
 		((GuiButton)buttonList.get(0)).enabled = !GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
 		((GuiButton)buttonList.get(3)).enabled = !GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
 		((GuiButton)buttonList.get(4)).enabled = !GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(5)).enabled = !GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
 	}
 	
 	@Override
 	protected void actionPerformed(GuiButton clickedButton)
 	{
+		Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
 			{// Use
-				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				if(alt.isCracked())
 				{// Cracked
 					LoginManager.changeCrackedName(alt.getName());
@@ -95,16 +97,17 @@ public class GuiAlts extends GuiScreen
 			else if(clickedButton.id == 2)
 				mc.displayGuiScreen(new GuiAltAdd(this));
 			else if(clickedButton.id == 3)
-			{// Edit
-				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
-				mc.displayGuiScreen(new GuiAltEdit(this, alt));
+			{
+				alt.setStarred(!alt.isStarred());
+				GuiAltList.sortAlts();
 			}else if(clickedButton.id == 4)
+				mc.displayGuiScreen(new GuiAltEdit(this, alt));
+			else if(clickedButton.id == 5)
 			{// Delete
-				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				String deleteQuestion = "Are you sure you want to remove this alt?";
 				String deleteWarning = "\"" + alt.getName() + "\" will be lost forever! (A long time!)";
 				mc.displayGuiScreen(new GuiYesNo(this, deleteQuestion, deleteWarning, "Delete", "Cancel", 1));
-			}else if(clickedButton.id == 5)
+			}else if(clickedButton.id == 6)
 				mc.displayGuiScreen(prevMenu);
 	}
 	
