@@ -16,6 +16,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.opengl.TextureImpl;
 
 public class UnicodeFontRenderer extends FontRenderer
 {
@@ -47,13 +48,14 @@ public class UnicodeFontRenderer extends FontRenderer
 			glDisable(GL_LIGHTING);
 		if(!texture)
 			glEnable(GL_TEXTURE_2D);
+		TextureImpl.bindNone();
 		x *= 2;
 		y *= 2;
 		
 		font.drawString(x, y, string, new org.newdawn.slick.Color(color));
 		
-		if(texture)
-			glEnable(GL_TEXTURE_2D);
+		if(!texture)
+			glDisable(GL_TEXTURE_2D);
 		if(lighting)
 			glEnable(GL_LIGHTING);
 		if(!blend)
