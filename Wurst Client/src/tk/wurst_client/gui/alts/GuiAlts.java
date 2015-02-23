@@ -48,10 +48,10 @@ public class GuiAlts extends GuiScreen
 		buttonList.add(new GuiButton(0, width / 2 - 154, height - 52, 100, 20, "Use"));
 		buttonList.add(new GuiButton(1, width / 2 - 50, height - 52, 100, 20, "Direct Login"));
 		buttonList.add(new GuiButton(2, width / 2 + 54, height - 52, 100, 20, "Add"));
-		buttonList.add(new GuiButton(3, width / 2 - 156, height - 28, 75, 20, "Star"));
-		buttonList.add(new GuiButton(4, width / 2 - 77, height - 28, 75, 20, "Edit"));
-		buttonList.add(new GuiButton(5, width / 2 + 2, height - 28, 75, 20, "Delete"));
-		buttonList.add(new GuiButton(6, width / 2 + 81, height - 28, 75, 20, "Cancel"));
+		buttonList.add(new GuiButton(3, width / 2 - 154, height - 28, 75, 20, "Star"));
+		buttonList.add(new GuiButton(4, width / 2 - 76, height - 28, 74, 20, "Edit"));
+		buttonList.add(new GuiButton(5, width / 2 + 2, height - 28, 74, 20, "Delete"));
+		buttonList.add(new GuiButton(6, width / 2 + 80, height - 28, 75, 20, "Cancel"));
 	}
 	
 	/**
