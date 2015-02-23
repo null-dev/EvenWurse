@@ -19,6 +19,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.NameGenerator;
 import tk.wurst_client.alts.SkinStealer;
 import tk.wurst_client.utils.MiscUtils;
@@ -30,6 +31,8 @@ public abstract class AltEditorScreen extends GuiScreen
 	protected GuiPasswordField passwordBox;
 	protected String displayText = "";
 	protected int errorTimer;
+	protected Alt alt;
+	protected long lastNameCheck;
 	
 	public AltEditorScreen(GuiScreen par1GuiScreen)
 	{
@@ -51,10 +54,25 @@ public abstract class AltEditorScreen extends GuiScreen
 	}
 	
 	protected abstract String getDoneButtonText();
+
+	protected abstract String getEmailBoxText();
 	
 	protected abstract String getPasswordBoxText();
 
-	protected abstract String getEmailBoxText();
+	protected String getName()
+	{
+		if(alt == null)
+			alt = new Alt(emailBox.getText(), passwordBox.getText());
+		if(lastNameCheck + 3000 < System.currentTimeMillis())
+		{
+			if(!alt.getEmail().equals(emailBox.getText()))
+				alt.setEmail(emailBox.getText());
+			if(!alt.getPassword().equals(passwordBox.getText()))
+				alt.setPassword(passwordBox.getText());
+			lastNameCheck = System.currentTimeMillis();
+		}
+		return alt.getName();
+	}
 	
 	/**
 	 * Adds the buttons (and other controls) to the screen in question.
@@ -102,7 +120,7 @@ public abstract class AltEditorScreen extends GuiScreen
 			}else if(button.id == 3)
 				emailBox.setText(NameGenerator.generateName());
 			else if(button.id == 4)
-				displayText = SkinStealer.stealSkin(emailBox.getText());
+				displayText = SkinStealer.stealSkin(getName());
 			else if(button.id == 5)
 				MiscUtils.openFile(Client.wurst.fileManager.skinDir);
 	}
@@ -145,11 +163,12 @@ public abstract class AltEditorScreen extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawDefaultBackground();
-		AltRenderer.drawAltBack(emailBox.getText(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
-		AltRenderer.drawAltBody(emailBox.getText(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderer.drawAltBack(getName(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderer.drawAltBody(getName(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
 		drawCenteredString(fontRendererObj, getTitle(), width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47, 10526880);
 		drawString(fontRendererObj, "Password", width / 2 - 100, 87, 10526880);
+		drawString(fontRendererObj, "Name: " + getName(), width / 2 - 100, 127, 10526880);
 		drawCenteredString(fontRendererObj, displayText, width / 2, 142, 16777215);
 		emailBox.drawTextBox();
 		passwordBox.drawTextBox();

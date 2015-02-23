@@ -64,6 +64,16 @@ public class Alt
 	public void setEmail(String email)
 	{
 		this.email = email;
+		if(password == null || password.isEmpty())
+		{	
+			this.name = email;
+			this.password = null;
+			this.cracked = true;
+		}else
+		{
+			this.name = LoginManager.getName(email, password);
+			cracked = false;
+		}
 	}
 
 	public String getName()
@@ -94,6 +104,17 @@ public class Alt
 	public void setPassword(String password)
 	{
 		this.password = password;
+		if(password == null || password.isEmpty())
+		{	
+			this.name = email;
+			this.password = null;
+			this.cracked = true;
+		}else
+		{
+			this.name = LoginManager.getName(email, password);
+			this.password = password;
+			cracked = false;
+		}
 	}
 
 	public boolean isCracked()
@@ -101,8 +122,10 @@ public class Alt
 		return cracked;
 	}
 
-	public void setCracked(boolean cracked)
+	public void setCracked()
 	{
-		this.cracked = cracked;
+		this.name = email;
+		this.password = null;
+		this.cracked = true;
 	}
 }

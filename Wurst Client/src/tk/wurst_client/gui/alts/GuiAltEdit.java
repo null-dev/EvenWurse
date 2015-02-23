@@ -15,12 +15,12 @@ import tk.wurst_client.alts.LoginManager;
 
 public class GuiAltEdit extends AltEditorScreen
 {
-	private Alt alt;
+	private Alt editedAlt;
 
-	public GuiAltEdit(GuiScreen par1GuiScreen, Alt alt)
+	public GuiAltEdit(GuiScreen par1GuiScreen, Alt editedAlt)
 	{
 		super(par1GuiScreen);
-		this.alt = alt;
+		this.editedAlt = editedAlt;
 	}
 	
 	@Override
@@ -32,13 +32,13 @@ public class GuiAltEdit extends AltEditorScreen
 	@Override
 	protected String getEmailBoxText()
 	{
-		return alt.getEmail();
+		return editedAlt.getEmail();
 	}
 
 	@Override
 	protected String getPasswordBoxText()
 	{
-		return alt.getPassword();
+		return editedAlt.getPassword();
 	}
 
 	@Override
@@ -47,13 +47,13 @@ public class GuiAltEdit extends AltEditorScreen
 		Alt newAlt = new Alt(emailBox.getText(), passwordBox.getText());
 		if(passwordBox.getText().length() == 0)
 		{// Cracked
-			GuiAltList.alts.set(GuiAltList.alts.indexOf(alt), newAlt);
+			GuiAltList.alts.set(GuiAltList.alts.indexOf(editedAlt), newAlt);
 			displayText = "";
 		}else
 		{// Premium
 			displayText = LoginManager.check(emailBox.getText(), passwordBox.getText());
 			if(displayText.equals(""))
-				GuiAltList.alts.set(GuiAltList.alts.indexOf(alt), newAlt);
+				GuiAltList.alts.set(GuiAltList.alts.indexOf(editedAlt), newAlt);
 		}
 		if(displayText.equals(""))
 		{
