@@ -101,6 +101,7 @@ public class GuiAlts extends GuiScreen
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				alt.setStarred(!alt.isStarred());
 				GuiAltList.sortAlts();
+				Client.wurst.fileManager.saveAlts();
 			}else if(clickedButton.id == 4)
 			{
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
