@@ -44,7 +44,7 @@ public class GuiAltEdit extends AltEditorScreen
 	@Override
 	protected void onDoneButtonClick(GuiButton button)
 	{// Save
-		Alt newAlt = new Alt(emailBox.getText(), passwordBox.getText());
+		Alt newAlt = new Alt(emailBox.getText(), passwordBox.getText(), editedAlt.isStarred());
 		if(passwordBox.getText().length() == 0)
 		{// Cracked
 			GuiAltList.alts.set(GuiAltList.alts.indexOf(editedAlt), newAlt);
