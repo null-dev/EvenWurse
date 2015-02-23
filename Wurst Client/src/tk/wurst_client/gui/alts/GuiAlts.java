@@ -69,10 +69,10 @@ public class GuiAlts extends GuiScreen
 	@Override
 	protected void actionPerformed(GuiButton clickedButton)
 	{
-		Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
 			{// Use
+				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				if(alt.isCracked())
 				{// Cracked
 					LoginManager.changeCrackedName(alt.getName());
@@ -98,12 +98,16 @@ public class GuiAlts extends GuiScreen
 				mc.displayGuiScreen(new GuiAltAdd(this));
 			else if(clickedButton.id == 3)
 			{
+				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				alt.setStarred(!alt.isStarred());
 				GuiAltList.sortAlts();
 			}else if(clickedButton.id == 4)
+			{
+				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				mc.displayGuiScreen(new GuiAltEdit(this, alt));
-			else if(clickedButton.id == 5)
+			}else if(clickedButton.id == 5)
 			{// Delete
+				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				String deleteQuestion = "Are you sure you want to remove this alt?";
 				String deleteWarning = "\"" + alt.getName() + "\" will be lost forever! (A long time!)";
 				mc.displayGuiScreen(new GuiYesNo(this, deleteQuestion, deleteWarning, "Delete", "Cancel", 1));
