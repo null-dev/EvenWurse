@@ -8,7 +8,6 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import tk.wurst_client.module.Category;
@@ -41,12 +40,11 @@ public class AutoArmor extends Module
 		for(int i = 9; i < 45; i++)
 		{
 			ItemStack itemstack = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
-			Item item = itemstack.getItem();
-			if(itemstack == null || item == null)
+			if(itemstack == null)
 				continue;
-			if(item instanceof ItemArmor)
+			if(itemstack.getItem() instanceof ItemArmor)
 			{
-				ItemArmor armor = (ItemArmor)item;
+				ItemArmor armor = (ItemArmor)itemstack.getItem();
 				if(armor.armorType == 0 && armor.damageReduceAmount > bestHelmet)
 					bestHelmet = i;
 				if(armor.armorType == 1 && armor.damageReduceAmount > bestPlate)
