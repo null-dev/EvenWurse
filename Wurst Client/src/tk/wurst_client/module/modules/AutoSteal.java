@@ -15,7 +15,7 @@ public class AutoSteal extends Module
 	public AutoSteal()
 	{
 		super("AutoSteal",
-			"Automatically steals everything from all chests you"
+			"Automatically steals everything from all chests you\n"
 			+ "open.",
 			0, Category.MISC);
 	}
