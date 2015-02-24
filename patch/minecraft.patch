@@ -1,7 +1,7 @@
-From 030c7a64d49c876722427f3b1c22a27a60fb26a3 Mon Sep 17 00:00:00 2001
+From 34b882cd8fff2b602a747d27c5d95ad0f002ec33 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Mon, 23 Feb 2015 19:03:20 +0100
-Subject: [PATCH] Initial commit of Wurst Client changes
+Date: Tue, 24 Feb 2015 22:40:44 +0100
+Subject: [PATCH] Add Wurst
 
 ---
  src/net/minecraft/block/Block.java                 |  18 +-
@@ -74,7 +74,7 @@ Subject: [PATCH] Initial commit of Wurst Client changes
  .../client/gui/achievement/GuiAchievements.java    |   6 +-
  .../minecraft/client/gui/achievement/GuiStats.java |   9 +-
  .../minecraft/client/gui/inventory/GuiBeacon.java  |   3 +
- .../minecraft/client/gui/inventory/GuiChest.java   | 164 ++++-
+ .../minecraft/client/gui/inventory/GuiChest.java   | 162 ++++-
  .../client/gui/inventory/GuiContainer.java         |  40 +-
  .../client/gui/inventory/GuiContainerCreative.java |   9 +-
  .../client/gui/inventory/GuiEditSign.java          |  16 +
@@ -205,7 +205,7 @@ Subject: [PATCH] Initial commit of Wurst Client changes
  .../minecraft/world/gen/ChunkProviderServer.java   |   3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |   1 +
  .../world/gen/structure/MapGenStructure.java       |   2 +
- 201 files changed, 2670 insertions(+), 1172 deletions(-)
+ 201 files changed, 2668 insertions(+), 1172 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..c8adf19 100644
@@ -4229,10 +4229,10 @@ index ba125d8..4c3f8fd 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/gui/inventory/GuiChest.java b/src/net/minecraft/client/gui/inventory/GuiChest.java
-index 93156ec..5ee078f 100644
+index 93156ec..3c44f4b 100644
 --- a/src/net/minecraft/client/gui/inventory/GuiChest.java
 +++ b/src/net/minecraft/client/gui/inventory/GuiChest.java
-@@ -1,54 +1,140 @@
+@@ -1,54 +1,138 @@
  package net.minecraft.client.gui.inventory;
  
  import net.minecraft.client.Minecraft;
@@ -4244,6 +4244,7 @@ index 93156ec..5ee078f 100644
 +import net.minecraft.inventory.Slot;
  import net.minecraft.util.ResourceLocation;
 +import tk.wurst_client.Client;
++import tk.wurst_client.module.modules.AutoSteal;
 +import tk.wurst_client.module.modules.YesCheat;
  
  public class GuiChest extends GuiContainer
@@ -4309,13 +4310,7 @@ index 93156ec..5ee078f 100644
 -        this.drawTexturedModalRect(var4, var5, 0, 0, this.xSize, this.inventoryRows * 18 + 17);
 -        this.drawTexturedModalRect(var4, var5 + this.inventoryRows * 18 + 17, 0, 126, this.xSize, 96);
 -    }
-+	/*
-+	 * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
-+	 *
-+	 * This Source Code Form is subject to the terms of the Mozilla Public
-+	 * License, v. 2.0. If a copy of the MPL was not distributed with this
-+	 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
-+	 */
++	//TODO: Client
 +	@SuppressWarnings("unchecked")
 +	@Override
 +	public void initGui()
@@ -4323,11 +4318,14 @@ index 93156ec..5ee078f 100644
 +		super.initGui();
 +		buttonList.add(new GuiButton(0, guiLeft + xSize - 108, guiTop + 4, 50, 12, "Steal"));
 +		buttonList.add(new GuiButton(1, guiLeft + xSize - 56, guiTop + 4, 50, 12, "Store"));
++		if(Client.wurst.moduleManager.getModuleFromClass(AutoSteal.class).getToggled())
++			actionPerformed((GuiButton)buttonList.get(0));
 +	}
 +
++	//TODO: Client
 +	/*
 +	 * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
-+	 *
++	 * 
 +	 * This Source Code Form is subject to the terms of the Mozilla Public
 +	 * License, v. 2.0. If a copy of the MPL was not distributed with this
 +	 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
