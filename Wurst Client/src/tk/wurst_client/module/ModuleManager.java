@@ -45,6 +45,7 @@ public class ModuleManager
 		activeModules.add(new AutoRespawn());
 		activeModules.add(new AutoSign());
 		activeModules.add(new AutoSprint());
+		activeModules.add(new AutoSteal());
 		activeModules.add(new AutoSwitch());
 		activeModules.add(new AutoTool());
 		activeModules.add(new AutoWalk());
