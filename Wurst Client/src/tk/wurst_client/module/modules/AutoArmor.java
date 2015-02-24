@@ -37,7 +37,7 @@ public class AutoArmor extends Module
 		bestPlate = 0;
 		bestLegs = 0;
 		bestBoots = 0;
-		for(int i = 9; i < 45; i++)
+		for(int i = 0; i < 36; i++)
 		{
 			ItemStack itemstack = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
 			if(itemstack == null)
