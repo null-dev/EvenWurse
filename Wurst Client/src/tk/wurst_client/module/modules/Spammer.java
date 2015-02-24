@@ -44,12 +44,11 @@ public class Spammer extends Module
 		super(
 			"Spammer",
 			"It's called Spammer, but it's a lot more.\n"
-				+ "Features:\n"
+				+ "Special features:\n"
 				+ ">ASCII art\n"
-				+ ">Can run any Wurst command\n"
+				+ ">Run any Wurst command\n"
 				+ ">Variables\n"
-				+ ">HTML-like tags that make spamming more efficient\n"
-				+ ">HTML comments\n"
+				+ ">HTML-like tags & comments\n"
 				+ ">Integrated help system",
 			0,
 			Category.CHAT);
