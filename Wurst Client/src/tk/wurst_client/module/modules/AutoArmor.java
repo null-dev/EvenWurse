@@ -33,27 +33,30 @@ public class AutoArmor extends Module
 	{
 		if(!getToggled())
 			return;
-		bestHelmet = 0;
-		bestPlate = 0;
-		bestLegs = 0;
-		bestBoots = 0;
-		for(int i = 0; i < 36; i++)
+		updateMS();
+		if(hasTimePassedM(3000))
 		{
-			ItemStack itemstack = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
-			if(itemstack == null)
-				continue;
-			if(itemstack.getItem() instanceof ItemArmor)
+			bestHelmet = 0;
+			bestPlate = 0;
+			bestLegs = 0;
+			bestBoots = 0;
+			for(int i = 0; i < 36; i++)
 			{
-				ItemArmor armor = (ItemArmor)itemstack.getItem();
-				if(armor.armorType == 0 && armor.damageReduceAmount > bestHelmet)
-					bestHelmet = i;
-				if(armor.armorType == 1 && armor.damageReduceAmount > bestPlate)
-					bestPlate = i;
-				if(armor.armorType == 2 && armor.damageReduceAmount > bestLegs)
-					bestLegs = i;
-				if(armor.armorType == 3 && armor.damageReduceAmount > bestBoots)
-					bestBoots = i;
+				ItemStack itemstack = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
+				if(itemstack != null && itemstack.getItem() instanceof ItemArmor)
+				{
+					ItemArmor armor = (ItemArmor)itemstack.getItem();
+					if(armor.armorType == 0 && armor.damageReduceAmount > bestHelmet)
+						bestHelmet = i;
+					if(armor.armorType == 1 && armor.damageReduceAmount > bestPlate)
+						bestPlate = i;
+					if(armor.armorType == 2 && armor.damageReduceAmount > bestLegs)
+						bestLegs = i;
+					if(armor.armorType == 3 && armor.damageReduceAmount > bestBoots)
+						bestBoots = i;
+				}
 			}
+			updateLastMS();
 		}
 	}
 }
