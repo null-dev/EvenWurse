@@ -158,15 +158,7 @@ public class SpamProcessor
 				case 1:
 					try
 					{
-						switch(JOptionPane.showOptionDialog(spammer.getDialog(), e.getHelp(), "Help", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"OK", "WSPAM reference"}, 0))
-						{
-							case 1:
-								MiscUtils.openLink("http://wspam.wurst-client.tk/");
-								break;
-							
-							default:
-								break;
-						}
+						JOptionPane.showOptionDialog(spammer.getDialog(), e.getHelp(), "Help", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"OK"}, 0);
 					}catch(HeadlessException e1)
 					{
 						e1.printStackTrace();

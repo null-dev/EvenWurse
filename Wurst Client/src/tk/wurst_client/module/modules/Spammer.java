@@ -175,7 +175,7 @@ public class Spammer extends Module
 				});
 				fileMenu.add(fileOpenFolder);
 				menubar.add(fileMenu);
-				JMenuItem fileOpenLink = new JMenuItem("Get more spam at wurst-client.tk");
+				JMenuItem fileOpenLink = new JMenuItem("Get more spam online");
 				fileOpenLink.addActionListener(new ActionListener()
 				{
 					@Override
@@ -255,15 +255,7 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						switch(JOptionPane.showOptionDialog(dialog, new UnreadableTagException("", 0).getHelp(), "Help", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"OK", "WSPAM reference"}, 0))
-						{
-							case 1:
-								MiscUtils.openLink("http://wspam.wurst-client.tk/");
-								break;
-							
-							default:
-								break;
-						}
+						JOptionPane.showOptionDialog(dialog, new UnreadableTagException("", 0).getHelp(), "Help", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"OK"}, 0);
 					}
 				});
 				helpMenu.add(helpIntro);
@@ -328,17 +320,6 @@ public class Spammer extends Module
 					}
 				});
 				helpMenu.add(helpVarlist);
-				helpMenu.add(new JSeparator());
-				JMenuItem helpRef = new JMenuItem("WSPAM reference");
-				helpRef.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						MiscUtils.openLink("http://wspam.wurst-client.tk/");
-					}
-				});
-				helpMenu.add(helpRef);
 				menubar.add(helpMenu);
 				
 				menubar.add(Box.createHorizontalGlue());
