@@ -15,10 +15,7 @@ import tk.wurst_client.module.Module;
 
 public class AutoArmor extends Module
 {
-	private int bestHelmet;
-	private int bestPlate;
-	private int bestLegs;
-	private int bestBoots;
+	private int[] bestArmor;
 
 	public AutoArmor()
 	{
@@ -36,25 +33,21 @@ public class AutoArmor extends Module
 		updateMS();
 		if(hasTimePassedM(3000))
 		{
-			bestHelmet = 0;
-			bestPlate = 0;
-			bestLegs = 0;
-			bestBoots = 0;
+			bestArmor = new int[4];
 			for(int i = 0; i < 36; i++)
 			{
 				ItemStack itemstack = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
 				if(itemstack != null && itemstack.getItem() instanceof ItemArmor)
 				{
 					ItemArmor armor = (ItemArmor)itemstack.getItem();
-					if(armor.armorType == 0 && armor.damageReduceAmount > bestHelmet)
-						bestHelmet = i;
-					if(armor.armorType == 1 && armor.damageReduceAmount > bestPlate)
-						bestPlate = i;
-					if(armor.armorType == 2 && armor.damageReduceAmount > bestLegs)
-						bestLegs = i;
-					if(armor.armorType == 3 && armor.damageReduceAmount > bestBoots)
-						bestBoots = i;
+					if(armor.damageReduceAmount > bestArmor[armor.armorType])
+						bestArmor[armor.armorType] = i;
 				}
+			}
+			for(int i = 0; i < 3; i++)
+			{
+				ItemStack itemstack = Minecraft.getMinecraft().thePlayer.inventory.armorItemInSlot(i);
+				
 			}
 			updateLastMS();
 		}
