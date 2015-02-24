@@ -188,7 +188,7 @@ public class SpamProcessor
 	
 	private static void log(String log)
 	{
-		if("".isEmpty())// Manual switch for debugging
+		if(!"".isEmpty())// Manual switch for debugging
 			System.out.println(log);
 	}
 }
