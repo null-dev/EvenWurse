@@ -39,6 +39,7 @@ public class ModuleManager
 		activeModules.add(new AntiKnockback());
 		activeModules.add(new AntiSpam());
 		activeModules.add(new ArenaBrawl());
+		activeModules.add(new AutoArmor());
 		activeModules.add(new AutoFish());
 		activeModules.add(new AutoMine());
 		activeModules.add(new AutoRespawn());
