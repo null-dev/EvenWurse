@@ -8,9 +8,14 @@
 package tk.wurst_client.spam;
 
 import java.awt.HeadlessException;
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.swing.JOptionPane;
 
+import net.minecraft.client.Minecraft;
+import tk.wurst_client.Client;
 import tk.wurst_client.module.modules.Spammer;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
@@ -27,7 +32,24 @@ public class SpamProcessor
 	
 	public static void runScript(String filename)
 	{
-		
+		File file = new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam");
+		try
+		{
+			if(!file.getParentFile().exists())
+				file.getParentFile().mkdirs();
+			if(!file.exists())
+				file.createNewFile();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			StringWriter tracewriter = new StringWriter();
+			e.printStackTrace(new PrintWriter(tracewriter));
+			String message = "An error occurred while running " + file.getName() + ":\n"
+				+ e.getLocalizedMessage() + "\n"
+				+ tracewriter.toString();
+			JOptionPane.showMessageDialog(Minecraft.getMinecraft().getFrame(),
+				message, "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public static String process(String spam, Spammer spammer, boolean test)
