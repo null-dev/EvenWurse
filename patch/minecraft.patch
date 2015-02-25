@@ -1,16 +1,17 @@
-From afa0bf9da0f3b5ca84f89211e9cd69f0022a0d82 Mon Sep 17 00:00:00 2001
+From d97027f51287487beeffa597393b6ff2cd0b80aa Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 25 Feb 2015 19:46:14 +0100
+Date: Wed, 25 Feb 2015 21:08:45 +0100
 Subject: [PATCH] Wurst
 
 ---
  src/net/minecraft/block/Block.java                 |  18 +-
  src/net/minecraft/block/BlockLiquid.java           |  14 +-
  src/net/minecraft/block/BlockSlab.java             |   8 +-
+ src/net/minecraft/block/BlockSoulSand.java         |   4 +
  .../minecraft/client/LoadingScreenRenderer.java    |  10 +-
  src/net/minecraft/client/Minecraft.java            | 409 +++++++++--
  .../client/entity/AbstractClientPlayer.java        |  17 +-
- .../minecraft/client/entity/EntityPlayerSP.java    |  80 ++-
+ .../minecraft/client/entity/EntityPlayerSP.java    |  85 ++-
  src/net/minecraft/client/gui/FontRenderer.java     |  40 +-
  src/net/minecraft/client/gui/Gui.java              |   8 +-
  src/net/minecraft/client/gui/GuiButton.java        | 252 +++----
@@ -151,7 +152,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/crash/CrashReportCategory.java   |   3 +
  src/net/minecraft/entity/DataWatcher.java          |   3 +
  src/net/minecraft/entity/Entity.java               |  42 +-
- src/net/minecraft/entity/EntityLivingBase.java     |   9 +-
+ src/net/minecraft/entity/EntityLivingBase.java     |  14 +-
  src/net/minecraft/entity/EntityTracker.java        |   3 +
  src/net/minecraft/entity/boss/EntityDragon.java    |   2 +-
  .../minecraft/entity/item/EntityArmorStand.java    |   2 +-
@@ -205,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |   3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |   1 +
  .../world/gen/structure/MapGenStructure.java       |   2 +
- 201 files changed, 2698 insertions(+), 1181 deletions(-)
+ 202 files changed, 2710 insertions(+), 1183 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..c8adf19 100644
@@ -357,6 +358,27 @@ index 0c52e06..69a4937 100644
      }
  
      public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
+diff --git a/src/net/minecraft/block/BlockSoulSand.java b/src/net/minecraft/block/BlockSoulSand.java
+index 6520f1d..cef300b 100644
+--- a/src/net/minecraft/block/BlockSoulSand.java
++++ b/src/net/minecraft/block/BlockSoulSand.java
+@@ -1,5 +1,7 @@
+ package net.minecraft.block;
+ 
++import tk.wurst_client.Client;
++import tk.wurst_client.module.modules.NoSlowdown;
+ import net.minecraft.block.material.Material;
+ import net.minecraft.block.state.IBlockState;
+ import net.minecraft.creativetab.CreativeTabs;
+@@ -29,6 +31,8 @@ public class BlockSoulSand extends Block
+      */
+     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+     {
++    	if(Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class).getToggled())
++    		return;
+         entityIn.motionX *= 0.4D;
+         entityIn.motionZ *= 0.4D;
+     }
 diff --git a/src/net/minecraft/client/LoadingScreenRenderer.java b/src/net/minecraft/client/LoadingScreenRenderer.java
 index 555f15e..0f81893 100644
 --- a/src/net/minecraft/client/LoadingScreenRenderer.java
@@ -1139,10 +1161,10 @@ index de9ca57..26dad72 100644
  
      public float func_175156_o()
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..66474be 100644
+index eefe303..62bba39 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
-@@ -1,5 +1,11 @@
+@@ -1,5 +1,12 @@
  package net.minecraft.client.entity;
  
 +import tk.wurst_client.Client;
@@ -1150,11 +1172,12 @@ index eefe303..66474be 100644
 +import tk.wurst_client.module.Module;
 +import tk.wurst_client.module.modules.Blink;
 +import tk.wurst_client.module.modules.Freecam;
++import tk.wurst_client.module.modules.NoSlowdown;
 +import tk.wurst_client.module.modules.RemoteView;
  import net.minecraft.client.Minecraft;
  import net.minecraft.client.audio.MovingSoundMinecartRiding;
  import net.minecraft.client.audio.PositionedSoundRecord;
-@@ -10,14 +16,7 @@ import net.minecraft.client.gui.GuiMerchant;
+@@ -10,14 +17,7 @@ import net.minecraft.client.gui.GuiMerchant;
  import net.minecraft.client.gui.GuiRepair;
  import net.minecraft.client.gui.GuiScreen;
  import net.minecraft.client.gui.GuiScreenBook;
@@ -1170,7 +1193,7 @@ index eefe303..66474be 100644
  import net.minecraft.client.network.NetHandlerPlayClient;
  import net.minecraft.command.server.CommandBlockLogic;
  import net.minecraft.entity.Entity;
-@@ -134,6 +133,11 @@ public class EntityPlayerSP extends AbstractClientPlayer
+@@ -134,6 +134,11 @@ public class EntityPlayerSP extends AbstractClientPlayer
      {
          if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
          {
@@ -1182,7 +1205,7 @@ index eefe303..66474be 100644
              super.onUpdate();
  
              if (this.isRiding())
-@@ -143,12 +147,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
+@@ -143,12 +148,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
              }
              else
              {
@@ -1197,7 +1220,7 @@ index eefe303..66474be 100644
      {
          boolean var1 = this.isSprinting();
  
-@@ -192,7 +196,34 @@ public class EntityPlayerSP extends AbstractClientPlayer
+@@ -192,7 +197,34 @@ public class EntityPlayerSP extends AbstractClientPlayer
              boolean var13 = var3 * var3 + var5 * var5 + var7 * var7 > 9.0E-4D || this.field_175168_bP >= 20;
              boolean var14 = var9 != 0.0D || var11 != 0.0D;
  
@@ -1233,7 +1256,7 @@ index eefe303..66474be 100644
              {
                  if (var13 && var14)
                  {
-@@ -210,8 +241,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
+@@ -210,8 +242,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
                  {
                      this.sendQueue.addToSendQueue(new C03PacketPlayer(this.onGround));
                  }
@@ -1243,7 +1266,7 @@ index eefe303..66474be 100644
              {
                  this.sendQueue.addToSendQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.motionX, -999.0D, this.motionZ, this.rotationYaw, this.rotationPitch, this.onGround));
                  var13 = false;
-@@ -255,6 +285,30 @@ public class EntityPlayerSP extends AbstractClientPlayer
+@@ -255,6 +286,30 @@ public class EntityPlayerSP extends AbstractClientPlayer
       */
      public void sendChatMessage(String p_71165_1_)
      {
@@ -1274,6 +1297,17 @@ index eefe303..66474be 100644
          this.sendQueue.addToSendQueue(new C01PacketChatMessage(p_71165_1_));
      }
  
+@@ -738,7 +793,9 @@ public class EntityPlayerSP extends AbstractClientPlayer
+         boolean var4 = this.movementInput.moveForward >= var3;
+         this.movementInput.updatePlayerMoveState();
+ 
+-        if (this.isUsingItem() && !this.isRiding())
++        //TODO: Client
++        if (this.isUsingItem() && !this.isRiding()
++        	&& !Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class).getToggled())
+         {
+             this.movementInput.moveStrafe *= 0.2F;
+             this.movementInput.moveForward *= 0.2F;
 diff --git a/src/net/minecraft/client/gui/FontRenderer.java b/src/net/minecraft/client/gui/FontRenderer.java
 index 2d4215d..874ba27 100644
 --- a/src/net/minecraft/client/gui/FontRenderer.java
@@ -7396,10 +7430,10 @@ index 7397345..f610119 100644
  
      public void setInvisible(boolean invisible)
 diff --git a/src/net/minecraft/entity/EntityLivingBase.java b/src/net/minecraft/entity/EntityLivingBase.java
-index c6f8843..3d08264 100644
+index c6f8843..5229018 100644
 --- a/src/net/minecraft/entity/EntityLivingBase.java
 +++ b/src/net/minecraft/entity/EntityLivingBase.java
-@@ -1,12 +1,16 @@
+@@ -1,12 +1,17 @@
  package net.minecraft.entity;
  
  import com.google.common.collect.Maps;
@@ -7413,10 +7447,11 @@ index c6f8843..3d08264 100644
 +
 +import tk.wurst_client.Client;
 +import tk.wurst_client.module.modules.HighJump;
++import tk.wurst_client.module.modules.NoSlowdown;
  import net.minecraft.block.Block;
  import net.minecraft.block.material.Material;
  import net.minecraft.block.state.IBlockState;
-@@ -1121,7 +1125,7 @@ public abstract class EntityLivingBase extends Entity
+@@ -1121,7 +1126,7 @@ public abstract class EntityLivingBase extends Entity
          int var2 = MathHelper.floor_double(this.getEntityBoundingBox().minY);
          int var3 = MathHelper.floor_double(this.posZ);
          Block var4 = this.worldObj.getBlockState(new BlockPos(var1, var2, var3)).getBlock();
@@ -7425,7 +7460,7 @@ index c6f8843..3d08264 100644
      }
  
      /**
-@@ -1555,7 +1559,8 @@ public abstract class EntityLivingBase extends Entity
+@@ -1555,7 +1560,8 @@ public abstract class EntityLivingBase extends Entity
       */
      protected void jump()
      {
@@ -7435,6 +7470,17 @@ index c6f8843..3d08264 100644
  
          if (this.isPotionActive(Potion.jump))
          {
+@@ -1598,7 +1604,9 @@ public abstract class EntityLivingBase extends Entity
+             float var5;
+             float var6;
+ 
+-            if (this.isInWater() && (!(this instanceof EntityPlayer) || !((EntityPlayer)this).capabilities.isFlying))
++            //TODO: Client
++            if (this.isInWater() && (!(this instanceof EntityPlayer) || !((EntityPlayer)this).capabilities.isFlying)
++            	&& !Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class).getToggled())
+             {
+                 var8 = this.posY;
+                 var5 = 0.8F;
 diff --git a/src/net/minecraft/entity/EntityTracker.java b/src/net/minecraft/entity/EntityTracker.java
 index e86485f..4b9df96 100644
 --- a/src/net/minecraft/entity/EntityTracker.java
