@@ -42,16 +42,21 @@ public class BlockUtils
 			));
 	}
 	
-	public static float getBlockDistance(float xDiff, float yDiff, float zDiff)
+	public static float getBlockDistanceFromPlayer(BlockPos blockPos)
 	{
-		return MathHelper.sqrt_float((xDiff - 0.5F) * (xDiff - 0.5F) + (yDiff - 0.5F) * (yDiff - 0.5F) + (zDiff - 0.5F) * (zDiff - 0.5F));
+		return getBlockDistanceFromPlayer(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 	}
-	
+
 	public static float getBlockDistanceFromPlayer(double posX, double posY, double posZ)
 	{
 		float xDiff = (float)(Minecraft.getMinecraft().thePlayer.posX - posX);
 		float yDiff = (float)(Minecraft.getMinecraft().thePlayer.posY - posY);
 		float zDiff = (float)(Minecraft.getMinecraft().thePlayer.posZ - posZ);
-		return BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
+		return getBlockDistance(xDiff, yDiff, zDiff);
+	}
+
+	public static float getBlockDistance(float xDiff, float yDiff, float zDiff)
+	{
+		return MathHelper.sqrt_float((xDiff - 0.5F) * (xDiff - 0.5F) + (yDiff - 0.5F) * (yDiff - 0.5F) + (zDiff - 0.5F) * (zDiff - 0.5F));
 	}
 }
