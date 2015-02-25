@@ -8,12 +8,7 @@
 package tk.wurst_client.spam;
 
 import java.awt.HeadlessException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.*;
 
 import javax.swing.JOptionPane;
 
@@ -33,7 +28,7 @@ public class SpamProcessor
 	public static TagManager tagManager = new TagManager();
 	public static VarManager varManager = new VarManager();
 	
-	public static void runScript(final String filename)
+	public static void runScript(final String filename, final String description)
 	{
 		new Thread(new Runnable()
 		{
@@ -53,7 +48,14 @@ public class SpamProcessor
 					if(!file.getParentFile().exists())
 						file.getParentFile().mkdirs();
 					if(!file.exists())
-						file.createNewFile();
+					{
+						PrintWriter save = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+						save.println("<!--");
+						for(String line : description.split("\n"))
+							save.println("  " + line);
+						save.println("-->");
+						save.close();
+					}
 					BufferedReader load = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 					String content = load.readLine();
 					for(String line = ""; (line = load.readLine()) != null;)
