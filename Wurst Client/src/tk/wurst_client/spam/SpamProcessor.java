@@ -31,34 +31,48 @@ public class SpamProcessor
 	public static TagManager tagManager = new TagManager();
 	public static VarManager varManager = new VarManager();
 	
-	public static void runScript(String filename)
+	public static void runScript(final String filename)
 	{
-		File file = new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam");
-		try
+		new Thread(new Runnable()
 		{
-			if(!file.getParentFile().exists())
-				file.getParentFile().mkdirs();
-			if(!file.exists())
-				file.createNewFile();
-			String content = new String(Files.readAllBytes(file.toPath()));
-			String spam = SpamProcessor.process(content, null, false);
-			for(int i = 0; i < spam.split("\n").length; i++)
+			@Override
+			public void run()
 			{
-				String message = spam.split("\n")[i];
-				Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
-				Thread.sleep(Client.wurst.options.spamDelay);
+				File file = new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam");
+				try
+				{
+					long startTime = System.currentTimeMillis();
+					while(Minecraft.getMinecraft().thePlayer == null)
+					{
+						Thread.sleep(50);
+						if(System.currentTimeMillis() > startTime + 10000)
+							return;
+					}
+					if(!file.getParentFile().exists())
+						file.getParentFile().mkdirs();
+					if(!file.exists())
+						file.createNewFile();
+					String content = new String(Files.readAllBytes(file.toPath()));
+					String spam = SpamProcessor.process(content, null, false);
+					for(int i = 0; i < spam.split("\n").length; i++)
+					{
+						String message = spam.split("\n")[i];
+						Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
+						Thread.sleep(Client.wurst.options.spamDelay);
+					}
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+					StringWriter tracewriter = new StringWriter();
+					e.printStackTrace(new PrintWriter(tracewriter));
+					String message = "An error occurred while running " + file.getName() + ":\n"
+						+ e.getLocalizedMessage() + "\n"
+						+ tracewriter.toString();
+					JOptionPane.showMessageDialog(Minecraft.getMinecraft().getFrame(),
+						message, "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			StringWriter tracewriter = new StringWriter();
-			e.printStackTrace(new PrintWriter(tracewriter));
-			String message = "An error occurred while running " + file.getName() + ":\n"
-				+ e.getLocalizedMessage() + "\n"
-				+ tracewriter.toString();
-			JOptionPane.showMessageDialog(Minecraft.getMinecraft().getFrame(),
-				message, "Error", JOptionPane.ERROR_MESSAGE);
-		}
+		}).start();
 	}
 	
 	public static String process(String spam, Spammer spammer, boolean test)
