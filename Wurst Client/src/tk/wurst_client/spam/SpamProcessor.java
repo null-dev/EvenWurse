@@ -11,6 +11,7 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Files;
 
 import javax.swing.JOptionPane;
 
@@ -39,6 +40,14 @@ public class SpamProcessor
 				file.getParentFile().mkdirs();
 			if(!file.exists())
 				file.createNewFile();
+			String content = new String(Files.readAllBytes(file.toPath()));
+			String spam = SpamProcessor.process(content, null, false);
+			for(int i = 0; i < spam.split("\n").length; i++)
+			{
+				String message = spam.split("\n")[i];
+				Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
+				Thread.sleep(Client.wurst.options.spamDelay);
+			}
 		}catch(Exception e)
 		{
 			e.printStackTrace();
