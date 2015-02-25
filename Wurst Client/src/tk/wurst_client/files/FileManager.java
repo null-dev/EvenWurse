@@ -176,7 +176,7 @@ public class FileManager
 	
 	private String[] moduleBlacklist =
 	{
-		ForceOP.class.getName(),
+		AntiAFK.class.getName(),
 		ArenaBrawl.class.getName(),
 		AutoBuild.class.getName(),
 		AutoSign.class.getName(),
