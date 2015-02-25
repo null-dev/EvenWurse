@@ -25,6 +25,11 @@ public class SpamProcessor
 	public static TagManager tagManager = new TagManager();
 	public static VarManager varManager = new VarManager();
 	
+	public static void runScript(String filename)
+	{
+		
+	}
+	
 	public static String process(String spam, Spammer spammer, boolean test)
 	{
 		try
