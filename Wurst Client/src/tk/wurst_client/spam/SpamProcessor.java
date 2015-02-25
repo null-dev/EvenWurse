@@ -54,6 +54,8 @@ public class SpamProcessor
 						file.createNewFile();
 					String content = new String(Files.readAllBytes(file.toPath()));
 					String spam = SpamProcessor.process(content, null, false);
+					if(spam == null || spam.isEmpty())
+						return;
 					for(int i = 0; i < spam.split("\n").length; i++)
 					{
 						String message = spam.split("\n")[i];
