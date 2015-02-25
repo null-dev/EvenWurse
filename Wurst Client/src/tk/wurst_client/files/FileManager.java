@@ -47,6 +47,7 @@ import com.google.gson.JsonParser;
 public class FileManager
 {
 	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
+	public final File scriptsDir = new File(wurstDir, "scripts");
 	public final File skinDir = new File(wurstDir, "skins");
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
@@ -69,6 +70,8 @@ public class FileManager
 	{
 		if(!wurstDir.exists())
 			wurstDir.mkdir();
+		if(!scriptsDir.exists())
+			scriptsDir.mkdir();
 		if(!skinDir.exists())
 			skinDir.mkdir();
 		if(!serverlistsDir.exists())
