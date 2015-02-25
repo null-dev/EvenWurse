@@ -73,17 +73,7 @@ public class FileManager
 		if(!spamDir.exists())
 			spamDir.mkdir();
 		if(!scriptsDir.exists())
-		{
 			scriptsDir.mkdir();
-			try
-			{
-				new File(scriptsDir, "joinworld.wspam").createNewFile();
-				new File(scriptsDir, "joinserver.wspam").createNewFile();
-			}catch(IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
 		if(!skinDir.exists())
 			skinDir.mkdir();
 		if(!serverlistsDir.exists())
