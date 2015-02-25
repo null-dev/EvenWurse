@@ -35,6 +35,7 @@ public class ModuleManager
 	public ModuleManager()
 	{
 		activeModules.add(new AnnoyCMD());
+		activeModules.add(new AntiAFK());
 		activeModules.add(new AntiBlind());
 		activeModules.add(new AntiKnockback());
 		activeModules.add(new AntiSpam());
