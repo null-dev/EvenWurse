@@ -47,10 +47,10 @@ import com.google.gson.JsonParser;
 public class FileManager
 {
 	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
-	public final File scriptsDir = new File(wurstDir, "scripts");
 	public final File skinDir = new File(wurstDir, "skins");
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
+	public final File scriptsDir = new File(spamDir, "autorun");
 	
 	public final File alts = new File(wurstDir, "alts.json");
 	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.txt");
@@ -71,7 +71,17 @@ public class FileManager
 		if(!wurstDir.exists())
 			wurstDir.mkdir();
 		if(!scriptsDir.exists())
+		{
 			scriptsDir.mkdir();
+			try
+			{
+				new File(scriptsDir, "joinworld.wspam").createNewFile();
+				new File(scriptsDir, "joinserver.wspam").createNewFile();
+			}catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 		if(!skinDir.exists())
 			skinDir.mkdir();
 		if(!serverlistsDir.exists())
