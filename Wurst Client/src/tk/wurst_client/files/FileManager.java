@@ -70,6 +70,8 @@ public class FileManager
 	{
 		if(!wurstDir.exists())
 			wurstDir.mkdir();
+		if(!spamDir.exists())
+			spamDir.mkdir();
 		if(!scriptsDir.exists())
 		{
 			scriptsDir.mkdir();
@@ -86,8 +88,6 @@ public class FileManager
 			skinDir.mkdir();
 		if(!serverlistsDir.exists())
 			serverlistsDir.mkdir();
-		if(!spamDir.exists())
-			spamDir.mkdir();
 		if(!options.exists())
 			saveOptions();
 		else
