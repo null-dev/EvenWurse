@@ -94,6 +94,7 @@ public class ModuleManager
 		activeModules.add(new NameTags());
 		activeModules.add(new NoFall());
 		activeModules.add(new NoHurtcam());
+		activeModules.add(new NoSlowdown());
 		activeModules.add(new NoWeb());
 		activeModules.add(new Nuker());
 		activeModules.add(new NukerLegit());
