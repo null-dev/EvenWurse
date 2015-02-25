@@ -15,7 +15,7 @@ public class NoSlowdown extends Module
 	public NoSlowdown()
 	{
 		super("NoSlowdown",
-			"Cancels slowness effects from using items and walkin on\n"
+			"Cancels slowness effects from using items and walking on\n"
 			+ "soul sand.",
 			0,
 			Category.MOVEMENT);
