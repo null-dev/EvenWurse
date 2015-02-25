@@ -46,4 +46,12 @@ public class BlockUtils
 	{
 		return MathHelper.sqrt_float((xDiff - 0.5F) * (xDiff - 0.5F) + (yDiff - 0.5F) * (yDiff - 0.5F) + (zDiff - 0.5F) * (zDiff - 0.5F));
 	}
+	
+	public static float getBlockDistanceFromPlayer(double posX, double posY, double posZ)
+	{
+		float xDiff = (float)(Minecraft.getMinecraft().thePlayer.posX - posX);
+		float yDiff = (float)(Minecraft.getMinecraft().thePlayer.posY - posY);
+		float zDiff = (float)(Minecraft.getMinecraft().thePlayer.posZ - posZ);
+		return BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
+	}
 }
