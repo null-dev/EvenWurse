@@ -1,6 +1,6 @@
-From d97027f51287487beeffa597393b6ff2cd0b80aa Mon Sep 17 00:00:00 2001
+From da1e32180d4a7b7283b4d112618089ae3ef9be36 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 25 Feb 2015 21:08:45 +0100
+Date: Wed, 25 Feb 2015 23:44:23 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |   8 +-
  src/net/minecraft/block/BlockSoulSand.java         |   4 +
  .../minecraft/client/LoadingScreenRenderer.java    |  10 +-
- src/net/minecraft/client/Minecraft.java            | 409 +++++++++--
+ src/net/minecraft/client/Minecraft.java            | 413 +++++++++--
  .../client/entity/AbstractClientPlayer.java        |  17 +-
  .../minecraft/client/entity/EntityPlayerSP.java    |  85 ++-
  src/net/minecraft/client/gui/FontRenderer.java     |  40 +-
@@ -39,7 +39,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiMainMenu.java      | 183 ++++-
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |   2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |   4 +
- src/net/minecraft/client/gui/GuiMultiplayer.java   | 193 ++++-
+ src/net/minecraft/client/gui/GuiMultiplayer.java   | 197 +++++-
  src/net/minecraft/client/gui/GuiNewChat.java       |  42 +-
  src/net/minecraft/client/gui/GuiOptionButton.java  |   1 +
  src/net/minecraft/client/gui/GuiOptionSlider.java  |   1 +
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |   3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |   1 +
  .../world/gen/structure/MapGenStructure.java       |   2 +
- 202 files changed, 2710 insertions(+), 1183 deletions(-)
+ 202 files changed, 2718 insertions(+), 1183 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..c8adf19 100644
@@ -419,7 +419,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..54dca63 100644
+index f503b64..8f8cb55 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,21 +1,24 @@
@@ -485,13 +485,14 @@ index f503b64..54dca63 100644
  import org.apache.commons.io.IOUtils;
  import org.apache.commons.lang3.Validate;
  import org.apache.logging.log4j.LogManager;
-@@ -184,10 +198,29 @@ import org.lwjgl.opengl.OpenGLException;
+@@ -184,10 +198,30 @@ import org.lwjgl.opengl.OpenGLException;
  import org.lwjgl.opengl.PixelFormat;
  import org.lwjgl.util.glu.GLU;
  
 +import tk.wurst_client.Client;
 +import tk.wurst_client.font.Fonts;
 +import tk.wurst_client.module.Module;
++import tk.wurst_client.spam.SpamProcessor;
 +import tk.wurst_client.utils.MiscUtils;
 +
 +import com.google.common.collect.Iterables;
@@ -516,7 +517,7 @@ index f503b64..54dca63 100644
      public static final boolean isRunningOnMac = Util.getOSType() == Util.EnumOS.OSX;
  
      /** A 10MiB preallocation to ensure the heap is reasonably sized. */
-@@ -226,7 +259,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -226,7 +260,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      private Entity field_175622_Z;
      public Entity pointedEntity;
      public EffectRenderer effectRenderer;
@@ -526,7 +527,7 @@ index f503b64..54dca63 100644
      private boolean isGamePaused;
  
      /** The font renderer used for displaying and measuring text */
-@@ -280,7 +314,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -280,7 +315,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      /**
       * When you place a block, it's set to 6, decremented once per tick, when it's 0, you can place another block.
       */
@@ -536,7 +537,7 @@ index f503b64..54dca63 100644
      private String serverName;
      private int serverPort;
  
-@@ -345,6 +380,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -345,6 +381,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
  
      /** Profiler currently displayed in the debug screen pie chart */
      private String debugProfilerName = "root";
@@ -546,7 +547,7 @@ index f503b64..54dca63 100644
      private static final String __OBFID = "CL_00000631";
  
      public Minecraft(GameConfiguration p_i45547_1_)
-@@ -466,9 +504,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -466,9 +505,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
          }
  
          logger.info("LWJGL Version: " + Sys.getVersion());
@@ -559,7 +560,7 @@ index f503b64..54dca63 100644
          OpenGlHelper.initializeTextures();
          this.framebufferMc = new Framebuffer(this.displayWidth, this.displayHeight, true);
          this.framebufferMc.setFramebufferColor(0.0F, 0.0F, 0.0F, 0.0F);
-@@ -489,6 +527,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -489,6 +528,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
          this.mcMusicTicker = new MusicTicker(this);
          this.fontRendererObj = new FontRenderer(this.gameSettings, new ResourceLocation("textures/font/ascii.png"), this.renderEngine, false);
  
@@ -569,7 +570,7 @@ index f503b64..54dca63 100644
          if (this.gameSettings.language != null)
          {
              this.fontRendererObj.setUnicodeFlag(this.isUnicode());
-@@ -570,6 +611,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -570,6 +612,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
              this.toggleFullscreen();
          }
  
@@ -581,7 +582,7 @@ index f503b64..54dca63 100644
          try
          {
              Display.setVSyncEnabled(this.gameSettings.enableVsync);
-@@ -605,7 +651,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -605,7 +652,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
          }
      }
  
@@ -590,7 +591,7 @@ index f503b64..54dca63 100644
      {
          Display.setResizable(true);
          Display.setTitle("Minecraft 1.8");
-@@ -636,22 +682,51 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -636,22 +683,51 @@ public class Minecraft implements IThreadListener, IPlayerUsage
          }
      }
  
@@ -647,7 +648,7 @@ index f503b64..54dca63 100644
      {
          Util.EnumOS var1 = Util.getOSType();
  
-@@ -681,6 +756,42 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -681,6 +757,42 @@ public class Minecraft implements IThreadListener, IPlayerUsage
              }
          }
      }
@@ -690,7 +691,7 @@ index f503b64..54dca63 100644
  
      private static boolean isJvm64bit()
      {
-@@ -747,25 +858,147 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -747,25 +859,147 @@ public class Minecraft implements IThreadListener, IPlayerUsage
       */
      public void displayCrashReport(CrashReport crashReportIn)
      {
@@ -856,7 +857,7 @@ index f503b64..54dca63 100644
      }
  
      public boolean isUnicode()
-@@ -917,14 +1150,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -917,14 +1151,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage
          Tessellator var6 = Tessellator.getInstance();
          WorldRenderer var7 = var6.getWorldRenderer();
          var7.startDrawingQuads();
@@ -873,7 +874,7 @@ index f503b64..54dca63 100644
          short var8 = 256;
          short var9 = 256;
          this.scaledTessellator((var2.getScaledWidth() - var8) / 2, (var2.getScaledHeight() - var9) / 2, 0, 0, var8, var9);
-@@ -1329,7 +1562,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1329,7 +1563,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
              int var9 = this.displayHeight - var7 * 2;
              GlStateManager.enableBlend();
              var6.startDrawingQuads();
@@ -882,7 +883,7 @@ index f503b64..54dca63 100644
              var6.addVertex((double)((float)var8 - (float)var7 * 1.1F), (double)((float)var9 - (float)var7 * 0.6F - 16.0F), 0.0D);
              var6.addVertex((double)((float)var8 - (float)var7 * 1.1F), (double)(var9 + var7 * 2), 0.0D);
              var6.addVertex((double)((float)var8 + (float)var7 * 1.1F), (double)(var9 + var7 * 2), 0.0D);
-@@ -1344,7 +1577,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1344,7 +1578,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                  Profiler.Result var13 = (Profiler.Result)var3.get(var12);
                  var14 = MathHelper.floor_double(var13.field_76332_a / 4.0D) + 1;
                  var6.startDrawing(6);
@@ -891,7 +892,7 @@ index f503b64..54dca63 100644
                  var6.addVertex((double)var8, (double)var9, 0.0D);
                  int var15;
                  float var16;
-@@ -1361,7 +1594,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1361,7 +1595,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
  
                  var5.draw();
                  var6.startDrawing(5);
@@ -900,7 +901,7 @@ index f503b64..54dca63 100644
  
                  for (var15 = var14; var15 >= 0; --var15)
                  {
-@@ -1395,8 +1628,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1395,8 +1629,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
              }
  
              var14 = 16777215;
@@ -911,7 +912,7 @@ index f503b64..54dca63 100644
  
              for (int var21 = 0; var21 < var3.size(); ++var21)
              {
-@@ -1413,9 +1646,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1413,9 +1647,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                  }
  
                  var23 = var23 + var22.field_76331_c;
@@ -924,7 +925,7 @@ index f503b64..54dca63 100644
              }
          }
      }
-@@ -1486,11 +1719,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1486,11 +1720,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
          {
              if (leftClick && this.objectMouseOver != null && this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
              {
@@ -939,7 +940,7 @@ index f503b64..54dca63 100644
                      this.thePlayer.swingItem();
                  }
              }
-@@ -1505,6 +1738,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1505,6 +1739,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      {
          if (this.leftClickCounter <= 0)
          {
@@ -951,7 +952,7 @@ index f503b64..54dca63 100644
              this.thePlayer.swingItem();
  
              if (this.objectMouseOver == null)
-@@ -1525,11 +1763,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1525,11 +1764,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                          break;
  
                      case 2:
@@ -965,7 +966,7 @@ index f503b64..54dca63 100644
                              break;
                          }
  
-@@ -1547,7 +1785,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1547,7 +1786,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      /**
       * Called when user clicked he's mouse right button (place)
       */
@@ -975,7 +976,7 @@ index f503b64..54dca63 100644
      {
          this.rightClickDelayTimer = 4;
          boolean var1 = true;
-@@ -1574,13 +1813,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1574,13 +1814,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                      break;
  
                  case 2:
@@ -991,7 +992,7 @@ index f503b64..54dca63 100644
                          {
                              var1 = false;
                              this.thePlayer.swingItem();
-@@ -1817,7 +2056,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1817,7 +2057,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
  
                  if (Mouse.getEventButtonState())
                  {
@@ -1000,7 +1001,7 @@ index f503b64..54dca63 100644
                      {
                          this.ingameGUI.func_175187_g().func_175261_b();
                      }
-@@ -1835,7 +2074,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1835,7 +2075,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
  
                      if (var4 != 0)
                      {
@@ -1009,7 +1010,7 @@ index f503b64..54dca63 100644
                          {
                              var4 = var4 < 0 ? -1 : 1;
  
-@@ -1918,6 +2157,15 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -1918,6 +2158,15 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                      }
                      else
                      {
@@ -1025,7 +1026,7 @@ index f503b64..54dca63 100644
                          if (var1 == 1)
                          {
                              this.displayInGameMenu();
-@@ -2049,7 +2297,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -2049,7 +2298,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
              {
                  if (this.gameSettings.keyBindsHotbar[var1].isPressed())
                  {
@@ -1034,7 +1035,7 @@ index f503b64..54dca63 100644
                      {
                          this.ingameGUI.func_175187_g().func_175260_a(var1);
                      }
-@@ -2077,7 +2325,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -2077,7 +2326,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
  
              while (this.gameSettings.keyBindDrop.isPressed())
              {
@@ -1043,7 +1044,17 @@ index f503b64..54dca63 100644
                  {
                      this.thePlayer.dropOneItem(GuiScreen.isCtrlKeyDown());
                  }
-@@ -2489,7 +2737,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -2315,6 +2564,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+         var12.sendPacket(new C00Handshake(47, var11.toString(), 0, EnumConnectionState.LOGIN));
+         var12.sendPacket(new C00PacketLoginStart(this.getSession().getProfile()));
+         this.myNetworkManager = var12;
++        
++        //TODO: Client
++        SpamProcessor.runScript("joinworld", "Runs whenever you join a singlepalyer world.");
+     }
+ 
+     /**
+@@ -2489,7 +2741,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
  
              if (this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
              {
@@ -1052,7 +1063,7 @@ index f503b64..54dca63 100644
                  Block var7 = this.theWorld.getBlockState(var6).getBlock();
  
                  if (var7.getMaterial() == Material.air)
-@@ -2515,6 +2763,31 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -2515,6 +2767,31 @@ public class Minecraft implements IThreadListener, IPlayerUsage
              }
              else
              {
@@ -1084,7 +1095,7 @@ index f503b64..54dca63 100644
                  if (this.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.ENTITY || this.objectMouseOver.entityHit == null || !var1)
                  {
                      return;
-@@ -3303,4 +3576,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+@@ -3303,4 +3580,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage
              }
          }
      }
@@ -2809,10 +2820,10 @@ index 518840e..8c0b1ea 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/gui/GuiMultiplayer.java b/src/net/minecraft/client/gui/GuiMultiplayer.java
-index da42542..20e9222 100644
+index da42542..379980d 100644
 --- a/src/net/minecraft/client/gui/GuiMultiplayer.java
 +++ b/src/net/minecraft/client/gui/GuiMultiplayer.java
-@@ -1,26 +1,50 @@
+@@ -1,26 +1,51 @@
  package net.minecraft.client.gui;
  
 -import com.google.common.base.Splitter;
@@ -2847,6 +2858,7 @@ index da42542..20e9222 100644
 +import tk.wurst_client.Client;
 +import tk.wurst_client.gui.servers.GuiCleanUp;
 +import tk.wurst_client.gui.servers.GuiServerFinder;
++import tk.wurst_client.spam.SpamProcessor;
 +import tk.wurst_client.utils.MiscUtils;
 +
 +import com.google.common.base.Splitter;
@@ -2867,7 +2879,7 @@ index da42542..20e9222 100644
      private GuiButton btnEditServer;
      private GuiButton btnSelectServer;
      private GuiButton btnDeleteServer;
-@@ -94,7 +118,13 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -94,7 +119,13 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
          this.buttonList.add(new GuiButton(3, this.width / 2 + 4 + 50, this.height - 52, 100, 20, I18n.format("selectServer.add", new Object[0])));
          this.buttonList.add(new GuiButton(8, this.width / 2 + 4, this.height - 28, 70, 20, I18n.format("selectServer.refresh", new Object[0])));
          this.buttonList.add(new GuiButton(0, this.width / 2 + 4 + 76, this.height - 28, 75, 20, I18n.format("gui.cancel", new Object[0])));
@@ -2882,7 +2894,7 @@ index da42542..20e9222 100644
      }
  
      /**
-@@ -112,6 +142,8 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -112,6 +143,8 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
          }
  
          this.oldServerPinger.pingPendingNetworks();
@@ -2891,7 +2903,7 @@ index da42542..20e9222 100644
      }
  
      /**
-@@ -134,7 +166,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -134,7 +167,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
      {
          if (button.enabled)
          {
@@ -2900,7 +2912,7 @@ index da42542..20e9222 100644
  
              if (button.id == 2 && var2 instanceof ServerListEntryNormal)
              {
-@@ -147,7 +179,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -147,7 +180,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
                      String var5 = "\'" + var9 + "\' " + I18n.format("selectServer.deleteWarning", new Object[0]);
                      String var6 = I18n.format("selectServer.deleteButton", new Object[0]);
                      String var7 = I18n.format("gui.cancel", new Object[0]);
@@ -2909,7 +2921,7 @@ index da42542..20e9222 100644
                      this.mc.displayGuiScreen(var8);
                  }
              }
-@@ -180,6 +212,106 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -180,6 +213,106 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
              else if (button.id == 8)
              {
                  this.refreshServerList();
@@ -3016,7 +3028,7 @@ index da42542..20e9222 100644
              }
          }
      }
-@@ -191,7 +323,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -191,7 +324,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
  
      public void confirmClicked(boolean result, int id)
      {
@@ -3025,7 +3037,7 @@ index da42542..20e9222 100644
  
          if (this.deletingServer)
          {
-@@ -199,9 +331,9 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -199,9 +332,9 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
  
              if (result && var3 instanceof ServerListEntryNormal)
              {
@@ -3037,7 +3049,7 @@ index da42542..20e9222 100644
                  this.serverListSelector.func_148195_a(this.savedServerList);
              }
  
-@@ -228,7 +360,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -228,7 +361,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
              {
                  this.savedServerList.addServerData(this.selectedServer);
                  this.savedServerList.saveServerList();
@@ -3046,7 +3058,7 @@ index da42542..20e9222 100644
                  this.serverListSelector.func_148195_a(this.savedServerList);
              }
  
-@@ -258,7 +390,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -258,7 +391,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
       */
      protected void keyTyped(char typedChar, int keyCode) throws IOException
      {
@@ -3055,7 +3067,7 @@ index da42542..20e9222 100644
          GuiListExtended.IGuiListEntry var4 = var3 < 0 ? null : this.serverListSelector.getListEntry(var3);
  
          if (keyCode == 63)
-@@ -276,19 +408,19 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -276,19 +409,19 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
                          if (var3 > 0 && var4 instanceof ServerListEntryNormal)
                          {
                              this.savedServerList.swapServers(var3, var3 - 1);
@@ -3079,7 +3091,7 @@ index da42542..20e9222 100644
                              {
                                  this.selectServer(this.serverListSelector.getSize() - 1);
                                  this.serverListSelector.scrollBy(-this.serverListSelector.getSlotHeight());
-@@ -318,12 +450,12 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -318,12 +451,12 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
                      }
                      else if (var3 < this.serverListSelector.getSize())
                      {
@@ -3095,7 +3107,7 @@ index da42542..20e9222 100644
                              {
                                  this.selectServer(this.serverListSelector.getSize() + 1);
                                  this.serverListSelector.scrollBy(this.serverListSelector.getSlotHeight());
-@@ -363,7 +495,8 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -363,7 +496,8 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
          this.field_146812_y = null;
          this.drawDefaultBackground();
          this.serverListSelector.drawScreen(mouseX, mouseY, partialTicks);
@@ -3105,7 +3117,7 @@ index da42542..20e9222 100644
          super.drawScreen(mouseX, mouseY, partialTicks);
  
          if (this.field_146812_y != null)
-@@ -374,8 +507,20 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -374,8 +508,20 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
  
      public void connectToSelected()
      {
@@ -3127,7 +3139,14 @@ index da42542..20e9222 100644
          if (var1 instanceof ServerListEntryNormal)
          {
              this.connectToServer(((ServerListEntryNormal)var1).getServerData());
-@@ -394,7 +539,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -390,11 +536,14 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+     private void connectToServer(ServerData server)
+     {
+         this.mc.displayGuiScreen(new GuiConnecting(this, this.mc, server));
++        
++        //TODO: Client
++        SpamProcessor.runScript("joinserver", "Runs whenever you join a server.");
+     }
  
      public void selectServer(int index)
      {
@@ -3136,7 +3155,7 @@ index da42542..20e9222 100644
          GuiListExtended.IGuiListEntry var2 = index < 0 ? null : this.serverListSelector.getListEntry(index);
          this.btnSelectServer.enabled = false;
          this.btnEditServer.enabled = false;
-@@ -460,7 +605,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -460,7 +609,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
          int var4 = p_175391_3_ ? 0 : p_175391_2_ - 1;
          this.savedServerList.swapServers(p_175391_2_, var4);
  
@@ -3145,7 +3164,7 @@ index da42542..20e9222 100644
          {
              this.selectServer(var4);
          }
-@@ -473,7 +618,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
+@@ -473,7 +622,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
          int var4 = p_175393_3_ ? this.savedServerList.countServers() - 1 : p_175393_2_ + 1;
          this.savedServerList.swapServers(p_175393_2_, var4);
  

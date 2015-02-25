@@ -8,9 +8,12 @@
 package tk.wurst_client.spam;
 
 import java.awt.HeadlessException;
+import java.io.*;
 
 import javax.swing.JOptionPane;
 
+import net.minecraft.client.Minecraft;
+import tk.wurst_client.Client;
 import tk.wurst_client.module.modules.Spammer;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
@@ -24,6 +27,63 @@ public class SpamProcessor
 {
 	public static TagManager tagManager = new TagManager();
 	public static VarManager varManager = new VarManager();
+	
+	public static void runScript(final String filename, final String description)
+	{
+		new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				File file = new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam");
+				try
+				{
+					long startTime = System.currentTimeMillis();
+					while(Minecraft.getMinecraft().thePlayer == null)
+					{
+						Thread.sleep(50);
+						if(System.currentTimeMillis() > startTime + 10000)
+							return;
+					}
+					if(!file.getParentFile().exists())
+						file.getParentFile().mkdirs();
+					if(!file.exists())
+					{
+						PrintWriter save = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+						save.println("<!--");
+						for(String line : description.split("\n"))
+							save.println("  " + line);
+						save.println("-->");
+						save.close();
+					}
+					BufferedReader load = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+					String content = load.readLine();
+					for(String line = ""; (line = load.readLine()) != null;)
+						content += "\n" + line;
+					load.close();
+					String spam = SpamProcessor.process(content, null, false);
+					if(spam == null || spam.isEmpty())
+						return;
+					for(int i = 0; i < spam.split("\n").length; i++)
+					{
+						String message = spam.split("\n")[i];
+						Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
+						Thread.sleep(Client.wurst.options.spamDelay);
+					}
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+					StringWriter tracewriter = new StringWriter();
+					e.printStackTrace(new PrintWriter(tracewriter));
+					String message = "An error occurred while running " + file.getName() + ":\n"
+						+ e.getLocalizedMessage() + "\n"
+						+ tracewriter.toString();
+					JOptionPane.showMessageDialog(Minecraft.getMinecraft().getFrame(),
+						message, "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}).start();
+	}
 	
 	public static String process(String spam, Spammer spammer, boolean test)
 	{

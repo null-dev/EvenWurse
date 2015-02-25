@@ -50,6 +50,7 @@ public class FileManager
 	public final File skinDir = new File(wurstDir, "skins");
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
+	public final File scriptsDir = new File(spamDir, "autorun");
 	
 	public final File alts = new File(wurstDir, "alts.json");
 	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.txt");
@@ -69,12 +70,14 @@ public class FileManager
 	{
 		if(!wurstDir.exists())
 			wurstDir.mkdir();
+		if(!spamDir.exists())
+			spamDir.mkdir();
+		if(!scriptsDir.exists())
+			scriptsDir.mkdir();
 		if(!skinDir.exists())
 			skinDir.mkdir();
 		if(!serverlistsDir.exists())
 			serverlistsDir.mkdir();
-		if(!spamDir.exists())
-			spamDir.mkdir();
 		if(!options.exists())
 			saveOptions();
 		else
