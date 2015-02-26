@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -122,7 +121,7 @@ public class FileManager
 			PrintWriter save = new PrintWriter(new FileWriter(gui));
 			save.println(gson.toJson(json));
 			save.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -150,7 +149,7 @@ public class FileManager
 					}
 				
 			}
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -171,7 +170,7 @@ public class FileManager
 			PrintWriter save = new PrintWriter(new FileWriter(modules));
 			save.println(gson.toJson(json));
 			save.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -223,7 +222,7 @@ public class FileManager
 						module.setBind(keybind);
 				}
 			}
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -236,7 +235,7 @@ public class FileManager
 			PrintWriter save = new PrintWriter(new FileWriter(options));
 			save.println(gson.toJson(Client.wurst.options));
 			save.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -249,7 +248,7 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(options));
 			Client.wurst.options = gson.fromJson(load, Options.class);
 			load.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -265,7 +264,7 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(autoMaximize));
 			autoMaximizeEnabled = gson.fromJson(load, Boolean.class) && !Minecraft.isRunningOnMac;
 			load.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -281,7 +280,7 @@ public class FileManager
 			PrintWriter save = new PrintWriter(new FileWriter(autoMaximize));
 			save.println(gson.toJson(autoMaximizeEnabled));
 			save.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -304,7 +303,7 @@ public class FileManager
 			PrintWriter save = new PrintWriter(new FileWriter(sliders));
 			save.println(gson.toJson(json));
 			save.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -335,7 +334,7 @@ public class FileManager
 						}
 				}
 			}
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -356,7 +355,7 @@ public class FileManager
 				json.add(alt.getEmail(), jsonAlt);
 			}
 			Files.write(alts.toPath(), Encryption.encrypt(gson.toJson(json)).getBytes(Encryption.CHARSET));
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -385,7 +384,7 @@ public class FileManager
 					GuiAltList.alts.add(new Alt(email, name, password, starred));
 			}
 			GuiAltList.sortAlts();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -399,7 +398,7 @@ public class FileManager
 			PrintWriter save = new PrintWriter(new FileWriter(friends));
 			save.println(gson.toJson(Client.wurst.friends));
 			save.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -413,7 +412,7 @@ public class FileManager
 			Client.wurst.friends = gson.fromJson(load, Friends.class);
 			load.close();
 			Client.wurst.friends.sort();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -430,7 +429,7 @@ public class FileManager
 			PrintWriter save = new PrintWriter(new FileWriter(xray));
 			save.println(gson.toJson(json));
 			save.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -454,7 +453,7 @@ public class FileManager
 					
 				}
 			XRayUtils.sortBlocks();
-		}catch(IOException e)
+		}catch(Exception e)
 		{	
 			
 		}
@@ -779,7 +778,7 @@ public class FileManager
 				save.println("0§0§-1");
 				save.println("0§1§0");
 				save.close();
-			}catch(IOException e)
+			}catch(Exception e)
 			{}
 		ArrayList<String> fileText = new ArrayList<String>();
 		try
@@ -788,7 +787,7 @@ public class FileManager
 			for(String line = ""; (line = load.readLine()) != null;)
 				fileText.add(line);
 			load.close();
-		}catch(IOException e)
+		}catch(Exception e)
 		{}
 		@SuppressWarnings("unchecked")
 		ArrayList<String> buildingText = (ArrayList<String>)fileText.clone();
