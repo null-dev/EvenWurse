@@ -40,7 +40,8 @@ public class GuiWurstOptions extends GuiScreen
 			+ "§lHidden§r: Renders nothing.",
 		"Automatically maximizes the Minecraft window.\n"
 			+ "Windows & Linux only!",
-		"",
+		"Whether or not the Wurst news should be\n"
+			+ "shown in the main menu",
 		"Manager for the keybinds",
 		"Manager for the blocks that X-Ray will\n"
 			+ "show",
@@ -74,8 +75,7 @@ public class GuiWurstOptions extends GuiScreen
 		buttonList.add(new GuiButton(2, width / 2 - 154, height / 4 + 48 - 16, 100, 20, "WIP Mods: " + (Client.wurst.options.WIP ? "ON" : "OFF")));
 		buttonList.add(new GuiButton(3, width / 2 - 154, height / 4 + 72 - 16, 100, 20, "ArrayList: " + arrayListModes[Client.wurst.options.arrayListMode]));
 		buttonList.add(new GuiButton(4, width / 2 - 154, height / 4 + 96 - 16, 100, 20, "AutoMaximize: " + (autoMaximize ? "ON" : "OFF")));
-		// this.buttonList.add(new GuiButton(5, this.width / 2 - 154,
-		// this.height / 4 + 120 - 16, 100, 20, "???"));
+		buttonList.add(new GuiButton(5, width / 2 - 154, height / 4 + 120 - 16, 100, 20, "Wurst news: " + (Client.wurst.options.wurstNews ? "ON" : "OFF")));
 		buttonList.add(new GuiButton(6, width / 2 - 50, height / 4 + 24 - 16, 100, 20, "Keybinds"));
 		buttonList.add(new GuiButton(7, width / 2 - 50, height / 4 + 48 - 16, 100, 20, "X-Ray Blocks"));
 		// this.buttonList.add(new GuiButton(8, this.width / 2 - 50, this.height
@@ -122,7 +122,9 @@ public class GuiWurstOptions extends GuiScreen
 				Client.wurst.fileManager.saveAutoMaximize(autoMaximize);
 			}else if(clickedButton.id == 5)
 			{	
-				
+				Client.wurst.options.wurstNews = !Client.wurst.options.wurstNews;
+				clickedButton.displayString = "Wurst news: " + (Client.wurst.options.wurstNews ? "ON" : "OFF");
+				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 6)
 				mc.displayGuiScreen(new GuiKeybindManager(this));
 			else if(clickedButton.id == 7)

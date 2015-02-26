@@ -21,6 +21,7 @@ public class Options
 	public boolean spamFont = false;
 	public boolean renameForceOPEvenThoughTheNameIsTechnicallyCorrect = false;
 	public boolean WIP = false;
+	public boolean wurstNews = true;
 	
 	public int arrayListMode = 0;
 	public int autobuildMode = 1;

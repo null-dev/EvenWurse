@@ -1,6 +1,6 @@
-From f78350b396b1489dc706052858991199cc565372 Mon Sep 17 00:00:00 2001
+From 683e794bf9836cac6af8cb22579eebe813708add Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 26 Feb 2015 22:01:43 +0100
+Date: Thu, 26 Feb 2015 22:22:37 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -36,7 +36,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiLanguage.java      |   3 +
  src/net/minecraft/client/gui/GuiListButton.java    |   1 +
  .../minecraft/client/gui/GuiLockIconButton.java    |   1 +
- src/net/minecraft/client/gui/GuiMainMenu.java      | 243 ++++++-
+ src/net/minecraft/client/gui/GuiMainMenu.java      | 245 ++++++-
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |   2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |   4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   | 197 +++++-
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |   3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |   1 +
  .../world/gen/structure/MapGenStructure.java       |   2 +
- 202 files changed, 2794 insertions(+), 1196 deletions(-)
+ 202 files changed, 2796 insertions(+), 1196 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..c8adf19 100644
@@ -2455,7 +2455,7 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..8170313 100644
+index 38033d9..24eae50 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
 @@ -1,16 +1,27 @@
@@ -2566,7 +2566,7 @@ index 38033d9..8170313 100644
          Object var4 = this.field_104025_t;
  
          synchronized (this.field_104025_t)
-@@ -213,6 +249,31 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -213,6 +249,33 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
              this.field_92020_v = this.field_92022_t + var5;
              this.field_92019_w = this.field_92021_u + 24;
          }
@@ -2580,6 +2580,8 @@ index 38033d9..8170313 100644
 +				try
 +				{
 +					newsItems.clear();
++					if(!Client.wurst.options.wurstNews)
++						return;
 +					HttpsURLConnection connection = (HttpsURLConnection)new URL("https://www.wurst-client.tk/news/feed.xml").openConnection();
 +					connection.connect();
 +					XMLElement xml = new XMLParser().parse("", connection.getInputStream());
@@ -2598,7 +2600,7 @@ index 38033d9..8170313 100644
      }
  
      /**
-@@ -222,7 +283,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -222,7 +285,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
      {
          this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer", new Object[0])));
          this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer", new Object[0])));
@@ -2609,7 +2611,7 @@ index 38033d9..8170313 100644
      }
  
      /**
-@@ -262,6 +325,11 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -262,6 +327,11 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
          {
              this.mc.displayGuiScreen(new GuiMultiplayer(this));
          }
@@ -2621,7 +2623,7 @@ index 38033d9..8170313 100644
  
          if (button.id == 14 && this.field_175372_K.visible)
          {
-@@ -324,6 +392,22 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -324,6 +394,22 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
  
              this.mc.displayGuiScreen(this);
          }
@@ -2644,7 +2646,7 @@ index 38033d9..8170313 100644
      }
  
      /**
-@@ -391,7 +475,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -391,7 +477,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
  
                  this.mc.getTextureManager().bindTexture(titlePanoramaPaths[var11]);
                  var5.startDrawingQuads();
@@ -2653,7 +2655,7 @@ index 38033d9..8170313 100644
                  float var12 = 0.0F;
                  var5.addVertexWithUV(-1.0D, -1.0D, 1.0D, (double)(0.0F + var12), (double)(0.0F + var12));
                  var5.addVertexWithUV(1.0D, -1.0D, 1.0D, (double)(1.0F - var12), (double)(0.0F + var12));
-@@ -436,7 +520,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -436,7 +522,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
  
          for (int var5 = 0; var5 < var4; ++var5)
          {
@@ -2662,7 +2664,7 @@ index 38033d9..8170313 100644
              int var6 = this.width;
              int var7 = this.height;
              float var8 = (float)(var5 - var4 / 2) / 256.0F;
-@@ -474,7 +558,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -474,7 +560,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
          float var6 = this.width > this.height ? 120.0F / (float)this.width : 120.0F / (float)this.height;
          float var7 = (float)this.height * var6 / 256.0F;
          float var8 = (float)this.width * var6 / 256.0F;
@@ -2671,7 +2673,7 @@ index 38033d9..8170313 100644
          int var9 = this.width;
          int var10 = this.height;
          var5.addVertexWithUV(0.0D, (double)var10, (double)this.zLevel, (double)(0.5F - var7), (double)(0.5F + var8));
-@@ -494,47 +578,131 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -494,47 +580,131 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
          GlStateManager.enableAlpha();
          Tessellator var4 = Tessellator.getInstance();
          WorldRenderer var5 = var4.getWorldRenderer();
@@ -2817,7 +2819,7 @@ index 38033d9..8170313 100644
  
          if (this.field_92025_p != null && this.field_92025_p.length() > 0)
          {
-@@ -542,8 +710,24 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -542,8 +712,24 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
              this.drawString(this.fontRendererObj, this.field_92025_p, this.field_92022_t, this.field_92021_u, -1);
              this.drawString(this.fontRendererObj, this.field_146972_A, (this.width - this.field_92024_r) / 2, ((GuiButton)this.buttonList.get(0)).yPosition - 12, -1);
          }
@@ -2843,7 +2845,7 @@ index 38033d9..8170313 100644
      }
  
      /**
-@@ -563,5 +747,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
+@@ -563,5 +749,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
                  this.mc.displayGuiScreen(var5);
              }
          }
