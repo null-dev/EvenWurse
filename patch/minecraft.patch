@@ -1,6 +1,6 @@
-From 683e794bf9836cac6af8cb22579eebe813708add Mon Sep 17 00:00:00 2001
+From 76f3a09335b2a112b5aea535e860db4c40f457f8 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 26 Feb 2015 22:22:37 +0100
+Date: Fri, 27 Feb 2015 19:26:26 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -150,7 +150,7 @@ Subject: [PATCH] Wurst
  .../command/server/CommandBlockLogic.java          |   2 +
  src/net/minecraft/crash/CrashReport.java           |  19 +-
  src/net/minecraft/crash/CrashReportCategory.java   |   3 +
- src/net/minecraft/entity/DataWatcher.java          |   3 +
+ src/net/minecraft/entity/DataWatcher.java          |  12 +-
  src/net/minecraft/entity/Entity.java               |  42 +-
  src/net/minecraft/entity/EntityLivingBase.java     |  14 +-
  src/net/minecraft/entity/EntityTracker.java        |   3 +
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |   3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |   1 +
  .../world/gen/structure/MapGenStructure.java       |   2 +
- 202 files changed, 2796 insertions(+), 1196 deletions(-)
+ 202 files changed, 2804 insertions(+), 1197 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..c8adf19 100644
@@ -7394,7 +7394,7 @@ index c55aa0c..1c9553f 100644
  
  public class CrashReportCategory
 diff --git a/src/net/minecraft/entity/DataWatcher.java b/src/net/minecraft/entity/DataWatcher.java
-index 6b59121..cab3a4d 100644
+index 6b59121..b819849 100644
 --- a/src/net/minecraft/entity/DataWatcher.java
 +++ b/src/net/minecraft/entity/DataWatcher.java
 @@ -2,6 +2,7 @@ package net.minecraft.entity;
@@ -7421,6 +7421,27 @@ index 6b59121..cab3a4d 100644
  import org.apache.commons.lang3.ObjectUtils;
  
  public class DataWatcher
+@@ -105,12 +108,19 @@ public class DataWatcher
+         return ((Float)this.getWatchedObject(id).getObject()).floatValue();
+     }
+ 
++    //TODO: Client
+     /**
+      * gets a watchable object and returns it as a String
+      */
+     public String getWatchableObjectString(int id)
+     {
+-        return (String)this.getWatchedObject(id).getObject();
++        try
++		{
++			return (String)this.getWatchedObject(id).getObject();
++		}catch(Exception e)
++		{
++			return "";
++		}
+     }
+ 
+     /**
 diff --git a/src/net/minecraft/entity/Entity.java b/src/net/minecraft/entity/Entity.java
 index 7397345..f610119 100644
 --- a/src/net/minecraft/entity/Entity.java
