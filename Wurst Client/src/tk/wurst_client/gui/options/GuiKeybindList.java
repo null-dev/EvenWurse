@@ -8,16 +8,11 @@
 package tk.wurst_client.gui.options;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-
-import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.Client;
 import tk.wurst_client.gui.GuiWurstSlot;
 import tk.wurst_client.module.Module;

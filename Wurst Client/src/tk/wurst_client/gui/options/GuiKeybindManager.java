@@ -32,9 +32,10 @@ public class GuiKeybindManager extends GuiScreen
 		bindList.registerScrollButtons(7, 8);
 		bindList.elementClicked(-1, false, 0, 0);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height - 52, 98, 20, "Change Bind"));
-		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 98, 20, "Clear Bind"));
-		buttonList.add(new GuiButton(2, width / 2 - 100, height - 28, 200, 20, "Back"));
+		buttonList.add(new GuiButton(0, width / 2 - 102, height - 52, 100, 20, "Add"));
+		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 100, 20, "Edit"));
+		buttonList.add(new GuiButton(2, width / 2 - 102, height - 28, 100, 20, "Remove"));
+		buttonList.add(new GuiButton(3, width / 2 + 2, height - 28, 100, 20, "Back"));
 	}
 	
 	/**
@@ -43,24 +44,24 @@ public class GuiKeybindManager extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		((GuiButton)buttonList.get(0)).enabled = bindList.getSelectedSlot() != -1;
-		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1 && Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot()))).getBind() != 0;
+		//((GuiButton)buttonList.get(0)).enabled = bindList.getSelectedSlot() != -1;
+		//((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1 && Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot()))).getBind() != 0;
 	}
 	
 	@Override
 	protected void actionPerformed(GuiButton clickedButton)
 	{
 		if(clickedButton.enabled)
-			if(clickedButton.id == 0)
-			{// Change Bind
+			if(clickedButton.id == 0 && false)
+			{
 				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
 				mc.displayGuiScreen(new GuiKeybindChange(this, module));
-			}else if(clickedButton.id == 1)
-			{// Clear Bind
+			}else if(clickedButton.id == 2 && false)
+			{
 				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
 				module.setBind(0);
 				Client.wurst.fileManager.saveModules();
-			}else if(clickedButton.id == 2)
+			}else if(clickedButton.id == 3)
 				mc.displayGuiScreen(prevMenu);
 	}
 	
