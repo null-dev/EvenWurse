@@ -13,19 +13,19 @@ public class Keybinds extends HashMap<String, String>
 {
 	public Keybinds()
 	{
-		put("R", ".t killaura");
-		put("H", ".t home");
-		put("LCONTROL", ".t clickgui");
 		put("B", ".t fastbreak");
+		put("C", ".t fullbright");
 		put("F", ".t fastplace");
 		put("G", ".t flight");
-		put("U", ".t freecam");
-		put("C", ".t fullbright");
-		put("R", ".t killaura");
+		put("GRAVE", ".t speednuker");
+		put("H", ".t home");
+		put("J", ".t phase");
 		put("K", ".t multiaura");
 		put("L", ".t nuker");
-		put("J", ".t phase");
+		put("LCONTROL", ".t clickgui");
+		put("R", ".t killaura");
+		put("U", ".t freecam");
+		put("X", ".t x-ray");
 		put("Z", ".t sneak");
-		put("GRAVE", ".t speednuker");
 	}
 }
