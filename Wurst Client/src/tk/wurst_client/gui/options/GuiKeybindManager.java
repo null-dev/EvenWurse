@@ -98,11 +98,7 @@ public class GuiKeybindManager extends GuiScreen
 		drawDefaultBackground();
 		bindList.drawScreen(par1, par2, par3);
 		drawCenteredString(fontRendererObj, "Keybind Manager", width / 2, 8, 16777215);
-		int totalBinds = 0;
-		for(int i = 0; i < GuiKeybindList.modules.size(); i++)
-			if(GuiKeybindList.modules.get(i).getBind() != 0)
-				totalBinds++;
-		drawCenteredString(fontRendererObj, "Keybinds: " + totalBinds, width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "Keybinds: " + Client.wurst.keybinds.size(), width / 2, 20, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }
