@@ -104,7 +104,7 @@ public class GuiKeybindManager extends GuiScreen
 		for(int i = 0; i < GuiKeybindList.modules.size(); i++)
 			if(GuiKeybindList.modules.get(i).getBind() != 0)
 				totalBinds++;
-		drawCenteredString(fontRendererObj, "Keybinds: " + totalBinds + ", Mods: " + Client.wurst.moduleManager.activeModules.size(), width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "Keybinds: " + totalBinds, width / 2, 20, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }
