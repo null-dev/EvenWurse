@@ -19,7 +19,7 @@ public class CommandManager
 	{
 		activeCommands.add(new AddAlt());
 		activeCommands.add(new Annoy());
-		activeCommands.add(new Bind());
+		activeCommands.add(new Binds());
 		activeCommands.add(new Clear());
 		activeCommands.add(new Drop());
 		activeCommands.add(new Enchant());
