@@ -238,6 +238,12 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
+			Iterator<Entry<String, String>> itr = Client.wurst.keybinds.entrySet().iterator();
+			while(itr.hasNext())
+			{
+				Entry<String, String> entry = itr.next();
+				json.addProperty(entry.getKey(), entry.getValue());
+			}
 			PrintWriter save = new PrintWriter(new FileWriter(keybinds));
 			save.println(gson.toJson(json));
 			save.close();
@@ -258,6 +264,7 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
+				Client.wurst.keybinds.put(entry.getKey(), entry.getValue().getAsString());
 			}
 		}catch(Exception e)
 		{	
