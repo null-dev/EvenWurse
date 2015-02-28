@@ -86,6 +86,10 @@ public class FileManager
 			saveModules();
 		else
 			loadModules();
+		if(!keybinds.exists())
+			saveKeybinds();
+		else
+			loadKeybinds();
 		if(!alts.exists())
 			saveAlts();
 		else
