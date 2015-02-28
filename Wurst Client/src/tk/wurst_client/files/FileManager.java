@@ -56,6 +56,7 @@ public class FileManager
 	public final File friends = new File(wurstDir, "friends.json");
 	public final File gui = new File(wurstDir, "gui.json");
 	public final File modules = new File(wurstDir, "modules.json");
+	public final File keybinds = new File(wurstDir, "keybinds.json");
 	public final File sliders = new File(wurstDir, "sliders.json");
 	public final File options = new File(wurstDir, "options.json");
 	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
@@ -221,6 +222,38 @@ public class FileManager
 					if(module.getBind() != keybind)
 						module.setBind(keybind);
 				}
+			}
+		}catch(Exception e)
+		{	
+			
+		}
+	}
+	
+	public void saveKeybinds()
+	{
+		try
+		{
+			JsonObject json = new JsonObject();
+			PrintWriter save = new PrintWriter(new FileWriter(keybinds));
+			save.println(gson.toJson(json));
+			save.close();
+		}catch(Exception e)
+		{	
+			
+		}
+	}
+	
+	public void loadKeybinds()
+	{
+		try
+		{
+			BufferedReader load = new BufferedReader(new FileReader(keybinds));
+			JsonObject json = (JsonObject)new JsonParser().parse(load);
+			load.close();
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			while(itr.hasNext())
+			{
+				Entry<String, JsonElement> entry = itr.next();
 			}
 		}catch(Exception e)
 		{	
