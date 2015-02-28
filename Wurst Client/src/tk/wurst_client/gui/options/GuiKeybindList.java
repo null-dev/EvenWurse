@@ -30,28 +30,8 @@ public class GuiKeybindList extends GuiWurstSlot
 	
 	private int selectedSlot;
 	private Minecraft mc;
+	@Deprecated
 	public static ArrayList<Module> modules = new ArrayList<Module>();
-	
-	public static void sortModules()
-	{
-		modules = Client.wurst.moduleManager.activeModules;
-		Collections.sort(modules, new Comparator<Module>()
-		{
-			@Override
-			public int compare(Module o1, Module o2)
-			{
-				return o1.getName().compareToIgnoreCase(o2.getName());
-			}
-		});
-		ArrayList<Module> newModules = new ArrayList<Module>();
-		for(Module module : modules)
-			if(module.getBind() != 0)
-				newModules.add(module);
-		for(Module module : modules)
-			if(module.getBind() == 0)
-				newModules.add(module);
-		modules = newModules;
-	}
 	
 	@Override
 	protected boolean isSelected(int id)
@@ -84,11 +64,11 @@ public class GuiKeybindList extends GuiWurstSlot
 	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
 	{
 		Module module = modules.get(id);
+		String bind = Keyboard.getKeyName(module.getBind());
+		mc.fontRendererObj.drawString("Key: " + bind, x + 3, y + 3, 10526880);
 		String category = module.getCategory().name();
 		if(!category.equals("WIP"))
 			category = category.charAt(0) + category.substring(1).toLowerCase();
-		mc.fontRendererObj.drawString("Mod: " + module.getName() + ", Category: " + category, x + 3, y + 3, 10526880);
-		String bind = Keyboard.getKeyName(module.getBind());
-		mc.fontRendererObj.drawString("Keybind: " + bind, x + 3, y + 15, 10526880);
+		mc.fontRendererObj.drawString("Command: " + module.getName(), x + 3, y + 15, 10526880);
 	}
 }

@@ -30,7 +30,6 @@ public class GuiKeybindManager extends GuiScreen
 	{
 		bindList = new GuiKeybindList(mc, this);
 		bindList.registerScrollButtons(7, 8);
-		GuiKeybindList.sortModules();
 		bindList.elementClicked(-1, false, 0, 0);
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height - 52, 98, 20, "Change Bind"));
@@ -61,7 +60,6 @@ public class GuiKeybindManager extends GuiScreen
 				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
 				module.setBind(0);
 				Client.wurst.fileManager.saveModules();
-				GuiKeybindList.sortModules();
 			}else if(clickedButton.id == 2)
 				mc.displayGuiScreen(prevMenu);
 	}

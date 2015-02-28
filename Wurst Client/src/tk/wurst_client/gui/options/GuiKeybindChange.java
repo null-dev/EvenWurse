@@ -69,7 +69,6 @@ public class GuiKeybindChange extends GuiScreen
 			{// Save
 				module.setBind(key);
 				Client.wurst.fileManager.saveModules();
-				GuiKeybindList.sortModules();
 				mc.displayGuiScreen(prevMenu);
 			}
 	}
