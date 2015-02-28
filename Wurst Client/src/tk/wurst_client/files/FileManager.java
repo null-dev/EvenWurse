@@ -128,7 +128,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -156,7 +156,7 @@ public class FileManager
 			}
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -177,7 +177,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -229,7 +229,7 @@ public class FileManager
 			}
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -249,7 +249,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -268,7 +268,7 @@ public class FileManager
 			}
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -281,7 +281,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -294,7 +294,7 @@ public class FileManager
 			load.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -349,7 +349,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -374,13 +374,13 @@ public class FileManager
 							slider.setValue(jsonModule.get(slider.getText()).getAsDouble());
 						}catch(Exception e)
 						{	
-							
+							e.printStackTrace();
 						}
 				}
 			}
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -401,7 +401,7 @@ public class FileManager
 			Files.write(alts.toPath(), Encryption.encrypt(gson.toJson(json)).getBytes(Encryption.CHARSET));
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -430,7 +430,7 @@ public class FileManager
 			GuiAltList.sortAlts();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -444,7 +444,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -458,7 +458,7 @@ public class FileManager
 			Client.wurst.friends.sort();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -475,7 +475,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -494,12 +494,12 @@ public class FileManager
 					XRay.xrayBlocks.add(Block.getBlockFromName(jsonBlock));
 				}catch(Exception e)
 				{	
-					
+					e.printStackTrace();
 				}
 			XRayUtils.sortBlocks();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -823,7 +823,9 @@ public class FileManager
 				save.println("0񗉰");
 				save.close();
 			}catch(Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 		ArrayList<String> fileText = new ArrayList<String>();
 		try
 		{
@@ -832,7 +834,9 @@ public class FileManager
 				fileText.add(line);
 			load.close();
 		}catch(Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		@SuppressWarnings("unchecked")
 		ArrayList<String> buildingText = (ArrayList<String>)fileText.clone();
 		for(int i = 0; i < fileText.size(); i++)// Removes all the text before
