@@ -7,9 +7,9 @@
  */
 package tk.wurst_client.options;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
-public class Keybinds extends HashMap<String, String>
+public class Keybinds extends TreeMap<String, String>
 {
 	public Keybinds()
 	{
