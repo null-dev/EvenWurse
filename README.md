@@ -8,4 +8,4 @@ The Wurst Hack Client for Minecraft is packed full of the latest and most exciti
 If you found a bug or you have a suggestion, use the Issue tracker. Keep our [contributing guidelines](/CONTRIBUTING.md) in mind - Issues that violate them will be removed very quickly.
 
 ## Contributing
-Want to help with the development? Awesome! Just [fork the Client](https://github.com/Wurst-Imperium/Wurst-Client/fork), make your changes and create a Pull Request. Again, keep the [contributing guidelines](/CONTRIBUTING.md) in mind.
+Want to help with the development? Awesome! Just [fork the Client](https://github.com/Wurst-Imperium/Wurst-Client/fork), make your changes and create a Pull Request. Again, keep the [contributing guidelines](/CONTRIBUTING.md) in mind. If you have trouble setting it up in Eclipse, read the wiki page ["Debugging Wurst in Eclipse"](https://github.com/Wurst-Imperium/Wurst-Client/wiki/Debugging-Wurst-in-Eclipse).
