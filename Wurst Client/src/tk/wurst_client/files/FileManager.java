@@ -260,6 +260,7 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(keybinds));
 			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
+			Client.wurst.keybinds.clear();
 			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
 			while(itr.hasNext())
 			{
