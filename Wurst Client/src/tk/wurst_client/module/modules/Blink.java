@@ -23,7 +23,6 @@ public class Blink extends Module
 			"Makes it harder for other players to see where you are.\n"
 				+ "They will think you are lagging badly, because your\n"
 				+ "position will only be updated every 3 seconds.",
-			0,
 			Category.MOVEMENT);
 	}
 	

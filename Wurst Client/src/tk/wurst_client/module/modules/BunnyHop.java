@@ -19,7 +19,6 @@ public class BunnyHop extends Module
 			"BunnyHop",
 			"Automatically jumps whenever you walk.\n"
 				+ "Tip: Jumping while sprintig is a faster way to move.",
-			0,
 			Category.MOVEMENT);
 	}
 	

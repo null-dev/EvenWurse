@@ -23,7 +23,6 @@ public class AutoTool extends Module
 			"AutoTool",
 			"Automatically uses the best tool in your hotbar to\n"
 				+ "mine blocks. Tip: This works with Nuker.",
-			0,
 			Category.BLOCKS);
 	}
 	

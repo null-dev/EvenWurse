@@ -21,7 +21,6 @@ public class Protect extends Module
 		super(
 			"Protect",
 			"A bot that follows the closest entity and protects it.",
-			0,
 			Category.COMBAT);
 	}
 	

@@ -8,9 +8,6 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
-
-import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
@@ -23,7 +20,6 @@ public class Fullbright extends Module
 		super(
 			"Fullbright",
 			"Allows you to see in the dark.",
-			Keyboard.KEY_C,
 			Category.RENDER);
 	}
 	

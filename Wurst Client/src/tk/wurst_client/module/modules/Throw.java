@@ -22,7 +22,6 @@ public class Throw extends Module
 				+ "This can cause a lot of lag and even crash a server.\n"
 				+ "Works best with snowballs or eggs.\n"
 				+ "Type .throw <amount> to change the amount of uses per click.",
-			0,
 			Category.MISC);
 	}
 	

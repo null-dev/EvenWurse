@@ -23,7 +23,6 @@ public class KillauraLegit extends Module
 			"KillauraLegit",
 			"Slower Killaura that bypasses any cheat prevention\n"
 				+ "PlugIn. Not required on most NoCheat+ servers!",
-			0,
 			Category.COMBAT);
 	}
 	

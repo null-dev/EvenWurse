@@ -20,7 +20,6 @@ public class AutoSign extends Module
 			"Instantly writes whatever text you want on every sign\n"
 				+ "you place. Once activated, you can write normally on\n"
 				+ "one sign to specify the text for all other signs.",
-			0,
 			Category.BLOCKS);
 	}
 	

@@ -21,7 +21,6 @@ public class ItemESP extends Module
 		super(
 			"ItemESP",
 			"Allows you to see items through walls.",
-			0,
 			Category.RENDER);
 	}
 	

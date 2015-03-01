@@ -19,7 +19,6 @@ public class DropCMD extends Module
 		super(
 			"Drop",
 			"",
-			0,
 			Category.HIDDEN);
 	}
 	

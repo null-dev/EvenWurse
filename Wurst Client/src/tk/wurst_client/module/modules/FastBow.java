@@ -26,7 +26,6 @@ public class FastBow extends Module
 			"FastBow",
 			"Turns your bow into a machine gun.\n"
 				+ "Tip: This works with BowAimbot.",
-			0,
 			Category.COMBAT);
 	}
 	

@@ -20,7 +20,6 @@ public class Jetpack extends Module
 			"Jetpack",
 			"Allows you to jump in mid-air.\n"
 				+ "Looks like if you had a jetpack.",
-			0,
 			Category.MOVEMENT);
 	}
 	

@@ -15,9 +15,6 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging.Action;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
-
-import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
@@ -30,7 +27,6 @@ public class SpeedNuker extends Module
 		super(
 			"SpeedNuker",
 			"Faster Nuker that cannot bypass NoCheat+.",
-			Keyboard.KEY_GRAVE,
 			Category.BLOCKS);
 	}
 	

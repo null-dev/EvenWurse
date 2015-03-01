@@ -19,7 +19,6 @@ public class Panic extends Module
 			"Panic",
 			"Instantly turns off all enabled mods.\n"
 				+ "Be careful with this!",
-			0,
 			Category.MISC);
 	}
 	

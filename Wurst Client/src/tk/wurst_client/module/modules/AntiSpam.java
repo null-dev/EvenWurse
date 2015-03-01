@@ -23,7 +23,6 @@ public class AntiSpam extends Module
 				+ "Spam!\n"
 				+ "Will be changed to:\n"
 				+ "Spam! [x3]",
-			0,
 			Category.CHAT);
 	}
 }

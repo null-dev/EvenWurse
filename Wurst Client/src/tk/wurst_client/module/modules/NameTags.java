@@ -18,7 +18,6 @@ public class NameTags extends Module
 			"NameTags",
 			"Changes the scale of the nametags so you can always\n"
 				+ "read them.",
-			0,
 			Category.RENDER);
 	}
 }

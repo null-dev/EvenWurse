@@ -20,7 +20,6 @@ public class Derp extends Module
 			"Derp",
 			"While this is active, other people will think you are\n"
 				+ "derping around.",
-			0,
 			Category.FUN);
 	}
 	

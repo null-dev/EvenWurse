@@ -17,7 +17,6 @@ public class HealthTags extends Module
 		super(
 			"HealthTags",
 			"Adds the health of players to their nametags.",
-			0,
 			Category.RENDER);
 	}
 }

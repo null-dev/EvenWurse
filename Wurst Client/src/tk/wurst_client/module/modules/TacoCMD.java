@@ -27,7 +27,6 @@ public class TacoCMD extends Module
 		super(
 			"Taco",
 			"",
-			0,
 			Category.HIDDEN);
 	}
 	

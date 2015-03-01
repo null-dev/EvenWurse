@@ -9,7 +9,6 @@ package tk.wurst_client.module.modules;
 
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
@@ -22,7 +21,6 @@ public class FastBreak extends Module
 			"FastBreak",
 			"Allows you to break blocks faster.\n"
 				+ "Tip: This works with Nuker.",
-			Keyboard.KEY_B,
 			Category.BLOCKS);
 	}
 	

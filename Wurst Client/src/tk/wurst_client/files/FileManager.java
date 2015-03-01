@@ -23,7 +23,6 @@ import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
@@ -169,7 +168,6 @@ public class FileManager
 			{
 				JsonObject jsonModule = new JsonObject();
 				jsonModule.addProperty("enabled", module.getToggled());
-				jsonModule.addProperty("keybind", Keyboard.getKeyName(module.getBind()));
 				json.add(module.getName(), jsonModule);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(modules));
@@ -222,9 +220,6 @@ public class FileManager
 					boolean enabled = jsonModule.get("enabled").getAsBoolean();
 					if(module.getToggled() != enabled)
 						module.setToggled(enabled);
-					int keybind = Keyboard.getKeyIndex(jsonModule.get("keybind").getAsString());
-					if(module.getBind() != keybind)
-						module.setBind(keybind);
 				}
 			}
 		}catch(Exception e)

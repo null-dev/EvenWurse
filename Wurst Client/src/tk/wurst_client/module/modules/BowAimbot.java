@@ -34,7 +34,6 @@ public class BowAimbot extends Module
 			"BowAimbot",
 			"Automatically aims your bow at the closest entity.\n"
 				+ "Tip: This works with FastBow.",
-			0,
 			Category.COMBAT);
 	}
 	

@@ -21,7 +21,6 @@ public class AutoSwitch extends Module
 				+ "Tip: Use this in combination with BuildRandom while\n"
 				+ "having a lot of different colored wool blocks in your\n"
 				+ "hotbar.",
-			0,
 			Category.MISC);
 	}
 	

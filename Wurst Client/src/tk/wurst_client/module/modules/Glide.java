@@ -20,7 +20,6 @@ public class Glide extends Module
 		super(
 			"Glide",
 			"Makes you fall like if you had a hang glider.",
-			0,
 			Category.MOVEMENT);
 	}
 	

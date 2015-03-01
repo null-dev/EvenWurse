@@ -22,7 +22,6 @@ public class FastEat extends Module
 			"FastEat",
 			"Allows you to eat food ten times faster.\n"
 				+ "OM! NOM! NOM!",
-			0,
 			Category.MISC);
 	}
 	

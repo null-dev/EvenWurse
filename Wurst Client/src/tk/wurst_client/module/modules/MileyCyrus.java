@@ -18,7 +18,6 @@ public class MileyCyrus extends Module
 		super(
 			"Miley Cyrus",
 			"Makes you twerk like Miley Cyrus!",
-			0,
 			Category.FUN);
 	}
 	

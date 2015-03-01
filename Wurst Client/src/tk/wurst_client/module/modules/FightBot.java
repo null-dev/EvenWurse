@@ -23,7 +23,6 @@ public class FightBot extends Module
 			"A bot that automatically fights for you.\n"
 				+ "It walks around and kills everything.\n"
 				+ "Good for MobArena.",
-			0,
 			Category.COMBAT);
 	}
 	

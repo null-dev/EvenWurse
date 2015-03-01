@@ -30,7 +30,6 @@ public class AutoBuild extends Module
 				+ "you place a block. Use the combo box below to select a\n"
 				+ "structure.\n"
 				+ "This can bypass NoCheat+ while YesCheat+ is enabled.",
-			0,
 			Category.BLOCKS);
 	}
 	

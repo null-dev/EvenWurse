@@ -19,7 +19,6 @@ public class AutoSprint extends Module
 		super(
 			"AutoSprint",
 			"Makes you sprint whenever you walk.",
-			0,
 			Category.MOVEMENT);
 	}
 	

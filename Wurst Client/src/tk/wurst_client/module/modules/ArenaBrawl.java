@@ -48,7 +48,6 @@ public class ArenaBrawl extends Module
 				+ "This is a collection of mods that have been optimized\n"
 				+ "for ArenaBrawl. It will bypass everything that Hypixel\n"
 				+ "has to offer.",
-			0,
 			Category.MISC);
 	}
 	

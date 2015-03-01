@@ -11,9 +11,6 @@ import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-
-import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
@@ -24,7 +21,6 @@ public class XRay extends Module
 		super(
 			"X-Ray",
 			"Allows you to see ores through walls.",
-			Keyboard.KEY_X,
 			Category.RENDER);
 	}
 	

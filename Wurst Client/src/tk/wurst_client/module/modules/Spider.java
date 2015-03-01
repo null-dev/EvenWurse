@@ -19,7 +19,6 @@ public class Spider extends Module
 		super(
 			"Spider",
 			"Allows you to climb up walls like a spider.",
-			0,
 			Category.MOVEMENT);
 	}
 	

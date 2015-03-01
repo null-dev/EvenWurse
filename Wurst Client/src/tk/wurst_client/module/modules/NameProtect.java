@@ -19,7 +19,6 @@ public class NameProtect extends Module
 			"Hides all player names.\n"
 				+ "Some YouTubers like to censor out all names in their\n"
 				+ "videos.",
-			0,
 			Category.RENDER);
 	}
 }

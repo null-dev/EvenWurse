@@ -8,9 +8,6 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
-
-import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
@@ -22,7 +19,6 @@ public class Phase extends Module
 			"Phase",
 			"Exploits a bug in NoCheat+ that allows you to glitch\n"
 				+ "through blocks.",
-			Keyboard.KEY_J,
 			Category.MOVEMENT);
 	}
 	

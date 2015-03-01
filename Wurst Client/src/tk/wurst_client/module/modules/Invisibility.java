@@ -25,7 +25,6 @@ public class Invisibility extends Module
 				+ "If you die and respawn near a certain player while\n"
 				+ "this mod is enabled, that player will be unable to see\n"
 				+ "you. Only works on vanilla servers!",
-			0,
 			Category.COMBAT);
 	}
 	

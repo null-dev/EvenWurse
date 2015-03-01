@@ -21,7 +21,6 @@ public class Jesus extends Module
 				+ "The real Jesus used this hack ~2000 years ago.\n"
 				+ "The Christians might get mad at me for this joke, but\n"
 				+ "who cares?",
-			0,
 			Category.MOVEMENT);
 	}
 	

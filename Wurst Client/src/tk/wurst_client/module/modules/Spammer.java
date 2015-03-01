@@ -50,7 +50,6 @@ public class Spammer extends Module
 				+ ">Variables\n"
 				+ ">HTML-like tags & comments\n"
 				+ ">Integrated help system",
-			0,
 			Category.CHAT);
 	}
 	

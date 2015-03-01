@@ -18,7 +18,6 @@ public class YesCheat extends Module
 			"YesCheat+",
 			"Makes other mods bypass NoCheat+ or disables them if\n"
 				+ "they can't.",
-			0,
 			Category.MISC);
 	}
 }

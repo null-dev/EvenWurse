@@ -17,7 +17,6 @@ public class TrueSight extends Module
 		super(
 			"TrueSight",
 			"Allows you to see invisible entities.",
-			0,
 			Category.RENDER);
 	}
 }

@@ -24,7 +24,6 @@ public class InstantBunker extends Module
 		super(
 			"InstantBunker",
 			"Instantly builds a small bunker around you.",
-			0,
 			Category.BLOCKS);
 	}
 	

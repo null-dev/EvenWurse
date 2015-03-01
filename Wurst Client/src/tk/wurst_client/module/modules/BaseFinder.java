@@ -26,7 +26,6 @@ public class BaseFinder extends Module
 			"BaseFinder",
 			"Finds player bases by searching for man-made blocks.\n"
 				+ "Good for finding faction bases.",
-			0,
 			Category.RENDER);
 		initBlocks();
 	}

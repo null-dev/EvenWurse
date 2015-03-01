@@ -10,9 +10,6 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.client.C0BPacketEntityAction.Action;
-
-import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
@@ -24,7 +21,6 @@ public class Sneak extends Module
 		super(
 			"Sneak",
 			"Automatically sneaks all the time.",
-			Keyboard.KEY_Z,
 			Category.MOVEMENT);
 	}
 	

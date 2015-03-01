@@ -19,7 +19,6 @@ public class Step extends Module
 		super(
 			"Step",
 			"Allows you to step up full blocks.",
-			0,
 			Category.MOVEMENT);
 	}
 	

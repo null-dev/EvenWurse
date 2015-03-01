@@ -22,7 +22,6 @@ public class Tracers extends Module
 		super(
 			"Tracers",
 			"Draws lines to players around you.",
-			0,
 			Category.RENDER);
 	}
 	

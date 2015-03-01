@@ -44,7 +44,6 @@ public class ForceOP extends Module
 				+ "\"How to use\" button. That will open an online\n"
 				+ "tutorial where I explained how to use it.\n"
 				+ "Don't message me on this!",
-			0,
 			Category.CHAT);
 	}
 	

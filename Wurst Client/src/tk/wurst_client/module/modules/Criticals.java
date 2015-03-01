@@ -21,7 +21,6 @@ public class Criticals extends Module
 		super(
 			"Criticals",
 			"Changes all your hits to critical hits.",
-			0,
 			Category.COMBAT);
 	}
 	

@@ -27,7 +27,6 @@ public class MassTPA extends Module
 			"MassTPA",
 			"Sends a TPA requests to all players.\n"
 				+ "Stops if someone accepts.",
-			0,
 			Category.CHAT);
 	}
 	

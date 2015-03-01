@@ -25,7 +25,6 @@ public class BuildRandom extends Module
 		super(
 			"BuildRandom",
 			"Builds random stuff around you.",
-			0,
 			Category.BLOCKS);
 	}
 	

@@ -19,7 +19,6 @@ public class NoFall extends Module
 		super(
 			"NoFall",
 			"Protects you from fall damage.",
-			0,
 			Category.MOVEMENT);
 	}
 	
