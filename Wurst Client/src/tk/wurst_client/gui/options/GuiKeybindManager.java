@@ -44,8 +44,9 @@ public class GuiKeybindManager extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		//((GuiButton)buttonList.get(0)).enabled = bindList.getSelectedSlot() != -1;
-		//((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1 && Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot()))).getBind() != 0;
+		((GuiButton)buttonList.get(0)).enabled = bindList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(2)).enabled = bindList.getSelectedSlot() != -1;
 	}
 	
 	@Override
