@@ -8,11 +8,11 @@
 package tk.wurst_client.gui.options;
 
 import java.io.IOException;
+import java.util.Map.Entry;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Module;
 
 public class GuiKeybindManager extends GuiScreen
 {
@@ -44,24 +44,27 @@ public class GuiKeybindManager extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		((GuiButton)buttonList.get(0)).enabled = bindList.getSelectedSlot() != -1;
 		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1;
 		((GuiButton)buttonList.get(2)).enabled = bindList.getSelectedSlot() != -1;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void actionPerformed(GuiButton clickedButton)
 	{
 		if(clickedButton.enabled)
-			if(clickedButton.id == 0 && false)
+			if(clickedButton.id == 0)
 			{
-				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
-				mc.displayGuiScreen(new GuiKeybindChange(this, module));
-			}else if(clickedButton.id == 2 && false)
+				mc.displayGuiScreen(new GuiKeybindChange(this, null));
+			}else if(clickedButton.id == 1)
 			{
-				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
-				module.setBind(0);
-				Client.wurst.fileManager.saveModules();
+				Entry<String, String> entry = Client.wurst.keybinds.entrySet().toArray(new Entry[Client.wurst.keybinds.size()])[bindList.getSelectedSlot()];
+				mc.displayGuiScreen(new GuiKeybindChange(this, entry));
+			}else if(clickedButton.id == 2)
+			{
+				Entry<String, String> entry = Client.wurst.keybinds.entrySet().toArray(new Entry[Client.wurst.keybinds.size()])[bindList.getSelectedSlot()];
+				Client.wurst.keybinds.remove(entry.getKey());
+				Client.wurst.fileManager.saveKeybinds();
 			}else if(clickedButton.id == 3)
 				mc.displayGuiScreen(prevMenu);
 	}
