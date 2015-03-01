@@ -17,7 +17,6 @@ public class AntiBlind extends Module
 		super(
 			"AntiBlind",
 			"Blocks blindness and nausea.",
-			0,
 			Category.RENDER);
 	}
 }

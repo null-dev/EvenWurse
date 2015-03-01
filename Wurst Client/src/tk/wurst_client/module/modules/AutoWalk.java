@@ -18,7 +18,6 @@ public class AutoWalk extends Module
 		super(
 			"AutoWalk",
 			"Automatically walks all the time.",
-			0,
 			Category.MOVEMENT);
 	}
 	

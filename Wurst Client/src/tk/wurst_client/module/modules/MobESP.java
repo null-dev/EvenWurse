@@ -21,7 +21,6 @@ public class MobESP extends Module
 		super(
 			"MobESP",
 			"Allows you to see mobs through walls.",
-			0,
 			Category.RENDER);
 	}
 	

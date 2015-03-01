@@ -19,7 +19,6 @@ public class AutoRespawn extends Module
 		super(
 			"AutoRespawn",
 			"Automatically respawns you whenever you die.",
-			0,
 			Category.COMBAT);
 	}
 	

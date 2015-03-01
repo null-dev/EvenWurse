@@ -21,7 +21,6 @@ public class Follow extends Module
 			"Follow",
 			"A bot that follows the closest entity.\n"
 				+ "Very annoying.",
-			0,
 			Category.COMBAT);
 	}
 	

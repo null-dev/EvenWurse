@@ -25,7 +25,6 @@ public class LSD extends Module
 		super(
 			"LSD",
 			"Thousands of colors!",
-			0,
 			Category.FUN);
 	}
 	

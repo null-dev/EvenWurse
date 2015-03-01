@@ -24,7 +24,6 @@ public class ProphuntESP extends Module
 		super(
 			"ProphuntESP",
 			"Allows you to see fake blocks in Prophunt.",
-			0,
 			Category.RENDER);
 	}
 	

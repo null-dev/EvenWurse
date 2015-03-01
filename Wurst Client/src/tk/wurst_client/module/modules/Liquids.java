@@ -18,7 +18,6 @@ public class Liquids extends Module
 		super(
 			"Liquids",
 			"Allows you to interact with liquid blocks.",
-			0,
 			Category.BLOCKS);
 	}
 	

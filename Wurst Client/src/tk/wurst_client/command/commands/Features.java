@@ -41,11 +41,7 @@ public class Features extends Command
 				if(module.getCategory() == Category.HIDDEN || module.getCategory() == Category.WIP)
 					hiddenMods++;
 			Client.wurst.chat.message(">" + (int)wurstMods + " mods (" + hiddenMods + " of them are hidden)");
-			int wurstBinds = 0;
-			for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-				if(Client.wurst.moduleManager.activeModules.get(i).getBind() != 0)
-					wurstBinds++;
-			Client.wurst.chat.message(">" + wurstBinds + " keybinds in your current configuration");
+			Client.wurst.chat.message(">" + Client.wurst.keybinds.size() + " keybinds in your current configuration");
 			int wurstCommands = Client.wurst.commandManager.activeCommands.size();
 			Client.wurst.chat.message(">" + wurstCommands + " commands");
 			ArrayList<BasicSlider> wurstSliders = new ArrayList<BasicSlider>();

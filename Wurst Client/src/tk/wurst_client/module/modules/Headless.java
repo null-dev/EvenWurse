@@ -20,7 +20,6 @@ public class Headless extends Module
 			"Headless",
 			"While this is active, other people will think you are\n"
 				+ "headless. Looks hilarious!",
-			0,
 			Category.FUN);
 	}
 	

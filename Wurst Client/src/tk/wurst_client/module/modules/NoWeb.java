@@ -19,7 +19,6 @@ public class NoWeb extends Module
 			"NoWeb",
 			"Prevents you from getting slowed down in webs.\n"
 				+ "Note: This has nothing to do with websites.",
-			0,
 			Category.MOVEMENT);
 	}
 	

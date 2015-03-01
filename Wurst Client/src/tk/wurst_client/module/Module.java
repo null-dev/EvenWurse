@@ -17,18 +17,16 @@ public class Module
 {
 	private String moduleName;
 	private String moduleDescription;
-	private int moduleBind;
 	private Category moduleCategory;
 	private boolean isToggled;
 	protected ArrayList<BasicSlider> moduleSliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
 	
-	public Module(String moduleName, String moduleDescription, int moduleBind, Category moduleCategory)
+	public Module(String moduleName, String moduleDescription, Category moduleCategory)
 	{
 		this.moduleName = moduleName;
 		this.moduleDescription = moduleDescription;
-		this.moduleBind = moduleBind;
 		this.moduleCategory = moduleCategory;
 		initSliders();
 	}
@@ -46,16 +44,6 @@ public class Module
 	public String getDescription()
 	{
 		return moduleDescription;
-	}
-	
-	public int getBind()
-	{
-		return moduleBind;
-	}
-	
-	public void setBind(int newBind)
-	{
-		moduleBind = newBind;
 	}
 	
 	public Category getCategory()

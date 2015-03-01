@@ -26,7 +26,6 @@ public class RemoteView extends Module
 			"RemoteView",
 			"Allows you to see the world as someone else.\n"
 				+ "Use .rv <entity name> to make it target a specific entity.",
-			0,
 			Category.RENDER);
 	}
 	

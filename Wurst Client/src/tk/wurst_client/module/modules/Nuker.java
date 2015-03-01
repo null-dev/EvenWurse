@@ -19,7 +19,6 @@ import net.minecraft.util.MovingObjectPosition;
 
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
@@ -35,7 +34,6 @@ public class Nuker extends Module
 			"Nuker",
 			"Destroys blocks around you.\n"
 				+ "Use .nuker mode <mode> to change the mode.",
-			Keyboard.KEY_L,
 			Category.BLOCKS);
 	}
 	

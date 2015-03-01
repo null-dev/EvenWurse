@@ -8,11 +8,11 @@
 package tk.wurst_client.gui.options;
 
 import java.io.IOException;
+import java.util.Map.Entry;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Module;
 
 public class GuiKeybindManager extends GuiScreen
 {
@@ -30,12 +30,12 @@ public class GuiKeybindManager extends GuiScreen
 	{
 		bindList = new GuiKeybindList(mc, this);
 		bindList.registerScrollButtons(7, 8);
-		GuiKeybindList.sortModules();
 		bindList.elementClicked(-1, false, 0, 0);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height - 52, 98, 20, "Change Bind"));
-		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 98, 20, "Clear Bind"));
-		buttonList.add(new GuiButton(2, width / 2 - 100, height - 28, 200, 20, "Back"));
+		buttonList.add(new GuiButton(0, width / 2 - 102, height - 52, 100, 20, "Add"));
+		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 100, 20, "Edit"));
+		buttonList.add(new GuiButton(2, width / 2 - 102, height - 28, 100, 20, "Remove"));
+		buttonList.add(new GuiButton(3, width / 2 + 2, height - 28, 100, 20, "Back"));
 	}
 	
 	/**
@@ -44,25 +44,28 @@ public class GuiKeybindManager extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		((GuiButton)buttonList.get(0)).enabled = bindList.getSelectedSlot() != -1;
-		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1 && Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot()))).getBind() != 0;
+		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(2)).enabled = bindList.getSelectedSlot() != -1;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void actionPerformed(GuiButton clickedButton)
 	{
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
-			{// Change Bind
-				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
-				mc.displayGuiScreen(new GuiKeybindChange(this, module));
+			{
+				mc.displayGuiScreen(new GuiKeybindChange(this, null));
 			}else if(clickedButton.id == 1)
-			{// Clear Bind
-				Module module = Client.wurst.moduleManager.activeModules.get(Client.wurst.moduleManager.activeModules.indexOf(GuiKeybindList.modules.get(bindList.getSelectedSlot())));
-				module.setBind(0);
-				Client.wurst.fileManager.saveModules();
-				GuiKeybindList.sortModules();
+			{
+				Entry<String, String> entry = Client.wurst.keybinds.entrySet().toArray(new Entry[Client.wurst.keybinds.size()])[bindList.getSelectedSlot()];
+				mc.displayGuiScreen(new GuiKeybindChange(this, entry));
 			}else if(clickedButton.id == 2)
+			{
+				Entry<String, String> entry = Client.wurst.keybinds.entrySet().toArray(new Entry[Client.wurst.keybinds.size()])[bindList.getSelectedSlot()];
+				Client.wurst.keybinds.remove(entry.getKey());
+				Client.wurst.fileManager.saveKeybinds();
+			}else if(clickedButton.id == 3)
 				mc.displayGuiScreen(prevMenu);
 	}
 	
@@ -100,11 +103,7 @@ public class GuiKeybindManager extends GuiScreen
 		drawDefaultBackground();
 		bindList.drawScreen(par1, par2, par3);
 		drawCenteredString(fontRendererObj, "Keybind Manager", width / 2, 8, 16777215);
-		int totalBinds = 0;
-		for(int i = 0; i < GuiKeybindList.modules.size(); i++)
-			if(GuiKeybindList.modules.get(i).getBind() != 0)
-				totalBinds++;
-		drawCenteredString(fontRendererObj, "Keybinds: " + totalBinds + ", Mods: " + Client.wurst.moduleManager.activeModules.size(), width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "Keybinds: " + Client.wurst.keybinds.size(), width / 2, 20, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }

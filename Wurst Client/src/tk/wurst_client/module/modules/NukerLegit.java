@@ -30,7 +30,6 @@ public class NukerLegit extends Module
 			"NukerLegit",
 			"Slower Nuker that bypasses any cheat prevention\n"
 				+ "PlugIn. Not required on most NoCheat+ servers!",
-			0,
 			Category.BLOCKS);
 	}
 	

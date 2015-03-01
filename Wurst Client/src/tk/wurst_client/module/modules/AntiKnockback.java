@@ -18,7 +18,6 @@ public class AntiKnockback extends Module
 			"AntiKnockback",
 			"Protects you from getting pushed by players, mobs and\n"
 				+ "fluids.",
-			0,
 			Category.COMBAT);
 	}
 }

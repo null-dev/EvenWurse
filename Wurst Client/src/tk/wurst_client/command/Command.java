@@ -15,7 +15,7 @@ public class Command
 	
 	private String[] commandHelp;
 	
-	public Command(String commandName, String[] commandHelp)
+	public Command(String commandName, String... commandHelp)
 	{
 		this.commandName = commandName;
 		this.commandHelp = commandHelp;

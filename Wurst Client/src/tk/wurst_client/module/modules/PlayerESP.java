@@ -22,7 +22,6 @@ public class PlayerESP extends Module
 		super(
 			"PlayerESP",
 			"Allows you to see players through walls.",
-			0,
 			Category.RENDER);
 	}
 	

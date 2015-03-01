@@ -9,9 +9,6 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
-
-import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
@@ -23,7 +20,6 @@ public class Freecam extends Module
 			"Freecam",
 			"Allows you to fly out of your body.\n"
 				+ "Looks similar to spectator mode.",
-			Keyboard.KEY_U,
 			Category.RENDER);
 	}
 	

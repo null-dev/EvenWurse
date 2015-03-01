@@ -8,9 +8,6 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
-
-import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
@@ -22,7 +19,6 @@ public class Home extends Module
 		super(
 			"/home",
 			"Types \"/home\" instantly.",
-			Keyboard.KEY_H,
 			Category.CHAT);
 	}
 	

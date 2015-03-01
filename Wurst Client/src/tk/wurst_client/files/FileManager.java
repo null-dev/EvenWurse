@@ -23,7 +23,6 @@ import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
@@ -56,6 +55,7 @@ public class FileManager
 	public final File friends = new File(wurstDir, "friends.json");
 	public final File gui = new File(wurstDir, "gui.json");
 	public final File modules = new File(wurstDir, "modules.json");
+	public final File keybinds = new File(wurstDir, "keybinds.json");
 	public final File sliders = new File(wurstDir, "sliders.json");
 	public final File options = new File(wurstDir, "options.json");
 	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
@@ -85,6 +85,10 @@ public class FileManager
 			saveModules();
 		else
 			loadModules();
+		if(!keybinds.exists())
+			saveKeybinds();
+		else
+			loadKeybinds();
 		if(!alts.exists())
 			saveAlts();
 		else
@@ -123,7 +127,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -151,7 +155,7 @@ public class FileManager
 			}
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -164,7 +168,6 @@ public class FileManager
 			{
 				JsonObject jsonModule = new JsonObject();
 				jsonModule.addProperty("enabled", module.getToggled());
-				jsonModule.addProperty("keybind", Keyboard.getKeyName(module.getBind()));
 				json.add(module.getName(), jsonModule);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(modules));
@@ -172,7 +175,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -217,14 +220,51 @@ public class FileManager
 					boolean enabled = jsonModule.get("enabled").getAsBoolean();
 					if(module.getToggled() != enabled)
 						module.setToggled(enabled);
-					int keybind = Keyboard.getKeyIndex(jsonModule.get("keybind").getAsString());
-					if(module.getBind() != keybind)
-						module.setBind(keybind);
 				}
 			}
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
+		}
+	}
+	
+	public void saveKeybinds()
+	{
+		try
+		{
+			JsonObject json = new JsonObject();
+			Iterator<Entry<String, String>> itr = Client.wurst.keybinds.entrySet().iterator();
+			while(itr.hasNext())
+			{
+				Entry<String, String> entry = itr.next();
+				json.addProperty(entry.getKey(), entry.getValue());
+			}
+			PrintWriter save = new PrintWriter(new FileWriter(keybinds));
+			save.println(gson.toJson(json));
+			save.close();
+		}catch(Exception e)
+		{	
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadKeybinds()
+	{
+		try
+		{
+			BufferedReader load = new BufferedReader(new FileReader(keybinds));
+			JsonObject json = (JsonObject)new JsonParser().parse(load);
+			load.close();
+			Client.wurst.keybinds.clear();
+			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			while(itr.hasNext())
+			{
+				Entry<String, JsonElement> entry = itr.next();
+				Client.wurst.keybinds.put(entry.getKey(), entry.getValue().getAsString());
+			}
+		}catch(Exception e)
+		{	
+			e.printStackTrace();
 		}
 	}
 	
@@ -237,7 +277,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -250,7 +290,7 @@ public class FileManager
 			load.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -305,7 +345,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -330,13 +370,13 @@ public class FileManager
 							slider.setValue(jsonModule.get(slider.getText()).getAsDouble());
 						}catch(Exception e)
 						{	
-							
+							e.printStackTrace();
 						}
 				}
 			}
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -357,7 +397,7 @@ public class FileManager
 			Files.write(alts.toPath(), Encryption.encrypt(gson.toJson(json)).getBytes(Encryption.CHARSET));
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -386,7 +426,7 @@ public class FileManager
 			GuiAltList.sortAlts();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -400,7 +440,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -414,7 +454,7 @@ public class FileManager
 			Client.wurst.friends.sort();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -431,7 +471,7 @@ public class FileManager
 			save.close();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -450,12 +490,12 @@ public class FileManager
 					XRay.xrayBlocks.add(Block.getBlockFromName(jsonBlock));
 				}catch(Exception e)
 				{	
-					
+					e.printStackTrace();
 				}
 			XRayUtils.sortBlocks();
 		}catch(Exception e)
 		{	
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -779,7 +819,9 @@ public class FileManager
 				save.println("0񗉰");
 				save.close();
 			}catch(Exception e)
-			{}
+			{
+				e.printStackTrace();
+			}
 		ArrayList<String> fileText = new ArrayList<String>();
 		try
 		{
@@ -788,7 +830,9 @@ public class FileManager
 				fileText.add(line);
 			load.close();
 		}catch(Exception e)
-		{}
+		{
+			e.printStackTrace();
+		}
 		@SuppressWarnings("unchecked")
 		ArrayList<String> buildingText = (ArrayList<String>)fileText.clone();
 		for(int i = 0; i < fileText.size(); i++)// Removes all the text before

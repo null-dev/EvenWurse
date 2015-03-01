@@ -11,7 +11,6 @@ import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
@@ -25,7 +24,6 @@ public class Flight extends Module
 			"Flight",
 			"Makes you fly.\n"
 				+ "This is one of the oldest hacks in Minecraft.",
-			Keyboard.KEY_G,
 			Category.MOVEMENT);
 	}
 	

@@ -18,7 +18,6 @@ public class FastLadder extends Module
 		super(
 			"FastLadder",
 			"Allows you to climb up ladders twice as fast.",
-			0,
 			Category.MOVEMENT);
 	}
 	

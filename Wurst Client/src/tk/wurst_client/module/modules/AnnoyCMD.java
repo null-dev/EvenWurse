@@ -19,7 +19,6 @@ public class AnnoyCMD extends Module
 		super(
 			"Annoy",
 			"",
-			0,
 			Category.HIDDEN);
 	}
 	

@@ -18,7 +18,6 @@ public class HighJump extends Module
 		super(
 			"HighJump",
 			"Makes you jump six times higher.",
-			0,
 			Category.MOVEMENT);
 	}
 	

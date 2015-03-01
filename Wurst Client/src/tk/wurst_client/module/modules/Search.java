@@ -26,7 +26,6 @@ public class Search extends Module
 			"Helps you to find specific blocks.\n"
 				+ "Use .search id <block id> or .search name <block name>\n"
 				+ "to specify it.",
-			0,
 			Category.RENDER);
 	}
 	

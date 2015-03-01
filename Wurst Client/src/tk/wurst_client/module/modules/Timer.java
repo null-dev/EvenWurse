@@ -22,7 +22,6 @@ public class Timer extends Module
 			"Changes the speed of almost everything.\n"
 				+ "Tip: Slow speeds make aiming easier and work well with\n"
 				+ "NoCheat+.",
-			0,
 			Category.MOVEMENT);
 	}
 	

@@ -23,7 +23,6 @@ public class Overlay extends Module
 		super(
 			"Overlay",
 			"Renders the Nuker animation when you mine a block.",
-			0,
 			Category.RENDER);
 	}
 	

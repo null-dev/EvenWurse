@@ -17,7 +17,6 @@ public class NoSlowdown extends Module
 		super("NoSlowdown",
 			"Cancels slowness effects caused by water, sol sand and\n"
 			+ "using items.",
-			0,
 			Category.MOVEMENT);
 	}
 }

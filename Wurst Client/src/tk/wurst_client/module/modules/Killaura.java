@@ -12,7 +12,6 @@ import net.minecraft.entity.EntityLivingBase;
 
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
@@ -27,7 +26,6 @@ public class Killaura extends Module
 		super(
 			"Killaura",
 			"Automatically attacks everything in your range.",
-			Keyboard.KEY_R,
 			Category.COMBAT);
 	}
 	

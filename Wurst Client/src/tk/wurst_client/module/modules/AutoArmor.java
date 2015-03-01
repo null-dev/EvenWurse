@@ -21,7 +21,6 @@ public class AutoArmor extends Module
 	{
 		super("AutoArmor",
 			"Manages your armor automatically.",
-			0,
 			Category.COMBAT);
 	}
 	

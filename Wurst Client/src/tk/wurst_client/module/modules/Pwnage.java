@@ -26,7 +26,6 @@ public class Pwnage extends Module
 			"Pwnage",
 			"Spawns a ton of random players that spam chat\n"
 				+ "messages.",
-			0,
 			Category.WIP);
 	}
 	

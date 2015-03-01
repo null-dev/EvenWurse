@@ -19,7 +19,6 @@ public class AutoMine extends Module
 		super(
 			"AutoMine",
 			"Automatically mines a block as soon as you look at it.",
-			0,
 			Category.BLOCKS);
 	}
 	

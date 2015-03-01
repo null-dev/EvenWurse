@@ -10,7 +10,6 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
-import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
@@ -24,7 +23,6 @@ public class ClickGUI extends Module
 		super(
 			"ClickGUI",
 			"",
-			Keyboard.KEY_LCONTROL,
 			Category.HIDDEN);
 	}
 	

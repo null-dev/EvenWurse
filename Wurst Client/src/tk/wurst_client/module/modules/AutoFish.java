@@ -20,7 +20,6 @@ public class AutoFish extends Module
 		super(
 			"AutoFish",
 			"Automatically catches fish.",
-			0,
 			Category.MISC);
 	}
 	

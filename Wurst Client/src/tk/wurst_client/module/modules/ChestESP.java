@@ -29,7 +29,6 @@ public class ChestESP extends Module
 			"ChestESP",
 			"Allows you to see chests through walls.\n"
 				+ "Tip: This works with the piston crates on HiveMC.",
-			0,
 			Category.RENDER);
 	}
 	

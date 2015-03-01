@@ -22,7 +22,6 @@ public class MultiAura extends Module
 		super(
 			"MultiAura",
 			"Faster Killaura that attacks multiple entities at once.",
-			0,
 			Category.COMBAT);
 	}
 	

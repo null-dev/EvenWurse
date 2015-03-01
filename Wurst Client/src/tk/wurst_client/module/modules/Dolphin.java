@@ -18,7 +18,6 @@ public class Dolphin extends Module
 		super(
 			"Dolphin",
 			"Automatically swims like a dolphin.",
-			0,
 			Category.MOVEMENT);
 	}
 	

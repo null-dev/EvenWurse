@@ -17,7 +17,6 @@ public class NoHurtcam extends Module
 		super(
 			"NoHurtcam",
 			"Disables the annoying effect when you get hurt.",
-			0,
 			Category.RENDER);
 	}
 }

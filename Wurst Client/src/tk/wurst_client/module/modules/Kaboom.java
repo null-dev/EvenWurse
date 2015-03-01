@@ -36,7 +36,6 @@ public class Kaboom extends Module
 				+ "doesn't have NoCheat+. It works best with fast tools\n"
 				+ "and weak blocks.\n"
 				+ "Note that this is not an actual explosion.",
-			0,
 			Category.BLOCKS);
 	}
 	

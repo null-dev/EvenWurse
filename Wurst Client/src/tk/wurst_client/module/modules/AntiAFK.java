@@ -26,7 +26,6 @@ public class AntiAFK extends Module
 		super("AntiAFK",
 			"Walks around randomly to hide you from AFK detectors.\n"
 			+ "Needs 3x3 blocks of free space.",
-			0,
 			Category.MISC);
 	}
 	

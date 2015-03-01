@@ -17,12 +17,13 @@ import tk.wurst_client.files.FileManager;
 import tk.wurst_client.gui.GuiManager;
 import tk.wurst_client.module.ModuleManager;
 import tk.wurst_client.options.Friends;
+import tk.wurst_client.options.Keybinds;
 import tk.wurst_client.options.Options;
 import tk.wurst_client.update.Updater;
 
 public class Client
 {
-	public final String CLIENT_VERSION = "1.6.1";
+	public final String CLIENT_VERSION = "1.7";
 	public String currentServerIP = "127.0.0.1:25565";
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
@@ -33,6 +34,7 @@ public class Client
 	public Friends friends;
 	public GuiManager guiManager;
 	public ModuleManager moduleManager;
+	public Keybinds keybinds;
 	public Options options;
 	public Updater updater;
 	
@@ -46,6 +48,7 @@ public class Client
 		fileManager = new FileManager();
 		updater = new Updater();
 		chat = new ChatMessenger();
+		keybinds = new Keybinds();
 		options = new Options();
 		friends = new Friends();
 		

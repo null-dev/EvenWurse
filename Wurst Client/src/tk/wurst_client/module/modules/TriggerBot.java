@@ -21,7 +21,6 @@ public class TriggerBot extends Module
 		super(
 			"TriggerBot",
 			"Automatically attacks the entity you're looking at.",
-			0,
 			Category.COMBAT);
 	}
 	

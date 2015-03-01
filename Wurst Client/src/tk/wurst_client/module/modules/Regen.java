@@ -20,7 +20,6 @@ public class Regen extends Module
 			"Regen",
 			"Regenerates your health 100 times faster.\n"
 				+ "Can cause unwanted \"Flying is not enabled!\" kicks.",
-			0,
 			Category.COMBAT);
 	}
 	
