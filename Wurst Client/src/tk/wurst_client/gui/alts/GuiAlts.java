@@ -87,7 +87,7 @@ public class GuiAlts extends GuiScreen
 						errorTimer = 8;
 						if(reply.equals("§4§lWrong password!"))
 						{
-							GuiAltList.alts.remove(GuiAltList.alts.indexOf(alt));
+							GuiAltList.alts.remove(altList.getSelectedSlot());
 							Client.wurst.fileManager.saveAlts();
 						}
 					}
@@ -131,10 +131,9 @@ public class GuiAlts extends GuiScreen
 			shouldAsk = false;
 		}else if(par2 == 1)
 		{
-			Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 			if(par1)
 			{
-				GuiAltList.alts.remove(GuiAltList.alts.indexOf(alt));
+				GuiAltList.alts.remove(altList.getSelectedSlot());
 				Client.wurst.fileManager.saveAlts();
 			}
 		}
