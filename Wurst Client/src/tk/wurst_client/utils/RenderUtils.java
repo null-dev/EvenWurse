@@ -440,7 +440,7 @@ public class RenderUtils
 		RenderUtil.setColor(color);
 		glBegin(GL_LINES);
 		{
-			glVertex3d(0, 0, 0);
+			glVertex3d(0, Minecraft.getMinecraft().thePlayer.getEyeHeight(), 0);
 			glVertex3d(x, y, z);
 		}
 		glEnd();
@@ -464,7 +464,7 @@ public class RenderUtils
 		RenderUtil.setColor(color);
 		glBegin(GL_LINES);
 		{
-			glVertex3d(0, 0, 0);
+			glVertex3d(0, Minecraft.getMinecraft().thePlayer.getEyeHeight(), 0);
 			glVertex3d(x, y, z);
 		}
 		glEnd();
