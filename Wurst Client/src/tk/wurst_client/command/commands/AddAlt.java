@@ -24,7 +24,8 @@ public class AddAlt extends Command
 		super("addalt",
 			"Adds a player or all players on a server to your alt",
 			"list.",
-			"§o.addalt§r (<player> | all)");
+			"§o.addalt§r <player>",
+			"    all");
 	}
 	
 	@Override
