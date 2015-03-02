@@ -9,6 +9,8 @@ package tk.wurst_client.module;
 
 import java.util.ArrayList;
 
+import net.minecraft.network.Packet;
+
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
@@ -145,5 +147,8 @@ public class Module
 	{}
 	
 	public void onReceivedMessage(String message)
+	{}
+
+	public void onPacket(Packet p_channelRead0_2_)
 	{}
 }
