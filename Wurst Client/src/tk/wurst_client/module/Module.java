@@ -149,6 +149,6 @@ public class Module
 	public void onReceivedMessage(String message)
 	{}
 
-	public void onPacket(Packet p_channelRead0_2_)
+	public void onPacket(Packet packet)
 	{}
 }
