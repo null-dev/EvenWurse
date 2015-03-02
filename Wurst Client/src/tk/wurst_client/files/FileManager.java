@@ -70,6 +70,8 @@ public class FileManager
 	{
 		if(!wurstDir.exists())
 			wurstDir.mkdir();
+		if(!autobuildDir.exists())
+			autobuildDir.mkdir();
 		if(!spamDir.exists())
 			spamDir.mkdir();
 		if(!scriptsDir.exists())
