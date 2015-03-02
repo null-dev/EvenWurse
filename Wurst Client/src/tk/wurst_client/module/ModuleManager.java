@@ -103,6 +103,7 @@ public class ModuleManager
 		activeModules.add(new Panic());
 		activeModules.add(new Phase());
 		activeModules.add(new PlayerESP());
+		activeModules.add(new PlayerFinder());
 		activeModules.add(new ProphuntESP());
 		activeModules.add(new Protect());
 		activeModules.add(new Pwnage());
