@@ -7,9 +7,22 @@
  */
 package tk.wurst_client.files;
 
-public class DefaultAutoBuildTemplates
+import java.util.TreeMap;
+
+public class DefaultAutoBuildTemplates extends TreeMap<String, int[][]>
 {
-	static final int[][] BRIDGE =
+	public DefaultAutoBuildTemplates()
+	{
+		put("Bridge", BRIDGE);
+		put("Floor", FLOOR);
+		put("Nazi", NAZI);
+		put("Penis", PENIS);
+		put("Pillar", PILLAR);
+		put("Wall", WALL);
+		put("Wurst", WURST);
+	}
+	
+	public static final int[][] BRIDGE =
 	{
 		{0, 1, 0, 5},
 		{0, 1, 0, 4},
