@@ -12,16 +12,11 @@ import tk.wurst_client.module.modules.AnnoyCMD;
 
 public class Annoy extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Annoys a player by repeating everything he says.",
-		".annoy",
-		".annoy <player>"
-	};
-	
 	public Annoy()
 	{
-		super("annoy", commandHelp);
+		super("annoy",
+			"Annoys a player by repeating everything he says.",
+			"§o.annoy§r [<player>]");
 	}
 	
 	@Override

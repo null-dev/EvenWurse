@@ -17,7 +17,7 @@ public class Say extends Command
 	{
 		"Sends a chat message, even if the message starts",
 		"with a dot.",
-		".say <message>"
+		"§o.say§r <message>"
 	};
 	
 	public Say()

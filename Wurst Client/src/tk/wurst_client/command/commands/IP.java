@@ -15,17 +15,12 @@ import tk.wurst_client.command.Command;
 
 public class IP extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Tells you the IP of the server you are currently",
-		"playing on or copies it to your clipboard.",
-		".ip",
-		".ip copy"
-	};
-	
 	public IP()
 	{
-		super("ip", commandHelp);
+		super("ip",
+			"Shows the IP of the server you are currently",
+			"playing on or copies it to the clipboard.",
+			"§o.ip§r [copy]");
 	}
 	
 	@Override

@@ -15,8 +15,7 @@ public class RV extends Command
 	private static String[] commandHelp =
 	{
 		"Toggles RemoteView or makes it target a specific entity.",
-		".rv",
-		".rv <Player>"
+		"§o.rv§r [<Player>]"
 	};
 	
 	public RV()

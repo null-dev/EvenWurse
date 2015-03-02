@@ -12,15 +12,11 @@ import tk.wurst_client.command.Command;
 
 public class Clear extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Clears the chat completely.",
-		".clear"
-	};
-	
 	public Clear()
 	{
-		super("clear", commandHelp);
+		super("clear",
+			"Clears the chat completely.",
+			"§o.clear§r");
 	}
 	
 	@Override

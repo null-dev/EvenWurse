@@ -19,7 +19,7 @@ public class VClip extends Command
 		"floors & ceilings.",
 		"The maximum distance is 100 blocks on vanilla servers",
 		"and 10 blocks on Bukkit servers.",
-		".vclip <height>"
+		"§o.vclip§r <height>"
 	};
 	
 	public VClip()

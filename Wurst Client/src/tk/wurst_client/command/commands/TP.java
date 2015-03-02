@@ -16,8 +16,8 @@ public class TP extends Command
 	private static String[] commandHelp =
 	{
 		"Teleports you up to 100 blocks away.",
-		"Only works on vanilla servers.",
-		".tp <x> <y> <z>"
+		"Only works on vanilla servers!",
+		"§o.tp§r <x> <y> <z>"
 	};
 	
 	public TP()

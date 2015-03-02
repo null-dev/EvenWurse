@@ -15,7 +15,7 @@ public class Toggle extends Command
 	private static String[] commandHelp =
 	{
 		"Toggles a command.",
-		".t <command>"
+		"§o.t§r <command>"
 	};
 	
 	public Toggle()

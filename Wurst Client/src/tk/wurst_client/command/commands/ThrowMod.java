@@ -17,9 +17,8 @@ public class ThrowMod extends Command
 	
 	private static String[] commandHelp =
 	{
-		"Changes the speed of Throw or toggles it.",
-		".throw",
-		".throw amount <amount>",
+		"Changes the amount of Throw or toggles it.",
+		"§o.throw§r [amount <amount>]",
 	};
 	
 	public ThrowMod()

@@ -13,15 +13,11 @@ import tk.wurst_client.module.modules.DropCMD;
 
 public class Drop extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Drops all your items on the ground.",
-		".drop"
-	};
-	
 	public Drop()
 	{
-		super("drop", commandHelp);
+		super("drop",
+			"Drops all your items on the ground.",
+			"§o.drop§r");
 	}
 	
 	@Override

@@ -17,7 +17,7 @@ public class SpammerMod extends Command
 	private static String[] commandHelp =
 	{
 		"Changes the delay of Spammer.",
-		".spammer delay <delay in ms>"
+		"§o.spammer§r delay <delay in ms>"
 	};
 	
 	public SpammerMod()

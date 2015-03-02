@@ -18,10 +18,9 @@ public class XRay extends Command
 	private static String[] commandHelp =
 	{
 		"Adds, removes or lists X-Ray blocks or toggles X-Ray.",
-		".xray <add|remove> id <block id>",
-		".xray <add|remove> name <block name>",
-		".xray list",
-		".xray list <page>"
+		"§o.xray§r add (id <block id> | name <block name>)",
+		"    remove (id <block id> | name <block name>)",
+		"    list [<page>]",
 	};
 	
 	public XRay()

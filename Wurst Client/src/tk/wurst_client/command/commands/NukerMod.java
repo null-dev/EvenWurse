@@ -15,18 +15,13 @@ import tk.wurst_client.utils.MiscUtils;
 
 public class NukerMod extends Command
 {
-	
-	private static String[] commandHelp =
-	{
-		"Changes the settings of Nuker.",
-		".nuker mode <normal | id | flat | smash>",
-		".nuker id <block id>",
-		".nuker name <block name>"
-	};
-	
 	public NukerMod()
 	{
-		super("nuker", commandHelp);
+		super("nuker",
+			"Changes the settings of Nuker.",
+			"§o.nuker§r mode (normal | id | flat | smash)",
+			"    id <block id>",
+			"    name <block name>");
 	}
 	
 	@Override

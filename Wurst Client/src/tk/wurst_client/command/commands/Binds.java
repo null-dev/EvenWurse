@@ -20,7 +20,7 @@ public class Binds extends Command
 	{
 		super("binds",
 			"Lists all keybinds.",
-			".bind [<page>]");
+			"§o.bind§r [<page>]");
 	}
 	
 	@Override
