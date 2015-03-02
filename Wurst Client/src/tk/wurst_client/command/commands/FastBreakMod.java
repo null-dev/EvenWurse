@@ -12,16 +12,11 @@ import tk.wurst_client.command.Command;
 
 public class FastBreakMod extends Command
 {
-	
-	private static String[] commandHelp =
-	{
-		"Changes the settings of FastBreak.",
-		".fastbreak mode <normal | instant>"
-	};
-	
 	public FastBreakMod()
 	{
-		super("fastbreak", commandHelp);
+		super("fastbreak",
+			"Changes the settings of FastBreak.",
+			"§o.fastbreak§r mode (normal | instant)");
 	}
 	
 	@Override

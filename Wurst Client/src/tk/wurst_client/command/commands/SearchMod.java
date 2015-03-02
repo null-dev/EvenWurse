@@ -19,9 +19,8 @@ public class SearchMod extends Command
 	private static String[] commandHelp =
 	{
 		"Changes the settings of Search or toggles it.",
-		".search",
-		".search id <block id>",
-		".search name <block name>"
+		"§o.search§r id <block id>",
+		"    name <block name>"
 	};
 	
 	public SearchMod()

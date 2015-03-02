@@ -13,17 +13,12 @@ import tk.wurst_client.utils.MiscUtils;
 
 public class Friends extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Adds or removes a friend or lists all friends.",
-		".friends <add|remove> <player name>",
-		".friends list",
-		".friends list <page>"
-	};
-	
 	public Friends()
 	{
-		super("friends", commandHelp);
+		super("friends",
+			"Adds or removes a friend or lists all friends.",
+			"§o.friends§r (add | remove) <player>",
+			"    list [<page>]");
 	}
 	
 	private int friendsPerPage = 8;

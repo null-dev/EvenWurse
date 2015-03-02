@@ -19,17 +19,12 @@ import tk.wurst_client.gui.alts.GuiAltList;
 
 public class AddAlt extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Adds a player or all players on a server to your alt",
-		"list.",
-		".addalt <player>",
-		".addalt all"
-	};
-	
 	public AddAlt()
 	{
-		super("addalt", commandHelp);
+		super("addalt",
+			"Adds a player or all players on a server to your alt",
+			"list.",
+			"§o.addalt§r (<player> | all)");
 	}
 	
 	@Override

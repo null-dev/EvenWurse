@@ -16,7 +16,7 @@ public class RenameForceOPEvenThoughTheNameIsTechnicallyCorrect extends Command
 	{
 		"You know what this does. Happy typing!",
 		"Note that it is case sensitive.",
-		".RenameForceOPEvenThoughTheNameIsTechnicallyCorrect"
+		"§o.RenameForceOPEvenThoughTheNameIsTechnicallyCorrect§r"
 	};
 	
 	public RenameForceOPEvenThoughTheNameIsTechnicallyCorrect()

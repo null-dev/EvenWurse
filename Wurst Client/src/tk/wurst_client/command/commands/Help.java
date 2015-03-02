@@ -13,17 +13,12 @@ import tk.wurst_client.utils.MiscUtils;
 
 public class Help extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Shows the command list or helps you with a command.",
-		".help",
-		".help <page>",
-		".help <command>"
-	};
-	
 	public Help()
 	{
-		super("help", commandHelp);
+		super("help",
+			"Shows the command list or the help for a command.",
+			"§o.help§r <page>",
+			"    <command>");
 	}
 	
 	private int commandsPerPage = 8;

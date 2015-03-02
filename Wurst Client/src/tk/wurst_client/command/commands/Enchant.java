@@ -15,16 +15,11 @@ import tk.wurst_client.command.Command;
 
 public class Enchant extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Enchants items with everything.",
-		".enchant",
-		".enchant all"
-	};
-	
 	public Enchant()
 	{
-		super("enchant", commandHelp);
+		super("enchant",
+			"Enchants items with everything.",
+			"§o.enchant§r [all]");
 	}
 	
 	@Override

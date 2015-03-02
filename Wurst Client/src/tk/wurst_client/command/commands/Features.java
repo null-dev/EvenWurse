@@ -18,15 +18,11 @@ import tk.wurst_client.module.Module;
 
 public class Features extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Counts the features in this release of Wurst.",
-		".features"
-	};
-	
 	public Features()
 	{
-		super("features", commandHelp);
+		super("features",
+			"Counts the features in this release of Wurst.",
+			"§o.features§r");
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ public class Taco extends Command
 	private static String[] commandHelp =
 	{
 		"\"I love that little guy. So cute!\" -WiZARDHAX",
-		".taco"
+		"§o.taco§r"
 	};
 	
 	public Taco()
