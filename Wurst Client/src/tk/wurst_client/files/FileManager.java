@@ -105,7 +105,7 @@ public class FileManager
 		}
 		else
 			loadXRayBlocks();
-		loadBuildings();
+		loadAutoBuildTemplates();
 	}
 	
 	public void saveGUI(Frame[] frames)
@@ -500,7 +500,7 @@ public class FileManager
 		}
 	}
 	
-	public void loadBuildings()
+	public void loadAutoBuildTemplates()
 	{
 		int[][] bridge =
 		{
