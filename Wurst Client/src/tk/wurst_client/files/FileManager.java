@@ -52,6 +52,7 @@ public class FileManager
 	public final File scriptsDir = new File(spamDir, "autorun");
 	
 	public final File alts = new File(wurstDir, "alts.json");
+	@Deprecated
 	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.txt");
 	public final File friends = new File(wurstDir, "friends.json");
 	public final File gui = new File(wurstDir, "gui.json");
@@ -107,9 +108,11 @@ public class FileManager
 		}
 		else
 			loadXRayBlocks();
-		loadAutoBuildTemplates();
+		if(autobuildDir.listFiles().length == 0)
+			createDefaultAutoBuildTemplates();
+		//loadAutoBuildTemplates();
 	}
-	
+
 	public void saveGUI(Frame[] frames)
 	{
 		try
@@ -502,9 +505,37 @@ public class FileManager
 		}
 	}
 	
+	public void createDefaultAutoBuildTemplates()
+	{
+		try
+		{
+			String[] comment =
+			{
+				"Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.",
+				"This Source Code Form is subject to the terms of the Mozilla Public",
+				"License, v. 2.0. If a copy of the MPL was not distributed with this",
+				"file, You can obtain one at http://mozilla.org/MPL/2.0/."
+			};
+			Iterator<Entry<String, int[][]>> itr = new DefaultAutoBuildTemplates().entrySet().iterator();
+			while(itr.hasNext())
+			{
+				Entry<String, int[][]> entry = itr.next();
+				JsonObject json = new JsonObject();
+				json.add("__comment", gson.toJsonTree(comment, String[].class));
+				json.add("blocks", gson.toJsonTree(entry.getValue(), int[][].class));
+				PrintWriter save = new PrintWriter(new FileWriter(new File(autobuildDir, entry.getKey() + ".json")));
+				save.println(gson.toJson(json));
+				save.close();
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public void loadAutoBuildTemplates()
 	{
-		//TODO: For all default templates: AutoBuild.buildings.add(template);
+		//TODO: For all templates: AutoBuild.buildings.add(template);
 		if(!Client.wurst.fileManager.autoBuild_custom.exists())
 			try
 			{
