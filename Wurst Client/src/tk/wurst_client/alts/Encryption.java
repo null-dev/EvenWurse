@@ -40,8 +40,9 @@ public class Encryption
 	private static File aesFile = new File(Client.wurst.fileManager.wurstDir, "key");
 	
 	private static KeyPair keypair;
-	private static File privateFile = System.getProperty("user.home") != null ? new File(System.getProperty("user.home") + "\\.ssh\\wurst_rsa") : null;
-	private static File publicFile = System.getProperty("user.home") != null ? new File(System.getProperty("user.home") + "\\.ssh\\wurst_rsa.pub") : null;
+	private static File rsaKeyDir = System.getProperty("user.home") != null ? new File(System.getProperty("user.home"), ".ssh") : null;
+	private static File privateFile = rsaKeyDir != null ? new File(rsaKeyDir, "wurst_rsa") : null;
+	private static File publicFile = rsaKeyDir != null ? new File(rsaKeyDir, "wurst_rsa.pub") : null;
 	
 	public static final String CHARSET = "UTF-8";
 	
