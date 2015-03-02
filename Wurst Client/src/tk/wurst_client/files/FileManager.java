@@ -45,6 +45,7 @@ import com.google.gson.JsonParser;
 public class FileManager
 {
 	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
+	public final File autobuildDir = new File(wurstDir, "autobuild");
 	public final File skinDir = new File(wurstDir, "skins");
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
