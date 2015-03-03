@@ -289,6 +289,8 @@ public final class GuiManager extends AbstractGuiManager
 			if(frame.getTitle().equalsIgnoreCase("settings"))
 				continue;
 			frame.setWidth(maxWidth);
+			if(frame.getTitle().equals("AutoBuild"))
+				frame.setWidth((int)(maxWidth * 1.2));
 			frame.layoutChildren();
 		}
 		Frame[] frames1 = getFrames();
