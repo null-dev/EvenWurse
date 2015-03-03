@@ -536,7 +536,7 @@ public class FileManager
 				BufferedReader load = new BufferedReader(new FileReader(file));
 				JsonObject json = (JsonObject)new JsonParser().parse(load);
 				load.close();
-				AutoBuild.buildings.add(gson.fromJson(json.get("blocks"), int[][].class));
+				AutoBuild.templates.add(gson.fromJson(json.get("blocks"), int[][].class));
 			}
 		}catch(Exception e)
 		{
