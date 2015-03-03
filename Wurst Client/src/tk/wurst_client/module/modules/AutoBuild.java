@@ -26,14 +26,15 @@ public class AutoBuild extends Module
 	{
 		super(
 			"AutoBuild",
-			"Automatically builds the selected structure whenever\n"
-				+ "you place a block. Use the combo box below to select a\n"
-				+ "structure.\n"
-				+ "This can bypass NoCheat+ while YesCheat+ is enabled.",
+			"Automatically builds the selected template whenever\n"
+				+ "you place a block. Use the combo box below to select\n"
+				+ "a template.\n"
+				+ "This mod can bypass NoCheat+ while YesCheat+ is\n"
+				+ "enabled.",
 			Category.BLOCKS);
 	}
 	
-	public static String[] modeNames = {"Bridge", "Floor", "Nazi", "Penis", "Pillar", "Wall", "Wurst", "Custom"};
+	public static ArrayList<String> names = new ArrayList<String>();
 	public static ArrayList<int[][]> buildings = new ArrayList<int[][]>();
 	private float speed = 5;
 	private int blockIndex;
@@ -44,7 +45,7 @@ public class AutoBuild extends Module
 	@Override
 	public String getRenderName()
 	{
-		return getName() + " [" + modeNames[Client.wurst.options.autobuildMode] + "]";
+		return getName() + " [" + names.get(Client.wurst.options.autobuildMode) + "]";
 	}
 	
 	@Override

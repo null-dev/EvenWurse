@@ -185,7 +185,7 @@ public final class GuiManager extends AbstractGuiManager
 		
 		// AutoBuild
 		ModuleFrame blocksFrame = categoryFrames.get(Category.BLOCKS);
-		ComboBox autoBuildBox = new BasicComboBox(AutoBuild.modeNames);
+		ComboBox autoBuildBox = new BasicComboBox(AutoBuild.names.toArray(new String[AutoBuild.names.size()]));
 		autoBuildBox.addComboBoxListener(new ComboBoxListener()
 		{
 			@Override
