@@ -186,7 +186,7 @@ public final class GuiManager extends AbstractGuiManager
 		}
 		
 		// AutoBuild
-		ModuleFrame blocksFrame = categoryFrames.get(Category.AUTOBUILD);
+		ModuleFrame autobuild = categoryFrames.get(Category.AUTOBUILD);
 		ComboBox autoBuildBox = new BasicComboBox(AutoBuild.names.toArray(new String[AutoBuild.names.size()]));
 		autoBuildBox.addComboBoxListener(new ComboBoxListener()
 		{
@@ -198,7 +198,7 @@ public final class GuiManager extends AbstractGuiManager
 			}
 		});
 		autoBuildBox.setSelectedIndex(Client.wurst.options.autobuildMode);
-		blocksFrame.add(autoBuildBox, HorizontalGridConstraint.CENTER);
+		autobuild.add(autoBuildBox, HorizontalGridConstraint.CENTER);
 		
 		// Target
 		ModuleFrame combatFrame = categoryFrames.get(Category.COMBAT);
