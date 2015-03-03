@@ -9,14 +9,15 @@ package tk.wurst_client.module;
 
 public enum Category
 {
-	COMBAT,
+	AUTOBUILD,
 	BLOCKS,
-	RENDER,
-	MOVEMENT,
 	CHAT,
+	COMBAT,
 	FUN,
-	MISC,
-	WIP,
 	HIDDEN,
-	SETTINGS;
+	RENDER,
+	MISC,
+	MOVEMENT,
+	SETTINGS,
+	WIP;
 }

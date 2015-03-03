@@ -13,7 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -45,13 +44,13 @@ import com.google.gson.JsonParser;
 public class FileManager
 {
 	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
+	public final File autobuildDir = new File(wurstDir, "autobuild");
 	public final File skinDir = new File(wurstDir, "skins");
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
 	public final File scriptsDir = new File(spamDir, "autorun");
 	
 	public final File alts = new File(wurstDir, "alts.json");
-	public final File autoBuild_custom = new File(wurstDir, "autobuild_custom.txt");
 	public final File friends = new File(wurstDir, "friends.json");
 	public final File gui = new File(wurstDir, "gui.json");
 	public final File modules = new File(wurstDir, "modules.json");
@@ -62,13 +61,12 @@ public class FileManager
 	public final File xray = new File(wurstDir, "xray.json");
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	
-	@Deprecated
-	private String split = "§";
-	
 	public void init()
 	{
 		if(!wurstDir.exists())
 			wurstDir.mkdir();
+		if(!autobuildDir.exists())
+			autobuildDir.mkdir();
 		if(!spamDir.exists())
 			spamDir.mkdir();
 		if(!scriptsDir.exists())
@@ -104,9 +102,11 @@ public class FileManager
 		}
 		else
 			loadXRayBlocks();
-		loadBuildings();
+		if(autobuildDir.listFiles().length == 0)
+			createDefaultAutoBuildTemplates();
+		loadAutoBuildTemplates();
 	}
-	
+
 	public void saveGUI(Frame[] frames)
 	{
 		try
@@ -499,361 +499,49 @@ public class FileManager
 		}
 	}
 	
-	public void loadBuildings()
+	public void createDefaultAutoBuildTemplates()
 	{
-		int[][] bridge =
-		{
-			{0, 1, 0, 5},
-			{0, 1, 0, 4},
-			{0, 1, 0, 2},
-			{0, 1, -1, 5},
-			{0, 1, -1, 4},
-			{0, 1, -1, 2},
-			{0, 1, -2, 5},
-			{0, 1, -2, 4},
-			{0, 1, -2, 2},
-			{0, 1, -3, 5},
-			{0, 1, -3, 4},
-			{0, 1, -3, 2},
-			{0, 1, -4, 5},
-			{0, 1, -4, 4},
-			{0, 1, -4, 2},
-			{0, 1, -5, 5},
-			{0, 1, -5, 4},
-		};
-		AutoBuild.buildings.add(bridge);
-		int[][] floor =
-		{
-			{0, 0, 0},
-			{1, 0, 1},
-			{0, 0, 1},
-			{-1, 0, 1},
-			{1, 0, 0},
-			{-1, 0, 0},
-			{1, 0, -1},
-			{0, 0, -1},
-			{-1, 0, -1},
-			{2, 0, 2},
-			{1, 0, 2},
-			{0, 0, 2},
-			{-1, 0, 2},
-			{-2, 0, 2},
-			{2, 0, 1},
-			{-2, 0, 1},
-			{2, 0, 0},
-			{-2, 0, 0},
-			{2, 0, -1},
-			{-2, 0, -1},
-			{2, 0, -2},
-			{1, 0, -2},
-			{0, 0, -2},
-			{-1, 0, -2},
-			{-2, 0, -2},
-			{3, 0, 3},
-			{2, 0, 3},
-			{1, 0, 3},
-			{0, 0, 3},
-			{-1, 0, 3},
-			{-2, 0, 3},
-			{-3, 0, 3},
-			{3, 0, 2},
-			{-3, 0, 2},
-			{3, 0, 1},
-			{-3, 0, 1},
-			{3, 0, 0},
-			{-3, 0, 0},
-			{3, 0, -1},
-			{-3, 0, -1},
-			{3, 0, -2},
-			{-3, 0, -2},
-			{3, 0, -3},
-			{2, 0, -3},
-			{1, 0, -3},
-			{0, 0, -3},
-			{-1, 0, -3},
-			{-2, 0, -3},
-			{-3, 0, -3},
-		};
-		AutoBuild.buildings.add(floor);
-		int[][] nazi =
-		{
-			{0, 1, 0, 5},
-			{1, 1, 0, 5},
-			{0, 1, 0, 1},
-			{0, 2, 0, 1},
-			{0, 3, 0, 5},
-			{0, 3, 0, 4},
-			{1, 3, 0, 5},
-			{-1, 3, 0, 4},
-			{-2, 3, 0, 0},
-			{-2, 2, 0, 0},
-			{0, 3, 0, 1},
-			{2, 3, 0, 1},
-			{2, 4, 0, 1},
-			{0, 4, 0, 1},
-			{0, 5, 0, 4},
-			{-1, 5, 0, 4},
-		};
-		AutoBuild.buildings.add(nazi);
-		int[][] penis =
-		{
-			{1, 0, 0, 1},
-			{1, 0, 1, 1},
-			{0, 0, 1, 1},
-			{0, 1, 0, 1},
-			{1, 1, 0, 1},
-			{1, 1, 1, 1},
-			{0, 1, 1, 1},
-			{0, 2, 0, 1},
-			{1, 2, 0, 1},
-			{1, 2, 1, 1},
-			{0, 2, 1, 1},
-			{0, 3, 0, 1},
-			{1, 3, 0, 1},
-			{1, 3, 1, 1},
-			{0, 3, 1, 1},
-			{0, 4, 0, 1},
-			{1, 4, 0, 1},
-			{1, 4, 1, 1},
-			{0, 4, 1, 1},
-			{0, 5, 0, 1},
-			{1, 5, 0, 1},
-			{1, 5, 1, 1},
-			{0, 5, 1, 1},
-			{0, 6, 0, 1},
-			{1, 6, 0, 1},
-			{1, 6, 1, 1},
-			{0, 6, 1, 1},
-			{0, 7, 0, 1},
-			{1, 7, 0, 1},
-			{1, 7, 1, 1},
-			{0, 7, 1, 1},
-			{2, 0, -1, 1},
-			{-1, 0, -1, 1},
-			{3, 0, -1, 1},
-			{-2, 0, -1, 1},
-			{3, 0, -2, 1},
-			{-2, 0, -2, 1},
-			{2, 0, -2, 1},
-			{-1, 0, -2, 1},
-			{2, 1, -1, 1},
-			{-1, 1, -1, 1},
-			{3, 1, -1, 1},
-			{-2, 1, -1, 1},
-			{3, 1, -2, 1},
-			{-2, 1, -2, 1},
-			{2, 1, -2, 1},
-			{-1, 1, -2, 1},
-		};
-		AutoBuild.buildings.add(penis);
-		int[][] pillar =
-		{
-			{0, 0, 0},
-			{0, 1, 0},
-			{0, 2, 0},
-			{0, 3, 0},
-			{0, 4, 0},
-			{0, 5, 0},
-			{0, 6, 0},
-		};
-		AutoBuild.buildings.add(pillar);
-		int[][] wall =
-		{
-			{3, 0, 0},
-			{2, 0, 0},
-			{1, 0, 0},
-			{0, 0, 0},
-			{-1, 0, 0},
-			{-2, 0, 0},
-			{-3, 0, 0},
-			{3, 1, 0},
-			{2, 1, 0},
-			{1, 1, 0},
-			{0, 1, 0},
-			{-1, 1, 0},
-			{-2, 1, 0},
-			{-3, 1, 0},
-			{3, 2, 0},
-			{2, 2, 0},
-			{1, 2, 0},
-			{0, 2, 0},
-			{-1, 2, 0},
-			{-2, 2, 0},
-			{-3, 2, 0},
-			{3, 3, 0},
-			{2, 3, 0},
-			{1, 3, 0},
-			{0, 3, 0},
-			{-1, 3, 0},
-			{-2, 3, 0},
-			{-3, 3, 0},
-			{3, 4, 0},
-			{2, 4, 0},
-			{1, 4, 0},
-			{0, 4, 0},
-			{-1, 4, 0},
-			{-2, 4, 0},
-			{-3, 4, 0},
-			{3, 5, 0},
-			{2, 5, 0},
-			{1, 5, 0},
-			{0, 5, 0},
-			{-1, 5, 0},
-			{-2, 5, 0},
-			{-3, 5, 0},
-			{3, 6, 0},
-			{2, 6, 0},
-			{1, 6, 0},
-			{0, 6, 0},
-			{-1, 6, 0},
-			{-2, 6, 0},
-			{-3, 6, 0},
-		};
-		AutoBuild.buildings.add(wall);
-		int[][] wurst =
-		{
-			{0, 1, 0, 5},
-			{1, 1, 0, 5},
-			{0, 1, 0, 4},
-			{-1, 1, 0, 4},
-			{0, 1, 0, 1},
-			{1, 1, 0, 1},
-			{-1, 1, 0, 1},
-			{2, 1, 0, 1},
-			{-2, 1, 0, 1},
-			{2, 2, 0, 5},
-			{-2, 2, 0, 4},
-			{0, 2, 0, 3},
-			{1, 2, 0, 3},
-			{-1, 2, 0, 3},
-			{2, 2, 0, 3},
-			{-2, 2, 0, 3},
-			{0, 2, 0, 2},
-			{1, 2, 0, 2},
-			{-1, 2, 0, 2},
-			{2, 2, 0, 2},
-			{-2, 2, 0, 2},
-			{0, 2, 0, 1},
-			{1, 2, 0, 1},
-			{-1, 2, 0, 1},
-			{2, 2, 0, 1},
-			{-2, 2, 0, 1},
-		};
-		AutoBuild.buildings.add(wurst);
-		if(!Client.wurst.fileManager.autoBuild_custom.exists())
-			try
-			{
-				PrintWriter save = new PrintWriter(new FileWriter(Client.wurst.fileManager.autoBuild_custom));
-				save.println("WARNING! This is complicated!");
-				save.println("");
-				save.println("How to make a custom structure for AutoBuild:");
-				save.println("There are two types of structures: simple structures and advanced structures.");
-				save.println("The difference is that advanced strcutures place blocks in certain directions,");
-				save.println("while simple structures use the direction that you placed the first block in");
-				save.println("for all their blocks. To make your structure, you need to add a line for every");
-				save.println("block. In a simple structure, these lines look like this:");
-				save.println("0§0§0");
-				save.println("The first number determines how far the block is moved to the right or left. 0 is");
-				save.println("where you placed the first");
-				save.println("block, 1 is one block further on the left and -1 is one block further on the right.");
-				save.println("The second number determines how far the block is moved up or down. 0 is where you placed");
-				save.println("the first block, 1 is one block above and -1 is one block below.");
-				save.println("The third number determines how far the block is moved to the front/rear.");
-				save.println("0 is where you placed the first block, 1 is one block further away from you");
-				save.println("and -1 is one block closer to you.");
-				save.println("All simple structures have to start with 0§0§0. This will place the first block where you");
-				save.println("clicked.");
-				save.println("In an advanced structure, the lines look like this:");
-				save.println("0§1§0§2");
-				save.println("The first value and the third value work the same way they work in simple structures.");
-				save.println("For the second value, 1 is where you placed the first block, 2 is above and 0 is below.");
-				save.println("The fourth value determines the direction the block will be placed in.");
-				save.println("0 = bottom, 1 = top, 2 = front, 3 = back, 4 = right, 5 = left");
-				save.println("In the above example (0§1§0§2), a block is placed in front of the first block you placed.");
-				save.println("The first value is 0, the second one is 1 and the third one is 0, meaning it will be placed");
-				save.println("on the first block you placed.");
-				save.println("The fourth value is 2 (front), meaning it will be placed against the front face of the first");
-				save.println("block you placed. So in the end, it will be placed in front of that block.");
-				save.println("It's like clicking on the front face of that block.");
-				save.println("Advanced structures do NOT start by placing the first block where you clicked.");
-				save.println("");
-				save.println("Tips:");
-				save.println("-Do not mix simple and advanced structures. Only choose one.");
-				save.println("-Your structure should not contain more than 64 blocks and should not be bigger than 8x8x8.");
-				save.println("-Make sure you don't try to place blocks against air blocks. That will only work in");
-				save.println(" Singleplayer.");
-				save.println("");
-				save.println("Example for a simple structure (pillar):");
-				save.println("0§0§0");
-				save.println("0§1§0");
-				save.println("0§2§0");
-				save.println("0§3§0");
-				save.println("0§4§0");
-				save.println("0§5§0");
-				save.println("0§6§0");
-				save.println("");
-				save.println("Example for an advanced structure (swastika):");
-				save.println("0§1§0§5");
-				save.println("1§1§0§5");
-				save.println("0§1§0§1");
-				save.println("0§2§0§1");
-				save.println("0§3§0§5");
-				save.println("0§3§0§4");
-				save.println("1§3§0§5");
-				save.println("-1§3§0§4");
-				save.println("-2§3§0§0");
-				save.println("-2§2§0§0");
-				save.println("0§3§0§1");
-				save.println("2§3§0§1");
-				save.println("2§4§0§1");
-				save.println("0§4§0§1");
-				save.println("0§5§0§4");
-				save.println("-1§5§0§4");
-				save.println("");
-				save.println("Make your own structure here:");
-				save.println("0§0§0");
-				save.println("1§0§0");
-				save.println("0§0§1");
-				save.println("-1§0§0");
-				save.println("0§0§-1");
-				save.println("0§1§0");
-				save.close();
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-		ArrayList<String> fileText = new ArrayList<String>();
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(autoBuild_custom));
-			for(String line = ""; (line = load.readLine()) != null;)
-				fileText.add(line);
-			load.close();
+			String[] comment =
+			{
+				"Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.",
+				"This Source Code Form is subject to the terms of the Mozilla Public",
+				"License, v. 2.0. If a copy of the MPL was not distributed with this",
+				"file, You can obtain one at http://mozilla.org/MPL/2.0/."
+			};
+			Iterator<Entry<String, int[][]>> itr = new DefaultAutoBuildTemplates().entrySet().iterator();
+			while(itr.hasNext())
+			{
+				Entry<String, int[][]> entry = itr.next();
+				JsonObject json = new JsonObject();
+				json.add("__comment", gson.toJsonTree(comment, String[].class));
+				json.add("blocks", gson.toJsonTree(entry.getValue(), int[][].class));
+				PrintWriter save = new PrintWriter(new FileWriter(new File(autobuildDir, entry.getKey() + ".json")));
+				save.println(gson.toJson(json));
+				save.close();
+			}
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		@SuppressWarnings("unchecked")
-		ArrayList<String> buildingText = (ArrayList<String>)fileText.clone();
-		for(int i = 0; i < fileText.size(); i++)// Removes all the text before
-		// "Make your own structure here:".
+	}
+	
+	public void loadAutoBuildTemplates()
+	{
+		try
 		{
-			if(fileText.get(i).contains("Make your own structure here:"))
-				break;
-			buildingText.remove(0);
-		}
-		buildingText.remove(0);// Removes "Make your own structure here:".
-		ArrayList<int[]> loadedBuilding = new ArrayList<int[]>();
-		for(int i = 0; i < buildingText.size(); i++)
+			for(File file : autobuildDir.listFiles())
+			{
+				BufferedReader load = new BufferedReader(new FileReader(file));
+				JsonObject json = (JsonObject)new JsonParser().parse(load);
+				load.close();
+				AutoBuild.templates.add(gson.fromJson(json.get("blocks"), int[][].class));
+				AutoBuild.names.add(file.getName().substring(0, file.getName().indexOf(".json")));
+			}
+		}catch(Exception e)
 		{
-			String data[] = buildingText.get(i).split(split);
-			int[] block = new int[data.length];
-			for(int i2 = 0; i2 < data.length; i2++)
-				block[i2] = Integer.valueOf(data[i2]);
-			loadedBuilding.add(block);
+			e.printStackTrace();
 		}
-		int[][] custom = new int[loadedBuilding.size()][loadedBuilding.get(0).length];
-		custom = loadedBuilding.toArray(custom);
-		AutoBuild.buildings.add(custom);
 	}
 }

@@ -60,6 +60,8 @@ public class BasicComboBox extends AbstractComponent implements ComboBox
 	@Override
 	public String getSelectedElement()
 	{
+		if(selectedIndex >= elements.length)
+			selectedIndex = elements.length - 1;
 		return elements[selectedIndex];
 	}
 	

@@ -52,9 +52,9 @@ public class Client
 		options = new Options();
 		friends = new Friends();
 		
+		fileManager.init();
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();
-		fileManager.init();
 		updater.checkForUpdate();
 	}
 }
