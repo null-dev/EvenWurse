@@ -537,6 +537,7 @@ public class FileManager
 				JsonObject json = (JsonObject)new JsonParser().parse(load);
 				load.close();
 				AutoBuild.templates.add(gson.fromJson(json.get("blocks"), int[][].class));
+				AutoBuild.names.add(file.getName().substring(0, file.getName().indexOf(".json")));
 			}
 		}catch(Exception e)
 		{
