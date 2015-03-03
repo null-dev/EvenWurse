@@ -128,6 +128,8 @@ public final class GuiManager extends AbstractGuiManager
 				name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
 				if(name.equalsIgnoreCase("WIP"))
 					name = "WIP";// Corrects the case.
+				else if(name.equalsIgnoreCase("AUTOBUILD"))
+					name = "AutoBuild";// Corrects the case.
 				frame = new ModuleFrame(name);
 				frame.setTheme(theme);
 				frame.setLayoutManager(new GridLayoutManager(1, 0));
@@ -184,7 +186,7 @@ public final class GuiManager extends AbstractGuiManager
 		}
 		
 		// AutoBuild
-		ModuleFrame blocksFrame = categoryFrames.get(Category.BLOCKS);
+		ModuleFrame blocksFrame = categoryFrames.get(Category.AUTOBUILD);
 		ComboBox autoBuildBox = new BasicComboBox(AutoBuild.names.toArray(new String[AutoBuild.names.size()]));
 		autoBuildBox.addComboBoxListener(new ComboBoxListener()
 		{

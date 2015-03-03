@@ -31,7 +31,7 @@ public class AutoBuild extends Module
 				+ "a template.\n"
 				+ "This mod can bypass NoCheat+ while YesCheat+ is\n"
 				+ "enabled.",
-			Category.BLOCKS);
+			Category.AUTOBUILD);
 	}
 	
 	public static ArrayList<String> names = new ArrayList<String>();
