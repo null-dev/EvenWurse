@@ -30,21 +30,12 @@ public class SpamProcessor
 	
 	public static void runScript(final String filename, final String description)
 	{
-		runFile(new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam"), description);
-	}
-	
-	public static void runSpam(final String filename, final String description)
-	{
-		runFile(new File(Client.wurst.fileManager.spamDir, filename + ".wspam"), description);
-	}
-
-	public static void runFile(final File file, final String description)
-	{
 		new Thread(new Runnable()
 		{
 			@Override
 			public void run()
 			{
+				File file = new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam");
 				try
 				{
 					long startTime = System.currentTimeMillis();
@@ -65,20 +56,7 @@ public class SpamProcessor
 						save.println("-->");
 						save.close();
 					}
-					BufferedReader load = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-					String content = load.readLine();
-					for(String line = ""; (line = load.readLine()) != null;)
-						content += "\n" + line;
-					load.close();
-					String spam = SpamProcessor.process(content, null, false);
-					if(spam == null || spam.isEmpty())
-						return;
-					for(int i = 0; i < spam.split("\n").length; i++)
-					{
-						String message = spam.split("\n")[i];
-						Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
-						Thread.sleep(Client.wurst.options.spamDelay);
-					}
+					runFile(file);
 				}catch(Exception e)
 				{
 					e.printStackTrace();
@@ -92,6 +70,57 @@ public class SpamProcessor
 				}
 			}
 		}).start();
+	}
+	
+	public static void runSpam(final String filename)
+	{
+		new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				File file = new File(Client.wurst.fileManager.spamDir, filename + ".wspam");
+				try
+				{
+					long startTime = System.currentTimeMillis();
+					while(Minecraft.getMinecraft().thePlayer == null)
+					{
+						Thread.sleep(50);
+						if(System.currentTimeMillis() > startTime + 10000)
+							return;
+					}
+					runFile(file);
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+					StringWriter tracewriter = new StringWriter();
+					e.printStackTrace(new PrintWriter(tracewriter));
+					String message = "An error occurred while running " + file.getName() + ":\n"
+						+ e.getLocalizedMessage() + "\n"
+						+ tracewriter.toString();
+					JOptionPane.showMessageDialog(Minecraft.getMinecraft().getFrame(),
+						message, "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}).start();
+	}
+
+	private static void runFile(File file) throws Exception
+	{
+		BufferedReader load = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+		String content = load.readLine();
+		for(String line = ""; (line = load.readLine()) != null;)
+			content += "\n" + line;
+		load.close();
+		String spam = SpamProcessor.process(content, null, false);
+		if(spam == null || spam.isEmpty())
+			return;
+		for(int i = 0; i < spam.split("\n").length; i++)
+		{
+			String message = spam.split("\n")[i];
+			Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
+			Thread.sleep(Client.wurst.options.spamDelay);
+		}
 	}
 
 	public static String process(String spam, Spammer spammer, boolean test)
