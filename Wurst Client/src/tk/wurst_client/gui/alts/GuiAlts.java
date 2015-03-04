@@ -52,6 +52,7 @@ public class GuiAlts extends GuiScreen
 		buttonList.add(new GuiButton(4, width / 2 - 76, height - 28, 74, 20, "Edit"));
 		buttonList.add(new GuiButton(5, width / 2 + 2, height - 28, 74, 20, "Delete"));
 		buttonList.add(new GuiButton(6, width / 2 + 80, height - 28, 75, 20, "Cancel"));
+		buttonList.add(new GuiButton(7, 8, 8, 75, 20, "Import Alts"));
 	}
 	
 	/**
@@ -114,6 +115,10 @@ public class GuiAlts extends GuiScreen
 				mc.displayGuiScreen(new GuiYesNo(this, deleteQuestion, deleteWarning, "Delete", "Cancel", 1));
 			}else if(clickedButton.id == 6)
 				mc.displayGuiScreen(prevMenu);
+			else if(clickedButton.id == 7)
+			{// Import
+				
+			}
 	}
 	
 	@Override
