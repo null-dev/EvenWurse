@@ -41,6 +41,7 @@ public class CommandManager
 		activeCommands.add(new Toggle());
 		activeCommands.add(new TP());
 		activeCommands.add(new VClip());
+		activeCommands.add(new WMS());
 		activeCommands.add(new XRay());
 	}
 }

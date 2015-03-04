@@ -12,9 +12,17 @@ import net.minecraft.util.ChatComponentText;
 
 public class ChatMessenger
 {
+	private boolean enabled = true;
+
+	public void setEnabled(boolean enabled)
+	{
+		this.enabled = enabled;
+	}
+	
 	public void message(String message)
 	{
-		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§c[§6Wurst§c]§f " + message));
+		if(enabled)
+			Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§c[§6Wurst§c]§f " + message));
 	}
 	
 	public void info(String message)
@@ -45,5 +53,10 @@ public class ChatMessenger
 	public void failure(String message)
 	{
 		message("§c[§4§lFAILURE§c]§f " + message);
+	}
+	
+	public void cmd(String message)
+	{
+		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText("§c[§6Wurst§c]§f §0§l<§aCMD§0§l>§f " + message));
 	}
 }
