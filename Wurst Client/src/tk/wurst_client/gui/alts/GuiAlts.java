@@ -193,6 +193,7 @@ public class GuiAlts extends GuiScreen
 			if(par1)
 			{
 				GuiAltList.alts.remove(altList.getSelectedSlot());
+				GuiAltList.sortAlts();
 				Client.wurst.fileManager.saveAlts();
 			}
 		}
