@@ -18,7 +18,7 @@ public class Keybinds extends TreeMap<String, String>
 		put("F", ".t fastplace");
 		put("G", ".t flight");
 		put("GRAVE", ".t speednuker");
-		put("H", ".t home");
+		put("H", ".t /home");
 		put("J", ".t phase");
 		put("K", ".t multiaura");
 		put("L", ".t nuker");
