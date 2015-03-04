@@ -182,7 +182,7 @@ public class InstantBunker extends Module
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
+		if(!getToggled() || Minecraft.getMinecraft().objectMouseOver == null)
 			return;
 		updateMS();
 		if(shouldBuild)
