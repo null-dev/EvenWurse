@@ -7,6 +7,7 @@
  */
 package tk.wurst_client.module.modules;
 
+import net.minecraft.client.Minecraft;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
@@ -15,8 +16,19 @@ public class NoSlowdown extends Module
 	public NoSlowdown()
 	{
 		super("NoSlowdown",
-			"Cancels slowness effects caused by water, sol sand and\n"
+			"Cancels slowness effects caused by water, soul sand and\n"
 			+ "using items.",
 			Category.MOVEMENT);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
+		if(!getToggled())
+			return;
+		if(Minecraft.getMinecraft().thePlayer.onGround
+			&& Minecraft.getMinecraft().thePlayer.isInWater()
+			&& Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
+			Minecraft.getMinecraft().thePlayer.jump();
 	}
 }
