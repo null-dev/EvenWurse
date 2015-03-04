@@ -54,31 +54,24 @@ public class GuiAltList extends GuiWurstSlot
 		crackedAlts = 0;
 		for(int i = 0; i < alts.size(); i++)
 			if(alts.get(i).isStarred())
-			{
 				newAlts.add(alts.get(i));
-				if(alts.get(i).isCracked())
-					crackedAlts++;
-				else
-					premiumAlts++;
-			}
 		for(int i = 0; i < alts.size(); i++)
 			if(!alts.get(i).isCracked() && !alts.get(i).isStarred())
-			{
 				newAlts.add(alts.get(i));
-				premiumAlts++;
-			}
 		for(int i = 0; i < alts.size(); i++)
 			if(alts.get(i).isCracked() && !alts.get(i).isStarred())
-			{
 				newAlts.add(alts.get(i));
-				crackedAlts++;
-			}
 		for(int i = 0; i < newAlts.size(); i++)
 			for(int i2 = 0; i2 < newAlts.size(); i2++)
 				if(i != i2
-					&& newAlts.get(i).getName().equals(newAlts.get(i2).getName())
+					&& newAlts.get(i).getEmail().equals(newAlts.get(i2).getEmail())
 					&& newAlts.get(i).isCracked() == newAlts.get(i2).isCracked())
 					newAlts.remove(i2);
+		for(int i = 0; i < newAlts.size(); i++)
+			if(newAlts.get(i).isCracked())
+				crackedAlts++;
+			else
+				premiumAlts++;
 		alts = newAlts;
 	}
 	
