@@ -9,13 +9,14 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.module.Module;
 
 public class Toggle extends Command
 {
 	private static String[] commandHelp =
 	{
-		"Toggles a command.",
-		"§o.t§r <command>"
+		"Toggles a mod.",
+		"§o.t§r <mod> [(on | off)]"
 	};
 	
 	public Toggle()
@@ -26,10 +27,29 @@ public class Toggle extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
+		int mode;
+		if(args.length == 1)
+			mode = 0;
+		else if(args.length == 2 && args[1].equalsIgnoreCase("on"))
+			mode = 1;
+		else if(args.length == 2 && args[1].equalsIgnoreCase("off"))
+			mode = 2;
+		else
+		{
+			commandError();
+			return;
+		}
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
 			if(Client.wurst.moduleManager.activeModules.get(i).getName().toLowerCase().equals(args[0].toLowerCase()))
 			{
-				Client.wurst.moduleManager.activeModules.get(i).toggleModule();
+				Module module = Client.wurst.moduleManager.activeModules.get(i);
+				if(mode == 0)
+					module.toggleModule();
+				else if(mode == 1)
+					module.setToggled(true);
+				else if(mode == 2)
+					module.setToggled(false);
+				Client.wurst.chat.message(module.getName() + " turned " + (module.getToggled() ? "on" : "off") + ".");
 				return;
 			}
 		commandError();
