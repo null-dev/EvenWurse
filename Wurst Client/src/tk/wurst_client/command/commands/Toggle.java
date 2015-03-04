@@ -49,7 +49,6 @@ public class Toggle extends Command
 					module.setToggled(true);
 				else if(mode == 2)
 					module.setToggled(false);
-				Client.wurst.chat.message(module.getName() + " turned " + (module.getToggled() ? "on" : "off") + ".");
 				return;
 			}
 		commandError();
