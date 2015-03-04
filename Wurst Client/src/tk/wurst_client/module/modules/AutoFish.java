@@ -56,6 +56,7 @@ public class AutoFish extends Module
 	
 	private boolean isHooked(EntityFishHook hook)
 	{
-		return hook.motionX == 0.0D && hook.motionZ == 0.0D && hook.motionY != 0.0D;
+		return hook.motionX == 0.0D && hook.motionZ == 0.0D
+			&& hook.motionY != 0.0D;
 	}
 }

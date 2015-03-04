@@ -11,8 +11,10 @@ import java.util.HashMap;
 
 public class VarManager
 {
-	private final HashMap<String, String> spammerVars = new HashMap<String, String>();
-	private final HashMap<String, String> userVars = new HashMap<String, String>();
+	private final HashMap<String, String> spammerVars =
+		new HashMap<String, String>();
+	private final HashMap<String, String> userVars =
+		new HashMap<String, String>();
 	
 	public VarManager()
 	{

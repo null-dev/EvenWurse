@@ -29,12 +29,18 @@ public class KillauraLegit extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(Killaura.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(Killaura.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
+				.setToggled(false);
 	}
 	
 	@Override
@@ -43,12 +49,15 @@ public class KillauraLegit extends Module
 		if(getToggled())
 		{
 			updateMS();
-			if(hasTimePassedS(Killaura.yesCheatSpeed) && EntityUtils.getClosestEntity(true) != null)
+			if(hasTimePassedS(Killaura.yesCheatSpeed)
+				&& EntityUtils.getClosestEntity(true) != null)
 			{
 				EntityLivingBase en = EntityUtils.getClosestEntity(true);
 				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= Killaura.yesCheatRange)
 				{
-					if(Client.wurst.moduleManager.getModuleFromClass(Criticals.class).getToggled() && Minecraft.getMinecraft().thePlayer.onGround)
+					if(Client.wurst.moduleManager.getModuleFromClass(
+						Criticals.class).getToggled()
+						&& Minecraft.getMinecraft().thePlayer.onGround)
 						Minecraft.getMinecraft().thePlayer.jump();
 					if(EntityUtils.getDistanceFromMouse(en) > 55)
 						EntityUtils.faceEntityClient(en);
@@ -56,7 +65,8 @@ public class KillauraLegit extends Module
 					{
 						EntityUtils.faceEntityClient(en);
 						Minecraft.getMinecraft().thePlayer.swingItem();
-						Minecraft.getMinecraft().playerController.attackEntity(Minecraft.getMinecraft().thePlayer, en);
+						Minecraft.getMinecraft().playerController.attackEntity(
+							Minecraft.getMinecraft().thePlayer, en);
 					}
 					updateLastMS();
 				}

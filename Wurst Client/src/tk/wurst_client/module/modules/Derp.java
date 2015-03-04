@@ -28,9 +28,12 @@ public class Derp extends Module
 	{
 		if(!getToggled())
 			return;
-		float yaw = Minecraft.getMinecraft().thePlayer.rotationYaw + (float)(Math.random() * 360 - 180);
+		float yaw =
+			Minecraft.getMinecraft().thePlayer.rotationYaw
+				+ (float)(Math.random() * 360 - 180);
 		float pitch = (float)(Math.random() * 180 - 90);
-		Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook
+		Minecraft.getMinecraft().thePlayer.sendQueue
+			.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook
 			(
 				yaw,
 				pitch,

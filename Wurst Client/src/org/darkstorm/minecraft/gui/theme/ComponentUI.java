@@ -22,7 +22,8 @@ public interface ComponentUI
 	
 	public Rectangle[] getInteractableRegions(Component component);
 	
-	public void handleInteraction(Component component, Point location, int button);
+	public void handleInteraction(Component component, Point location,
+		int button);
 	
 	public void handleUpdate(Component component);
 }

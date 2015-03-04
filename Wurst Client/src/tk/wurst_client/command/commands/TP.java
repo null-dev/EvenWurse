@@ -28,7 +28,8 @@ public class TP extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(MiscUtils.isInteger(args[0]) && MiscUtils.isInteger(args[1]) && MiscUtils.isInteger(args[2]))
+		if(MiscUtils.isInteger(args[0]) && MiscUtils.isInteger(args[1])
+			&& MiscUtils.isInteger(args[2]))
 			Minecraft.getMinecraft().thePlayer.setPosition
 				(
 					Integer.valueOf(args[0]),

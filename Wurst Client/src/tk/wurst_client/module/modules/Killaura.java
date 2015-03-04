@@ -39,8 +39,10 @@ public class Killaura extends Module
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("Killaura speed", normalSpeed, 2, 20, 0.1, ValueDisplay.DECIMAL));
-		moduleSliders.add(new BasicSlider("Killaura range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
+		moduleSliders.add(new BasicSlider("Killaura speed", normalSpeed, 2, 20,
+			0.1, ValueDisplay.DECIMAL));
+		moduleSliders.add(new BasicSlider("Killaura range", normalRange, 1, 6,
+			0.05, ValueDisplay.DECIMAL));
 	}
 	
 	@Override
@@ -55,12 +57,18 @@ public class Killaura extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
+				.setToggled(false);
 	}
 	
 	@Override
@@ -68,7 +76,8 @@ public class Killaura extends Module
 	{
 		if(getToggled())
 		{
-			if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+			if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+				.getToggled())
 			{
 				realSpeed = yesCheatSpeed;
 				realRange = yesCheatRange;
@@ -78,7 +87,8 @@ public class Killaura extends Module
 				realRange = normalRange;
 			}
 			updateMS();
-			if(hasTimePassedS(realSpeed) && EntityUtils.getClosestEntity(true) != null)
+			if(hasTimePassedS(realSpeed)
+				&& EntityUtils.getClosestEntity(true) != null)
 			{
 				EntityLivingBase en = EntityUtils.getClosestEntity(true);
 				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
@@ -86,7 +96,8 @@ public class Killaura extends Module
 					Criticals.doCritical();
 					EntityUtils.faceEntityPacket(en);
 					Minecraft.getMinecraft().thePlayer.swingItem();
-					Minecraft.getMinecraft().playerController.attackEntity(Minecraft.getMinecraft().thePlayer, en);
+					Minecraft.getMinecraft().playerController.attackEntity(
+						Minecraft.getMinecraft().thePlayer, en);
 					updateLastMS();
 				}
 			}

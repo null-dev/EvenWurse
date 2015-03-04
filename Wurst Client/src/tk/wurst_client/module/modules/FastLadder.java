@@ -26,7 +26,8 @@ public class FastLadder extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Minecraft.getMinecraft().thePlayer.isOnLadder() && Minecraft.getMinecraft().thePlayer.isCollidedHorizontally)
+		if(Minecraft.getMinecraft().thePlayer.isOnLadder()
+			&& Minecraft.getMinecraft().thePlayer.isCollidedHorizontally)
 			Minecraft.getMinecraft().thePlayer.motionY = 0.25;
 	}
 }

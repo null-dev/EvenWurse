@@ -45,7 +45,8 @@ public class Kaboom extends Module
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("Kaboom power", power, 32, 512, 32, ValueDisplay.INTEGER));
+		moduleSliders.add(new BasicSlider("Kaboom power", power, 32, 512, 32,
+			ValueDisplay.INTEGER));
 	}
 	
 	@Override
@@ -59,7 +60,8 @@ public class Kaboom extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
@@ -90,30 +92,56 @@ public class Kaboom extends Module
 					for(int x = range; x >= -range - 1; x--)
 						for(int z = range; z >= -range; z--)
 						{
-							int posX = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
-							int posY = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
-							int posZ = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
+							int posX =
+								(int)(Math
+									.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
+							int posY =
+								(int)(Math
+									.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
+							int posZ =
+								(int)(Math
+									.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
 							if(x == 0 && y == -1 && z == 0)
 								continue;
 							BlockPos pos = new BlockPos(posX, posY, posZ);
-							Block block = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
-							float xDiff = (float)(Minecraft.getMinecraft().thePlayer.posX - posX);
-							float yDiff = (float)(Minecraft.getMinecraft().thePlayer.posY - posY);
-							float zDiff = (float)(Minecraft.getMinecraft().thePlayer.posZ - posZ);
-							float currentDistance = BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
-							MovingObjectPosition fakeObjectMouseOver = Minecraft.getMinecraft().objectMouseOver;
-							fakeObjectMouseOver.setBlockPos(new BlockPos(posX, posY, posZ));
-							if(Block.getIdFromBlock(block) != 0 && posY >= 0 && currentDistance <= range)
+							Block block =
+								Minecraft.getMinecraft().theWorld
+									.getBlockState(pos).getBlock();
+							float xDiff =
+								(float)(Minecraft.getMinecraft().thePlayer.posX - posX);
+							float yDiff =
+								(float)(Minecraft.getMinecraft().thePlayer.posY - posY);
+							float zDiff =
+								(float)(Minecraft.getMinecraft().thePlayer.posZ - posZ);
+							float currentDistance =
+								BlockUtils
+									.getBlockDistance(xDiff, yDiff, zDiff);
+							MovingObjectPosition fakeObjectMouseOver =
+								Minecraft.getMinecraft().objectMouseOver;
+							fakeObjectMouseOver.setBlockPos(new BlockPos(posX,
+								posY, posZ));
+							if(Block.getIdFromBlock(block) != 0 && posY >= 0
+								&& currentDistance <= range)
 							{
 								if(!Minecraft.getMinecraft().thePlayer.onGround)
 									continue;
 								EnumFacing side = fakeObjectMouseOver.sideHit;
 								BlockUtils.faceBlockPacket(pos);
-								Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
-								Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.START_DESTROY_BLOCK, pos, side));
+								Minecraft.getMinecraft().thePlayer.sendQueue
+									.addToSendQueue(new C0APacketAnimation());
+								Minecraft.getMinecraft().thePlayer.sendQueue
+									.addToSendQueue(new C07PacketPlayerDigging(
+										Action.START_DESTROY_BLOCK, pos, side));
 								for(int i = 0; i < power; i++)
-									Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.STOP_DESTROY_BLOCK, pos, side));
-								block.onBlockDestroyedByPlayer(Minecraft.getMinecraft().theWorld, pos, Minecraft.getMinecraft().theWorld.getBlockState(pos));
+									Minecraft.getMinecraft().thePlayer.sendQueue
+										.addToSendQueue(new C07PacketPlayerDigging(
+											Action.STOP_DESTROY_BLOCK, pos,
+											side));
+								block
+									.onBlockDestroyedByPlayer(Minecraft
+										.getMinecraft().theWorld, pos,
+										Minecraft.getMinecraft().theWorld
+											.getBlockState(pos));
 							}
 						}
 				}

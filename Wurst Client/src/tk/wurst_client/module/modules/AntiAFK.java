@@ -25,7 +25,7 @@ public class AntiAFK extends Module
 	{
 		super("AntiAFK",
 			"Walks around randomly to hide you from AFK detectors.\n"
-			+ "Needs 3x3 blocks of free space.",
+				+ "Needs 3x3 blocks of free space.",
 			Category.MISC);
 	}
 	
@@ -39,7 +39,7 @@ public class AntiAFK extends Module
 		{
 			e.printStackTrace();
 		}
-		random  = new Random();
+		random = new Random();
 	}
 	
 	@Override
@@ -52,14 +52,16 @@ public class AntiAFK extends Module
 		{
 			if(block == null)
 				onEnable();
-			nextBlock = block.add(random.nextInt(3) - 1, 0, random.nextInt(3) - 1);
+			nextBlock =
+				block.add(random.nextInt(3) - 1, 0, random.nextInt(3) - 1);
 			updateLastMS();
 		}
 		BlockUtils.faceBlockClientHorizontally(nextBlock);
 		if(BlockUtils.getHorizontalPlayerBlockDistance(nextBlock) > 0.75)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
 		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
+				false;
 	}
 	
 	@Override

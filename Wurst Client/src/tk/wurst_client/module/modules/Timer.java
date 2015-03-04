@@ -30,7 +30,8 @@ public class Timer extends Module
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("Timer speed", speed, 0.1, 10, 0.1, ValueDisplay.DECIMAL));
+		moduleSliders.add(new BasicSlider("Timer speed", speed, 0.1, 10, 0.1,
+			ValueDisplay.DECIMAL));
 	}
 	
 	@Override

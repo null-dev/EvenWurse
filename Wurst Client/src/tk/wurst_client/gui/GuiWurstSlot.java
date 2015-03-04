@@ -44,7 +44,8 @@ public abstract class GuiWurstSlot
 	protected int field_148160_j;
 	private boolean field_148164_v = true;
 	
-	public GuiWurstSlot(Minecraft par1Minecraft, int par2, int par3, int par4, int par5, int par6)
+	public GuiWurstSlot(Minecraft par1Minecraft, int par2, int par3, int par4,
+		int par5, int par6)
 	{
 		field_148161_k = par1Minecraft;
 		field_148155_a = par2;
@@ -56,7 +57,8 @@ public abstract class GuiWurstSlot
 		field_148151_d = par2;
 	}
 	
-	public void func_148122_a(int p_148122_1_, int p_148122_2_, int p_148122_3_, int p_148122_4_)
+	public void func_148122_a(int p_148122_1_, int p_148122_2_,
+		int p_148122_3_, int p_148122_4_)
 	{
 		field_148155_a = p_148122_1_;
 		field_148158_l = p_148122_2_;
@@ -82,7 +84,8 @@ public abstract class GuiWurstSlot
 	
 	protected abstract int getSize();
 	
-	protected abstract void elementClicked(int var1, boolean var2, int var3, int var4);
+	protected abstract void elementClicked(int var1, boolean var2, int var3,
+		int var4);
 	
 	protected abstract boolean isSelected(int var1);
 	
@@ -93,9 +96,11 @@ public abstract class GuiWurstSlot
 	
 	protected abstract void drawBackground();
 	
-	protected abstract void drawSlot(int var1, int var2, int var3, int var4, int var5, int var6);
+	protected abstract void drawSlot(int var1, int var2, int var3, int var4,
+		int var5, int var6);
 	
-	protected void func_148129_a(int p_148129_1_, int p_148129_2_, Tessellator p_148129_3_)
+	protected void func_148129_a(int p_148129_1_, int p_148129_2_,
+		Tessellator p_148129_3_)
 	{}
 	
 	protected void func_148132_a(int p_148132_1_, int p_148132_2_)
@@ -108,9 +113,13 @@ public abstract class GuiWurstSlot
 	{
 		int var3 = field_148152_e + field_148155_a / 2 - func_148139_c() / 2;
 		int var4 = field_148152_e + field_148155_a / 2 + func_148139_c() / 2;
-		int var5 = p_148124_2_ - field_148153_b - field_148160_j + (int)field_148169_q - 4;
+		int var5 =
+			p_148124_2_ - field_148153_b - field_148160_j + (int)field_148169_q
+				- 4;
 		int var6 = var5 / field_148149_f;
-		return p_148124_1_ < func_148137_d() && p_148124_1_ >= var3 && p_148124_1_ <= var4 && var6 >= 0 && var5 >= 0 && var6 < getSize() ? var6 : -1;
+		return p_148124_1_ < func_148137_d() && p_148124_1_ >= var3
+			&& p_148124_1_ <= var4 && var6 >= 0 && var5 >= 0
+			&& var6 < getSize() ? var6 : -1;
 	}
 	
 	public void registerScrollButtons(int p_148134_1_, int p_148134_2_)
@@ -188,30 +197,41 @@ public abstract class GuiWurstSlot
 		int var13;
 		int var19;
 		
-		if(p_148128_1_ > field_148152_e && p_148128_1_ < field_148151_d && p_148128_2_ > field_148153_b && p_148128_2_ < field_148154_c)
+		if(p_148128_1_ > field_148152_e && p_148128_1_ < field_148151_d
+			&& p_148128_2_ > field_148153_b && p_148128_2_ < field_148154_c)
 			if(Mouse.isButtonDown(0) && func_148125_i())
 			{
 				if(field_148157_o == -1.0F)
 				{
 					boolean var15 = true;
 					
-					if(p_148128_2_ >= field_148153_b && p_148128_2_ <= field_148154_c)
+					if(p_148128_2_ >= field_148153_b
+						&& p_148128_2_ <= field_148154_c)
 					{
 						int var8 = field_148155_a / 2 - func_148139_c() / 2;
 						var9 = field_148155_a / 2 + func_148139_c() / 2;
-						var10 = p_148128_2_ - field_148153_b - field_148160_j + (int)field_148169_q - 4;
+						var10 =
+							p_148128_2_ - field_148153_b - field_148160_j
+								+ (int)field_148169_q - 4;
 						int var11 = var10 / field_148149_f;
 						
-						if(p_148128_1_ >= var8 && p_148128_1_ <= var9 && var11 >= 0 && var10 >= 0 && var11 < var4)
+						if(p_148128_1_ >= var8 && p_148128_1_ <= var9
+							&& var11 >= 0 && var10 >= 0 && var11 < var4)
 						{
-							boolean var12 = var11 == field_148168_r && Minecraft.getSystemTime() - field_148167_s < 250L;
-							elementClicked(var11, var12, p_148128_1_, p_148128_2_);
+							boolean var12 =
+								var11 == field_148168_r
+									&& Minecraft.getSystemTime()
+										- field_148167_s < 250L;
+							elementClicked(var11, var12, p_148128_1_,
+								p_148128_2_);
 							field_148168_r = var11;
 							field_148167_s = Minecraft.getSystemTime();
 						}
-						else if(p_148128_1_ >= var8 && p_148128_1_ <= var9 && var10 < 0)
+						else if(p_148128_1_ >= var8 && p_148128_1_ <= var9
+							&& var10 < 0)
 						{
-							func_148132_a(p_148128_1_ - var8, p_148128_2_ - field_148153_b + (int)field_148169_q - 4);
+							func_148132_a(p_148128_1_ - var8, p_148128_2_
+								- field_148153_b + (int)field_148169_q - 4);
 							var15 = false;
 						}
 						
@@ -223,7 +243,8 @@ public abstract class GuiWurstSlot
 							if(var19 < 1)
 								var19 = 1;
 							
-							var13 = (int)((float)((field_148154_c - field_148153_b) * (field_148154_c - field_148153_b)) / (float)func_148138_e());
+							var13 =
+								(int)((float)((field_148154_c - field_148153_b) * (field_148154_c - field_148153_b)) / (float)func_148138_e());
 							
 							if(var13 < 32)
 								var13 = 32;
@@ -231,7 +252,9 @@ public abstract class GuiWurstSlot
 							if(var13 > field_148154_c - field_148153_b - 8)
 								var13 = field_148154_c - field_148153_b - 8;
 							
-							field_148170_p /= (float)(field_148154_c - field_148153_b - var13) / (float)var19;
+							field_148170_p /=
+								(float)(field_148154_c - field_148153_b - var13)
+									/ (float)var19;
 						}else
 							field_148170_p = 1.0F;
 						
@@ -244,7 +267,8 @@ public abstract class GuiWurstSlot
 				}
 				else if(field_148157_o >= 0.0F)
 				{
-					field_148169_q -= (p_148128_2_ - field_148157_o) * field_148170_p;
+					field_148169_q -=
+						(p_148128_2_ - field_148157_o) * field_148170_p;
 					field_148157_o = p_148128_2_;
 				}
 			}
@@ -252,7 +276,9 @@ public abstract class GuiWurstSlot
 			{
 				try
 				{
-					for(; !field_148161_k.gameSettings.touchscreen && Mouse.next(); field_148161_k.currentScreen.handleMouseInput())
+					for(; !field_148161_k.gameSettings.touchscreen
+						&& Mouse.next(); field_148161_k.currentScreen
+						.handleMouseInput())
 					{
 						int var7 = Mouse.getEventDWheel();
 						
@@ -284,10 +310,14 @@ public abstract class GuiWurstSlot
 		float var16 = 32.0F;
 		wr.startDrawingQuads();
 		wr.setColorOpaque_I(2105376);
-		wr.addVertexWithUV(field_148152_e, field_148154_c, 0.0D, field_148152_e / var16, (field_148154_c + (int)field_148169_q) / var16);
-		wr.addVertexWithUV(field_148151_d, field_148154_c, 0.0D, field_148151_d / var16, (field_148154_c + (int)field_148169_q) / var16);
-		wr.addVertexWithUV(field_148151_d, field_148153_b, 0.0D, field_148151_d / var16, (field_148153_b + (int)field_148169_q) / var16);
-		wr.addVertexWithUV(field_148152_e, field_148153_b, 0.0D, field_148152_e / var16, (field_148153_b + (int)field_148169_q) / var16);
+		wr.addVertexWithUV(field_148152_e, field_148154_c, 0.0D, field_148152_e
+			/ var16, (field_148154_c + (int)field_148169_q) / var16);
+		wr.addVertexWithUV(field_148151_d, field_148154_c, 0.0D, field_148151_d
+			/ var16, (field_148154_c + (int)field_148169_q) / var16);
+		wr.addVertexWithUV(field_148151_d, field_148153_b, 0.0D, field_148151_d
+			/ var16, (field_148153_b + (int)field_148169_q) / var16);
+		wr.addVertexWithUV(field_148152_e, field_148153_b, 0.0D, field_148152_e
+			/ var16, (field_148153_b + (int)field_148169_q) / var16);
 		ts.draw();
 		var9 = field_148152_e + field_148155_a / 2 - func_148139_c() / 2 + 2;
 		var10 = field_148153_b + 4 - (int)field_148169_q;
@@ -307,8 +337,10 @@ public abstract class GuiWurstSlot
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		wr.startDrawingQuads();
 		wr.setColorRGBA_I(0, 0);
-		wr.addVertexWithUV(field_148152_e, field_148153_b + var18, 0.0D, 0.0D, 1.0D);
-		wr.addVertexWithUV(field_148151_d, field_148153_b + var18, 0.0D, 1.0D, 1.0D);
+		wr.addVertexWithUV(field_148152_e, field_148153_b + var18, 0.0D, 0.0D,
+			1.0D);
+		wr.addVertexWithUV(field_148151_d, field_148153_b + var18, 0.0D, 1.0D,
+			1.0D);
 		wr.setColorRGBA_I(0, 255);
 		wr.addVertexWithUV(field_148151_d, field_148153_b, 0.0D, 1.0D, 0.0D);
 		wr.addVertexWithUV(field_148152_e, field_148153_b, 0.0D, 0.0D, 0.0D);
@@ -318,14 +350,18 @@ public abstract class GuiWurstSlot
 		wr.addVertexWithUV(field_148152_e, field_148154_c, 0.0D, 0.0D, 1.0D);
 		wr.addVertexWithUV(field_148151_d, field_148154_c, 0.0D, 1.0D, 1.0D);
 		wr.setColorRGBA_I(0, 0);
-		wr.addVertexWithUV(field_148151_d, field_148154_c - var18, 0.0D, 1.0D, 0.0D);
-		wr.addVertexWithUV(field_148152_e, field_148154_c - var18, 0.0D, 0.0D, 0.0D);
+		wr.addVertexWithUV(field_148151_d, field_148154_c - var18, 0.0D, 1.0D,
+			0.0D);
+		wr.addVertexWithUV(field_148152_e, field_148154_c - var18, 0.0D, 0.0D,
+			0.0D);
 		ts.draw();
 		var19 = func_148135_f();
 		
 		if(var19 > 0)
 		{
-			var13 = (field_148154_c - field_148153_b) * (field_148154_c - field_148153_b) / func_148138_e();
+			var13 =
+				(field_148154_c - field_148153_b)
+					* (field_148154_c - field_148153_b) / func_148138_e();
 			
 			if(var13 < 32)
 				var13 = 32;
@@ -333,7 +369,9 @@ public abstract class GuiWurstSlot
 			if(var13 > field_148154_c - field_148153_b - 8)
 				var13 = field_148154_c - field_148153_b - 8;
 			
-			int var14 = (int)field_148169_q * (field_148154_c - field_148153_b - var13) / var19 + field_148153_b;
+			int var14 =
+				(int)field_148169_q * (field_148154_c - field_148153_b - var13)
+					/ var19 + field_148153_b;
 			
 			if(var14 < field_148153_b)
 				var14 = field_148153_b;
@@ -383,7 +421,8 @@ public abstract class GuiWurstSlot
 		return 250;
 	}
 	
-	protected void func_148120_b(int p_148120_1_, int p_148120_2_, int p_148120_3_, int p_148120_4_)
+	protected void func_148120_b(int p_148120_1_, int p_148120_2_,
+		int p_148120_3_, int p_148120_4_)
 	{
 		int var5 = getSize();
 		Tessellator ts = Tessellator.getInstance();
@@ -398,8 +437,12 @@ public abstract class GuiWurstSlot
 			{
 				if(field_148166_t && isSelected(var7))
 				{
-					int var10 = field_148152_e + field_148155_a / 2 - func_148139_c() / 2;
-					int var11 = field_148152_e + field_148155_a / 2 + func_148139_c() / 2;
+					int var10 =
+						field_148152_e + field_148155_a / 2 - func_148139_c()
+							/ 2;
+					int var11 =
+						field_148152_e + field_148155_a / 2 + func_148139_c()
+							/ 2;
 					GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 					GL11.glDisable(GL11.GL_TEXTURE_2D);
 					wr.startDrawingQuads();
@@ -409,15 +452,18 @@ public abstract class GuiWurstSlot
 					wr.addVertexWithUV(var11, var8 - 2, 0.0D, 1.0D, 0.0D);
 					wr.addVertexWithUV(var10, var8 - 2, 0.0D, 0.0D, 0.0D);
 					wr.setColorOpaque_I(0);
-					wr.addVertexWithUV(var10 + 1, var8 + var9 + 1, 0.0D, 0.0D, 1.0D);
-					wr.addVertexWithUV(var11 - 1, var8 + var9 + 1, 0.0D, 1.0D, 1.0D);
+					wr.addVertexWithUV(var10 + 1, var8 + var9 + 1, 0.0D, 0.0D,
+						1.0D);
+					wr.addVertexWithUV(var11 - 1, var8 + var9 + 1, 0.0D, 1.0D,
+						1.0D);
 					wr.addVertexWithUV(var11 - 1, var8 - 1, 0.0D, 1.0D, 0.0D);
 					wr.addVertexWithUV(var10 + 1, var8 - 1, 0.0D, 0.0D, 0.0D);
 					ts.draw();
 					GL11.glEnable(GL11.GL_TEXTURE_2D);
 				}
 				
-				drawSlot(var7, p_148120_1_, var8, var9, p_148120_3_, p_148120_4_);
+				drawSlot(var7, p_148120_1_, var8, var9, p_148120_3_,
+					p_148120_4_);
 			}
 		}
 	}
@@ -427,7 +473,8 @@ public abstract class GuiWurstSlot
 		return field_148155_a / 2 + 134;
 	}
 	
-	private void func_148136_c(int p_148136_1_, int p_148136_2_, int p_148136_3_, int p_148136_4_)
+	private void func_148136_c(int p_148136_1_, int p_148136_2_,
+		int p_148136_3_, int p_148136_4_)
 	{
 		Tessellator ts = Tessellator.getInstance();
 		WorldRenderer wr = ts.getWorldRenderer();
@@ -436,11 +483,15 @@ public abstract class GuiWurstSlot
 		float var6 = 32.0F;
 		wr.startDrawingQuads();
 		wr.setColorRGBA_I(4210752, p_148136_4_);
-		wr.addVertexWithUV(field_148152_e, p_148136_2_, 0.0D, 0.0D, p_148136_2_ / var6);
-		wr.addVertexWithUV(field_148152_e + field_148155_a, p_148136_2_, 0.0D, field_148155_a / var6, p_148136_2_ / var6);
+		wr.addVertexWithUV(field_148152_e, p_148136_2_, 0.0D, 0.0D, p_148136_2_
+			/ var6);
+		wr.addVertexWithUV(field_148152_e + field_148155_a, p_148136_2_, 0.0D,
+			field_148155_a / var6, p_148136_2_ / var6);
 		wr.setColorRGBA_I(4210752, p_148136_3_);
-		wr.addVertexWithUV(field_148152_e + field_148155_a, p_148136_1_, 0.0D, field_148155_a / var6, p_148136_1_ / var6);
-		wr.addVertexWithUV(field_148152_e, p_148136_1_, 0.0D, 0.0D, p_148136_1_ / var6);
+		wr.addVertexWithUV(field_148152_e + field_148155_a, p_148136_1_, 0.0D,
+			field_148155_a / var6, p_148136_1_ / var6);
+		wr.addVertexWithUV(field_148152_e, p_148136_1_, 0.0D, 0.0D, p_148136_1_
+			/ var6);
 		ts.draw();
 	}
 	

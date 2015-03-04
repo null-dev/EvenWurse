@@ -83,8 +83,11 @@ public class ChestESP extends Module
 		}
 		if(i >= maxChests && shouldInform)
 		{
-			Client.wurst.chat.warning(getName() + " found §lA LOT§r of chests.");
-			Client.wurst.chat.message("To prevent lag, it will only show the first " + maxChests + " chests.");
+			Client.wurst.chat
+				.warning(getName() + " found §lA LOT§r of chests.");
+			Client.wurst.chat
+				.message("To prevent lag, it will only show the first "
+					+ maxChests + " chests.");
 			shouldInform = false;
 		}else if(i < maxChests)
 			shouldInform = true;
@@ -103,11 +106,16 @@ public class ChestESP extends Module
 				for(int x = range; x >= -range; x--)
 					for(int z = range; z >= -range; z--)
 					{
-						int posX = (int)(Minecraft.getMinecraft().thePlayer.posX + x);
-						int posY = (int)(Minecraft.getMinecraft().thePlayer.posY + y);
-						int posZ = (int)(Minecraft.getMinecraft().thePlayer.posZ + z);
+						int posX =
+							(int)(Minecraft.getMinecraft().thePlayer.posX + x);
+						int posY =
+							(int)(Minecraft.getMinecraft().thePlayer.posY + y);
+						int posZ =
+							(int)(Minecraft.getMinecraft().thePlayer.posZ + z);
 						BlockPos pos = new BlockPos(posX, posY, posZ);
-						IBlockState state = Minecraft.getMinecraft().theWorld.getBlockState(pos);
+						IBlockState state =
+							Minecraft.getMinecraft().theWorld
+								.getBlockState(pos);
 						Block block = state.getBlock();
 						int metadata = block.getMetaFromState(state);
 						if(Block.getIdFromBlock(block) == 33 &&

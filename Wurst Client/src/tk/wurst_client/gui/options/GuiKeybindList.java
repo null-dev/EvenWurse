@@ -21,7 +21,8 @@ public class GuiKeybindList extends GuiWurstSlot
 {
 	public GuiKeybindList(Minecraft par1Minecraft, GuiScreen prevMenu)
 	{
-		super(par1Minecraft, prevMenu.width, prevMenu.height, 36, prevMenu.height - 56, 30);
+		super(par1Minecraft, prevMenu.width, prevMenu.height, 36,
+			prevMenu.height - 56, 30);
 		mc = par1Minecraft;
 	}
 	
@@ -60,8 +61,12 @@ public class GuiKeybindList extends GuiWurstSlot
 	@Override
 	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
 	{
-		Entry entry = Client.wurst.keybinds.entrySet().toArray(new Map.Entry[Client.wurst.keybinds.size()])[id];
-		mc.fontRendererObj.drawString("Key: " + entry.getKey(), x + 3, y + 3, 10526880);
-		mc.fontRendererObj.drawString("Command: " + entry.getValue(), x + 3, y + 15, 10526880);
+		Entry entry =
+			Client.wurst.keybinds.entrySet().toArray(
+				new Map.Entry[Client.wurst.keybinds.size()])[id];
+		mc.fontRendererObj.drawString("Key: " + entry.getKey(), x + 3, y + 3,
+			10526880);
+		mc.fontRendererObj.drawString("Command: " + entry.getValue(), x + 3,
+			y + 15, 10526880);
 	}
 }

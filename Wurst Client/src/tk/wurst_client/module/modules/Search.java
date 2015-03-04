@@ -70,11 +70,16 @@ public class Search extends Module
 				{
 					for(int z = range; z >= -range; z--)
 					{
-						int posX = (int)(Minecraft.getMinecraft().thePlayer.posX + x);
-						int posY = (int)(Minecraft.getMinecraft().thePlayer.posY + y);
-						int posZ = (int)(Minecraft.getMinecraft().thePlayer.posZ + z);
+						int posX =
+							(int)(Minecraft.getMinecraft().thePlayer.posX + x);
+						int posY =
+							(int)(Minecraft.getMinecraft().thePlayer.posY + y);
+						int posZ =
+							(int)(Minecraft.getMinecraft().thePlayer.posZ + z);
 						BlockPos pos = new BlockPos(posX, posY, posZ);
-						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()) == Client.wurst.options.searchID)
+						if(Block
+							.getIdFromBlock(Minecraft.getMinecraft().theWorld
+								.getBlockState(pos).getBlock()) == Client.wurst.options.searchID)
 							matchingBlocks.add(pos);
 						if(matchingBlocks.size() >= maxBlocks)
 							break;
@@ -87,8 +92,11 @@ public class Search extends Module
 			}
 			if(matchingBlocks.size() >= maxBlocks && shouldInform)
 			{
-				Client.wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
-				Client.wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");
+				Client.wurst.chat.warning(getName()
+					+ " found §lA LOT§r of blocks.");
+				Client.wurst.chat
+					.message("To prevent lag, it will only show the first "
+						+ maxBlocks + " blocks.");
 				shouldInform = false;
 			}else if(matchingBlocks.size() < maxBlocks)
 				shouldInform = true;

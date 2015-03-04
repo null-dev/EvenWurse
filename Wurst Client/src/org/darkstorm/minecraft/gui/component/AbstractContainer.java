@@ -12,7 +12,8 @@ import org.darkstorm.minecraft.gui.theme.Theme;
 public abstract class AbstractContainer extends AbstractComponent implements
 	Container
 {
-	private final Map<Component, Constraint[]> children = new LinkedHashMap<Component, Constraint[]>();
+	private final Map<Component, Constraint[]> children =
+		new LinkedHashMap<Component, Constraint[]>();
 	
 	private LayoutManager layoutManager = new BasicLayoutManager();
 	

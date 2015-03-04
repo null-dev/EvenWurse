@@ -23,6 +23,7 @@ public class GM extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		Minecraft.getMinecraft().thePlayer.sendChatMessage("/gamemode " + args[0]);
+		Minecraft.getMinecraft().thePlayer.sendChatMessage("/gamemode "
+			+ args[0]);
 	}
 }

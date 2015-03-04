@@ -65,10 +65,16 @@ public class ServerConnector
 				try
 				{
 					logger.info("Connecting to " + ip + ", " + port);
-					networkManager = NetworkManager.provideLanClient(InetAddress.getByName(ip), port);
-					networkManager.setNetHandler(new NetHandlerLoginClient(networkManager, null, prevMenu));
-					networkManager.sendPacket(new C00Handshake(47, ip, port, EnumConnectionState.LOGIN), new EmptyFutureListener());
-					networkManager.sendPacket(new C00PacketLoginStart(session.getProfile()), new EmptyFutureListener());
+					networkManager =
+						NetworkManager.provideLanClient(
+							InetAddress.getByName(ip), port);
+					networkManager.setNetHandler(new NetHandlerLoginClient(
+						networkManager, null, prevMenu));
+					networkManager.sendPacket(new C00Handshake(47, ip, port,
+						EnumConnectionState.LOGIN), new EmptyFutureListener());
+					networkManager.sendPacket(
+						new C00PacketLoginStart(session.getProfile()),
+						new EmptyFutureListener());
 					logger.info("Connection successful");
 					connection = Connection.SUCCESSFUL;
 				}catch(UnknownHostException var2)

@@ -42,7 +42,8 @@ public class GuiXRayBlocksAdd extends GuiScreen
 	{
 		nameBox.updateCursorCounter();
 		Block block = Block.getBlockFromName(nameBox.getText());
-		((GuiButton)buttonList.get(0)).enabled = nameBox.getText().trim().length() > 0 && block != null;
+		((GuiButton)buttonList.get(0)).enabled =
+			nameBox.getText().trim().length() > 0 && block != null;
 	}
 	
 	/**
@@ -54,9 +55,12 @@ public class GuiXRayBlocksAdd extends GuiScreen
 	{
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12, "Add"));
-		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 144 + 12, "Cancel"));
-		nameBox = new GuiTextField(0, fontRendererObj, width / 2 - 100, 80, 200, 20);
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12,
+			"Add"));
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 144 + 12,
+			"Cancel"));
+		nameBox =
+			new GuiTextField(0, fontRendererObj, width / 2 - 100, 80, 200, 20);
 		nameBox.setFocused(true);
 	}
 	
@@ -103,7 +107,8 @@ public class GuiXRayBlocksAdd extends GuiScreen
 	 * @throws IOException
 	 */
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
 	{
 		super.mouseClicked(par1, par2, par3);
 		nameBox.mouseClicked(par1, par2, par3);
@@ -128,30 +133,44 @@ public class GuiXRayBlocksAdd extends GuiScreen
 		if(itemStack.getItem() != null)
 			try
 			{
-				Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, x, y);
+				Minecraft.getMinecraft().getRenderItem()
+					.renderItemAndEffectIntoGUI(itemStack, x, y);
 			}catch(Exception e)
 			{
 				e.printStackTrace();
 			}
 		else
 			mc.fontRendererObj.drawString("?", x + 6, y + 5, 10526880);
-		Minecraft.getMinecraft().getRenderItem().func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack, x + 4, y + 4);
+		Minecraft
+			.getMinecraft()
+			.getRenderItem()
+			.func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack,
+				x + 4, y + 4);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.disableBlend();
 		try
 		{
-			drawCenteredString(fontRendererObj, "Name: " + (itemStack.getItem() == null ? block.getLocalizedName() : itemStack.getDisplayName()), width / 2, y + 24, 10526880);
-			drawCenteredString(fontRendererObj, "ID: " + Block.getIdFromBlock(block), width / 2, y + 36, 10526880);
-			drawCenteredString(fontRendererObj, "Block exists: " + (block != null), width / 2, y + 48, 10526880);
+			drawCenteredString(fontRendererObj, "Name: "
+				+ (itemStack.getItem() == null ? block.getLocalizedName()
+					: itemStack.getDisplayName()), width / 2, y + 24, 10526880);
+			drawCenteredString(fontRendererObj,
+				"ID: " + Block.getIdFromBlock(block), width / 2, y + 36,
+				10526880);
+			drawCenteredString(fontRendererObj, "Block exists: "
+				+ (block != null), width / 2, y + 48, 10526880);
 		}catch(Exception e)
 		{
 			mc.fontRendererObj.drawString("?", x + 6, y + 5, 10526880);
-			drawCenteredString(fontRendererObj, "Name: unknown", width / 2, y + 24, 10526880);
-			drawCenteredString(fontRendererObj, "ID: unknown", width / 2, y + 36, 10526880);
-			drawCenteredString(fontRendererObj, "Block exists: " + (block != null), width / 2, y + 48, 10526880);
+			drawCenteredString(fontRendererObj, "Name: unknown", width / 2,
+				y + 24, 10526880);
+			drawCenteredString(fontRendererObj, "ID: unknown", width / 2,
+				y + 36, 10526880);
+			drawCenteredString(fontRendererObj, "Block exists: "
+				+ (block != null), width / 2, y + 48, 10526880);
 		}
-		drawCenteredString(fontRendererObj, "Add a Block", width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "Add a Block", width / 2, 20,
+			16777215);
 		drawString(fontRendererObj, "Name or ID", width / 2 - 100, 67, 10526880);
 		nameBox.drawTextBox();
 		super.drawScreen(par1, par2, par3);

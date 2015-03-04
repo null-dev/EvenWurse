@@ -60,11 +60,13 @@ public class WurstLabelUI extends AbstractComponentUI<Label>
 				y += 2;
 				break;
 			case BOTTOM:
-				y += label.getHeight() - theme.getFontRenderer().FONT_HEIGHT - 2;
+				y +=
+					label.getHeight() - theme.getFontRenderer().FONT_HEIGHT - 2;
 				break;
 			default:
-				y += label.getHeight() / 2 - theme.getFontRenderer().FONT_HEIGHT
-					/ 2;
+				y +=
+					label.getHeight() / 2 - theme.getFontRenderer().FONT_HEIGHT
+						/ 2;
 		}
 		glEnable(GL_BLEND);
 		glEnable(GL_TEXTURE_2D);

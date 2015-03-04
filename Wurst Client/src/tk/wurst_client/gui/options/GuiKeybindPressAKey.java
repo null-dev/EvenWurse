@@ -38,7 +38,8 @@ public class GuiKeybindPressAKey extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawBackground(0);
-		drawCenteredString(fontRendererObj, "Press a key", width / 2, height / 4 + 48, 16777215);
+		drawCenteredString(fontRendererObj, "Press a key", width / 2,
+			height / 4 + 48, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }

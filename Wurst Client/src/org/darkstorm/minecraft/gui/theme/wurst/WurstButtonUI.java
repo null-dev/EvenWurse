@@ -81,7 +81,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			mouse.y -= parent.getY();
 			parent = parent.getParent();
 		}
-		if(area.contains(mouse) && Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
+		if(area.contains(mouse)
+			&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 		{
 			glColor4f(0.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.3f : 0.2f);
 			glBegin(GL_QUADS);
@@ -97,7 +98,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		theme.getFontRenderer().drawString
 			(
 				text,
-				area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
+				area.width / 2 - theme.getFontRenderer().getStringWidth(text)
+					/ 2,
 				area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
 				RenderUtil.toRGBA(button.getForegroundColor())
 			);
@@ -107,7 +109,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			lastMS = 0L;
 			describedButton = button;
 		}
-		if(lastMS == 0L && describedButton != null && isRightButton(button, describedButton))
+		if(lastMS == 0L && describedButton != null
+			&& isRightButton(button, describedButton))
 		{
 			lastMS = System.currentTimeMillis();
 			rightButton = button;
@@ -115,7 +118,9 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		}
 		if(System.currentTimeMillis() < lastMS + 500)
 			return;
-		if(describedButton != null && rightButton == button && Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
+		if(describedButton != null
+			&& rightButton == button
+			&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 		{
 			String[] lines = describedButton.getDescription().split("\n");
 			int textWidth = 0;
@@ -125,23 +130,30 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 				if(lineWidth > textWidth)
 					textWidth = lineWidth;
 			}
-			int textHeight = (theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
+			int textHeight =
+				(theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
 			for(Module module : Client.wurst.moduleManager.activeModules)
 				if(button.getText().equals(module.getName()))
-					for(org.darkstorm.minecraft.gui.component.Frame frame : Client.wurst.guiManager.getFrames())
-						if(frame.getTitle().equalsIgnoreCase(module.getCategory().name()))
+					for(org.darkstorm.minecraft.gui.component.Frame frame : Client.wurst.guiManager
+						.getFrames())
+						if(frame.getTitle().equalsIgnoreCase(
+							module.getCategory().name()))
 							Client.wurst.guiManager.bringForward(frame);
 			int scale = Minecraft.getMinecraft().gameSettings.guiScale;
 			if(scale == 0)
 				scale = 1000;
 			int scaleFactor = 0;
-			while(scaleFactor < scale && Minecraft.getMinecraft().displayWidth / (scaleFactor + 1) >= 320 && Minecraft.getMinecraft().displayHeight / (scaleFactor + 1) >= 240)
+			while(scaleFactor < scale
+				&& Minecraft.getMinecraft().displayWidth / (scaleFactor + 1) >= 320
+				&& Minecraft.getMinecraft().displayHeight / (scaleFactor + 1) >= 240)
 				scaleFactor++;
-			if(rawMouse.x + 8 + textWidth > Minecraft.getMinecraft().displayWidth / scaleFactor)
+			if(rawMouse.x + 8 + textWidth > Minecraft.getMinecraft().displayWidth
+				/ scaleFactor)
 				rawMouse.x -= textWidth + 16;
-			if(rawMouse.y - 5 + textHeight > Minecraft.getMinecraft().displayHeight / scaleFactor)
+			if(rawMouse.y - 5 + textHeight > Minecraft.getMinecraft().displayHeight
+				/ scaleFactor)
 				rawMouse.y -= textHeight - 8;
 			glEnable(GL_BLEND);
 			glDisable(GL_CULL_FACE);
@@ -151,7 +163,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			{
 				glVertex2d(rawMouse.x + 6, rawMouse.y - 5);
 				glVertex2d(rawMouse.x + textWidth + 11, rawMouse.y - 5);
-				glVertex2d(rawMouse.x + textWidth + 11, rawMouse.y - 5 + textHeight);
+				glVertex2d(rawMouse.x + textWidth + 11, rawMouse.y - 5
+					+ textHeight);
 				glVertex2d(rawMouse.x + 6, rawMouse.y - 5 + textHeight);
 			}
 			glEnd();
@@ -161,12 +174,17 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			{
 				glVertex2d(rawMouse.x + 6, rawMouse.y - 5);
 				glVertex2d(rawMouse.x + textWidth + 11, rawMouse.y - 5);
-				glVertex2d(rawMouse.x + textWidth + 11, rawMouse.y - 5 + textHeight);
+				glVertex2d(rawMouse.x + textWidth + 11, rawMouse.y - 5
+					+ textHeight);
 				glVertex2d(rawMouse.x + 6, rawMouse.y - 5 + textHeight);
 			}
 			glEnd();
 			for(int i = 0; i < lines.length; i++)
-				theme.getFontRenderer().drawString(lines[i], rawMouse.x + 8, rawMouse.y - 5 + (theme.getFontRenderer().FONT_HEIGHT + 2) * i, RenderUtil.toRGBA(Color.WHITE));
+				theme.getFontRenderer().drawString(
+					lines[i],
+					rawMouse.x + 8,
+					rawMouse.y - 5 + (theme.getFontRenderer().FONT_HEIGHT + 2)
+						* i, RenderUtil.toRGBA(Color.WHITE));
 		}
 		if(!area.contains(mouse) && describedButton == button)
 		{
@@ -183,9 +201,14 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 	{
 		Category buttonCategory = null;
 		Category dButtonCategory = null;
-		buttonCategory = Client.wurst.moduleManager.getModuleByName(button.getText()).getCategory();
-		dButtonCategory = Client.wurst.moduleManager.getModuleByName(dButton.getText()).getCategory();
-		boolean isRightFrame = buttonCategory == dButtonCategory && buttonCategory != null;
+		buttonCategory =
+			Client.wurst.moduleManager.getModuleByName(button.getText())
+				.getCategory();
+		dButtonCategory =
+			Client.wurst.moduleManager.getModuleByName(dButton.getText())
+				.getCategory();
+		boolean isRightFrame =
+			buttonCategory == dButtonCategory && buttonCategory != null;
 		if(!isRightFrame)
 			return false;
 		boolean isLastButton = false;

@@ -28,10 +28,15 @@ public class PlayerESP extends Module
 	@Override
 	public void onRender()
 	{
-		if(!getToggled() || Client.wurst.moduleManager.getModuleFromClass(ArenaBrawl.class).getToggled())
+		if(!getToggled()
+			|| Client.wurst.moduleManager.getModuleFromClass(ArenaBrawl.class)
+				.getToggled())
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
-			if(entity instanceof EntityPlayer && !((Entity)entity).getName().equals(Minecraft.getMinecraft().getSession().getUsername()))
-				RenderUtils.entityESPBox((Entity)entity, Client.wurst.friends.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
+			if(entity instanceof EntityPlayer
+				&& !((Entity)entity).getName().equals(
+					Minecraft.getMinecraft().getSession().getUsername()))
+				RenderUtils.entityESPBox((Entity)entity, Client.wurst.friends
+					.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
 	}
 }

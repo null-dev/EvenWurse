@@ -70,13 +70,25 @@ public class GuiCleanUp extends GuiScreen
 	{
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 144 + 12, "Cancel"));
-		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12, "Clean Up"));
-		buttonList.add(new GuiButton(2, width / 2 - 100, height / 4 - 24 + 12, "Unknown Hosts: " + removeOrKeep(Client.wurst.options.cleanupUnknown)));
-		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 0 + 12, "Outdated Servers: " + removeOrKeep(Client.wurst.options.cleanupOutdated)));
-		buttonList.add(new GuiButton(4, width / 2 - 100, height / 4 + 24 + 12, "Failed Ping: " + removeOrKeep(Client.wurst.options.cleanupFailed)));
-		buttonList.add(new GuiButton(5, width / 2 - 100, height / 4 + 48 + 12, "§cRemove all Servers: " + yesOrNo(removeAll)));
-		buttonList.add(new GuiButton(6, width / 2 - 100, height / 4 + 72 + 12, "Rename all Servers: " + yesOrNo(Client.wurst.options.cleanupRename)));
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 144 + 12,
+			"Cancel"));
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12,
+			"Clean Up"));
+		buttonList.add(new GuiButton(2, width / 2 - 100, height / 4 - 24 + 12,
+			"Unknown Hosts: "
+				+ removeOrKeep(Client.wurst.options.cleanupUnknown)));
+		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 0 + 12,
+			"Outdated Servers: "
+				+ removeOrKeep(Client.wurst.options.cleanupOutdated)));
+		buttonList
+			.add(new GuiButton(4, width / 2 - 100, height / 4 + 24 + 12,
+				"Failed Ping: "
+					+ removeOrKeep(Client.wurst.options.cleanupFailed)));
+		buttonList.add(new GuiButton(5, width / 2 - 100, height / 4 + 48 + 12,
+			"§cRemove all Servers: " + yesOrNo(removeAll)));
+		buttonList.add(new GuiButton(6, width / 2 - 100, height / 4 + 72 + 12,
+			"Rename all Servers: "
+				+ yesOrNo(Client.wurst.options.cleanupRename)));
 	}
 	
 	private String yesOrNo(boolean bool)
@@ -111,56 +123,79 @@ public class GuiCleanUp extends GuiScreen
 					prevMenu.savedServerList.clearServerList();
 					prevMenu.savedServerList.saveServerList();
 					prevMenu.serverListSelector.setSelectedServer(-1);
-					prevMenu.serverListSelector.func_148195_a(prevMenu.savedServerList);
+					prevMenu.serverListSelector
+						.func_148195_a(prevMenu.savedServerList);
 					mc.displayGuiScreen(prevMenu);
 					return;
 				}
 				for(int i = prevMenu.savedServerList.countServers() - 1; i >= 0; i--)
 				{
-					ServerData server = prevMenu.savedServerList.getServerData(i);
-					if(Client.wurst.options.cleanupUnknown && server.serverMOTD.equals(EnumChatFormatting.DARK_RED + "Can\'t resolve hostname")
-						|| Client.wurst.options.cleanupOutdated && server.version != 47
-						|| Client.wurst.options.cleanupFailed && server.pingToServer != -2L && server.pingToServer < 0L)
+					ServerData server =
+						prevMenu.savedServerList.getServerData(i);
+					if(Client.wurst.options.cleanupUnknown
+						&& server.serverMOTD.equals(EnumChatFormatting.DARK_RED
+							+ "Can\'t resolve hostname")
+						|| Client.wurst.options.cleanupOutdated
+						&& server.version != 47
+						|| Client.wurst.options.cleanupFailed
+						&& server.pingToServer != -2L
+						&& server.pingToServer < 0L)
 					{
 						prevMenu.savedServerList.removeServerData(i);
 						prevMenu.savedServerList.saveServerList();
 						prevMenu.serverListSelector.setSelectedServer(-1);
-						prevMenu.serverListSelector.func_148195_a(prevMenu.savedServerList);
+						prevMenu.serverListSelector
+							.func_148195_a(prevMenu.savedServerList);
 					}
 				}
 				if(Client.wurst.options.cleanupRename)
 					for(int i = 0; i < prevMenu.savedServerList.countServers(); i++)
 					{
-						ServerData server = prevMenu.savedServerList.getServerData(i);
+						ServerData server =
+							prevMenu.savedServerList.getServerData(i);
 						server.serverName = "Grief me #" + (i + 1);
 						prevMenu.savedServerList.saveServerList();
 						prevMenu.serverListSelector.setSelectedServer(-1);
-						prevMenu.serverListSelector.func_148195_a(prevMenu.savedServerList);
+						prevMenu.serverListSelector
+							.func_148195_a(prevMenu.savedServerList);
 					}
 				mc.displayGuiScreen(prevMenu);
 			}else if(clickedButton.id == 2)
 			{// Unknown host
-				Client.wurst.options.cleanupUnknown = !Client.wurst.options.cleanupUnknown;
-				clickedButton.displayString = "Unknown Hosts: " + removeOrKeep(Client.wurst.options.cleanupUnknown);
+				Client.wurst.options.cleanupUnknown =
+					!Client.wurst.options.cleanupUnknown;
+				clickedButton.displayString =
+					"Unknown Hosts: "
+						+ removeOrKeep(Client.wurst.options.cleanupUnknown);
 				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 3)
 			{// Outdated
-				Client.wurst.options.cleanupOutdated = !Client.wurst.options.cleanupOutdated;
-				clickedButton.displayString = "Outdated Servers: " + removeOrKeep(Client.wurst.options.cleanupOutdated);
+				Client.wurst.options.cleanupOutdated =
+					!Client.wurst.options.cleanupOutdated;
+				clickedButton.displayString =
+					"Outdated Servers: "
+						+ removeOrKeep(Client.wurst.options.cleanupOutdated);
 				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 4)
 			{// Failed ping
-				Client.wurst.options.cleanupFailed = !Client.wurst.options.cleanupFailed;
-				clickedButton.displayString = "Failed Ping: " + removeOrKeep(Client.wurst.options.cleanupFailed);
+				Client.wurst.options.cleanupFailed =
+					!Client.wurst.options.cleanupFailed;
+				clickedButton.displayString =
+					"Failed Ping: "
+						+ removeOrKeep(Client.wurst.options.cleanupFailed);
 				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 5)
 			{// Remove
 				removeAll = !removeAll;
-				clickedButton.displayString = "§cRemove all Servers: " + yesOrNo(removeAll);
+				clickedButton.displayString =
+					"§cRemove all Servers: " + yesOrNo(removeAll);
 			}else if(clickedButton.id == 6)
 			{// Rename
-				Client.wurst.options.cleanupRename = !Client.wurst.options.cleanupRename;
-				clickedButton.displayString = "Rename all Servers: " + yesOrNo(Client.wurst.options.cleanupRename);
+				Client.wurst.options.cleanupRename =
+					!Client.wurst.options.cleanupRename;
+				clickedButton.displayString =
+					"Rename all Servers: "
+						+ yesOrNo(Client.wurst.options.cleanupRename);
 				Client.wurst.fileManager.saveOptions();
 			}
 	}
@@ -182,7 +217,8 @@ public class GuiCleanUp extends GuiScreen
 	 * @throws IOException
 	 */
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
 	{
 		super.mouseClicked(par1, par2, par3);
 	}
@@ -195,14 +231,17 @@ public class GuiCleanUp extends GuiScreen
 	{
 		drawDefaultBackground();
 		drawCenteredString(fontRendererObj, "Clean Up", width / 2, 20, 16777215);
-		drawCenteredString(fontRendererObj, "Please select the servers you want to remove:", width / 2, 36, 10526880);
+		drawCenteredString(fontRendererObj,
+			"Please select the servers you want to remove:", width / 2, 36,
+			10526880);
 		super.drawScreen(par1, par2, par3);
 		for(int i = 0; i < buttonList.size(); i++)
 		{
 			GuiButton button = (GuiButton)buttonList.get(i);
 			if(button.isMouseOver() && !toolTips[button.id].isEmpty())
 			{
-				ArrayList toolTip = Lists.newArrayList(toolTips[button.id].split("\n"));
+				ArrayList toolTip =
+					Lists.newArrayList(toolTips[button.id].split("\n"));
 				drawHoveringText(toolTip, par1, par2);
 				break;
 			}

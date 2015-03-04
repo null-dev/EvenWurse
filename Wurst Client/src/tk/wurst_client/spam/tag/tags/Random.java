@@ -32,23 +32,32 @@ public class Random extends Tag
 	public String process(TagData tagData) throws SpamException
 	{
 		if(tagData.getTagArgs().length < 2)
-			throw new MissingArgumentException("The <random> tag requires at least two arguments.", tagData.getTagLine(), this);
+			throw new MissingArgumentException(
+				"The <random> tag requires at least two arguments.",
+				tagData.getTagLine(), this);
 		if(!tagData.getTagArgs()[0].equals("number")
 			&& !tagData.getTagArgs()[0].equals("string")
 			&& !tagData.getTagArgs()[0].equals("junk"))
-			throw new InvalidArgumentException("Invalid type in <random> tag: \"" + tagData.getTagArgs()[0] + "\"", tagData.getTagLine(), this);
+			throw new InvalidArgumentException(
+				"Invalid type in <random> tag: \"" + tagData.getTagArgs()[0]
+					+ "\"", tagData.getTagLine(), this);
 		if(!MiscUtils.isInteger(tagData.getTagArgs()[1]))
-			throw new InvalidArgumentException("Invalid number in <random> tag: \"" + tagData.getTagArgs()[1] + "\"", tagData.getTagLine(), this);
+			throw new InvalidArgumentException(
+				"Invalid number in <random> tag: \"" + tagData.getTagArgs()[1]
+					+ "\"", tagData.getTagLine(), this);
 		String random = "";
 		if(tagData.getTagArgs()[0].equals("number"))
 			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
 				random += new java.util.Random().nextInt(10);
 		else if(tagData.getTagArgs()[0].equals("string"))
 		{
-			String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			String alphabet =
+				"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
 			{
-				char nextChar = alphabet.charAt(new java.util.Random().nextInt(alphabet.length()));
+				char nextChar =
+					alphabet.charAt(new java.util.Random().nextInt(alphabet
+						.length()));
 				random += new String(new char[]{nextChar});
 			}
 		}else if(tagData.getTagArgs()[0].equals("junk"))

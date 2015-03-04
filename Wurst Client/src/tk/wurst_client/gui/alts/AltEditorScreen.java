@@ -49,8 +49,11 @@ public abstract class AltEditorScreen extends GuiScreen
 		passwordBox.updateCursorCounter();
 		((GuiButton)buttonList.get(0)).enabled =
 			emailBox.getText().trim().length() > 0
-				&& (!emailBox.getText().trim().equalsIgnoreCase("Alexander01998") || passwordBox.getText().length() != 0);
-		((GuiButton)buttonList.get(3)).enabled = !emailBox.getText().trim().equalsIgnoreCase("Alexander01998");
+				&& (!emailBox.getText().trim()
+					.equalsIgnoreCase("Alexander01998") || passwordBox
+					.getText().length() != 0);
+		((GuiButton)buttonList.get(3)).enabled =
+			!emailBox.getText().trim().equalsIgnoreCase("Alexander01998");
 	}
 	
 	protected abstract String getDoneButtonText();
@@ -83,16 +86,23 @@ public abstract class AltEditorScreen extends GuiScreen
 	{
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 72 + 12, getDoneButtonText()));
-		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 96 + 12, "Random Name"));
-		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12, "Cancel"));
-		buttonList.add(new GuiButton(4, width - (width / 2 - 100) / 2 - 64, height - 32, 128, 20, "Steal Skin"));
-		buttonList.add(new GuiButton(5, (width / 2 - 100) / 2 - 64, height - 32, 128, 20, "Open Skin Folder"));
-		emailBox = new GuiEmailField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 72 + 12,
+			getDoneButtonText()));
+		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 96 + 12,
+			"Random Name"));
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12,
+			"Cancel"));
+		buttonList.add(new GuiButton(4, width - (width / 2 - 100) / 2 - 64,
+			height - 32, 128, 20, "Steal Skin"));
+		buttonList.add(new GuiButton(5, (width / 2 - 100) / 2 - 64,
+			height - 32, 128, 20, "Open Skin Folder"));
+		emailBox =
+			new GuiEmailField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
 		emailBox.setMaxStringLength(48);
 		emailBox.setFocused(true);
 		emailBox.setText(getEmailBoxText());
-		passwordBox = new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
+		passwordBox =
+			new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
 		passwordBox.setFocused(false);
 		passwordBox.setText(getPasswordBoxText());
 	}
@@ -144,7 +154,8 @@ public abstract class AltEditorScreen extends GuiScreen
 	 * @throws IOException
 	 */
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
 	{
 		super.mouseClicked(par1, par2, par3);
 		emailBox.mouseClicked(par1, par2, par3);
@@ -162,13 +173,18 @@ public abstract class AltEditorScreen extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawDefaultBackground();
-		AltRenderer.drawAltBack(getName(), (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
-		AltRenderer.drawAltBody(getName(), width - (width / 2 - 100) / 2 - 64, height / 2 - 128, 128, 256);
+		AltRenderer.drawAltBack(getName(), (width / 2 - 100) / 2 - 64,
+			height / 2 - 128, 128, 256);
+		AltRenderer.drawAltBody(getName(), width - (width / 2 - 100) / 2 - 64,
+			height / 2 - 128, 128, 256);
 		drawCenteredString(fontRendererObj, getTitle(), width / 2, 20, 16777215);
-		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47, 10526880);
+		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47,
+			10526880);
 		drawString(fontRendererObj, "Password", width / 2 - 100, 87, 10526880);
-		drawString(fontRendererObj, "Name: " + getName(), width / 2 - 100, 127, 10526880);
-		drawCenteredString(fontRendererObj, displayText, width / 2, 142, 16777215);
+		drawString(fontRendererObj, "Name: " + getName(), width / 2 - 100, 127,
+			10526880);
+		drawCenteredString(fontRendererObj, displayText, width / 2, 142,
+			16777215);
 		emailBox.drawTextBox();
 		passwordBox.drawTextBox();
 		if(errorTimer > 0)

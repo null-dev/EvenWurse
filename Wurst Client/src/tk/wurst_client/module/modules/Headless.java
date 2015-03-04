@@ -28,7 +28,8 @@ public class Headless extends Module
 	{
 		if(!getToggled())
 			return;
-		Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook
+		Minecraft.getMinecraft().thePlayer.sendQueue
+			.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook
 			(
 				Minecraft.getMinecraft().thePlayer.rotationYaw,
 				180F,

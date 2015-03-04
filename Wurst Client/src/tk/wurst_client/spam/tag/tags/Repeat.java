@@ -34,9 +34,13 @@ public class Repeat extends Tag
 	{
 		String processed = "";
 		if(tagData.getTagArgs().length == 0)
-			throw new MissingArgumentException("The <repeat> tag requires at least one argument.", tagData.getTagLine(), this);
+			throw new MissingArgumentException(
+				"The <repeat> tag requires at least one argument.",
+				tagData.getTagLine(), this);
 		if(!MiscUtils.isInteger(tagData.getTagArgs()[0]))
-			throw new InvalidArgumentException("Invalid number in <repeat> tag: \"" + tagData.getTagArgs()[0] + "\"", tagData.getTagLine(), this);
+			throw new InvalidArgumentException(
+				"Invalid number in <repeat> tag: \"" + tagData.getTagArgs()[0]
+					+ "\"", tagData.getTagLine(), this);
 		int count = Integer.parseInt(tagData.getTagArgs()[0]);
 		for(int i = 0; i < count; i++)
 			processed += tagData.getTagContent();

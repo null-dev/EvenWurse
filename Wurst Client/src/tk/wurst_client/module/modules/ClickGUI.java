@@ -30,7 +30,8 @@ public class ClickGUI extends Module
 	public void onToggle()
 	{
 		if(!(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
-			Minecraft.getMinecraft().displayGuiScreen(new GuiManagerDisplayScreen(Client.wurst.guiManager));
+			Minecraft.getMinecraft().displayGuiScreen(
+				new GuiManagerDisplayScreen(Client.wurst.guiManager));
 	}
 	
 	@Override

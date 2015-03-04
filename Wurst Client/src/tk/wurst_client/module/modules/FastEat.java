@@ -30,7 +30,8 @@ public class FastEat extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
@@ -39,10 +40,12 @@ public class FastEat extends Module
 		if(Minecraft.getMinecraft().thePlayer.getHealth() > 0
 			&& Minecraft.getMinecraft().thePlayer.onGround
 			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() != null
-			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem().getItem() instanceof ItemFood
+			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem()
+				.getItem() instanceof ItemFood
 			&& Minecraft.getMinecraft().thePlayer.getFoodStats().needFood()
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 			for(int i = 0; i < 10; i++)
-				Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer(false));
+				Minecraft.getMinecraft().thePlayer.sendQueue
+					.addToSendQueue(new C03PacketPlayer(false));
 	}
 }

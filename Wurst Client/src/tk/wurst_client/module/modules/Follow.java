@@ -64,16 +64,21 @@ public class Follow extends Module
 			setToggled(false);
 			return;
 		}
-		double xDist = Math.abs(Minecraft.getMinecraft().thePlayer.posX - entity.posX);
-		double zDist = Math.abs(Minecraft.getMinecraft().thePlayer.posZ - entity.posZ);
+		double xDist =
+			Math.abs(Minecraft.getMinecraft().thePlayer.posX - entity.posX);
+		double zDist =
+			Math.abs(Minecraft.getMinecraft().thePlayer.posZ - entity.posZ);
 		EntityUtils.faceEntityClient(entity);
 		if(xDist > 1D || zDist > 1D)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
 		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
-		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally && Minecraft.getMinecraft().thePlayer.onGround)
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
+				false;
+		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
+			&& Minecraft.getMinecraft().thePlayer.onGround)
 			Minecraft.getMinecraft().thePlayer.jump();
-		if(Minecraft.getMinecraft().thePlayer.isInWater() && Minecraft.getMinecraft().thePlayer.posY < entity.posY)
+		if(Minecraft.getMinecraft().thePlayer.isInWater()
+			&& Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
 	}
 	
@@ -81,6 +86,7 @@ public class Follow extends Module
 	public void onDisable()
 	{
 		if(entity != null)
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
+				false;
 	}
 }

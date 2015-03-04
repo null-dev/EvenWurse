@@ -55,7 +55,9 @@ public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar>
 		}
 		glEnd();
 		
-		double barPercentage = (component.getValue() - component.getMinimumValue()) / (component.getMaximumValue() - component.getMinimumValue());
+		double barPercentage =
+			(component.getValue() - component.getMinimumValue())
+				/ (component.getMaximumValue() - component.getMinimumValue());
 		RenderUtil.setColor(component.getForegroundColor());
 		glBegin(GL_QUADS);
 		{
@@ -74,17 +76,26 @@ public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar>
 				content = String.format("%,.3f", component.getValue());
 				break;
 			case INTEGER:
-				content = String.format("%,d", Long.valueOf(Math.round(component.getValue())));
+				content =
+					String.format("%,d",
+						Long.valueOf(Math.round(component.getValue())));
 				break;
 			case PERCENTAGE:
-				int percent = (int)Math.round((component.getValue() - component.getMinimumValue()) / (component.getMaximumValue() - component.getMinimumValue()) * 100D);
+				int percent =
+					(int)Math.round((component.getValue() - component
+						.getMinimumValue())
+						/ (component.getMaximumValue() - component
+							.getMinimumValue()) * 100D);
 				content = String.format("%d%%", percent);
 			default:
 		}
 		if(content != null)
 		{
 			glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR);
-			fontRenderer.drawString(content, component.getWidth() / 2 - fontRenderer.getStringWidth(content) / 2, component.getHeight() / 2 - fontSize / 2, RenderUtil.toRGBA(component.getForegroundColor()));
+			fontRenderer.drawString(content, component.getWidth() / 2
+				- fontRenderer.getStringWidth(content) / 2,
+				component.getHeight() / 2 - fontSize / 2,
+				RenderUtil.toRGBA(component.getForegroundColor()));
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}
 		glEnable(GL_CULL_FACE);

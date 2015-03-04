@@ -48,9 +48,11 @@ public class GuiAltAdd extends AltEditorScreen
 			displayText = "";
 		}else
 		{// Premium
-			displayText = LoginManager.check(emailBox.getText(), passwordBox.getText());
+			displayText =
+				LoginManager.check(emailBox.getText(), passwordBox.getText());
 			if(displayText.equals(""))
-				GuiAltList.alts.add(new Alt(emailBox.getText(), passwordBox.getText()));
+				GuiAltList.alts.add(new Alt(emailBox.getText(), passwordBox
+					.getText()));
 		}
 		if(displayText.equals(""))
 		{

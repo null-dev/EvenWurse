@@ -37,12 +37,14 @@ public class DropCMD extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 		{
 			timer++;
 			if(timer >= 5)
 			{
-				Minecraft.getMinecraft().playerController.windowClick(0, counter, 1, 4, Minecraft.getMinecraft().thePlayer);
+				Minecraft.getMinecraft().playerController.windowClick(0,
+					counter, 1, 4, Minecraft.getMinecraft().thePlayer);
 				counter++;
 				timer = 0;
 				if(counter >= 45)
@@ -51,7 +53,8 @@ public class DropCMD extends Module
 		}else
 		{
 			for(int i = 9; i < 45; i++)
-				Minecraft.getMinecraft().playerController.windowClick(0, i, 1, 4, Minecraft.getMinecraft().thePlayer);
+				Minecraft.getMinecraft().playerController.windowClick(0, i, 1,
+					4, Minecraft.getMinecraft().thePlayer);
 			setToggled(false);
 		}
 	}

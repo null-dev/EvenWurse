@@ -27,15 +27,20 @@ public class Criticals extends Module
 	@Override
 	public void onLeftClick()
 	{
-		if(Minecraft.getMinecraft().objectMouseOver != null && Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase)
+		if(Minecraft.getMinecraft().objectMouseOver != null
+			&& Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase)
 			doCritical();
 	}
 	
 	public static void doCritical()
 	{
-		if(!Client.wurst.moduleManager.getModuleFromClass(Criticals.class).getToggled())
+		if(!Client.wurst.moduleManager.getModuleFromClass(Criticals.class)
+			.getToggled())
 			return;
-		if(!Minecraft.getMinecraft().thePlayer.isInWater() && !Minecraft.getMinecraft().thePlayer.isInsideOfMaterial(Material.lava) && Minecraft.getMinecraft().thePlayer.onGround)
+		if(!Minecraft.getMinecraft().thePlayer.isInWater()
+			&& !Minecraft.getMinecraft().thePlayer
+				.isInsideOfMaterial(Material.lava)
+			&& Minecraft.getMinecraft().thePlayer.onGround)
 		{
 			Minecraft.getMinecraft().thePlayer.motionY = 0.1F;
 			Minecraft.getMinecraft().thePlayer.fallDistance = 0.1F;

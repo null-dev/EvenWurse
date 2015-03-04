@@ -22,7 +22,7 @@ import tk.wurst_client.utils.RenderUtils;
 public class PlayerFinder extends Module
 {
 	private BlockPos blockPos;
-
+	
 	public PlayerFinder()
 	{
 		super("PlayerFinder",
@@ -41,11 +41,20 @@ public class PlayerFinder extends Module
 	{
 		if(!getToggled() || blockPos == null)
 			return;
-		float red = (1F - (float)Math.sin((float)(System.currentTimeMillis() % 1000L) / 1000L * Math.PI * 2)) / 2F;
-		float green = (1F - (float)Math.sin((float)((System.currentTimeMillis() + 333L) % 1000L) / 1000L * Math.PI * 2)) / 2F;
-		float blue = (1F - (float)Math.sin((float)((System.currentTimeMillis() + 666L) % 1000L) / 1000L * Math.PI * 2)) / 2F;
+		float red =
+			(1F - (float)Math.sin((float)(System.currentTimeMillis() % 1000L)
+				/ 1000L * Math.PI * 2)) / 2F;
+		float green =
+			(1F - (float)Math
+				.sin((float)((System.currentTimeMillis() + 333L) % 1000L)
+					/ 1000L * Math.PI * 2)) / 2F;
+		float blue =
+			(1F - (float)Math
+				.sin((float)((System.currentTimeMillis() + 666L) % 1000L)
+					/ 1000L * Math.PI * 2)) / 2F;
 		Color color = new Color(red, green, blue);
-		RenderUtils.tracerLine(blockPos.getX(), blockPos.getY(), blockPos.getZ(), color);
+		RenderUtils.tracerLine(blockPos.getX(), blockPos.getY(),
+			blockPos.getZ(), color);
 		RenderUtils.blockESPBox(blockPos);
 	}
 	
@@ -63,13 +72,19 @@ public class PlayerFinder extends Module
 		}else if(packet instanceof S29PacketSoundEffect)
 		{
 			S29PacketSoundEffect sound = (S29PacketSoundEffect)packet;
-			BlockPos pos = new BlockPos(sound.func_149207_d(), sound.func_149211_e(), sound.func_149210_f());
+			BlockPos pos =
+				new BlockPos(sound.func_149207_d(), sound.func_149211_e(),
+					sound.func_149210_f());
 			if(BlockUtils.getPlayerBlockDistance(pos) >= 128)
 				blockPos = pos;
 		}else if(packet instanceof S2CPacketSpawnGlobalEntity)
 		{
-			S2CPacketSpawnGlobalEntity lightning = (S2CPacketSpawnGlobalEntity)packet;
-			BlockPos pos = new BlockPos(lightning.func_149051_d() / 32D, lightning.func_149050_e() / 32D, lightning.func_149049_f() / 32D);
+			S2CPacketSpawnGlobalEntity lightning =
+				(S2CPacketSpawnGlobalEntity)packet;
+			BlockPos pos =
+				new BlockPos(lightning.func_149051_d() / 32D,
+					lightning.func_149050_e() / 32D,
+					lightning.func_149049_f() / 32D);
 			if(BlockUtils.getPlayerBlockDistance(pos) >= 128)
 				blockPos = pos;
 		}

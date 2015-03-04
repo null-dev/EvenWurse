@@ -39,7 +39,8 @@ public class UIRenderer
 				Minecraft.getMinecraft().displayWidth,
 				Minecraft.getMinecraft().displayHeight
 			);
-		if(yCount + arrayListLength * 9 > sr.getScaledHeight() || Client.wurst.options.arrayListMode == 1)
+		if(yCount + arrayListLength * 9 > sr.getScaledHeight()
+			|| Client.wurst.options.arrayListMode == 1)
 		{
 			String tooManyMods = "";
 			if(arrayListLength == 0)
@@ -57,8 +58,10 @@ public class UIRenderer
 					continue;
 				if(arrayModule.getToggled())
 				{
-					Fonts.segoe18.drawString(arrayModule.getRenderName(), 3, yCount + 1, 0xFF000000);
-					Fonts.segoe18.drawString(arrayModule.getRenderName(), 2, yCount, 0xFFFFFFFF);
+					Fonts.segoe18.drawString(arrayModule.getRenderName(), 3,
+						yCount + 1, 0xFF000000);
+					Fonts.segoe18.drawString(arrayModule.getRenderName(), 2,
+						yCount, 0xFFFFFFFF);
 					yCount += 9;
 				}
 			}
@@ -66,14 +69,16 @@ public class UIRenderer
 	
 	public static void renderUI()
 	{
-		Fonts.segoe22.drawString("v" + Client.wurst.CLIENT_VERSION, 74, 4, 0xFF000000);
+		Fonts.segoe22.drawString("v" + Client.wurst.CLIENT_VERSION, 74, 4,
+			0xFF000000);
 		renderArrayList();
 	}
 	
 	public static void renderPinnedFrames()
 	{
 		for(Frame moduleFrame : Client.wurst.guiManager.getFrames())
-			if(moduleFrame.isPinned() && !(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
+			if(moduleFrame.isPinned()
+				&& !(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
 				moduleFrame.render();
 	}
 }

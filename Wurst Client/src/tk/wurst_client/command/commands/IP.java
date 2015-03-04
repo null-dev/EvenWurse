@@ -30,7 +30,11 @@ public class IP extends Command
 			Client.wurst.chat.message("IP: " + Client.wurst.currentServerIP);
 		else if(args[0].toLowerCase().equals("copy"))
 		{
-			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(Client.wurst.currentServerIP), null);
+			Toolkit
+				.getDefaultToolkit()
+				.getSystemClipboard()
+				.setContents(new StringSelection(Client.wurst.currentServerIP),
+					null);
 			Client.wurst.chat.message("IP copied to clipboard.");
 		}else
 			commandError();

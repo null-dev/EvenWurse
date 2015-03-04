@@ -83,7 +83,9 @@ public class MiscUtils
 		
 		if(Util.getOSType() == Util.EnumOS.WINDOWS)
 		{
-			String command = String.format("cmd.exe /C start \"Open file\" \"%s\"", new Object[]{apath});
+			String command =
+				String.format("cmd.exe /C start \"Open file\" \"%s\"",
+					new Object[]{apath});
 			
 			try
 			{
@@ -127,6 +129,7 @@ public class MiscUtils
 		StringWriter writer = new StringWriter();
 		e.printStackTrace(new PrintWriter(writer));
 		String message = writer.toString();
-		JOptionPane.showMessageDialog(parent, message, "Error", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(parent, message, "Error",
+			JOptionPane.ERROR_MESSAGE);
 	}
 }

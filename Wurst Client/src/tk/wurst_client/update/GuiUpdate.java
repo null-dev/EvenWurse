@@ -41,7 +41,8 @@ public class GuiUpdate extends GuiScreen
 	{
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12, "Close Minecraft"));
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 120 + 12,
+			"Close Minecraft"));
 		Client.wurst.updater.update();
 	}
 	
@@ -80,7 +81,8 @@ public class GuiUpdate extends GuiScreen
 	 * @throws IOException
 	 */
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
 	{
 		super.mouseClicked(par1, par2, par3);
 	}
@@ -92,8 +94,12 @@ public class GuiUpdate extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawDefaultBackground();
-		drawCenteredString(fontRendererObj, "The link to the new version of Wurst", width / 2, height / 2 - 64, 16777215);
-		drawCenteredString(fontRendererObj, "should have been openened in your browser.", width / 2, height / 2 - 52, 16777215);
+		drawCenteredString(fontRendererObj,
+			"The link to the new version of Wurst", width / 2, height / 2 - 64,
+			16777215);
+		drawCenteredString(fontRendererObj,
+			"should have been openened in your browser.", width / 2,
+			height / 2 - 52, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }

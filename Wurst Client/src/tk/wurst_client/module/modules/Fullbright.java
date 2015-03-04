@@ -26,7 +26,9 @@ public class Fullbright extends Module
 	@Override
 	public void onUpdate()
 	{
-		if(getToggled() || Client.wurst.moduleManager.getModuleFromClass(XRay.class).getToggled())
+		if(getToggled()
+			|| Client.wurst.moduleManager.getModuleFromClass(XRay.class)
+				.getToggled())
 		{
 			if(Minecraft.getMinecraft().gameSettings.gammaSetting < 16F)
 				Minecraft.getMinecraft().gameSettings.gammaSetting += 0.5F;

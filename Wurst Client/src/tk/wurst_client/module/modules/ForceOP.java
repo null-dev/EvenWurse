@@ -51,7 +51,8 @@ public class ForceOP extends Module
 	public String getName()
 	{
 		Client.wurst.fileManager.loadOptions();
-		return Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect ? "AuthMeCracker" : "ForceOP";
+		return Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect
+			? "AuthMeCracker" : "ForceOP";
 	}
 	
 	private String[] defaultList =
@@ -140,20 +141,24 @@ public class ForceOP extends Module
 			{
 				lastPW = -1;
 				Client.wurst.fileManager.loadOptions();
-				dialog = new JDialog((JFrame)null, ForceOP.this.getName(), false);
+				dialog =
+					new JDialog((JFrame)null, ForceOP.this.getName(), false);
 				dialog.setAlwaysOnTop(true);
 				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 				dialog.setSize(512, 248);
 				dialog.setResizable(false);
-				dialog.setLocation((screen.width - dialog.getWidth()) / 2, (screen.height - dialog.getHeight()) / 2);
+				dialog.setLocation((screen.width - dialog.getWidth()) / 2,
+					(screen.height - dialog.getHeight()) / 2);
 				dialog.setLayout(null);
-				dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				dialog
+					.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 				dialog.addWindowListener(new WindowAdapter()
 				{
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						Client.wurst.moduleManager.getModuleFromClass(ForceOP.class).setToggled(false);
+						Client.wurst.moduleManager.getModuleFromClass(
+							ForceOP.class).setToggled(false);
 					}
 				});
 				
@@ -162,13 +167,19 @@ public class ForceOP extends Module
 				lPWList.setSize(lPWList.getPreferredSize());
 				dialog.add(lPWList);
 				
-				rbDefaultList = new JRadioButton("default", Client.wurst.options.forceOPList.equals(Client.wurst.fileManager.wurstDir.getPath()));
+				rbDefaultList =
+					new JRadioButton(
+						"default",
+						Client.wurst.options.forceOPList
+							.equals(Client.wurst.fileManager.wurstDir.getPath()));
 				rbDefaultList.setLocation(4, 24);
 				rbDefaultList.setSize(rbDefaultList.getPreferredSize());
 				dialog.add(rbDefaultList);
 				
-				rbTXTList = new JRadioButton("TXT file", !rbDefaultList.isSelected());
-				rbTXTList.setLocation(rbDefaultList.getX() + rbDefaultList.getWidth() + 4, 24);
+				rbTXTList =
+					new JRadioButton("TXT file", !rbDefaultList.isSelected());
+				rbTXTList.setLocation(
+					rbDefaultList.getX() + rbDefaultList.getWidth() + 4, 24);
 				rbTXTList.setSize(rbTXTList.getPreferredSize());
 				rbTXTList.addChangeListener(new ChangeListener()
 				{
@@ -178,7 +189,8 @@ public class ForceOP extends Module
 						bTXTList.setEnabled(rbTXTList.isSelected());
 						if(!rbTXTList.isSelected())
 						{
-							Client.wurst.options.forceOPList = Client.wurst.fileManager.wurstDir.getPath();
+							Client.wurst.options.forceOPList =
+								Client.wurst.fileManager.wurstDir.getPath();
 							Client.wurst.fileManager.saveOptions();
 						}
 						loadPWList();
@@ -192,7 +204,8 @@ public class ForceOP extends Module
 				bgList.add(rbTXTList);
 				
 				bTXTList = new JButton("browse");
-				bTXTList.setLocation(rbTXTList.getX() + rbTXTList.getWidth() + 4, 24);
+				bTXTList.setLocation(rbTXTList.getX() + rbTXTList.getWidth()
+					+ 4, 24);
 				bTXTList.setSize(bTXTList.getPreferredSize());
 				bTXTList.setEnabled(rbTXTList.isSelected());
 				bTXTList.addActionListener(new ActionListener()
@@ -202,16 +215,22 @@ public class ForceOP extends Module
 					{
 						JFileChooser fsTXTList = new JFileChooser();
 						fsTXTList.setAcceptAllFileFilterUsed(false);
-						fsTXTList.addChoosableFileFilter(new FileNameExtensionFilter("TXT files", new String[]{"txt"}));
+						fsTXTList
+							.addChoosableFileFilter(new FileNameExtensionFilter(
+								"TXT files", new String[]{"txt"}));
 						fsTXTList.setFileSelectionMode(JFileChooser.FILES_ONLY);
-						fsTXTList.setCurrentDirectory(new File(Client.wurst.options.forceOPList));
+						fsTXTList.setCurrentDirectory(new File(
+							Client.wurst.options.forceOPList));
 						int action = fsTXTList.showOpenDialog(dialog);
 						if(action == JFileChooser.APPROVE_OPTION)
 							if(!fsTXTList.getSelectedFile().exists())
-								JOptionPane.showMessageDialog(dialog, "File does not exist!", "Error", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(dialog,
+									"File does not exist!", "Error",
+									JOptionPane.ERROR_MESSAGE);
 							else
 							{
-								Client.wurst.options.forceOPList = fsTXTList.getSelectedFile().getPath();
+								Client.wurst.options.forceOPList =
+									fsTXTList.getSelectedFile().getPath();
 								Client.wurst.fileManager.saveOptions();
 							}
 						loadPWList();
@@ -221,7 +240,8 @@ public class ForceOP extends Module
 				dialog.add(bTXTList);
 				
 				bHowTo = new JButton("How to use");
-				bHowTo.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD, 16));
+				bHowTo.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD,
+					16));
 				bHowTo.setSize(bHowTo.getPreferredSize());
 				bHowTo.setLocation(506 - bHowTo.getWidth() - 32, 12);
 				bHowTo.addActionListener(new ActionListener()
@@ -231,7 +251,8 @@ public class ForceOP extends Module
 					{
 						try
 						{
-							String howToLink = "http://www.wurst-client.tk/tutorials/forceop";
+							String howToLink =
+								"http://www.wurst-client.tk/tutorials/forceop";
 							Desktop.getDesktop().browse(new URI(howToLink));
 						}catch(Throwable var5)
 						{
@@ -257,7 +278,8 @@ public class ForceOP extends Module
 				dialog.add(lDelay1);
 				
 				spDelay = new JSpinner();
-				spDelay.setToolTipText
+				spDelay
+					.setToolTipText
 					(
 					"<html>"
 						+ "50ms: fastest, doesn't bypass AntiSpam plugins<br>"
@@ -265,15 +287,19 @@ public class ForceOP extends Module
 						+ "10.000ms: slowest, bypasses all AntiSpam plugins"
 						+ "</html>"
 					);
-				spDelay.setModel(new SpinnerNumberModel(Client.wurst.options.forceOPDelay, 50, 10000, 50));
-				spDelay.setLocation(lDelay1.getX() + lDelay1.getWidth() + 4, 84);
-				spDelay.setSize(60, (int)spDelay.getPreferredSize().getHeight());
+				spDelay.setModel(new SpinnerNumberModel(
+					Client.wurst.options.forceOPDelay, 50, 10000, 50));
+				spDelay
+					.setLocation(lDelay1.getX() + lDelay1.getWidth() + 4, 84);
+				spDelay
+					.setSize(60, (int)spDelay.getPreferredSize().getHeight());
 				spDelay.addChangeListener(new ChangeListener()
 				{
 					@Override
 					public void stateChanged(ChangeEvent e)
 					{
-						Client.wurst.options.forceOPDelay = (Integer)spDelay.getValue();
+						Client.wurst.options.forceOPDelay =
+							(Integer)spDelay.getValue();
 						Client.wurst.fileManager.saveOptions();
 						update();
 					}
@@ -281,12 +307,17 @@ public class ForceOP extends Module
 				dialog.add(spDelay);
 				
 				lDelay2 = new JLabel("ms");
-				lDelay2.setLocation(spDelay.getX() + spDelay.getWidth() + 4, 84);
+				lDelay2
+					.setLocation(spDelay.getX() + spDelay.getWidth() + 4, 84);
 				lDelay2.setSize(lDelay2.getPreferredSize());
 				dialog.add(lDelay2);
 				
-				cbDontWait = new JCheckBox("<html>Don't wait for \"<span style=\"color: rgb(192, 0, 0);\"><b>Wrong password!</b></span>\" messages</html>", Client.wurst.options.forceOPDontWait);
-				cbDontWait.setToolTipText("Increases the speed but can cause inaccuracy.");
+				cbDontWait =
+					new JCheckBox(
+						"<html>Don't wait for \"<span style=\"color: rgb(192, 0, 0);\"><b>Wrong password!</b></span>\" messages</html>",
+						Client.wurst.options.forceOPDontWait);
+				cbDontWait
+					.setToolTipText("Increases the speed but can cause inaccuracy.");
 				cbDontWait.setLocation(4, 104);
 				cbDontWait.setSize(cbDontWait.getPreferredSize());
 				cbDontWait.addActionListener(new ActionListener()
@@ -294,7 +325,8 @@ public class ForceOP extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						Client.wurst.options.forceOPDontWait = cbDontWait.isSelected();
+						Client.wurst.options.forceOPDontWait =
+							cbDontWait.isSelected();
 						Client.wurst.fileManager.saveOptions();
 						update();
 					}
@@ -306,7 +338,9 @@ public class ForceOP extends Module
 				sepSpeedStart.setSize(498, 4);
 				dialog.add(sepSpeedStart);
 				
-				lName = new JLabel("Username: " + Minecraft.getMinecraft().session.getUsername());
+				lName =
+					new JLabel("Username: "
+						+ Minecraft.getMinecraft().session.getUsername());
 				lName.setLocation(4, 140);
 				lName.setSize(lName.getPreferredSize());
 				dialog.add(lName);
@@ -327,7 +361,8 @@ public class ForceOP extends Module
 				dialog.add(lAttempts);
 				
 				bStart = new JButton("Start");
-				bStart.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD, 18));
+				bStart.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD,
+					18));
 				bStart.setLocation(506 - 192 - 12, 144);
 				bStart.setSize(192, 66);
 				bStart.addActionListener(new ActionListener()
@@ -355,19 +390,28 @@ public class ForceOP extends Module
 							@Override
 							public void run()
 							{
-								Minecraft.getMinecraft().thePlayer.sendChatMessage("/login " + Minecraft.getMinecraft().session.getUsername());
+								Minecraft.getMinecraft().thePlayer
+									.sendChatMessage("/login "
+										+ Minecraft.getMinecraft().session
+											.getUsername());
 								lastPW = 0;
 								loadPWList();
 								update();
 								for(int i = 0; i < passwords.length; i++)
 								{
-									if(!Client.wurst.moduleManager.getModuleFromClass(ForceOP.class).getToggled())
+									if(!Client.wurst.moduleManager
+										.getModuleFromClass(ForceOP.class)
+										.getToggled())
 										return;
 									if(!cbDontWait.isSelected())
 										gotWrongPWMSG = false;
-									while(!cbDontWait.isSelected() && !hasGotWrongPWMSG() || Minecraft.getMinecraft().thePlayer == null)
+									while(!cbDontWait.isSelected()
+										&& !hasGotWrongPWMSG()
+										|| Minecraft.getMinecraft().thePlayer == null)
 									{
-										if(!Client.wurst.moduleManager.getModuleFromClass(ForceOP.class).getToggled())
+										if(!Client.wurst.moduleManager
+											.getModuleFromClass(ForceOP.class)
+											.getToggled())
 											return;
 										try
 										{
@@ -385,7 +429,8 @@ public class ForceOP extends Module
 									}
 									try
 									{
-										Thread.sleep(Client.wurst.options.forceOPDelay);
+										Thread
+											.sleep(Client.wurst.options.forceOPDelay);
 									}catch(InterruptedException e)
 									{
 										e.printStackTrace();
@@ -394,7 +439,9 @@ public class ForceOP extends Module
 									while(!sent)
 										try
 										{
-											Minecraft.getMinecraft().thePlayer.sendChatMessage("/login " + passwords[i]);
+											Minecraft.getMinecraft().thePlayer
+												.sendChatMessage("/login "
+													+ passwords[i]);
 											sent = true;
 										}catch(Exception e)
 										{
@@ -409,7 +456,8 @@ public class ForceOP extends Module
 									lastPW = i + 1;
 									update();
 								}
-								Client.wurst.chat.failure("Tried " + (lastPW + 1) + " passwords. Giving up.");
+								Client.wurst.chat.failure("Tried "
+									+ (lastPW + 1) + " passwords. Giving up.");
 							}
 						}, "AuthMeCracker").start();
 					}
@@ -427,11 +475,14 @@ public class ForceOP extends Module
 	
 	private void loadPWList()
 	{
-		if(rbTXTList.isSelected() && !Client.wurst.options.forceOPList.equals(Client.wurst.fileManager.wurstDir.getPath()))
+		if(rbTXTList.isSelected()
+			&& !Client.wurst.options.forceOPList
+				.equals(Client.wurst.fileManager.wurstDir.getPath()))
 			try
 			{
 				File pwList = new File(Client.wurst.options.forceOPList);
-				BufferedReader load = new BufferedReader(new FileReader(pwList));
+				BufferedReader load =
+					new BufferedReader(new FileReader(pwList));
 				ArrayList<String> loadedPWs = new ArrayList<String>();
 				for(String line = ""; (line = load.readLine()) != null;)
 					loadedPWs.add(line);
@@ -440,7 +491,9 @@ public class ForceOP extends Module
 			}catch(IOException e)
 			{
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(dialog, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(dialog,
+					"Error: " + e.getMessage(), "Error",
+					JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		else
@@ -451,22 +504,27 @@ public class ForceOP extends Module
 	
 	private void update()
 	{
-		long timeMS = (passwords.length + 1 - lastPW) * (Integer)spDelay.getValue();
+		long timeMS =
+			(passwords.length + 1 - lastPW) * (Integer)spDelay.getValue();
 		timeMS = timeMS + (int)(timeMS / 30000 * 5000);
 		if(!cbDontWait.isSelected())
 			timeMS = timeMS + timeMS / (Integer)spDelay.getValue() * 50;
 		String timeString =
 			TimeUnit.MILLISECONDS.toDays(timeMS)
 				+ "d "
-				+ (TimeUnit.MILLISECONDS.toHours(timeMS) - TimeUnit.DAYS.toHours(TimeUnit.MILLISECONDS.toDays(timeMS)))
+				+ (TimeUnit.MILLISECONDS.toHours(timeMS) - TimeUnit.DAYS
+					.toHours(TimeUnit.MILLISECONDS.toDays(timeMS)))
 				+ "h "
-				+ (TimeUnit.MILLISECONDS.toMinutes(timeMS) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeMS)))
+				+ (TimeUnit.MILLISECONDS.toMinutes(timeMS) - TimeUnit.HOURS
+					.toMinutes(TimeUnit.MILLISECONDS.toHours(timeMS)))
 				+ "m "
-				+ (TimeUnit.MILLISECONDS.toSeconds(timeMS) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeMS)))
+				+ (TimeUnit.MILLISECONDS.toSeconds(timeMS) - TimeUnit.MINUTES
+					.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeMS)))
 				+ "s";
 		lTime.setText("Estimated time: " + timeString);
 		lTime.setSize(lTime.getPreferredSize());
-		lAttempts.setText("Attempts: " + (lastPW + 1) + "/" + (passwords.length + 1));
+		lAttempts.setText("Attempts: " + (lastPW + 1) + "/"
+			+ (passwords.length + 1));
 		lAttempts.setSize(lAttempts.getPreferredSize());
 	}
 	
@@ -496,15 +554,18 @@ public class ForceOP extends Module
 				password = Minecraft.getMinecraft().session.getUsername();
 			else
 				password = passwords[lastPW - 1];
-			Client.wurst.chat.success("The password \"" + password + "\" worked.");
+			Client.wurst.chat.success("The password \"" + password
+				+ "\" worked.");
 			setToggled(false);
 		}else if(message.toLowerCase().contains("/help")
 			|| message.toLowerCase().contains("permission"))
-			Client.wurst.chat.warning("It looks like this server doesn't have AuthMe.");
+			Client.wurst.chat
+				.warning("It looks like this server doesn't have AuthMe.");
 		else if(message.toLowerCase().contains("logged in")
 			|| message.toLowerCase().contains("eingeloggt")
 			|| message.toLowerCase().contains("eingelogt"))
-			Client.wurst.chat.warning("It looks like you are already logged in.");
+			Client.wurst.chat
+				.warning("It looks like you are already logged in.");
 	}
 	
 	private boolean hasGotWrongPWMSG()

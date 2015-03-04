@@ -51,7 +51,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		// Draw frame background
 		if(component.isMinimized())
 			area.height = fontHeight + 4;
-		RenderUtil.setColor(new Color(8, 8, 8, component.getBackgroundColor().getAlpha()));
+		RenderUtil.setColor(new Color(8, 8, 8, component.getBackgroundColor()
+			.getAlpha()));
 		glBegin(GL_QUADS);
 		{
 			glVertex2d(0, 0);
@@ -82,8 +83,9 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		}
 		boolean[] checks = new boolean[]{component.isClosable(),
 			component.isPinnable(), component.isMinimizable()};
-		boolean[] overlays = new boolean[]{component.isClosable(), !component.isPinned(),
-			component.isMinimized()};
+		boolean[] overlays =
+			new boolean[]{component.isClosable(), !component.isPinned(),
+				component.isMinimized()};
 		for(int i = 0; i < checks.length; i++)
 		{
 			if(!checks[i])
@@ -113,10 +115,13 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 				glBegin(GL_LINE_LOOP);
 				{
-					glVertex2d(offset - fontHeight / 3 * 2 - 1, fontHeight / 3 + 1);
-					glVertex2d(offset - fontHeight / 3 + 1, fontHeight / 3 * 2 + 3);
+					glVertex2d(offset - fontHeight / 3 * 2 - 1,
+						fontHeight / 3 + 1);
+					glVertex2d(offset - fontHeight / 3 + 1,
+						fontHeight / 3 * 2 + 3);
 					glVertex2d(offset - fontHeight / 3, fontHeight / 3 * 2 + 4);
-					glVertex2d(offset - fontHeight / 3 * 2 - 2, fontHeight / 3 + 2);
+					glVertex2d(offset - fontHeight / 3 * 2 - 2,
+						fontHeight / 3 + 2);
 				}
 				glEnd();
 				glLineWidth(1.0f);
@@ -124,7 +129,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 4);
-					glVertex2d(offset - fontHeight / 3 - 2, fontHeight / 3 * 2 + 2);
+					glVertex2d(offset - fontHeight / 3 - 2,
+						fontHeight / 3 * 2 + 2);
 					glVertex2d(offset - fontHeight + 1.5, fontHeight + 0.5);
 				}
 				glEnd();
@@ -140,45 +146,64 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				RenderUtil.setColor(new Color(0, 255, 0, 64));
 				glBegin(GL_QUADS);
 				{
-					glVertex2d(offset - fontHeight / 3 * 2 - 1, fontHeight / 3 + 1);
-					glVertex2d(offset - fontHeight / 3 + 1, fontHeight / 3 * 2 + 3);
+					glVertex2d(offset - fontHeight / 3 * 2 - 1,
+						fontHeight / 3 + 1);
+					glVertex2d(offset - fontHeight / 3 + 1,
+						fontHeight / 3 * 2 + 3);
 					glVertex2d(offset - fontHeight / 3, fontHeight / 3 * 2 + 4);
-					glVertex2d(offset - fontHeight / 3 * 2 - 2, fontHeight / 3 + 2);
+					glVertex2d(offset - fontHeight / 3 * 2 - 2,
+						fontHeight / 3 + 2);
 				}
 				glEnd();
 				RenderUtil.setColor(new Color(192, 192, 192, 192));
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 4);
-					glVertex2d(offset - fontHeight / 3 - 2, fontHeight / 3 * 2 + 2);
+					glVertex2d(offset - fontHeight / 3 - 2,
+						fontHeight / 3 * 2 + 2);
 					glVertex2d(offset - fontHeight + 1.5, fontHeight + 0.5);
 				}
 				glEnd();
-				if(mouse.x >= offset - fontHeight && mouse.x <= offset && mouse.y >= 2 && mouse.y <= fontHeight + 2 && Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
+				if(mouse.x >= offset - fontHeight
+					&& mouse.x <= offset
+					&& mouse.y >= 2
+					&& mouse.y <= fontHeight + 2
+					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(0, 255, 0, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(0, 255, 0, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight / 3, 2);
 						glVertex2d(offset, fontHeight / 3 + 2);
-						glVertex2d(offset - fontHeight / 3, fontHeight / 3 * 2 + 2);
-						glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 2);
+						glVertex2d(offset - fontHeight / 3,
+							fontHeight / 3 * 2 + 2);
+						glVertex2d(offset - fontHeight / 3 * 2,
+							fontHeight / 3 + 2);
 					}
 					glEnd();
-					RenderUtil.setColor(new Color(0, 255, 0, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(0, 255, 0, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_QUADS);
 					{
-						glVertex2d(offset - fontHeight / 3 * 2 - 1, fontHeight / 3 + 1);
-						glVertex2d(offset - fontHeight / 3 + 1, fontHeight / 3 * 2 + 3);
-						glVertex2d(offset - fontHeight / 3, fontHeight / 3 * 2 + 4);
-						glVertex2d(offset - fontHeight / 3 * 2 - 2, fontHeight / 3 + 2);
+						glVertex2d(offset - fontHeight / 3 * 2 - 1,
+							fontHeight / 3 + 1);
+						glVertex2d(offset - fontHeight / 3 + 1,
+							fontHeight / 3 * 2 + 3);
+						glVertex2d(offset - fontHeight / 3,
+							fontHeight / 3 * 2 + 4);
+						glVertex2d(offset - fontHeight / 3 * 2 - 2,
+							fontHeight / 3 + 2);
 					}
 					glEnd();
-					RenderUtil.setColor(new Color(255, 255, 255, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(255, 255, 255, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_TRIANGLES);
 					{
-						glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 4);
-						glVertex2d(offset - fontHeight / 3 - 2, fontHeight / 3 * 2 + 2);
+						glVertex2d(offset - fontHeight / 3 * 2,
+							fontHeight / 3 + 4);
+						glVertex2d(offset - fontHeight / 3 - 2,
+							fontHeight / 3 * 2 + 2);
 						glVertex2d(offset - fontHeight + 1.5, fontHeight + 0.5);
 					}
 					glEnd();
@@ -189,86 +214,129 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 				glBegin(GL_LINE_LOOP);
 				{
-					glVertex2d(offset - fontHeight / 3 * 2 - 1.5, fontHeight / 3 + 2);
-					glVertex2d(offset - fontHeight / 3 + 0.5, fontHeight / 3 + 2);
-					glVertex2d(offset - fontHeight / 3 + 0.5, fontHeight / 3 * 2 + 4);
-					glVertex2d(offset - fontHeight / 3 * 2 - 1.5, fontHeight / 3 * 2 + 4);
+					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
+						fontHeight / 3 + 2);
+					glVertex2d(offset - fontHeight / 3 + 0.5,
+						fontHeight / 3 + 2);
+					glVertex2d(offset - fontHeight / 3 + 0.5,
+						fontHeight / 3 * 2 + 4);
+					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
+						fontHeight / 3 * 2 + 4);
 				}
 				glEnd();
 				glLineWidth(1.0f);
 				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 				glBegin(GL_LINE_LOOP);
 				{
-					glVertex2d(offset - fontHeight / 3 * 2 - 2.5, fontHeight / 3 * 2 + 4);
-					glVertex2d(offset - fontHeight / 3 + 1.5, fontHeight / 3 * 2 + 4);
-					glVertex2d(offset - fontHeight / 3 + 1.5, fontHeight / 3 * 2 + 5);
-					glVertex2d(offset - fontHeight / 3 * 2 - 2.5, fontHeight / 3 * 2 + 5);
+					glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
+						fontHeight / 3 * 2 + 4);
+					glVertex2d(offset - fontHeight / 3 + 1.5,
+						fontHeight / 3 * 2 + 4);
+					glVertex2d(offset - fontHeight / 3 + 1.5,
+						fontHeight / 3 * 2 + 5);
+					glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
+						fontHeight / 3 * 2 + 5);
 				}
 				glEnd();
 				glLineWidth(1.0f);
 				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 				glBegin(GL_LINE_LOOP);
 				{
-					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 * 2 + 5.1);
-					glVertex2d(offset - fontHeight / 3 * 2 + 1.5, fontHeight / 3 * 2 + 5.1);
-					glVertex2d(offset - fontHeight / 3 * 2 + 1.3, fontHeight + 2);
-					glVertex2d(offset - fontHeight / 3 * 2 + 0.2, fontHeight + 2);
+					glVertex2d(offset - fontHeight / 3 * 2,
+						fontHeight / 3 * 2 + 5.1);
+					glVertex2d(offset - fontHeight / 3 * 2 + 1.5,
+						fontHeight / 3 * 2 + 5.1);
+					glVertex2d(offset - fontHeight / 3 * 2 + 1.3,
+						fontHeight + 2);
+					glVertex2d(offset - fontHeight / 3 * 2 + 0.2,
+						fontHeight + 2);
 				}
 				glEnd();
 				RenderUtil.setColor(new Color(255, 0, 0, 64));
 				glBegin(GL_QUADS);
 				{
-					glVertex2d(offset - fontHeight / 3 * 2 - 1.5, fontHeight / 3 + 2);
-					glVertex2d(offset - fontHeight / 3 + 0.5, fontHeight / 3 + 2);
-					glVertex2d(offset - fontHeight / 3 + 0.5, fontHeight / 3 * 2 + 4);
-					glVertex2d(offset - fontHeight / 3 * 2 - 1.5, fontHeight / 3 * 2 + 4);
+					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
+						fontHeight / 3 + 2);
+					glVertex2d(offset - fontHeight / 3 + 0.5,
+						fontHeight / 3 + 2);
+					glVertex2d(offset - fontHeight / 3 + 0.5,
+						fontHeight / 3 * 2 + 4);
+					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
+						fontHeight / 3 * 2 + 4);
 				}
 				glEnd();
 				RenderUtil.setColor(new Color(255, 0, 0, 64));
 				glBegin(GL_QUADS);
 				{
-					glVertex2d(offset - fontHeight / 3 * 2 - 2.5, fontHeight / 3 * 2 + 4);
-					glVertex2d(offset - fontHeight / 3 + 1.5, fontHeight / 3 * 2 + 4);
-					glVertex2d(offset - fontHeight / 3 + 1.5, fontHeight / 3 * 2 + 5);
-					glVertex2d(offset - fontHeight / 3 * 2 - 2.5, fontHeight / 3 * 2 + 5);
+					glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
+						fontHeight / 3 * 2 + 4);
+					glVertex2d(offset - fontHeight / 3 + 1.5,
+						fontHeight / 3 * 2 + 4);
+					glVertex2d(offset - fontHeight / 3 + 1.5,
+						fontHeight / 3 * 2 + 5);
+					glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
+						fontHeight / 3 * 2 + 5);
 				}
 				glEnd();
 				RenderUtil.setColor(new Color(192, 192, 192, 192));
 				glBegin(GL_QUADS);
 				{
-					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 * 2 + 5.1);
-					glVertex2d(offset - fontHeight / 3 * 2 + 1.5, fontHeight / 3 * 2 + 5.1);
-					glVertex2d(offset - fontHeight / 3 * 2 + 1.3, fontHeight + 2);
-					glVertex2d(offset - fontHeight / 3 * 2 + 0.2, fontHeight + 2);
+					glVertex2d(offset - fontHeight / 3 * 2,
+						fontHeight / 3 * 2 + 5.1);
+					glVertex2d(offset - fontHeight / 3 * 2 + 1.5,
+						fontHeight / 3 * 2 + 5.1);
+					glVertex2d(offset - fontHeight / 3 * 2 + 1.3,
+						fontHeight + 2);
+					glVertex2d(offset - fontHeight / 3 * 2 + 0.2,
+						fontHeight + 2);
 				}
 				glEnd();
-				if(mouse.x >= offset - fontHeight && mouse.x <= offset && mouse.y >= 2 && mouse.y <= fontHeight + 2 && Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
+				if(mouse.x >= offset - fontHeight
+					&& mouse.x <= offset
+					&& mouse.y >= 2
+					&& mouse.y <= fontHeight + 2
+					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(255, 0, 0, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(255, 0, 0, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_QUADS);
 					{
-						glVertex2d(offset - fontHeight / 3 * 2 - 1.5, fontHeight / 3 + 2);
-						glVertex2d(offset - fontHeight / 3 + 0.5, fontHeight / 3 + 2);
-						glVertex2d(offset - fontHeight / 3 + 0.5, fontHeight / 3 * 2 + 4);
-						glVertex2d(offset - fontHeight / 3 * 2 - 1.5, fontHeight / 3 * 2 + 4);
+						glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
+							fontHeight / 3 + 2);
+						glVertex2d(offset - fontHeight / 3 + 0.5,
+							fontHeight / 3 + 2);
+						glVertex2d(offset - fontHeight / 3 + 0.5,
+							fontHeight / 3 * 2 + 4);
+						glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
+							fontHeight / 3 * 2 + 4);
 					}
 					glEnd();
-					RenderUtil.setColor(new Color(255, 0, 0, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(255, 0, 0, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_QUADS);
 					{
-						glVertex2d(offset - fontHeight / 3 * 2 - 2.5, fontHeight / 3 * 2 + 4);
-						glVertex2d(offset - fontHeight / 3 + 1.5, fontHeight / 3 * 2 + 4);
-						glVertex2d(offset - fontHeight / 3 + 1.5, fontHeight / 3 * 2 + 5);
-						glVertex2d(offset - fontHeight / 3 * 2 - 2.5, fontHeight / 3 * 2 + 5);
+						glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
+							fontHeight / 3 * 2 + 4);
+						glVertex2d(offset - fontHeight / 3 + 1.5,
+							fontHeight / 3 * 2 + 4);
+						glVertex2d(offset - fontHeight / 3 + 1.5,
+							fontHeight / 3 * 2 + 5);
+						glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
+							fontHeight / 3 * 2 + 5);
 					}
 					glEnd();
-					RenderUtil.setColor(new Color(255, 255, 255, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(255, 255, 255, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_QUADS);
 					{
-						glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 * 2 + 5.1);
-						glVertex2d(offset - fontHeight / 3 * 2 + 1.5, fontHeight / 3 * 2 + 5.1);
-						glVertex2d(offset - fontHeight / 3 * 2 + 1.3, fontHeight + 2);
-						glVertex2d(offset - fontHeight / 3 * 2 + 0.2, fontHeight + 2);
+						glVertex2d(offset - fontHeight / 3 * 2,
+							fontHeight / 3 * 2 + 5.1);
+						glVertex2d(offset - fontHeight / 3 * 2 + 1.5,
+							fontHeight / 3 * 2 + 5.1);
+						glVertex2d(offset - fontHeight / 3 * 2 + 1.3,
+							fontHeight + 2);
+						glVertex2d(offset - fontHeight / 3 * 2 + 0.2,
+							fontHeight + 2);
 					}
 					glEnd();
 				}
@@ -292,9 +360,14 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight / 2, fontHeight - 0.5);
 				}
 				glEnd();
-				if(mouse.x >= offset - fontHeight && mouse.x <= offset && mouse.y >= 2 && mouse.y <= fontHeight + 2 && Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
+				if(mouse.x >= offset - fontHeight
+					&& mouse.x <= offset
+					&& mouse.y >= 2
+					&& mouse.y <= fontHeight + 2
+					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(0, 255, 0, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(0, 255, 0, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_TRIANGLES);
 					{
 						glVertex2d(offset - fontHeight + 1, 4.5);
@@ -322,9 +395,14 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight / 2, 4);
 				}
 				glEnd();
-				if(mouse.x >= offset - fontHeight && mouse.x <= offset && mouse.y >= 2 && mouse.y <= fontHeight + 2 && Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
+				if(mouse.x >= offset - fontHeight
+					&& mouse.x <= offset
+					&& mouse.y >= 2
+					&& mouse.y <= fontHeight + 2
+					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(255, 0, 0, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(255, 0, 0, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_TRIANGLES);
 					{
 						glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -379,9 +457,14 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight + 2, fontHeight + 2);
 				}
 				glEnd();
-				if(mouse.x >= offset - fontHeight && mouse.x <= offset && mouse.y >= 2 && mouse.y <= fontHeight + 2 && Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
+				if(mouse.x >= offset - fontHeight
+					&& mouse.x <= offset
+					&& mouse.y >= 2
+					&& mouse.y <= fontHeight + 2
+					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(255, 0, 0, Mouse.isButtonDown(0) ? 96 : 64));
+					RenderUtil.setColor(new Color(255, 0, 0, Mouse
+						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight, 4);
@@ -395,13 +478,15 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						glVertex2d(offset, 4);
 						glVertex2d(offset - 2, 2);
 						glVertex2d(offset - fontHeight / 2, fontHeight / 2);
-						glVertex2d(offset - fontHeight / 2 + 2, fontHeight / 2 + 2);
+						glVertex2d(offset - fontHeight / 2 + 2,
+							fontHeight / 2 + 2);
 					}
 					glEnd();
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight / 2, fontHeight / 2 + 4);
-						glVertex2d(offset - fontHeight / 2 - 2, fontHeight / 2 + 2);
+						glVertex2d(offset - fontHeight / 2 - 2,
+							fontHeight / 2 + 2);
 						glVertex2d(offset - fontHeight, fontHeight);
 						glVertex2d(offset - fontHeight + 2, fontHeight + 2);
 					}

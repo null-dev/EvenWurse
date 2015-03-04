@@ -28,6 +28,7 @@ public class NoFall extends Module
 		if(!getToggled())
 			return;
 		if(Minecraft.getMinecraft().thePlayer.fallDistance > 2)
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer(true));
+			Minecraft.getMinecraft().thePlayer.sendQueue
+				.addToSendQueue(new C03PacketPlayer(true));
 	}
 }

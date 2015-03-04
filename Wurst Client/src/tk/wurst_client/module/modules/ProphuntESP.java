@@ -40,11 +40,16 @@ public class ProphuntESP extends Module
 				double y = ((Entity)entity).posY;
 				double z = ((Entity)entity).posZ;
 				Color color;
-				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity((Entity)entity) >= 0.5)
-					color = new Color(1F, 0F, 0F, 0.5F - MathHelper.abs(MathHelper.sin(Minecraft.getSystemTime() % 1000L / 1000.0F * (float)Math.PI * 1.0F) * 0.3F));
+				if(Minecraft.getMinecraft().thePlayer
+					.getDistanceToEntity((Entity)entity) >= 0.5)
+					color =
+						new Color(1F, 0F, 0F, 0.5F - MathHelper.abs(MathHelper
+							.sin(Minecraft.getSystemTime() % 1000L / 1000.0F
+								* (float)Math.PI * 1.0F) * 0.3F));
 				else
 					color = new Color(0, 0, 0, 0);
-				RenderUtils.box(x - 0.5, y - 0.1, z - 0.5, x + 0.5, y + 0.9, z + 0.5, color);
+				RenderUtils.box(x - 0.5, y - 0.1, z - 0.5, x + 0.5, y + 0.9,
+					z + 0.5, color);
 			}
 	}
 }

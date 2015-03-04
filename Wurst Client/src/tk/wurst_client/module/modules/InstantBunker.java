@@ -101,11 +101,13 @@ public class InstantBunker extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(FastPlace.class)
+			.getToggled())
 			speed = 1000000000;
 		else
 			speed = 5;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 		{
 			i = 0;
 			shouldBuild = true;
@@ -127,55 +129,143 @@ public class InstantBunker extends Module
 		if(shouldBuild && i < building.length && i >= 0)
 			if(playerYaw > -45 && playerYaw <= 45)
 			{// F: 0 South
-				double renderX = (int)posX + BuildUtils.convertPosInAdvancedBuiling(1, i, building);
-				double renderY = (int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building);
-				double renderZ = (int)posZ + BuildUtils.convertPosInAdvancedBuiling(3, i, building);
-				RenderUtils.blockESPBox(new BlockPos(renderX, renderY, renderZ));
+				double renderX =
+					(int)posX
+						+ BuildUtils
+							.convertPosInAdvancedBuiling(1, i, building);
+				double renderY =
+					(int)posY
+						- 2
+						+ BuildUtils
+							.convertPosInAdvancedBuiling(2, i, building);
+				double renderZ =
+					(int)posZ
+						+ BuildUtils
+							.convertPosInAdvancedBuiling(3, i, building);
+				RenderUtils
+					.blockESPBox(new BlockPos(renderX, renderY, renderZ));
 			}else if(playerYaw > 45 && playerYaw <= 135)
 			{// F: 1 West
-				double renderX = (int)posX - BuildUtils.convertPosInAdvancedBuiling(3, i, building);
-				double renderY = (int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building);
-				double renderZ = (int)posZ + BuildUtils.convertPosInAdvancedBuiling(1, i, building);
-				RenderUtils.blockESPBox(new BlockPos(renderX, renderY, renderZ));
+				double renderX =
+					(int)posX
+						- BuildUtils
+							.convertPosInAdvancedBuiling(3, i, building);
+				double renderY =
+					(int)posY
+						- 2
+						+ BuildUtils
+							.convertPosInAdvancedBuiling(2, i, building);
+				double renderZ =
+					(int)posZ
+						+ BuildUtils
+							.convertPosInAdvancedBuiling(1, i, building);
+				RenderUtils
+					.blockESPBox(new BlockPos(renderX, renderY, renderZ));
 			}else if(playerYaw > 135 || playerYaw <= -135)
 			{// F: 2 North
-				double renderX = (int)posX - BuildUtils.convertPosInAdvancedBuiling(1, i, building);
-				double renderY = (int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building);
-				double renderZ = (int)posZ - BuildUtils.convertPosInAdvancedBuiling(3, i, building);
-				RenderUtils.blockESPBox(new BlockPos(renderX, renderY, renderZ));
+				double renderX =
+					(int)posX
+						- BuildUtils
+							.convertPosInAdvancedBuiling(1, i, building);
+				double renderY =
+					(int)posY
+						- 2
+						+ BuildUtils
+							.convertPosInAdvancedBuiling(2, i, building);
+				double renderZ =
+					(int)posZ
+						- BuildUtils
+							.convertPosInAdvancedBuiling(3, i, building);
+				RenderUtils
+					.blockESPBox(new BlockPos(renderX, renderY, renderZ));
 			}else if(playerYaw > -135 && playerYaw <= -45)
 			{// F: 3 East
-				double renderX = (int)posX + BuildUtils.convertPosInAdvancedBuiling(3, i, building);
-				double renderY = (int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building);
-				double renderZ = (int)posZ - BuildUtils.convertPosInAdvancedBuiling(1, i, building);
-				RenderUtils.blockESPBox(new BlockPos(renderX, renderY, renderZ));
+				double renderX =
+					(int)posX
+						+ BuildUtils
+							.convertPosInAdvancedBuiling(3, i, building);
+				double renderY =
+					(int)posY
+						- 2
+						+ BuildUtils
+							.convertPosInAdvancedBuiling(2, i, building);
+				double renderZ =
+					(int)posZ
+						- BuildUtils
+							.convertPosInAdvancedBuiling(1, i, building);
+				RenderUtils
+					.blockESPBox(new BlockPos(renderX, renderY, renderZ));
 			}
 		for(int i = 0; i < building.length; i++)
 			if(shouldBuild && MouseOver != null)
 				if(playerYaw > -45 && playerYaw <= 45)
 				{// F: 0 South
-					double renderX = (int)posX + BuildUtils.convertPosInAdvancedBuiling(1, i, building);
-					double renderY = (int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building);
-					double renderZ = (int)posZ + BuildUtils.convertPosInAdvancedBuiling(3, i, building);
-					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY, renderZ));
+					double renderX =
+						(int)posX
+							+ BuildUtils.convertPosInAdvancedBuiling(1, i,
+								building);
+					double renderY =
+						(int)posY
+							- 2
+							+ BuildUtils.convertPosInAdvancedBuiling(2, i,
+								building);
+					double renderZ =
+						(int)posZ
+							+ BuildUtils.convertPosInAdvancedBuiling(3, i,
+								building);
+					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY,
+						renderZ));
 				}else if(playerYaw > 45 && playerYaw <= 135)
 				{// F: 1 West
-					double renderX = (int)posX - BuildUtils.convertPosInAdvancedBuiling(3, i, building);
-					double renderY = (int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building);
-					double renderZ = (int)posZ + BuildUtils.convertPosInAdvancedBuiling(1, i, building);
-					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY, renderZ));
+					double renderX =
+						(int)posX
+							- BuildUtils.convertPosInAdvancedBuiling(3, i,
+								building);
+					double renderY =
+						(int)posY
+							- 2
+							+ BuildUtils.convertPosInAdvancedBuiling(2, i,
+								building);
+					double renderZ =
+						(int)posZ
+							+ BuildUtils.convertPosInAdvancedBuiling(1, i,
+								building);
+					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY,
+						renderZ));
 				}else if(playerYaw > 135 || playerYaw <= -135)
 				{// F: 2 North
-					double renderX = (int)posX - BuildUtils.convertPosInAdvancedBuiling(1, i, building);
-					double renderY = (int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building);
-					double renderZ = (int)posZ - BuildUtils.convertPosInAdvancedBuiling(3, i, building);
-					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY, renderZ));
+					double renderX =
+						(int)posX
+							- BuildUtils.convertPosInAdvancedBuiling(1, i,
+								building);
+					double renderY =
+						(int)posY
+							- 2
+							+ BuildUtils.convertPosInAdvancedBuiling(2, i,
+								building);
+					double renderZ =
+						(int)posZ
+							- BuildUtils.convertPosInAdvancedBuiling(3, i,
+								building);
+					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY,
+						renderZ));
 				}else if(playerYaw > -135 && playerYaw <= -45)
 				{// F: 3 East
-					double renderX = (int)posX + BuildUtils.convertPosInAdvancedBuiling(3, i, building);
-					double renderY = (int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building);
-					double renderZ = (int)posZ - BuildUtils.convertPosInAdvancedBuiling(1, i, building);
-					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY, renderZ));
+					double renderX =
+						(int)posX
+							+ BuildUtils.convertPosInAdvancedBuiling(3, i,
+								building);
+					double renderY =
+						(int)posY
+							- 2
+							+ BuildUtils.convertPosInAdvancedBuiling(2, i,
+								building);
+					double renderZ =
+						(int)posZ
+							- BuildUtils.convertPosInAdvancedBuiling(1, i,
+								building);
+					RenderUtils.emptyBlockESPBox(new BlockPos(renderX, renderY,
+						renderZ));
 				}
 	}
 	
@@ -187,54 +277,109 @@ public class InstantBunker extends Module
 		updateMS();
 		if(shouldBuild)
 		{
-			if((hasTimePassedS(speed) || Client.wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled()) && i < building.length)
+			if((hasTimePassedS(speed) || Client.wurst.moduleManager
+				.getModuleFromClass(FastPlace.class).getToggled())
+				&& i < building.length)
 			{
-				BuildUtils.advancedInstantBuildNext(building, MouseOver, playerYaw, posX + 1, posY, posZ, i);
+				BuildUtils.advancedInstantBuildNext(building, MouseOver,
+					playerYaw, posX + 1, posY, posZ, i);
 				if(playerYaw > -45 && playerYaw <= 45)
 					try
 					{
-						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
-							(
-								(int)posX + BuildUtils.convertPosInAdvancedBuiling(1, i, building),
-								(int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building),
-								(int)posZ + BuildUtils.convertPosInAdvancedBuiling(3, i, building)
-							)).getBlock()) != 0)
+						if(Block
+							.getIdFromBlock(Minecraft.getMinecraft().theWorld
+								.getBlockState(
+									new BlockPos
+									(
+										(int)posX
+											+ BuildUtils
+												.convertPosInAdvancedBuiling(1,
+													i, building),
+										(int)posY
+											- 2
+											+ BuildUtils
+												.convertPosInAdvancedBuiling(2,
+													i, building),
+										(int)posZ
+											+ BuildUtils
+												.convertPosInAdvancedBuiling(3,
+													i, building)
+									)).getBlock()) != 0)
 							i += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > 45 && playerYaw <= 135)
 					try
 					{
-						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
-							(
-								(int)posX - BuildUtils.convertPosInAdvancedBuiling(3, i, building),
-								(int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building),
-								(int)posZ + BuildUtils.convertPosInAdvancedBuiling(1, i, building)
-							)).getBlock()) != 0)
+						if(Block
+							.getIdFromBlock(Minecraft.getMinecraft().theWorld
+								.getBlockState(
+									new BlockPos
+									(
+										(int)posX
+											- BuildUtils
+												.convertPosInAdvancedBuiling(3,
+													i, building),
+										(int)posY
+											- 2
+											+ BuildUtils
+												.convertPosInAdvancedBuiling(2,
+													i, building),
+										(int)posZ
+											+ BuildUtils
+												.convertPosInAdvancedBuiling(1,
+													i, building)
+									)).getBlock()) != 0)
 							i += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > 135 || playerYaw <= -135)
 					try
 					{
-						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
-							(
-								(int)posX - BuildUtils.convertPosInAdvancedBuiling(1, i, building),
-								(int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building),
-								(int)posZ - BuildUtils.convertPosInAdvancedBuiling(3, i, building)
-							)).getBlock()) != 0)
+						if(Block
+							.getIdFromBlock(Minecraft.getMinecraft().theWorld
+								.getBlockState(
+									new BlockPos
+									(
+										(int)posX
+											- BuildUtils
+												.convertPosInAdvancedBuiling(1,
+													i, building),
+										(int)posY
+											- 2
+											+ BuildUtils
+												.convertPosInAdvancedBuiling(2,
+													i, building),
+										(int)posZ
+											- BuildUtils
+												.convertPosInAdvancedBuiling(3,
+													i, building)
+									)).getBlock()) != 0)
 							i += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
 				else if(playerYaw > -135 && playerYaw <= -45)
 					try
 					{
-						if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos
-							(
-								(int)posX + BuildUtils.convertPosInAdvancedBuiling(3, i, building),
-								(int)posY - 2 + BuildUtils.convertPosInAdvancedBuiling(2, i, building),
-								(int)posZ - BuildUtils.convertPosInAdvancedBuiling(1, i, building)
-							)).getBlock()) != 0)
+						if(Block
+							.getIdFromBlock(Minecraft.getMinecraft().theWorld
+								.getBlockState(
+									new BlockPos
+									(
+										(int)posX
+											+ BuildUtils
+												.convertPosInAdvancedBuiling(3,
+													i, building),
+										(int)posY
+											- 2
+											+ BuildUtils
+												.convertPosInAdvancedBuiling(2,
+													i, building),
+										(int)posZ
+											- BuildUtils
+												.convertPosInAdvancedBuiling(1,
+													i, building)
+									)).getBlock()) != 0)
 							i += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.

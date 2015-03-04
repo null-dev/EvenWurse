@@ -115,11 +115,16 @@ public class BaseFinder extends Module
 				{
 					for(int z = range; z >= -range; z--)
 					{
-						int posX = (int)(Minecraft.getMinecraft().thePlayer.posX + x);
-						int posY = (int)(Minecraft.getMinecraft().thePlayer.posY + y);
-						int posZ = (int)(Minecraft.getMinecraft().thePlayer.posZ + z);
+						int posX =
+							(int)(Minecraft.getMinecraft().thePlayer.posX + x);
+						int posY =
+							(int)(Minecraft.getMinecraft().thePlayer.posY + y);
+						int posZ =
+							(int)(Minecraft.getMinecraft().thePlayer.posZ + z);
 						BlockPos pos = new BlockPos(posX, posY, posZ);
-						if(!naturalBlocks.contains(Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()))
+						if(!naturalBlocks
+							.contains(Minecraft.getMinecraft().theWorld
+								.getBlockState(pos).getBlock()))
 							matchingBlocks.add(pos);
 						if(matchingBlocks.size() >= maxBlocks)
 							break;
@@ -132,8 +137,11 @@ public class BaseFinder extends Module
 			}
 			if(matchingBlocks.size() >= maxBlocks && shouldInform)
 			{
-				Client.wurst.chat.warning(getName() + " found §lA LOT§r of blocks.");
-				Client.wurst.chat.message("To prevent lag, it will only show the first " + maxBlocks + " blocks.");
+				Client.wurst.chat.warning(getName()
+					+ " found §lA LOT§r of blocks.");
+				Client.wurst.chat
+					.message("To prevent lag, it will only show the first "
+						+ maxBlocks + " blocks.");
 				shouldInform = false;
 			}else if(matchingBlocks.size() < maxBlocks)
 				shouldInform = true;

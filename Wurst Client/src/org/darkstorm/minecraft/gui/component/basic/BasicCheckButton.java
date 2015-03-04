@@ -37,7 +37,8 @@ public class BasicCheckButton extends BasicButton implements CheckButton
 			if(listener instanceof SelectableComponentListener)
 				try
 				{
-					((SelectableComponentListener)listener).onSelectedStateChanged(this);
+					((SelectableComponentListener)listener)
+						.onSelectedStateChanged(this);
 				}catch(Exception exception)
 				{
 					exception.printStackTrace();
@@ -45,13 +46,15 @@ public class BasicCheckButton extends BasicButton implements CheckButton
 	}
 	
 	@Override
-	public void addSelectableComponentListener(SelectableComponentListener listener)
+	public void addSelectableComponentListener(
+		SelectableComponentListener listener)
 	{
 		addListener(listener);
 	}
 	
 	@Override
-	public void removeSelectableComponentListener(SelectableComponentListener listener)
+	public void removeSelectableComponentListener(
+		SelectableComponentListener listener)
 	{
 		removeListener(listener);
 	}

@@ -32,10 +32,14 @@ public class GuiKeybindManager extends GuiScreen
 		bindList.registerScrollButtons(7, 8);
 		bindList.elementClicked(-1, false, 0, 0);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 102, height - 52, 100, 20, "Add"));
-		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 100, 20, "Edit"));
-		buttonList.add(new GuiButton(2, width / 2 - 102, height - 28, 100, 20, "Remove"));
-		buttonList.add(new GuiButton(3, width / 2 + 2, height - 28, 100, 20, "Back"));
+		buttonList.add(new GuiButton(0, width / 2 - 102, height - 52, 100, 20,
+			"Add"));
+		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 100, 20,
+			"Edit"));
+		buttonList.add(new GuiButton(2, width / 2 - 102, height - 28, 100, 20,
+			"Remove"));
+		buttonList.add(new GuiButton(3, width / 2 + 2, height - 28, 100, 20,
+			"Back"));
 	}
 	
 	/**
@@ -44,8 +48,10 @@ public class GuiKeybindManager extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		((GuiButton)buttonList.get(1)).enabled = bindList.getSelectedSlot() != -1;
-		((GuiButton)buttonList.get(2)).enabled = bindList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(1)).enabled =
+			bindList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(2)).enabled =
+			bindList.getSelectedSlot() != -1;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -54,15 +60,20 @@ public class GuiKeybindManager extends GuiScreen
 	{
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
-			{
 				mc.displayGuiScreen(new GuiKeybindChange(this, null));
-			}else if(clickedButton.id == 1)
+			else if(clickedButton.id == 1)
 			{
-				Entry<String, String> entry = Client.wurst.keybinds.entrySet().toArray(new Entry[Client.wurst.keybinds.size()])[bindList.getSelectedSlot()];
+				Entry<String, String> entry =
+					Client.wurst.keybinds.entrySet().toArray(
+						new Entry[Client.wurst.keybinds.size()])[bindList
+						.getSelectedSlot()];
 				mc.displayGuiScreen(new GuiKeybindChange(this, entry));
 			}else if(clickedButton.id == 2)
 			{
-				Entry<String, String> entry = Client.wurst.keybinds.entrySet().toArray(new Entry[Client.wurst.keybinds.size()])[bindList.getSelectedSlot()];
+				Entry<String, String> entry =
+					Client.wurst.keybinds.entrySet().toArray(
+						new Entry[Client.wurst.keybinds.size()])[bindList
+						.getSelectedSlot()];
 				Client.wurst.keybinds.remove(entry.getKey());
 				Client.wurst.fileManager.saveKeybinds();
 			}else if(clickedButton.id == 3)
@@ -86,7 +97,8 @@ public class GuiKeybindManager extends GuiScreen
 	 * @throws IOException
 	 */
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
 	{
 		if(par2 >= 36 && par2 <= height - 57)
 			if(par1 >= width / 2 + 140 || par1 <= width / 2 - 126)
@@ -102,8 +114,10 @@ public class GuiKeybindManager extends GuiScreen
 	{
 		drawDefaultBackground();
 		bindList.drawScreen(par1, par2, par3);
-		drawCenteredString(fontRendererObj, "Keybind Manager", width / 2, 8, 16777215);
-		drawCenteredString(fontRendererObj, "Keybinds: " + Client.wurst.keybinds.size(), width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "Keybind Manager", width / 2, 8,
+			16777215);
+		drawCenteredString(fontRendererObj, "Keybinds: "
+			+ Client.wurst.keybinds.size(), width / 2, 20, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }

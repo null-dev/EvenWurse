@@ -27,8 +27,11 @@ public class LoginManager
 	
 	public static String login(String email, String password)
 	{
-		YggdrasilAuthenticationService authenticationService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
-		YggdrasilUserAuthentication authentication = (YggdrasilUserAuthentication)authenticationService.createUserAuthentication(Agent.MINECRAFT);
+		YggdrasilAuthenticationService authenticationService =
+			new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
+		YggdrasilUserAuthentication authentication =
+			(YggdrasilUserAuthentication)authenticationService
+				.createUserAuthentication(Agent.MINECRAFT);
 		authentication.setUsername(email);
 		authentication.setPassword(password);
 		String displayText;
@@ -48,7 +51,8 @@ public class LoginManager
 			displayText = "§4§lCannot contact authentication server!";
 		}catch(AuthenticationException e)
 		{// wrong password account migrated
-			if(e.getMessage().contains("Invalid username or password.") || e.getMessage().toLowerCase().contains("account migrated"))
+			if(e.getMessage().contains("Invalid username or password.")
+				|| e.getMessage().toLowerCase().contains("account migrated"))
 				displayText = "§4§lWrong password!";
 			else
 				displayText = "§4§lCannot contact authentication server!";
@@ -62,8 +66,11 @@ public class LoginManager
 	
 	public static String check(String email, String password)
 	{
-		YggdrasilAuthenticationService authenticationService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
-		YggdrasilUserAuthentication authentication = (YggdrasilUserAuthentication)authenticationService.createUserAuthentication(Agent.MINECRAFT);
+		YggdrasilAuthenticationService authenticationService =
+			new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
+		YggdrasilUserAuthentication authentication =
+			(YggdrasilUserAuthentication)authenticationService
+				.createUserAuthentication(Agent.MINECRAFT);
 		authentication.setUsername(email);
 		authentication.setPassword(password);
 		String displayText;
@@ -76,7 +83,8 @@ public class LoginManager
 			displayText = "§4§lCannot contact authentication server!";
 		}catch(AuthenticationException e)
 		{// wrong password account migrated
-			if(e.getMessage().contains("Invalid username or password.") || e.getMessage().toLowerCase().contains("account migrated"))
+			if(e.getMessage().contains("Invalid username or password.")
+				|| e.getMessage().toLowerCase().contains("account migrated"))
 				displayText = "§4§lWrong password!";
 			else
 				displayText = "§4§lCannot contact authentication server!";
@@ -90,8 +98,11 @@ public class LoginManager
 	
 	public static String getName(String email, String password)
 	{
-		YggdrasilAuthenticationService authenticationService = new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
-		YggdrasilUserAuthentication authentication = (YggdrasilUserAuthentication)authenticationService.createUserAuthentication(Agent.MINECRAFT);
+		YggdrasilAuthenticationService authenticationService =
+			new YggdrasilAuthenticationService(Proxy.NO_PROXY, "");
+		YggdrasilUserAuthentication authentication =
+			(YggdrasilUserAuthentication)authenticationService
+				.createUserAuthentication(Agent.MINECRAFT);
 		authentication.setUsername(email);
 		authentication.setPassword(password);
 		try
@@ -106,6 +117,7 @@ public class LoginManager
 	
 	public static void changeCrackedName(String newName)
 	{
-		Minecraft.getMinecraft().session = new Session(newName, "", "", "mojang");
+		Minecraft.getMinecraft().session =
+			new Session(newName, "", "", "mojang");
 	}
 }

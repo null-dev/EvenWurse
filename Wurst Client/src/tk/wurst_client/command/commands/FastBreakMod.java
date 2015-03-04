@@ -36,7 +36,8 @@ public class FastBreakMod extends Command
 				return;
 			}
 			Client.wurst.fileManager.saveOptions();
-			Client.wurst.chat.message("FastBreak mode set to \"" + args[1] + "\".");
+			Client.wurst.chat.message("FastBreak mode set to \"" + args[1]
+				+ "\".");
 		}
 	}
 }

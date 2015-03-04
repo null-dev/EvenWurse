@@ -30,12 +30,18 @@ public class MultiAura extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(Killaura.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(Killaura.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
+				.setToggled(false);
 	}
 	
 	@Override
@@ -43,24 +49,31 @@ public class MultiAura extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
-			Client.wurst.chat.message("Switching to " + Client.wurst.moduleManager.getModuleFromClass(Killaura.class).getName() + ".");
-			Client.wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(true);
+			Client.wurst.chat.message("Switching to "
+				+ Client.wurst.moduleManager.getModuleFromClass(Killaura.class)
+					.getName() + ".");
+			Client.wurst.moduleManager.getModuleFromClass(Killaura.class)
+				.setToggled(true);
 			return;
 		}
 		updateMS();
 		if(EntityUtils.getClosestEntity(true) != null)
 		{
-			for(int i = 0; i < Math.min(EntityUtils.getCloseEntities(true, range).size(), 64); i++)
+			for(int i = 0; i < Math.min(
+				EntityUtils.getCloseEntities(true, range).size(), 64); i++)
 			{
-				EntityLivingBase en = EntityUtils.getCloseEntities(true, range).get(i);
+				EntityLivingBase en =
+					EntityUtils.getCloseEntities(true, range).get(i);
 				Criticals.doCritical();
 				EntityUtils.faceEntityPacket(en);
 				Minecraft.getMinecraft().thePlayer.swingItem();
-				Minecraft.getMinecraft().playerController.attackEntity(Minecraft.getMinecraft().thePlayer, en);
+				Minecraft.getMinecraft().playerController.attackEntity(
+					Minecraft.getMinecraft().thePlayer, en);
 			}
 			updateLastMS();
 		}

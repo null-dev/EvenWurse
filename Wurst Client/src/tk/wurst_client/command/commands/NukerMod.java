@@ -59,7 +59,8 @@ public class NukerMod extends Command
 			if(Client.wurst.options.nukerMode != 1)
 			{
 				Client.wurst.options.nukerMode = 1;
-				Client.wurst.chat.message("Nuker mode set to \"" + args[0] + "\".");
+				Client.wurst.chat.message("Nuker mode set to \"" + args[0]
+					+ "\".");
 			}
 			Nuker.id = Integer.valueOf(args[1]);
 			Client.wurst.fileManager.saveOptions();
@@ -69,17 +70,20 @@ public class NukerMod extends Command
 			if(Client.wurst.options.nukerMode != 1)
 			{
 				Client.wurst.options.nukerMode = 1;
-				Client.wurst.chat.message("Nuker mode set to \"" + args[0] + "\".");
+				Client.wurst.chat.message("Nuker mode set to \"" + args[0]
+					+ "\".");
 			}
 			int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
 			if(newID == -1)
 			{
-				Client.wurst.chat.message("The block \"" + args[1] + "\" could not be found.");
+				Client.wurst.chat.message("The block \"" + args[1]
+					+ "\" could not be found.");
 				return;
 			}
 			Nuker.id = Integer.valueOf(newID);
 			Client.wurst.fileManager.saveOptions();
-			Client.wurst.chat.message("Nuker ID set to " + newID + " (" + args[1] + ").");
+			Client.wurst.chat.message("Nuker ID set to " + newID + " ("
+				+ args[1] + ").");
 		}else
 			commandError();
 	}

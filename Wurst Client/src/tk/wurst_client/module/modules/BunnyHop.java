@@ -27,7 +27,8 @@ public class BunnyHop extends Module
 	{
 		if(!getToggled())
 			return;
-		if((Minecraft.getMinecraft().thePlayer.moveForward != 0 || Minecraft.getMinecraft().thePlayer.moveStrafing != 0)
+		if((Minecraft.getMinecraft().thePlayer.moveForward != 0 || Minecraft
+			.getMinecraft().thePlayer.moveStrafing != 0)
 			&& !Minecraft.getMinecraft().thePlayer.isSneaking()
 			&& Minecraft.getMinecraft().thePlayer.onGround)
 			Minecraft.getMinecraft().thePlayer.jump();

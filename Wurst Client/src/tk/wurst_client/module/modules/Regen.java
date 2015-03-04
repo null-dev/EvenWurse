@@ -33,6 +33,7 @@ public class Regen extends Module
 			&& Minecraft.getMinecraft().thePlayer.getHealth() < 20
 			&& Minecraft.getMinecraft().thePlayer.onGround)
 			for(int i = 0; i < 1000; i++)
-				Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer());
+				Minecraft.getMinecraft().thePlayer.sendQueue
+					.addToSendQueue(new C03PacketPlayer());
 	}
 }

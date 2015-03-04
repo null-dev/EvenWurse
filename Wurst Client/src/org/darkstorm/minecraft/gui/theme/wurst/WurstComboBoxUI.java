@@ -97,20 +97,24 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			{
 				if(component.isSelected())
 				{
-					glColor4f(1.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f : 0.3f);
+					glColor4f(1.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f
+						: 0.3f);
 					glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
 					glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
-					glVertex2d(maxWidth + 5.5 + 2d * height / 3d, 2d * height / 3d);
+					glVertex2d(maxWidth + 5.5 + 2d * height / 3d,
+						2d * height / 3d);
 				}else
 				{
-					glColor4f(0.0f, 1.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f : 0.3f);
+					glColor4f(0.0f, 1.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f
+						: 0.3f);
 					glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
 					glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
 					glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
 				}
 			}
 			glEnd();
-		}else if(component.isSelected() && mouse.x >= area.x && mouse.x <= area.x + area.width)
+		}else if(component.isSelected() && mouse.x >= area.x
+			&& mouse.x <= area.x + area.width)
 		{
 			int offset = component.getHeight();
 			String[] elements = component.getElements();
@@ -120,10 +124,12 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 					continue;
 				int height = theme.getFontRenderer().FONT_HEIGHT + 2;
 				if((component.getSelectedIndex() == 0 ? i == 1 : i == 0)
-					|| (component.getSelectedIndex() == elements.length - 1 ? i == elements.length - 2
+					|| (component.getSelectedIndex() == elements.length - 1
+						? i == elements.length - 2
 						: i == elements.length - 1))
 					height++;
-				if(mouse.y >= area.y + offset && mouse.y <= area.y + offset + height)
+				if(mouse.y >= area.y + offset
+					&& mouse.y <= area.y + offset + height)
 				{
 					glBegin(GL_QUADS);
 					{
@@ -149,7 +155,8 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 					continue;
 				int height = theme.getFontRenderer().FONT_HEIGHT + 2;
 				if((component.getSelectedIndex() == 0 ? i == 1 : i == 0)
-					|| (component.getSelectedIndex() == elements.length - 1 ? i == elements.length - 2 : i == elements.length - 1))
+					|| (component.getSelectedIndex() == elements.length - 1
+						? i == elements.length - 2 : i == elements.length - 1))
 					height++;
 				glBegin(GL_LINE_LOOP);
 				{
@@ -226,7 +233,10 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			{
 				if(i == component.getSelectedIndex())
 					continue;
-				theme.getFontRenderer().drawString(elements[i], (area.width - theme.getFontRenderer().getStringWidth(elements[i])) / 2, offset,
+				theme.getFontRenderer().drawString(
+					elements[i],
+					(area.width - theme.getFontRenderer().getStringWidth(
+						elements[i])) / 2, offset,
 					RenderUtil.toRGBA(component.getForegroundColor()));
 				offset += theme.getFontRenderer().FONT_HEIGHT + 2;
 			}

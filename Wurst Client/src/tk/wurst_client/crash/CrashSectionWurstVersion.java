@@ -16,6 +16,9 @@ public class CrashSectionWurstVersion implements Callable
 	@Override
 	public String call()
 	{
-		return Client.wurst.CLIENT_VERSION + " (latest: " + (Client.wurst.updater.getLatestVersion() == null ? "unknown" : Client.wurst.updater.getLatestVersion()) + ")";
+		return Client.wurst.CLIENT_VERSION
+			+ " (latest: "
+			+ (Client.wurst.updater.getLatestVersion() == null ? "unknown"
+				: Client.wurst.updater.getLatestVersion()) + ")";
 	}
 }

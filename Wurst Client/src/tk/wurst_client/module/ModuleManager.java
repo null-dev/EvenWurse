@@ -19,15 +19,18 @@ public class ModuleManager
 	public Module getModuleFromClass(Class moduleClass)
 	{
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-			if(Client.wurst.moduleManager.activeModules.get(i).getClass().getName().equals(moduleClass.getName()))
+			if(Client.wurst.moduleManager.activeModules.get(i).getClass()
+				.getName().equals(moduleClass.getName()))
 				return Client.wurst.moduleManager.activeModules.get(i);
-		throw new IllegalArgumentException("There is no module called \"" + moduleClass.getName() + "\".");
+		throw new IllegalArgumentException("There is no module called \""
+			+ moduleClass.getName() + "\".");
 	}
 	
 	public Module getModuleByName(String name)
 	{
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-			if(Client.wurst.moduleManager.activeModules.get(i).getName().equals(name))
+			if(Client.wurst.moduleManager.activeModules.get(i).getName()
+				.equals(name))
 				return Client.wurst.moduleManager.activeModules.get(i);
 		return null;
 	}

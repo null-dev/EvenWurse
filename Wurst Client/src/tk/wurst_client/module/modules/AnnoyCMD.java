@@ -41,7 +41,8 @@ public class AnnoyCMD extends Module
 			if(toggled)
 				toggled = false;
 			else
-				Client.wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
+				Client.wurst.chat
+					.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
 			return;
 		}
 		toggled = !toggled;
@@ -53,7 +54,8 @@ public class AnnoyCMD extends Module
 	{
 		if(name == null)
 		{
-			Client.wurst.chat.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
+			Client.wurst.chat
+				.message("\"Annoy\" is already turned off. Type \".annoy <name>\" to annoy someone.");
 			toggled = false;
 			return;
 		}
@@ -78,7 +80,8 @@ public class AnnoyCMD extends Module
 		{
 			String repeatMessage = message.substring(message.indexOf(">") + 1);
 			Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);
-		}else if(message.contains("] " + name + ":") || message.contains("]" + name + ":"))
+		}else if(message.contains("] " + name + ":")
+			|| message.contains("]" + name + ":"))
 		{
 			String repeatMessage = message.substring(message.indexOf(":") + 1);
 			Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);

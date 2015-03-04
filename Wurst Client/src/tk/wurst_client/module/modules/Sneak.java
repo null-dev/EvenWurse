@@ -29,16 +29,21 @@ public class Sneak extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = true;
 		else
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(Minecraft.getMinecraft().thePlayer, Action.START_SNEAKING));
+			Minecraft.getMinecraft().thePlayer.sendQueue
+				.addToSendQueue(new C0BPacketEntityAction(Minecraft
+					.getMinecraft().thePlayer, Action.START_SNEAKING));
 	}
 	
 	@Override
 	public void onDisable()
 	{
 		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
-		Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C0BPacketEntityAction(Minecraft.getMinecraft().thePlayer, Action.STOP_SNEAKING));
+		Minecraft.getMinecraft().thePlayer.sendQueue
+			.addToSendQueue(new C0BPacketEntityAction(
+				Minecraft.getMinecraft().thePlayer, Action.STOP_SNEAKING));
 	}
 }

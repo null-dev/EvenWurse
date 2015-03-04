@@ -26,7 +26,8 @@ public class Dolphin extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Minecraft.getMinecraft().thePlayer.isInWater() && !Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
+		if(Minecraft.getMinecraft().thePlayer.isInWater()
+			&& !Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
 	}
 }

@@ -52,18 +52,22 @@ public class LSD extends Module
 		if(!getToggled())
 			return;
 		if(!OpenGlHelper.shadersSupported)
-			Minecraft.getMinecraft().thePlayer.addPotionEffect(new PotionEffect(Potion.confusion.getId(), 10801220));
+			Minecraft.getMinecraft().thePlayer
+				.addPotionEffect(new PotionEffect(Potion.confusion.getId(),
+					10801220));
 		Minecraft.getMinecraft().gameSettings.smoothCamera = true;
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		Minecraft.getMinecraft().thePlayer.removePotionEffect(Potion.confusion.getId());
+		Minecraft.getMinecraft().thePlayer.removePotionEffect(Potion.confusion
+			.getId());
 		Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 		if(Minecraft.getMinecraft().entityRenderer.theShaderGroup != null)
 		{
-			Minecraft.getMinecraft().entityRenderer.theShaderGroup.deleteShaderGroup();
+			Minecraft.getMinecraft().entityRenderer.theShaderGroup
+				.deleteShaderGroup();
 			Minecraft.getMinecraft().entityRenderer.theShaderGroup = null;
 		}
 		Tessellator.shouldRenderLSD = false;

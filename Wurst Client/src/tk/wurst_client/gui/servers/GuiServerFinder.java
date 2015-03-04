@@ -75,15 +75,22 @@ public class GuiServerFinder extends GuiScreen
 	{
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + 12, "Search"));
-		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12, "Back"));
-		ipBox = new GuiTextField(0, fontRendererObj, width / 2 - 100, height / 4 + 34, 200, 20);
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 96 + 12,
+			"Search"));
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12,
+			"Back"));
+		ipBox =
+			new GuiTextField(0, fontRendererObj, width / 2 - 100,
+				height / 4 + 34, 200, 20);
 		ipBox.setMaxStringLength(15);
 		ipBox.setFocused(true);
-		maxThreadsBox = new GuiTextField(1, fontRendererObj, width / 2 - 32, height / 4 + 58, 26, 12);
+		maxThreadsBox =
+			new GuiTextField(1, fontRendererObj, width / 2 - 32,
+				height / 4 + 58, 26, 12);
 		maxThreadsBox.setMaxStringLength(3);
 		maxThreadsBox.setFocused(false);
-		maxThreadsBox.setText(Integer.toString(Client.wurst.options.serverFinderThreads));
+		maxThreadsBox.setText(Integer
+			.toString(Client.wurst.options.serverFinderThreads));
 		running = false;
 		terminated = false;
 	}
@@ -97,7 +104,8 @@ public class GuiServerFinder extends GuiScreen
 		terminated = true;
 		if(MiscUtils.isInteger(maxThreadsBox.getText()))
 		{
-			Client.wurst.options.serverFinderThreads = Integer.valueOf(maxThreadsBox.getText());
+			Client.wurst.options.serverFinderThreads =
+				Integer.valueOf(maxThreadsBox.getText());
 			Client.wurst.fileManager.saveOptions();
 		}
 		Keyboard.enableRepeatEvents(false);
@@ -111,7 +119,8 @@ public class GuiServerFinder extends GuiScreen
 			{// Search
 				if(MiscUtils.isInteger(maxThreadsBox.getText()))
 				{
-					Client.wurst.options.serverFinderThreads = Integer.valueOf(maxThreadsBox.getText());
+					Client.wurst.options.serverFinderThreads =
+						Integer.valueOf(maxThreadsBox.getText());
 					Client.wurst.fileManager.saveOptions();
 				}
 				running = true;
@@ -122,8 +131,11 @@ public class GuiServerFinder extends GuiScreen
 					{
 						int[] ipParts = new int[4];
 						for(int i = 0; i < ipBox.getText().split("\\.").length; i++)
-							ipParts[i] = Integer.valueOf(ipBox.getText().split("\\.")[i]);
-						ArrayList<ServerPinger> pingers = new ArrayList<ServerPinger>();
+							ipParts[i] =
+								Integer
+									.valueOf(ipBox.getText().split("\\.")[i]);
+						ArrayList<ServerPinger> pingers =
+							new ArrayList<ServerPinger>();
 						serverFinder: for(int i = 3; i >= 0; i--)
 							for(int i2 = 0; i2 <= 255; i2++)
 							{
@@ -131,7 +143,9 @@ public class GuiServerFinder extends GuiScreen
 									break serverFinder;
 								int[] ipParts2 = ipParts.clone();
 								ipParts2[i] = i2;
-								String ip = ipParts2[0] + "." + ipParts2[1] + "." + ipParts2[2] + "." + ipParts2[3];
+								String ip =
+									ipParts2[0] + "." + ipParts2[1] + "."
+										+ ipParts2[2] + "." + ipParts2[3];
 								
 								ServerPinger pinger = new ServerPinger();
 								pinger.ping(ip);
@@ -147,7 +161,8 @@ public class GuiServerFinder extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 	}
 	
-	private ArrayList<ServerPinger> updatePingers(ArrayList<ServerPinger> pingers)
+	private ArrayList<ServerPinger> updatePingers(
+		ArrayList<ServerPinger> pingers)
 	{
 		for(int i = 0; i < pingers.size(); i++)
 			if(!pingers.get(i).isStillPinging())
@@ -156,10 +171,15 @@ public class GuiServerFinder extends GuiScreen
 				if(pingers.get(i).isWorking())
 				{
 					GuiServerFinder.this.working++;
-					GuiServerFinder.this.prevMenu.savedServerList.addServerData(new ServerData("Grief me #" + working, pingers.get(i).server.serverIP));
-					GuiServerFinder.this.prevMenu.savedServerList.saveServerList();
-					GuiServerFinder.this.prevMenu.serverListSelector.setSelectedServer(-1);
-					GuiServerFinder.this.prevMenu.serverListSelector.func_148195_a(GuiServerFinder.this.prevMenu.savedServerList);
+					GuiServerFinder.this.prevMenu.savedServerList
+						.addServerData(new ServerData("Grief me #" + working,
+							pingers.get(i).server.serverIP));
+					GuiServerFinder.this.prevMenu.savedServerList
+						.saveServerList();
+					GuiServerFinder.this.prevMenu.serverListSelector
+						.setSelectedServer(-1);
+					GuiServerFinder.this.prevMenu.serverListSelector
+						.func_148195_a(GuiServerFinder.this.prevMenu.savedServerList);
 				}
 				pingers.remove(i);
 			}
@@ -186,7 +206,8 @@ public class GuiServerFinder extends GuiScreen
 	 * @throws IOException
 	 */
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
 	{
 		super.mouseClicked(par1, par2, par3);
 		ipBox.mouseClicked(par1, par2, par3);
@@ -200,42 +221,73 @@ public class GuiServerFinder extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawDefaultBackground();
-		drawCenteredString(fontRendererObj, "Server Finder", width / 2, 20, 16777215);
-		drawCenteredString(fontRendererObj, "This will search for servers with similar IPs", width / 2, 40, 10526880);
-		drawCenteredString(fontRendererObj, "to the IP you type into the field below.", width / 2, 50, 10526880);
-		drawCenteredString(fontRendererObj, "The servers it finds will be added to your server list.", width / 2, 60, 10526880);
-		drawString(fontRendererObj, "Numeric IP without port", width / 2 - 100, height / 4 + 24, 10526880);
+		drawCenteredString(fontRendererObj, "Server Finder", width / 2, 20,
+			16777215);
+		drawCenteredString(fontRendererObj,
+			"This will search for servers with similar IPs", width / 2, 40,
+			10526880);
+		drawCenteredString(fontRendererObj,
+			"to the IP you type into the field below.", width / 2, 50, 10526880);
+		drawCenteredString(fontRendererObj,
+			"The servers it finds will be added to your server list.",
+			width / 2, 60, 10526880);
+		drawString(fontRendererObj, "Numeric IP without port", width / 2 - 100,
+			height / 4 + 24, 10526880);
 		ipBox.drawTextBox();
-		drawString(fontRendererObj, "Max. threads:", width / 2 - 100, height / 4 + 60, 10526880);
+		drawString(fontRendererObj, "Max. threads:", width / 2 - 100,
+			height / 4 + 60, 10526880);
 		maxThreadsBox.drawTextBox();
 		if(!((GuiButton)buttonList.get(0)).enabled)
 			if(ipBox.getText().length() == 0)
-				drawCenteredString(fontRendererObj, "§4IP field is empty!", width / 2, height / 4 + 73, 10526880);
+				drawCenteredString(fontRendererObj, "§4IP field is empty!",
+					width / 2, height / 4 + 73, 10526880);
 			else if(ipBox.getText().contains(":"))
-				drawCenteredString(fontRendererObj, "§4Ports are not supported!", width / 2, height / 4 + 73, 10526880);
+				drawCenteredString(fontRendererObj,
+					"§4Ports are not supported!", width / 2, height / 4 + 73,
+					10526880);
 			else if(!MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[0]))
-				drawCenteredString(fontRendererObj, "§4Hostnames are not supported!", width / 2, height / 4 + 73, 10526880);
-			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 1 && !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[1]))
-				drawCenteredString(fontRendererObj, "§4Hostnames are not supported!", width / 2, height / 4 + 73, 10526880);
-			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 2 && !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[2]))
-				drawCenteredString(fontRendererObj, "§4Hostnames are not supported!", width / 2, height / 4 + 73, 10526880);
-			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 3 && !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[3]))
-				drawCenteredString(fontRendererObj, "§4Hostnames are not supported!", width / 2, height / 4 + 73, 10526880);
+				drawCenteredString(fontRendererObj,
+					"§4Hostnames are not supported!", width / 2,
+					height / 4 + 73, 10526880);
+			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 1
+				&& !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[1]))
+				drawCenteredString(fontRendererObj,
+					"§4Hostnames are not supported!", width / 2,
+					height / 4 + 73, 10526880);
+			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 2
+				&& !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[2]))
+				drawCenteredString(fontRendererObj,
+					"§4Hostnames are not supported!", width / 2,
+					height / 4 + 73, 10526880);
+			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 3
+				&& !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[3]))
+				drawCenteredString(fontRendererObj,
+					"§4Hostnames are not supported!", width / 2,
+					height / 4 + 73, 10526880);
 			else if(StringUtils.countMatches(ipBox.getText(), ".") < 3)
-				drawCenteredString(fontRendererObj, "§4IP is too short!", width / 2, height / 4 + 73, 10526880);
+				drawCenteredString(fontRendererObj, "§4IP is too short!",
+					width / 2, height / 4 + 73, 10526880);
 			else if(StringUtils.countMatches(ipBox.getText(), ".") > 3)
-				drawCenteredString(fontRendererObj, "§4IP is too long!", width / 2, height / 4 + 73, 10526880);
+				drawCenteredString(fontRendererObj, "§4IP is too long!",
+					width / 2, height / 4 + 73, 10526880);
 			else if(!MiscUtils.isInteger(maxThreadsBox.getText()))
-				drawCenteredString(fontRendererObj, "§4Max. threads must be a number!", width / 2, height / 4 + 73, 10526880);
+				drawCenteredString(fontRendererObj,
+					"§4Max. threads must be a number!", width / 2,
+					height / 4 + 73, 10526880);
 			else if(running)
 				if(checked == 1024)
-					drawCenteredString(fontRendererObj, "§2Done!", width / 2, height / 4 + 73, 10526880);
+					drawCenteredString(fontRendererObj, "§2Done!", width / 2,
+						height / 4 + 73, 10526880);
 				else
-					drawCenteredString(fontRendererObj, "§2Searching...", width / 2, height / 4 + 73, 10526880);
+					drawCenteredString(fontRendererObj, "§2Searching...",
+						width / 2, height / 4 + 73, 10526880);
 			else
-				drawCenteredString(fontRendererObj, "§4Unknown error! Bug?", width / 2, height / 4 + 73, 10526880);
-		drawString(fontRendererObj, "Checked: " + checked + " / 1024", width / 2 - 100, height / 4 + 84, 10526880);
-		drawString(fontRendererObj, "Working: " + working, width / 2 - 100, height / 4 + 94, 10526880);
+				drawCenteredString(fontRendererObj, "§4Unknown error! Bug?",
+					width / 2, height / 4 + 73, 10526880);
+		drawString(fontRendererObj, "Checked: " + checked + " / 1024",
+			width / 2 - 100, height / 4 + 84, 10526880);
+		drawString(fontRendererObj, "Working: " + working, width / 2 - 100,
+			height / 4 + 94, 10526880);
 		super.drawScreen(par1, par2, par3);
 	}
 }

@@ -27,12 +27,18 @@ public class TriggerBot extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(Killaura.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(Killaura.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(Killaura.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(Killaura.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
+				.setToggled(false);
 	}
 	
 	@Override
@@ -45,13 +51,15 @@ public class TriggerBot extends Module
 			updateMS();
 			if(hasTimePassedS(Killaura.realSpeed))
 			{
-				EntityLivingBase en = (EntityLivingBase)Minecraft.getMinecraft().objectMouseOver.entityHit;
+				EntityLivingBase en =
+					(EntityLivingBase)Minecraft.getMinecraft().objectMouseOver.entityHit;
 				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= Killaura.realRange
 					&& EntityUtils.isCorrectEntity(en, true))
 				{
 					Criticals.doCritical();
 					Minecraft.getMinecraft().thePlayer.swingItem();
-					Minecraft.getMinecraft().playerController.attackEntity(Minecraft.getMinecraft().thePlayer, en);
+					Minecraft.getMinecraft().playerController.attackEntity(
+						Minecraft.getMinecraft().thePlayer, en);
 					updateLastMS();
 				}
 			}

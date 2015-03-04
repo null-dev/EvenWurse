@@ -9,7 +9,8 @@ import org.darkstorm.minecraft.gui.component.Component;
 import org.darkstorm.minecraft.gui.component.Container;
 import org.lwjgl.opengl.GL11;
 
-public abstract class AbstractComponentUI<T extends Component> implements ComponentUI
+public abstract class AbstractComponentUI<T extends Component> implements
+	ComponentUI
 {
 	protected final Class<T> handledComponentClass;
 	protected Color foreground, background;
@@ -42,7 +43,8 @@ public abstract class AbstractComponentUI<T extends Component> implements Compon
 			throw new NullPointerException();
 		if(!handledComponentClass.isInstance(container))
 			throw new IllegalArgumentException();
-		return getContainerChildRenderArea(handledComponentClass.cast(container));
+		return getContainerChildRenderArea(handledComponentClass
+			.cast(container));
 	}
 	
 	protected Rectangle getContainerChildRenderArea(T container)
@@ -67,10 +69,12 @@ public abstract class AbstractComponentUI<T extends Component> implements Compon
 		Component parent = component.getParent();
 		while(parent != null)
 		{
-			GL11.glTranslated((reverse ? -1 : 1) * parent.getX(), (reverse ? -1 : 1) * parent.getY(), 0);
+			GL11.glTranslated((reverse ? -1 : 1) * parent.getX(), (reverse ? -1
+				: 1) * parent.getY(), 0);
 			parent = parent.getParent();
 		}
-		GL11.glTranslated((reverse ? -1 : 1) * component.getX(), (reverse ? -1 : 1) * component.getY(), 0);
+		GL11.glTranslated((reverse ? -1 : 1) * component.getX(), (reverse ? -1
+			: 1) * component.getY(), 0);
 	}
 	
 	@Override
@@ -110,7 +114,8 @@ public abstract class AbstractComponentUI<T extends Component> implements Compon
 			throw new NullPointerException();
 		if(!handledComponentClass.isInstance(component))
 			throw new IllegalArgumentException();
-		return getInteractableComponentRegions(handledComponentClass.cast(component));
+		return getInteractableComponentRegions(handledComponentClass
+			.cast(component));
 	}
 	
 	protected Rectangle[] getInteractableComponentRegions(T component)
@@ -119,16 +124,19 @@ public abstract class AbstractComponentUI<T extends Component> implements Compon
 	}
 	
 	@Override
-	public void handleInteraction(Component component, Point location, int button)
+	public void handleInteraction(Component component, Point location,
+		int button)
 	{
 		if(component == null)
 			throw new NullPointerException();
 		if(!handledComponentClass.isInstance(component))
 			throw new IllegalArgumentException();
-		handleComponentInteraction(handledComponentClass.cast(component), location, button);
+		handleComponentInteraction(handledComponentClass.cast(component),
+			location, button);
 	}
 	
-	protected void handleComponentInteraction(T component, Point location, int button)
+	protected void handleComponentInteraction(T component, Point location,
+		int button)
 	{}
 	
 	@Override

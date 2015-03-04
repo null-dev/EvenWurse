@@ -36,7 +36,10 @@ public class AutoTool extends Module
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
-		if(Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
+		if(Minecraft.getMinecraft().theWorld
+			.getBlockState(
+				Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+			.getBlock().getMaterial() != Material.air)
 		{
 			isActive = true;
 			oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
@@ -48,10 +51,13 @@ public class AutoTool extends Module
 	{
 		float bestSpeed = 1F;
 		int bestSlot = -1;
-		Block block = Minecraft.getMinecraft().theWorld.getBlockState(blockPos).getBlock();
+		Block block =
+			Minecraft.getMinecraft().theWorld.getBlockState(blockPos)
+				.getBlock();
 		for(int i = 0; i < 9; i++)
 		{
-			ItemStack item = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
+			ItemStack item =
+				Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
 			if(item == null)
 				continue;
 			float speed = item.getStrVsBlock(block);
@@ -70,13 +76,17 @@ public class AutoTool extends Module
 	{
 		if(!getToggled())
 			return;
-		if(!Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed && isActive)
+		if(!Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed
+			&& isActive)
 			onDisable();
 		else if(getToggled()
 			&& isActive
 			&& Minecraft.getMinecraft().objectMouseOver != null
 			&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null
-			&& Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
+			&& Minecraft.getMinecraft().theWorld
+				.getBlockState(
+					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+				.getBlock().getMaterial() != Material.air)
 			setSlot(Minecraft.getMinecraft().objectMouseOver.getBlockPos());
 	}
 	

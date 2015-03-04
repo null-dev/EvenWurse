@@ -21,7 +21,8 @@ public class WurstTheme extends AbstractTheme
 	
 	public WurstTheme()
 	{
-		fontRenderer = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 15));
+		fontRenderer =
+			new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 15));
 		
 		installUI(new WurstFrameUI(this));
 		installUI(new WurstPanelUI(this));

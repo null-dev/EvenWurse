@@ -17,7 +17,7 @@ public class NoSlowdown extends Module
 	{
 		super("NoSlowdown",
 			"Cancels slowness effects caused by water, soul sand and\n"
-			+ "using items.",
+				+ "using items.",
 			Category.MOVEMENT);
 	}
 	

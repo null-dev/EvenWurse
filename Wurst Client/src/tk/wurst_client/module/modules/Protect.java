@@ -57,7 +57,8 @@ public class Protect extends Module
 	{
 		if(!getToggled())
 			return;
-		if(friend == null || friend.isDead || friend.getHealth() <= 0 || Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
+		if(friend == null || friend.isDead || friend.getHealth() <= 0
+			|| Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
 		{
 			friend = null;
 			enemy = null;
@@ -66,25 +67,37 @@ public class Protect extends Module
 		}
 		if(enemy != null && (enemy.getHealth() <= 0 || enemy.isDead))
 			enemy = null;
-		double xDistF = Math.abs(Minecraft.getMinecraft().thePlayer.posX - friend.posX);
-		double zDistF = Math.abs(Minecraft.getMinecraft().thePlayer.posZ - friend.posZ);
+		double xDistF =
+			Math.abs(Minecraft.getMinecraft().thePlayer.posX - friend.posX);
+		double zDistF =
+			Math.abs(Minecraft.getMinecraft().thePlayer.posZ - friend.posZ);
 		double xDistE = distanceE;
 		double zDistE = distanceE;
-		if(enemy != null && Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= range)
+		if(enemy != null
+			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= range)
 		{
-			xDistE = Math.abs(Minecraft.getMinecraft().thePlayer.posX - enemy.posX);
-			zDistE = Math.abs(Minecraft.getMinecraft().thePlayer.posZ - enemy.posZ);
+			xDistE =
+				Math.abs(Minecraft.getMinecraft().thePlayer.posX - enemy.posX);
+			zDistE =
+				Math.abs(Minecraft.getMinecraft().thePlayer.posZ - enemy.posZ);
 		}else
 			EntityUtils.faceEntityClient(friend);
-		if((xDistF > distanceF || zDistF > distanceF) && (enemy == null || Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) > range) || xDistE > distanceE || zDistE > distanceE)
+		if((xDistF > distanceF || zDistF > distanceF)
+			&& (enemy == null || Minecraft.getMinecraft().thePlayer
+				.getDistanceToEntity(enemy) > range) || xDistE > distanceE
+			|| zDistE > distanceE)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
 		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
-		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally && Minecraft.getMinecraft().thePlayer.onGround)
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
+				false;
+		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
+			&& Minecraft.getMinecraft().thePlayer.onGround)
 			Minecraft.getMinecraft().thePlayer.jump();
-		if(Minecraft.getMinecraft().thePlayer.isInWater() && Minecraft.getMinecraft().thePlayer.posY < friend.posY)
+		if(Minecraft.getMinecraft().thePlayer.isInWater()
+			&& Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 			speed = Killaura.yesCheatSpeed;
 		else
 			speed = Killaura.normalSpeed;
@@ -97,7 +110,8 @@ public class Protect extends Module
 				Criticals.doCritical();
 				EntityUtils.faceEntityClient(enemy);
 				Minecraft.getMinecraft().thePlayer.swingItem();
-				Minecraft.getMinecraft().playerController.attackEntity(Minecraft.getMinecraft().thePlayer, enemy);
+				Minecraft.getMinecraft().playerController.attackEntity(
+					Minecraft.getMinecraft().thePlayer, enemy);
 				updateLastMS();
 			}
 		}
@@ -107,6 +121,7 @@ public class Protect extends Module
 	public void onDisable()
 	{
 		if(friend != null)
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
+				false;
 	}
 }

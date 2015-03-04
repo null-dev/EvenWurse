@@ -27,9 +27,11 @@ public class RenameForceOPEvenThoughTheNameIsTechnicallyCorrect extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect = !Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect;
+		Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect =
+			!Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect;
 		Client.wurst.fileManager.saveOptions();
-		Client.wurst.chat.message("Congratulations! You spelled that correctly.");
+		Client.wurst.chat
+			.message("Congratulations! You spelled that correctly.");
 		Client.wurst.chat.message("Now you need to restart Wurst.");
 	}
 }

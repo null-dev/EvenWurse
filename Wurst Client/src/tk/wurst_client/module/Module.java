@@ -21,11 +21,13 @@ public class Module
 	private String moduleDescription;
 	private Category moduleCategory;
 	private boolean isToggled;
-	protected ArrayList<BasicSlider> moduleSliders = new ArrayList<BasicSlider>();
+	protected ArrayList<BasicSlider> moduleSliders =
+		new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
 	
-	public Module(String moduleName, String moduleDescription, Category moduleCategory)
+	public Module(String moduleName, String moduleDescription,
+		Category moduleCategory)
 	{
 		this.moduleName = moduleName;
 		this.moduleDescription = moduleDescription;
@@ -148,7 +150,7 @@ public class Module
 	
 	public void onReceivedMessage(String message)
 	{}
-
+	
 	public void onPacket(Packet packet)
 	{}
 }

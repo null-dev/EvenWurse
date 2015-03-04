@@ -40,24 +40,32 @@ public class FightBot extends Module
 			entity = EntityUtils.getClosestEntity(true);
 		if(entity == null)
 			return;
-		if(entity.getHealth() <= 0 || entity.isDead || Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
+		if(entity.getHealth() <= 0 || entity.isDead
+			|| Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
 		{
 			entity = null;
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
+				false;
 			return;
 		}
-		double xDist = Math.abs(Minecraft.getMinecraft().thePlayer.posX - entity.posX);
-		double zDist = Math.abs(Minecraft.getMinecraft().thePlayer.posZ - entity.posZ);
+		double xDist =
+			Math.abs(Minecraft.getMinecraft().thePlayer.posX - entity.posX);
+		double zDist =
+			Math.abs(Minecraft.getMinecraft().thePlayer.posZ - entity.posZ);
 		EntityUtils.faceEntityClient(entity);
 		if(xDist > distance || zDist > distance)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
 		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
-		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally && Minecraft.getMinecraft().thePlayer.onGround)
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
+				false;
+		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
+			&& Minecraft.getMinecraft().thePlayer.onGround)
 			Minecraft.getMinecraft().thePlayer.jump();
-		if(Minecraft.getMinecraft().thePlayer.isInWater() && Minecraft.getMinecraft().thePlayer.posY < entity.posY)
+		if(Minecraft.getMinecraft().thePlayer.isInWater()
+			&& Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 			speed = Killaura.yesCheatSpeed;
 		else
 			speed = Killaura.normalSpeed;
@@ -72,7 +80,8 @@ public class FightBot extends Module
 				{
 					EntityUtils.faceEntityClient(entity);
 					Minecraft.getMinecraft().thePlayer.swingItem();
-					Minecraft.getMinecraft().playerController.attackEntity(Minecraft.getMinecraft().thePlayer, entity);
+					Minecraft.getMinecraft().playerController.attackEntity(
+						Minecraft.getMinecraft().thePlayer, entity);
 				}
 				updateLastMS();
 			}

@@ -105,7 +105,8 @@ public final class GuiManager extends AbstractGuiManager
 		if(!setup.compareAndSet(false, true))
 			return;
 		
-		final Map<Category, ModuleFrame> categoryFrames = new HashMap<Category, ModuleFrame>();
+		final Map<Category, ModuleFrame> categoryFrames =
+			new HashMap<Category, ModuleFrame>();
 		ModuleFrame settings = new ModuleFrame("Settings");
 		settings.setTheme(theme);
 		settings.setLayoutManager(new GridLayoutManager(1, 0));
@@ -123,9 +124,12 @@ public final class GuiManager extends AbstractGuiManager
 				String name = module.getCategory().name().toLowerCase();
 				if(Client.wurst.fileManager.options.exists())
 					Client.wurst.fileManager.loadOptions();
-				if(name.equalsIgnoreCase("HIDDEN") || name.equalsIgnoreCase("WIP") && !Client.wurst.options.WIP)
+				if(name.equalsIgnoreCase("HIDDEN")
+					|| name.equalsIgnoreCase("WIP")
+					&& !Client.wurst.options.WIP)
 					continue;
-				name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+				name =
+					Character.toUpperCase(name.charAt(0)) + name.substring(1);
 				if(name.equalsIgnoreCase("WIP"))
 					name = "WIP";// Corrects the case.
 				else if(name.equalsIgnoreCase("AUTOBUILD"))
@@ -144,15 +148,18 @@ public final class GuiManager extends AbstractGuiManager
 			if(moduleDescription.equals(""))
 				moduleDescription = "Error! This is a bug. Please report it.";
 			final Module updateModule = module;
-			Button button = new BasicButton(module.getName(), moduleDescription)
-			{
-				@Override
-				public void update()
+			Button button =
+				new BasicButton(module.getName(), moduleDescription)
 				{
-					setForegroundColor(updateModule.getToggled() ? Color.BLACK : Color.WHITE);
-					setBackgroundColor(updateModule.getToggled() ? new Color(0, 255, 0, 128) : new Color(0, 0, 0, 0));
-				}
-			};
+					@Override
+					public void update()
+					{
+						setForegroundColor(updateModule.getToggled()
+							? Color.BLACK : Color.WHITE);
+						setBackgroundColor(updateModule.getToggled()
+							? new Color(0, 255, 0, 128) : new Color(0, 0, 0, 0));
+					}
+				};
 			button.addButtonListener(new ButtonListener()
 			{
 				@Override
@@ -170,7 +177,8 @@ public final class GuiManager extends AbstractGuiManager
 						@Override
 						public void onSliderValueChanged(Slider slider)
 						{
-							ArrayList<BasicSlider> moduleSliders = module.getSliders();
+							ArrayList<BasicSlider> moduleSliders =
+								module.getSliders();
 							if(moduleSliders.contains(slider))
 							{
 								int id = moduleSliders.indexOf(slider);
@@ -187,13 +195,16 @@ public final class GuiManager extends AbstractGuiManager
 		
 		// AutoBuild
 		ModuleFrame autobuild = categoryFrames.get(Category.AUTOBUILD);
-		ComboBox autoBuildBox = new BasicComboBox(AutoBuild.names.toArray(new String[AutoBuild.names.size()]));
+		ComboBox autoBuildBox =
+			new BasicComboBox(
+				AutoBuild.names.toArray(new String[AutoBuild.names.size()]));
 		autoBuildBox.addComboBoxListener(new ComboBoxListener()
 		{
 			@Override
 			public void onComboBoxSelectionChanged(ComboBox comboBox)
 			{
-				Client.wurst.options.autobuildMode = comboBox.getSelectedIndex();
+				Client.wurst.options.autobuildMode =
+					comboBox.getSelectedIndex();
 				Client.wurst.fileManager.saveOptions();
 			}
 		});
@@ -202,8 +213,10 @@ public final class GuiManager extends AbstractGuiManager
 		
 		// Target
 		ModuleFrame combatFrame = categoryFrames.get(Category.COMBAT);
-		combatFrame.add(new BasicLabel("Target"), HorizontalGridConstraint.CENTER);
-		ComboBox targetBox = new BasicComboBox("All", "Players", "Mobs", "Animals", "Monsters");
+		combatFrame.add(new BasicLabel("Target"),
+			HorizontalGridConstraint.CENTER);
+		ComboBox targetBox =
+			new BasicComboBox("All", "Players", "Mobs", "Animals", "Monsters");
 		targetBox.addComboBoxListener(new ComboBoxListener()
 		{
 			@Override
@@ -228,14 +241,17 @@ public final class GuiManager extends AbstractGuiManager
 		if(scale == 0)
 			scale = 1000;
 		int scaleFactor = 0;
-		while(scaleFactor < scale && minecraft.displayWidth / (scaleFactor + 1) >= 320 && minecraft.displayHeight / (scaleFactor + 1) >= 240)
+		while(scaleFactor < scale
+			&& minecraft.displayWidth / (scaleFactor + 1) >= 320
+			&& minecraft.displayHeight / (scaleFactor + 1) >= 240)
 			scaleFactor++;
 		for(Frame frame : getFrames())
 		{
 			frame.setX(offsetX);
 			frame.setY(offsetY);
 			offsetX += maxSize.width + 5;
-			if(offsetX + maxSize.width + 5 > minecraft.displayWidth / scaleFactor)
+			if(offsetX + maxSize.width + 5 > minecraft.displayWidth
+				/ scaleFactor)
 			{
 				offsetX = 5;
 				offsetY += maxSize.height + 5;
@@ -252,8 +268,10 @@ public final class GuiManager extends AbstractGuiManager
 		Frame[] frames = getFrames();
 		Button enable = new BasicButton("Enable", "");
 		Button disable = new BasicButton("Disable", "");
-		Dimension enableSize = theme.getUIForComponent(enable).getDefaultSize(enable);
-		Dimension disableSize = theme.getUIForComponent(disable).getDefaultSize(disable);
+		Dimension enableSize =
+			theme.getUIForComponent(enable).getDefaultSize(enable);
+		Dimension disableSize =
+			theme.getUIForComponent(disable).getDefaultSize(disable);
 		int buttonWidth = Math.max(enableSize.width, disableSize.width);
 		int buttonHeight = Math.max(enableSize.height, disableSize.height);
 		for(Frame frame : frames)
@@ -275,11 +293,13 @@ public final class GuiManager extends AbstractGuiManager
 		{
 			if(frame.getTitle().equalsIgnoreCase("settings"))
 				continue;
-			Dimension defaultDimension = frame.getTheme().getUIForComponent(frame).getDefaultSize(frame);
+			Dimension defaultDimension =
+				frame.getTheme().getUIForComponent(frame).getDefaultSize(frame);
 			maxWidth = Math.max(maxWidth, defaultDimension.width);
 			frame.setHeight(defaultDimension.height);
 			if(frame.isMinimized())
-				for(Rectangle area : frame.getTheme().getUIForComponent(frame).getInteractableRegions(frame))
+				for(Rectangle area : frame.getTheme().getUIForComponent(frame)
+					.getInteractableRegions(frame))
 					maxHeight = Math.max(maxHeight, area.height);
 			else
 				maxHeight = Math.max(maxHeight, defaultDimension.height);
@@ -299,11 +319,13 @@ public final class GuiManager extends AbstractGuiManager
 		{
 			if(!frame.getTitle().equalsIgnoreCase("settings"))
 				continue;
-			Dimension defaultDimension = frame.getTheme().getUIForComponent(frame).getDefaultSize(frame);
+			Dimension defaultDimension =
+				frame.getTheme().getUIForComponent(frame).getDefaultSize(frame);
 			maxWidth1 = Math.max(maxWidth1, defaultDimension.width);
 			frame.setHeight(defaultDimension.height);
 			if(frame.isMinimized())
-				for(Rectangle area : frame.getTheme().getUIForComponent(frame).getInteractableRegions(frame))
+				for(Rectangle area : frame.getTheme().getUIForComponent(frame)
+					.getInteractableRegions(frame))
 					maxHeight1 = Math.max(maxHeight1, area.height);
 			else
 				maxHeight1 = Math.max(maxHeight1, defaultDimension.height);

@@ -87,7 +87,8 @@ public class SimpleComboBoxUI extends AbstractComponentUI<ComboBox>
 					continue;
 				int height = theme.getFontRenderer().FONT_HEIGHT + 2;
 				if((component.getSelectedIndex() == 0 ? i == 1 : i == 0)
-					|| (component.getSelectedIndex() == elements.length - 1 ? i == elements.length - 2
+					|| (component.getSelectedIndex() == elements.length - 1
+						? i == elements.length - 2
 						: i == elements.length - 1))
 					height++;
 				if(mouse.y >= area.y + offset
@@ -207,7 +208,8 @@ public class SimpleComboBoxUI extends AbstractComponentUI<ComboBox>
 		if(component.isSelected())
 		{
 			String[] elements = component.getElements();
-			for(@SuppressWarnings("unused") String element : elements)
+			for(@SuppressWarnings("unused")
+			String element : elements)
 				height += theme.getFontRenderer().FONT_HEIGHT + 2;
 			height += 2;
 		}

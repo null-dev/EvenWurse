@@ -34,10 +34,14 @@ public class Freecam extends Module
 		oldX = Minecraft.getMinecraft().thePlayer.posX;
 		oldY = Minecraft.getMinecraft().thePlayer.posY;
 		oldZ = Minecraft.getMinecraft().thePlayer.posZ;
-		fakePlayer = new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft().thePlayer.getGameProfile());
+		fakePlayer =
+			new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld,
+				Minecraft.getMinecraft().thePlayer.getGameProfile());
 		fakePlayer.clonePlayer(Minecraft.getMinecraft().thePlayer, true);
-		fakePlayer.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
-		fakePlayer.rotationYawHead = Minecraft.getMinecraft().thePlayer.rotationYawHead;
+		fakePlayer
+			.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
+		fakePlayer.rotationYawHead =
+			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
 	}
 	
@@ -49,7 +53,8 @@ public class Freecam extends Module
 		Minecraft.getMinecraft().thePlayer.motionX = 0;
 		Minecraft.getMinecraft().thePlayer.motionY = 0;
 		Minecraft.getMinecraft().thePlayer.motionZ = 0;
-		Minecraft.getMinecraft().thePlayer.jumpMovementFactor = Flight.speed / 10;
+		Minecraft.getMinecraft().thePlayer.jumpMovementFactor =
+			Flight.speed / 10;
 		if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
 			Minecraft.getMinecraft().thePlayer.motionY += Flight.speed;
 		if(Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
@@ -59,7 +64,9 @@ public class Freecam extends Module
 	@Override
 	public void onDisable()
 	{
-		Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY, oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw, Minecraft.getMinecraft().thePlayer.rotationPitch);
+		Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY,
+			oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
+			Minecraft.getMinecraft().thePlayer.rotationPitch);
 		Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
 		fakePlayer = null;
 		Minecraft.getMinecraft().renderGlobal.loadRenderers();

@@ -27,6 +27,7 @@ public class Taco extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).toggleModule();
+		Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class)
+			.toggleModule();
 	}
 }

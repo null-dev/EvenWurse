@@ -34,7 +34,8 @@ public class VClip extends Command
 			Minecraft.getMinecraft().thePlayer.setPosition
 				(
 					Minecraft.getMinecraft().thePlayer.posX,
-					Minecraft.getMinecraft().thePlayer.posY + Integer.valueOf(args[0]),
+					Minecraft.getMinecraft().thePlayer.posY
+						+ Integer.valueOf(args[0]),
 					Minecraft.getMinecraft().thePlayer.posZ
 				);
 		else

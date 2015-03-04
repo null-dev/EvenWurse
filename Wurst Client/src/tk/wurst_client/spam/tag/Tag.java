@@ -62,7 +62,8 @@ public abstract class Tag
 			+ "</div><br>"
 			+ "<p>Would be processed to:</p><br>"
 			+ "<div bgcolor=\"#444444\" color=\"#ffffff\">"
-			+ "<p>" + format(SpamProcessor.process(example, null, false)) + "</p>"
+			+ "<p>" + format(SpamProcessor.process(example, null, false))
+			+ "</p>"
 			+ "</div>"
 			+ "</td></tr></table>"
 			+ "</html>";

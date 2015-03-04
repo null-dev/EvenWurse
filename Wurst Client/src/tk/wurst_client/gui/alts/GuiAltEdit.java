@@ -44,14 +44,17 @@ public class GuiAltEdit extends AltEditorScreen
 	@Override
 	protected void onDoneButtonClick(GuiButton button)
 	{// Save
-		Alt newAlt = new Alt(emailBox.getText(), passwordBox.getText(), editedAlt.isStarred());
+		Alt newAlt =
+			new Alt(emailBox.getText(), passwordBox.getText(),
+				editedAlt.isStarred());
 		if(passwordBox.getText().length() == 0)
 		{// Cracked
 			GuiAltList.alts.set(GuiAltList.alts.indexOf(editedAlt), newAlt);
 			displayText = "";
 		}else
 		{// Premium
-			displayText = LoginManager.check(emailBox.getText(), passwordBox.getText());
+			displayText =
+				LoginManager.check(emailBox.getText(), passwordBox.getText());
 			if(displayText.equals(""))
 				GuiAltList.alts.set(GuiAltList.alts.indexOf(editedAlt), newAlt);
 		}
@@ -60,7 +63,8 @@ public class GuiAltEdit extends AltEditorScreen
 			GuiAltList.sortAlts();
 			Client.wurst.fileManager.saveAlts();
 			mc.displayGuiScreen(prevMenu);
-			GuiAlts.altList.elementClicked(GuiAltList.alts.indexOf(newAlt), false, 0, 0);
+			GuiAlts.altList.elementClicked(GuiAltList.alts.indexOf(newAlt),
+				false, 0, 0);
 		}else
 			errorTimer = 8;
 	}

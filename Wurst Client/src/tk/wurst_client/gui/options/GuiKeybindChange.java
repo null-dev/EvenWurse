@@ -52,9 +52,12 @@ public class GuiKeybindChange extends GuiScreen
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, 60, "Change Key"));
-		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 72, "Save"));
-		buttonList.add(new GuiButton(2, width / 2 - 100, height / 4 + 96, "Cancel"));
-		commandBox = new GuiTextField(0, fontRendererObj, width / 2 - 100, 100, 200, 20);
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 72,
+			"Save"));
+		buttonList.add(new GuiButton(2, width / 2 - 100, height / 4 + 96,
+			"Cancel"));
+		commandBox =
+			new GuiTextField(0, fontRendererObj, width / 2 - 100, 100, 200, 20);
 		commandBox.setMaxStringLength(128);
 		commandBox.setFocused(true);
 		if(entry != null)
@@ -75,9 +78,8 @@ public class GuiKeybindChange extends GuiScreen
 	{
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
-			{
 				mc.displayGuiScreen(new GuiKeybindPressAKey(this));
-			}else if(clickedButton.id == 1)
+			else if(clickedButton.id == 1)
 			{
 				if(entry != null)
 					Client.wurst.keybinds.remove(entry.getKey());
@@ -102,14 +104,15 @@ public class GuiKeybindChange extends GuiScreen
 	{
 		this.key = key;
 	}
-
+	
 	/**
 	 * Called when the mouse is clicked.
 	 *
 	 * @throws IOException
 	 */
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
 	{
 		super.mouseClicked(par1, par2, par3);
 		commandBox.mouseClicked(par1, par2, par3);
@@ -122,8 +125,10 @@ public class GuiKeybindChange extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawBackground(0);
-		drawCenteredString(fontRendererObj, (entry != null ? "Edit" : "Add") + " Keybind", width / 2, 20, 16777215);
-		drawString(fontRendererObj, "Key: " + key, width / 2 - 100, 47, 10526880);
+		drawCenteredString(fontRendererObj, (entry != null ? "Edit" : "Add")
+			+ " Keybind", width / 2, 20, 16777215);
+		drawString(fontRendererObj, "Key: " + key, width / 2 - 100, 47,
+			10526880);
 		drawString(fontRendererObj, "Command", width / 2 - 100, 87, 10526880);
 		commandBox.drawTextBox();
 		super.drawScreen(par1, par2, par3);

@@ -40,14 +40,18 @@ public class Binds extends Command
 				commandError();
 				return;
 			}
-			Client.wurst.chat.message("Current keybinds: " + Integer.toString(Client.wurst.keybinds.size()));
-			Client.wurst.chat.message("Keybind list (page " + page + "/" + pages + "):");
-			Iterator<Entry<String, String>> itr = Client.wurst.keybinds.entrySet().iterator();
+			Client.wurst.chat.message("Current keybinds: "
+				+ Integer.toString(Client.wurst.keybinds.size()));
+			Client.wurst.chat.message("Keybind list (page " + page + "/"
+				+ pages + "):");
+			Iterator<Entry<String, String>> itr =
+				Client.wurst.keybinds.entrySet().iterator();
 			for(int i = 0; itr.hasNext(); i++)
 			{
 				Entry<String, String> entry = itr.next();
 				if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
-					Client.wurst.chat.message(entry.getKey() + ": " + entry.getValue());
+					Client.wurst.chat.message(entry.getKey() + ": "
+						+ entry.getValue());
 			}
 		}else
 			commandError();

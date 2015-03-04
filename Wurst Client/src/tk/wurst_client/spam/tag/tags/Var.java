@@ -30,10 +30,15 @@ public class Var extends Tag
 	public String process(TagData tagData) throws SpamException
 	{
 		if(tagData.getTagArgs().length == 0)
-			throw new MissingArgumentException("The <var> tag requires at least one argument.", tagData.getTagLine(), this);
+			throw new MissingArgumentException(
+				"The <var> tag requires at least one argument.",
+				tagData.getTagLine(), this);
 		if(tagData.getTagArgs()[0].startsWith("_"))
-			throw new InvalidArgumentException("You cannot define variables that start with \"_\".", tagData.getTagLine(), this);
-		SpamProcessor.varManager.addUserVar(tagData.getTagArgs()[0], tagData.getTagContent());
+			throw new InvalidArgumentException(
+				"You cannot define variables that start with \"_\".",
+				tagData.getTagLine(), this);
+		SpamProcessor.varManager.addUserVar(tagData.getTagArgs()[0],
+			tagData.getTagContent());
 		return "";
 	}
 }

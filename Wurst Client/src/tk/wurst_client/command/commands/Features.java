@@ -34,17 +34,22 @@ public class Features extends Command
 			double wurstMods = Client.wurst.moduleManager.activeModules.size();
 			int hiddenMods = 0;
 			for(Module module : Client.wurst.moduleManager.activeModules)
-				if(module.getCategory() == Category.HIDDEN || module.getCategory() == Category.WIP)
+				if(module.getCategory() == Category.HIDDEN
+					|| module.getCategory() == Category.WIP)
 					hiddenMods++;
-			Client.wurst.chat.message(">" + (int)wurstMods + " mods (" + hiddenMods + " of them are hidden)");
-			Client.wurst.chat.message(">" + Client.wurst.keybinds.size() + " keybinds in your current configuration");
-			int wurstCommands = Client.wurst.commandManager.activeCommands.size();
+			Client.wurst.chat.message(">" + (int)wurstMods + " mods ("
+				+ hiddenMods + " of them are hidden)");
+			Client.wurst.chat.message(">" + Client.wurst.keybinds.size()
+				+ " keybinds in your current configuration");
+			int wurstCommands =
+				Client.wurst.commandManager.activeCommands.size();
 			Client.wurst.chat.message(">" + wurstCommands + " commands");
 			ArrayList<BasicSlider> wurstSliders = new ArrayList<BasicSlider>();
 			for(Module module : Client.wurst.moduleManager.activeModules)
 				for(BasicSlider slider : module.getSliders())
 					wurstSliders.add(slider);
-			Client.wurst.chat.message(">" + wurstSliders.size() + " values that can be changed through sliders");
+			Client.wurst.chat.message(">" + wurstSliders.size()
+				+ " values that can be changed through sliders");
 		}
 		else
 			commandError();

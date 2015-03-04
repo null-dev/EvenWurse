@@ -33,7 +33,9 @@ public class Invisibility extends Module
 	@Override
 	public void onUpdate()
 	{
-		if(getToggled() && Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(getToggled()
+			&& Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+				.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
@@ -58,11 +60,14 @@ public class Invisibility extends Module
 			// you know
 			// you are
 			// invisible.
-			Minecraft.getMinecraft().thePlayer.addPotionEffect(new PotionEffect(Potion.invisibility.getId(), 10801220));
+			Minecraft.getMinecraft().thePlayer
+				.addPotionEffect(new PotionEffect(Potion.invisibility.getId(),
+					10801220));
 		}else
 		{
 			Minecraft.getMinecraft().thePlayer.setInvisible(false);
-			Minecraft.getMinecraft().thePlayer.removePotionEffect(Potion.invisibility.getId());
+			Minecraft.getMinecraft().thePlayer
+				.removePotionEffect(Potion.invisibility.getId());
 		}
 	}
 }

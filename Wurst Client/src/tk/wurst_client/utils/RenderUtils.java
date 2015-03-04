@@ -36,7 +36,8 @@ public class RenderUtils
 	 * @param z2
 	 * @param color
 	 */
-	public static void box(double x, double y, double z, double x2, double y2, double z2, Color color)
+	public static void box(double x, double y, double z, double x2, double y2,
+		double z2, Color color)
 	{
 		x = x - Minecraft.getMinecraft().getRenderManager().renderPosX;
 		y = y - Minecraft.getMinecraft().getRenderManager().renderPosY;
@@ -85,7 +86,8 @@ public class RenderUtils
 	 * @param z2
 	 * @param color
 	 */
-	public static void frame(double x, double y, double z, double x2, double y2, double z2, Color color)
+	public static void frame(double x, double y, double z, double x2,
+		double y2, double z2, Color color)
 	{
 		x = x - Minecraft.getMinecraft().getRenderManager().renderPosX;
 		y = y - Minecraft.getMinecraft().getRenderManager().renderPosY;
@@ -125,9 +127,15 @@ public class RenderUtils
 	 */
 	public static void blockESPBox(BlockPos blockPos)
 	{
-		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double y = blockPos.getY() - Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double z = blockPos.getZ() - Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double x =
+			blockPos.getX()
+				- Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double y =
+			blockPos.getY()
+				- Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double z =
+			blockPos.getZ()
+				- Minecraft.getMinecraft().getRenderManager().renderPosZ;
 		GL11.glBlendFunc(770, 771);
 		GL11.glEnable(GL_BLEND);
 		GL11.glLineWidth(1.0F);
@@ -160,9 +168,15 @@ public class RenderUtils
 	
 	public static void framelessBlockESP(BlockPos blockPos, Color color)
 	{
-		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double y = blockPos.getY() - Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double z = blockPos.getZ() - Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double x =
+			blockPos.getX()
+				- Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double y =
+			blockPos.getY()
+				- Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double z =
+			blockPos.getZ()
+				- Minecraft.getMinecraft().getRenderManager().renderPosZ;
 		GL11.glBlendFunc(770, 771);
 		GL11.glEnable(GL_BLEND);
 		GL11.glLineWidth(2.0F);
@@ -191,9 +205,15 @@ public class RenderUtils
 	
 	public static void emptyBlockESPBox(BlockPos blockPos)
 	{
-		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double y = blockPos.getY() - Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double z = blockPos.getZ() - Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double x =
+			blockPos.getX()
+				- Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double y =
+			blockPos.getY()
+				- Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double z =
+			blockPos.getZ()
+				- Minecraft.getMinecraft().getRenderManager().renderPosZ;
 		GL11.glBlendFunc(770, 771);
 		GL11.glEnable(GL_BLEND);
 		GL11.glLineWidth(2.0F);
@@ -231,7 +251,11 @@ public class RenderUtils
 		GL11.glDisable(GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
 		if(mode == 0)// Enemy
-			GL11.glColor4d(1 - Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40, Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40, 0, 0.5F);
+			GL11.glColor4d(
+				1 - Minecraft.getMinecraft().thePlayer
+					.getDistanceToEntity(entity) / 40,
+				Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40,
+				0, 0.5F);
 		else if(mode == 1)// Friend
 			GL11.glColor4d(0, 0, 1, 0.5F);
 		else if(mode == 2)// Other
@@ -243,12 +267,35 @@ public class RenderUtils
 		Minecraft.getMinecraft().getRenderManager();
 		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB
 			(
-				entity.boundingBox.minX - 0.05 - entity.posX + (entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX),
-				entity.boundingBox.minY - entity.posY + (entity.posY - Minecraft.getMinecraft().getRenderManager().renderPosY),
-				entity.boundingBox.minZ - 0.05 - entity.posZ + (entity.posZ - Minecraft.getMinecraft().getRenderManager().renderPosZ),
-				entity.boundingBox.maxX + 0.05 - entity.posX + (entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX),
-				entity.boundingBox.maxY + 0.1 - entity.posY + (entity.posY - Minecraft.getMinecraft().getRenderManager().renderPosY),
-				entity.boundingBox.maxZ + 0.05 - entity.posZ + (entity.posZ - Minecraft.getMinecraft().getRenderManager().renderPosZ)
+				entity.boundingBox.minX
+					- 0.05
+					- entity.posX
+					+ (entity.posX - Minecraft.getMinecraft()
+						.getRenderManager().renderPosX),
+				entity.boundingBox.minY
+					- entity.posY
+					+ (entity.posY - Minecraft.getMinecraft()
+						.getRenderManager().renderPosY),
+				entity.boundingBox.minZ
+					- 0.05
+					- entity.posZ
+					+ (entity.posZ - Minecraft.getMinecraft()
+						.getRenderManager().renderPosZ),
+				entity.boundingBox.maxX
+					+ 0.05
+					- entity.posX
+					+ (entity.posX - Minecraft.getMinecraft()
+						.getRenderManager().renderPosX),
+				entity.boundingBox.maxY
+					+ 0.1
+					- entity.posY
+					+ (entity.posY - Minecraft.getMinecraft()
+						.getRenderManager().renderPosY),
+				entity.boundingBox.maxZ
+					+ 0.05
+					- entity.posZ
+					+ (entity.posZ - Minecraft.getMinecraft()
+						.getRenderManager().renderPosZ)
 			), -1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
@@ -258,9 +305,15 @@ public class RenderUtils
 	
 	public static void nukerBox(BlockPos blockPos, float damage)
 	{
-		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double y = blockPos.getY() - Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double z = blockPos.getZ() - Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double x =
+			blockPos.getX()
+				- Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double y =
+			blockPos.getY()
+				- Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double z =
+			blockPos.getZ()
+				- Minecraft.getMinecraft().getRenderManager().renderPosZ;
 		GL11.glBlendFunc(770, 771);
 		GL11.glEnable(GL_BLEND);
 		GL11.glLineWidth(1.0F);
@@ -293,13 +346,21 @@ public class RenderUtils
 	
 	public static void searchBox(BlockPos blockPos)
 	{
-		double x = blockPos.getX() - Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double y = blockPos.getY() - Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double z = blockPos.getZ() - Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double x =
+			blockPos.getX()
+				- Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double y =
+			blockPos.getY()
+				- Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double z =
+			blockPos.getZ()
+				- Minecraft.getMinecraft().getRenderManager().renderPosZ;
 		GL11.glBlendFunc(770, 771);
 		GL11.glEnable(GL_BLEND);
 		GL11.glLineWidth(1.0F);
-		float sinus = 1F - MathHelper.abs(MathHelper.sin(Minecraft.getSystemTime() % 10000L / 10000.0F * (float)Math.PI * 4.0F) * 1F);
+		float sinus =
+			1F - MathHelper.abs(MathHelper.sin(Minecraft.getSystemTime()
+				% 10000L / 10000.0F * (float)Math.PI * 4.0F) * 1F);
 		GL11.glColor4d(1 - sinus, sinus, 0, 0.15);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL_DEPTH_TEST);
@@ -395,9 +456,15 @@ public class RenderUtils
 	
 	public static void tracerLine(Entity entity, int mode)
 	{
-		double x = entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double y = entity.posY + entity.height / 2 - Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double z = entity.posZ - Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double x =
+			entity.posX
+				- Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double y =
+			entity.posY + entity.height / 2
+				- Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double z =
+			entity.posZ
+				- Minecraft.getMinecraft().getRenderManager().renderPosZ;
 		glBlendFunc(770, 771);
 		glEnable(GL_BLEND);
 		glLineWidth(2.0F);
@@ -405,7 +472,11 @@ public class RenderUtils
 		glDisable(GL_DEPTH_TEST);
 		glDepthMask(false);
 		if(mode == 0)// Enemy
-			GL11.glColor4d(1 - Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40, Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40, 0, 0.5F);
+			GL11.glColor4d(
+				1 - Minecraft.getMinecraft().thePlayer
+					.getDistanceToEntity(entity) / 40,
+				Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40,
+				0, 0.5F);
 		else if(mode == 1)// Friend
 			GL11.glColor4d(0, 0, 1, 0.5F);
 		else if(mode == 2)// Other
@@ -428,9 +499,15 @@ public class RenderUtils
 	
 	public static void tracerLine(Entity entity, Color color)
 	{
-		double x = entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double y = entity.posY + entity.height / 2 - Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double z = entity.posZ - Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double x =
+			entity.posX
+				- Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double y =
+			entity.posY + entity.height / 2
+				- Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double z =
+			entity.posZ
+				- Minecraft.getMinecraft().getRenderManager().renderPosZ;
 		glBlendFunc(770, 771);
 		glEnable(GL_BLEND);
 		glLineWidth(2.0F);

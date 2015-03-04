@@ -48,7 +48,8 @@ public class Home extends Module
 	{
 		if(!getToggled() || message.startsWith("§c[§6Wurst§c]§f "))
 			return;
-		if(message.toLowerCase().contains("/help") || message.toLowerCase().contains("permission"))
+		if(message.toLowerCase().contains("/help")
+			|| message.toLowerCase().contains("permission"))
 			Client.wurst.chat.error("This server doesn't have /home.");
 	}
 }

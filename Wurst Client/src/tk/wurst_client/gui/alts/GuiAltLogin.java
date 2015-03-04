@@ -46,7 +46,8 @@ public class GuiAltLogin extends AltEditorScreen
 			LoginManager.changeCrackedName(emailBox.getText());
 			displayText = "";
 		}else
-			displayText = LoginManager.login(emailBox.getText(), passwordBox.getText());
+			displayText =
+				LoginManager.login(emailBox.getText(), passwordBox.getText());
 		if(displayText.equals(""))
 			mc.displayGuiScreen(new GuiMainMenu());
 		else

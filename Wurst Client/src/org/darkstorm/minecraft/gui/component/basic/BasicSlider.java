@@ -33,18 +33,21 @@ public class BasicSlider extends AbstractComponent implements Slider
 		this(text, value, minimum, maximum, 1);
 	}
 	
-	public BasicSlider(String text, double value, double minimum, double maximum, int increment)
+	public BasicSlider(String text, double value, double minimum,
+		double maximum, int increment)
 	{
 		this(text, value, minimum, maximum, increment, ValueDisplay.DECIMAL);
 	}
 	
-	public BasicSlider(String text, double value, double minimum, double maximum, double increment, ValueDisplay display)
+	public BasicSlider(String text, double value, double minimum,
+		double maximum, double increment, ValueDisplay display)
 	{
 		this.text = text != null ? text : "";
 		this.minimum = Math.max(0, Math.min(minimum, maximum));
 		this.maximum = Math.max(0, Math.max(minimum, maximum));
 		value = Math.max(minimum, Math.min(maximum, value));
-		this.value = (double)(Math.round(value / increment) * 1000000 * (long)(increment * 1000000)) / 1000000 / 1000000;
+		this.value =
+			(double)(Math.round(value / increment) * 1000000 * (long)(increment * 1000000)) / 1000000 / 1000000;
 		this.increment = Math.min(maximum, Math.max(0.0005, increment));
 		this.display = display != null ? display : ValueDisplay.DECIMAL;
 	}
@@ -108,7 +111,8 @@ public class BasicSlider extends AbstractComponent implements Slider
 	{
 		double oldValue = this.value;
 		value = Math.max(minimum, Math.min(maximum, value));
-		this.value = (double)(Math.round(value / increment) * 1000000 * (long)(increment * 1000000)) / 1000000 / 1000000;
+		this.value =
+			(double)(Math.round(value / increment) * 1000000 * (long)(increment * 1000000)) / 1000000 / 1000000;
 		if(!changing && oldValue != this.value)
 			fireChange();
 	}

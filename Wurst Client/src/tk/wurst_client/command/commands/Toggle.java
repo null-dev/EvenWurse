@@ -40,7 +40,8 @@ public class Toggle extends Command
 			return;
 		}
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-			if(Client.wurst.moduleManager.activeModules.get(i).getName().toLowerCase().equals(args[0].toLowerCase()))
+			if(Client.wurst.moduleManager.activeModules.get(i).getName()
+				.toLowerCase().equals(args[0].toLowerCase()))
 			{
 				Module module = Client.wurst.moduleManager.activeModules.get(i);
 				if(mode == 0)

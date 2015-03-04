@@ -41,11 +41,10 @@ public class SpammerMod extends Command
 				newDelay = newDelay - newDelay % 50;
 			Client.wurst.options.spamDelay = newDelay;
 			Spammer.updateDelaySpinner();
-			Client.wurst.chat.message("Spammer delay set to " + newDelay + "ms.");
+			Client.wurst.chat.message("Spammer delay set to " + newDelay
+				+ "ms.");
 		}else if(args[0].equalsIgnoreCase("spam"))
-		{
 			if(!SpamProcessor.runSpam(args[1]))
 				Client.wurst.chat.error("File does not exist.");
-		}
 	}
 }

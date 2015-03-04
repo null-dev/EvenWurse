@@ -23,11 +23,13 @@ public class NameGenerator
 		for(int i = 0; i < nameLength; i++)
 		{
 			String nextLetter = lastLetter;
-			if((new Random().nextBoolean() || usedConsonants == 1) && usedVowels < 2)
+			if((new Random().nextBoolean() || usedConsonants == 1)
+				&& usedVowels < 2)
 			{
 				while(nextLetter.equals(lastLetter))
 				{
-					int letterIndex = (int)(Math.random() * vowels.length() - 1);
+					int letterIndex =
+						(int)(Math.random() * vowels.length() - 1);
 					nextLetter = vowels.substring(letterIndex, letterIndex + 1);
 				}
 				usedConsonants = 0;
@@ -37,8 +39,10 @@ public class NameGenerator
 			{
 				while(nextLetter.equals(lastLetter))
 				{
-					int letterIndex = (int)(Math.random() * consonants.length() - 1);
-					nextLetter = consonants.substring(letterIndex, letterIndex + 1);
+					int letterIndex =
+						(int)(Math.random() * consonants.length() - 1);
+					nextLetter =
+						consonants.substring(letterIndex, letterIndex + 1);
 				}
 				usedConsonants++;
 				usedVowels = 0;
@@ -52,7 +56,10 @@ public class NameGenerator
 		else if(capitalMode == 2)
 			for(int i = 0; i < nameLength; i++)
 				if((int)Math.round(Math.random() * 3) == 1)
-					name = name.substring(0, i) + name.substring(i, i + 1).toUpperCase() + (i == nameLength ? "" : name.substring(i + 1));
+					name =
+						name.substring(0, i)
+							+ name.substring(i, i + 1).toUpperCase()
+							+ (i == nameLength ? "" : name.substring(i + 1));
 		int numberLength = (int)Math.round(Math.random() * 3) + 1;
 		int numberMode = (int)Math.round(Math.random() * 3);
 		boolean number = new Random().nextBoolean();

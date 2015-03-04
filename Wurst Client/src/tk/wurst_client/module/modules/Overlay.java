@@ -29,10 +29,15 @@ public class Overlay extends Module
 	@Override
 	public void onRender()
 	{
-		if(!getToggled() || Minecraft.getMinecraft().objectMouseOver == null || Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
+		if(!getToggled()
+			|| Minecraft.getMinecraft().objectMouseOver == null
+			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
-		Block mouseOverBlock = Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock();
+		Block mouseOverBlock =
+			Minecraft.getMinecraft().theWorld.getBlockState(
+				Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+				.getBlock();
 		if(Block.getIdFromBlock(mouseOverBlock) != 0)
 			RenderUtils.nukerBox(pos, PlayerControllerMP.curBlockDamageMP);
 	}

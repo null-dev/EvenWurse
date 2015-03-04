@@ -70,7 +70,8 @@ public class GuiEmailField extends Gui
 	private GuiPageButtonList.GuiResponder field_175210_x;
 	private Predicate field_175209_y = Predicates.alwaysTrue();
 	
-	public GuiEmailField(int p_i45542_1_, FontRenderer p_i45542_2_, int p_i45542_3_, int p_i45542_4_, int p_i45542_5_, int p_i45542_6_)
+	public GuiEmailField(int p_i45542_1_, FontRenderer p_i45542_2_,
+		int p_i45542_3_, int p_i45542_4_, int p_i45542_5_, int p_i45542_6_)
 	{
 		field_175208_g = p_i45542_1_;
 		fontRendererInstance = p_i45542_2_;
@@ -123,8 +124,10 @@ public class GuiEmailField extends Gui
 	 */
 	public String getSelectedText()
 	{
-		int var1 = cursorPosition < selectionEnd ? cursorPosition : selectionEnd;
-		int var2 = cursorPosition < selectionEnd ? selectionEnd : cursorPosition;
+		int var1 =
+			cursorPosition < selectionEnd ? cursorPosition : selectionEnd;
+		int var2 =
+			cursorPosition < selectionEnd ? selectionEnd : cursorPosition;
 		return text.substring(var1, var2);
 	}
 	
@@ -140,9 +143,12 @@ public class GuiEmailField extends Gui
 	public void writeText(String p_146191_1_)
 	{
 		String var2 = "";
-		String var3 = EmailAllowedCharacters.filterAllowedCharacters(p_146191_1_);
-		int var4 = cursorPosition < selectionEnd ? cursorPosition : selectionEnd;
-		int var5 = cursorPosition < selectionEnd ? selectionEnd : cursorPosition;
+		String var3 =
+			EmailAllowedCharacters.filterAllowedCharacters(p_146191_1_);
+		int var4 =
+			cursorPosition < selectionEnd ? cursorPosition : selectionEnd;
+		int var5 =
+			cursorPosition < selectionEnd ? selectionEnd : cursorPosition;
 		int var6 = maxStringLength - text.length() - (var4 - var5);
 		if(text.length() > 0)
 			var2 = var2 + text.substring(0, var4);
@@ -184,7 +190,8 @@ public class GuiEmailField extends Gui
 			if(selectionEnd != cursorPosition)
 				writeText("");
 			else
-				deleteFromCursor(getNthWordFromCursor(p_146177_1_) - cursorPosition);
+				deleteFromCursor(getNthWordFromCursor(p_146177_1_)
+					- cursorPosition);
 	}
 	
 	/**
@@ -241,7 +248,8 @@ public class GuiEmailField extends Gui
 		return func_146197_a(p_146183_1_, p_146183_2_, true);
 	}
 	
-	public int func_146197_a(int p_146197_1_, int p_146197_2_, boolean p_146197_3_)
+	public int func_146197_a(int p_146197_1_, int p_146197_2_,
+		boolean p_146197_3_)
 	{
 		int var4 = p_146197_2_;
 		boolean var5 = p_146197_1_ < 0;
@@ -366,7 +374,8 @@ public class GuiEmailField extends Gui
 					if(GuiScreen.isShiftKeyDown())
 					{
 						if(GuiScreen.isCtrlKeyDown())
-							setSelectionPos(getNthWordFromPos(-1, getSelectionEnd()));
+							setSelectionPos(getNthWordFromPos(-1,
+								getSelectionEnd()));
 						else
 							setSelectionPos(getSelectionEnd() - 1);
 					}
@@ -381,7 +390,8 @@ public class GuiEmailField extends Gui
 					if(GuiScreen.isShiftKeyDown())
 					{
 						if(GuiScreen.isCtrlKeyDown())
-							setSelectionPos(getNthWordFromPos(1, getSelectionEnd()));
+							setSelectionPos(getNthWordFromPos(1,
+								getSelectionEnd()));
 						else
 							setSelectionPos(getSelectionEnd() + 1);
 					}
@@ -428,7 +438,9 @@ public class GuiEmailField extends Gui
 	 */
 	public void mouseClicked(int p_146192_1_, int p_146192_2_, int p_146192_3_)
 	{
-		boolean var4 = p_146192_1_ >= xPosition && p_146192_1_ < xPosition + width && p_146192_2_ >= yPosition && p_146192_2_ < yPosition + height;
+		boolean var4 =
+			p_146192_1_ >= xPosition && p_146192_1_ < xPosition + width
+				&& p_146192_2_ >= yPosition && p_146192_2_ < yPosition + height;
 		
 		if(canLoseFocus)
 			setFocused(var4);
@@ -440,8 +452,11 @@ public class GuiEmailField extends Gui
 			if(enableBackgroundDrawing)
 				var5 -= 4;
 			
-			String var6 = fontRendererInstance.trimStringToWidth(text.substring(lineScrollOffset), getWidth());
-			setCursorPosition(fontRendererInstance.trimStringToWidth(var6, var5).length() + lineScrollOffset);
+			String var6 =
+				fontRendererInstance.trimStringToWidth(
+					text.substring(lineScrollOffset), getWidth());
+			setCursorPosition(fontRendererInstance
+				.trimStringToWidth(var6, var5).length() + lineScrollOffset);
 		}
 	}
 	
@@ -454,18 +469,24 @@ public class GuiEmailField extends Gui
 		{
 			if(getEnableBackgroundDrawing())
 			{
-				drawRect(xPosition - 1, yPosition - 1, xPosition + width + 1, yPosition + height + 1, -6250336);
-				drawRect(xPosition, yPosition, xPosition + width, yPosition + height, -16777216);
+				drawRect(xPosition - 1, yPosition - 1, xPosition + width + 1,
+					yPosition + height + 1, -6250336);
+				drawRect(xPosition, yPosition, xPosition + width, yPosition
+					+ height, -16777216);
 			}
 			
 			int var1 = isEnabled ? enabledColor : disabledColor;
 			int var2 = cursorPosition - lineScrollOffset;
 			int var3 = selectionEnd - lineScrollOffset;
-			String var4 = fontRendererInstance.trimStringToWidth(text.substring(lineScrollOffset), getWidth());
+			String var4 =
+				fontRendererInstance.trimStringToWidth(
+					text.substring(lineScrollOffset), getWidth());
 			boolean var5 = var2 >= 0 && var2 <= var4.length();
 			boolean var6 = isFocused && cursorCounter / 6 % 2 == 0 && var5;
 			int var7 = enableBackgroundDrawing ? xPosition + 4 : xPosition;
-			int var8 = enableBackgroundDrawing ? yPosition + (height - 8) / 2 : yPosition;
+			int var8 =
+				enableBackgroundDrawing ? yPosition + (height - 8) / 2
+					: yPosition;
 			int var9 = var7;
 			
 			if(var3 > var4.length())
@@ -474,10 +495,14 @@ public class GuiEmailField extends Gui
 			if(var4.length() > 0)
 			{
 				String var10 = var5 ? var4.substring(0, var2) : var4;
-				var9 = fontRendererInstance.drawStringWithShadow(var10, var7, var8, var1);
+				var9 =
+					fontRendererInstance.drawStringWithShadow(var10, var7,
+						var8, var1);
 			}
 			
-			boolean var13 = cursorPosition < text.length() || text.length() >= getMaxStringLength();
+			boolean var13 =
+				cursorPosition < text.length()
+					|| text.length() >= getMaxStringLength();
 			int var11 = var9;
 			
 			if(!var5)
@@ -489,18 +514,26 @@ public class GuiEmailField extends Gui
 			}
 			
 			if(var4.length() > 0 && var5 && var2 < var4.length())
-				var9 = fontRendererInstance.drawStringWithShadow(var4.substring(var2), var9, var8, var1);
+				var9 =
+					fontRendererInstance.drawStringWithShadow(
+						var4.substring(var2), var9, var8, var1);
 			
 			if(var6)
 				if(var13)
-					Gui.drawRect(var11, var8 - 1, var11 + 1, var8 + 1 + fontRendererInstance.FONT_HEIGHT, -3092272);
+					Gui.drawRect(var11, var8 - 1, var11 + 1, var8 + 1
+						+ fontRendererInstance.FONT_HEIGHT, -3092272);
 				else
-					fontRendererInstance.drawStringWithShadow("_", var11, var8, var1);
+					fontRendererInstance.drawStringWithShadow("_", var11, var8,
+						var1);
 			
 			if(var3 != var2)
 			{
-				int var12 = var7 + fontRendererInstance.getStringWidth(var4.substring(0, var3));
-				drawCursorVertical(var11, var8 - 1, var12 - 1, var8 + 1 + fontRendererInstance.FONT_HEIGHT);
+				int var12 =
+					var7
+						+ fontRendererInstance.getStringWidth(var4.substring(0,
+							var3));
+				drawCursorVertical(var11, var8 - 1, var12 - 1, var8 + 1
+					+ fontRendererInstance.FONT_HEIGHT);
 			}
 		}
 	}
@@ -508,7 +541,8 @@ public class GuiEmailField extends Gui
 	/**
 	 * draws the vertical line cursor in the textbox
 	 */
-	private void drawCursorVertical(int p_146188_1_, int p_146188_2_, int p_146188_3_, int p_146188_4_)
+	private void drawCursorVertical(int p_146188_1_, int p_146188_2_,
+		int p_146188_3_, int p_146188_4_)
 	{
 		int var5;
 		
@@ -667,11 +701,15 @@ public class GuiEmailField extends Gui
 				lineScrollOffset = var2;
 			
 			int var3 = getWidth();
-			String var4 = fontRendererInstance.trimStringToWidth(text.substring(lineScrollOffset), var3);
+			String var4 =
+				fontRendererInstance.trimStringToWidth(
+					text.substring(lineScrollOffset), var3);
 			int var5 = var4.length() + lineScrollOffset;
 			
 			if(p_146199_1_ == lineScrollOffset)
-				lineScrollOffset -= fontRendererInstance.trimStringToWidth(text, var3, true).length();
+				lineScrollOffset -=
+					fontRendererInstance.trimStringToWidth(text, var3, true)
+						.length();
 			
 			if(p_146199_1_ > var5)
 				lineScrollOffset += p_146199_1_ - var5;

@@ -33,8 +33,11 @@ public class SearchMod extends Command
 	{
 		if(args == null)
 		{
-			Client.wurst.moduleManager.getModuleFromClass(Search.class).toggleModule();
-			Client.wurst.chat.message("Search turned " + (Client.wurst.moduleManager.getModuleFromClass(Search.class).getToggled() == true ? "on" : "off") + ".");
+			Client.wurst.moduleManager.getModuleFromClass(Search.class)
+				.toggleModule();
+			Client.wurst.chat.message("Search turned "
+				+ (Client.wurst.moduleManager.getModuleFromClass(Search.class)
+					.getToggled() == true ? "on" : "off") + ".");
 		}else if(args[0].toLowerCase().equals("id"))
 		{
 			if(MiscUtils.isInteger(args[1]))
@@ -52,13 +55,15 @@ public class SearchMod extends Command
 			int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
 			if(newID == -1)
 			{
-				Client.wurst.chat.message("The block \"" + args[1] + "\" could not be found.");
+				Client.wurst.chat.message("The block \"" + args[1]
+					+ "\" could not be found.");
 				return;
 			}
 			Client.wurst.options.searchID = Integer.valueOf(newID);
 			Client.wurst.fileManager.saveOptions();
 			Search.shouldInform = true;
-			Client.wurst.chat.message("Search ID set to " + newID + " (" + args[1] + ").");
+			Client.wurst.chat.message("Search ID set to " + newID + " ("
+				+ args[1] + ").");
 		}else
 			commandError();
 	}

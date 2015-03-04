@@ -24,17 +24,20 @@ public class BasicProgressBar extends AbstractComponent implements ProgressBar
 		this(value, minimum, maximum, 1);
 	}
 	
-	public BasicProgressBar(double value, double minimum, double maximum, int increment)
+	public BasicProgressBar(double value, double minimum, double maximum,
+		int increment)
 	{
 		this(value, minimum, maximum, increment, ValueDisplay.NONE);
 	}
 	
-	public BasicProgressBar(double value, double minimum, double maximum, double increment, ValueDisplay display)
+	public BasicProgressBar(double value, double minimum, double maximum,
+		double increment, ValueDisplay display)
 	{
 		this.minimum = Math.max(0, Math.min(minimum, maximum));
 		this.maximum = Math.max(0, Math.max(minimum, maximum));
 		value = Math.max(minimum, Math.min(maximum, value));
-		this.value = value - Math.round(value % increment / increment) * increment;
+		this.value =
+			value - Math.round(value % increment / increment) * increment;
 		this.increment = Math.min(maximum, Math.max(0.0005, increment));
 		this.display = display != null ? display : ValueDisplay.NONE;
 	}
@@ -79,7 +82,8 @@ public class BasicProgressBar extends AbstractComponent implements ProgressBar
 	public void setValue(double value)
 	{
 		value = Math.max(minimum, Math.min(maximum, value));
-		this.value = value - Math.round(value % increment / increment) * increment;
+		this.value =
+			value - Math.round(value % increment / increment) * increment;
 	}
 	
 	@Override

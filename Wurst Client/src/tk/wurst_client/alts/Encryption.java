@@ -37,12 +37,16 @@ import tk.wurst_client.utils.MiscUtils;
 public class Encryption
 {
 	private static SecretKey aesKey;
-	private static File aesFile = new File(Client.wurst.fileManager.wurstDir, "key");
+	private static File aesFile = new File(Client.wurst.fileManager.wurstDir,
+		"key");
 	
 	private static KeyPair keypair;
-	private static File rsaKeyDir = System.getProperty("user.home") != null ? new File(System.getProperty("user.home"), ".ssh") : null;
-	private static File privateFile = rsaKeyDir != null ? new File(rsaKeyDir, "wurst_rsa") : null;
-	private static File publicFile = rsaKeyDir != null ? new File(rsaKeyDir, "wurst_rsa.pub") : null;
+	private static File rsaKeyDir = System.getProperty("user.home") != null
+		? new File(System.getProperty("user.home"), ".ssh") : null;
+	private static File privateFile = rsaKeyDir != null ? new File(rsaKeyDir,
+		"wurst_rsa") : null;
+	private static File publicFile = rsaKeyDir != null ? new File(rsaKeyDir,
+		"wurst_rsa.pub") : null;
 	
 	public static final String CHARSET = "UTF-8";
 	
@@ -52,8 +56,10 @@ public class Encryption
 		try
 		{
 			Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding");
-			cipher.init(Cipher.ENCRYPT_MODE, aesKey, new IvParameterSpec(aesKey.getEncoded()));
-			return Base64.getEncoder().encodeToString(cipher.doFinal(string.getBytes(CHARSET)));
+			cipher.init(Cipher.ENCRYPT_MODE, aesKey,
+				new IvParameterSpec(aesKey.getEncoded()));
+			return Base64.getEncoder().encodeToString(
+				cipher.doFinal(string.getBytes(CHARSET)));
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -67,8 +73,10 @@ public class Encryption
 		try
 		{
 			Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding");
-			cipher.init(Cipher.DECRYPT_MODE, aesKey, new IvParameterSpec(aesKey.getEncoded()));
-			return new String(cipher.doFinal(Base64.getDecoder().decode(string)), CHARSET);
+			cipher.init(Cipher.DECRYPT_MODE, aesKey,
+				new IvParameterSpec(aesKey.getEncoded()));
+			return new String(
+				cipher.doFinal(Base64.getDecoder().decode(string)), CHARSET);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -114,8 +122,11 @@ public class Encryption
 			keypair = keypairgen.generateKeyPair();
 			if(publicFile == null || privateFile == null)
 			{
-				JOptionPane.showMessageDialog(null, "Cannot create RSA key.\nThis is a bug, please report it!", "Error", JOptionPane.ERROR_MESSAGE);
-				MiscUtils.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=cannot+create+RSA+key");
+				JOptionPane.showMessageDialog(null,
+					"Cannot create RSA key.\nThis is a bug, please report it!",
+					"Error", JOptionPane.ERROR_MESSAGE);
+				MiscUtils
+					.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=cannot+create+RSA+key");
 				Minecraft.getMinecraft().shutdown();
 				return;
 			}
@@ -123,25 +134,37 @@ public class Encryption
 			{
 				if(!publicFile.getParentFile().exists())
 					publicFile.getParentFile().mkdirs();
-				ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream(publicFile));
-				save.writeObject(KeyFactory.getInstance("RSA").getKeySpec(keypair.getPublic(), RSAPublicKeySpec.class).getModulus());
-				save.writeObject(KeyFactory.getInstance("RSA").getKeySpec(keypair.getPublic(), RSAPublicKeySpec.class).getPublicExponent());
+				ObjectOutputStream save =
+					new ObjectOutputStream(new FileOutputStream(publicFile));
+				save.writeObject(KeyFactory.getInstance("RSA")
+					.getKeySpec(keypair.getPublic(), RSAPublicKeySpec.class)
+					.getModulus());
+				save.writeObject(KeyFactory.getInstance("RSA")
+					.getKeySpec(keypair.getPublic(), RSAPublicKeySpec.class)
+					.getPublicExponent());
 				save.close();
 			}
 			if(!privateFile.exists())
 			{
 				if(!privateFile.getParentFile().exists())
 					privateFile.getParentFile().mkdirs();
-				ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream(privateFile));
-				save.writeObject(KeyFactory.getInstance("RSA").getKeySpec(keypair.getPrivate(), RSAPrivateKeySpec.class).getModulus());
-				save.writeObject(KeyFactory.getInstance("RSA").getKeySpec(keypair.getPrivate(), RSAPrivateKeySpec.class).getPrivateExponent());
+				ObjectOutputStream save =
+					new ObjectOutputStream(new FileOutputStream(privateFile));
+				save.writeObject(KeyFactory.getInstance("RSA")
+					.getKeySpec(keypair.getPrivate(), RSAPrivateKeySpec.class)
+					.getModulus());
+				save.writeObject(KeyFactory.getInstance("RSA")
+					.getKeySpec(keypair.getPrivate(), RSAPrivateKeySpec.class)
+					.getPrivateExponent());
 				save.close();
 			}
 			if(aesFile == null)
 			{
 				JOptionPane.showMessageDialog(null,
-					"Cannot create AES key.\nThis is a bug, please report it!", "Error", JOptionPane.ERROR_MESSAGE);
-				MiscUtils.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=cannot+create+AES+key");
+					"Cannot create AES key.\nThis is a bug, please report it!",
+					"Error", JOptionPane.ERROR_MESSAGE);
+				MiscUtils
+					.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=cannot+create+AES+key");
 				Minecraft.getMinecraft().shutdown();
 				return;
 			}
@@ -151,7 +174,8 @@ public class Encryption
 					aesFile.getParentFile().mkdirs();
 				Cipher rsaCipher = Cipher.getInstance("RSA");
 				rsaCipher.init(Cipher.ENCRYPT_MODE, keypair.getPublic());
-				Files.write(aesFile.toPath(), rsaCipher.doFinal(aesKey.getEncoded()));
+				Files.write(aesFile.toPath(),
+					rsaCipher.doFinal(aesKey.getEncoded()));
 			}
 		}catch(Exception e)
 		{
@@ -165,21 +189,26 @@ public class Encryption
 		{
 			if(privateFile == null || publicFile == null)
 			{
-				JOptionPane.showMessageDialog(null, "Cannot load RSA key.\nThis is a bug, please report it!", "Error", JOptionPane.ERROR_MESSAGE);
-				MiscUtils.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=cannot+load+RSA+key");
+				JOptionPane.showMessageDialog(null,
+					"Cannot load RSA key.\nThis is a bug, please report it!",
+					"Error", JOptionPane.ERROR_MESSAGE);
+				MiscUtils
+					.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=cannot+load+RSA+key");
 				Minecraft.getMinecraft().shutdown();
 			}
 			if(!hasKeyFiles())
 				generateKeys();
 			else
 			{
-				ObjectInputStream publicLoad = new ObjectInputStream(new FileInputStream(publicFile));
+				ObjectInputStream publicLoad =
+					new ObjectInputStream(new FileInputStream(publicFile));
 				PublicKey loadedPublicKey = KeyFactory.getInstance("RSA")
 					.generatePublic(new RSAPublicKeySpec(
 						(BigInteger)publicLoad.readObject(),
 						(BigInteger)publicLoad.readObject()));
 				publicLoad.close();
-				ObjectInputStream privateLoad = new ObjectInputStream(new FileInputStream(privateFile));
+				ObjectInputStream privateLoad =
+					new ObjectInputStream(new FileInputStream(privateFile));
 				PrivateKey loadedPrivateKey = KeyFactory.getInstance("RSA")
 					.generatePrivate(new RSAPrivateKeySpec(
 						(BigInteger)privateLoad.readObject(),
@@ -188,7 +217,9 @@ public class Encryption
 				keypair = new KeyPair(loadedPublicKey, loadedPrivateKey);
 				Cipher rsaCipher = Cipher.getInstance("RSA");
 				rsaCipher.init(Cipher.DECRYPT_MODE, keypair.getPrivate());
-				aesKey = new SecretKeySpec(rsaCipher.doFinal(Files.readAllBytes(aesFile.toPath())), "AES");
+				aesKey =
+					new SecretKeySpec(rsaCipher.doFinal(Files
+						.readAllBytes(aesFile.toPath())), "AES");
 			}
 		}catch(Exception e)
 		{

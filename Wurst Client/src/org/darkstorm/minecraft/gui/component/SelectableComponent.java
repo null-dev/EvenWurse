@@ -8,7 +8,9 @@ public interface SelectableComponent extends Component
 	
 	public void setSelected(boolean selected);
 	
-	public void addSelectableComponentListener(SelectableComponentListener listener);
+	public void addSelectableComponentListener(
+		SelectableComponentListener listener);
 	
-	public void removeSelectableComponentListener(SelectableComponentListener listener);
+	public void removeSelectableComponentListener(
+		SelectableComponentListener listener);
 }

@@ -58,8 +58,10 @@ public class GridLayoutManager implements LayoutManager
 					break rowLabel;
 				Rectangle componentArea = componentAreas[index];
 				Constraint[] componentConstraints = constraints[index];
-				HorizontalGridConstraint horizontalAlign = HorizontalGridConstraint.LEFT;
-				VerticalGridConstraint verticalAlign = VerticalGridConstraint.CENTER;
+				HorizontalGridConstraint horizontalAlign =
+					HorizontalGridConstraint.LEFT;
+				VerticalGridConstraint verticalAlign =
+					VerticalGridConstraint.CENTER;
 				for(Constraint constraint : componentConstraints)
 					if(constraint instanceof HorizontalGridConstraint)
 						horizontalAlign = (HorizontalGridConstraint)constraint;
@@ -70,11 +72,13 @@ public class GridLayoutManager implements LayoutManager
 					case FILL:
 						componentArea.width = (int)elementWidth;
 					case LEFT:
-						componentArea.x = (int)(area.x + element * elementWidth);
+						componentArea.x =
+							(int)(area.x + element * elementWidth);
 						break;
 					case RIGHT:
-						componentArea.x = (int)(area.x
-							+ (element + 1) * elementWidth - componentArea.width);
+						componentArea.x =
+							(int)(area.x
+								+ (element + 1) * elementWidth - componentArea.width);
 						break;
 					case CENTER:
 						componentArea.x = (int)(area.x + element * elementWidth

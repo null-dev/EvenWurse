@@ -38,10 +38,12 @@ public class MassTPA extends Module
 	public void onEnable()
 	{
 		i = 0;
-		Iterator itr = Minecraft.getMinecraft().getNetHandler().getPlayerInfo().iterator();
+		Iterator itr =
+			Minecraft.getMinecraft().getNetHandler().getPlayerInfo().iterator();
 		players = new ArrayList<String>();
 		while(itr.hasNext())
-			players.add(StringUtils.stripControlCodes(((NetworkPlayerInfo)itr.next()).getPlayerNameForReal()));
+			players.add(StringUtils.stripControlCodes(((NetworkPlayerInfo)itr
+				.next()).getPlayerNameForReal()));
 		players.sort(new Comparator<String>()
 		{
 			Random random = new Random();
@@ -59,13 +61,19 @@ public class MassTPA extends Module
 	{
 		if(!getToggled() || message.startsWith("§c[§6Wurst§c]§f "))
 			return;
-		if(message.toLowerCase().contains("/help") || message.toLowerCase().contains("permission"))
+		if(message.toLowerCase().contains("/help")
+			|| message.toLowerCase().contains("permission"))
 		{
-			Client.wurst.chat.message("§4§lERROR:§f This server doesn't have TPA.");
+			Client.wurst.chat
+				.message("§4§lERROR:§f This server doesn't have TPA.");
 			setToggled(false);
-		}else if(message.toLowerCase().contains("accepted") && message.toLowerCase().contains("request") || message.toLowerCase().contains("akzeptiert") && message.toLowerCase().contains("anfrage"))
+		}else if(message.toLowerCase().contains("accepted")
+			&& message.toLowerCase().contains("request")
+			|| message.toLowerCase().contains("akzeptiert")
+			&& message.toLowerCase().contains("anfrage"))
 		{
-			Client.wurst.chat.message("Someone accepted your TPA request. Stopping.");
+			Client.wurst.chat
+				.message("Someone accepted your TPA request. Stopping.");
 			setToggled(false);
 		}
 	}
@@ -80,7 +88,8 @@ public class MassTPA extends Module
 			{
 				String name = players.get(i);
 				if(!name.equals(Minecraft.getMinecraft().thePlayer.getName()))
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("/tpa " + name);
+					Minecraft.getMinecraft().thePlayer.sendChatMessage("/tpa "
+						+ name);
 				updateLastMS();
 				i++;
 				if(i == players.size())

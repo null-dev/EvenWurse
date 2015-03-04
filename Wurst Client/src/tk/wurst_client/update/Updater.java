@@ -54,26 +54,42 @@ public class Updater
 			{
 				currentMajor = Integer.parseInt(currentVersion.split("\\.")[0]);
 				if(currentVersion.contains("pre"))
-					currentPreRelease = Integer.parseInt(currentVersion.substring(currentVersion.indexOf("pre") + 3));
+					currentPreRelease =
+						Integer.parseInt(currentVersion
+							.substring(currentVersion.indexOf("pre") + 3));
 				else
 					currentPreRelease = 0;
 				if(currentVersion.split("\\.").length > 2)
 					if(currentPreRelease == 0)
-						currentPatch = Integer.parseInt(currentVersion.split("\\.")[2]);
+						currentPatch =
+							Integer.parseInt(currentVersion.split("\\.")[2]);
 					else
-						currentPatch = Integer.parseInt(currentVersion.split("\\.")[2].substring(0, currentVersion.split("\\.")[2].indexOf("pre")));
+						currentPatch =
+							Integer.parseInt(currentVersion.split("\\.")[2]
+								.substring(0, currentVersion.split("\\.")[2]
+									.indexOf("pre")));
 				else
 					currentPatch = 0;
 				if(currentPreRelease == 0 || currentPatch > 0)
-					currentMinor = Integer.parseInt(currentVersion.split("\\.")[1]);
+					currentMinor =
+						Integer.parseInt(currentVersion.split("\\.")[1]);
 				else
-					currentMinor = Integer.parseInt(currentVersion.split("\\.")[1].substring(0, currentVersion.split("\\.")[1].indexOf("pre")));
+					currentMinor =
+						Integer.parseInt(currentVersion.split("\\.")[1]
+							.substring(0,
+								currentVersion.split("\\.")[1].indexOf("pre")));
 			}catch(Exception e)
 			{
-				logger.error("Current version (\"" + currentVersion + "\") doesn't follow the semver.org syntax!", e);
+				logger.error("Current version (\"" + currentVersion
+					+ "\") doesn't follow the semver.org syntax!", e);
 			}
-			HttpsURLConnection connection = (HttpsURLConnection)new URL("https://api.github.com/repos/Wurst-Imperium/Wurst-Client/releases").openConnection();
-			BufferedReader load = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			HttpsURLConnection connection =
+				(HttpsURLConnection)new URL(
+					"https://api.github.com/repos/Wurst-Imperium/Wurst-Client/releases")
+					.openConnection();
+			BufferedReader load =
+				new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
 			String content = load.readLine();
 			for(String line = ""; (line = load.readLine()) != null;)
 				content += "\n" + line;
@@ -81,33 +97,46 @@ public class Updater
 			json = new JsonParser().parse(content).getAsJsonArray();
 			latestRelease = new JsonObject();
 			for(JsonElement release : json)
-				if(!release.getAsJsonObject().get("prerelease").getAsBoolean() || currentPreRelease > 0)
+				if(!release.getAsJsonObject().get("prerelease").getAsBoolean()
+					|| currentPreRelease > 0)
 				{
 					latestRelease = release.getAsJsonObject();
 					break;
 				}
-			latestVersion = latestRelease.get("tag_name").getAsString().substring(1);
+			latestVersion =
+				latestRelease.get("tag_name").getAsString().substring(1);
 			try
 			{
 				latestMajor = Integer.parseInt(latestVersion.split("\\.")[0]);
 				if(latestVersion.contains("pre"))
-					latestPreRelease = Integer.parseInt(latestVersion.substring(latestVersion.indexOf("pre") + 3));
+					latestPreRelease =
+						Integer.parseInt(latestVersion.substring(latestVersion
+							.indexOf("pre") + 3));
 				else
 					latestPreRelease = 0;
 				if(latestVersion.split("\\.").length > 2)
 					if(latestPreRelease == 0)
-						latestPatch = Integer.parseInt(latestVersion.split("\\.")[2]);
+						latestPatch =
+							Integer.parseInt(latestVersion.split("\\.")[2]);
 					else
-						latestPatch = Integer.parseInt(latestVersion.split("\\.")[2].substring(0, latestVersion.split("\\.")[2].indexOf("pre")));
+						latestPatch =
+							Integer.parseInt(latestVersion.split("\\.")[2]
+								.substring(0, latestVersion.split("\\.")[2]
+									.indexOf("pre")));
 				else
 					latestPatch = 0;
 				if(latestPreRelease == 0 || latestPatch > 0)
-					latestMinor = Integer.parseInt(latestVersion.split("\\.")[1]);
+					latestMinor =
+						Integer.parseInt(latestVersion.split("\\.")[1]);
 				else
-					latestMinor = Integer.parseInt(latestVersion.split("\\.")[1].substring(0, latestVersion.split("\\.")[1].indexOf("pre")));
+					latestMinor =
+						Integer.parseInt(latestVersion.split("\\.")[1]
+							.substring(0,
+								latestVersion.split("\\.")[1].indexOf("pre")));
 			}catch(Exception e)
 			{
-				logger.error("Latest version (\"" + latestVersion + "\") doesn't follow the semver.org syntax!", e);
+				logger.error("Latest version (\"" + latestVersion
+					+ "\") doesn't follow the semver.org syntax!", e);
 			}
 			try
 			{
@@ -140,7 +169,8 @@ public class Updater
 			return true;
 		else if(latestPatch < currentPatch)
 			return false;
-		else if(latestPreRelease > currentPreRelease || latestPreRelease == 0 && currentPreRelease > 0)
+		else if(latestPreRelease > currentPreRelease || latestPreRelease == 0
+			&& currentPreRelease > 0)
 			return true;
 		else
 			return false;
@@ -152,9 +182,11 @@ public class Updater
 		{
 			String url;
 			if(currentPreRelease > 0)
-				url = json.get(0).getAsJsonObject().get("html_url").getAsString();
+				url =
+					json.get(0).getAsJsonObject().get("html_url").getAsString();
 			else
-				url = "https://github.com/Wurst-Imperium/Wurst-Client/releases/latest";
+				url =
+					"https://github.com/Wurst-Imperium/Wurst-Client/releases/latest";
 			Desktop.getDesktop().browse(new URI(url));
 		}catch(Exception e)
 		{

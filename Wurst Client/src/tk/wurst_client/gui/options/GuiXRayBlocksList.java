@@ -28,7 +28,8 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 {
 	public GuiXRayBlocksList(Minecraft par1Minecraft, GuiScreen prevMenu)
 	{
-		super(par1Minecraft, prevMenu.width, prevMenu.height, 36, prevMenu.height - 56, 30);
+		super(par1Minecraft, prevMenu.width, prevMenu.height, 36,
+			prevMenu.height - 56, 30);
 		mc = par1Minecraft;
 	}
 	
@@ -44,7 +45,8 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 			@Override
 			public int compare(Block o1, Block o2)
 			{
-				return o1.getLocalizedName().compareToIgnoreCase(o2.getLocalizedName());
+				return o1.getLocalizedName().compareToIgnoreCase(
+					o2.getLocalizedName());
 			}
 		});
 		ArrayList<Block> newBlocks = new ArrayList<Block>();
@@ -96,20 +98,28 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 		if(itemStack.getItem() != null)
 			try
 			{
-				Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, x + 4, y + 4);
+				Minecraft.getMinecraft().getRenderItem()
+					.renderItemAndEffectIntoGUI(itemStack, x + 4, y + 4);
 			}catch(Exception e)
 			{
 				e.printStackTrace();
 			}
 		else
 			mc.fontRendererObj.drawString("?", x + 10, y + 9, 10526880);
-		Minecraft.getMinecraft().getRenderItem().func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack, x + 4, y + 4);
+		Minecraft
+			.getMinecraft()
+			.getRenderItem()
+			.func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack,
+				x + 4, y + 4);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.disableBlend();
 		glDisable(GL_LIGHTING);
-		mc.fontRendererObj.drawString("Name: " + (itemStack.getItem() == null ? block.getLocalizedName() : itemStack.getDisplayName()), x + 31, y + 3, 10526880);
+		mc.fontRendererObj.drawString("Name: "
+			+ (itemStack.getItem() == null ? block.getLocalizedName()
+				: itemStack.getDisplayName()), x + 31, y + 3, 10526880);
 		int blockID = Block.getIdFromBlock(block);
-		mc.fontRendererObj.drawString("ID: " + blockID, x + 31, y + 15, 10526880);
+		mc.fontRendererObj.drawString("ID: " + blockID, x + 31, y + 15,
+			10526880);
 	}
 }

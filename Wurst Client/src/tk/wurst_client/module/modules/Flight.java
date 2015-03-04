@@ -32,7 +32,8 @@ public class Flight extends Module
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("Flight speed", speed, 0.05, 5, 0.05, ValueDisplay.DECIMAL));
+		moduleSliders.add(new BasicSlider("Flight speed", speed, 0.05, 5, 0.05,
+			ValueDisplay.DECIMAL));
 	}
 	
 	@Override
@@ -46,7 +47,8 @@ public class Flight extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);

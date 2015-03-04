@@ -57,10 +57,14 @@ public class NukerLegit extends Module
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(Nuker.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(Nuker.class).setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class).getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class).setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(Nuker.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(Nuker.class)
+				.setToggled(false);
+		if(Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class)
+			.getToggled())
+			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class)
+				.setToggled(false);
 	}
 	
 	@Override
@@ -70,9 +74,17 @@ public class NukerLegit extends Module
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
-		if(Client.wurst.options.nukerMode == 1 && Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock().getMaterial() != Material.air)
+		if(Client.wurst.options.nukerMode == 1
+			&& Minecraft.getMinecraft().theWorld
+				.getBlockState(
+					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+				.getBlock().getMaterial() != Material.air)
 		{
-			Nuker.id = Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock());
+			Nuker.id =
+				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+					.getBlockState(
+						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+					.getBlock());
 			Client.wurst.fileManager.saveOptions();
 		}
 	}
@@ -81,7 +93,10 @@ public class NukerLegit extends Module
 	public void onRender()
 	{
 		if(blockHitDelay == 0 && shouldRenderESP)
-			if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode && currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos) < 1)
+			if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+				&& currentBlock.getPlayerRelativeBlockHardness(
+					Minecraft.getMinecraft().thePlayer,
+					Minecraft.getMinecraft().theWorld, pos) < 1)
 				RenderUtils.nukerBox(pos, currentDamage);
 			else
 				RenderUtils.nukerBox(pos, 1);
@@ -98,7 +113,8 @@ public class NukerLegit extends Module
 		{
 			if(oldSlot != -1)
 			{
-				Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
+				Minecraft.getMinecraft().thePlayer.inventory.currentItem =
+					oldSlot;
 				oldSlot = -1;
 			}
 			return;
@@ -106,7 +122,8 @@ public class NukerLegit extends Module
 		if(pos == null || !pos.equals(newPos))
 			currentDamage = 0;
 		pos = newPos;
-		currentBlock = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
+		currentBlock =
+			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
 		if(blockHitDelay > 0)
 		{
 			blockHitDelay--;
@@ -115,29 +132,47 @@ public class NukerLegit extends Module
 		BlockUtils.faceBlockClient(pos);
 		if(currentDamage == 0)
 		{
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.START_DESTROY_BLOCK, pos, side));
-			if(Client.wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled() && oldSlot == -1)
-				oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
-			if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode || currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos) >= 1)
+			Minecraft.getMinecraft().thePlayer.sendQueue
+				.addToSendQueue(new C07PacketPlayerDigging(
+					Action.START_DESTROY_BLOCK, pos, side));
+			if(Client.wurst.moduleManager.getModuleFromClass(AutoTool.class)
+				.getToggled() && oldSlot == -1)
+				oldSlot =
+					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
+			if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+				|| currentBlock.getPlayerRelativeBlockHardness(
+					Minecraft.getMinecraft().thePlayer,
+					Minecraft.getMinecraft().theWorld, pos) >= 1)
 			{
 				currentDamage = 0;
 				shouldRenderESP = true;
 				Minecraft.getMinecraft().thePlayer.swingItem();
-				Minecraft.getMinecraft().playerController.onPlayerDestroyBlock(pos, side);
+				Minecraft.getMinecraft().playerController.onPlayerDestroyBlock(
+					pos, side);
 				blockHitDelay = (byte)4;
 				return;
 			}
 		}
-		if(Client.wurst.moduleManager.getModuleFromClass(AutoTool.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(AutoTool.class)
+			.getToggled())
 			AutoTool.setSlot(pos);
-		Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
+		Minecraft.getMinecraft().thePlayer.sendQueue
+			.addToSendQueue(new C0APacketAnimation());
 		shouldRenderESP = true;
-		currentDamage += currentBlock.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, pos);
-		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(Minecraft.getMinecraft().thePlayer.getEntityId(), pos, (int)(currentDamage * 10.0F) - 1);
+		currentDamage +=
+			currentBlock.getPlayerRelativeBlockHardness(
+				Minecraft.getMinecraft().thePlayer,
+				Minecraft.getMinecraft().theWorld, pos);
+		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(
+			Minecraft.getMinecraft().thePlayer.getEntityId(), pos,
+			(int)(currentDamage * 10.0F) - 1);
 		if(currentDamage >= 1)
 		{
-			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(Action.STOP_DESTROY_BLOCK, pos, side));
-			Minecraft.getMinecraft().playerController.onPlayerDestroyBlock(pos, side);
+			Minecraft.getMinecraft().thePlayer.sendQueue
+				.addToSendQueue(new C07PacketPlayerDigging(
+					Action.STOP_DESTROY_BLOCK, pos, side));
+			Minecraft.getMinecraft().playerController.onPlayerDestroyBlock(pos,
+				side);
 			blockHitDelay = (byte)4;
 			currentDamage = 0;
 		}
@@ -161,30 +196,49 @@ public class NukerLegit extends Module
 	{
 		BlockPos closest = null;
 		float closestDistance = Nuker.yesCheatRange + 1;
-		for(int y = (int)Nuker.yesCheatRange; y >= (Client.wurst.options.nukerMode == 2 ? 0 : -Nuker.yesCheatRange); y--)
+		for(int y = (int)Nuker.yesCheatRange; y >= (Client.wurst.options.nukerMode == 2
+			? 0 : -Nuker.yesCheatRange); y--)
 			for(int x = (int)Nuker.yesCheatRange; x >= -Nuker.yesCheatRange - 1; x--)
 				for(int z = (int)Nuker.yesCheatRange; z >= -Nuker.yesCheatRange; z--)
 				{
 					if(Minecraft.getMinecraft().thePlayer == null)
 						continue;
-					int posX = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
-					int posY = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
-					int posZ = (int)(Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
+					int posX =
+						(int)(Math
+							.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
+					int posY =
+						(int)(Math
+							.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
+					int posZ =
+						(int)(Math
+							.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
 					BlockPos blockPos = new BlockPos(posX, posY, posZ);
-					Block block = Minecraft.getMinecraft().theWorld.getBlockState(blockPos).getBlock();
-					float xDiff = (float)(Minecraft.getMinecraft().thePlayer.posX - posX);
-					float yDiff = (float)(Minecraft.getMinecraft().thePlayer.posY - posY);
-					float zDiff = (float)(Minecraft.getMinecraft().thePlayer.posZ - posZ);
-					float currentDistance = BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
-					MovingObjectPosition fakeObjectMouseOver = Minecraft.getMinecraft().objectMouseOver;
+					Block block =
+						Minecraft.getMinecraft().theWorld.getBlockState(
+							blockPos).getBlock();
+					float xDiff =
+						(float)(Minecraft.getMinecraft().thePlayer.posX - posX);
+					float yDiff =
+						(float)(Minecraft.getMinecraft().thePlayer.posY - posY);
+					float zDiff =
+						(float)(Minecraft.getMinecraft().thePlayer.posZ - posZ);
+					float currentDistance =
+						BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
+					MovingObjectPosition fakeObjectMouseOver =
+						Minecraft.getMinecraft().objectMouseOver;
 					if(fakeObjectMouseOver == null)
 						continue;
 					fakeObjectMouseOver.setBlockPos(blockPos);
-					if(Block.getIdFromBlock(block) != 0 && posY >= 0 && currentDistance <= Nuker.yesCheatRange)
+					if(Block.getIdFromBlock(block) != 0 && posY >= 0
+						&& currentDistance <= Nuker.yesCheatRange)
 					{
-						if(Client.wurst.options.nukerMode == 1 && Block.getIdFromBlock(block) != Nuker.id)
+						if(Client.wurst.options.nukerMode == 1
+							&& Block.getIdFromBlock(block) != Nuker.id)
 							continue;
-						if(Client.wurst.options.nukerMode == 3 && block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer, Minecraft.getMinecraft().theWorld, blockPos) < 1)
+						if(Client.wurst.options.nukerMode == 3
+							&& block.getPlayerRelativeBlockHardness(
+								Minecraft.getMinecraft().thePlayer,
+								Minecraft.getMinecraft().theWorld, blockPos) < 1)
 							continue;
 						side = fakeObjectMouseOver.sideHit;
 						if(closest == null)

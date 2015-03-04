@@ -32,7 +32,8 @@ public class Enchant extends Command
 		}
 		if(args == null)
 		{
-			ItemStack currentItem = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
+			ItemStack currentItem =
+				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
 			if(currentItem == null)
 			{
 				Client.wurst.chat.error("There is no item in your hand.");
@@ -53,7 +54,9 @@ public class Enchant extends Command
 			int items = 0;
 			for(int i = 0; i < 40; i++)
 			{
-				ItemStack currentItem = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
+				ItemStack currentItem =
+					Minecraft.getMinecraft().thePlayer.inventory
+						.getStackInSlot(i);
 				if(currentItem == null)
 					continue;
 				items++;

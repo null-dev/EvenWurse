@@ -30,11 +30,16 @@ public class TacoCMD extends Module
 			Category.HIDDEN);
 	}
 	
-	private static final ResourceLocation tacoTexture1 = new ResourceLocation("wurst/dancingtaco1.png");
-	private static final ResourceLocation tacoTexture2 = new ResourceLocation("wurst/dancingtaco2.png");
-	private static final ResourceLocation tacoTexture3 = new ResourceLocation("wurst/dancingtaco3.png");
-	private static final ResourceLocation tacoTexture4 = new ResourceLocation("wurst/dancingtaco4.png");
-	private static final ResourceLocation[] tacoTextures = {tacoTexture1, tacoTexture2, tacoTexture3, tacoTexture4};
+	private static final ResourceLocation tacoTexture1 = new ResourceLocation(
+		"wurst/dancingtaco1.png");
+	private static final ResourceLocation tacoTexture2 = new ResourceLocation(
+		"wurst/dancingtaco2.png");
+	private static final ResourceLocation tacoTexture3 = new ResourceLocation(
+		"wurst/dancingtaco3.png");
+	private static final ResourceLocation tacoTexture4 = new ResourceLocation(
+		"wurst/dancingtaco4.png");
+	private static final ResourceLocation[] tacoTextures = {tacoTexture1,
+		tacoTexture2, tacoTexture3, tacoTexture4};
 	private int i = 0;
 	
 	@Override
@@ -48,17 +53,23 @@ public class TacoCMD extends Module
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		Tessellator var3 = Tessellator.getInstance();
 		WorldRenderer var4 = var3.getWorldRenderer();
-		ScaledResolution screenRes = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
+		ScaledResolution screenRes =
+			new ScaledResolution(Minecraft.getMinecraft(),
+				Minecraft.getMinecraft().displayWidth,
+				Minecraft.getMinecraft().displayHeight);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateMS();
-		if(Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).hasTimePassedM(400))
+		if(Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class)
+			.hasTimePassedM(400))
 		{
 			i++;
-			Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class).updateLastMS();
+			Client.wurst.moduleManager.getModuleFromClass(TacoCMD.class)
+				.updateLastMS();
 			if(i == 4)
 				i = 0;
 		}
-		Minecraft.getMinecraft().getTextureManager().bindTexture(tacoTextures[i]);
+		Minecraft.getMinecraft().getTextureManager()
+			.bindTexture(tacoTextures[i]);
 		double x = screenRes.getScaledWidth() / 2 - 32 + 76;
 		double y = screenRes.getScaledHeight() - 32 - 19;
 		double h = 32;
@@ -68,10 +79,14 @@ public class TacoCMD extends Module
 		double u = 0;
 		double v = 0;
 		var4.startDrawingQuads();
-		var4.addVertexWithUV(x + 0, y + h, 0, (float)(u + 0) * 0.00390625F, (float)(v + fh) * 0.00390625F);
-		var4.addVertexWithUV(x + w, y + h, 0, (float)(u + fw) * 0.00390625F, (float)(v + fh) * 0.00390625F);
-		var4.addVertexWithUV(x + w, y + 0, 0, (float)(u + fw) * 0.00390625F, (float)(v + 0) * 0.00390625F);
-		var4.addVertexWithUV(x + 0, y + 0, 0, (float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
+		var4.addVertexWithUV(x + 0, y + h, 0, (float)(u + 0) * 0.00390625F,
+			(float)(v + fh) * 0.00390625F);
+		var4.addVertexWithUV(x + w, y + h, 0, (float)(u + fw) * 0.00390625F,
+			(float)(v + fh) * 0.00390625F);
+		var4.addVertexWithUV(x + w, y + 0, 0, (float)(u + fw) * 0.00390625F,
+			(float)(v + 0) * 0.00390625F);
+		var4.addVertexWithUV(x + 0, y + 0, 0, (float)(u + 0) * 0.00390625F,
+			(float)(v + 0) * 0.00390625F);
 		var3.draw();
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);

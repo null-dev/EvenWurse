@@ -37,7 +37,8 @@ public class SimpleSliderUI extends AbstractComponentUI<Slider>
 		Rectangle area = component.getArea();
 		int fontSize = theme.getFontRenderer().FONT_HEIGHT;
 		FontRenderer fontRenderer = theme.getFontRenderer();
-		fontRenderer.drawString(component.getText(), 0, 0, RenderUtil.toRGBA(component.getForegroundColor()));
+		fontRenderer.drawString(component.getText(), 0, 0,
+			RenderUtil.toRGBA(component.getForegroundColor()));
 		String content = null;
 		switch(component.getValueDisplay())
 		{
@@ -45,10 +46,16 @@ public class SimpleSliderUI extends AbstractComponentUI<Slider>
 				content = String.format("%,.3f", component.getValue());
 				break;
 			case INTEGER:
-				content = String.format("%,d", Long.valueOf(Math.round(component.getValue())));
+				content =
+					String.format("%,d",
+						Long.valueOf(Math.round(component.getValue())));
 				break;
 			case PERCENTAGE:
-				int percent = (int)Math.round((component.getValue() - component.getMinimumValue()) / (component.getMaximumValue() - component.getMinimumValue()) * 100D);
+				int percent =
+					(int)Math.round((component.getValue() - component
+						.getMinimumValue())
+						/ (component.getMaximumValue() - component
+							.getMinimumValue()) * 100D);
 				content = String.format("%d%%", percent);
 			default:
 		}
@@ -57,7 +64,9 @@ public class SimpleSliderUI extends AbstractComponentUI<Slider>
 			String suffix = component.getContentSuffix();
 			if(suffix != null && !suffix.trim().isEmpty())
 				content = content.concat(" ").concat(suffix);
-			fontRenderer.drawString(content, component.getWidth() - fontRenderer.getStringWidth(content), 0, RenderUtil.toRGBA(component.getForegroundColor()));
+			fontRenderer.drawString(content, component.getWidth()
+				- fontRenderer.getStringWidth(content), 0,
+				RenderUtil.toRGBA(component.getForegroundColor()));
 		}
 		glDisable(GL_TEXTURE_2D);
 		
@@ -72,7 +81,9 @@ public class SimpleSliderUI extends AbstractComponentUI<Slider>
 		}
 		glEnd();
 		
-		double sliderPercentage = (component.getValue() - component.getMinimumValue()) / (component.getMaximumValue() - component.getMinimumValue());
+		double sliderPercentage =
+			(component.getValue() - component.getMinimumValue())
+				/ (component.getMaximumValue() - component.getMinimumValue());
 		RenderUtil.setColor(component.getForegroundColor());
 		glBegin(GL_QUADS);
 		{
@@ -96,13 +107,17 @@ public class SimpleSliderUI extends AbstractComponentUI<Slider>
 	@Override
 	protected Rectangle[] getInteractableComponentRegions(Slider component)
 	{
-		return new Rectangle[]{new Rectangle(0, theme.getFontRenderer().FONT_HEIGHT + 2, component.getWidth(), component.getHeight() - theme.getFontRenderer().FONT_HEIGHT)};
+		return new Rectangle[]{new Rectangle(0,
+			theme.getFontRenderer().FONT_HEIGHT + 2, component.getWidth(),
+			component.getHeight() - theme.getFontRenderer().FONT_HEIGHT)};
 	}
 	
 	@Override
-	protected void handleComponentInteraction(Slider component, Point location, int button)
+	protected void handleComponentInteraction(Slider component, Point location,
+		int button)
 	{
-		if(getInteractableComponentRegions(component)[0].contains(location) && button == 0)
+		if(getInteractableComponentRegions(component)[0].contains(location)
+			&& button == 0)
 			if(Mouse.isButtonDown(button) && !component.isValueChanging())
 				component.setValueChanging(true);
 			else if(!Mouse.isButtonDown(button) && component.isValueChanging())
@@ -124,7 +139,11 @@ public class SimpleSliderUI extends AbstractComponentUI<Slider>
 			if(parent != null)
 				mouse.translate(-parent.getX(), -parent.getY());
 			double percent = (double)mouse.x / (double)component.getWidth();
-			double value = component.getMinimumValue() + percent * (component.getMaximumValue() - component.getMinimumValue());
+			double value =
+				component.getMinimumValue()
+					+ percent
+					* (component.getMaximumValue() - component
+						.getMinimumValue());
 			component.setValue(value);
 		}
 	}

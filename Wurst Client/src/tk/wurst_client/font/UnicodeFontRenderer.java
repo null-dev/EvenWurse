@@ -24,10 +24,13 @@ public class UnicodeFontRenderer extends FontRenderer
 	
 	public UnicodeFontRenderer(Font awtFont)
 	{
-		super(Minecraft.getMinecraft().gameSettings, new ResourceLocation("textures/font/ascii.png"), Minecraft.getMinecraft().getTextureManager(), false);
+		super(Minecraft.getMinecraft().gameSettings, new ResourceLocation(
+			"textures/font/ascii.png"), Minecraft.getMinecraft()
+			.getTextureManager(), false);
 		
 		font = new TrueTypeFont(awtFont, false);
-		String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+		String alphabet =
+			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 		FONT_HEIGHT = font.getHeight(alphabet) / 2;
 	}
 	

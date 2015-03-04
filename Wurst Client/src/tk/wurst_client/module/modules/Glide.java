@@ -28,11 +28,17 @@ public class Glide extends Module
 	{
 		if(!getToggled())
 			return;
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class).getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
-		}else if(Minecraft.getMinecraft().thePlayer.motionY < 0 && Minecraft.getMinecraft().thePlayer.isAirBorne && !Minecraft.getMinecraft().thePlayer.isInWater() && !Minecraft.getMinecraft().thePlayer.isOnLadder() && !Minecraft.getMinecraft().thePlayer.isInsideOfMaterial(Material.lava))
+		}else if(Minecraft.getMinecraft().thePlayer.motionY < 0
+			&& Minecraft.getMinecraft().thePlayer.isAirBorne
+			&& !Minecraft.getMinecraft().thePlayer.isInWater()
+			&& !Minecraft.getMinecraft().thePlayer.isOnLadder()
+			&& !Minecraft.getMinecraft().thePlayer
+				.isInsideOfMaterial(Material.lava))
 		{
 			Minecraft.getMinecraft().thePlayer.motionY = -0.125f;
 			Minecraft.getMinecraft().thePlayer.jumpMovementFactor *= 1.21337f;

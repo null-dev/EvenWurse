@@ -43,7 +43,8 @@ import com.google.gson.JsonParser;
 
 public class FileManager
 {
-	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
+	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir,
+		"wurst");
 	public final File autobuildDir = new File(wurstDir, "autobuild");
 	public final File skinDir = new File(wurstDir, "skins");
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
@@ -57,7 +58,8 @@ public class FileManager
 	public final File keybinds = new File(wurstDir, "keybinds.json");
 	public final File sliders = new File(wurstDir, "sliders.json");
 	public final File options = new File(wurstDir, "options.json");
-	public final File autoMaximize = new File(Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
+	public final File autoMaximize = new File(
+		Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
 	public final File xray = new File(wurstDir, "xray.json");
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	
@@ -106,7 +108,7 @@ public class FileManager
 			createDefaultAutoBuildTemplates();
 		loadAutoBuildTemplates();
 	}
-
+	
 	public void saveGUI(Frame[] frames)
 	{
 		try
@@ -126,7 +128,7 @@ public class FileManager
 			save.println(gson.toJson(json));
 			save.close();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -138,7 +140,8 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(gui));
 			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			Iterator<Entry<String, JsonElement>> itr =
+				json.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
@@ -146,7 +149,8 @@ public class FileManager
 					if(frame.getTitle().equals(entry.getKey()))
 					{
 						JsonObject jsonFrame = (JsonObject)entry.getValue();
-						frame.setMinimized(jsonFrame.get("minimized").getAsBoolean());
+						frame.setMinimized(jsonFrame.get("minimized")
+							.getAsBoolean());
 						frame.setPinned(jsonFrame.get("pinned").getAsBoolean());
 						frame.setX(jsonFrame.get("posX").getAsInt());
 						frame.setY(jsonFrame.get("posY").getAsInt());
@@ -154,7 +158,7 @@ public class FileManager
 				
 			}
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -174,7 +178,7 @@ public class FileManager
 			save.println(gson.toJson(json));
 			save.close();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -206,15 +210,18 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(modules));
 			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			Iterator<Entry<String, JsonElement>> itr =
+				json.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Module module = Client.wurst.moduleManager.getModuleByName(entry.getKey());
+				Module module =
+					Client.wurst.moduleManager.getModuleByName(entry.getKey());
 				if(module != null
 					&& module.getCategory() != Category.HIDDEN
 					&& module.getCategory() != Category.WIP
-					&& !Arrays.asList(moduleBlacklist).contains(module.getClass().getName()))
+					&& !Arrays.asList(moduleBlacklist).contains(
+						module.getClass().getName()))
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
 					boolean enabled = jsonModule.get("enabled").getAsBoolean();
@@ -223,7 +230,7 @@ public class FileManager
 				}
 			}
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -233,7 +240,8 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			Iterator<Entry<String, String>> itr = Client.wurst.keybinds.entrySet().iterator();
+			Iterator<Entry<String, String>> itr =
+				Client.wurst.keybinds.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, String> entry = itr.next();
@@ -243,7 +251,7 @@ public class FileManager
 			save.println(gson.toJson(json));
 			save.close();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -256,14 +264,16 @@ public class FileManager
 			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
 			Client.wurst.keybinds.clear();
-			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			Iterator<Entry<String, JsonElement>> itr =
+				json.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Client.wurst.keybinds.put(entry.getKey(), entry.getValue().getAsString());
+				Client.wurst.keybinds.put(entry.getKey(), entry.getValue()
+					.getAsString());
 			}
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -276,7 +286,7 @@ public class FileManager
 			save.println(gson.toJson(Client.wurst.options));
 			save.close();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -289,7 +299,7 @@ public class FileManager
 			Client.wurst.options = gson.fromJson(load, Options.class);
 			load.close();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -301,8 +311,10 @@ public class FileManager
 			saveAutoMaximize(true);
 		try
 		{
-			BufferedReader load = new BufferedReader(new FileReader(autoMaximize));
-			autoMaximizeEnabled = gson.fromJson(load, Boolean.class) && !Minecraft.isRunningOnMac;
+			BufferedReader load =
+				new BufferedReader(new FileReader(autoMaximize));
+			autoMaximizeEnabled =
+				gson.fromJson(load, Boolean.class) && !Minecraft.isRunningOnMac;
 			load.close();
 		}catch(Exception e)
 		{
@@ -337,14 +349,17 @@ public class FileManager
 					continue;
 				JsonObject jsonModule = new JsonObject();
 				for(BasicSlider slider : module.getSliders())
-					jsonModule.addProperty(slider.getText(), (double)(Math.round(slider.getValue() / slider.getIncrement()) * 1000000 * (long)(slider.getIncrement() * 1000000)) / 1000000 / 1000000);
+					jsonModule.addProperty(slider.getText(),
+						(double)(Math.round(slider.getValue()
+							/ slider.getIncrement()) * 1000000 * (long)(slider
+							.getIncrement() * 1000000)) / 1000000 / 1000000);
 				json.add(module.getName(), jsonModule);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(sliders));
 			save.println(gson.toJson(json));
 			save.close();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -356,26 +371,29 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(sliders));
 			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			Iterator<Entry<String, JsonElement>> itr =
+				json.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Module module = Client.wurst.moduleManager.getModuleByName(entry.getKey());
+				Module module =
+					Client.wurst.moduleManager.getModuleByName(entry.getKey());
 				if(module != null)
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
 					for(BasicSlider slider : module.getSliders())
 						try
 						{
-							slider.setValue(jsonModule.get(slider.getText()).getAsDouble());
+							slider.setValue(jsonModule.get(slider.getText())
+								.getAsDouble());
 						}catch(Exception e)
-						{	
+						{
 							e.printStackTrace();
 						}
 				}
 			}
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -394,9 +412,10 @@ public class FileManager
 				jsonAlt.addProperty("starred", alt.isStarred());
 				json.add(alt.getEmail(), jsonAlt);
 			}
-			Files.write(alts.toPath(), Encryption.encrypt(gson.toJson(json)).getBytes(Encryption.CHARSET));
+			Files.write(alts.toPath(), Encryption.encrypt(gson.toJson(json))
+				.getBytes(Encryption.CHARSET));
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -405,27 +424,39 @@ public class FileManager
 	{
 		try
 		{
-			JsonObject json = (JsonObject)new JsonParser().parse(Encryption.decrypt(new String(
-				Files.readAllBytes(alts.toPath()), Encryption.CHARSET)));
+			JsonObject json =
+				(JsonObject)new JsonParser()
+					.parse(Encryption.decrypt(new String(
+						Files.readAllBytes(alts.toPath()), Encryption.CHARSET)));
 			GuiAltList.alts.clear();
-			Iterator<Entry<String, JsonElement>> itr = json.entrySet().iterator();
+			Iterator<Entry<String, JsonElement>> itr =
+				json.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				JsonObject jsonAlt = entry.getValue().getAsJsonObject();
 				String email = entry.getKey();
-				String name = jsonAlt.get("name") == null ? "" : jsonAlt.get("name").getAsString();
-				String password = jsonAlt.get("password") == null ? "" : jsonAlt.get("password").getAsString();
-				boolean cracked = jsonAlt.get("cracked") == null ? true : jsonAlt.get("cracked").getAsBoolean();
-				boolean starred = jsonAlt.get("starred") == null ? false : jsonAlt.get("starred").getAsBoolean();
+				String name =
+					jsonAlt.get("name") == null ? "" : jsonAlt.get("name")
+						.getAsString();
+				String password =
+					jsonAlt.get("password") == null ? "" : jsonAlt.get(
+						"password").getAsString();
+				boolean cracked =
+					jsonAlt.get("cracked") == null ? true : jsonAlt.get(
+						"cracked").getAsBoolean();
+				boolean starred =
+					jsonAlt.get("starred") == null ? false : jsonAlt.get(
+						"starred").getAsBoolean();
 				if(cracked)
 					GuiAltList.alts.add(new Alt(email, starred));
 				else
-					GuiAltList.alts.add(new Alt(email, name, password, starred));
+					GuiAltList.alts
+						.add(new Alt(email, name, password, starred));
 			}
 			GuiAltList.sortAlts();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -439,7 +470,7 @@ public class FileManager
 			save.println(gson.toJson(Client.wurst.friends));
 			save.close();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -453,7 +484,7 @@ public class FileManager
 			load.close();
 			Client.wurst.friends.sort();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -465,12 +496,13 @@ public class FileManager
 			XRayUtils.sortBlocks();
 			JsonArray json = new JsonArray();
 			for(int i = 0; i < XRay.xrayBlocks.size(); i++)
-				json.add(gson.toJsonTree(Block.getIdFromBlock(XRay.xrayBlocks.get(i))));
+				json.add(gson.toJsonTree(Block.getIdFromBlock(XRay.xrayBlocks
+					.get(i))));
 			PrintWriter save = new PrintWriter(new FileWriter(xray));
 			save.println(gson.toJson(json));
 			save.close();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -489,12 +521,12 @@ public class FileManager
 					String jsonBlock = itr.next().getAsString();
 					XRay.xrayBlocks.add(Block.getBlockFromName(jsonBlock));
 				}catch(Exception e)
-				{	
+				{
 					e.printStackTrace();
 				}
 			XRayUtils.sortBlocks();
 		}catch(Exception e)
-		{	
+		{
 			e.printStackTrace();
 		}
 	}
@@ -504,20 +536,24 @@ public class FileManager
 		try
 		{
 			String[] comment =
-			{
-				"Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.",
-				"This Source Code Form is subject to the terms of the Mozilla Public",
-				"License, v. 2.0. If a copy of the MPL was not distributed with this",
-				"file, You can obtain one at http://mozilla.org/MPL/2.0/."
-			};
-			Iterator<Entry<String, int[][]>> itr = new DefaultAutoBuildTemplates().entrySet().iterator();
+				{
+					"Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.",
+					"This Source Code Form is subject to the terms of the Mozilla Public",
+					"License, v. 2.0. If a copy of the MPL was not distributed with this",
+					"file, You can obtain one at http://mozilla.org/MPL/2.0/."
+				};
+			Iterator<Entry<String, int[][]>> itr =
+				new DefaultAutoBuildTemplates().entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, int[][]> entry = itr.next();
 				JsonObject json = new JsonObject();
 				json.add("__comment", gson.toJsonTree(comment, String[].class));
-				json.add("blocks", gson.toJsonTree(entry.getValue(), int[][].class));
-				PrintWriter save = new PrintWriter(new FileWriter(new File(autobuildDir, entry.getKey() + ".json")));
+				json.add("blocks",
+					gson.toJsonTree(entry.getValue(), int[][].class));
+				PrintWriter save =
+					new PrintWriter(new FileWriter(new File(autobuildDir,
+						entry.getKey() + ".json")));
 				save.println(gson.toJson(json));
 				save.close();
 			}
@@ -536,8 +572,10 @@ public class FileManager
 				BufferedReader load = new BufferedReader(new FileReader(file));
 				JsonObject json = (JsonObject)new JsonParser().parse(load);
 				load.close();
-				AutoBuild.templates.add(gson.fromJson(json.get("blocks"), int[][].class));
-				AutoBuild.names.add(file.getName().substring(0, file.getName().indexOf(".json")));
+				AutoBuild.templates.add(gson.fromJson(json.get("blocks"),
+					int[][].class));
+				AutoBuild.names.add(file.getName().substring(0,
+					file.getName().indexOf(".json")));
 			}
 		}catch(Exception e)
 		{

@@ -35,7 +35,9 @@ public class SpamProcessor
 			@Override
 			public void run()
 			{
-				File file = new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam");
+				File file =
+					new File(Client.wurst.fileManager.scriptsDir, filename
+						+ ".wspam");
 				try
 				{
 					long startTime = System.currentTimeMillis();
@@ -49,7 +51,9 @@ public class SpamProcessor
 						file.getParentFile().mkdirs();
 					if(!file.exists())
 					{
-						PrintWriter save = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+						PrintWriter save =
+							new PrintWriter(new OutputStreamWriter(
+								new FileOutputStream(file), "UTF-8"));
 						save.println("<!--");
 						for(String line : description.split("\n"))
 							save.println("  " + line);
@@ -62,10 +66,13 @@ public class SpamProcessor
 					e.printStackTrace();
 					StringWriter tracewriter = new StringWriter();
 					e.printStackTrace(new PrintWriter(tracewriter));
-					String message = "An error occurred while running " + file.getName() + ":\n"
-						+ e.getLocalizedMessage() + "\n"
-						+ tracewriter.toString();
-					JOptionPane.showMessageDialog(Minecraft.getMinecraft().getFrame(),
+					String message =
+						"An error occurred while running " + file.getName()
+							+ ":\n"
+							+ e.getLocalizedMessage() + "\n"
+							+ tracewriter.toString();
+					JOptionPane.showMessageDialog(Minecraft.getMinecraft()
+						.getFrame(),
 						message, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -74,7 +81,8 @@ public class SpamProcessor
 	
 	public static boolean runSpam(final String filename)
 	{
-		final File file = new File(Client.wurst.fileManager.spamDir, filename + ".wspam");
+		final File file =
+			new File(Client.wurst.fileManager.spamDir, filename + ".wspam");
 		if(!file.exists())
 			return false;
 		new Thread(new Runnable()
@@ -97,20 +105,25 @@ public class SpamProcessor
 					e.printStackTrace();
 					StringWriter tracewriter = new StringWriter();
 					e.printStackTrace(new PrintWriter(tracewriter));
-					String message = "An error occurred while running " + file.getName() + ":\n"
-						+ e.getLocalizedMessage() + "\n"
-						+ tracewriter.toString();
-					JOptionPane.showMessageDialog(Minecraft.getMinecraft().getFrame(),
+					String message =
+						"An error occurred while running " + file.getName()
+							+ ":\n"
+							+ e.getLocalizedMessage() + "\n"
+							+ tracewriter.toString();
+					JOptionPane.showMessageDialog(Minecraft.getMinecraft()
+						.getFrame(),
 						message, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}).start();
 		return true;
 	}
-
+	
 	private static void runFile(File file) throws Exception
 	{
-		BufferedReader load = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+		BufferedReader load =
+			new BufferedReader(new InputStreamReader(new FileInputStream(file),
+				"UTF-8"));
 		String content = load.readLine();
 		for(String line = ""; (line = load.readLine()) != null;)
 			content += "\n" + line;
@@ -125,7 +138,7 @@ public class SpamProcessor
 			Thread.sleep(Client.wurst.options.spamDelay);
 		}
 	}
-
+	
 	public static String process(String spam, Spammer spammer, boolean test)
 	{
 		try
@@ -146,7 +159,8 @@ public class SpamProcessor
 				log("** Processing tag...");
 				int tagStart = spam.indexOf("<");
 				log("TagStart: " + tagStart);
-				int tagLine = MiscUtils.countMatches(spam.substring(0, tagStart), "\n");
+				int tagLine =
+					MiscUtils.countMatches(spam.substring(0, tagStart), "\n");
 				log("TagLine: " + tagLine);
 				String tag;
 				String tagName = null;
@@ -156,13 +170,16 @@ public class SpamProcessor
 					tagName = tag.substring(1, tag.indexOf(">")).split(" ")[0];
 				}catch(StringIndexOutOfBoundsException e1)
 				{
-					throw new UnreadableTagException(source.substring(tagStart), tagLine);
+					throw new UnreadableTagException(
+						source.substring(tagStart), tagLine);
 				}
 				log("TagName: " + tagName);
 				String[] tagArgs;
 				try
 				{
-					tagArgs = tag.substring(tagName.length() + 2, tag.indexOf(">")).split(" ");
+					tagArgs =
+						tag.substring(tagName.length() + 2, tag.indexOf(">"))
+							.split(" ");
 				}catch(StringIndexOutOfBoundsException e)
 				{
 					tagArgs = new String[0];
@@ -178,8 +195,12 @@ public class SpamProcessor
 				log("+ Calculating TagLength...");
 				while(tmpTag.contains("<"))
 				{
-					log("Found subtag: " + tmpTag.substring(tmpTag.indexOf("<"), tmpTag.indexOf("<") + 2) + " at " + tmpTag.indexOf("<"));
-					if(tmpTag.substring(tmpTag.indexOf("<") + 1, tmpTag.indexOf("<") + 2).equals("/"))
+					log("Found subtag: "
+						+ tmpTag.substring(tmpTag.indexOf("<"),
+							tmpTag.indexOf("<") + 2) + " at "
+						+ tmpTag.indexOf("<"));
+					if(tmpTag.substring(tmpTag.indexOf("<") + 1,
+						tmpTag.indexOf("<") + 2).equals("/"))
 						tmpSubTags--;
 					else
 						tmpSubTags++;
@@ -198,14 +219,27 @@ public class SpamProcessor
 				log("TagLength: " + tagLength);
 				tag = tag.substring(0, tagLength);
 				log("Raw Tag:\n" + tag);
-				String tagContent = tag.substring(tag.indexOf(">") + 1, tagContentLength);
+				String tagContent =
+					tag.substring(tag.indexOf(">") + 1, tagContentLength);
 				log("TagContent: " + tagContent);
-				TagData tagData = new TagData(tagStart, tagLength, tagLine, tagName, tagArgs, tagClosed, tag, tagContent, tagContentLength, spam);
+				TagData tagData =
+					new TagData(tagStart, tagLength, tagLine, tagName, tagArgs,
+						tagClosed, tag, tagContent, tagContentLength, spam);
 				String tagReplacement = tagManager.process(tagData);
 				if(test)
-					spam = spam.substring(0, tagStart) + (tagClosed ? tag.replaceFirst("<", "#").replaceFirst("(?s)(.*)<", "$1#") : tag.replaceFirst("<", "#")) + spam.substring(tagStart + tagLength, spam.length());
+					spam =
+						spam.substring(0, tagStart)
+							+ (tagClosed ? tag.replaceFirst("<", "#")
+								.replaceFirst("(?s)(.*)<", "$1#") : tag
+								.replaceFirst("<", "#"))
+							+ spam.substring(tagStart + tagLength,
+								spam.length());
 				else
-					spam = spam.substring(0, tagStart) + tagReplacement + spam.substring(tagStart + tagLength, spam.length());
+					spam =
+						spam.substring(0, tagStart)
+							+ tagReplacement
+							+ spam.substring(tagStart + tagLength,
+								spam.length());
 				log("** Processed tag:\n" + spam);
 			}
 			log("### Processing variables...");
@@ -214,7 +248,8 @@ public class SpamProcessor
 				log("** Processing variable...");
 				int varStart = spam.indexOf("§");
 				log("VarStart: " + varStart);
-				int varLine = MiscUtils.countMatches(spam.substring(0, varStart), "\n");
+				int varLine =
+					MiscUtils.countMatches(spam.substring(0, varStart), "\n");
 				log("VarLine: " + varLine);
 				int varEnd = spam.indexOf(";", varStart) + 1;
 				log("VarEnd: " + varEnd);
@@ -226,7 +261,8 @@ public class SpamProcessor
 					var = spam.substring(varStart, varEnd);
 				}catch(Exception e)
 				{
-					throw new UnreadableVariableException(source.substring(varStart), varLine);
+					throw new UnreadableVariableException(
+						source.substring(varStart), varLine);
 				}
 				log("Var: " + var);
 				String varName = spam.substring(varStart + 1, varEnd - 1);
@@ -236,9 +272,13 @@ public class SpamProcessor
 				if(varReplacement == null)
 					throw new InvalidVariableException(varName, varLine);
 				if(test)
-					spam = spam.substring(0, varStart) + var.replace("§", "*") + spam.substring(varEnd, spam.length());
+					spam =
+						spam.substring(0, varStart) + var.replace("§", "*")
+							+ spam.substring(varEnd, spam.length());
 				else
-					spam = spam.substring(0, varStart) + varReplacement + spam.substring(varEnd, spam.length());
+					spam =
+						spam.substring(0, varStart) + varReplacement
+							+ spam.substring(varEnd, spam.length());
 			}
 			log("### Final Spam:\n" + spam);
 		}catch(SpamException e)
@@ -250,8 +290,12 @@ public class SpamProcessor
 				e.printStackTrace();
 				return null;
 			}
-			String message = e.getClass().getSimpleName() + " at line " + (e.line + 1) + ":\n" + e.getMessage();
-			switch(JOptionPane.showOptionDialog(spammer.getDialog(), message, "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null, new String[]{"Go to line", "Show help"}, 0))
+			String message =
+				e.getClass().getSimpleName() + " at line " + (e.line + 1)
+					+ ":\n" + e.getMessage();
+			switch(JOptionPane.showOptionDialog(spammer.getDialog(), message,
+				"Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
+				null, new String[]{"Go to line", "Show help"}, 0))
 			{
 				case 0:
 					spammer.goToLine(e.line);
@@ -259,7 +303,10 @@ public class SpamProcessor
 				case 1:
 					try
 					{
-						JOptionPane.showOptionDialog(spammer.getDialog(), e.getHelp(), "Help", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"OK"}, 0);
+						JOptionPane.showOptionDialog(spammer.getDialog(),
+							e.getHelp(), "Help", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE, null,
+							new String[]{"OK"}, 0);
 					}catch(HeadlessException e1)
 					{
 						e1.printStackTrace();

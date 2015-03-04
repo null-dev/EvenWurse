@@ -32,7 +32,8 @@ public class MileyCyrus extends Module
 		updateMS();
 		if(hasTimePassedS(speed))
 		{
-			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = shouldSneak;
+			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed =
+				shouldSneak;
 			shouldSneak = !shouldSneak;
 			updateLastMS();
 		}

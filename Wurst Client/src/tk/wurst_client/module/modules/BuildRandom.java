@@ -34,13 +34,16 @@ public class BuildRandom extends Module
 	public void onUpdate()
 	{
 		if(!getToggled()
-			|| Client.wurst.moduleManager.getModuleFromClass(Freecam.class).getToggled()
-			|| Client.wurst.moduleManager.getModuleFromClass(RemoteView.class).getToggled()
+			|| Client.wurst.moduleManager.getModuleFromClass(Freecam.class)
+				.getToggled()
+			|| Client.wurst.moduleManager.getModuleFromClass(RemoteView.class)
+				.getToggled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		if(Minecraft.getMinecraft().rightClickDelayTimer > 0
-			&& !Client.wurst.moduleManager.getModuleFromClass(FastPlace.class).getToggled())
+			&& !Client.wurst.moduleManager.getModuleFromClass(FastPlace.class)
+				.getToggled())
 			return;
 		float xDiff = 0;
 		float yDiff = 0;
@@ -52,7 +55,15 @@ public class BuildRandom extends Module
 			for(int x = (int)range; x >= -range - 1; x--)
 			{
 				for(int z = (int)range; z >= -range; z--)
-					if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(new BlockPos((int)(x + Minecraft.getMinecraft().thePlayer.posX), (int)(y + Minecraft.getMinecraft().thePlayer.posY), (int)(z + Minecraft.getMinecraft().thePlayer.posZ))).getBlock()) != 0 && BlockUtils.getBlockDistance(x, y, z) <= range)
+					if(Block
+						.getIdFromBlock(Minecraft.getMinecraft().theWorld
+							.getBlockState(
+								new BlockPos(
+									(int)(x + Minecraft.getMinecraft().thePlayer.posX),
+									(int)(y + Minecraft.getMinecraft().thePlayer.posY),
+									(int)(z + Minecraft.getMinecraft().thePlayer.posZ)))
+							.getBlock()) != 0
+						&& BlockUtils.getBlockDistance(x, y, z) <= range)
 					{
 						hasBlocks = true;
 						break;
@@ -66,31 +77,43 @@ public class BuildRandom extends Module
 		if(!hasBlocks)
 			return;
 		BlockPos randomPos = null;
-		while(distance > range || distance < -range || randomPos == null || Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(randomPos).getBlock()) == 0)
+		while(distance > range
+			|| distance < -range
+			|| randomPos == null
+			|| Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+				.getBlockState(randomPos).getBlock()) == 0)
 		{
 			xDiff = (int)(Math.random() * range * 2 - range - 1);
 			yDiff = (int)(Math.random() * range * 2 - range);
 			zDiff = (int)(Math.random() * range * 2 - range);
 			distance = BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
-			int randomPosX = (int)(xDiff + Minecraft.getMinecraft().thePlayer.posX);
-			int randomPosY = (int)(yDiff + Minecraft.getMinecraft().thePlayer.posY);
-			int randomPosZ = (int)(zDiff + Minecraft.getMinecraft().thePlayer.posZ);
+			int randomPosX =
+				(int)(xDiff + Minecraft.getMinecraft().thePlayer.posX);
+			int randomPosY =
+				(int)(yDiff + Minecraft.getMinecraft().thePlayer.posY);
+			int randomPosZ =
+				(int)(zDiff + Minecraft.getMinecraft().thePlayer.posZ);
 			randomPos = new BlockPos(randomPosX, randomPosY, randomPosZ);
 		}
-		MovingObjectPosition fakeObjectMouseOver = Minecraft.getMinecraft().objectMouseOver;
+		MovingObjectPosition fakeObjectMouseOver =
+			Minecraft.getMinecraft().objectMouseOver;
 		if(fakeObjectMouseOver == null || randomPos == null)
 			return;
 		fakeObjectMouseOver.setBlockPos(randomPos);
 		BlockUtils.faceBlockPacket(randomPos);
 		Minecraft.getMinecraft().thePlayer.swingItem();
-		Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement
+		Minecraft.getMinecraft().thePlayer.sendQueue
+			.addToSendQueue(new C08PacketPlayerBlockPlacement
 			(
 				randomPos,
 				fakeObjectMouseOver.sideHit.getIndex(),
 				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem(),
-				(float)fakeObjectMouseOver.hitVec.xCoord - fakeObjectMouseOver.getBlockPos().getX(),
-				(float)fakeObjectMouseOver.hitVec.yCoord - fakeObjectMouseOver.getBlockPos().getY(),
-				(float)fakeObjectMouseOver.hitVec.zCoord - fakeObjectMouseOver.getBlockPos().getZ()
+				(float)fakeObjectMouseOver.hitVec.xCoord
+					- fakeObjectMouseOver.getBlockPos().getX(),
+				(float)fakeObjectMouseOver.hitVec.yCoord
+					- fakeObjectMouseOver.getBlockPos().getY(),
+				(float)fakeObjectMouseOver.hitVec.zCoord
+					- fakeObjectMouseOver.getBlockPos().getZ()
 			));
 	}
 }

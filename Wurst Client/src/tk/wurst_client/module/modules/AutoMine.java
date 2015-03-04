@@ -35,11 +35,15 @@ public class AutoMine extends Module
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
-		if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos()).getBlock()) != 0)
+		if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+			.getBlockState(
+				Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+			.getBlock()) != 0)
 			Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = true;
 		else
 			Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
-		System.out.println(Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed);
+		System.out
+			.println(Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed);
 	}
 	
 	@Override

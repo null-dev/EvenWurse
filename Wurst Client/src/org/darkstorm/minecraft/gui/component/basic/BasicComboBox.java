@@ -79,7 +79,8 @@ public class BasicComboBox extends AbstractComponent implements ComboBox
 			if(listener instanceof SelectableComponentListener)
 				try
 				{
-					((SelectableComponentListener)listener).onSelectedStateChanged(this);
+					((SelectableComponentListener)listener)
+						.onSelectedStateChanged(this);
 				}catch(Exception exception)
 				{
 					exception.printStackTrace();
@@ -99,13 +100,15 @@ public class BasicComboBox extends AbstractComponent implements ComboBox
 	}
 	
 	@Override
-	public void addSelectableComponentListener(SelectableComponentListener listener)
+	public void addSelectableComponentListener(
+		SelectableComponentListener listener)
 	{
 		addListener(listener);
 	}
 	
 	@Override
-	public void removeSelectableComponentListener(SelectableComponentListener listener)
+	public void removeSelectableComponentListener(
+		SelectableComponentListener listener)
 	{
 		removeListener(listener);
 	}

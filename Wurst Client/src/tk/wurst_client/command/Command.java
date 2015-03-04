@@ -34,7 +34,8 @@ public class Command
 	public void commandError()
 	{
 		Client.wurst.chat.error("Something went wrong.");
-		Client.wurst.chat.message("If you need help, type \".help " + commandName + "\".");
+		Client.wurst.chat.message("If you need help, type \".help "
+			+ commandName + "\".");
 	}
 	
 	public void onEnable(String input, String[] args)

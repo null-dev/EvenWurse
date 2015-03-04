@@ -66,14 +66,17 @@ public class Spammer extends Module
 			@Override
 			public void run()
 			{
-				dialog = new JDialog((JFrame)null, Spammer.this.getName(), false);
-				dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				dialog =
+					new JDialog((JFrame)null, Spammer.this.getName(), false);
+				dialog
+					.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 				dialog.addWindowListener(new WindowAdapter()
 				{
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						Client.wurst.moduleManager.getModuleFromClass(Spammer.class).setToggled(false);
+						Client.wurst.moduleManager.getModuleFromClass(
+							Spammer.class).setToggled(false);
 					}
 				});
 				JPanel panel = new JPanel();
@@ -88,27 +91,38 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						JFileChooser fileChooser = new JFileChooser(Client.wurst.fileManager.spamDir)
-						{
-							@Override
-							protected JDialog createDialog(Component parent) throws HeadlessException
+						JFileChooser fileChooser =
+							new JFileChooser(Client.wurst.fileManager.spamDir)
 							{
-								JDialog dialog = super.createDialog(parent);
-								dialog.setAlwaysOnTop(true);
-								return dialog;
-							}
-						};
-						fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+								@Override
+								protected JDialog createDialog(Component parent)
+									throws HeadlessException
+								{
+									JDialog dialog = super.createDialog(parent);
+									dialog.setAlwaysOnTop(true);
+									return dialog;
+								}
+							};
+						fileChooser
+							.setFileSelectionMode(JFileChooser.FILES_ONLY);
 						fileChooser.setAcceptAllFileFilterUsed(false);
-						fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("All supported files", "wspam", "txt"));
-						fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("WSPAM files", "wspam"));
-						fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("TXT files", "txt"));
+						fileChooser
+							.addChoosableFileFilter(new FileNameExtensionFilter(
+								"All supported files", "wspam", "txt"));
+						fileChooser
+							.addChoosableFileFilter(new FileNameExtensionFilter(
+								"WSPAM files", "wspam"));
+						fileChooser
+							.addChoosableFileFilter(new FileNameExtensionFilter(
+								"TXT files", "txt"));
 						int action = fileChooser.showOpenDialog(dialog);
 						if(action == JFileChooser.APPROVE_OPTION)
 							try
 							{
 								File file = fileChooser.getSelectedFile();
-								BufferedReader load = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+								BufferedReader load =
+									new BufferedReader(new InputStreamReader(
+										new FileInputStream(file), "UTF-8"));
 								String newspam = load.readLine();
 								for(String line = ""; (line = load.readLine()) != null;)
 									newspam += "\n" + line;
@@ -129,19 +143,24 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						JFileChooser fileChooser = new JFileChooser(Client.wurst.fileManager.spamDir)
-						{
-							@Override
-							protected JDialog createDialog(Component parent) throws HeadlessException
+						JFileChooser fileChooser =
+							new JFileChooser(Client.wurst.fileManager.spamDir)
 							{
-								JDialog dialog = super.createDialog(parent);
-								dialog.setAlwaysOnTop(true);
-								return dialog;
-							}
-						};
-						fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+								@Override
+								protected JDialog createDialog(Component parent)
+									throws HeadlessException
+								{
+									JDialog dialog = super.createDialog(parent);
+									dialog.setAlwaysOnTop(true);
+									return dialog;
+								}
+							};
+						fileChooser
+							.setFileSelectionMode(JFileChooser.FILES_ONLY);
 						fileChooser.setAcceptAllFileFilterUsed(false);
-						fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("WSPAM files", "wspam"));
+						fileChooser
+							.addChoosableFileFilter(new FileNameExtensionFilter(
+								"WSPAM files", "wspam"));
 						int action = fileChooser.showSaveDialog(dialog);
 						if(action == JFileChooser.APPROVE_OPTION)
 							try
@@ -149,7 +168,9 @@ public class Spammer extends Module
 								File file = fileChooser.getSelectedFile();
 								if(!file.getName().endsWith(".wspam"))
 									file = new File(file.getPath() + ".wspam");
-								PrintWriter save = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+								PrintWriter save =
+									new PrintWriter(new OutputStreamWriter(
+										new FileOutputStream(file), "UTF-8"));
 								updateSpam();
 								for(String line : spam.split("\n"))
 									save.println(line);
@@ -180,7 +201,8 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						MiscUtils.openLink("http://www.wurst-client.tk/download/wurst-client/spam");
+						MiscUtils
+							.openLink("http://www.wurst-client.tk/download/wurst-client/spam");
 					}
 				});
 				fileMenu.add(fileOpenLink);
@@ -193,9 +215,11 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						final JDialog editDialog = new JDialog(dialog, "New variable");
+						final JDialog editDialog =
+							new JDialog(dialog, "New variable");
 						JPanel mainPanel = new JPanel();
-						mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+						mainPanel.setLayout(new BoxLayout(mainPanel,
+							BoxLayout.Y_AXIS));
 						JPanel namePanel = new JPanel();
 						JLabel nameLabel = new JLabel("Variable name");
 						namePanel.add(nameLabel);
@@ -216,7 +240,13 @@ public class Spammer extends Module
 							public void actionPerformed(ActionEvent e)
 							{
 								updateSpam();
-								spamArea.setText("<var " + (nameField.getText().isEmpty() ? "undefined" : nameField.getText()) + ">" + (valueField.getText().isEmpty() ? "undefined" : valueField.getText()) + "</var><!--\n-->" + spam);
+								spamArea.setText("<var "
+									+ (nameField.getText().isEmpty()
+										? "undefined" : nameField.getText())
+									+ ">"
+									+ (valueField.getText().isEmpty()
+										? "undefined" : valueField.getText())
+									+ "</var><!--\n-->" + spam);
 								editDialog.dispose();
 							}
 						});
@@ -233,13 +263,16 @@ public class Spammer extends Module
 				menubar.add(editMenu);
 				
 				JMenu viewMenu = new JMenu("View");
-				JCheckBoxMenuItem viewFont = new JCheckBoxMenuItem("Simulate ingame font", Client.wurst.options.spamFont);
+				JCheckBoxMenuItem viewFont =
+					new JCheckBoxMenuItem("Simulate ingame font",
+						Client.wurst.options.spamFont);
 				viewFont.addActionListener(new ActionListener()
 				{
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						Client.wurst.options.spamFont = !Client.wurst.options.spamFont;
+						Client.wurst.options.spamFont =
+							!Client.wurst.options.spamFont;
 						Client.wurst.fileManager.saveOptions();
 						updateFont();
 					}
@@ -254,7 +287,11 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						JOptionPane.showOptionDialog(dialog, new UnreadableTagException("", 0).getHelp(), "Help", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"OK"}, 0);
+						JOptionPane.showOptionDialog(dialog,
+							new UnreadableTagException("", 0).getHelp(),
+							"Help", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE, null,
+							new String[]{"OK"}, 0);
 					}
 				});
 				helpMenu.add(helpIntro);
@@ -264,9 +301,13 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						JDialog helpDialog = new JDialog(dialog, "Available tags");
-						Object[][] rowData = new Object[SpamProcessor.tagManager.getActiveTags().size()][3];
-						Iterator itr = SpamProcessor.tagManager.getActiveTags().iterator();
+						JDialog helpDialog =
+							new JDialog(dialog, "Available tags");
+						Object[][] rowData =
+							new Object[SpamProcessor.tagManager.getActiveTags()
+								.size()][3];
+						Iterator itr =
+							SpamProcessor.tagManager.getActiveTags().iterator();
 						for(int i = 0; itr.hasNext(); i++)
 						{
 							Tag tag = (Tag)itr.next();
@@ -274,7 +315,9 @@ public class Spammer extends Module
 							rowData[i][1] = tag.getDescription();
 							rowData[i][2] = tag.getSyntax();
 						}
-						JTable table = new JTable(rowData, new Object[]{"Name", "Description", "Syntax"});
+						JTable table =
+							new JTable(rowData, new Object[]{"Name",
+								"Description", "Syntax"});
 						table.setDefaultEditor(Object.class, null);
 						table.setFillsViewportHeight(true);
 						table.setCellSelectionEnabled(true);
@@ -293,9 +336,14 @@ public class Spammer extends Module
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						JDialog helpDialog = new JDialog(dialog, "Pre-defined variables");
-						Object[][] rowData = new Object[SpamProcessor.varManager.getSpammerVars().size()][2];
-						Iterator itr = SpamProcessor.varManager.getSpammerVars().entrySet().iterator();
+						JDialog helpDialog =
+							new JDialog(dialog, "Pre-defined variables");
+						Object[][] rowData =
+							new Object[SpamProcessor.varManager
+								.getSpammerVars().size()][2];
+						Iterator itr =
+							SpamProcessor.varManager.getSpammerVars()
+								.entrySet().iterator();
 						for(int i = 0; itr.hasNext(); i++)
 						{
 							Map.Entry var = (Map.Entry)itr.next();
@@ -306,7 +354,8 @@ public class Spammer extends Module
 							else if(var.getValue().equals("\n"))
 								rowData[i][1] = "\"\" (line break)";
 						}
-						JTable table = new JTable(rowData, new Object[]{"Name", "Value"});
+						JTable table =
+							new JTable(rowData, new Object[]{"Name", "Value"});
 						table.setDefaultEditor(Object.class, null);
 						table.setFillsViewportHeight(true);
 						table.setCellSelectionEnabled(true);
@@ -325,44 +374,50 @@ public class Spammer extends Module
 				
 				panel.add(menubar);
 				
-				JPanel delayPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
+				JPanel delayPanel =
+					new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
 				JLabel delayLabel = new JLabel("Delay between messages:");
 				delayPanel.add(delayLabel);
-				delaySpinner = new JSpinner(new SpinnerNumberModel(Client.wurst.options.spamDelay, 0, 3600000, 50));
+				delaySpinner =
+					new JSpinner(new SpinnerNumberModel(
+						Client.wurst.options.spamDelay, 0, 3600000, 50));
 				delaySpinner.addChangeListener(new ChangeListener()
 				{
 					@Override
 					public void stateChanged(ChangeEvent e)
 					{
-						Client.wurst.options.spamDelay = (Integer)delaySpinner.getValue();
+						Client.wurst.options.spamDelay =
+							(Integer)delaySpinner.getValue();
 						Client.wurst.fileManager.saveOptions();
 					}
 				});
-				delaySpinner.setEditor(new JSpinner.NumberEditor(delaySpinner, "#'ms'"));
+				delaySpinner.setEditor(new JSpinner.NumberEditor(delaySpinner,
+					"#'ms'"));
 				delayPanel.add(delaySpinner);
 				panel.add(delayPanel);
 				
 				spamArea = new JTextArea();
-				spamArea.getDocument().addDocumentListener(new DocumentListener()
-				{
-					@Override
-					public void removeUpdate(DocumentEvent e)
+				spamArea.getDocument().addDocumentListener(
+					new DocumentListener()
 					{
-						updateSpam();
-					}
-					
-					@Override
-					public void insertUpdate(DocumentEvent e)
-					{
-						updateSpam();
-					}
-					
-					@Override
-					public void changedUpdate(DocumentEvent e)
-					{
-						updateSpam();
-					}
-				});
+						@Override
+						public void removeUpdate(DocumentEvent e)
+						{
+							updateSpam();
+						}
+						
+						@Override
+						public void insertUpdate(DocumentEvent e)
+						{
+							updateSpam();
+						}
+						
+						@Override
+						public void changedUpdate(DocumentEvent e)
+						{
+							updateSpam();
+						}
+					});
 				JScrollPane spamPane = new JScrollPane(spamArea);
 				updateFont();
 				spamPane.setPreferredSize(new Dimension(500, 200));
@@ -370,7 +425,8 @@ public class Spammer extends Module
 				
 				JButton startButton = new JButton("Spam");
 				startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-				startButton.setFont(new Font(startButton.getFont().getFamily(), Font.BOLD, 18));
+				startButton.setFont(new Font(startButton.getFont().getFamily(),
+					Font.BOLD, 18));
 				startButton.addActionListener(new ActionListener()
 				{
 					@Override
@@ -384,15 +440,20 @@ public class Spammer extends Module
 								try
 								{
 									updateSpam();
-									SpamProcessor.process(spam, Spammer.this, true);
-									spam = SpamProcessor.process(spam, Spammer.this, false);
+									SpamProcessor.process(spam, Spammer.this,
+										true);
+									spam =
+										SpamProcessor.process(spam,
+											Spammer.this, false);
 									if(spam == null)
 										return;
 									for(int i = 0; i < spam.split("\n").length; i++)
 									{
 										String message = spam.split("\n")[i];
-										Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
-										Thread.sleep(Client.wurst.options.spamDelay);
+										Minecraft.getMinecraft().thePlayer
+											.sendChatMessage(message);
+										Thread
+											.sleep(Client.wurst.options.spamDelay);
 									}
 								}catch(Exception e)
 								{
@@ -407,7 +468,8 @@ public class Spammer extends Module
 				
 				dialog.setContentPane(panel);
 				dialog.pack();
-				dialog.setLocationRelativeTo(Minecraft.getMinecraft().getFrame());
+				dialog.setLocationRelativeTo(Minecraft.getMinecraft()
+					.getFrame());
 				dialog.setAlwaysOnTop(true);
 				Minecraft.getMinecraft().setIngameNotInFocus();
 				dialog.setVisible(true);
@@ -419,7 +481,9 @@ public class Spammer extends Module
 	{
 		try
 		{
-			spam = spamArea.getDocument().getText(0, spamArea.getDocument().getLength());
+			spam =
+				spamArea.getDocument().getText(0,
+					spamArea.getDocument().getLength());
 		}catch(BadLocationException e)
 		{
 			e.printStackTrace();
@@ -430,10 +494,16 @@ public class Spammer extends Module
 	{
 		try
 		{
-			Font mcfont = Font.createFont(Font.TRUETYPE_FONT, this.getClass().getClassLoader().getResourceAsStream("assets/minecraft/font/mcfont.ttf"));
+			Font mcfont =
+				Font.createFont(
+					Font.TRUETYPE_FONT,
+					this.getClass()
+						.getClassLoader()
+						.getResourceAsStream("assets/minecraft/font/mcfont.ttf"));
 			mcfont = mcfont.deriveFont(12F);
 			Font defaultFont = new Font("Monospaced", Font.PLAIN, 14);
-			spamArea.setFont(Client.wurst.options.spamFont ? mcfont : defaultFont);
+			spamArea.setFont(Client.wurst.options.spamFont ? mcfont
+				: defaultFont);
 		}catch(Exception e1)
 		{
 			e1.printStackTrace();

@@ -31,7 +31,9 @@ public class TagData
 	private int tagContentLength;
 	private String spam;
 	
-	public TagData(int tagStart, int tagLength, int tagLine, String tagName, String[] tagArgs, boolean tagClosed, String tag, String tagContent, int tagContentLength, String spam)
+	public TagData(int tagStart, int tagLength, int tagLine, String tagName,
+		String[] tagArgs, boolean tagClosed, String tag, String tagContent,
+		int tagContentLength, String spam)
 	{
 		this.tagStart = tagStart;
 		this.tagLength = tagLength;

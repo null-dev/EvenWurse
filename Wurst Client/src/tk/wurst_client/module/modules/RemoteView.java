@@ -53,11 +53,15 @@ public class RemoteView extends Module
 		if(otherID == null)
 			otherID = EntityUtils.getClosestEntityRaw(false).getUniqueID();
 		otherView = EntityUtils.searchEntityByIdRaw(otherID);
-		wasInvisible = otherView.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
-		EntityOtherPlayerMP fakePlayer = new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft().thePlayer.getGameProfile());
+		wasInvisible =
+			otherView.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
+		EntityOtherPlayerMP fakePlayer =
+			new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld,
+				Minecraft.getMinecraft().thePlayer.getGameProfile());
 		fakePlayer.clonePlayer(Minecraft.getMinecraft().thePlayer, true);
 		fakePlayer.posY -= 1.62;
-		fakePlayer.rotationYawHead = Minecraft.getMinecraft().thePlayer.rotationYawHead;
+		fakePlayer.rotationYawHead =
+			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
 		Client.wurst.chat.message("Now viewing " + otherView.getName() + ".");
 	}
@@ -66,7 +70,8 @@ public class RemoteView extends Module
 	{
 		if(otherID == null && !viewName.equals(""))
 			otherID = EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
-		Client.wurst.moduleManager.getModuleFromClass(RemoteView.class).toggleModule();
+		Client.wurst.moduleManager.getModuleFromClass(RemoteView.class)
+			.toggleModule();
 	}
 	
 	@Override
@@ -94,10 +99,13 @@ public class RemoteView extends Module
 	{
 		if(otherView != null)
 		{
-			Client.wurst.chat.message("No longer viewing " + otherView.getName() + ".");
+			Client.wurst.chat.message("No longer viewing "
+				+ otherView.getName() + ".");
 			otherView.setInvisible(wasInvisible);
 			Minecraft.getMinecraft().thePlayer.noClip = false;
-			Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY, oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw, Minecraft.getMinecraft().thePlayer.rotationPitch);
+			Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX,
+				oldY, oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
+				Minecraft.getMinecraft().thePlayer.rotationPitch);
 			Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
 		}
 		newView = null;

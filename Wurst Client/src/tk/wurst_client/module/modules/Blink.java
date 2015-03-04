@@ -37,7 +37,8 @@ public class Blink extends Module
 		if(hasTimePassedM(3000))
 		{
 			for(Packet packet : packets)
-				Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(packet);
+				Minecraft.getMinecraft().thePlayer.sendQueue
+					.addToSendQueue(packet);
 			packets.clear();
 			updateLastMS();
 		}

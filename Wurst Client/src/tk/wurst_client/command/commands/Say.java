@@ -28,6 +28,7 @@ public class Say extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C01PacketChatMessage(input.substring(4)));
+		Minecraft.getMinecraft().thePlayer.sendQueue
+			.addToSendQueue(new C01PacketChatMessage(input.substring(4)));
 	}
 }

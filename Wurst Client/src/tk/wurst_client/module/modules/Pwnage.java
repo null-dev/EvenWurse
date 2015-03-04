@@ -39,7 +39,8 @@ public class Pwnage extends Module
 		if(connector != null && connector.connection == null)
 			return;
 		if(connector != null && connector.connection == Connection.SUCCESSFUL)
-			connector.networkManager.sendPacket(new C01PacketChatMessage("Wurst Client!"), new EmptyFutureListener());
+			connector.networkManager.sendPacket(new C01PacketChatMessage(
+				"Wurst Client!"), new EmptyFutureListener());
 		connector = new ServerConnector
 			(
 				Minecraft.getMinecraft().currentScreen,

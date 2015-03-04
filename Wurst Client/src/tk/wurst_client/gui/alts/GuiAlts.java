@@ -54,15 +54,23 @@ public class GuiAlts extends GuiScreen
 		altList.registerScrollButtons(7, 8);
 		altList.elementClicked(-1, false, 0, 0);
 		if(GuiAltList.alts.isEmpty() && shouldAsk)
-			mc.displayGuiScreen(new GuiYesNo(this, "Your alt list is empty.", "Would you like some random alts to get started?", 0));
+			mc.displayGuiScreen(new GuiYesNo(this, "Your alt list is empty.",
+				"Would you like some random alts to get started?", 0));
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 154, height - 52, 100, 20, "Use"));
-		buttonList.add(new GuiButton(1, width / 2 - 50, height - 52, 100, 20, "Direct Login"));
-		buttonList.add(new GuiButton(2, width / 2 + 54, height - 52, 100, 20, "Add"));
-		buttonList.add(new GuiButton(3, width / 2 - 154, height - 28, 75, 20, "Star"));
-		buttonList.add(new GuiButton(4, width / 2 - 76, height - 28, 74, 20, "Edit"));
-		buttonList.add(new GuiButton(5, width / 2 + 2, height - 28, 74, 20, "Delete"));
-		buttonList.add(new GuiButton(6, width / 2 + 80, height - 28, 75, 20, "Cancel"));
+		buttonList.add(new GuiButton(0, width / 2 - 154, height - 52, 100, 20,
+			"Use"));
+		buttonList.add(new GuiButton(1, width / 2 - 50, height - 52, 100, 20,
+			"Direct Login"));
+		buttonList.add(new GuiButton(2, width / 2 + 54, height - 52, 100, 20,
+			"Add"));
+		buttonList.add(new GuiButton(3, width / 2 - 154, height - 28, 75, 20,
+			"Star"));
+		buttonList.add(new GuiButton(4, width / 2 - 76, height - 28, 74, 20,
+			"Edit"));
+		buttonList.add(new GuiButton(5, width / 2 + 2, height - 28, 74, 20,
+			"Delete"));
+		buttonList.add(new GuiButton(6, width / 2 + 80, height - 28, 75, 20,
+			"Cancel"));
 		buttonList.add(new GuiButton(7, 8, 8, 75, 20, "Import Alts"));
 	}
 	
@@ -72,10 +80,14 @@ public class GuiAlts extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		((GuiButton)buttonList.get(0)).enabled = !GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
-		((GuiButton)buttonList.get(3)).enabled = !GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
-		((GuiButton)buttonList.get(4)).enabled = !GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
-		((GuiButton)buttonList.get(5)).enabled = !GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(0)).enabled =
+			!GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(3)).enabled =
+			!GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(4)).enabled =
+			!GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
+		((GuiButton)buttonList.get(5)).enabled =
+			!GuiAltList.alts.isEmpty() && altList.getSelectedSlot() != -1;
 	}
 	
 	@Override
@@ -91,7 +103,8 @@ public class GuiAlts extends GuiScreen
 					mc.displayGuiScreen(prevMenu);
 				}else
 				{// Premium
-					String reply = LoginManager.login(alt.getEmail(), alt.getPassword());
+					String reply =
+						LoginManager.login(alt.getEmail(), alt.getPassword());
 					if(reply.equals(""))
 						mc.displayGuiScreen(prevMenu);
 					else
@@ -122,44 +135,55 @@ public class GuiAlts extends GuiScreen
 			}else if(clickedButton.id == 5)
 			{// Delete
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
-				String deleteQuestion = "Are you sure you want to remove this alt?";
-				String deleteWarning = "\"" + alt.getName() + "\" will be lost forever! (A long time!)";
-				mc.displayGuiScreen(new GuiYesNo(this, deleteQuestion, deleteWarning, "Delete", "Cancel", 1));
+				String deleteQuestion =
+					"Are you sure you want to remove this alt?";
+				String deleteWarning =
+					"\"" + alt.getName()
+						+ "\" will be lost forever! (A long time!)";
+				mc.displayGuiScreen(new GuiYesNo(this, deleteQuestion,
+					deleteWarning, "Delete", "Cancel", 1));
 			}else if(clickedButton.id == 6)
 				mc.displayGuiScreen(prevMenu);
 			else if(clickedButton.id == 7)
-			{// Import
-            	new Thread(new Runnable()
-            	{
-            		@Override
-            		public void run()
-            		{
-            			JFileChooser fileChooser = new JFileChooser(Client.wurst.fileManager.wurstDir)
-            			{
-            				@Override
-							protected JDialog createDialog(Component parent) throws HeadlessException
-            				{
-            					JDialog dialog = super.createDialog(parent);
-            					dialog.setAlwaysOnTop(true);
-            					return dialog;
-            				}
-            			};
-            			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            			fileChooser.setAcceptAllFileFilterUsed(false);
-            			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Username:Password format (TXT)", "txt"));
-            			int action = fileChooser.showOpenDialog(Minecraft.getMinecraft().getFrame());
-            			if(action == JFileChooser.APPROVE_OPTION)
-            			{
-            				try
+				new Thread(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						JFileChooser fileChooser =
+							new JFileChooser(Client.wurst.fileManager.wurstDir)
+							{
+								@Override
+								protected JDialog createDialog(Component parent)
+									throws HeadlessException
+								{
+									JDialog dialog = super.createDialog(parent);
+									dialog.setAlwaysOnTop(true);
+									return dialog;
+								}
+							};
+						fileChooser
+							.setFileSelectionMode(JFileChooser.FILES_ONLY);
+						fileChooser.setAcceptAllFileFilterUsed(false);
+						fileChooser
+							.addChoosableFileFilter(new FileNameExtensionFilter(
+								"Username:Password format (TXT)", "txt"));
+						int action =
+							fileChooser.showOpenDialog(Minecraft.getMinecraft()
+								.getFrame());
+						if(action == JFileChooser.APPROVE_OPTION)
+							try
 							{
 								File file = fileChooser.getSelectedFile();
-								BufferedReader load = new BufferedReader(new FileReader(file));
+								BufferedReader load =
+									new BufferedReader(new FileReader(file));
 								for(String line = ""; (line = load.readLine()) != null;)
 								{
 									String[] data = line.split(":");
 									if(data.length != 2)
 										continue;
-									GuiAltList.alts.add(new Alt(data[0], data[1]));
+									GuiAltList.alts.add(new Alt(data[0],
+										data[1]));
 								}
 								load.close();
 								GuiAltList.sortAlts();
@@ -169,10 +193,8 @@ public class GuiAlts extends GuiScreen
 								e.printStackTrace();
 								MiscUtils.simpleError(e, fileChooser);
 							}
-            			}
-            		}
-            	}).start();
-			}
+					}
+				}).start();
 	}
 	
 	@Override
@@ -189,14 +211,12 @@ public class GuiAlts extends GuiScreen
 			}
 			shouldAsk = false;
 		}else if(par2 == 1)
-		{
 			if(par1)
 			{
 				GuiAltList.alts.remove(altList.getSelectedSlot());
 				GuiAltList.sortAlts();
 				Client.wurst.fileManager.saveAlts();
 			}
-		}
 		mc.displayGuiScreen(this);
 	}
 	
@@ -217,7 +237,8 @@ public class GuiAlts extends GuiScreen
 	 * @throws IOException
 	 */
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
 	{
 		if(par2 >= 36 && par2 <= height - 57)
 			if(par1 >= width / 2 + 140 || par1 <= width / 2 - 126)
@@ -236,12 +257,18 @@ public class GuiAlts extends GuiScreen
 		if(altList.getSelectedSlot() != -1)
 		{
 			Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
-			AltRenderer.drawAltBack(alt.getName(), (width / 2 - 125) / 2 - 32, height / 2 - 64 - 9, 64, 128);
-			AltRenderer.drawAltBody(alt.getName(), width - (width / 2 - 140) / 2 - 32, height / 2 - 64 - 9, 64, 128);
+			AltRenderer.drawAltBack(alt.getName(), (width / 2 - 125) / 2 - 32,
+				height / 2 - 64 - 9, 64, 128);
+			AltRenderer.drawAltBody(alt.getName(), width - (width / 2 - 140)
+				/ 2 - 32, height / 2 - 64 - 9, 64, 128);
 		}
-		drawCenteredString(fontRendererObj, "Alt Manager", width / 2, 4, 16777215);
-		drawCenteredString(fontRendererObj, "Alts: " + GuiAltList.alts.size(), width / 2, 14, 10526880);
-		drawCenteredString(fontRendererObj, "premium: " + GuiAltList.premiumAlts + ", cracked: " + GuiAltList.crackedAlts, width / 2, 24, 10526880);
+		drawCenteredString(fontRendererObj, "Alt Manager", width / 2, 4,
+			16777215);
+		drawCenteredString(fontRendererObj, "Alts: " + GuiAltList.alts.size(),
+			width / 2, 14, 10526880);
+		drawCenteredString(fontRendererObj, "premium: "
+			+ GuiAltList.premiumAlts + ", cracked: " + GuiAltList.crackedAlts,
+			width / 2, 24, 10526880);
 		if(errorTimer > 0)
 		{
 			GL11.glDisable(GL11.GL_TEXTURE_2D);
