@@ -100,6 +100,7 @@ public class GuiAlts extends GuiScreen
 						if(reply.equals("§4§lWrong password!"))
 						{
 							GuiAltList.alts.remove(altList.getSelectedSlot());
+							GuiAltList.sortAlts();
 							Client.wurst.fileManager.saveAlts();
 						}
 					}
