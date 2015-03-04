@@ -10,14 +10,15 @@ package tk.wurst_client.command.commands;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
 import tk.wurst_client.module.modules.Spammer;
-import tk.wurst_client.utils.MiscUtils;
+import tk.wurst_client.spam.SpamProcessor;
 
 public class SpammerMod extends Command
 {
 	private static String[] commandHelp =
 	{
-		"Changes the delay of Spammer.",
-		"§o.spammer§r delay <delay in ms>"
+		"Changes the delay of Spammer or spams spam from a file.",
+		"§o.spammer§r delay <delay in ms>",
+		"    spam <file>"
 	};
 	
 	public SpammerMod()
@@ -28,19 +29,23 @@ public class SpammerMod extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null
-			|| args.length < 2
-			|| !args[0].toLowerCase().equals("delay")
-			|| !MiscUtils.isInteger(args[1]))
-			commandError();
-		else
+		if(args == null || args.length < 2)
 		{
-			int newDelay = Integer.valueOf(args[1]);
+			commandError();
+			return;
+		}
+		if(args[0].equalsIgnoreCase("delay"))
+		{
+			int newDelay = Integer.parseInt(args[1]);
 			if(newDelay % 50 > 0)
 				newDelay = newDelay - newDelay % 50;
 			Client.wurst.options.spamDelay = newDelay;
 			Spammer.updateDelaySpinner();
 			Client.wurst.chat.message("Spammer delay set to " + newDelay + "ms.");
+		}else if(args[0].equalsIgnoreCase("spam"))
+		{
+			if(!SpamProcessor.runSpam(args[1]))
+				Client.wurst.chat.error("File does not exist.");
 		}
 	}
 }
