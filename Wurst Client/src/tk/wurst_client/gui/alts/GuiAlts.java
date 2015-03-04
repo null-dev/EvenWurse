@@ -10,8 +10,18 @@ package tk.wurst_client.gui.alts;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
 
+import java.awt.Component;
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
@@ -22,6 +32,7 @@ import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.alts.NameGenerator;
+import tk.wurst_client.utils.MiscUtils;
 
 public class GuiAlts extends GuiScreen
 {
@@ -117,7 +128,49 @@ public class GuiAlts extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			else if(clickedButton.id == 7)
 			{// Import
-				
+            	new Thread(new Runnable()
+            	{
+            		@Override
+            		public void run()
+            		{
+            			JFileChooser fileChooser = new JFileChooser(Client.wurst.fileManager.wurstDir)
+            			{
+            				@Override
+							protected JDialog createDialog(Component parent) throws HeadlessException
+            				{
+            					JDialog dialog = super.createDialog(parent);
+            					dialog.setAlwaysOnTop(true);
+            					return dialog;
+            				}
+            			};
+            			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            			fileChooser.setAcceptAllFileFilterUsed(false);
+            			fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Username:Password format (TXT)", "txt"));
+            			int action = fileChooser.showOpenDialog(Minecraft.getMinecraft().getFrame());
+            			if(action == JFileChooser.APPROVE_OPTION)
+            			{
+            				try
+							{
+								File file = fileChooser.getSelectedFile();
+								BufferedReader load = new BufferedReader(new FileReader(file));
+								for(String line = ""; (line = load.readLine()) != null;)
+								{
+									String[] data = line.split(":");
+									if(data.length != 2)
+										continue;
+									GuiAltList.alts.add(new Alt(data[0], data[1]));
+								}
+								load.close();
+								GuiAltList.sortAlts();
+								Client.wurst.fileManager.saveAlts();
+							}catch(IOException e)
+							{
+								e.printStackTrace();
+								MiscUtils.simpleError(e, fileChooser);
+							}
+            			}
+            		}
+            	}).start();
 			}
 	}
 	
