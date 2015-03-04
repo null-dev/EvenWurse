@@ -30,12 +30,21 @@ public class SpamProcessor
 	
 	public static void runScript(final String filename, final String description)
 	{
+		runFile(new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam"), description);
+	}
+	
+	public static void runSpam(final String filename, final String description)
+	{
+		runFile(new File(Client.wurst.fileManager.spamDir, filename + ".wspam"), description);
+	}
+
+	public static void runFile(final File file, final String description)
+	{
 		new Thread(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				File file = new File(Client.wurst.fileManager.scriptsDir, filename + ".wspam");
 				try
 				{
 					long startTime = System.currentTimeMillis();
@@ -84,7 +93,7 @@ public class SpamProcessor
 			}
 		}).start();
 	}
-	
+
 	public static String process(String spam, Spammer spammer, boolean test)
 	{
 		try
