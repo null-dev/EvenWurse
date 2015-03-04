@@ -72,14 +72,16 @@ public class SpamProcessor
 		}).start();
 	}
 	
-	public static void runSpam(final String filename)
+	public static boolean runSpam(final String filename)
 	{
+		final File file = new File(Client.wurst.fileManager.spamDir, filename + ".wspam");
+		if(!file.exists())
+			return false;
 		new Thread(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				File file = new File(Client.wurst.fileManager.spamDir, filename + ".wspam");
 				try
 				{
 					long startTime = System.currentTimeMillis();
@@ -103,6 +105,7 @@ public class SpamProcessor
 				}
 			}
 		}).start();
+		return true;
 	}
 
 	private static void runFile(File file) throws Exception
