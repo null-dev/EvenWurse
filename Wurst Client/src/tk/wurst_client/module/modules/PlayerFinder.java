@@ -67,7 +67,7 @@ public class PlayerFinder extends Module
 		{
 			S28PacketEffect effect = (S28PacketEffect)packet;
 			BlockPos pos = effect.func_179746_d();
-			if(BlockUtils.getPlayerBlockDistance(pos) >= 128)
+			if(BlockUtils.getPlayerBlockDistance(pos) >= 160)
 				blockPos = pos;
 		}else if(packet instanceof S29PacketSoundEffect)
 		{
@@ -75,7 +75,7 @@ public class PlayerFinder extends Module
 			BlockPos pos =
 				new BlockPos(sound.func_149207_d(), sound.func_149211_e(),
 					sound.func_149210_f());
-			if(BlockUtils.getPlayerBlockDistance(pos) >= 128)
+			if(BlockUtils.getPlayerBlockDistance(pos) >= 160)
 				blockPos = pos;
 		}else if(packet instanceof S2CPacketSpawnGlobalEntity)
 		{
@@ -85,7 +85,7 @@ public class PlayerFinder extends Module
 				new BlockPos(lightning.func_149051_d() / 32D,
 					lightning.func_149050_e() / 32D,
 					lightning.func_149049_f() / 32D);
-			if(BlockUtils.getPlayerBlockDistance(pos) >= 128)
+			if(BlockUtils.getPlayerBlockDistance(pos) >= 160)
 				blockPos = pos;
 		}
 	}
