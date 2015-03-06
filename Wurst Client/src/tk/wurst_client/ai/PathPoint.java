@@ -16,11 +16,13 @@ public class PathPoint
 	private BlockPos pos;
 	private PathPoint previous;
 	private int priority;
+	private int movementCost;
 	
-	public PathPoint(BlockPos pos, PathPoint previous, int priority)
+	public PathPoint(BlockPos pos, PathPoint previous, int movementCost, int priority)
 	{
 		this.pos = pos;
 		this.previous = previous;
+		this.movementCost = movementCost;
 		this.priority = priority;
 	}
 	
@@ -34,16 +36,6 @@ public class PathPoint
 		return neighbors;
 	}
 
-	public int getPriority()
-	{
-		return priority;
-	}
-
-	public void setPriority(int priority)
-	{
-		this.priority = priority;
-	}
-
 	public BlockPos getPos()
 	{
 		return pos;
@@ -52,5 +44,15 @@ public class PathPoint
 	public PathPoint getPrevious()
 	{
 		return previous;
+	}
+
+	public int getPriority()
+	{
+		return priority;
+	}
+
+	public int getMovementCost()
+	{
+		return movementCost;
 	}
 }
