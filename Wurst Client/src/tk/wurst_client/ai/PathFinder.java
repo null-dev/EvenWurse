@@ -36,7 +36,7 @@ public class PathFinder
 				return o1.getPriority() - o2.getPriority();
 			}
 		});
-		addPoint(new PathPoint(start, null, 0, 0));
+		addPoint(start, null, 0, 0);
 	}
 	
 	public PathPoint find()
@@ -51,14 +51,15 @@ public class PathFinder
 			{
 				int newCost = current.getMovementCost() + 1;
 				// TODO: Different movement costs based on block type
-				addPoint(new PathPoint(neighbor, current, newCost, newCost + getDistance(neighbor, goal)));
+				addPoint(neighbor, current, newCost, newCost + getDistance(neighbor, goal));
 			}
 		}
 		return current;
 	}
 	
-	private void addPoint(PathPoint point)
+	private void addPoint(BlockPos pos, PathPoint previous, int movementCost, int priority)
 	{
+		PathPoint point = new PathPoint(pos, previous, movementCost, priority);
 		processed.add(point);
 		queue.add(point);
 	}
