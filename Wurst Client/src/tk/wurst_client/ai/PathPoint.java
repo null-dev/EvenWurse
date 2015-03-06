@@ -13,23 +13,23 @@ public class PathPoint
 {
 	private BlockPos pos;
 	private PathPoint previous;
-	private int passedTicks;
+	private int priority;
 	
-	public PathPoint(BlockPos pos, PathPoint previous, int passedTicks)
+	public PathPoint(BlockPos pos, PathPoint previous, int priority)
 	{
 		this.pos = pos;
 		this.previous = previous;
-		this.passedTicks = passedTicks;
+		this.priority = priority;
 	}
 
-	public int getPassedTicks()
+	public int getPriority()
 	{
-		return passedTicks;
+		return priority;
 	}
 
-	public void setPassedTicks(int passedTicks)
+	public void setPriority(int priority)
 	{
-		this.passedTicks = passedTicks;
+		this.priority = priority;
 	}
 
 	public BlockPos getPos()
