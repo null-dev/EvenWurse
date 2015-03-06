@@ -37,11 +37,15 @@ public class PathFinder
 		queue.add(new PathPoint(start, null, 0));
 	}
 	
-	public void find()
+	public PathPoint find()
 	{	
+		PathPoint current = null;
 		while(!queue.isEmpty())
 		{
-			PathPoint current = queue.poll();
+			current = queue.poll();
+			if(current.getPos() == goal)
+				break;
 		}
+		return current;
 	}
 }
