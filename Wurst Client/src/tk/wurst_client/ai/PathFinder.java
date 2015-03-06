@@ -7,18 +7,41 @@
  */
 package tk.wurst_client.ai;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 
 public class PathFinder
 {
-	public void findPath(BlockPos goal)
+	private BlockPos goal;
+	private PriorityQueue<PathPoint> queue;
+	
+	public PathFinder(BlockPos goal)
 	{
-		findPath(Minecraft.getMinecraft().thePlayer.playerLocation, goal);
+		this(Minecraft.getMinecraft().thePlayer.playerLocation, goal);
 	}
 	
-	public void findPath(BlockPos current, BlockPos goal)
+	public PathFinder(BlockPos start, BlockPos goal)
 	{
-		
+		this.goal = goal;
+		queue = new PriorityQueue<PathPoint>(new Comparator<PathPoint>()
+		{
+			@Override
+			public int compare(PathPoint o1, PathPoint o2)
+			{
+				return o1.getPriority() - o2.getPriority();
+			}
+		});
+		queue.add(new PathPoint(start, null, 0));
+	}
+	
+	public void find()
+	{	
+		while(!queue.isEmpty())
+		{
+			PathPoint current = queue.poll();
+		}
 	}
 }
