@@ -7,6 +7,8 @@
  */
 package tk.wurst_client.ai;
 
+import java.util.ArrayList;
+
 import net.minecraft.util.BlockPos;
 
 public class PathPoint
@@ -20,6 +22,16 @@ public class PathPoint
 		this.pos = pos;
 		this.previous = previous;
 		this.priority = priority;
+	}
+	
+	public ArrayList<BlockPos> getNeighbors()
+	{
+		ArrayList<BlockPos> neighbors = new ArrayList<BlockPos>();
+		neighbors.add(pos.add(0, 0, 1));
+		neighbors.add(pos.add(-1, 0, 0));
+		neighbors.add(pos.add(0, 0, -1));
+		neighbors.add(pos.add(1, 0, 0));
+		return neighbors;
 	}
 
 	public int getPriority()
