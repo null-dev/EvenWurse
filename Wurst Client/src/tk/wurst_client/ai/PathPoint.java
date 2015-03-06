@@ -26,6 +26,13 @@ public class PathPoint
 		this.priority = priority;
 	}
 	
+	public void recreate(PathPoint previous, int movementCost, int priority)
+	{
+		this.previous = previous;
+		this.movementCost = movementCost;
+		this.priority = priority;
+	}
+	
 	public ArrayList<BlockPos> getNeighbors()
 	{
 		ArrayList<BlockPos> neighbors = new ArrayList<BlockPos>();
