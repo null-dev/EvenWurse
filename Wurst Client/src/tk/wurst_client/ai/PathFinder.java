@@ -7,6 +7,7 @@
  */
 package tk.wurst_client.ai;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -17,6 +18,7 @@ public class PathFinder
 {
 	private BlockPos goal;
 	private PriorityQueue<PathPoint> queue;
+	private ArrayList<PathPoint> processed = new ArrayList<PathPoint>();
 	
 	public PathFinder(BlockPos goal)
 	{
@@ -34,7 +36,7 @@ public class PathFinder
 				return o1.getPriority() - o2.getPriority();
 			}
 		});
-		queue.add(new PathPoint(start, null, 0));
+		addPoint(new PathPoint(start, null, 0));
 	}
 	
 	public PathPoint find()
@@ -47,5 +49,11 @@ public class PathFinder
 				break;
 		}
 		return current;
+	}
+	
+	private void addPoint(PathPoint point)
+	{
+		processed.add(point);
+		queue.add(point);
 	}
 }
