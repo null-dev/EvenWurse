@@ -36,7 +36,7 @@ public class PathFinder
 				return o1.getPriority() - o2.getPriority();
 			}
 		});
-		addPoint(new PathPoint(start, null, 0));
+		addPoint(new PathPoint(start, null, 0, 0));
 	}
 	
 	public PathPoint find()
@@ -47,6 +47,10 @@ public class PathFinder
 			current = queue.poll();
 			if(current.getPos() == goal)
 				break;
+			for(BlockPos neighbor : current.getNeighbors())
+			{
+				
+			}
 		}
 		return current;
 	}
