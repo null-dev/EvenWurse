@@ -40,7 +40,7 @@ public class PathFinder
 	}
 	
 	public PathPoint find()
-	{	
+	{
 		PathPoint current = null;
 		while(!queue.isEmpty())
 		{
@@ -49,7 +49,9 @@ public class PathFinder
 				break;
 			for(BlockPos neighbor : current.getNeighbors())
 			{
-				
+				int newCost = current.getMovementCost() + 1;
+				// TODO: Different movement costs based on block type
+				addPoint(new PathPoint(neighbor, current, newCost, newCost + getDistance(neighbor, goal)));
 			}
 		}
 		return current;
@@ -59,5 +61,10 @@ public class PathFinder
 	{
 		processed.add(point);
 		queue.add(point);
+	}
+	
+	private int getDistance(BlockPos a, BlockPos b)
+	{
+		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getZ() - b.getZ());
 	}
 }
