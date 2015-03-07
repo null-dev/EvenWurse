@@ -23,14 +23,23 @@ public class BlockSafety
 			noFallMod =
 				Client.wurst.moduleManager.getModuleFromClass(NoFall.class);
 		BlockPos playerPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
-		return !Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
-			.getMaterial().blocksMovement()
-			&& (Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-				|| noFallMod.getToggled()
-				|| Minecraft.getMinecraft().theWorld
-				.getBlockState(pos.add(0, -1, 0)).getBlock().getMaterial()
-				.blocksMovement())
+		return !isSolid(pos)
+			&& isSolid(pos.add(0, -1, 0))
 			&& Math.abs(playerPos.getX() - pos.getX()) < 256
 			&& Math.abs(playerPos.getZ() - pos.getZ()) < 256;
+	}
+	
+	public static boolean isSolid(BlockPos pos)
+	{
+		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
+			.getMaterial().blocksMovement();
+	}
+	
+	private static boolean isFallable(BlockPos pos)
+	{
+		for(int i = -2; i >= (noFallMod.getToggled() ? -256 : -4); i--)
+			if(isSolid(pos.add(0, i, 0)))
+				return true;
+		return false;
 	}
 }
