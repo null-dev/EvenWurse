@@ -52,7 +52,8 @@ public class PathFinder
 			{
 				int newCost = current.getMovementCost() + 1;
 				// TODO: Different movement costs based on block type
-				addPoint(neighbor, current, newCost, newCost + getDistance(neighbor, goal));
+				if(!processed.containsKey(neighbor) || processed.get(neighbor).getMovementCost() > newCost)
+					addPoint(neighbor, current, newCost, newCost + getDistance(neighbor, goal));
 			}
 		}
 		return current;
