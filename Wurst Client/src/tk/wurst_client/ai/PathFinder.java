@@ -59,7 +59,7 @@ public class PathFinder
 			{
 				if(!PathUtils.isSafe(next))
 					continue;
-				int newCost = current.getMovementCost() + getCost(current.getPos(), next);
+				int newCost = current.getMovementCost() + PathUtils.getCost(current.getPos(), next);
 				if(!processed.containsKey(next)
 					|| processed.get(next).getMovementCost() > newCost)
 					addPoint(next, current, newCost,
@@ -79,10 +79,5 @@ public class PathFinder
 	{
 		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY())
 			+ Math.abs(a.getZ() - b.getZ());
-	}
-	
-	private int getCost(BlockPos current, BlockPos next)
-	{
-		return 1;
 	}
 }

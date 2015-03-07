@@ -102,4 +102,9 @@ public class PathUtils
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
 		return flightMod.getToggled() || playerCaps.isFlying;
 	}
+	
+	public static int getCost(BlockPos current, BlockPos next)
+	{
+		return 1;
+	}
 }
