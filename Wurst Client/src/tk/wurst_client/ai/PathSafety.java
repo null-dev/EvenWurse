@@ -13,7 +13,7 @@ import tk.wurst_client.module.modules.NoFall;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 
-public class BlockSafety
+public class PathSafety
 {
 	private static Module noFallMod;
 	
