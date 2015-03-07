@@ -100,10 +100,10 @@ public class PathUtils
 	{
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)
-			return 3;
+			return 2500;
 		if(nextMaterial == Material.lava)
-			return 5;
-		return 1;
+			return 5000;
+		return 1000;
 	}
 	
 	private static Material getMaterial(BlockPos pos)
