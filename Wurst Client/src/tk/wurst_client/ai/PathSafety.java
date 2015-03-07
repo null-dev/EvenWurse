@@ -19,9 +19,6 @@ public class PathSafety
 	
 	public static boolean isSafe(BlockPos pos)
 	{
-		if(noFallMod == null)
-			noFallMod =
-				Client.wurst.moduleManager.getModuleFromClass(NoFall.class);
 		BlockPos playerPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
 		return !isSolid(pos)
 			&& !isSolid(pos.add(0, 1, 0))
@@ -38,9 +35,17 @@ public class PathSafety
 	
 	private static boolean isFallable(BlockPos pos)
 	{
-		for(int i = -2; i >= (noFallMod.getToggled() ? -256 : -3); i--)
+		for(int i = -2; i >= (isNoFall() ? -256 : -3); i--)
 			if(isSolid(pos.add(0, i, 0)))
 				return true;
 		return false;
+	}
+	
+	public static boolean isNoFall()
+	{
+		if(noFallMod == null)
+			noFallMod =
+				Client.wurst.moduleManager.getModuleFromClass(NoFall.class);
+		return noFallMod.getToggled();
 	}
 }
