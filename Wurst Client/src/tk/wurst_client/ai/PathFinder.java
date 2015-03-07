@@ -34,7 +34,7 @@ public class PathFinder
 			@Override
 			public int compare(PathPoint o1, PathPoint o2)
 			{
-				return o1.getPriority() - o2.getPriority();
+				return (int)((o1.getPriority() - o2.getPriority()) * 1000);
 			}
 		});
 		addPoint(start, null, 0, 0);
@@ -59,7 +59,7 @@ public class PathFinder
 			{
 				if(!PathUtils.isSafe(next))
 					continue;
-				int newCost = current.getMovementCost() + PathUtils.getCost(current.getPos(), next);
+				double newCost = current.getMovementCost() + PathUtils.getCost(current.getPos(), next);
 				if(!processed.containsKey(next)
 					|| processed.get(next).getMovementCost() > newCost)
 					addPoint(next, current, newCost,
@@ -69,13 +69,13 @@ public class PathFinder
 		return current;
 	}
 	
-	private void addPoint(BlockPos pos, PathPoint previous, int movementCost,
-		int priority)
+	private void addPoint(BlockPos pos, PathPoint previous, double movementCost,
+		double priority)
 	{
 		queue.add(new PathPoint(pos, previous, movementCost, priority));
 	}
 	
-	private int getDistance(BlockPos a, BlockPos b)
+	private double getDistance(BlockPos a, BlockPos b)
 	{
 		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY())
 			+ Math.abs(a.getZ() - b.getZ());
