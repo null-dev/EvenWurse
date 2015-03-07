@@ -36,7 +36,8 @@ public class PathUtils
 				.getBlock().getMaterial();
 		return !material.blocksMovement()
 			&& material != Material.lava
-			&& materialBelow != Material.cactus;
+			&& materialBelow != Material.cactus
+			&& material != Material.fire;
 	}
 	
 	public static boolean isSolid(BlockPos pos)
