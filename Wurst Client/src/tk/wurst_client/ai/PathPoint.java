@@ -9,6 +9,7 @@ package tk.wurst_client.ai;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 
 public class PathPoint
@@ -30,11 +31,14 @@ public class PathPoint
 	{
 		ArrayList<BlockPos> neighbors = new ArrayList<BlockPos>();
 		neighbors.add(pos.add(0, 0, 1));// south
-		neighbors.add(pos.add(-1, 0, 0));// west
-		neighbors.add(pos.add(0, 0, -1));// north
 		neighbors.add(pos.add(1, 0, 0));// east
-		neighbors.add(pos.add(0, -1, 0));// down
-		neighbors.add(pos.add(0, 1, 0));// up
+		neighbors.add(pos.add(0, 0, -1));// north
+		neighbors.add(pos.add(-1, 0, 0));// west
+		if(Minecraft.getMinecraft().thePlayer.capabilities.isFlying)
+		{
+			neighbors.add(pos.add(0, -1, 0));// down
+			neighbors.add(pos.add(0, 1, 0));// up
+		}
 		return neighbors;
 	}
 
