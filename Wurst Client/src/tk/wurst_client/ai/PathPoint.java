@@ -30,9 +30,9 @@ public class PathPoint
 	public ArrayList<BlockPos> getNeighbors()
 	{
 		ArrayList<BlockPos> neighbors = new ArrayList<BlockPos>();
+		neighbors.add(pos.add(0, 0, -1));// north
 		neighbors.add(pos.add(0, 0, 1));// south
 		neighbors.add(pos.add(1, 0, 0));// east
-		neighbors.add(pos.add(0, 0, -1));// north
 		neighbors.add(pos.add(-1, 0, 0));// west
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isFlying)
 		{
