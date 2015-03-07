@@ -38,11 +38,11 @@ public class PathPoint
 			neighbors.add(pos.add(-1, 0, 0));// west
 		}
 		neighbors.add(pos.add(0, -1, 0));// down
-		if(PathSafety.isFlying() || PathSafety.isClimbable(pos))
-			neighbors.add(pos.add(0, 1, 0));// up
 		for(int i = neighbors.size() - 1; i > -1; i--)
 			if(!PathSafety.isSafe(neighbors.get(i)))
 				neighbors.remove(i);
+		if(PathSafety.isFlying() || PathSafety.isClimbable(pos))
+			neighbors.add(pos.add(0, 1, 0));// up
 		return neighbors;
 	}
 	
