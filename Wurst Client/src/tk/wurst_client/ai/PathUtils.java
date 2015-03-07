@@ -7,14 +7,15 @@
  */
 package tk.wurst_client.ai;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerCapabilities;
+import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.Flight;
 import tk.wurst_client.module.modules.NoFall;
 import tk.wurst_client.module.modules.Spider;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerCapabilities;
-import net.minecraft.util.BlockPos;
 
 public class PathUtils
 {
@@ -25,7 +26,9 @@ public class PathUtils
 	
 	public static boolean isSafe(BlockPos pos)
 	{
-		return !isSolid(pos);
+		Material material = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock().getMaterial();
+		return !material.blocksMovement()
+			&& material != Material.lava;
 	}
 	
 	public static boolean isSolid(BlockPos pos)
