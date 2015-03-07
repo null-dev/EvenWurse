@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Module;
+import tk.wurst_client.module.modules.AntiKnockback;
 import tk.wurst_client.module.modules.Flight;
 import tk.wurst_client.module.modules.NoFall;
 import tk.wurst_client.module.modules.NoSlowdown;
@@ -22,6 +23,7 @@ import tk.wurst_client.module.modules.Spider;
 public class PathUtils
 {
 	private static PlayerCapabilities playerCaps;
+	private static Module antiKnockbackMod;
 	private static Module flightMod;
 	private static Module noFallMod;
 	private static Module noSlowdownMod;
@@ -103,12 +105,21 @@ public class PathUtils
 		if(noSlowdownMod == null)
 			noSlowdownMod =
 				Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class);
+		if(antiKnockbackMod == null)
+			antiKnockbackMod = Client.wurst.moduleManager.getModuleFromClass(AntiKnockback.class);
 		Material nextMaterial = getMaterial(next);
-		if(nextMaterial == Material.water && !noSlowdownMod.getToggled())
-			return 3;
-		if(nextMaterial == Material.lava)
-			return 5;
-		return 1;
+		int nextID = getID(next);
+		int cost = 1;
+		if(nextMaterial == Material.water)
+		{
+			if(!noSlowdownMod.getToggled())
+				cost *= 3;
+			if(nextID == 9//flowing water
+				&& !antiKnockbackMod.getToggled())
+				cost *= 1.5;
+		}else if(nextMaterial == Material.lava)
+			cost *= 5;
+		return cost;
 	}
 	
 	private static Material getMaterial(BlockPos pos)
