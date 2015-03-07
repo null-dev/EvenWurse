@@ -66,6 +66,6 @@ public class PathFinder
 	
 	private int getDistance(BlockPos a, BlockPos b)
 	{
-		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getZ() - b.getZ());
+		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY()) + Math.abs(a.getZ() - b.getZ());
 	}
 }
