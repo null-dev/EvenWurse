@@ -11,6 +11,7 @@ import tk.wurst_client.Client;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.Flight;
 import tk.wurst_client.module.modules.NoFall;
+import tk.wurst_client.module.modules.Spider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
@@ -20,6 +21,7 @@ public class PathSafety
 	private static PlayerCapabilities playerCaps;
 	private static Module flightMod;
 	private static Module noFallMod;
+	private static Module spiderMod;
 	
 	public static boolean isSafe(BlockPos pos)
 	{
@@ -45,6 +47,20 @@ public class PathSafety
 		return false;
 	}
 	
+	public static boolean isClimbable(BlockPos pos)
+	{
+		if(spiderMod == null)
+			spiderMod =
+				Client.wurst.moduleManager.getModuleFromClass(Spider.class);
+		if(isSolid(pos.add(0, -1, 0)) || spiderMod.getToggled() || isFlying())
+			if(isSolid(pos.add(0, 0, -1))
+				|| isSolid(pos.add(0, 0, 1))
+				|| isSolid(pos.add(0, 0, 1))
+				|| isSolid(pos.add(0, 0, -1)))
+				return true;
+		return false;
+	}
+	
 	public static boolean isNoFall()
 	{
 		if(noFallMod == null)
@@ -63,7 +79,10 @@ public class PathSafety
 	public static boolean isFlying()
 	{
 		if(flightMod == null)
-			flightMod = Client.wurst.moduleManager.getModuleFromClass(Flight.class);
+			flightMod =
+				Client.wurst.moduleManager.getModuleFromClass(Flight.class);
+		if(playerCaps == null)
+			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
 		return flightMod.getToggled() || playerCaps.isFlying;
 	}
 }
