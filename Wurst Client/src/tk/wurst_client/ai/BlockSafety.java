@@ -20,13 +20,17 @@ public class BlockSafety
 	public static boolean isSafe(BlockPos pos)
 	{
 		if(noFallMod == null)
-			noFallMod = Client.wurst.moduleManager.getModuleFromClass(NoFall.class);
+			noFallMod =
+				Client.wurst.moduleManager.getModuleFromClass(NoFall.class);
+		BlockPos playerPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
 		return !Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
 			&& (Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 				|| noFallMod.getToggled()
 				|| Minecraft.getMinecraft().theWorld
 				.getBlockState(pos.add(0, -1, 0)).getBlock().getMaterial()
-				.blocksMovement());
+				.blocksMovement())
+			&& Math.abs(playerPos.getX() - pos.getX()) < 256
+			&& Math.abs(playerPos.getZ() - pos.getZ()) < 256;
 	}
 }
