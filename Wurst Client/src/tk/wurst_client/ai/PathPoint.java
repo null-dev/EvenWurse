@@ -30,17 +30,26 @@ public class PathPoint
 	public ArrayList<BlockPos> getNeighbors()
 	{
 		ArrayList<BlockPos> neighbors = new ArrayList<BlockPos>();
-		if(PathSafety.isSolid(pos.add(0, -1, 0)) || PathSafety.isFlying())
+		neighbors.add(pos.add(0, 0, -1));// north
+		neighbors.add(pos.add(0, 0, 1));// south
+		neighbors.add(pos.add(1, 0, 0));// east
+		neighbors.add(pos.add(-1, 0, 0));// west
+		for(int i = neighbors.size() - 1; i > -1; i--)
 		{
-			neighbors.add(pos.add(0, 0, -1));// north
-			neighbors.add(pos.add(0, 0, 1));// south
-			neighbors.add(pos.add(1, 0, 0));// east
-			neighbors.add(pos.add(-1, 0, 0));// west
+			BlockPos neighbor = neighbors.get(i);
+			if(!PathSafety.isSafe(neighbor))
+				neighbors.remove(i);
+			else if(!PathSafety.isFlying())
+				if(!PathSafety.isFallable(neighbor))
+					neighbors.remove(i);
+				else if(!PathSafety.isSolid(pos.add(0, -1, 0)))
+					if(!PathSafety.isSolid(neighbor.add(0, -1, 0)))
+						neighbors.remove(i);
+					else if(PathSafety.isSolid(previous.getPos().add(0, -1, 0))
+						&& previous.getPos().getY() >= pos.getY())
+						neighbors.remove(i);
 		}
 		neighbors.add(pos.add(0, -1, 0));// down
-		for(int i = neighbors.size() - 1; i > -1; i--)
-			if(!PathSafety.isSafe(neighbors.get(i)))
-				neighbors.remove(i);
 		if(PathSafety.isFlying() || PathSafety.isClimbable(pos))
 			neighbors.add(pos.add(0, 1, 0));// up
 		return neighbors;
