@@ -11,11 +11,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.NoFall;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
 
 public class PathSafety
 {
 	private static Module noFallMod;
+	private static PlayerCapabilities playerCaps;
 	
 	public static boolean isSafe(BlockPos pos)
 	{
@@ -46,6 +48,13 @@ public class PathSafety
 		if(noFallMod == null)
 			noFallMod =
 				Client.wurst.moduleManager.getModuleFromClass(NoFall.class);
-		return noFallMod.getToggled();
+		return noFallMod.getToggled() || isCreative();
+	}
+	
+	public static boolean isCreative()
+	{
+		if(playerCaps == null)
+			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
+		return playerCaps.isCreativeMode;
 	}
 }
