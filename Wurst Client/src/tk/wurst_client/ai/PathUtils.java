@@ -7,6 +7,7 @@
  */
 package tk.wurst_client.ai;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
@@ -59,11 +60,15 @@ public class PathUtils
 		if(spiderMod == null)
 			spiderMod =
 				Client.wurst.moduleManager.getModuleFromClass(Spider.class);
-		if(isSolid(pos.add(0, -1, 0)) || spiderMod.getToggled() || isFlying())
+		if(isSolid(pos.add(0, -1, 0))
+			|| spiderMod.getToggled()
+			|| Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+				.getBlockState(pos).getBlock()) == 65
+			|| isFlying())
 			if(isSolid(pos.add(0, 0, -1))
 				|| isSolid(pos.add(0, 0, 1))
-				|| isSolid(pos.add(0, 0, 1))
-				|| isSolid(pos.add(0, 0, -1)))
+				|| isSolid(pos.add(1, 0, 0))
+				|| isSolid(pos.add(-1, 0, 0)))
 				return true;
 		return false;
 	}
