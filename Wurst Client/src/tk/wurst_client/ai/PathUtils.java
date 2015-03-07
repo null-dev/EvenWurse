@@ -26,11 +26,17 @@ public class PathUtils
 	
 	public static boolean isSafe(BlockPos pos)
 	{
-		Material material = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock().getMaterial();
+		Material material =
+			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
+				.getMaterial();
 		if(isCreative())
 			return !material.blocksMovement();
+		Material materialBelow =
+			Minecraft.getMinecraft().theWorld.getBlockState(pos.add(0, -1, 0))
+				.getBlock().getMaterial();
 		return !material.blocksMovement()
-			&& material != Material.lava;
+			&& material != Material.lava
+			&& materialBelow != Material.cactus;
 	}
 	
 	public static boolean isSolid(BlockPos pos)
