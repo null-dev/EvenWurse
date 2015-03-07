@@ -29,10 +29,13 @@ public class PathPoint
 	public ArrayList<BlockPos> getNeighbors()
 	{
 		ArrayList<BlockPos> neighbors = new ArrayList<BlockPos>();
-		neighbors.add(pos.add(0, 0, -1));// north
-		neighbors.add(pos.add(0, 0, 1));// south
-		neighbors.add(pos.add(1, 0, 0));// east
-		neighbors.add(pos.add(-1, 0, 0));// west
+		if(BlockSafety.isSolid(pos.add(0, -1, 0)))
+		{
+			neighbors.add(pos.add(0, 0, -1));// north
+			neighbors.add(pos.add(0, 0, 1));// south
+			neighbors.add(pos.add(1, 0, 0));// east
+			neighbors.add(pos.add(-1, 0, 0));// west
+		}
 		neighbors.add(pos.add(0, -1, 0));// down
 		neighbors.add(pos.add(0, 1, 0));// up
 		for(int i = neighbors.size() -1; i > -1; i--)
