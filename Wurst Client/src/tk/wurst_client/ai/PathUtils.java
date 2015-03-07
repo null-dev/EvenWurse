@@ -16,6 +16,7 @@ import tk.wurst_client.Client;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.Flight;
 import tk.wurst_client.module.modules.NoFall;
+import tk.wurst_client.module.modules.NoSlowdown;
 import tk.wurst_client.module.modules.Spider;
 
 public class PathUtils
@@ -23,6 +24,7 @@ public class PathUtils
 	private static PlayerCapabilities playerCaps;
 	private static Module flightMod;
 	private static Module noFallMod;
+	private static Module noSlowdownMod;
 	private static Module spiderMod;
 	
 	public static boolean isSafe(BlockPos pos)
@@ -98,8 +100,11 @@ public class PathUtils
 	
 	public static int getCost(BlockPos current, BlockPos next)
 	{
+		if(noSlowdownMod == null)
+			noSlowdownMod =
+				Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class);
 		Material nextMaterial = getMaterial(next);
-		if(nextMaterial == Material.water)
+		if(nextMaterial == Material.water && !noSlowdownMod.getToggled())
 			return 3;
 		if(nextMaterial == Material.lava)
 			return 5;
