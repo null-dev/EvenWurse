@@ -27,19 +27,13 @@ public class PathUtils
 	
 	public static boolean isSafe(BlockPos pos)
 	{
-		Material material =
-			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
-				.getMaterial();
-		int id =
-			Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
-				.getBlockState(pos).getBlock());
+		Material material = getMaterial(pos);
+		int id = getID(pos);
 		boolean alwaysSafe = !material.blocksMovement()
 			&& id != 132;// tripwire
 		if(isCreative())
 			return alwaysSafe;
-		Material materialBelow =
-			Minecraft.getMinecraft().theWorld.getBlockState(pos.add(0, -1, 0))
-				.getBlock().getMaterial();
+		Material materialBelow = getMaterial(pos.add(0, -1, 0));
 		return alwaysSafe
 			&& material != Material.lava
 			&& materialBelow != Material.cactus
@@ -67,8 +61,7 @@ public class PathUtils
 				Client.wurst.moduleManager.getModuleFromClass(Spider.class);
 		if(isSolid(pos.add(0, -1, 0))
 			|| spiderMod.getToggled()
-			|| Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
-				.getBlockState(pos).getBlock()) == 65
+			|| getID(pos) == 65
 			|| isFlying())
 			if(isSolid(pos.add(0, 0, -1))
 				|| isSolid(pos.add(0, 0, 1))
@@ -106,5 +99,17 @@ public class PathUtils
 	public static int getCost(BlockPos current, BlockPos next)
 	{
 		return 1;
+	}
+	
+	private static Material getMaterial(BlockPos pos)
+	{
+		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
+			.getMaterial();
+	}
+	
+	private static int getID(BlockPos pos)
+	{
+		return Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+			.getBlockState(pos).getBlock());
 	}
 }
