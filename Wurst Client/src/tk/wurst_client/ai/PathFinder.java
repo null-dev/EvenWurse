@@ -61,8 +61,7 @@ public class PathFinder
 	
 	private void addPoint(BlockPos pos, PathPoint previous, int movementCost, int priority)
 	{
-		PathPoint point = new PathPoint(pos, previous, movementCost, priority);
-		queue.add(point);
+		queue.add(new PathPoint(pos, previous, movementCost, priority));
 	}
 	
 	private int getDistance(BlockPos a, BlockPos b)
