@@ -37,20 +37,20 @@ public class PathPoint
 		for(int i = neighbors.size() - 1; i > -1; i--)
 		{
 			BlockPos neighbor = neighbors.get(i);
-			if(!PathSafety.isSafe(neighbor))
+			if(!PathUtils.isSafe(neighbor))
 				neighbors.remove(i);
-			else if(!PathSafety.isFlying())
-				if(!PathSafety.isFallable(neighbor))
+			else if(!PathUtils.isFlying())
+				if(!PathUtils.isFallable(neighbor))
 					neighbors.remove(i);
-				else if(!PathSafety.isSolid(pos.add(0, -1, 0)))
-					if(!PathSafety.isSolid(neighbor.add(0, -1, 0)))
+				else if(!PathUtils.isSolid(pos.add(0, -1, 0)))
+					if(!PathUtils.isSolid(neighbor.add(0, -1, 0)))
 						neighbors.remove(i);
-					else if(previous == null || (PathSafety.isSolid(previous.getPos().add(0, -1, 0))
+					else if(previous == null || (PathUtils.isSolid(previous.getPos().add(0, -1, 0))
 						&& previous.getPos().getY() >= pos.getY()))
 						neighbors.remove(i);
 		}
 		neighbors.add(pos.add(0, -1, 0));// down
-		if(PathSafety.isFlying() || PathSafety.isClimbable(pos))
+		if(PathUtils.isFlying() || PathUtils.isClimbable(pos))
 			neighbors.add(pos.add(0, 1, 0));// up
 		return neighbors;
 	}

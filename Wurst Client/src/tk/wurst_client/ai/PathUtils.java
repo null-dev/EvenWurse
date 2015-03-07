@@ -16,7 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
 
-public class PathSafety
+public class PathUtils
 {
 	private static PlayerCapabilities playerCaps;
 	private static Module flightMod;

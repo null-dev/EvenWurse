@@ -57,7 +57,7 @@ public class PathFinder
 			}
 			for(BlockPos neighbor : current.getNeighbors())
 			{
-				if(!PathSafety.isSafe(neighbor))
+				if(!PathUtils.isSafe(neighbor))
 					continue;
 				int newCost = current.getMovementCost() + 1;
 				// TODO: Different movement costs based on block type
