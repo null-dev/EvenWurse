@@ -43,12 +43,18 @@ public class PathFinder
 	public PathPoint find()
 	{
 		PathPoint current = null;
+		long startTime = System.currentTimeMillis();
 		while(!queue.isEmpty())
 		{
 			current = queue.poll();
 			processed.put(current.getPos(), current);
 			if(current.getPos().equals(goal))
 				break;
+			if(System.currentTimeMillis() - startTime > 10e3)
+			{
+				System.err.println("Path finding took more than 10s. Aborting!");
+				break;
+			}
 			for(BlockPos neighbor : current.getNeighbors())
 			{
 				if(!BlockSafety.isSafe(neighbor))
