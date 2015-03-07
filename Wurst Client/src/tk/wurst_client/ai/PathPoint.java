@@ -18,7 +18,8 @@ public class PathPoint
 	private int priority;
 	private int movementCost;
 	
-	public PathPoint(BlockPos pos, PathPoint previous, int movementCost, int priority)
+	public PathPoint(BlockPos pos, PathPoint previous, int movementCost,
+		int priority)
 	{
 		this.pos = pos;
 		this.previous = previous;
@@ -29,7 +30,7 @@ public class PathPoint
 	public ArrayList<BlockPos> getNeighbors()
 	{
 		ArrayList<BlockPos> neighbors = new ArrayList<BlockPos>();
-		if(PathSafety.isSolid(pos.add(0, -1, 0)))
+		if(PathSafety.isSolid(pos.add(0, -1, 0)) || PathSafety.isFlying())
 		{
 			neighbors.add(pos.add(0, 0, -1));// north
 			neighbors.add(pos.add(0, 0, 1));// south
@@ -39,27 +40,27 @@ public class PathPoint
 		neighbors.add(pos.add(0, -1, 0));// down
 		if(PathSafety.isFlying())
 			neighbors.add(pos.add(0, 1, 0));// up
-		for(int i = neighbors.size() -1; i > -1; i--)
+		for(int i = neighbors.size() - 1; i > -1; i--)
 			if(!PathSafety.isSafe(neighbors.get(i)))
 				neighbors.remove(i);
 		return neighbors;
 	}
-
+	
 	public BlockPos getPos()
 	{
 		return pos;
 	}
-
+	
 	public PathPoint getPrevious()
 	{
 		return previous;
 	}
-
+	
 	public int getPriority()
 	{
 		return priority;
 	}
-
+	
 	public int getMovementCost()
 	{
 		return movementCost;
