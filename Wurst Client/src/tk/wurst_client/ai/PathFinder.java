@@ -46,7 +46,7 @@ public class PathFinder
 		{
 			current = queue.poll();
 			processed.put(current.getPos(), current);
-			if(current.getPos() == goal)
+			if(current.getPos().equals(goal))
 				break;
 			for(BlockPos neighbor : current.getNeighbors())
 			{
