@@ -7,8 +7,8 @@
  */
 package tk.wurst_client.ai;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.PriorityQueue;
 
 import net.minecraft.client.Minecraft;
@@ -18,7 +18,7 @@ public class PathFinder
 {
 	private BlockPos goal;
 	private PriorityQueue<PathPoint> queue;
-	private ArrayList<PathPoint> processed = new ArrayList<PathPoint>();
+	private HashMap<BlockPos, PathPoint> processed = new HashMap<BlockPos, PathPoint>();
 	
 	public PathFinder(BlockPos goal)
 	{
@@ -60,7 +60,7 @@ public class PathFinder
 	private void addPoint(BlockPos pos, PathPoint previous, int movementCost, int priority)
 	{
 		PathPoint point = new PathPoint(pos, previous, movementCost, priority);
-		processed.add(point);
+		processed.put(pos, point);
 		queue.add(point);
 	}
 	
