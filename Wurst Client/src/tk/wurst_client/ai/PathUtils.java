@@ -98,6 +98,11 @@ public class PathUtils
 	
 	public static int getCost(BlockPos current, BlockPos next)
 	{
+		Material nextMaterial = getMaterial(next);
+		if(nextMaterial == Material.water)
+			return 3;
+		if(nextMaterial == Material.lava)
+			return 5;
 		return 1;
 	}
 	
