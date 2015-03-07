@@ -27,7 +27,7 @@ public class PathUtils
 	public static boolean isSafe(BlockPos pos)
 	{
 		Material material = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock().getMaterial();
-		if(!isCreative())
+		if(isCreative())
 			return !material.blocksMovement();
 		return !material.blocksMovement()
 			&& material != Material.lava;
