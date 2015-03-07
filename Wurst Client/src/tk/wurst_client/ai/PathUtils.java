@@ -16,6 +16,7 @@ import tk.wurst_client.Client;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.module.modules.AntiKnockback;
 import tk.wurst_client.module.modules.Flight;
+import tk.wurst_client.module.modules.Jesus;
 import tk.wurst_client.module.modules.NoFall;
 import tk.wurst_client.module.modules.NoSlowdown;
 import tk.wurst_client.module.modules.Spider;
@@ -25,6 +26,7 @@ public class PathUtils
 	private static PlayerCapabilities playerCaps;
 	private static Module antiKnockbackMod;
 	private static Module flightMod;
+	private static Module jesusMod;
 	private static Module noFallMod;
 	private static Module noSlowdownMod;
 	private static Module spiderMod;
@@ -46,8 +48,11 @@ public class PathUtils
 	
 	public static boolean isSolid(BlockPos pos)
 	{
+		if(jesusMod == null)
+			jesusMod = Client.wurst.moduleManager.getModuleFromClass(Jesus.class);
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
-			.getMaterial().blocksMovement();
+			.getMaterial().blocksMovement()
+			|| getMaterial(pos) == Material.water && jesusMod.getToggled();
 	}
 	
 	public static boolean isFallable(BlockPos pos)
