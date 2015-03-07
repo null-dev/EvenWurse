@@ -25,7 +25,7 @@ public class BlockSafety
 		BlockPos playerPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
 		return !isSolid(pos)
 			&& !isSolid(pos.add(0, 1, 0))
-			&& isSolid(pos.add(0, -1, 0))
+			&& isFallable(pos.add(0, -1, 0))
 			&& Math.abs(playerPos.getX() - pos.getX()) < 256
 			&& Math.abs(playerPos.getZ() - pos.getZ()) < 256;
 	}
