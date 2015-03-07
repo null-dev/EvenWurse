@@ -25,11 +25,7 @@ public class PathUtils
 	
 	public static boolean isSafe(BlockPos pos)
 	{
-		BlockPos playerPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
-		return !isSolid(pos)
-			&& !isSolid(pos.add(0, 1, 0))
-			&& Math.abs(playerPos.getX() - pos.getX()) < 256
-			&& Math.abs(playerPos.getZ() - pos.getZ()) < 256;
+		return !isSolid(pos);
 	}
 	
 	public static boolean isSolid(BlockPos pos)
