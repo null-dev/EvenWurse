@@ -55,16 +55,15 @@ public class PathFinder
 				System.err.println("Path finding took more than 10s. Aborting!");
 				break;
 			}
-			for(BlockPos neighbor : current.getNeighbors())
+			for(BlockPos next : current.getNeighbors())
 			{
-				if(!PathUtils.isSafe(neighbor))
+				if(!PathUtils.isSafe(next))
 					continue;
-				int newCost = current.getMovementCost() + 1;
-				// TODO: Different movement costs based on block type
-				if(!processed.containsKey(neighbor)
-					|| processed.get(neighbor).getMovementCost() > newCost)
-					addPoint(neighbor, current, newCost,
-						newCost + getDistance(neighbor, goal));
+				int newCost = current.getMovementCost() + getCost(current.getPos(), next);
+				if(!processed.containsKey(next)
+					|| processed.get(next).getMovementCost() > newCost)
+					addPoint(next, current, newCost,
+						newCost + getDistance(next, goal));
 			}
 		}
 		return current;
@@ -80,5 +79,10 @@ public class PathFinder
 	{
 		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY())
 			+ Math.abs(a.getZ() - b.getZ());
+	}
+	
+	private int getCost(BlockPos current, BlockPos next)
+	{
+		return 1;
 	}
 }
