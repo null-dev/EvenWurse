@@ -9,6 +9,7 @@ package tk.wurst_client.ai;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Module;
+import tk.wurst_client.module.modules.Flight;
 import tk.wurst_client.module.modules.NoFall;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
@@ -16,8 +17,9 @@ import net.minecraft.util.BlockPos;
 
 public class PathSafety
 {
-	private static Module noFallMod;
 	private static PlayerCapabilities playerCaps;
+	private static Module flightMod;
+	private static Module noFallMod;
 	
 	public static boolean isSafe(BlockPos pos)
 	{
@@ -56,5 +58,12 @@ public class PathSafety
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
 		return playerCaps.isCreativeMode;
+	}
+	
+	public static boolean isFlying()
+	{
+		if(flightMod == null)
+			flightMod = Client.wurst.moduleManager.getModuleFromClass(Flight.class);
+		return flightMod.getToggled() || playerCaps.isFlying;
 	}
 }
