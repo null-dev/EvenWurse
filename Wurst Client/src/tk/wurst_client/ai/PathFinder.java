@@ -45,6 +45,7 @@ public class PathFinder
 		while(!queue.isEmpty())
 		{
 			current = queue.poll();
+			processed.put(current.getPos(), current);
 			if(current.getPos() == goal)
 				break;
 			for(BlockPos neighbor : current.getNeighbors())
@@ -60,7 +61,6 @@ public class PathFinder
 	private void addPoint(BlockPos pos, PathPoint previous, int movementCost, int priority)
 	{
 		PathPoint point = new PathPoint(pos, previous, movementCost, priority);
-		processed.put(pos, point);
 		queue.add(point);
 	}
 	
