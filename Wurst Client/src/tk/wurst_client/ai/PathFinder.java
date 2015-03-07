@@ -13,9 +13,6 @@ import java.util.PriorityQueue;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.Client;
-import tk.wurst_client.module.Module;
-import tk.wurst_client.module.modules.NoFall;
 
 public class PathFinder
 {
@@ -23,7 +20,6 @@ public class PathFinder
 	private PriorityQueue<PathPoint> queue;
 	private HashMap<BlockPos, PathPoint> processed =
 		new HashMap<BlockPos, PathPoint>();
-	private Module noFallMod;
 	
 	public PathFinder(BlockPos goal)
 	{
@@ -42,7 +38,6 @@ public class PathFinder
 			}
 		});
 		addPoint(start, null, 0, 0);
-		noFallMod = Client.wurst.moduleManager.getModuleFromClass(NoFall.class);
 	}
 	
 	public PathPoint find()
@@ -56,7 +51,7 @@ public class PathFinder
 				break;
 			for(BlockPos neighbor : current.getNeighbors())
 			{
-				if(!isSafe(neighbor))
+				if(!BlockSafety.isSafe(neighbor))
 					continue;
 				int newCost = current.getMovementCost() + 1;
 				// TODO: Different movement costs based on block type
@@ -79,16 +74,5 @@ public class PathFinder
 	{
 		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY())
 			+ Math.abs(a.getZ() - b.getZ());
-	}
-	
-	private boolean isSafe(BlockPos pos)
-	{
-		return !Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
-			.getMaterial().blocksMovement()
-			&& (Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-				|| noFallMod.getToggled()
-				|| Minecraft.getMinecraft().theWorld
-				.getBlockState(pos.add(0, -1, 0)).getBlock().getMaterial()
-				.blocksMovement());
 	}
 }
