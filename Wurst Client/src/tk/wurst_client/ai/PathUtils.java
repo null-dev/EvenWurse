@@ -30,12 +30,17 @@ public class PathUtils
 		Material material =
 			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 				.getMaterial();
+		int id =
+			Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+				.getBlockState(pos).getBlock());
+		boolean alwaysSafe = !material.blocksMovement()
+			&& id != 132;// tripwire
 		if(isCreative())
-			return !material.blocksMovement();
+			return alwaysSafe;
 		Material materialBelow =
 			Minecraft.getMinecraft().theWorld.getBlockState(pos.add(0, -1, 0))
 				.getBlock().getMaterial();
-		return !material.blocksMovement()
+		return alwaysSafe
 			&& material != Material.lava
 			&& materialBelow != Material.cactus
 			&& material != Material.fire;
