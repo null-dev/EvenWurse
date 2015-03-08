@@ -49,7 +49,8 @@ public class PathUtils
 	public static boolean isSolid(BlockPos pos)
 	{
 		if(jesusMod == null)
-			jesusMod = Client.wurst.moduleManager.getModuleFromClass(Jesus.class);
+			jesusMod =
+				Client.wurst.moduleManager.getModuleFromClass(Jesus.class);
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
 			|| getMaterial(pos) == Material.water && jesusMod.getToggled();
@@ -111,20 +112,21 @@ public class PathUtils
 			noSlowdownMod =
 				Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class);
 		if(antiKnockbackMod == null)
-			antiKnockbackMod = Client.wurst.moduleManager.getModuleFromClass(AntiKnockback.class);
+			antiKnockbackMod =
+				Client.wurst.moduleManager
+					.getModuleFromClass(AntiKnockback.class);
 		Material nextMaterial = getMaterial(next);
-		int nextID = getID(next);
-		int cost = 1;
 		if(nextMaterial == Material.water)
-		{
-			if(!noSlowdownMod.getToggled())
-				cost *= 3;
-			if(nextID == 9//flowing water
-				&& !antiKnockbackMod.getToggled())
-				cost *= 1.5;
-		}else if(nextMaterial == Material.lava)
-			cost *= 5;
-		return cost;
+			if(noSlowdownMod.getToggled())
+				return 1;
+			else
+				if(antiKnockbackMod.getToggled())
+					return 2;
+				else
+					return 3;
+		else if(nextMaterial == Material.lava)
+			return 5;
+		return 1;
 	}
 	
 	private static Material getMaterial(BlockPos pos)
