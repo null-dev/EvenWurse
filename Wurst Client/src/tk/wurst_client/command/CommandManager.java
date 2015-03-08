@@ -31,6 +31,7 @@ public class CommandManager
 		activeCommands.add(new IP());
 		activeCommands.add(new Nothing());
 		activeCommands.add(new NukerMod());
+		activeCommands.add(new Path());
 		activeCommands
 			.add(new RenameForceOPEvenThoughTheNameIsTechnicallyCorrect());
 		activeCommands.add(new RV());
