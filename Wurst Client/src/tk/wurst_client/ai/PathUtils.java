@@ -105,7 +105,7 @@ public class PathUtils
 		return flightMod.getToggled() || playerCaps.isFlying;
 	}
 	
-	public static double getCost(BlockPos current, BlockPos next)
+	public static int getCost(BlockPos current, BlockPos next)
 	{
 		if(noSlowdownMod == null)
 			noSlowdownMod =
@@ -114,14 +114,14 @@ public class PathUtils
 			antiKnockbackMod = Client.wurst.moduleManager.getModuleFromClass(AntiKnockback.class);
 		Material nextMaterial = getMaterial(next);
 		int nextID = getID(next);
-		double cost = 1;
+		int cost = 1;
 		if(nextMaterial == Material.water)
 		{
 			if(!noSlowdownMod.getToggled())
-				cost *= 2.5;
+				cost *= 3;
 			if(nextID == 9//flowing water
 				&& !antiKnockbackMod.getToggled())
-				cost *= 1.2;
+				cost *= 1.5;
 		}else if(nextMaterial == Material.lava)
 			cost *= 5;
 		return cost;
