@@ -82,6 +82,7 @@ public class ModuleManager
 		activeModules.add(new Home());
 		activeModules.add(new InstantBunker());
 		activeModules.add(new Invisibility());
+		activeModules.add(new InvseeCmd());
 		activeModules.add(new ItemESP());
 		activeModules.add(new Jesus());
 		activeModules.add(new Jetpack());

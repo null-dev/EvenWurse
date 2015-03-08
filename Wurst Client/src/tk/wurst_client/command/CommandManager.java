@@ -28,6 +28,7 @@ public class CommandManager
 		activeCommands.add(new Friends());
 		activeCommands.add(new GM());
 		activeCommands.add(new Help());
+		activeCommands.add(new Invsee());
 		activeCommands.add(new IP());
 		activeCommands.add(new Nothing());
 		activeCommands.add(new NukerMod());
