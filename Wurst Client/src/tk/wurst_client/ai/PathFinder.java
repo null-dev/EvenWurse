@@ -68,14 +68,15 @@ public class PathFinder
 			{
 				if(!PathUtils.isSafe(next))
 					continue;
-				int newCost = current.getMovementCost() + PathUtils.getCost(current.getPos(), next);
+				int nextCost = PathUtils.getCost(current.getPos(), next);
+				int newCost = current.getMovementCost() + nextCost;
 				if(!processed.containsKey(next)
 					|| processed.get(next).getMovementCost() > newCost)
 					addPoint(next, current, newCost,
-						newCost + getDistance(next, goal));
+						newCost + getDistance(next, goal) * nextCost);
 			}
 		}
-		System.out.println(processed.size());
+		System.out.println("Processed " + processed.size() + " nodes.");
 		return current;
 	}
 	
