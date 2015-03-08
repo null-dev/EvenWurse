@@ -34,7 +34,16 @@ public class PathFinder
 			@Override
 			public int compare(PathPoint o1, PathPoint o2)
 			{
-				return o1.getPriority() - o2.getPriority();
+				if(o1.getPriority() < o2.getPriority())
+					return -1;
+				else if(o1.getPriority() > o2.getPriority())
+					return 1;
+				else if(getDistance(o1.getPos(), PathFinder.this.goal) < getDistance(o2.getPos(), PathFinder.this.goal))
+					return -1;
+				else if(getDistance(o1.getPos(), PathFinder.this.goal) > getDistance(o2.getPos(), PathFinder.this.goal))
+					return 1;
+				else
+					return 0;
 			}
 		});
 		addPoint(start, null, 0, 0);
@@ -66,6 +75,7 @@ public class PathFinder
 						newCost + getDistance(next, goal));
 			}
 		}
+		System.out.println(processed.size());
 		return current;
 	}
 	
