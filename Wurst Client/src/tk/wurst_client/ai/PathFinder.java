@@ -76,7 +76,7 @@ public class PathFinder
 						newCost + getDistance(next, goal) * nextCost);
 			}
 		}
-		System.out.println("Processed " + processed.size() + " nodes.");
+		System.out.println("Processed " + processed.size() + " nodes");
 		return current;
 	}
 	
