@@ -27,7 +27,6 @@ public class CommandManager
 		activeCommands.add(new Features());
 		activeCommands.add(new Friends());
 		activeCommands.add(new GM());
-		activeCommands.add(new GoTo());
 		activeCommands.add(new Help());
 		activeCommands.add(new IP());
 		activeCommands.add(new Nothing());
