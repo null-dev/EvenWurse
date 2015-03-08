@@ -44,7 +44,7 @@ public class PathPoint
 				|| Math.abs(playerPos.getX() - neighbor.getX()) > 256
 				|| Math.abs(playerPos.getZ() - neighbor.getZ()) > 256)
 				neighbors.remove(i);
-			else if(!PathUtils.isFlying())
+			else if(!PathUtils.isFlyable(neighbor))
 				if(!PathUtils.isFallable(neighbor))
 					neighbors.remove(i);
 				else if(!PathUtils.isSolid(pos.add(0, -1, 0)))
@@ -55,7 +55,7 @@ public class PathPoint
 						neighbors.remove(i);
 		}
 		neighbors.add(pos.add(0, -1, 0));// down
-		if(PathUtils.isFlying() || PathUtils.isClimbable(pos))
+		if(PathUtils.isFlyable(pos) || PathUtils.isClimbable(pos))
 			neighbors.add(pos.add(0, 1, 0));// up
 		return neighbors;
 	}

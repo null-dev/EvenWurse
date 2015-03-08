@@ -72,7 +72,7 @@ public class PathUtils
 		if(isSolid(pos.add(0, -1, 0))
 			|| spiderMod.getToggled()
 			|| getID(pos) == 65
-			|| isFlying())
+			|| isFlyable(pos))
 			if(isSolid(pos.add(0, 0, -1))
 				|| isSolid(pos.add(0, 0, 1))
 				|| isSolid(pos.add(1, 0, 0))
@@ -96,14 +96,19 @@ public class PathUtils
 		return playerCaps.isCreativeMode;
 	}
 	
-	public static boolean isFlying()
+	public static boolean isFlyable(BlockPos pos)
 	{
 		if(flightMod == null)
 			flightMod =
 				Client.wurst.moduleManager.getModuleFromClass(Flight.class);
+		if(noSlowdownMod == null)
+			noSlowdownMod =
+				Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class);
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
-		return flightMod.getToggled() || playerCaps.isFlying;
+		return flightMod.getToggled()
+			|| playerCaps.isFlying
+			|| (!noSlowdownMod.getToggled() && getMaterial(pos) == Material.water);
 	}
 	
 	public static int getCost(BlockPos current, BlockPos next)
