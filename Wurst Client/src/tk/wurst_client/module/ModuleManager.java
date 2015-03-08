@@ -104,6 +104,7 @@ public class ModuleManager
 		activeModules.add(new NukerLegit());
 		activeModules.add(new Overlay());
 		activeModules.add(new Panic());
+		activeModules.add(new PathCmd());
 		activeModules.add(new Phase());
 		activeModules.add(new PlayerESP());
 		activeModules.add(new PlayerFinder());
