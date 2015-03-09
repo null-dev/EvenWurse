@@ -7,22 +7,33 @@
  */
 package tk.wurst_client.event;
 
+import java.util.HashSet;
+import java.util.Iterator;
+
 import tk.wurst_client.event.events.WurstEvent;
+import tk.wurst_client.event.listeners.WurstListener;
 
 public class EventManager
 {
-	public static void addListener()
+	private static HashSet<WurstListener> listeners = new HashSet<WurstListener>();
+	
+	public synchronized static void addListener(WurstListener listener)
 	{
-		
+		listeners.add(listener);
 	}
 
-	public static void removeListener()
+	public synchronized static void removeListener(WurstListener listener)
 	{
-		
+		listeners.remove(listener);
 	}
 	
-	public static void fireEvent(WurstEvent event)
+	public synchronized static void fireEvent(WurstEvent event)
 	{
-		
+		Iterator<WurstListener> itr = listeners.iterator();
+		while(itr.hasNext())
+		{
+			WurstListener listener = itr.next();
+			listener.onEvent(event);
+		}
 	}
 }
