@@ -5,24 +5,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package tk.wurst_client.event;
+package tk.wurst_client.event.events;
 
-import tk.wurst_client.event.events.WurstEvent;
-
-public class EventManager
+public class WurstEvent
 {
-	public static void addListener()
-	{
-		
-	}
-
-	public static void removeListener()
-	{
-		
-	}
 	
-	public static void fireEvent(WurstEvent event)
-	{
-		
-	}
 }

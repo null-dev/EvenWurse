@@ -7,7 +7,9 @@
  */
 package tk.wurst_client.event.listeners;
 
+import tk.wurst_client.event.events.WurstEvent;
+
 public interface WurstListener
 {	
-	public void onEvent();;
+	public void onEvent(WurstEvent event);;
 }
