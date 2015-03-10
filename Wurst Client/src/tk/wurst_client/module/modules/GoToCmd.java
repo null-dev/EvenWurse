@@ -56,7 +56,7 @@ public class GoToCmd extends Module
 		BlockPos nextPos = path.get(index);
 		float dist = BlockUtils.getPlayerBlockDistance(nextPos);
 		float hDist = BlockUtils.getHorizontalPlayerBlockDistance(nextPos);
-		double vDist = Math.abs(Minecraft.getMinecraft().thePlayer.posX - nextPos.getY());
+		double vDist = Math.abs(Minecraft.getMinecraft().thePlayer.posY - nextPos.getY());
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		Minecraft.getMinecraft().gameSettings.keyBindBack.pressed = false;
 		Minecraft.getMinecraft().gameSettings.keyBindRight.pressed = false;
@@ -70,6 +70,7 @@ public class GoToCmd extends Module
 		{
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
 		}
+		System.out.println(vDist);
 		if(vDist > 1)
 		{
 			if(PathUtils.isFlyable(currentPos))
