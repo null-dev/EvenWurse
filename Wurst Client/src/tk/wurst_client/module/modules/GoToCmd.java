@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
+import tk.wurst_client.ai.PathUtils;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
@@ -60,10 +61,19 @@ public class GoToCmd extends Module
 		Minecraft.getMinecraft().thePlayer.rotationPitch = 10;
 		BlockUtils.faceBlockClientHorizontally(nextPos);
 		
-		if(currentPos.getY() == nextPos.getY())
+		if(hDist > 0.25)
 		{
-			if(hDist > 0.25)
-				Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
+		}
+		if(vDist > 1)
+		{
+			if(PathUtils.isFlyable(currentPos))
+			{
+				if(currentPos.getY() > nextPos.getY())
+					Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = true;
+				else
+					Minecraft.getMinecraft().gameSettings.keyBindJump.pressed = true;
+			}
 		}
 		
 		if(dist < 1)
