@@ -35,6 +35,11 @@ public class GoToCmd extends Module
 		GoToCmd.path = path;
 	}
 
+	public static BlockPos getGoal()
+	{
+		return goal;
+	}
+
 	public static void setGoal(BlockPos goal)
 	{
 		GoToCmd.goal = goal;
