@@ -92,4 +92,9 @@ public class PathFinder
 		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY())
 			+ Math.abs(a.getZ() - b.getZ());
 	}
+
+	public PathPoint getRawPath()
+	{
+		return lastPoint;
+	}
 }
