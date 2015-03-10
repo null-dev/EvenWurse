@@ -9,9 +9,11 @@ package tk.wurst_client.module.modules;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
+import tk.wurst_client.utils.BlockUtils;
 
 public class GoToCmd extends Module
 {
@@ -44,7 +46,20 @@ public class GoToCmd extends Module
 	{
 		if(!getToggled())
 			return;
-		setToggled(false);
+		BlockPos pos = path.get(index);
+		float dist = BlockUtils.getPlayerBlockDistance(pos);
+		float hDist = BlockUtils.getHorizontalPlayerBlockDistance(pos);
+		double vDist = Math.abs(Minecraft.getMinecraft().thePlayer.posX - pos.getY());
+		Minecraft.getMinecraft().thePlayer.rotationPitch = 0;
+		BlockUtils.faceBlockClientHorizontally(pos);
+		if(hDist > 0.25)
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
+		else
+			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+		if(dist < 1)
+			index++;
+		if(index >= path.size())
+			setToggled(false);
 	}
 	
 	@Override
@@ -52,6 +67,7 @@ public class GoToCmd extends Module
 	{
 		path = null;
 		goal = null;
+		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 	}
 
 	public static void setPath(ArrayList<BlockPos> path)
