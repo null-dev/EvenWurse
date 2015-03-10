@@ -7,6 +7,7 @@
  */
 package tk.wurst_client.ai;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -99,5 +100,17 @@ public class PathFinder
 	public PathPoint getRawPath()
 	{
 		return lastPoint;
+	}
+	
+	public ArrayList<BlockPos> formatPath()
+	{
+		ArrayList<BlockPos> path = new ArrayList<BlockPos>();
+		PathPoint point = lastPoint;
+		while(point != null)
+		{
+			path.add(path.size() - 1, point.getPos());
+			point = point.getPrevious();
+		}
+		return path;
 	}
 }
