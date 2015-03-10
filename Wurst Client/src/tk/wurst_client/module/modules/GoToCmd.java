@@ -16,6 +16,7 @@ import tk.wurst_client.module.Module;
 public class GoToCmd extends Module
 {
 	private static ArrayList<BlockPos> path;
+	private static BlockPos goal;
 	
 	public GoToCmd()
 	{
@@ -32,5 +33,10 @@ public class GoToCmd extends Module
 	public static void setPath(ArrayList<BlockPos> path)
 	{
 		GoToCmd.path = path;
+	}
+
+	public static void setGoal(BlockPos goal)
+	{
+		GoToCmd.goal = goal;
 	}
 }
