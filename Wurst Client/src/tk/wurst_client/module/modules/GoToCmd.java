@@ -47,6 +47,11 @@ public class GoToCmd extends Module
 	{
 		if(!getToggled())
 			return;
+		if(path == null || goal == null)
+		{
+			setToggled(false);
+			return;
+		}
 		BlockPos currentPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
 		BlockPos nextPos = path.get(index);
 		float dist = BlockUtils.getPlayerBlockDistance(nextPos);
