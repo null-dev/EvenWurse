@@ -78,6 +78,23 @@ public class GoToCmd extends Module
 					Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = true;
 				else
 					Minecraft.getMinecraft().gameSettings.keyBindJump.pressed = true;
+			}else if(PathUtils.isClimbable(currentPos) && currentPos.getY() < nextPos.getY())
+			{
+				BlockPos[] neighbors = new BlockPos[]
+				{
+					currentPos.add(0, 0, -1),
+					currentPos.add(0, 0, 1),
+					currentPos.add(1, 0, 0),
+					currentPos.add(-1, 0, 0)
+				};
+				for(BlockPos neigbor : neighbors)
+				{
+					if(!PathUtils.isSolid(neigbor))
+						continue;
+					BlockUtils.faceBlockClientHorizontally(neigbor);
+					Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
+					break;
+				}
 			}
 		}
 		
