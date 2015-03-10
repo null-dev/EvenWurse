@@ -20,6 +20,7 @@ public class PathFinder
 	private PriorityQueue<PathPoint> queue;
 	private HashMap<BlockPos, PathPoint> processed =
 		new HashMap<BlockPos, PathPoint>();
+	private PathPoint lastPoint;
 	
 	public PathFinder(BlockPos goal)
 	{
@@ -51,33 +52,33 @@ public class PathFinder
 	
 	public PathPoint find()
 	{
-		PathPoint current = null;
+		lastPoint = null;
 		long startTime = System.currentTimeMillis();
 		while(!queue.isEmpty())
 		{
-			current = queue.poll();
-			processed.put(current.getPos(), current);
-			if(current.getPos().equals(goal))
+			lastPoint = queue.poll();
+			processed.put(lastPoint.getPos(), lastPoint);
+			if(lastPoint.getPos().equals(goal))
 				break;
 			if(System.currentTimeMillis() - startTime > 10e3)
 			{
 				System.err.println("Path finding took more than 10s. Aborting!");
 				break;
 			}
-			for(BlockPos next : current.getNeighbors())
+			for(BlockPos next : lastPoint.getNeighbors())
 			{
 				if(!PathUtils.isSafe(next))
 					continue;
-				int nextCost = PathUtils.getCost(current.getPos(), next);
-				int newCost = current.getMovementCost() + nextCost;
+				int nextCost = PathUtils.getCost(lastPoint.getPos(), next);
+				int newCost = lastPoint.getMovementCost() + nextCost;
 				if(!processed.containsKey(next)
 					|| processed.get(next).getMovementCost() > newCost)
-					addPoint(next, current, newCost,
+					addPoint(next, lastPoint, newCost,
 						newCost + getDistance(next, goal) * nextCost);
 			}
 		}
 		System.out.println("Processed " + processed.size() + " nodes");
-		return current;
+		return lastPoint;
 	}
 	
 	private void addPoint(BlockPos pos, PathPoint previous, int movementCost,
