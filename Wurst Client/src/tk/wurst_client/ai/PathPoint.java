@@ -39,7 +39,9 @@ public class PathPoint
 		for(int i = neighbors.size() - 1; i > -1; i--)
 		{
 			BlockPos neighbor = neighbors.get(i);
-			if(!PathUtils.isSafe(neighbor)
+			if(PathUtils.isSolid(neighbor)
+				|| !PathUtils.isSafe(neighbor)
+				|| PathUtils.isSolid(neighbor.add(0, 1, 0))
 				|| !PathUtils.isSafe(neighbor.add(0, 1, 0))
 				|| Math.abs(playerPos.getX() - neighbor.getX()) > 256
 				|| Math.abs(playerPos.getZ() - neighbor.getZ()) > 256)
