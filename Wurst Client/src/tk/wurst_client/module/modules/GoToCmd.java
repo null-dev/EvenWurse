@@ -88,6 +88,11 @@ public class GoToCmd extends Module
 		path = null;
 		goal = null;
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindBack.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindRight.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindLeft.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindJump.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
 	}
 
 	public static void setPath(ArrayList<BlockPos> path)
