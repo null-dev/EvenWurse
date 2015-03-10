@@ -70,8 +70,7 @@ public class GoToCmd extends Module
 		{
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
 		}
-		System.out.println(vDist);
-		if(vDist > 1)
+		if(vDist > 0.25)
 		{
 			if(PathUtils.isFlyable(currentPos))
 			{
