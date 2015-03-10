@@ -35,7 +35,8 @@ public class PathUtils
 	{
 		Material material = getMaterial(pos);
 		int id = getID(pos);
-		boolean alwaysSafe = id != 132;// tripwire
+		boolean alwaysSafe = !material.blocksMovement()
+			&& id != 132;// tripwire
 		if(isCreative())
 			return alwaysSafe;
 		Material materialBelow = getMaterial(pos.add(0, -1, 0));
