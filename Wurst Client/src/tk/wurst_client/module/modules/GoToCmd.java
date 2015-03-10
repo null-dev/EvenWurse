@@ -24,10 +24,27 @@ public class GoToCmd extends Module
 	}
 	
 	@Override
+	public String getRenderName()
+	{
+		if(goal != null)
+			return "Go to " + goal.getX() + " " + goal.getY() + " " + goal.getZ();
+		else
+			return "GoTo";
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(getToggled())
+		if(!getToggled())
 			return;
+		setToggled(false);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		path = null;
+		goal = null;
 	}
 
 	public static void setPath(ArrayList<BlockPos> path)
