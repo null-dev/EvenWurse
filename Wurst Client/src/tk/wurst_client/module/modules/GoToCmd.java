@@ -7,11 +7,16 @@
  */
 package tk.wurst_client.module.modules;
 
+import java.util.ArrayList;
+
+import net.minecraft.util.BlockPos;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
 public class GoToCmd extends Module
 {
+	private static ArrayList<BlockPos> path;
+	
 	public GoToCmd()
 	{
 		super("GoTo", "", Category.HIDDEN);
@@ -22,5 +27,10 @@ public class GoToCmd extends Module
 	{
 		if(getToggled())
 			return;
+	}
+
+	public static void setPath(ArrayList<BlockPos> path)
+	{
+		GoToCmd.path = path;
 	}
 }
