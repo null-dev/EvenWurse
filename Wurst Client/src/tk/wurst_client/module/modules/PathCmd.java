@@ -57,7 +57,9 @@ public class PathCmd extends Module
 			{
 				System.out.println("Finding path");
 				long startTime = System.nanoTime();
-				path = new PathFinder(pos).find();
+				PathFinder pathFinder = new PathFinder(pos);
+				if(pathFinder.find())
+					path = pathFinder.getRawPath();
 				System.out.println("Done after "
 					+ (System.nanoTime() - startTime) / 1e6 + "ms");
 			}
