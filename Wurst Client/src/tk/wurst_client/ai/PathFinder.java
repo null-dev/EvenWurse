@@ -8,6 +8,7 @@
 package tk.wurst_client.ai;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -108,9 +109,10 @@ public class PathFinder
 		PathPoint point = lastPoint;
 		while(point != null)
 		{
-			path.add(path.size(), point.getPos());
+			path.add(point.getPos());
 			point = point.getPrevious();
 		}
+		Collections.reverse(path);
 		return path;
 	}
 }
