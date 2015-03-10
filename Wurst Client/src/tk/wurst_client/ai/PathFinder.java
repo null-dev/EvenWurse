@@ -108,7 +108,7 @@ public class PathFinder
 		PathPoint point = lastPoint;
 		while(point != null)
 		{
-			path.add(path.size() - 1, point.getPos());
+			path.add(path.size(), point.getPos());
 			point = point.getPrevious();
 		}
 		return path;
