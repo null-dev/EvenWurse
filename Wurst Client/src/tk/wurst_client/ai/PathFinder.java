@@ -50,16 +50,19 @@ public class PathFinder
 		addPoint(start, null, 0, 0);
 	}
 	
-	public PathPoint find()
+	public boolean find()
 	{
-		lastPoint = null;
 		long startTime = System.currentTimeMillis();
+		boolean foundPath = false;
 		while(!queue.isEmpty())
 		{
 			lastPoint = queue.poll();
 			processed.put(lastPoint.getPos(), lastPoint);
 			if(lastPoint.getPos().equals(goal))
+			{
+				foundPath = true;
 				break;
+			}
 			if(System.currentTimeMillis() - startTime > 10e3)
 			{
 				System.err.println("Path finding took more than 10s. Aborting!");
@@ -78,7 +81,7 @@ public class PathFinder
 			}
 		}
 		System.out.println("Processed " + processed.size() + " nodes");
-		return lastPoint;
+		return foundPath;
 	}
 	
 	private void addPoint(BlockPos pos, PathPoint previous, int movementCost,
