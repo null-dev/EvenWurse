@@ -17,6 +17,7 @@ public class GoToCmd extends Module
 {
 	private static ArrayList<BlockPos> path;
 	private static BlockPos goal;
+	private int index;
 	
 	public GoToCmd()
 	{
@@ -30,6 +31,12 @@ public class GoToCmd extends Module
 			return "Go to " + goal.getX() + " " + goal.getY() + " " + goal.getZ();
 		else
 			return "GoTo";
+	}
+	
+	@Override
+	public void onEnable()
+	{
+		index = 0;
 	}
 	
 	@Override
