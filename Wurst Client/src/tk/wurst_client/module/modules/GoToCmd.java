@@ -46,16 +46,21 @@ public class GoToCmd extends Module
 	{
 		if(!getToggled())
 			return;
-		BlockPos pos = path.get(index);
-		float dist = BlockUtils.getPlayerBlockDistance(pos);
-		float hDist = BlockUtils.getHorizontalPlayerBlockDistance(pos);
-		double vDist = Math.abs(Minecraft.getMinecraft().thePlayer.posX - pos.getY());
-		Minecraft.getMinecraft().thePlayer.rotationPitch = 0;
-		BlockUtils.faceBlockClientHorizontally(pos);
-		if(hDist > 0.25)
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
-		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+		BlockPos currentPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
+		BlockPos nextPos = path.get(index);
+		float dist = BlockUtils.getPlayerBlockDistance(nextPos);
+		float hDist = BlockUtils.getHorizontalPlayerBlockDistance(nextPos);
+		double vDist = Math.abs(Minecraft.getMinecraft().thePlayer.posX - nextPos.getY());
+		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+		Minecraft.getMinecraft().thePlayer.rotationPitch = 10;
+		BlockUtils.faceBlockClientHorizontally(nextPos);
+		
+		if(currentPos.getY() == nextPos.getY())
+		{
+			if(hDist > 0.25)
+				Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
+		}
+		
 		if(dist < 1)
 			index++;
 		if(index >= path.size())
