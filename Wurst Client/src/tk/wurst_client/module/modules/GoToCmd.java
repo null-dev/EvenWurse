@@ -52,6 +52,11 @@ public class GoToCmd extends Module
 		float hDist = BlockUtils.getHorizontalPlayerBlockDistance(nextPos);
 		double vDist = Math.abs(Minecraft.getMinecraft().thePlayer.posX - nextPos.getY());
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindBack.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindRight.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindLeft.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindJump.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
 		Minecraft.getMinecraft().thePlayer.rotationPitch = 10;
 		BlockUtils.faceBlockClientHorizontally(nextPos);
 		
