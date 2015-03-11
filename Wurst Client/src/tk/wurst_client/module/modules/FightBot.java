@@ -10,12 +10,19 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 
-public class FightBot extends Module
+public class FightBot extends Module implements UpdateListener
 {
+	private float speed;
+	private float range = 6F;
+	private double distance = 3D;
+	private EntityLivingBase entity;
+	
 	public FightBot()
 	{
 		super(
@@ -26,16 +33,15 @@ public class FightBot extends Module
 			Category.COMBAT);
 	}
 	
-	private float speed;
-	private float range = 6F;
-	private double distance = 3D;
-	private EntityLivingBase entity;
-	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+
+	@Override
+	public void onUpdate()
+	{
 		if(EntityUtils.getClosestEntity(true) != null)
 			entity = EntityUtils.getClosestEntity(true);
 		if(entity == null)
@@ -90,6 +96,7 @@ public class FightBot extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 	}
 }
