@@ -9,6 +9,7 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
+import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
@@ -28,6 +29,13 @@ public class Regen extends Module
 	{
 		if(!getToggled())
 			return;
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
+		{
+			noCheatMessage();
+			setToggled(false);
+			return;
+		}
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Minecraft.getMinecraft().thePlayer.getFoodStats().getFoodLevel() > 17
 			&& Minecraft.getMinecraft().thePlayer.getHealth() < 20

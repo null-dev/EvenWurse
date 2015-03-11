@@ -7,6 +7,8 @@
  */
 package tk.wurst_client.ai;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -20,6 +22,7 @@ public class PathFinder
 	private PriorityQueue<PathPoint> queue;
 	private HashMap<BlockPos, PathPoint> processed =
 		new HashMap<BlockPos, PathPoint>();
+	private PathPoint lastPoint;
 	
 	public PathFinder(BlockPos goal)
 	{
@@ -49,35 +52,38 @@ public class PathFinder
 		addPoint(start, null, 0, 0);
 	}
 	
-	public PathPoint find()
+	public boolean find()
 	{
-		PathPoint current = null;
 		long startTime = System.currentTimeMillis();
+		boolean foundPath = false;
 		while(!queue.isEmpty())
 		{
-			current = queue.poll();
-			processed.put(current.getPos(), current);
-			if(current.getPos().equals(goal))
+			lastPoint = queue.poll();
+			processed.put(lastPoint.getPos(), lastPoint);
+			if(lastPoint.getPos().equals(goal))
+			{
+				foundPath = true;
 				break;
+			}
 			if(System.currentTimeMillis() - startTime > 10e3)
 			{
 				System.err.println("Path finding took more than 10s. Aborting!");
 				break;
 			}
-			for(BlockPos next : current.getNeighbors())
+			for(BlockPos next : lastPoint.getNeighbors())
 			{
 				if(!PathUtils.isSafe(next))
 					continue;
-				int nextCost = PathUtils.getCost(current.getPos(), next);
-				int newCost = current.getMovementCost() + nextCost;
+				int nextCost = PathUtils.getCost(lastPoint.getPos(), next);
+				int newCost = lastPoint.getMovementCost() + nextCost;
 				if(!processed.containsKey(next)
 					|| processed.get(next).getMovementCost() > newCost)
-					addPoint(next, current, newCost,
+					addPoint(next, lastPoint, newCost,
 						newCost + getDistance(next, goal) * nextCost);
 			}
 		}
 		System.out.println("Processed " + processed.size() + " nodes");
-		return current;
+		return foundPath;
 	}
 	
 	private void addPoint(BlockPos pos, PathPoint previous, int movementCost,
@@ -90,5 +96,28 @@ public class PathFinder
 	{
 		return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY())
 			+ Math.abs(a.getZ() - b.getZ());
+	}
+
+	public PathPoint getRawPath()
+	{
+		return lastPoint;
+	}
+	
+	public ArrayList<BlockPos> formatPath()
+	{
+		ArrayList<BlockPos> path = new ArrayList<BlockPos>();
+		PathPoint point = lastPoint;
+		while(point != null)
+		{
+			path.add(point.getPos());
+			point = point.getPrevious();
+		}
+		Collections.reverse(path);
+		for(int i = path.size() -1; i > 1; i--)
+			if((path.get(i).getX() == path.get(i - 2).getX() && path.get(i).getY() == path.get(i - 2).getY())
+				|| (path.get(i).getX() == path.get(i - 2).getX() && path.get(i).getZ() == path.get(i - 2).getZ())
+				|| (path.get(i).getY() == path.get(i - 2).getY() && path.get(i).getZ() == path.get(i - 2).getZ()))
+				path.remove(i - 1);
+		return path;
 	}
 }
