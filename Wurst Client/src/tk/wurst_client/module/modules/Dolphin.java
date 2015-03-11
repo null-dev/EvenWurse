@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Dolphin extends Module
+public class Dolphin extends Module implements UpdateListener
 {
 	public Dolphin()
 	{
@@ -22,12 +24,22 @@ public class Dolphin extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& !Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
