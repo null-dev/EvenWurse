@@ -9,12 +9,17 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 
-public class Follow extends Module
+public class Follow extends Module implements UpdateListener
 {
+	private EntityLivingBase entity;
+	private float range = 12F;
+	
 	public Follow()
 	{
 		super(
@@ -23,10 +28,7 @@ public class Follow extends Module
 				+ "Very annoying.",
 			Category.COMBAT);
 	}
-	
-	private EntityLivingBase entity;
-	private float range = 12F;
-	
+
 	@Override
 	public String getRenderName()
 	{
@@ -46,13 +48,12 @@ public class Follow extends Module
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
 				entity = en;
 		}
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(entity == null)
 		{
 			setToggled(false);
@@ -85,6 +86,7 @@ public class Follow extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		if(entity != null)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;
