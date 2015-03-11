@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Jesus extends Module
+public class Jesus extends Module implements UpdateListener
 {
 	public Jesus()
 	{
@@ -25,10 +27,14 @@ public class Jesus extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -36,5 +42,11 @@ public class Jesus extends Module
 			setToggled(false);
 			return;
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
