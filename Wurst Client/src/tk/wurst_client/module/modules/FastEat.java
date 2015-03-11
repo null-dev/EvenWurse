@@ -11,10 +11,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemFood;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class FastEat extends Module
+public class FastEat extends Module implements UpdateListener
 {
 	public FastEat()
 	{
@@ -26,10 +28,14 @@ public class FastEat extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -47,5 +53,11 @@ public class FastEat extends Module
 			for(int i = 0; i < 10; i++)
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C03PacketPlayer(false));
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
