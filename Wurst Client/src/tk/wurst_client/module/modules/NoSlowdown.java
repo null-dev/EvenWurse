@@ -8,6 +8,7 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
@@ -26,6 +27,13 @@ public class NoSlowdown extends Module
 	{
 		if(!getToggled())
 			return;
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
+		{
+			noCheatMessage();
+			setToggled(false);
+			return;
+		}
 		if(Minecraft.getMinecraft().thePlayer.onGround
 			&& Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
