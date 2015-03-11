@@ -12,11 +12,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class AutoTool extends Module
+public class AutoTool extends Module implements UpdateListener
 {
+	private boolean isActive = false;
+	private int oldSlot;
+	
 	public AutoTool()
 	{
 		super(
@@ -26,9 +31,40 @@ public class AutoTool extends Module
 			Category.BLOCKS);
 	}
 	
-	private boolean isActive = false;
-	private int oldSlot;
-	
+	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+
+	@Override
+	public void onUpdate()
+	{
+		if(!Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed
+			&& isActive)
+		{
+			isActive = false;
+			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
+		}
+		else if(getToggled()
+			&& isActive
+			&& Minecraft.getMinecraft().objectMouseOver != null
+			&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null
+			&& Minecraft.getMinecraft().theWorld
+				.getBlockState(
+					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+				.getBlock().getMaterial() != Material.air)
+			setSlot(Minecraft.getMinecraft().objectMouseOver.getBlockPos());
+	}
+
+	@Override
+	public void onDisable()
+	{
+		isActive = false;
+		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
+		EventManager.removeUpdateListener(this);
+	}
+
 	@Override
 	public void onLeftClick()
 	{
@@ -69,31 +105,5 @@ public class AutoTool extends Module
 		}
 		if(bestSlot != -1)
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = bestSlot;
-	}
-	
-	@Override
-	public void oldOnUpdate()
-	{
-		if(!getToggled())
-			return;
-		if(!Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed
-			&& isActive)
-			onDisable();
-		else if(getToggled()
-			&& isActive
-			&& Minecraft.getMinecraft().objectMouseOver != null
-			&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null
-			&& Minecraft.getMinecraft().theWorld
-				.getBlockState(
-					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-				.getBlock().getMaterial() != Material.air)
-			setSlot(Minecraft.getMinecraft().objectMouseOver.getBlockPos());
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		isActive = false;
-		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
 	}
 }
