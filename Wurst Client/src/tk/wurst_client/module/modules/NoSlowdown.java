@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class NoSlowdown extends Module
+public class NoSlowdown extends Module implements UpdateListener
 {
 	public NoSlowdown()
 	{
@@ -23,10 +25,14 @@ public class NoSlowdown extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -38,5 +44,11 @@ public class NoSlowdown extends Module
 			&& Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
 			Minecraft.getMinecraft().thePlayer.jump();
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
