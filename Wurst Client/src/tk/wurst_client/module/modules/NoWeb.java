@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class NoWeb extends Module
+public class NoWeb extends Module implements UpdateListener
 {
 	public NoWeb()
 	{
@@ -23,10 +25,20 @@ public class NoWeb extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		Minecraft.getMinecraft().thePlayer.isInWeb = false;
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
