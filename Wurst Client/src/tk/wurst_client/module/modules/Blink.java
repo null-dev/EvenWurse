@@ -29,7 +29,7 @@ public class Blink extends Module
 	private static ArrayList<Packet> packets = new ArrayList<Packet>();
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled())
 			return;

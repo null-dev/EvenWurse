@@ -31,7 +31,7 @@ public class Invisibility extends Module
 	private boolean isInvisible;
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(getToggled()
 			&& Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)

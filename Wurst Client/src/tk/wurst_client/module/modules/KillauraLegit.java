@@ -44,7 +44,7 @@ public class KillauraLegit extends Module
 	}
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(getToggled())
 		{

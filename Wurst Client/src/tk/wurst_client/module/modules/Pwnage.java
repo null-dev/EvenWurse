@@ -32,7 +32,7 @@ public class Pwnage extends Module
 	private ServerConnector connector;
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled())
 			return;

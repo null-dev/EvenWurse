@@ -24,7 +24,7 @@ public class Fullbright extends Module
 	}
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(getToggled()
 			|| Client.wurst.moduleManager.getModuleFromClass(XRay.class)

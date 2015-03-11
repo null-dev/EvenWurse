@@ -42,7 +42,7 @@ public class TriggerBot extends Module
 	}
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(getToggled()
 			&& Minecraft.getMinecraft().objectMouseOver != null

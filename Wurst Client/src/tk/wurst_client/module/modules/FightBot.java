@@ -32,7 +32,7 @@ public class FightBot extends Module
 	private EntityLivingBase entity;
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled())
 			return;

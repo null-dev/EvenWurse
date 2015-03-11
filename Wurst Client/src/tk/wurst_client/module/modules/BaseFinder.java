@@ -101,7 +101,7 @@ public class BaseFinder extends Module
 	}
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled())
 			return;

@@ -25,7 +25,7 @@ public class MileyCyrus extends Module
 	private float speed = 5;
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled())
 			return;

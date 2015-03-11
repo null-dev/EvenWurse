@@ -25,7 +25,7 @@ public class Sneak extends Module
 	}
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled())
 			return;

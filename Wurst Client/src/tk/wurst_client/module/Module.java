@@ -124,7 +124,8 @@ public class Module
 	public void onDisable()
 	{}
 	
-	public void onUpdate()
+	@Deprecated
+	public void oldOnUpdate()
 	{}
 	
 	public void onRender()

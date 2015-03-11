@@ -25,7 +25,7 @@ public class Home extends Module
 	private int disableTimer;
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(getToggled())
 		{

@@ -26,7 +26,7 @@ public class AutoFish extends Module
 	private boolean catching = false;
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(getToggled()
 			&& Minecraft.getMinecraft().thePlayer.fishEntity != null

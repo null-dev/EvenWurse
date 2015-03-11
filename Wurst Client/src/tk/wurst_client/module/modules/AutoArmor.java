@@ -25,7 +25,7 @@ public class AutoArmor extends Module
 	}
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled()
 			|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)

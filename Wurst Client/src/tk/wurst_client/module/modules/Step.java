@@ -23,7 +23,7 @@ public class Step extends Module
 	}
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(getToggled())
 			if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)

@@ -31,7 +31,7 @@ public class BuildRandom extends Module
 	private float range = 6;
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled()
 			|| Client.wurst.moduleManager.getModuleFromClass(Freecam.class)

@@ -35,7 +35,7 @@ public class ClickGUI extends Module
 	}
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		Client.wurst.guiManager.update();
 	}

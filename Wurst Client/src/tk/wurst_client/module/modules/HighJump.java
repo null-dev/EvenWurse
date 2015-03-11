@@ -24,7 +24,7 @@ public class HighJump extends Module
 	public static double jumpHeight = 0.41999998688697815D * 6;
 	
 	@Override
-	public void onUpdate()
+	public void oldOnUpdate()
 	{
 		if(!getToggled())
 			return;
