@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class BunnyHop extends Module
+public class BunnyHop extends Module implements UpdateListener
 {
 	public BunnyHop()
 	{
@@ -23,14 +25,24 @@ public class BunnyHop extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if((Minecraft.getMinecraft().thePlayer.moveForward != 0 || Minecraft
 			.getMinecraft().thePlayer.moveStrafing != 0)
 			&& !Minecraft.getMinecraft().thePlayer.isSneaking()
 			&& Minecraft.getMinecraft().thePlayer.onGround)
 			Minecraft.getMinecraft().thePlayer.jump();
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
