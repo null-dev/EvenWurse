@@ -113,6 +113,11 @@ public class PathFinder
 			point = point.getPrevious();
 		}
 		Collections.reverse(path);
+		for(int i = path.size() -1; i > 1; i--)
+			if((path.get(i).getX() == path.get(i - 2).getX() && path.get(i).getY() == path.get(i - 2).getY())
+				|| (path.get(i).getX() == path.get(i - 2).getX() && path.get(i).getZ() == path.get(i - 2).getZ())
+				|| (path.get(i).getY() == path.get(i - 2).getY() && path.get(i).getZ() == path.get(i - 2).getZ()))
+				path.remove(i - 1);
 		return path;
 	}
 }
