@@ -51,7 +51,7 @@ public class AutoMine extends Module implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
 		EventManager.removeUpdateListener(this);
+		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
 	}
 }

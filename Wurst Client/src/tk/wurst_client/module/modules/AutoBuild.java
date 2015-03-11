@@ -80,8 +80,8 @@ public class AutoBuild extends Module implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		shouldBuild = false;
 		EventManager.removeUpdateListener(this);
+		shouldBuild = false;
 	}
 	
 	private void renderAdvanced()

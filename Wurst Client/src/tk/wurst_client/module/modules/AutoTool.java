@@ -59,9 +59,9 @@ public class AutoTool extends Module implements UpdateListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		isActive = false;
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
-		EventManager.removeUpdateListener(this);
 	}
 
 	@Override

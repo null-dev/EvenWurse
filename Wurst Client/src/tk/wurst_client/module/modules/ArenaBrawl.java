@@ -654,11 +654,11 @@ public class ArenaBrawl extends Module implements UpdateListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
 			Client.wurst.chat.message("No longer playing ArenaBrawl with "
 				+ friendsName + ".");
 		reset();
-		EventManager.removeUpdateListener(this);
 	}
 }

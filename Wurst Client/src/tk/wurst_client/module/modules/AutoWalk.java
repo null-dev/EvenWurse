@@ -39,7 +39,7 @@ public class AutoWalk extends Module implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		EventManager.removeUpdateListener(this);
+		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 	}
 }
