@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class FastLadder extends Module
+public class FastLadder extends Module implements UpdateListener
 {
 	public FastLadder()
 	{
@@ -22,12 +24,22 @@ public class FastLadder extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if(Minecraft.getMinecraft().thePlayer.isOnLadder()
 			&& Minecraft.getMinecraft().thePlayer.isCollidedHorizontally)
 			Minecraft.getMinecraft().thePlayer.motionY = 0.25;
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
