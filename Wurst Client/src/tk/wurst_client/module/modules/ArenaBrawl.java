@@ -31,6 +31,8 @@ import org.darkstorm.minecraft.gui.layout.GridLayoutManager.HorizontalGridConstr
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
@@ -38,7 +40,7 @@ import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ArenaBrawl extends Module
+public class ArenaBrawl extends Module implements UpdateListener
 {
 	public ArenaBrawl()
 	{
@@ -92,6 +94,7 @@ public class ArenaBrawl extends Module
 	public void onEnable()
 	{
 		reset();
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
@@ -187,7 +190,7 @@ public class ArenaBrawl extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
 		if(!getToggled())
 			return;
@@ -656,5 +659,6 @@ public class ArenaBrawl extends Module
 			Client.wurst.chat.message("No longer playing ArenaBrawl with "
 				+ friendsName + ".");
 		reset();
+		EventManager.removeUpdateListener(this);
 	}
 }
