@@ -14,11 +14,13 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class BaseFinder extends Module
+public class BaseFinder extends Module implements UpdateListener
 {
 	public BaseFinder()
 	{
@@ -36,6 +38,75 @@ public class BaseFinder extends Module
 	private int maxBlocks = 1024;
 	private boolean shouldInform = true;
 	
+	@Override
+	public void onEnable()
+	{
+		shouldInform = true;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onRender()
+	{
+		if(!getToggled())
+			return;
+		for(BlockPos blockPos : matchingBlocks)
+			RenderUtils.framelessBlockESP(blockPos, new Color(255, 0, 0));
+	}
+	
+	@Override
+	public void onUpdate()
+	{
+		updateMS();
+		if(hasTimePassedM(3000))
+		{
+			matchingBlocks.clear();
+			for(int y = range; y >= -range; y--)
+			{
+				for(int x = range; x >= -range; x--)
+				{
+					for(int z = range; z >= -range; z--)
+					{
+						int posX =
+							(int)(Minecraft.getMinecraft().thePlayer.posX + x);
+						int posY =
+							(int)(Minecraft.getMinecraft().thePlayer.posY + y);
+						int posZ =
+							(int)(Minecraft.getMinecraft().thePlayer.posZ + z);
+						BlockPos pos = new BlockPos(posX, posY, posZ);
+						if(!naturalBlocks
+							.contains(Minecraft.getMinecraft().theWorld
+								.getBlockState(pos).getBlock()))
+							matchingBlocks.add(pos);
+						if(matchingBlocks.size() >= maxBlocks)
+							break;
+					}
+					if(matchingBlocks.size() >= maxBlocks)
+						break;
+				}
+				if(matchingBlocks.size() >= maxBlocks)
+					break;
+			}
+			if(matchingBlocks.size() >= maxBlocks && shouldInform)
+			{
+				Client.wurst.chat.warning(getName()
+					+ " found §lA LOT§r of blocks.");
+				Client.wurst.chat
+					.message("To prevent lag, it will only show the first "
+						+ maxBlocks + " blocks.");
+				shouldInform = false;
+			}else if(matchingBlocks.size() < maxBlocks)
+				shouldInform = true;
+			updateLastMS();
+		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
+	}
+
 	private void initBlocks()
 	{
 		naturalBlocks.add(Block.getBlockFromName("air"));
@@ -83,69 +154,5 @@ public class BaseFinder extends Module
 		naturalBlocks.add(Block.getBlockFromName("monster_egg"));
 		naturalBlocks.add(Block.getBlockFromName("red_mushroom_block"));
 		naturalBlocks.add(Block.getBlockFromName("brown_mushroom_block"));
-	}
-	
-	@Override
-	public void onEnable()
-	{
-		shouldInform = true;
-	}
-	
-	@Override
-	public void onRender()
-	{
-		if(!getToggled())
-			return;
-		for(BlockPos blockPos : matchingBlocks)
-			RenderUtils.framelessBlockESP(blockPos, new Color(255, 0, 0));
-	}
-	
-	@Override
-	public void oldOnUpdate()
-	{
-		if(!getToggled())
-			return;
-		updateMS();
-		if(hasTimePassedM(3000))
-		{
-			matchingBlocks.clear();
-			for(int y = range; y >= -range; y--)
-			{
-				for(int x = range; x >= -range; x--)
-				{
-					for(int z = range; z >= -range; z--)
-					{
-						int posX =
-							(int)(Minecraft.getMinecraft().thePlayer.posX + x);
-						int posY =
-							(int)(Minecraft.getMinecraft().thePlayer.posY + y);
-						int posZ =
-							(int)(Minecraft.getMinecraft().thePlayer.posZ + z);
-						BlockPos pos = new BlockPos(posX, posY, posZ);
-						if(!naturalBlocks
-							.contains(Minecraft.getMinecraft().theWorld
-								.getBlockState(pos).getBlock()))
-							matchingBlocks.add(pos);
-						if(matchingBlocks.size() >= maxBlocks)
-							break;
-					}
-					if(matchingBlocks.size() >= maxBlocks)
-						break;
-				}
-				if(matchingBlocks.size() >= maxBlocks)
-					break;
-			}
-			if(matchingBlocks.size() >= maxBlocks && shouldInform)
-			{
-				Client.wurst.chat.warning(getName()
-					+ " found §lA LOT§r of blocks.");
-				Client.wurst.chat
-					.message("To prevent lag, it will only show the first "
-						+ maxBlocks + " blocks.");
-				shouldInform = false;
-			}else if(matchingBlocks.size() < maxBlocks)
-				shouldInform = true;
-			updateLastMS();
-		}
 	}
 }
