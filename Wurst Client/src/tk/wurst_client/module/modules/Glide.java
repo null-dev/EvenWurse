@@ -10,10 +10,12 @@ package tk.wurst_client.module.modules;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Glide extends Module
+public class Glide extends Module implements UpdateListener
 {
 	public Glide()
 	{
@@ -24,10 +26,14 @@ public class Glide extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -43,5 +49,11 @@ public class Glide extends Module
 			Minecraft.getMinecraft().thePlayer.motionY = -0.125f;
 			Minecraft.getMinecraft().thePlayer.jumpMovementFactor *= 1.21337f;
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
