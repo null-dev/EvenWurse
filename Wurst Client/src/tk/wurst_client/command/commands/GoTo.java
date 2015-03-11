@@ -7,6 +7,7 @@
  */
 package tk.wurst_client.command.commands;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.ai.PathFinder;
@@ -37,6 +38,13 @@ public class GoTo extends Command
 				commandError();
 				return;
 			}
+		if(Math.abs(Integer.parseInt(args[0]) - Minecraft.getMinecraft().thePlayer.posX) > 256
+			|| Math.abs(Integer.parseInt(args[2]) - Minecraft.getMinecraft().thePlayer.posZ) > 256)
+		{
+			Client.wurst.chat.error("Goal is out of range!");
+			Client.wurst.chat.message("Maximum range is 256 blocks.");
+			return;
+		}
 		GoToCmd.setGoal(new BlockPos(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2])));
 		Thread thread = new Thread(new Runnable()
 		{
