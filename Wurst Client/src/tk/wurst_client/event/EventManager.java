@@ -11,29 +11,36 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import tk.wurst_client.event.events.Event;
+import tk.wurst_client.event.events.UpdateEvent;
 import tk.wurst_client.event.listeners.Listener;
+import tk.wurst_client.event.listeners.UpdateListener;
 
 public class EventManager
 {
-	private static HashSet<Listener> listeners = new HashSet<Listener>();
+	private static HashSet<UpdateListener> updateListeners = new HashSet<UpdateListener>();
 	
 	public synchronized static void addListener(Listener listener)
 	{
-		listeners.add(listener);
+		if(listener instanceof UpdateListener)
+			updateListeners.add((UpdateListener)listener);
 	}
 
 	public synchronized static void removeListener(Listener listener)
 	{
-		listeners.remove(listener);
+		if(listener instanceof UpdateListener)
+			updateListeners.remove((UpdateListener)listener);
 	}
 	
 	public synchronized static void fireEvent(Event event)
 	{
-		Iterator<Listener> itr = listeners.iterator();
-		while(itr.hasNext())
+		if(event instanceof UpdateEvent)
 		{
-			Listener listener = itr.next();
-			//listener.onEvent(event);
+			Iterator<UpdateListener> itr = updateListeners.iterator();
+			while(itr.hasNext())
+			{
+				UpdateListener listener = itr.next();
+				listener.onUpdate();
+			}
 		}
 	}
 }
