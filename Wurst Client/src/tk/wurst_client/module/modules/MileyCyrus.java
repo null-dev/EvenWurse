@@ -8,11 +8,16 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class MileyCyrus extends Module
+public class MileyCyrus extends Module implements UpdateListener
 {
+	private boolean shouldSneak = true;
+	private float speed = 5;
+	
 	public MileyCyrus()
 	{
 		super(
@@ -21,14 +26,15 @@ public class MileyCyrus extends Module
 			Category.FUN);
 	}
 	
-	private boolean shouldSneak = true;
-	private float speed = 5;
-	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+
+	@Override
+	public void onUpdate()
+	{
 		updateMS();
 		if(hasTimePassedS(speed))
 		{
@@ -42,6 +48,7 @@ public class MileyCyrus extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
 	}
 }
