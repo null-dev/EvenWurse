@@ -33,7 +33,7 @@ public class EventManager
 		while(itr.hasNext())
 		{
 			WurstListener listener = itr.next();
-			listener.onEvent(event);
+			//listener.onEvent(event);
 		}
 	}
 }
