@@ -16,11 +16,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.StringUtils;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class MassTPA extends Module
+public class MassTPA extends Module implements UpdateListener
 {
+	private float speed = 1F;
+	private int i;
+	private ArrayList<String> players;
+	
 	public MassTPA()
 	{
 		super(
@@ -29,11 +35,7 @@ public class MassTPA extends Module
 				+ "Stops if someone accepts.",
 			Category.CHAT);
 	}
-	
-	private float speed = 1F;
-	private int i;
-	private ArrayList<String> players;
-	
+
 	@Override
 	public void onEnable()
 	{
@@ -54,8 +56,32 @@ public class MassTPA extends Module
 				return random.nextInt();
 			}
 		});
+		EventManager.addUpdateListener(this);
 	}
 	
+	@Override
+	public void onUpdate()
+	{
+		updateMS();
+		if(hasTimePassedS(speed))
+		{
+			String name = players.get(i);
+			if(!name.equals(Minecraft.getMinecraft().thePlayer.getName()))
+				Minecraft.getMinecraft().thePlayer.sendChatMessage("/tpa "
+					+ name);
+			updateLastMS();
+			i++;
+			if(i == players.size())
+				setToggled(false);
+		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
+	}
+
 	@Override
 	public void onReceivedMessage(String message)
 	{
@@ -75,26 +101,6 @@ public class MassTPA extends Module
 			Client.wurst.chat
 				.message("Someone accepted your TPA request. Stopping.");
 			setToggled(false);
-		}
-	}
-	
-	@Override
-	public void oldOnUpdate()
-	{
-		if(getToggled())
-		{
-			updateMS();
-			if(hasTimePassedS(speed))
-			{
-				String name = players.get(i);
-				if(!name.equals(Minecraft.getMinecraft().thePlayer.getName()))
-					Minecraft.getMinecraft().thePlayer.sendChatMessage("/tpa "
-						+ name);
-				updateLastMS();
-				i++;
-				if(i == players.size())
-					setToggled(false);
-			}
 		}
 	}
 }
