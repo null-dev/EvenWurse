@@ -10,13 +10,14 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 
-public class KillauraLegit extends Module
+public class KillauraLegit extends Module implements UpdateListener
 {
-	
 	public KillauraLegit()
 	{
 		super(
@@ -41,36 +42,40 @@ public class KillauraLegit extends Module
 			.getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
 				.setToggled(false);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(getToggled())
+		updateMS();
+		if(hasTimePassedS(Killaura.yesCheatSpeed)
+			&& EntityUtils.getClosestEntity(true) != null)
 		{
-			updateMS();
-			if(hasTimePassedS(Killaura.yesCheatSpeed)
-				&& EntityUtils.getClosestEntity(true) != null)
+			EntityLivingBase en = EntityUtils.getClosestEntity(true);
+			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= Killaura.yesCheatRange)
 			{
-				EntityLivingBase en = EntityUtils.getClosestEntity(true);
-				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= Killaura.yesCheatRange)
+				if(Client.wurst.moduleManager.getModuleFromClass(
+					Criticals.class).getToggled()
+					&& Minecraft.getMinecraft().thePlayer.onGround)
+					Minecraft.getMinecraft().thePlayer.jump();
+				if(EntityUtils.getDistanceFromMouse(en) > 55)
+					EntityUtils.faceEntityClient(en);
+				else
 				{
-					if(Client.wurst.moduleManager.getModuleFromClass(
-						Criticals.class).getToggled()
-						&& Minecraft.getMinecraft().thePlayer.onGround)
-						Minecraft.getMinecraft().thePlayer.jump();
-					if(EntityUtils.getDistanceFromMouse(en) > 55)
-						EntityUtils.faceEntityClient(en);
-					else
-					{
-						EntityUtils.faceEntityClient(en);
-						Minecraft.getMinecraft().thePlayer.swingItem();
-						Minecraft.getMinecraft().playerController.attackEntity(
-							Minecraft.getMinecraft().thePlayer, en);
-					}
-					updateLastMS();
+					EntityUtils.faceEntityClient(en);
+					Minecraft.getMinecraft().thePlayer.swingItem();
+					Minecraft.getMinecraft().playerController.attackEntity(
+						Minecraft.getMinecraft().thePlayer, en);
 				}
+				updateLastMS();
 			}
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
