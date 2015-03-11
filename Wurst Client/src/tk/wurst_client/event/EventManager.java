@@ -12,24 +12,12 @@ import java.util.Iterator;
 
 import tk.wurst_client.event.events.Event;
 import tk.wurst_client.event.events.UpdateEvent;
-import tk.wurst_client.event.listeners.Listener;
 import tk.wurst_client.event.listeners.UpdateListener;
 
 public class EventManager
 {
-	private static HashSet<UpdateListener> updateListeners = new HashSet<UpdateListener>();
-	
-	public synchronized static void addListener(Listener listener)
-	{
-		if(listener instanceof UpdateListener)
-			updateListeners.add((UpdateListener)listener);
-	}
-
-	public synchronized static void removeListener(Listener listener)
-	{
-		if(listener instanceof UpdateListener)
-			updateListeners.remove((UpdateListener)listener);
-	}
+	private static HashSet<UpdateListener> updateListeners =
+		new HashSet<UpdateListener>();
 	
 	public synchronized static void fireEvent(Event event)
 	{
@@ -42,5 +30,15 @@ public class EventManager
 				listener.onUpdate();
 			}
 		}
+	}
+
+	public synchronized static void addUpdateListener(UpdateListener listener)
+	{
+		updateListeners.add(listener);
+	}
+	
+	public synchronized static void removeUpdateListener(UpdateListener listener)
+	{
+		updateListeners.remove(listener);
 	}
 }
