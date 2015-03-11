@@ -8,11 +8,15 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class HighJump extends Module
+public class HighJump extends Module implements UpdateListener
 {
+	public static double jumpHeight = 0.41999998688697815D * 6;
+
 	public HighJump()
 	{
 		super(
@@ -21,18 +25,26 @@ public class HighJump extends Module
 			Category.MOVEMENT);
 	}
 	
-	public static double jumpHeight = 0.41999998688697815D * 6;
+	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
