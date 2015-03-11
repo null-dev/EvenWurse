@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class NoFall extends Module
+public class NoFall extends Module implements UpdateListener
 {
 	public NoFall()
 	{
@@ -23,12 +25,22 @@ public class NoFall extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if(Minecraft.getMinecraft().thePlayer.fallDistance > 2)
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C03PacketPlayer(true));
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
