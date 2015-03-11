@@ -10,10 +10,12 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class AutoArmor extends Module
+public class AutoArmor extends Module implements UpdateListener
 {
 	private int[] bestArmor;
 	
@@ -25,10 +27,15 @@ public class AutoArmor extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled()
-			|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
+		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 			return;
 		updateMS();
 		if(hasTimePassedM(3000))
@@ -86,5 +93,11 @@ public class AutoArmor extends Module
 			}
 			updateLastMS();
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
