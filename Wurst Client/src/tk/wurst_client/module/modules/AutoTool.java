@@ -46,8 +46,7 @@ public class AutoTool extends Module implements UpdateListener
 			isActive = false;
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
 		}
-		else if(getToggled()
-			&& isActive
+		else if(isActive
 			&& Minecraft.getMinecraft().objectMouseOver != null
 			&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null
 			&& Minecraft.getMinecraft().theWorld
