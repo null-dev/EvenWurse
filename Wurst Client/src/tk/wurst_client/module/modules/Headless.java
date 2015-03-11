@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Headless extends Module
+public class Headless extends Module implements UpdateListener
 {
 	public Headless()
 	{
@@ -24,10 +26,14 @@ public class Headless extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook
 			(
@@ -35,5 +41,11 @@ public class Headless extends Module
 				180F,
 				Minecraft.getMinecraft().thePlayer.onGround
 			));
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
