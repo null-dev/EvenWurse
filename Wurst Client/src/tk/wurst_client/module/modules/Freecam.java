@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Freecam extends Module
+public class Freecam extends Module implements UpdateListener
 {
 	public Freecam()
 	{
@@ -43,13 +45,12 @@ public class Freecam extends Module
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		Minecraft.getMinecraft().thePlayer.motionX = 0;
 		Minecraft.getMinecraft().thePlayer.motionY = 0;
 		Minecraft.getMinecraft().thePlayer.motionZ = 0;
@@ -64,6 +65,7 @@ public class Freecam extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY,
 			oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
 			Minecraft.getMinecraft().thePlayer.rotationPitch);
