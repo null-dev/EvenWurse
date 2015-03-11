@@ -8,6 +8,7 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.util.BlockPos;
+import tk.wurst_client.Client;
 import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.ai.PathPoint;
 import tk.wurst_client.module.Category;
@@ -50,19 +51,26 @@ public class PathCmd extends Module
 			if(!MiscUtils.isInteger(arg))
 				return false;
 		pos = new BlockPos(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-		new Thread(new Runnable()
+		Thread thread = new Thread(new Runnable()
 		{
 			@Override
 			public void run()
 			{
 				System.out.println("Finding path");
 				long startTime = System.nanoTime();
-				path = new PathFinder(pos).find();
+				PathFinder pathFinder = new PathFinder(pos);
+				if(pathFinder.find())
+				{
+					path = pathFinder.getRawPath();
+					setToggled(true);
+				}else
+					Client.wurst.chat.error("Could not find a path.");
 				System.out.println("Done after "
 					+ (System.nanoTime() - startTime) / 1e6 + "ms");
 			}
-		}).start();
-		setToggled(true);
+		});
+		thread.setPriority(Thread.MIN_PRIORITY);
+		thread.start();
 		return true;
 	}
 	

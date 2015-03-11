@@ -76,6 +76,7 @@ public class ModuleManager
 		activeModules.add(new Freecam());
 		activeModules.add(new Fullbright());
 		activeModules.add(new Glide());
+		activeModules.add(new GoToCmd());
 		activeModules.add(new Headless());
 		activeModules.add(new HealthTags());
 		activeModules.add(new HighJump());
