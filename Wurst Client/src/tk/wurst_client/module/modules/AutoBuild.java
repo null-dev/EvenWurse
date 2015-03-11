@@ -15,12 +15,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BuildUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class AutoBuild extends Module
+public class AutoBuild extends Module implements UpdateListener
 {
 	public AutoBuild()
 	{
@@ -50,6 +52,12 @@ public class AutoBuild extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onRender()
 	{
 		if(!getToggled())
@@ -61,10 +69,8 @@ public class AutoBuild extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(templates.get(Client.wurst.options.autobuildMode)[0].length == 4)
 			buildAdvanced();
 		else
@@ -75,6 +81,7 @@ public class AutoBuild extends Module
 	public void onDisable()
 	{
 		shouldBuild = false;
+		EventManager.removeUpdateListener(this);
 	}
 	
 	private void renderAdvanced()
