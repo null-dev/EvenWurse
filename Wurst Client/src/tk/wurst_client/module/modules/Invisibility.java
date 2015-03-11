@@ -11,11 +11,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Invisibility extends Module
+public class Invisibility extends Module implements UpdateListener
 {
+	private boolean isInvisible;
 	
 	public Invisibility()
 	{
@@ -26,12 +29,11 @@ public class Invisibility extends Module
 				+ "this mod is enabled, that player will be unable to see\n"
 				+ "you. Only works on vanilla servers!",
 			Category.COMBAT);
+		EventManager.addUpdateListener(this);
 	}
 	
-	private boolean isInvisible;
-	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
 		if(getToggled()
 			&& Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
@@ -44,22 +46,15 @@ public class Invisibility extends Module
 		if(Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
 			if(getToggled())
 			{
-				Minecraft.getMinecraft().thePlayer.respawnPlayer();// This line
-				// makes you
-				// completely
-				// invisible
-				// to other
-				// people!!!
+				// Respawning too early for server-side invisibility
+				Minecraft.getMinecraft().thePlayer.respawnPlayer();
 				isInvisible = true;
 			}else
 				isInvisible = false;
 		if(isInvisible)
 		{
-			Minecraft.getMinecraft().thePlayer.setInvisible(true);// This is
-			// just so
-			// you know
-			// you are
-			// invisible.
+			// Potion effect for client-side invisibility
+			Minecraft.getMinecraft().thePlayer.setInvisible(true);
 			Minecraft.getMinecraft().thePlayer
 				.addPotionEffect(new PotionEffect(Potion.invisibility.getId(),
 					10801220));
