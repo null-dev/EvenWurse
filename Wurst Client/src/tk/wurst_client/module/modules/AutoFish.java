@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.projectile.EntityFishHook;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class AutoFish extends Module
+public class AutoFish extends Module implements UpdateListener
 {
 	
 	public AutoFish()
@@ -26,10 +28,15 @@ public class AutoFish extends Module
 	private boolean catching = false;
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(getToggled()
-			&& Minecraft.getMinecraft().thePlayer.fishEntity != null
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
+		if(Minecraft.getMinecraft().thePlayer.fishEntity != null
 			&& isHooked(Minecraft.getMinecraft().thePlayer.fishEntity)
 			&& !catching)
 		{
@@ -52,6 +59,12 @@ public class AutoFish extends Module
 				}
 			}.start();
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 	
 	private boolean isHooked(EntityFishHook hook)
