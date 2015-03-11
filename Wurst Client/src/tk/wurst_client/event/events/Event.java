@@ -7,7 +7,7 @@
  */
 package tk.wurst_client.event.events;
 
-public class WurstEvent
+public class Event
 {
 	
 }

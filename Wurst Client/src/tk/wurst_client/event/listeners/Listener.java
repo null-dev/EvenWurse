@@ -8,7 +8,7 @@
 package tk.wurst_client.event.listeners;
 
 
-public interface WurstListener
+public interface Listener
 {	
 	
 }

@@ -10,29 +10,29 @@ package tk.wurst_client.event;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import tk.wurst_client.event.events.WurstEvent;
-import tk.wurst_client.event.listeners.WurstListener;
+import tk.wurst_client.event.events.Event;
+import tk.wurst_client.event.listeners.Listener;
 
 public class EventManager
 {
-	private static HashSet<WurstListener> listeners = new HashSet<WurstListener>();
+	private static HashSet<Listener> listeners = new HashSet<Listener>();
 	
-	public synchronized static void addListener(WurstListener listener)
+	public synchronized static void addListener(Listener listener)
 	{
 		listeners.add(listener);
 	}
 
-	public synchronized static void removeListener(WurstListener listener)
+	public synchronized static void removeListener(Listener listener)
 	{
 		listeners.remove(listener);
 	}
 	
-	public synchronized static void fireEvent(WurstEvent event)
+	public synchronized static void fireEvent(Event event)
 	{
-		Iterator<WurstListener> itr = listeners.iterator();
+		Iterator<Listener> itr = listeners.iterator();
 		while(itr.hasNext())
 		{
-			WurstListener listener = itr.next();
+			Listener listener = itr.next();
 			//listener.onEvent(event);
 		}
 	}
