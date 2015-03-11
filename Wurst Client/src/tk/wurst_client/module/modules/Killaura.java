@@ -14,12 +14,20 @@ import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 
-public class Killaura extends Module
+public class Killaura extends Module implements UpdateListener
 {
+	public static float normalSpeed = 20F;
+	public static float normalRange = 5F;
+	public static float yesCheatSpeed = 12F;
+	public static float yesCheatRange = 4.25F;
+	public static float realSpeed;
+	public static float realRange;
 	
 	public Killaura()
 	{
@@ -28,13 +36,6 @@ public class Killaura extends Module
 			"Automatically attacks everything in your range.",
 			Category.COMBAT);
 	}
-	
-	public static float normalSpeed = 20F;
-	public static float normalRange = 5F;
-	public static float yesCheatSpeed = 12F;
-	public static float yesCheatRange = 4.25F;
-	public static float realSpeed;
-	public static float realRange;
 	
 	@Override
 	public void initSliders()
@@ -69,38 +70,42 @@ public class Killaura extends Module
 			.getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
 				.setToggled(false);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(getToggled())
+		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+			.getToggled())
 		{
-			if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
-				.getToggled())
+			realSpeed = yesCheatSpeed;
+			realRange = yesCheatRange;
+		}else
+		{
+			realSpeed = normalSpeed;
+			realRange = normalRange;
+		}
+		updateMS();
+		if(hasTimePassedS(realSpeed)
+			&& EntityUtils.getClosestEntity(true) != null)
+		{
+			EntityLivingBase en = EntityUtils.getClosestEntity(true);
+			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
 			{
-				realSpeed = yesCheatSpeed;
-				realRange = yesCheatRange;
-			}else
-			{
-				realSpeed = normalSpeed;
-				realRange = normalRange;
-			}
-			updateMS();
-			if(hasTimePassedS(realSpeed)
-				&& EntityUtils.getClosestEntity(true) != null)
-			{
-				EntityLivingBase en = EntityUtils.getClosestEntity(true);
-				if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
-				{
-					Criticals.doCritical();
-					EntityUtils.faceEntityPacket(en);
-					Minecraft.getMinecraft().thePlayer.swingItem();
-					Minecraft.getMinecraft().playerController.attackEntity(
-						Minecraft.getMinecraft().thePlayer, en);
-					updateLastMS();
-				}
+				Criticals.doCritical();
+				EntityUtils.faceEntityPacket(en);
+				Minecraft.getMinecraft().thePlayer.swingItem();
+				Minecraft.getMinecraft().playerController.attackEntity(
+					Minecraft.getMinecraft().thePlayer, en);
+				updateLastMS();
 			}
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
