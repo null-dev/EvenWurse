@@ -12,21 +12,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BuildUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class InstantBunker extends Module
+public class InstantBunker extends Module implements UpdateListener
 {
-	public InstantBunker()
-	{
-		super(
-			"InstantBunker",
-			"Instantly builds a small bunker around you.",
-			Category.BLOCKS);
-	}
-	
 	private float speed = 5;
 	private int i;
 	private boolean shouldBuild;
@@ -98,6 +92,14 @@ public class InstantBunker extends Module
 		{0, 4, 1, 2},
 	};
 	
+	public InstantBunker()
+	{
+		super(
+			"InstantBunker",
+			"Instantly builds a small bunker around you.",
+			Category.BLOCKS);
+	}
+
 	@Override
 	public void onEnable()
 	{
@@ -121,6 +123,7 @@ public class InstantBunker extends Module
 			while(playerYaw < -180)
 				playerYaw += 360;
 		}
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
@@ -270,9 +273,9 @@ public class InstantBunker extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(!getToggled() || Minecraft.getMinecraft().objectMouseOver == null)
+		if(Minecraft.getMinecraft().objectMouseOver == null)
 			return;
 		updateMS();
 		if(shouldBuild)
@@ -399,6 +402,7 @@ public class InstantBunker extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		shouldBuild = false;
 	}
 }
