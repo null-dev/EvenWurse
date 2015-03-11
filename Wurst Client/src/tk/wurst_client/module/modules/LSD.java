@@ -15,11 +15,18 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class LSD extends Module
+public class LSD extends Module implements UpdateListener
 {
+	private static float speed = 2;
+	private static long currentMS = 0L;
+	private static long lastMS = -1L;
+	private static Color color = Color.WHITE;
+	
 	public LSD()
 	{
 		super(
@@ -27,30 +34,24 @@ public class LSD extends Module
 			"Thousands of colors!",
 			Category.FUN);
 	}
-	
-	private static float speed = 2;
-	private static long currentMS = 0L;
-	private static long lastMS = -1L;
-	private static Color color = Color.WHITE;
-	
-	@Override
-	public void onEnable()
-	{
-		Minecraft.getMinecraft().entityRenderer.activateLSD();
-	}
-	
+
 	@Override
 	public void onToggle()
 	{
 		if(!OpenGlHelper.shadersSupported)
 			Minecraft.getMinecraft().renderGlobal.loadRenderers();
 	}
+
+	@Override
+	public void onEnable()
+	{
+		Minecraft.getMinecraft().entityRenderer.activateLSD();
+		EventManager.addUpdateListener(this);
+	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(!OpenGlHelper.shadersSupported)
 			Minecraft.getMinecraft().thePlayer
 				.addPotionEffect(new PotionEffect(Potion.confusion.getId(),
@@ -61,6 +62,7 @@ public class LSD extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().thePlayer.removePotionEffect(Potion.confusion
 			.getId());
 		Minecraft.getMinecraft().gameSettings.smoothCamera = false;
