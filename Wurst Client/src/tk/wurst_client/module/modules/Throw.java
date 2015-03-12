@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Throw extends Module
+public class Throw extends Module implements UpdateListener
 {
 	public Throw()
 	{
@@ -32,10 +34,14 @@ public class Throw extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.moduleManager
 			.getModuleFromClass(FastPlace.class).getToggled())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
@@ -47,5 +53,11 @@ public class Throw extends Module
 			for(int i = 0; i < Client.wurst.options.throwAmount - 1; i++)
 				Minecraft.getMinecraft().rightClickMouse();
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
