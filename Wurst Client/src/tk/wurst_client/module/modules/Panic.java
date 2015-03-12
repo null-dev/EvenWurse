@@ -41,6 +41,11 @@ public class Panic extends Module implements UpdateListener
 				Client.wurst.moduleManager.activeModules.get(i).setToggled(
 					false);
 		setToggled(false);
+	}
+	
+	@Override
+	public void onDisable()
+	{
 		EventManager.removeUpdateListener(this);
 	}
 }
