@@ -39,6 +39,11 @@ import tk.wurst_client.utils.MiscUtils;
 
 public class Spammer extends Module
 {
+	private JDialog dialog;
+	private static JSpinner delaySpinner;
+	private JTextArea spamArea;
+	private String spam;
+	
 	public Spammer()
 	{
 		super(
@@ -52,12 +57,7 @@ public class Spammer extends Module
 				+ ">Integrated help system",
 			Category.CHAT);
 	}
-	
-	private JDialog dialog;
-	private static JSpinner delaySpinner;
-	private JTextArea spamArea;
-	private String spam;
-	
+
 	@Override
 	public void onEnable()
 	{
@@ -477,6 +477,21 @@ public class Spammer extends Module
 		}.start();
 	}
 	
+	@Override
+	public void onDisable()
+	{
+		spam = null;
+		new Thread()
+		{
+			@Override
+			public void run()
+			{
+				if(dialog != null)
+					dialog.dispose();
+			}
+		}.start();
+	}
+
 	private void updateSpam()
 	{
 		try
@@ -543,20 +558,5 @@ public class Spammer extends Module
 		spamArea.setSelectionStart(lineStart);
 		spamArea.setSelectionEnd(lineEnd);
 		spamArea.requestFocus();
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		spam = null;
-		new Thread()
-		{
-			@Override
-			public void run()
-			{
-				if(dialog != null)
-					dialog.dispose();
-			}
-		}.start();
 	}
 }
