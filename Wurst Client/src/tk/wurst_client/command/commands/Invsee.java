@@ -29,6 +29,7 @@ public class Invsee extends Command
 			return;
 		}
 		InvseeCmd.playerName = args[0];
-		Client.wurst.moduleManager.getModuleFromClass(InvseeCmd.class).setToggled(true);
+		Client.wurst.moduleManager.getModuleFromClass(InvseeCmd.class)
+			.setToggled(true);
 	}
 }

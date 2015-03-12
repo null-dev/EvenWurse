@@ -108,7 +108,8 @@ public class PathUtils
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
 		return flightMod.getToggled()
 			|| playerCaps.isFlying
-			|| (!noSlowdownMod.getToggled() && getMaterial(pos) == Material.water);
+			|| !noSlowdownMod.getToggled()
+			&& getMaterial(pos) == Material.water;
 	}
 	
 	public static int getCost(BlockPos current, BlockPos next)
@@ -124,11 +125,10 @@ public class PathUtils
 		if(nextMaterial == Material.water)
 			if(noSlowdownMod.getToggled())
 				return 1;
+			else if(antiKnockbackMod.getToggled())
+				return 2;
 			else
-				if(antiKnockbackMod.getToggled())
-					return 2;
-				else
-					return 3;
+				return 3;
 		else if(nextMaterial == Material.lava)
 			return 5;
 		return 1;

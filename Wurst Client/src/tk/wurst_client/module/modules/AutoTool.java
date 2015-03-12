@@ -36,7 +36,7 @@ public class AutoTool extends Module implements UpdateListener
 	{
 		EventManager.addUpdateListener(this);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -55,7 +55,7 @@ public class AutoTool extends Module implements UpdateListener
 				.getBlock().getMaterial() != Material.air)
 			setSlot(Minecraft.getMinecraft().objectMouseOver.getBlockPos());
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -63,7 +63,7 @@ public class AutoTool extends Module implements UpdateListener
 		isActive = false;
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
 	}
-
+	
 	@Override
 	public void onLeftClick()
 	{

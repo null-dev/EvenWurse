@@ -7,8 +7,7 @@
  */
 package tk.wurst_client.event.events;
 
-
 public class UpdateEvent extends Event
-{
+{	
 	
 }

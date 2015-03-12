@@ -42,7 +42,7 @@ public class NukerLegit extends Module implements UpdateListener
 				+ "PlugIn. Not required on most NoCheat+ servers!",
 			Category.BLOCKS);
 	}
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -82,7 +82,7 @@ public class NukerLegit extends Module implements UpdateListener
 			else
 				RenderUtils.nukerBox(pos, 1);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
@@ -156,7 +156,7 @@ public class NukerLegit extends Module implements UpdateListener
 			currentDamage = 0;
 		}
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -171,7 +171,7 @@ public class NukerLegit extends Module implements UpdateListener
 		Nuker.id = 0;
 		Client.wurst.fileManager.saveOptions();
 	}
-
+	
 	@Override
 	public void onLeftClick()
 	{

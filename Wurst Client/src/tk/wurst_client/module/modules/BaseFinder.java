@@ -106,7 +106,7 @@ public class BaseFinder extends Module implements UpdateListener
 	{
 		EventManager.removeUpdateListener(this);
 	}
-
+	
 	private void initBlocks()
 	{
 		naturalBlocks.add(Block.getBlockFromName("air"));

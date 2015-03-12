@@ -17,7 +17,7 @@ import tk.wurst_client.module.Module;
 public class InvseeCmd extends Module
 {
 	public static String playerName;
-
+	
 	public InvseeCmd()
 	{
 		super("Invsee",
@@ -32,19 +32,18 @@ public class InvseeCmd extends Module
 			return;
 		boolean found = false;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
-		{
 			if(entity instanceof EntityOtherPlayerMP)
 			{
 				EntityOtherPlayerMP player = (EntityOtherPlayerMP)entity;
 				if(player.getName().equals(playerName))
 				{
-					Client.wurst.chat.message("Showing inventory of " + player.getName() + ".");
+					Client.wurst.chat.message("Showing inventory of "
+						+ player.getName() + ".");
 					Minecraft.getMinecraft().displayGuiScreen(
 						new GuiInventory(player));
 					found = true;
 				}
 			}
-		}
 		if(!found)
 			Client.wurst.chat.error("Player not found.");
 		playerName = null;

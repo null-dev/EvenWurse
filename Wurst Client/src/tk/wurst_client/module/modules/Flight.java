@@ -30,7 +30,7 @@ public class Flight extends Module implements UpdateListener
 				+ "This is one of the oldest hacks in Minecraft.",
 			Category.MOVEMENT);
 	}
-
+	
 	@Override
 	public void initSliders()
 	{

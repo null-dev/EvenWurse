@@ -33,7 +33,8 @@ public class GoToCmd extends Module implements UpdateListener
 	public String getRenderName()
 	{
 		if(goal != null)
-			return "Go to " + goal.getX() + " " + goal.getY() + " " + goal.getZ();
+			return "Go to " + goal.getX() + " " + goal.getY() + " "
+				+ goal.getZ();
 		else
 			return "GoTo";
 	}
@@ -57,7 +58,8 @@ public class GoToCmd extends Module implements UpdateListener
 		BlockPos nextPos = path.get(index);
 		float dist = BlockUtils.getPlayerBlockDistance(nextPos);
 		float hDist = BlockUtils.getHorizontalPlayerBlockDistance(nextPos);
-		double vDist = Math.abs(Minecraft.getMinecraft().thePlayer.posY - nextPos.getY());
+		double vDist =
+			Math.abs(Minecraft.getMinecraft().thePlayer.posY - nextPos.getY());
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		Minecraft.getMinecraft().gameSettings.keyBindBack.pressed = false;
 		Minecraft.getMinecraft().gameSettings.keyBindRight.pressed = false;
@@ -68,18 +70,18 @@ public class GoToCmd extends Module implements UpdateListener
 		BlockUtils.faceBlockClientHorizontally(nextPos);
 		
 		if(hDist > 0.25)
-		{
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
-		}
 		if(vDist > 0.75)
-		{
 			if(PathUtils.isFlyable(currentPos))
 			{
 				if(currentPos.getY() > nextPos.getY())
-					Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = true;
+					Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed =
+						true;
 				else
-					Minecraft.getMinecraft().gameSettings.keyBindJump.pressed = true;
-			}else if(PathUtils.isClimbable(currentPos) && currentPos.getY() < nextPos.getY())
+					Minecraft.getMinecraft().gameSettings.keyBindJump.pressed =
+						true;
+			}else if(PathUtils.isClimbable(currentPos)
+				&& currentPos.getY() < nextPos.getY())
 			{
 				BlockPos[] neighbors = new BlockPos[]
 				{
@@ -93,11 +95,11 @@ public class GoToCmd extends Module implements UpdateListener
 					if(!PathUtils.isSolid(neigbor))
 						continue;
 					BlockUtils.faceBlockClientHorizontally(neigbor);
-					Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
+					Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
+						true;
 					break;
 				}
 			}
-		}
 		
 		if(dist < 1)
 			index++;
@@ -118,17 +120,17 @@ public class GoToCmd extends Module implements UpdateListener
 		Minecraft.getMinecraft().gameSettings.keyBindJump.pressed = false;
 		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
 	}
-
+	
 	public static void setPath(ArrayList<BlockPos> path)
 	{
 		GoToCmd.path = path;
 	}
-
+	
 	public static BlockPos getGoal()
 	{
 		return goal;
 	}
-
+	
 	public static void setGoal(BlockPos goal)
 	{
 		GoToCmd.goal = goal;

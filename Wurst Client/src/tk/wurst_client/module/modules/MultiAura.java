@@ -27,7 +27,7 @@ public class MultiAura extends Module implements UpdateListener
 			"Faster Killaura that attacks multiple entities at once.",
 			Category.COMBAT);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{

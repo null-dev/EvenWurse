@@ -31,7 +31,7 @@ public class MileyCyrus extends Module implements UpdateListener
 	{
 		EventManager.addUpdateListener(this);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

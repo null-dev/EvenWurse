@@ -34,14 +34,14 @@ public class LSD extends Module implements UpdateListener
 			"Thousands of colors!",
 			Category.FUN);
 	}
-
+	
 	@Override
 	public void onToggle()
 	{
 		if(!OpenGlHelper.shadersSupported)
 			Minecraft.getMinecraft().renderGlobal.loadRenderers();
 	}
-
+	
 	@Override
 	public void onEnable()
 	{

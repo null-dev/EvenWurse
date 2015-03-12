@@ -38,7 +38,7 @@ public class Pwnage extends Module implements UpdateListener
 	{
 		EventManager.addUpdateListener(this);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

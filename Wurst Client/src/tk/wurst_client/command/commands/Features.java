@@ -37,7 +37,8 @@ public class Features extends Command
 				if(module.getCategory() == Category.HIDDEN
 					|| module.getCategory() == Category.WIP)
 					hiddenMods++;
-			Client.wurst.chat.message(">" + (mods - hiddenMods) + " mods (+" + hiddenMods + " hidden mods)");
+			Client.wurst.chat.message(">" + (mods - hiddenMods) + " mods (+"
+				+ hiddenMods + " hidden mods)");
 			int commands =
 				Client.wurst.commandManager.activeCommands.size();
 			Client.wurst.chat.message(">" + commands + " commands");

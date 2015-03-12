@@ -35,7 +35,7 @@ public class MassTPA extends Module implements UpdateListener
 				+ "Stops if someone accepts.",
 			Category.CHAT);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -81,7 +81,7 @@ public class MassTPA extends Module implements UpdateListener
 	{
 		EventManager.removeUpdateListener(this);
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{

@@ -32,7 +32,8 @@ public class PathCmd extends Module
 	public String getRenderName()
 	{
 		if(pos != null)
-			return "Path to " + pos.getX() + " " + pos.getY() + " " + pos.getZ();
+			return "Path to " + pos.getX() + " " + pos.getY() + " "
+				+ pos.getZ();
 		else
 			return "Path";
 	}
@@ -50,7 +51,9 @@ public class PathCmd extends Module
 		for(String arg : args)
 			if(!MiscUtils.isInteger(arg))
 				return false;
-		pos = new BlockPos(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+		pos =
+			new BlockPos(Integer.parseInt(args[0]), Integer.parseInt(args[1]),
+				Integer.parseInt(args[2]));
 		Thread thread = new Thread(new Runnable()
 		{
 			@Override

@@ -50,8 +50,9 @@ public class PathPoint
 				else if(!PathUtils.isSolid(pos.add(0, -1, 0)))
 					if(!PathUtils.isSolid(neighbor.add(0, -1, 0)))
 						neighbors.remove(i);
-					else if(previous == null || (PathUtils.isSolid(previous.getPos().add(0, -1, 0))
-						&& previous.getPos().getY() >= pos.getY()))
+					else if(previous == null
+						|| PathUtils.isSolid(previous.getPos().add(0, -1, 0))
+						&& previous.getPos().getY() >= pos.getY())
 						neighbors.remove(i);
 		}
 		neighbors.add(pos.add(0, -1, 0));// down

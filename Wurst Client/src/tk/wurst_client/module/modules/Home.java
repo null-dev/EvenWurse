@@ -25,7 +25,7 @@ public class Home extends Module implements UpdateListener
 			"Types \"/home\" instantly.",
 			Category.CHAT);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -48,7 +48,7 @@ public class Home extends Module implements UpdateListener
 	{
 		EventManager.removeUpdateListener(this);
 	}
-
+	
 	@Override
 	public void onReceivedMessage(String message)
 	{

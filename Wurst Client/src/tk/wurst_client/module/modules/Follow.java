@@ -28,7 +28,7 @@ public class Follow extends Module implements UpdateListener
 				+ "Very annoying.",
 			Category.COMBAT);
 	}
-
+	
 	@Override
 	public String getRenderName()
 	{

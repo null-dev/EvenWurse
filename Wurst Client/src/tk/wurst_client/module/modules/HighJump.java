@@ -16,7 +16,7 @@ import tk.wurst_client.module.Module;
 public class HighJump extends Module implements UpdateListener
 {
 	public static double jumpHeight = 0.41999998688697815D * 6;
-
+	
 	public HighJump()
 	{
 		super(

@@ -24,7 +24,8 @@ public class Path extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(!((PathCmd)Client.wurst.moduleManager.getModuleFromClass(PathCmd.class)).onToggledByCmd(args))
+		if(!((PathCmd)Client.wurst.moduleManager
+			.getModuleFromClass(PathCmd.class)).onToggledByCmd(args))
 			commandError();
 	}
 }

@@ -19,7 +19,7 @@ import tk.wurst_client.module.Module;
 public class Blink extends Module implements UpdateListener
 {
 	private static ArrayList<Packet> packets = new ArrayList<Packet>();
-
+	
 	public Blink()
 	{
 		super(

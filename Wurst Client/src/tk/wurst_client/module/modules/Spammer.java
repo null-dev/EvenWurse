@@ -57,7 +57,7 @@ public class Spammer extends Module
 				+ ">Integrated help system",
 			Category.CHAT);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
@@ -491,7 +491,7 @@ public class Spammer extends Module
 			}
 		}.start();
 	}
-
+	
 	private void updateSpam()
 	{
 		try

@@ -35,7 +35,7 @@ public class SpeedNuker extends Module implements UpdateListener
 			"Faster Nuker that cannot bypass NoCheat+.",
 			Category.BLOCKS);
 	}
-
+	
 	@Override
 	public String getRenderName()
 	{
@@ -116,7 +116,7 @@ public class SpeedNuker extends Module implements UpdateListener
 			AutoTool.setSlot(pos);
 		nukeAll();
 	}
-
+	
 	@Override
 	public void onDisable()
 	{
@@ -151,7 +151,7 @@ public class SpeedNuker extends Module implements UpdateListener
 			Client.wurst.fileManager.saveOptions();
 		}
 	}
-
+	
 	private BlockPos find()
 	{
 		BlockPos closest = null;

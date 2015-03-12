@@ -99,7 +99,7 @@ public class InstantBunker extends Module implements UpdateListener
 			"Instantly builds a small bunker around you.",
 			Category.BLOCKS);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{

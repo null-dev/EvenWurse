@@ -50,7 +50,7 @@ public class Nuker extends Module implements UpdateListener
 				+ "Use .nuker mode <mode> to change the mode.",
 			Category.BLOCKS);
 	}
-
+	
 	@Override
 	public String getRenderName()
 	{

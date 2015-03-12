@@ -47,7 +47,7 @@ public class BowAimbot extends Module implements UpdateListener
 	{
 		EventManager.addUpdateListener(this);
 	}
-
+	
 	@Override
 	public void onRender()
 	{

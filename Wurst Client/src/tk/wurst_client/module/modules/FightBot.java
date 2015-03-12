@@ -38,7 +38,7 @@ public class FightBot extends Module implements UpdateListener
 	{
 		EventManager.addUpdateListener(this);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{

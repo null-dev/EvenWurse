@@ -43,7 +43,7 @@ public class Kaboom extends Module implements UpdateListener
 				+ "Note that this is not an actual explosion.",
 			Category.BLOCKS);
 	}
-
+	
 	@Override
 	public void initSliders()
 	{

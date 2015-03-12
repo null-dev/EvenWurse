@@ -38,7 +38,7 @@ public class ChestESP extends Module implements UpdateListener
 				+ "Tip: This works with the piston crates on HiveMC.",
 			Category.RENDER);
 	}
-
+	
 	@Override
 	public void onEnable()
 	{
