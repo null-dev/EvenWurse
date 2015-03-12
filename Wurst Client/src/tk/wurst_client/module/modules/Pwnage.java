@@ -12,14 +12,18 @@ import net.minecraft.network.play.client.C01PacketChatMessage;
 import net.minecraft.util.Session;
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.NameGenerator;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.servers.ServerConnector;
 import tk.wurst_client.servers.ServerConnector.Connection;
 import tk.wurst_client.utils.EmptyFutureListener;
 
-public class Pwnage extends Module
+public class Pwnage extends Module implements UpdateListener
 {
+	private ServerConnector connector;
+	
 	public Pwnage()
 	{
 		super(
@@ -29,13 +33,15 @@ public class Pwnage extends Module
 			Category.WIP);
 	}
 	
-	private ServerConnector connector;
-	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+
+	@Override
+	public void onUpdate()
+	{
 		if(connector != null && connector.connection == null)
 			return;
 		if(connector != null && connector.connection == Connection.SUCCESSFUL)
@@ -52,5 +58,11 @@ public class Pwnage extends Module
 				Integer.valueOf(Client.wurst.currentServerIP.split(":")[1]),
 				new Session(NameGenerator.generateName(), "", "", "mojang")
 			);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }
