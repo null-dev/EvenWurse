@@ -14,11 +14,13 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 
-public class RemoteView extends Module
+public class RemoteView extends Module implements UpdateListener
 {
 	public RemoteView()
 	{
@@ -64,6 +66,7 @@ public class RemoteView extends Module
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
 		Client.wurst.chat.message("Now viewing " + otherView.getName() + ".");
+		EventManager.addUpdateListener(this);
 	}
 	
 	public static void onEnabledByCommand(String viewName)
@@ -75,10 +78,8 @@ public class RemoteView extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(EntityUtils.searchEntityByIdRaw(otherID) == null)
 		{
 			setToggled(false);
@@ -97,6 +98,7 @@ public class RemoteView extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		if(otherView != null)
 		{
 			Client.wurst.chat.message("No longer viewing "
