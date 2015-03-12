@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Phase extends Module
+public class Phase extends Module implements UpdateListener
 {
 	public Phase()
 	{
@@ -23,10 +25,14 @@ public class Phase extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		Minecraft.getMinecraft().thePlayer.noClip = true;
 		Minecraft.getMinecraft().thePlayer.fallDistance = 0;
 		Minecraft.getMinecraft().thePlayer.onGround = true;
@@ -35,6 +41,7 @@ public class Phase extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().thePlayer.noClip = false;
 	}
 }
