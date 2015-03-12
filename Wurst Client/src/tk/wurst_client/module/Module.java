@@ -124,10 +124,6 @@ public class Module
 	public void onDisable()
 	{}
 	
-	@Deprecated
-	public void oldOnUpdate()
-	{}
-	
 	public void onRender()
 	{}
 	
