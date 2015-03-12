@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Panic extends Module
+public class Panic extends Module implements UpdateListener
 {
 	public Panic()
 	{
@@ -23,10 +25,14 @@ public class Panic extends Module
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onEnable()
 	{
-		if(!getToggled())
-			return;
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
 			if(!Client.wurst.moduleManager.activeModules.get(i).equals(this)
 				&& Client.wurst.moduleManager.activeModules.get(i)
@@ -35,5 +41,6 @@ public class Panic extends Module
 				Client.wurst.moduleManager.activeModules.get(i).setToggled(
 					false);
 		setToggled(false);
+		EventManager.removeUpdateListener(this);
 	}
 }
