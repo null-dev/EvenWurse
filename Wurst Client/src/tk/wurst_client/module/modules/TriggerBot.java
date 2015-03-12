@@ -10,11 +10,13 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 
-public class TriggerBot extends Module
+public class TriggerBot extends Module implements UpdateListener
 {
 	public TriggerBot()
 	{
@@ -39,13 +41,13 @@ public class TriggerBot extends Module
 			.getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
 				.setToggled(false);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(getToggled()
-			&& Minecraft.getMinecraft().objectMouseOver != null
+		if(Minecraft.getMinecraft().objectMouseOver != null
 			&& Minecraft.getMinecraft().objectMouseOver.entityHit != null)
 		{
 			updateMS();
@@ -64,5 +66,11 @@ public class TriggerBot extends Module
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

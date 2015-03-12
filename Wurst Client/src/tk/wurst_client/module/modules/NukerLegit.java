@@ -17,22 +17,15 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class NukerLegit extends Module
+public class NukerLegit extends Module implements UpdateListener
 {
-	public NukerLegit()
-	{
-		super(
-			"NukerLegit",
-			"Slower Nuker that bypasses any cheat prevention\n"
-				+ "PlugIn. Not required on most NoCheat+ servers!",
-			Category.BLOCKS);
-	}
-	
 	private static Block currentBlock;
 	private float currentDamage;
 	private EnumFacing side = EnumFacing.UP;
@@ -41,6 +34,15 @@ public class NukerLegit extends Module
 	private boolean shouldRenderESP;
 	private int oldSlot = -1;
 	
+	public NukerLegit()
+	{
+		super(
+			"NukerLegit",
+			"Slower Nuker that bypasses any cheat prevention\n"
+				+ "PlugIn. Not required on most NoCheat+ servers!",
+			Category.BLOCKS);
+	}
+
 	@Override
 	public String getRenderName()
 	{
@@ -65,28 +67,7 @@ public class NukerLegit extends Module
 			.getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class)
 				.setToggled(false);
-	}
-	
-	@Override
-	public void onLeftClick()
-	{
-		if(!getToggled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
-			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
-			return;
-		if(Client.wurst.options.nukerMode == 1
-			&& Minecraft.getMinecraft().theWorld
-				.getBlockState(
-					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-				.getBlock().getMaterial() != Material.air)
-		{
-			Nuker.id =
-				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
-					.getBlockState(
-						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-					.getBlock());
-			Client.wurst.fileManager.saveOptions();
-		}
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
@@ -101,12 +82,10 @@ public class NukerLegit extends Module
 			else
 				RenderUtils.nukerBox(pos, 1);
 	}
-	
+
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		shouldRenderESP = false;
 		BlockPos newPos = find();
 		if(newPos == null)
@@ -177,10 +156,11 @@ public class NukerLegit extends Module
 			currentDamage = 0;
 		}
 	}
-	
+
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
@@ -190,6 +170,28 @@ public class NukerLegit extends Module
 		shouldRenderESP = false;
 		Nuker.id = 0;
 		Client.wurst.fileManager.saveOptions();
+	}
+
+	@Override
+	public void onLeftClick()
+	{
+		if(!getToggled()
+			|| Minecraft.getMinecraft().objectMouseOver == null
+			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
+			return;
+		if(Client.wurst.options.nukerMode == 1
+			&& Minecraft.getMinecraft().theWorld
+				.getBlockState(
+					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+				.getBlock().getMaterial() != Material.air)
+		{
+			Nuker.id =
+				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+					.getBlockState(
+						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+					.getBlock());
+			Client.wurst.fileManager.saveOptions();
+		}
 	}
 	
 	private BlockPos find()

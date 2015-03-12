@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class AnnoyCMD extends Module
+public class AnnoyCMD extends Module implements UpdateListener
 {
 	public AnnoyCMD()
 	{
@@ -20,6 +22,7 @@ public class AnnoyCMD extends Module
 			"Annoy",
 			"",
 			Category.HIDDEN);
+		EventManager.addUpdateListener(this);
 	}
 	
 	private static boolean toggled;

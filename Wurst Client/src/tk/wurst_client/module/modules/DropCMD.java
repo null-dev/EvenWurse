@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class DropCMD extends Module
+public class DropCMD extends Module implements UpdateListener
 {
 	public DropCMD()
 	{
@@ -30,13 +32,12 @@ public class DropCMD extends Module
 	{
 		timer = 0;
 		counter = 9;
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -57,5 +58,11 @@ public class DropCMD extends Module
 					4, Minecraft.getMinecraft().thePlayer);
 			setToggled(false);
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

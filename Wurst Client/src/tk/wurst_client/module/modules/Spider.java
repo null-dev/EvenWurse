@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Spider extends Module
+public class Spider extends Module implements UpdateListener
 {
 	public Spider()
 	{
@@ -23,10 +25,14 @@ public class Spider extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -34,5 +40,11 @@ public class Spider extends Module
 			setToggled(false);
 		}else if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally)
 			Minecraft.getMinecraft().thePlayer.motionY = 0.2;
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

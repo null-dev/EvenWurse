@@ -10,12 +10,15 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 
-public class MultiAura extends Module
+public class MultiAura extends Module implements UpdateListener
 {
+	private float range = 6F;
 	
 	public MultiAura()
 	{
@@ -24,9 +27,7 @@ public class MultiAura extends Module
 			"Faster Killaura that attacks multiple entities at once.",
 			Category.COMBAT);
 	}
-	
-	private float range = 6F;
-	
+
 	@Override
 	public void onEnable()
 	{
@@ -42,13 +43,12 @@ public class MultiAura extends Module
 			.getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
 				.setToggled(false);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -77,5 +77,11 @@ public class MultiAura extends Module
 			}
 			updateLastMS();
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

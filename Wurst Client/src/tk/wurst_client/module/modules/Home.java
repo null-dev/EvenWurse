@@ -9,11 +9,15 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Home extends Module
+public class Home extends Module implements UpdateListener
 {
+	private int disableTimer;
+	
 	public Home()
 	{
 		super(
@@ -21,28 +25,30 @@ public class Home extends Module
 			"Types \"/home\" instantly.",
 			Category.CHAT);
 	}
-	
-	private int disableTimer;
-	
-	@Override
-	public void onUpdate()
-	{
-		if(getToggled())
-		{
-			if(disableTimer == 4)
-				setToggled(false);
-			else if(disableTimer == 0)
-				Minecraft.getMinecraft().thePlayer.sendChatMessage("/home");
-			disableTimer++;
-		}
-	}
-	
+
 	@Override
 	public void onEnable()
 	{
 		disableTimer = 0;
+		EventManager.addUpdateListener(this);
 	}
 	
+	@Override
+	public void onUpdate()
+	{
+		if(disableTimer == 4)
+			setToggled(false);
+		else if(disableTimer == 0)
+			Minecraft.getMinecraft().thePlayer.sendChatMessage("/home");
+		disableTimer++;
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
+	}
+
 	@Override
 	public void onReceivedMessage(String message)
 	{

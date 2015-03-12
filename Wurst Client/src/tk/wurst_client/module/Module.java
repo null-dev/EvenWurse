@@ -124,9 +124,6 @@ public class Module
 	public void onDisable()
 	{}
 	
-	public void onUpdate()
-	{}
-	
 	public void onRender()
 	{}
 	

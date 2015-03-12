@@ -17,12 +17,19 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ChestESP extends Module
+public class ChestESP extends Module implements UpdateListener
 {
+	private int range = 50;
+	private int maxChests = 1000;
+	public boolean shouldInform = true;
+	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
+	
 	public ChestESP()
 	{
 		super(
@@ -31,16 +38,12 @@ public class ChestESP extends Module
 				+ "Tip: This works with the piston crates on HiveMC.",
 			Category.RENDER);
 	}
-	
-	private int range = 50;
-	private int maxChests = 1000;
-	public boolean shouldInform = true;
-	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
-	
+
 	@Override
 	public void onEnable()
 	{
 		shouldInform = true;
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
@@ -96,8 +99,6 @@ public class ChestESP extends Module
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		updateMS();
 		if(hasTimePassedM(3000))
 		{
@@ -128,5 +129,11 @@ public class ChestESP extends Module
 					}
 			updateLastMS();
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

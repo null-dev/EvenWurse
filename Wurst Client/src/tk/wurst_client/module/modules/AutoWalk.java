@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class AutoWalk extends Module
+public class AutoWalk extends Module implements UpdateListener
 {
 	public AutoWalk()
 	{
@@ -22,10 +24,14 @@ public class AutoWalk extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(!Minecraft.getMinecraft().gameSettings.keyBindForward.pressed)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
 	}
@@ -33,6 +39,7 @@ public class AutoWalk extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 	}
 }

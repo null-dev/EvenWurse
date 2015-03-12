@@ -11,11 +11,15 @@ import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.Packet;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Blink extends Module
+public class Blink extends Module implements UpdateListener
 {
+	private static ArrayList<Packet> packets = new ArrayList<Packet>();
+
 	public Blink()
 	{
 		super(
@@ -26,13 +30,15 @@ public class Blink extends Module
 			Category.MOVEMENT);
 	}
 	
-	private static ArrayList<Packet> packets = new ArrayList<Packet>();
+	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		updateMS();
 		if(hasTimePassedM(3000))
 		{
@@ -42,6 +48,12 @@ public class Blink extends Module
 			packets.clear();
 			updateLastMS();
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 	
 	public static void addToBlinkQueue(Packet packet)

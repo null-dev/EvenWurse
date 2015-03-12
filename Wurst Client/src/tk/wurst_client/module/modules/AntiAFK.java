@@ -11,11 +11,13 @@ import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 
-public class AntiAFK extends Module
+public class AntiAFK extends Module implements UpdateListener
 {
 	private BlockPos block;
 	private Random random;
@@ -40,13 +42,12 @@ public class AntiAFK extends Module
 			e.printStackTrace();
 		}
 		random = new Random();
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		updateMS();
 		if(hasTimePassedM(3000) || nextBlock == null)
 		{
@@ -67,6 +68,7 @@ public class AntiAFK extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 	}
 }

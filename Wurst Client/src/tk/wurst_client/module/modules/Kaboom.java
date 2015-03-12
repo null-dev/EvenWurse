@@ -21,12 +21,17 @@ import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 
-public class Kaboom extends Module
+public class Kaboom extends Module implements UpdateListener
 {
+	private int range = 6;
+	public static int power = 128;
+	
 	public Kaboom()
 	{
 		super(
@@ -38,10 +43,7 @@ public class Kaboom extends Module
 				+ "Note that this is not an actual explosion.",
 			Category.BLOCKS);
 	}
-	
-	private int range = 6;
-	public static int power = 128;
-	
+
 	@Override
 	public void initSliders()
 	{
@@ -56,10 +58,14 @@ public class Kaboom extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -148,5 +154,11 @@ public class Kaboom extends Module
 			}
 		}.start();
 		setToggled(false);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

@@ -16,12 +16,18 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 
-public class SpeedNuker extends Module
+public class SpeedNuker extends Module implements UpdateListener
 {
+	private static Block currentBlock;
+	private BlockPos pos;
+	private int oldSlot = -1;
+	
 	public SpeedNuker()
 	{
 		super(
@@ -29,11 +35,7 @@ public class SpeedNuker extends Module
 			"Faster Nuker that cannot bypass NoCheat+.",
 			Category.BLOCKS);
 	}
-	
-	private static Block currentBlock;
-	private BlockPos pos;
-	private int oldSlot = -1;
-	
+
 	@Override
 	public String getRenderName()
 	{
@@ -58,35 +60,12 @@ public class SpeedNuker extends Module
 			.getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(NukerLegit.class)
 				.setToggled(false);
-	}
-	
-	@Override
-	public void onLeftClick()
-	{
-		if(!getToggled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
-			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
-			return;
-		if(Client.wurst.options.nukerMode == 1
-			&& Minecraft.getMinecraft().theWorld
-				.getBlockState(
-					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-				.getBlock().getMaterial() != Material.air)
-		{
-			Nuker.id =
-				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
-					.getBlockState(
-						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-					.getBlock());
-			Client.wurst.fileManager.saveOptions();
-		}
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -137,10 +116,11 @@ public class SpeedNuker extends Module
 			AutoTool.setSlot(pos);
 		nukeAll();
 	}
-	
+
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
@@ -150,6 +130,28 @@ public class SpeedNuker extends Module
 		Client.wurst.fileManager.saveOptions();
 	}
 	
+	@Override
+	public void onLeftClick()
+	{
+		if(!getToggled()
+			|| Minecraft.getMinecraft().objectMouseOver == null
+			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
+			return;
+		if(Client.wurst.options.nukerMode == 1
+			&& Minecraft.getMinecraft().theWorld
+				.getBlockState(
+					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+				.getBlock().getMaterial() != Material.air)
+		{
+			Nuker.id =
+				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+					.getBlockState(
+						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+					.getBlock());
+			Client.wurst.fileManager.saveOptions();
+		}
+	}
+
 	private BlockPos find()
 	{
 		BlockPos closest = null;

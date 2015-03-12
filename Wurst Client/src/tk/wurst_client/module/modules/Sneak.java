@@ -11,10 +11,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.client.C0BPacketEntityAction.Action;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Sneak extends Module
+public class Sneak extends Module implements UpdateListener
 {
 	public Sneak()
 	{
@@ -25,10 +27,14 @@ public class Sneak extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = true;
@@ -41,6 +47,7 @@ public class Sneak extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0BPacketEntityAction(

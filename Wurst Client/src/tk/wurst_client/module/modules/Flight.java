@@ -13,11 +13,15 @@ import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Flight extends Module
+public class Flight extends Module implements UpdateListener
 {
+	public static float speed = 1F;
+	
 	public Flight()
 	{
 		super(
@@ -26,9 +30,7 @@ public class Flight extends Module
 				+ "This is one of the oldest hacks in Minecraft.",
 			Category.MOVEMENT);
 	}
-	
-	public static float speed = 1F;
-	
+
 	@Override
 	public void initSliders()
 	{
@@ -43,10 +45,14 @@ public class Flight extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 		{
@@ -64,5 +70,11 @@ public class Flight extends Module
 			if(Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
 				Minecraft.getMinecraft().thePlayer.motionY -= speed;
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

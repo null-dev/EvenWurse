@@ -21,22 +21,15 @@ import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class Nuker extends Module
+public class Nuker extends Module implements UpdateListener
 {
-	public Nuker()
-	{
-		super(
-			"Nuker",
-			"Destroys blocks around you.\n"
-				+ "Use .nuker mode <mode> to change the mode.",
-			Category.BLOCKS);
-	}
-	
 	public static float normalRange = 5F;
 	public static float yesCheatRange = 4.25F;
 	private float realRange;
@@ -49,6 +42,15 @@ public class Nuker extends Module
 	private boolean shouldRenderESP;
 	private int oldSlot = -1;
 	
+	public Nuker()
+	{
+		super(
+			"Nuker",
+			"Destroys blocks around you.\n"
+				+ "Use .nuker mode <mode> to change the mode.",
+			Category.BLOCKS);
+	}
+
 	@Override
 	public String getRenderName()
 	{
@@ -87,6 +89,7 @@ public class Nuker extends Module
 			.getToggled())
 			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class)
 				.setToggled(false);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
@@ -127,8 +130,6 @@ public class Nuker extends Module
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
 			.getToggled())
 			realRange = yesCheatRange;
@@ -223,6 +224,7 @@ public class Nuker extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

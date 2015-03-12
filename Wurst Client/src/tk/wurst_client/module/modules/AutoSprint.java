@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class AutoSprint extends Module
+public class AutoSprint extends Module implements UpdateListener
 {
 	
 	public AutoSprint()
@@ -23,13 +25,23 @@ public class AutoSprint extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(!Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
 			&& Minecraft.getMinecraft().thePlayer.moveForward > 0
 			&& !Minecraft.getMinecraft().thePlayer.isSneaking())
 			Minecraft.getMinecraft().thePlayer.setSprinting(true);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

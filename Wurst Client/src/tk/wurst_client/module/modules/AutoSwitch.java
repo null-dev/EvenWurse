@@ -8,10 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class AutoSwitch extends Module
+public class AutoSwitch extends Module implements UpdateListener
 {
 	public AutoSwitch()
 	{
@@ -25,13 +27,23 @@ public class AutoSwitch extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(Minecraft.getMinecraft().thePlayer.inventory.currentItem == 8)
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = 0;
 		else
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem++;
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

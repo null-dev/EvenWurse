@@ -10,11 +10,13 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 
-public class Protect extends Module
+public class Protect extends Module implements UpdateListener
 {
 	public Protect()
 	{
@@ -50,13 +52,12 @@ public class Protect extends Module
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
 				friend = en;
 		}
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(friend == null || friend.isDead || friend.getHealth() <= 0
 			|| Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
 		{
@@ -120,6 +121,7 @@ public class Protect extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		if(friend != null)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;

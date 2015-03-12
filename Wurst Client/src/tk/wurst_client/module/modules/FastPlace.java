@@ -8,26 +8,37 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class FastPlace extends Module
+public class FastPlace extends Module implements UpdateListener
 {
-	
 	public FastPlace()
 	{
 		super(
 			"FastPlace",
 			"Allows you to place blocks 5 times faster.\n"
-				+ "Tip: This can speed up AutoBuild in YesCheat+ mode.",
+				+ "Tip: This can speed up AutoBuild.",
 			Category.BLOCKS);
+	}
+	
+	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		Minecraft.getMinecraft().rightClickDelayTimer = 0;
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

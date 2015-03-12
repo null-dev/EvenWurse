@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Derp extends Module
+public class Derp extends Module implements UpdateListener
 {
 	public Derp()
 	{
@@ -24,10 +26,14 @@ public class Derp extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+	
+	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		float yaw =
 			Minecraft.getMinecraft().thePlayer.rotationYaw
 				+ (float)(Math.random() * 360 - 180);
@@ -39,5 +45,11 @@ public class Derp extends Module
 				pitch,
 				Minecraft.getMinecraft().thePlayer.onGround
 			));
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

@@ -12,10 +12,12 @@ import net.minecraft.client.Minecraft;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class ClickGUI extends Module
+public class ClickGUI extends Module implements UpdateListener
 {
 	
 	public ClickGUI()
@@ -24,6 +26,7 @@ public class ClickGUI extends Module
 			"ClickGUI",
 			"",
 			Category.HIDDEN);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override

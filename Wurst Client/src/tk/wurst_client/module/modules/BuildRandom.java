@@ -14,12 +14,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 
-public class BuildRandom extends Module
+public class BuildRandom extends Module implements UpdateListener
 {
+	private float range = 6;
+	
 	public BuildRandom()
 	{
 		super(
@@ -28,14 +32,17 @@ public class BuildRandom extends Module
 			Category.BLOCKS);
 	}
 	
-	private float range = 6;
+	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled()
-			|| Client.wurst.moduleManager.getModuleFromClass(Freecam.class)
-				.getToggled()
+		if(Client.wurst.moduleManager.getModuleFromClass(Freecam.class)
+			.getToggled()
 			|| Client.wurst.moduleManager.getModuleFromClass(RemoteView.class)
 				.getToggled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
@@ -115,5 +122,11 @@ public class BuildRandom extends Module
 				(float)fakeObjectMouseOver.hitVec.zCoord
 					- fakeObjectMouseOver.getBlockPos().getZ()
 			));
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

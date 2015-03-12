@@ -21,13 +21,18 @@ import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class BowAimbot extends Module
+public class BowAimbot extends Module implements UpdateListener
 {
+	private Entity target;
+	private float velocity;
+	
 	public BowAimbot()
 	{
 		super(
@@ -37,9 +42,12 @@ public class BowAimbot extends Module
 			Category.COMBAT);
 	}
 	
-	private Entity target;
-	private float velocity;
-	
+	@Override
+	public void onEnable()
+	{
+		EventManager.addUpdateListener(this);
+	}
+
 	@Override
 	public void onRender()
 	{
@@ -102,8 +110,6 @@ public class BowAimbot extends Module
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		target = null;
 		if(Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() != null
 			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem()
@@ -113,6 +119,12 @@ public class BowAimbot extends Module
 			target = EntityUtils.getClosestEntity(true);
 			aimAtTarget();
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 	
 	private void aimAtTarget()

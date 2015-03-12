@@ -9,18 +9,20 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Fullbright extends Module
+public class Fullbright extends Module implements UpdateListener
 {
-	
 	public Fullbright()
 	{
 		super(
 			"Fullbright",
 			"Allows you to see in the dark.",
 			Category.RENDER);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override

@@ -13,11 +13,13 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class Search extends Module
+public class Search extends Module implements UpdateListener
 {
 	public Search()
 	{
@@ -44,6 +46,7 @@ public class Search extends Module
 	public void onEnable()
 	{
 		shouldInform = true;
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
@@ -58,8 +61,6 @@ public class Search extends Module
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		updateMS();
 		if(hasTimePassedM(3000))
 		{
@@ -102,5 +103,11 @@ public class Search extends Module
 				shouldInform = true;
 			updateLastMS();
 		}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
 	}
 }

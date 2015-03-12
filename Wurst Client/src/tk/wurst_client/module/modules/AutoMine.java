@@ -9,10 +9,12 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class AutoMine extends Module
+public class AutoMine extends Module implements UpdateListener
 {
 	public AutoMine()
 	{
@@ -26,13 +28,13 @@ public class AutoMine extends Module
 	public void onEnable()
 	{
 		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(!getToggled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
+		if(Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
 		if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
@@ -49,6 +51,7 @@ public class AutoMine extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
 	}
 }
