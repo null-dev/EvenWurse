@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.ai.PathUtils;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 
-public class GoToCmd extends Module
+public class GoToCmd extends Module implements UpdateListener
 {
 	private static ArrayList<BlockPos> path;
 	private static BlockPos goal;
@@ -40,13 +42,12 @@ public class GoToCmd extends Module
 	public void onEnable()
 	{
 		index = 0;
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
-	public void oldOnUpdate()
+	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(path == null || goal == null)
 		{
 			setToggled(false);
@@ -107,6 +108,7 @@ public class GoToCmd extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeUpdateListener(this);
 		path = null;
 		goal = null;
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
