@@ -22,13 +22,14 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class Nuker extends Module implements UpdateListener
+public class Nuker extends Module implements UpdateListener, RenderListener
 {
 	public static float normalRange = 5F;
 	public static float yesCheatRange = 4.25F;
@@ -90,28 +91,7 @@ public class Nuker extends Module implements UpdateListener
 			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
-	}
-	
-	@Override
-	public void onLeftClick()
-	{
-		if(!getToggled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
-			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
-			return;
-		if(Client.wurst.options.nukerMode == 1
-			&& Minecraft.getMinecraft().theWorld
-				.getBlockState(
-					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-				.getBlock().getMaterial() != Material.air)
-		{
-			id =
-				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
-					.getBlockState(
-						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-					.getBlock());
-			Client.wurst.fileManager.saveOptions();
-		}
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
@@ -225,6 +205,7 @@ public class Nuker extends Module implements UpdateListener
 	public void onDisable()
 	{
 		EventManager.removeUpdateListener(this);
+		EventManager.removeRenderListener(this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
@@ -236,6 +217,28 @@ public class Nuker extends Module implements UpdateListener
 		Client.wurst.fileManager.saveOptions();
 	}
 	
+	@Override
+	public void onLeftClick()
+	{
+		if(!getToggled()
+			|| Minecraft.getMinecraft().objectMouseOver == null
+			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
+			return;
+		if(Client.wurst.options.nukerMode == 1
+			&& Minecraft.getMinecraft().theWorld
+				.getBlockState(
+					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+				.getBlock().getMaterial() != Material.air)
+		{
+			id =
+				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+					.getBlockState(
+						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+					.getBlock());
+			Client.wurst.fileManager.saveOptions();
+		}
+	}
+
 	private BlockPos find()
 	{
 		BlockPos closest = null;
