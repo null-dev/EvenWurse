@@ -15,12 +15,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class BaseFinder extends Module implements UpdateListener
+public class BaseFinder extends Module implements UpdateListener, RenderListener
 {
 	public BaseFinder()
 	{
@@ -43,13 +44,12 @@ public class BaseFinder extends Module implements UpdateListener
 	{
 		shouldInform = true;
 		EventManager.addUpdateListener(this);
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
 	public void onRender()
 	{
-		if(!getToggled())
-			return;
 		for(BlockPos blockPos : matchingBlocks)
 			RenderUtils.framelessBlockESP(blockPos, new Color(255, 0, 0));
 	}
@@ -105,6 +105,7 @@ public class BaseFinder extends Module implements UpdateListener
 	public void onDisable()
 	{
 		EventManager.removeUpdateListener(this);
+		EventManager.removeRenderListener(this);
 	}
 	
 	private void initBlocks()

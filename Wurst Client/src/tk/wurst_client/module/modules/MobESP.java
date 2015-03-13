@@ -10,11 +10,13 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class MobESP extends Module
+public class MobESP extends Module implements RenderListener
 {
 	public MobESP()
 	{
@@ -25,12 +27,22 @@ public class MobESP extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addRenderListener(this);
+	}
+	
+	@Override
 	public void onRender()
 	{
-		if(!getToggled())
-			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityLiving)
 				RenderUtils.entityESPBox((Entity)entity, 0);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeRenderListener(this);
 	}
 }

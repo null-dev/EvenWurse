@@ -14,12 +14,14 @@ import net.minecraft.network.play.server.S28PacketEffect;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.network.play.server.S2CPacketSpawnGlobalEntity;
 import net.minecraft.util.BlockPos;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class PlayerFinder extends Module
+public class PlayerFinder extends Module implements RenderListener
 {
 	private BlockPos blockPos;
 	
@@ -34,12 +36,13 @@ public class PlayerFinder extends Module
 	public void onEnable()
 	{
 		blockPos = null;
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
 	public void onRender()
 	{
-		if(!getToggled() || blockPos == null)
+		if(blockPos == null)
 			return;
 		float red =
 			(1F - (float)Math.sin((float)(System.currentTimeMillis() % 1000L)
@@ -56,6 +59,12 @@ public class PlayerFinder extends Module
 		RenderUtils.tracerLine(blockPos.getX(), blockPos.getY(),
 			blockPos.getZ(), color);
 		RenderUtils.blockESPBox(blockPos);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeRenderListener(this);
 	}
 	
 	@Override

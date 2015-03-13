@@ -22,13 +22,14 @@ import org.darkstorm.minecraft.gui.util.RenderUtil;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class BowAimbot extends Module implements UpdateListener
+public class BowAimbot extends Module implements UpdateListener, RenderListener
 {
 	private Entity target;
 	private float velocity;
@@ -46,12 +47,13 @@ public class BowAimbot extends Module implements UpdateListener
 	public void onEnable()
 	{
 		EventManager.addUpdateListener(this);
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
 	public void onRender()
 	{
-		if(!getToggled() || target == null)
+		if(target == null)
 			return;
 		RenderUtils.entityESPBox(target, 3);
 	}
@@ -125,6 +127,7 @@ public class BowAimbot extends Module implements UpdateListener
 	public void onDisable()
 	{
 		EventManager.removeUpdateListener(this);
+		EventManager.removeRenderListener(this);
 	}
 	
 	private void aimAtTarget()

@@ -32,6 +32,7 @@ import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
@@ -40,7 +41,7 @@ import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ArenaBrawl extends Module implements UpdateListener
+public class ArenaBrawl extends Module implements UpdateListener, RenderListener
 {
 	public ArenaBrawl()
 	{
@@ -95,13 +96,12 @@ public class ArenaBrawl extends Module implements UpdateListener
 	{
 		reset();
 		EventManager.addUpdateListener(this);
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
 	public void onRender()
 	{
-		if(!getToggled())
-			return;
 		if(targetType == TargetType.BLOCK_E)
 		{
 			double x = blockTarget[0];
@@ -177,23 +177,8 @@ public class ArenaBrawl extends Module implements UpdateListener
 	}
 	
 	@Override
-	public void onReceivedMessage(String message)
-	{
-		if(!getToggled())
-			return;
-		if(message.startsWith("[Arena]: ")
-			&& message.endsWith(" has won the game!"))
-		{
-			Client.wurst.chat.message(message.substring(9));
-			setToggled(false);
-		}
-	}
-	
-	@Override
 	public void onUpdate()
 	{
-		if(!getToggled())
-			return;
 		if(scoreboard != null
 			&& (scoreboard.size() == 13 || scoreboard.size() == 11))
 		{// If you are in the lobby:
@@ -282,6 +267,42 @@ public class ArenaBrawl extends Module implements UpdateListener
 		}
 	}
 	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeUpdateListener(this);
+		EventManager.removeRenderListener(this);
+		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+		if(friendsName != null)
+			Client.wurst.chat.message("No longer playing ArenaBrawl with "
+				+ friendsName + ".");
+		reset();
+	}
+
+	@Override
+	public void onReceivedMessage(String message)
+	{
+		if(!getToggled())
+			return;
+		if(message.startsWith("[Arena]: ")
+			&& message.endsWith(" has won the game!"))
+		{
+			Client.wurst.chat.message(message.substring(9));
+			setToggled(false);
+		}
+	}
+
+	@Override
+	public void onDeath()
+	{
+		if(!getToggled())
+			return;
+		Minecraft.getMinecraft().thePlayer.respawnPlayer();
+		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
+		Client.wurst.chat.message("You died.");
+		setToggled(false);
+	}
+
 	private void setupFrame()
 	{
 		friendsName = formatSBName(0);
@@ -638,27 +659,5 @@ public class ArenaBrawl extends Module implements UpdateListener
 		blockTarget = null;
 		targetType = null;
 		friendsName = null;
-	}
-	
-	@Override
-	public void onDeath()
-	{
-		if(!getToggled())
-			return;
-		Minecraft.getMinecraft().thePlayer.respawnPlayer();
-		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
-		Client.wurst.chat.message("You died.");
-		setToggled(false);
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		EventManager.removeUpdateListener(this);
-		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
-		if(friendsName != null)
-			Client.wurst.chat.message("No longer playing ArenaBrawl with "
-				+ friendsName + ".");
-		reset();
 	}
 }

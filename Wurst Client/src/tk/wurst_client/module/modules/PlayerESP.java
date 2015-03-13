@@ -11,11 +11,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class PlayerESP extends Module
+public class PlayerESP extends Module implements RenderListener
 {
 	public PlayerESP()
 	{
@@ -26,10 +28,15 @@ public class PlayerESP extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addRenderListener(this);
+	}
+	
+	@Override
 	public void onRender()
 	{
-		if(!getToggled()
-			|| Client.wurst.moduleManager.getModuleFromClass(ArenaBrawl.class)
+		if(Client.wurst.moduleManager.getModuleFromClass(ArenaBrawl.class)
 				.getToggled())
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
@@ -38,5 +45,11 @@ public class PlayerESP extends Module
 					Minecraft.getMinecraft().getSession().getUsername()))
 				RenderUtils.entityESPBox((Entity)entity, Client.wurst.friends
 					.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeRenderListener(this);
 	}
 }
