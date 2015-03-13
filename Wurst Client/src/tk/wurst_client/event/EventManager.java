@@ -68,4 +68,30 @@ public class EventManager
 			}
 		});
 	}
+	
+	public synchronized static void addRenderListener(
+		final RenderListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				renderListeners.add(listener);
+			}
+		});
+	}
+	
+	public synchronized static void removeRenderListener(
+		final RenderListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				renderListeners.remove(listener);
+			}
+		});
+	}
 }
