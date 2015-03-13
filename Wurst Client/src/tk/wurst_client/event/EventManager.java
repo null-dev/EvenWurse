@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import tk.wurst_client.event.events.Event;
+import tk.wurst_client.event.events.RenderEvent;
 import tk.wurst_client.event.events.UpdateEvent;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
@@ -38,9 +39,17 @@ public class EventManager
 				UpdateListener listener = itr.next();
 				listener.onUpdate();
 			}
-			for(Runnable task; (task = queue.poll()) != null;)
-				task.run();
+		}else if(event instanceof RenderEvent)
+		{
+			Iterator<RenderListener> itr = renderListeners.iterator();
+			while(itr.hasNext())
+			{
+				RenderListener listener = itr.next();
+				listener.onRender();
+			}
 		}
+		for(Runnable task; (task = queue.poll()) != null;)
+			task.run();
 	}
 	
 	public synchronized static void addUpdateListener(
