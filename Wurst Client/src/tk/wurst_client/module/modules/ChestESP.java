@@ -18,12 +18,13 @@ import net.minecraft.tileentity.TileEntityEnderChest;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ChestESP extends Module implements UpdateListener
+public class ChestESP extends Module implements UpdateListener, RenderListener
 {
 	private int range = 50;
 	private int maxChests = 1000;
@@ -44,13 +45,12 @@ public class ChestESP extends Module implements UpdateListener
 	{
 		shouldInform = true;
 		EventManager.addUpdateListener(this);
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
 	public void onRender()
 	{
-		if(!getToggled())
-			return;
 		int i = 0;
 		for(Object o : Minecraft.getMinecraft().theWorld.loadedTileEntityList)
 		{
@@ -135,5 +135,6 @@ public class ChestESP extends Module implements UpdateListener
 	public void onDisable()
 	{
 		EventManager.removeUpdateListener(this);
+		EventManager.removeRenderListener(this);
 	}
 }
