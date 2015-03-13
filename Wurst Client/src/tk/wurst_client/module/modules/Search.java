@@ -14,13 +14,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class Search extends Module implements UpdateListener
+public class Search extends Module implements UpdateListener, RenderListener
 {
+	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
+	private int range = 50;
+	private int maxBlocks = 1000;
+	public static boolean shouldInform = true;
+	
 	public Search()
 	{
 		super(
@@ -30,12 +36,7 @@ public class Search extends Module implements UpdateListener
 				+ "to specify it.",
 			Category.RENDER);
 	}
-	
-	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
-	private int range = 50;
-	private int maxBlocks = 1000;
-	public static boolean shouldInform = true;
-	
+
 	@Override
 	public String getRenderName()
 	{
@@ -47,13 +48,12 @@ public class Search extends Module implements UpdateListener
 	{
 		shouldInform = true;
 		EventManager.addUpdateListener(this);
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
 	public void onRender()
 	{
-		if(!getToggled())
-			return;
 		for(BlockPos blockPos : matchingBlocks)
 			RenderUtils.searchBox(blockPos);
 	}
@@ -109,5 +109,6 @@ public class Search extends Module implements UpdateListener
 	public void onDisable()
 	{
 		EventManager.removeUpdateListener(this);
+		EventManager.removeRenderListener(this);
 	}
 }
