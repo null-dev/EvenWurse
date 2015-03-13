@@ -13,11 +13,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.MathHelper;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ProphuntESP extends Module
+public class ProphuntESP extends Module implements RenderListener
 {
 	public ProphuntESP()
 	{
@@ -28,10 +30,14 @@ public class ProphuntESP extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addRenderListener(this);
+	}
+	
+	@Override
 	public void onRender()
 	{
-		if(!getToggled())
-			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityLiving
 				&& ((Entity)entity).isInvisible())
@@ -51,5 +57,11 @@ public class ProphuntESP extends Module
 				RenderUtils.box(x - 0.5, y - 0.1, z - 0.5, x + 0.5, y + 0.9,
 					z + 0.5, color);
 			}
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeRenderListener(this);
 	}
 }
