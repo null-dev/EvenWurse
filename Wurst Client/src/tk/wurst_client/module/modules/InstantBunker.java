@@ -13,13 +13,14 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BuildUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class InstantBunker extends Module implements UpdateListener
+public class InstantBunker extends Module implements UpdateListener, RenderListener
 {
 	private float speed = 5;
 	private int i;
@@ -124,6 +125,7 @@ public class InstantBunker extends Module implements UpdateListener
 				playerYaw += 360;
 		}
 		EventManager.addUpdateListener(this);
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
@@ -403,6 +405,7 @@ public class InstantBunker extends Module implements UpdateListener
 	public void onDisable()
 	{
 		EventManager.removeUpdateListener(this);
+		EventManager.addRenderListener(this);
 		shouldBuild = false;
 	}
 }
