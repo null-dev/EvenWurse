@@ -18,13 +18,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class NukerLegit extends Module implements UpdateListener
+public class NukerLegit extends Module implements UpdateListener, RenderListener
 {
 	private static Block currentBlock;
 	private float currentDamage;
@@ -68,6 +69,7 @@ public class NukerLegit extends Module implements UpdateListener
 			Client.wurst.moduleManager.getModuleFromClass(SpeedNuker.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
+		EventManager.addRenderListener(this);
 	}
 	
 	@Override
@@ -161,6 +163,7 @@ public class NukerLegit extends Module implements UpdateListener
 	public void onDisable()
 	{
 		EventManager.removeUpdateListener(this);
+		EventManager.removeRenderListener(this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
