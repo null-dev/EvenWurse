@@ -12,11 +12,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.RenderUtils;
 
-public class Overlay extends Module
+public class Overlay extends Module implements RenderListener
 {
 	public Overlay()
 	{
@@ -27,10 +29,15 @@ public class Overlay extends Module
 	}
 	
 	@Override
+	public void onEnable()
+	{
+		EventManager.addRenderListener(this);
+	}
+	
+	@Override
 	public void onRender()
 	{
-		if(!getToggled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
+		if(Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
@@ -40,5 +47,11 @@ public class Overlay extends Module
 				.getBlock();
 		if(Block.getIdFromBlock(mouseOverBlock) != 0)
 			RenderUtils.nukerBox(pos, PlayerControllerMP.curBlockDamageMP);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeRenderListener(this);
 	}
 }
