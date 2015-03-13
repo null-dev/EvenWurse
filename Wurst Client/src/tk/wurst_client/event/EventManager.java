@@ -16,12 +16,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import tk.wurst_client.event.events.Event;
 import tk.wurst_client.event.events.UpdateEvent;
+import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 
 public class EventManager
 {
 	private static Set<UpdateListener> updateListeners = Collections
 		.synchronizedSet(new HashSet<UpdateListener>());
+	private static Set<RenderListener> renderListeners = Collections
+		.synchronizedSet(new HashSet<RenderListener>());
 	private static Queue<Runnable> queue =
 		new ConcurrentLinkedQueue<Runnable>();
 	
