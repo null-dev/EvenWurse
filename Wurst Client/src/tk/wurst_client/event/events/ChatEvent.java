@@ -7,10 +7,22 @@
  */
 package tk.wurst_client.event.events;
 
-public class ChatInputEvent extends ChatEvent
+public class ChatEvent extends CancellableEvent
 {
-	public ChatInputEvent(String message)
+	private String message;
+	
+	public ChatEvent(String message)
 	{
-		super(message);
+		this.message = message;
+	}
+	
+	public String getMessage()
+	{
+		return message;
+	}
+	
+	public void setMessage(String message)
+	{
+		this.message = message;
 	}
 }
