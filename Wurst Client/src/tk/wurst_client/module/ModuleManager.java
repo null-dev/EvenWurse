@@ -15,6 +15,7 @@ import tk.wurst_client.module.modules.*;
 
 public class ModuleManager
 {
+	@Deprecated
 	public final ArrayList<Module> activeModules = new ArrayList<Module>();
 	private final HashMap<Class, Module> mods = new HashMap<Class, Module>();
 	
@@ -28,6 +29,7 @@ public class ModuleManager
 		mods.put(mod.getClass(), mod);
 	}
 	
+	@Deprecated
 	public Module getModuleFromClass(Class moduleClass)
 	{
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
@@ -37,7 +39,8 @@ public class ModuleManager
 		throw new IllegalArgumentException("There is no module called \""
 			+ moduleClass.getName() + "\".");
 	}
-	
+
+	@Deprecated
 	public Module getModuleByName(String name)
 	{
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
