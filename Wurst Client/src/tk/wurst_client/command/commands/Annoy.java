@@ -40,7 +40,10 @@ public class Annoy extends Command implements ChatInputListener
 					Client.wurst.chat.warning("Annoying yourself is a bad idea!");
 				EventManager.addChatInputListener(this);
 			}else
+			{
+				toggled = false;
 				commandError();
+			}
 		}else
 		{
 			EventManager.removeChatInputListener(this);
