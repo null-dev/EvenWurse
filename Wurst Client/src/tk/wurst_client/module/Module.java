@@ -72,7 +72,7 @@ public class Module
 			onDisable();
 			isToggled = false;
 		}
-		Client.wurst.fileManager.saveModules();
+		Client.wurst.fileManager.saveMods();
 	}
 	
 	public void toggleModule()

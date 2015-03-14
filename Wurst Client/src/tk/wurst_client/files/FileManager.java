@@ -82,9 +82,9 @@ public class FileManager
 		else
 			loadOptions();
 		if(!modules.exists())
-			saveModules();
+			saveMods();
 		else
-			loadModules();
+			loadMods();
 		if(!keybinds.exists())
 			saveKeybinds();
 		else
@@ -163,16 +163,16 @@ public class FileManager
 		}
 	}
 	
-	public void saveModules()
+	public void saveMods()
 	{
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Module module : Client.wurst.moduleManager.activeModules)
+			for(Module mod : Client.wurst.moduleManager.getCollection())
 			{
-				JsonObject jsonModule = new JsonObject();
-				jsonModule.addProperty("enabled", module.getToggled());
-				json.add(module.getName(), jsonModule);
+				JsonObject jsonMod = new JsonObject();
+				jsonMod.addProperty("enabled", mod.getToggled());
+				json.add(mod.getName(), jsonMod);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(modules));
 			save.println(gson.toJson(json));
@@ -202,7 +202,7 @@ public class FileManager
 		Spammer.class.getName(),
 	};
 	
-	public void loadModules()
+	public void loadMods()
 	{
 		try
 		{
