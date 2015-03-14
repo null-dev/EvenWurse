@@ -31,11 +31,11 @@ public class Features extends Command
 		if(args == null)
 		{
 			Client.wurst.chat.message("Features in this release of Wurst:");
-			int mods = Client.wurst.moduleManager.activeModules.size();
+			int mods = Client.wurst.moduleManager.countMods();
 			int hiddenMods = 0;
-			for(Module module : Client.wurst.moduleManager.activeModules)
-				if(module.getCategory() == Category.HIDDEN
-					|| module.getCategory() == Category.WIP)
+			for(Module mod : Client.wurst.moduleManager.getCollection())
+				if(mod.getCategory() == Category.HIDDEN
+					|| mod.getCategory() == Category.WIP)
 					hiddenMods++;
 			Client.wurst.chat.message(">" + (mods - hiddenMods) + " mods (+"
 				+ hiddenMods + " hidden mods)");
@@ -44,11 +44,11 @@ public class Features extends Command
 			Client.wurst.chat.message(">" + commands + " commands");
 			Client.wurst.chat.message(">" + Client.wurst.keybinds.size()
 				+ " keybinds in your current configuration");
-			ArrayList<BasicSlider> wurstSliders = new ArrayList<BasicSlider>();
-			for(Module module : Client.wurst.moduleManager.activeModules)
-				for(BasicSlider slider : module.getSliders())
-					wurstSliders.add(slider);
-			Client.wurst.chat.message(">" + wurstSliders.size()
+			ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
+			for(Module mod : Client.wurst.moduleManager.getCollection())
+				for(BasicSlider slider : mod.getSliders())
+					sliders.add(slider);
+			Client.wurst.chat.message(">" + sliders.size()
 				+ " sliders in the Settings frame");
 		}
 		else
