@@ -18,6 +18,22 @@ public class ModuleManager
 	public final ArrayList<Module> activeModules = new ArrayList<Module>();
 	private final HashMap<Class, Module> mods = new HashMap<Class, Module>();
 	
+	public Module getMod(Class modClass)
+	{
+		return mods.get(modClass);
+	}
+	
+	public void addMod(Class modClass)
+	{
+		try
+		{
+			mods.put(modClass, (Module)modClass.newInstance());
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public Module getModuleFromClass(Class moduleClass)
 	{
 		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
