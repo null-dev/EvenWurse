@@ -10,11 +10,13 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.events.ChatInputEvent;
+import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class Home extends Module implements UpdateListener
+public class Home extends Module implements UpdateListener, ChatInputListener
 {
 	private int disableTimer;
 	
@@ -30,6 +32,7 @@ public class Home extends Module implements UpdateListener
 	public void onEnable()
 	{
 		disableTimer = 0;
+		EventManager.addChatInputListener(this);
 		EventManager.addUpdateListener(this);
 	}
 	
@@ -46,16 +49,21 @@ public class Home extends Module implements UpdateListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.addChatInputListener(this);
 		EventManager.removeUpdateListener(this);
 	}
 	
 	@Override
-	public void onReceivedMessage(String message)
+	public void onReceivedMessage(ChatInputEvent event)
 	{
-		if(!getToggled() || message.startsWith("§c[§6Wurst§c]§f "))
+		String message = event.getMessage();
+		if(message.startsWith("§c[§6Wurst§c]§f "))
 			return;
 		if(message.toLowerCase().contains("/help")
 			|| message.toLowerCase().contains("permission"))
+		{
+			event.cancel();
 			Client.wurst.chat.error("This server doesn't have /home.");
+		}
 	}
 }
