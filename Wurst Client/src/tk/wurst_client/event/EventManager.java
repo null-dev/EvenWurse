@@ -15,17 +15,21 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import tk.wurst_client.event.events.Event;
+import tk.wurst_client.event.events.GUIRenderEvent;
 import tk.wurst_client.event.events.RenderEvent;
 import tk.wurst_client.event.events.UpdateEvent;
+import tk.wurst_client.event.listeners.GUIRenderListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 
 public class EventManager
 {
-	private static Set<UpdateListener> updateListeners = Collections
-		.synchronizedSet(new HashSet<UpdateListener>());
+	private static Set<GUIRenderListener> guiRenderListeners = Collections
+		.synchronizedSet(new HashSet<GUIRenderListener>());
 	private static Set<RenderListener> renderListeners = Collections
 		.synchronizedSet(new HashSet<RenderListener>());
+	private static Set<UpdateListener> updateListeners = Collections
+		.synchronizedSet(new HashSet<UpdateListener>());
 	private static Queue<Runnable> queue =
 		new ConcurrentLinkedQueue<Runnable>();
 	
@@ -47,33 +51,41 @@ public class EventManager
 				RenderListener listener = itr.next();
 				listener.onRender();
 			}
+		}else if(event instanceof GUIRenderEvent)
+		{
+			Iterator<GUIRenderListener> itr = guiRenderListeners.iterator();
+			while(itr.hasNext())
+			{
+				GUIRenderListener listener = itr.next();
+				listener.onRenderGUI();
+			}
 		}
 		for(Runnable task; (task = queue.poll()) != null;)
 			task.run();
 	}
 	
-	public synchronized static void addUpdateListener(
-		final UpdateListener listener)
+	public synchronized static void addGUIRenderListener(
+		final GUIRenderListener listener)
 	{
 		queue.add(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				updateListeners.add(listener);
+				guiRenderListeners.add(listener);
 			}
 		});
 	}
 	
-	public synchronized static void removeUpdateListener(
-		final UpdateListener listener)
+	public synchronized static void removeGUIRenderListener(
+		final GUIRenderListener listener)
 	{
 		queue.add(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				updateListeners.remove(listener);
+				guiRenderListeners.remove(listener);
 			}
 		});
 	}
@@ -100,6 +112,32 @@ public class EventManager
 			public void run()
 			{
 				renderListeners.remove(listener);
+			}
+		});
+	}
+	
+	public synchronized static void addUpdateListener(
+		final UpdateListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				updateListeners.add(listener);
+			}
+		});
+	}
+	
+	public synchronized static void removeUpdateListener(
+		final UpdateListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				updateListeners.remove(listener);
 			}
 		});
 	}

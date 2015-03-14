@@ -22,6 +22,7 @@ import org.darkstorm.minecraft.gui.util.RenderUtil;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.GUIRenderListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
@@ -29,7 +30,7 @@ import tk.wurst_client.module.Module;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class BowAimbot extends Module implements UpdateListener, RenderListener
+public class BowAimbot extends Module implements UpdateListener, RenderListener, GUIRenderListener
 {
 	private Entity target;
 	private float velocity;
@@ -46,8 +47,9 @@ public class BowAimbot extends Module implements UpdateListener, RenderListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addUpdateListener(this);
+		EventManager.addGUIRenderListener(this);
 		EventManager.addRenderListener(this);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
@@ -61,7 +63,7 @@ public class BowAimbot extends Module implements UpdateListener, RenderListener
 	@Override
 	public void onRenderGUI()
 	{
-		if(!getToggled() || target == null || velocity < 0.1)
+		if(target == null || velocity < 0.1)
 			return;
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
@@ -126,8 +128,9 @@ public class BowAimbot extends Module implements UpdateListener, RenderListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.removeGUIRenderListener(this);
 		EventManager.removeRenderListener(this);
+		EventManager.removeUpdateListener(this);
 	}
 	
 	private void aimAtTarget()
