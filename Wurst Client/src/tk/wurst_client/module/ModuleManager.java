@@ -119,7 +119,6 @@ public class ModuleManager
 		activeModules.add(new SpeedNuker());
 		activeModules.add(new Spider());
 		activeModules.add(new Step());
-		activeModules.add(new TacoCMD());
 		activeModules.add(new Throw());
 		activeModules.add(new Timer());
 		activeModules.add(new Tracers());
