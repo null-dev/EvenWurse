@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import tk.wurst_client.event.events.ChatInputEvent;
+import tk.wurst_client.event.events.ChatOutputEvent;
 import tk.wurst_client.event.events.Event;
 import tk.wurst_client.event.events.GUIRenderEvent;
 import tk.wurst_client.event.events.RenderEvent;
@@ -73,6 +74,14 @@ public class EventManager
 			{
 				ChatInputListener listener = itr.next();
 				listener.onReceivedMessage((ChatInputEvent)event);
+			}
+		}else if(event instanceof ChatOutputEvent)
+		{
+			Iterator<ChatOutputListener> itr = chatOutputListeners.iterator();
+			while(itr.hasNext())
+			{
+				ChatOutputListener listener = itr.next();
+				listener.onSentMessage((ChatOutputEvent)event);
 			}
 		}
 		for(Runnable task; (task = queue.poll()) != null;)
