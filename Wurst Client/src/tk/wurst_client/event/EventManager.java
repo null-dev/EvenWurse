@@ -18,12 +18,15 @@ import tk.wurst_client.event.events.Event;
 import tk.wurst_client.event.events.GUIRenderEvent;
 import tk.wurst_client.event.events.RenderEvent;
 import tk.wurst_client.event.events.UpdateEvent;
+import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.GUIRenderListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 
 public class EventManager
 {
+	private static Set<ChatInputListener> chatInputListeners = Collections
+		.synchronizedSet(new HashSet<ChatInputListener>());
 	private static Set<GUIRenderListener> guiRenderListeners = Collections
 		.synchronizedSet(new HashSet<GUIRenderListener>());
 	private static Set<RenderListener> renderListeners = Collections
@@ -62,6 +65,32 @@ public class EventManager
 		}
 		for(Runnable task; (task = queue.poll()) != null;)
 			task.run();
+	}
+	
+	public synchronized static void addChatInputListener(
+		final ChatInputListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				chatInputListeners.add(listener);
+			}
+		});
+	}
+	
+	public synchronized static void removeChatInputListener(
+		final ChatInputListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				chatInputListeners.remove(listener);
+			}
+		});
 	}
 	
 	public synchronized static void addGUIRenderListener(
