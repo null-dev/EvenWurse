@@ -7,10 +7,21 @@
  */
 package tk.wurst_client.event.events;
 
+import java.util.List;
+
+import net.minecraft.client.gui.ChatLine;
+
 public class ChatInputEvent extends ChatEvent
 {
-	public ChatInputEvent(String message)
+	private List<ChatLine> chatLines;
+	
+	public ChatInputEvent(String message, List<ChatLine> chatLines)
 	{
 		super(message);
+	}
+	
+	public List<ChatLine> getChatLines()
+	{
+		return chatLines;
 	}
 }

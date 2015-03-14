@@ -1,6 +1,6 @@
-From 6d0d8b83b14af2e859825a15d211e041c20f5a07 Mon Sep 17 00:00:00 2001
+From 056118cbf8c1b163684558291d4ad3b3d7fa3411 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sat, 14 Mar 2015 10:34:44 +0100
+Date: Sat, 14 Mar 2015 14:51:50 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -13367,7 +13367,7 @@ index da42542..379980d 100644
              this.selectServer(var4);
          }
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..c48d74d 100644
+index 1614678..15b03d0 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
 @@ -1,386 +1,430 @@
@@ -13910,7 +13910,7 @@ index 1614678..c48d74d 100644
 +    public void printChatMessageWithOptionalDeletion(IChatComponent p_146234_1_, int p_146234_2_)
 +    {
 +    	//TODO: Client
-+    	ChatInputEvent event = new ChatInputEvent(p_146234_1_.getUnformattedText());
++    	ChatInputEvent event = new ChatInputEvent(p_146234_1_.getUnformattedText(), field_146253_i);
 +    	EventManager.fireEvent(event);
 +    	if(event.isCancelled())
 +    		return;
