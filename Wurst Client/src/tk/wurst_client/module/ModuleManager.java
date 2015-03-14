@@ -8,6 +8,7 @@
 package tk.wurst_client.module;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeMap;
 
@@ -149,8 +150,8 @@ public class ModuleManager
 		return mods.size();
 	}
 	
-	public Iterator<Module> iterator()
+	public Collection<Module> getCollection()
 	{
-		return mods.values().iterator();
+		return mods.values();
 	}
 }
