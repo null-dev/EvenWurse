@@ -8,8 +8,8 @@
 package tk.wurst_client.module;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.TreeMap;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.module.modules.*;
@@ -18,7 +18,7 @@ public class ModuleManager
 {
 	@Deprecated
 	public final ArrayList<Module> activeModules = new ArrayList<Module>();
-	private final HashMap<Class, Module> mods = new HashMap<Class, Module>();
+	private final TreeMap<Class, Module> mods = new TreeMap<Class, Module>();
 	
 	public ModuleManager()
 	{
