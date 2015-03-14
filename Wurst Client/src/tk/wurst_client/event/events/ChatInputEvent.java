@@ -18,6 +18,7 @@ public class ChatInputEvent extends ChatEvent
 	public ChatInputEvent(String message, List<ChatLine> chatLines)
 	{
 		super(message);
+		this.chatLines = chatLines;
 	}
 	
 	public List<ChatLine> getChatLines()
