@@ -139,9 +139,6 @@ public class Module
 	public void updateSettings()
 	{}
 	
-	public void onReceivedMessage(String message)
-	{}
-	
 	public void onPacket(Packet packet)
 	{}
 }
