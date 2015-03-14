@@ -199,26 +199,33 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 	
 	private boolean isRightButton(Button button, Button dButton)
 	{
-		Category buttonCategory = null;
-		Category dButtonCategory = null;
-		buttonCategory =
-			Client.wurst.moduleManager.getModuleByName(button.getText())
-				.getCategory();
-		dButtonCategory =
-			Client.wurst.moduleManager.getModuleByName(dButton.getText())
-				.getCategory();
-		boolean isRightFrame =
-			buttonCategory == dButtonCategory && buttonCategory != null;
-		if(!isRightFrame)
+		try
+		{
+			Category buttonCategory = null;
+			Category dButtonCategory = null;
+			buttonCategory =
+				Client.wurst.moduleManager.getModuleByName(button.getText())
+					.getCategory();
+			dButtonCategory =
+				Client.wurst.moduleManager.getModuleByName(dButton.getText())
+					.getCategory();
+			boolean isRightFrame =
+				buttonCategory == dButtonCategory && buttonCategory != null;
+			if(!isRightFrame)
+				return false;
+			boolean isLastButton = false;
+			for(Module module : Client.wurst.moduleManager.activeModules)
+				if(buttonCategory == module.getCategory())
+					if(button.getText().equals(module.getName()))
+						isLastButton = true;
+					else
+						isLastButton = false;
+			return isLastButton;
+		}catch(NullPointerException e)
+		{
+			e.printStackTrace();
 			return false;
-		boolean isLastButton = false;
-		for(Module module : Client.wurst.moduleManager.activeModules)
-			if(buttonCategory == module.getCategory())
-				if(button.getText().equals(module.getName()))
-					isLastButton = true;
-				else
-					isLastButton = false;
-		return isLastButton;
+		}
 	}
 	
 	@Override
