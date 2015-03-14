@@ -23,15 +23,9 @@ public class ModuleManager
 		return mods.get(modClass);
 	}
 	
-	public void addMod(Class modClass)
+	public void addMod(Module mod)
 	{
-		try
-		{
-			mods.put(modClass, (Module)modClass.newInstance());
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		mods.put(mod.getClass(), mod);
 	}
 	
 	public Module getModuleFromClass(Class moduleClass)
