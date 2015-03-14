@@ -1,6 +1,6 @@
-From 01239f52e1514056f04c395017774fac6dc75509 Mon Sep 17 00:00:00 2001
+From 0ce8ff4577750a0817078ec89b797abbc18aa8f6 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sat, 14 Mar 2015 20:52:41 +0100
+Date: Sat, 14 Mar 2015 22:48:31 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -419,7 +419,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..08fc8ba 100644
+index f503b64..32f7681 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,3306 +1,3603 @@
@@ -6311,7 +6311,7 @@ index f503b64..08fc8ba 100644
 +        this.myNetworkManager = var12;
 +        
 +        //TODO: Client
-+        SpamProcessor.runScript("joinworld", "Runs whenever you join a singlepalyer world.");
++        SpamProcessor.runScript("joinworld", "Runs whenever you join a singleplayer world.");
 +    }
 +
 +    /**
