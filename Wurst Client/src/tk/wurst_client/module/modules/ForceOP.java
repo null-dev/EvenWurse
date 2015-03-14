@@ -30,10 +30,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.events.ChatInputEvent;
+import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class ForceOP extends Module
+public class ForceOP extends Module implements ChatInputListener
 {
 	public ForceOP()
 	{
@@ -471,6 +474,7 @@ public class ForceOP extends Module
 				dialog.toFront();
 			}
 		}.start();
+		EventManager.addChatInputListener(this);
 	}
 	
 	private void loadPWList()
@@ -529,9 +533,10 @@ public class ForceOP extends Module
 	}
 	
 	@Override
-	public void onReceivedMessage(String message)
+	public void onReceivedMessage(ChatInputEvent event)
 	{
-		if(!getToggled() || message.startsWith("§c[§6Wurst§c]§f "))
+		String message = event.getMessage();
+		if(message.startsWith("§c[§6Wurst§c]§f "))
 			return;
 		if(message.toLowerCase().contains("wrong")// English
 			|| message.toLowerCase().contains("falsch")// Deutsch!
@@ -576,6 +581,7 @@ public class ForceOP extends Module
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeChatInputListener(this);
 		new Thread()
 		{
 			@Override

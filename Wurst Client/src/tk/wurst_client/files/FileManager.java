@@ -189,7 +189,6 @@ public class FileManager
 		ArenaBrawl.class.getName(),
 		AutoBuild.class.getName(),
 		AutoSign.class.getName(),
-		AnnoyCMD.class.getName(),
 		FightBot.class.getName(),
 		Follow.class.getName(),
 		ForceOP.class.getName(),

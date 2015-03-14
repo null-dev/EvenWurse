@@ -14,16 +14,24 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import tk.wurst_client.event.events.ChatInputEvent;
+import tk.wurst_client.event.events.ChatOutputEvent;
 import tk.wurst_client.event.events.Event;
 import tk.wurst_client.event.events.GUIRenderEvent;
 import tk.wurst_client.event.events.RenderEvent;
 import tk.wurst_client.event.events.UpdateEvent;
+import tk.wurst_client.event.listeners.ChatInputListener;
+import tk.wurst_client.event.listeners.ChatOutputListener;
 import tk.wurst_client.event.listeners.GUIRenderListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 
 public class EventManager
 {
+	private static Set<ChatInputListener> chatInputListeners = Collections
+		.synchronizedSet(new HashSet<ChatInputListener>());
+	private static Set<ChatOutputListener> chatOutputListeners = Collections
+		.synchronizedSet(new HashSet<ChatOutputListener>());
 	private static Set<GUIRenderListener> guiRenderListeners = Collections
 		.synchronizedSet(new HashSet<GUIRenderListener>());
 	private static Set<RenderListener> renderListeners = Collections
@@ -59,9 +67,78 @@ public class EventManager
 				GUIRenderListener listener = itr.next();
 				listener.onRenderGUI();
 			}
+		}else if(event instanceof ChatInputEvent)
+		{
+			Iterator<ChatInputListener> itr = chatInputListeners.iterator();
+			while(itr.hasNext())
+			{
+				ChatInputListener listener = itr.next();
+				listener.onReceivedMessage((ChatInputEvent)event);
+			}
+		}else if(event instanceof ChatOutputEvent)
+		{
+			System.out.println(((ChatOutputEvent)event).getMessage() + chatOutputListeners.size());
+			Iterator<ChatOutputListener> itr = chatOutputListeners.iterator();
+			while(itr.hasNext())
+			{
+				ChatOutputListener listener = itr.next();
+				listener.onSentMessage((ChatOutputEvent)event);
+			}
 		}
 		for(Runnable task; (task = queue.poll()) != null;)
 			task.run();
+	}
+	
+	public synchronized static void addChatInputListener(
+		final ChatInputListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				chatInputListeners.add(listener);
+			}
+		});
+	}
+	
+	public synchronized static void removeChatInputListener(
+		final ChatInputListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				chatInputListeners.remove(listener);
+			}
+		});
+	}
+	
+	public synchronized static void addChatOutputListener(
+		final ChatOutputListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				chatOutputListeners.add(listener);
+			}
+		});
+	}
+	
+	public synchronized static void removeChatOutputListener(
+		final ChatOutputListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				chatOutputListeners.remove(listener);
+			}
+		});
 	}
 	
 	public synchronized static void addGUIRenderListener(

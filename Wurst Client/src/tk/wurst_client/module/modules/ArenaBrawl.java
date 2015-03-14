@@ -32,6 +32,8 @@ import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.events.ChatInputEvent;
+import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
@@ -41,7 +43,7 @@ import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ArenaBrawl extends Module implements UpdateListener, RenderListener
+public class ArenaBrawl extends Module implements UpdateListener, RenderListener, ChatInputListener
 {
 	public ArenaBrawl()
 	{
@@ -95,8 +97,9 @@ public class ArenaBrawl extends Module implements UpdateListener, RenderListener
 	public void onEnable()
 	{
 		reset();
-		EventManager.addUpdateListener(this);
+		EventManager.addChatInputListener(this);
 		EventManager.addRenderListener(this);
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override
@@ -270,24 +273,24 @@ public class ArenaBrawl extends Module implements UpdateListener, RenderListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.removeChatInputListener(this);
 		EventManager.removeRenderListener(this);
+		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
 			Client.wurst.chat.message("No longer playing ArenaBrawl with "
 				+ friendsName + ".");
 		reset();
 	}
-
+	
 	@Override
-	public void onReceivedMessage(String message)
+	public void onReceivedMessage(ChatInputEvent event)
 	{
-		if(!getToggled())
-			return;
-		if(message.startsWith("[Arena]: ")
-			&& message.endsWith(" has won the game!"))
+		if(event.getMessage().startsWith("[Arena]: ")
+			&& event.getMessage().endsWith(" has won the game!"))
 		{
-			Client.wurst.chat.message(message.substring(9));
+			event.cancel();
+			Client.wurst.chat.message(event.getMessage().substring(9));
 			setToggled(false);
 		}
 	}

@@ -41,7 +41,7 @@ public class SpamProcessor
 				try
 				{
 					long startTime = System.currentTimeMillis();
-					while(Minecraft.getMinecraft().thePlayer == null)
+					while(!canSpam())
 					{
 						Thread.sleep(50);
 						if(System.currentTimeMillis() > startTime + 10000)
@@ -93,7 +93,7 @@ public class SpamProcessor
 				try
 				{
 					long startTime = System.currentTimeMillis();
-					while(Minecraft.getMinecraft().thePlayer == null)
+					while(!canSpam())
 					{
 						Thread.sleep(50);
 						if(System.currentTimeMillis() > startTime + 10000)
@@ -137,6 +137,12 @@ public class SpamProcessor
 			Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
 			Thread.sleep(Client.wurst.options.spamDelay);
 		}
+	}
+	
+	private static boolean canSpam()
+	{
+		return Minecraft.getMinecraft().thePlayer != null
+			&& Minecraft.getMinecraft().theWorld != null;
 	}
 	
 	public static String process(String spam, Spammer spammer, boolean test)
