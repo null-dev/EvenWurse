@@ -77,7 +77,6 @@ public class EventManager
 			}
 		}else if(event instanceof ChatOutputEvent)
 		{
-			System.out.println(((ChatOutputEvent)event).getMessage() + chatOutputListeners.size());
 			Iterator<ChatOutputListener> itr = chatOutputListeners.iterator();
 			while(itr.hasNext())
 			{
