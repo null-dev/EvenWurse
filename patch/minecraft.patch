@@ -1,6 +1,6 @@
-From c1dd763b6e32e0c29cfbb7e3b29b203ae8f79d49 Mon Sep 17 00:00:00 2001
+From 01239f52e1514056f04c395017774fac6dc75509 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sat, 14 Mar 2015 17:40:17 +0100
+Date: Sat, 14 Mar 2015 20:52:41 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -11,7 +11,7 @@ Subject: [PATCH] Wurst
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
  src/net/minecraft/client/Minecraft.java            | 6909 ++++++++++----------
  .../client/entity/AbstractClientPlayer.java        |   17 +-
- .../minecraft/client/entity/EntityPlayerSP.java    | 1783 ++---
+ .../minecraft/client/entity/EntityPlayerSP.java    | 1766 ++---
  src/net/minecraft/client/gui/FontRenderer.java     |   40 +-
  src/net/minecraft/client/gui/Gui.java              |    8 +-
  src/net/minecraft/client/gui/GuiButton.java        |  252 +-
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 10753 insertions(+), 9130 deletions(-)
+ 202 files changed, 10736 insertions(+), 9130 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..c8adf19 100644
@@ -7398,10 +7398,10 @@ index de9ca57..26dad72 100644
  
      public float func_175156_o()
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..c0e9d6e 100644
+index eefe303..1ee2245 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
-@@ -1,863 +1,920 @@
+@@ -1,863 +1,903 @@
 -package net.minecraft.client.entity;
 -
 -import net.minecraft.client.Minecraft;
@@ -8270,6 +8270,7 @@ index eefe303..c0e9d6e 100644
 +import tk.wurst_client.Client;
 +import tk.wurst_client.command.Command;
 +import tk.wurst_client.event.EventManager;
++import tk.wurst_client.event.events.ChatOutputEvent;
 +import tk.wurst_client.event.events.UpdateEvent;
 +import tk.wurst_client.module.Module;
 +import tk.wurst_client.module.modules.Blink;
@@ -8554,29 +8555,11 @@ index eefe303..c0e9d6e 100644
 +    public void sendChatMessage(String p_71165_1_)
 +    {
 +        //TODO: Client
-+      	if(p_71165_1_.startsWith("."))
-+      	{
-+      		String command = "";
-+      	    for(Command eventCommand : Client.wurst.commandManager.activeCommands)
-+      	    {
-+      			String commandAndArgs = p_71165_1_.substring(1);
-+      	        command = commandAndArgs.contains(" ") ? commandAndArgs.split(" ")[0] : commandAndArgs;
-+      	        if(eventCommand.getName().equals(command))
-+      	        {
-+      	        	try
-+      	        	{
-+      	        		String[] args = commandAndArgs.contains(" ") ? commandAndArgs.substring(commandAndArgs.indexOf(" ") + 1).split(" ") : null;
-+      	        		eventCommand.onEnable(commandAndArgs, args);
-+      	        	} catch (Exception e)
-+      	        	{
-+      	        		eventCommand.commandError();
-+      	        	}
-+      	        	return;
-+      	        }
-+      	    }
-+  	        Client.wurst.chat.message("\"." + command + "\" is not a valid command.");
-+  	        Client.wurst.chat.message("Type \".help\" to see the command list.");
-+      	}else
++      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_);
++      	EventManager.fireEvent(event);
++      	if(event.isCancelled())
++      		return;
++      	
 +        this.sendQueue.addToSendQueue(new C01PacketChatMessage(p_71165_1_));
 +    }
 +
