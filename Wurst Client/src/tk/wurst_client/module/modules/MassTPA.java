@@ -17,11 +17,13 @@ import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.StringUtils;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.events.ChatInputEvent;
+import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Module;
 
-public class MassTPA extends Module implements UpdateListener
+public class MassTPA extends Module implements UpdateListener, ChatInputListener
 {
 	private float speed = 1F;
 	private int i;
@@ -56,6 +58,7 @@ public class MassTPA extends Module implements UpdateListener
 				return random.nextInt();
 			}
 		});
+		EventManager.addChatInputListener(this);
 		EventManager.addUpdateListener(this);
 	}
 	
@@ -79,17 +82,20 @@ public class MassTPA extends Module implements UpdateListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeChatInputListener(this);
 		EventManager.removeUpdateListener(this);
 	}
 	
 	@Override
-	public void onReceivedMessage(String message)
+	public void onReceivedMessage(ChatInputEvent event)
 	{
-		if(!getToggled() || message.startsWith("§c[§6Wurst§c]§f "))
+		String message = event.getMessage();
+		if(message.startsWith("§c[§6Wurst§c]§f "))
 			return;
 		if(message.toLowerCase().contains("/help")
 			|| message.toLowerCase().contains("permission"))
 		{
+			event.cancel();
 			Client.wurst.chat
 				.message("§4§lERROR:§f This server doesn't have TPA.");
 			setToggled(false);
@@ -98,6 +104,7 @@ public class MassTPA extends Module implements UpdateListener
 			|| message.toLowerCase().contains("akzeptiert")
 			&& message.toLowerCase().contains("anfrage"))
 		{
+			event.cancel();
 			Client.wurst.chat
 				.message("Someone accepted your TPA request. Stopping.");
 			setToggled(false);
