@@ -62,7 +62,8 @@ public class AutoArmor extends Module implements UpdateListener
 					Minecraft.getMinecraft().thePlayer.inventory
 						.armorItemInSlot(i);
 				ItemArmor currentArmor;
-				if(itemstack != null)
+				if(itemstack != null
+					&& itemstack.getItem() instanceof ItemArmor)
 					currentArmor = (ItemArmor)itemstack.getItem();
 				else
 					currentArmor = null;
@@ -81,10 +82,9 @@ public class AutoArmor extends Module implements UpdateListener
 					if(Minecraft.getMinecraft().thePlayer.inventory
 						.getFirstEmptyStack() != -1 || currentArmor == null)
 					{
-						if(currentArmor != null)
-							Minecraft.getMinecraft().playerController
-								.windowClick(0, 8 - i, 0, 1,
-									Minecraft.getMinecraft().thePlayer);
+						Minecraft.getMinecraft().playerController
+							.windowClick(0, 8 - i, 0, 1,
+								Minecraft.getMinecraft().thePlayer);
 						Minecraft.getMinecraft().playerController.windowClick(
 							0, this.bestArmor[i] < 9 ? 36 + this.bestArmor[i]
 								: this.bestArmor[i], 0, 1, Minecraft
