@@ -1,6 +1,6 @@
-From 056118cbf8c1b163684558291d4ad3b3d7fa3411 Mon Sep 17 00:00:00 2001
+From c1dd763b6e32e0c29cfbb7e3b29b203ae8f79d49 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sat, 14 Mar 2015 14:51:50 +0100
+Date: Sat, 14 Mar 2015 17:40:17 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -40,7 +40,7 @@ Subject: [PATCH] Wurst
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |    2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |    4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   |  197 +-
- src/net/minecraft/client/gui/GuiNewChat.java       |  816 +--
+ src/net/minecraft/client/gui/GuiNewChat.java       |  788 +--
  src/net/minecraft/client/gui/GuiOptionButton.java  |    1 +
  src/net/minecraft/client/gui/GuiOptionSlider.java  |    1 +
  src/net/minecraft/client/gui/GuiOptions.java       |    2 +
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 10781 insertions(+), 9130 deletions(-)
+ 202 files changed, 10753 insertions(+), 9130 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..c8adf19 100644
@@ -13367,10 +13367,10 @@ index da42542..379980d 100644
              this.selectServer(var4);
          }
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..15b03d0 100644
+index 1614678..8813c3d 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
-@@ -1,386 +1,430 @@
+@@ -1,386 +1,402 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -13943,34 +13943,6 @@ index 1614678..15b03d0 100644
 +            }
 +        }
 +
-+        //TODO: Client
-+        if(this.field_146253_i.size() > 1 && Client.wurst.moduleManager.getModuleFromClass(AntiSpam.class).getToggled())
-+        {
-+        	for(int i = this.field_146253_i.size() - 1; i >= 1; i--)
-+        	{
-+        		for(int i2 = i - 1; i2 >= 0; i2--)
-+        		{
-+        			if(this.field_146253_i.size() <= i)//Shouldn't ever happen, but for some reason, it happens sometimes.
-+        				continue;
-+        			if(((ChatLine) this.field_146253_i.get(i)).getChatComponent().getUnformattedText().startsWith(((ChatLine) this.field_146253_i.get(i2)).getChatComponent().getUnformattedText()))
-+                    {
-+                    	if
-+                    	(
-+                    		((ChatLine) this.field_146253_i.get(i)).getChatComponent().getUnformattedText().endsWith("]")
-+                    		&& ((ChatLine) this.field_146253_i.get(i)).getChatComponent().getUnformattedText().contains(" [x")
-+                    	)
-+                    	{
-+                    		int numberIndex1 = ((ChatLine) this.field_146253_i.get(i)).getChatComponent().getUnformattedText().lastIndexOf(" [x") + 3;
-+                    		int numberIndex2 = ((ChatLine) this.field_146253_i.get(i)).getChatComponent().getUnformattedText().length() - 1;
-+                    		int number = Integer.valueOf(((ChatLine) this.field_146253_i.get(i)).getChatComponent().getUnformattedText().substring(numberIndex1, numberIndex2));
-+                    		((ChatLine) this.field_146253_i.get(i2)).getChatComponent().appendText(" [x" + (number + 1) + "]");
-+                    	}else
-+                    		((ChatLine) this.field_146253_i.get(i2)).getChatComponent().appendText(" [x2]");
-+                    	this.field_146253_i.remove(i);
-+                    }
-+        		}
-+        	}
-+        }
 +        while (this.field_146253_i.size() > 100)
 +        {
 +            this.field_146253_i.remove(this.field_146253_i.size() - 1);
