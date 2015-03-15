@@ -36,7 +36,7 @@ public class PlayerESP extends Module implements RenderListener
 	@Override
 	public void onRender()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(ArenaBrawl.class)
+		if(Client.wurst.moduleManager.getMod(ArenaBrawl.class)
 				.getToggled())
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)

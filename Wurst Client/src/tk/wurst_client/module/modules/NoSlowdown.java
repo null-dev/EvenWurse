@@ -33,7 +33,7 @@ public class NoSlowdown extends Module implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+		if(Client.wurst.moduleManager.getMod(YesCheat.class)
 			.getToggled())
 		{
 			noCheatMessage();

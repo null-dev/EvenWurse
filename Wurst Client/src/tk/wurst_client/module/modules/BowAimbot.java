@@ -141,7 +141,7 @@ public class BowAimbot extends Module implements UpdateListener, RenderListener,
 			Minecraft.getMinecraft().thePlayer.getItemInUseDuration();
 		velocity = bowCharge / 20;
 		velocity = (velocity * velocity + velocity * 2) / 3;
-		if(Client.wurst.moduleManager.getModuleFromClass(FastBow.class)
+		if(Client.wurst.moduleManager.getMod(FastBow.class)
 			.getToggled())
 			velocity = 1;
 		if(velocity < 0.1)

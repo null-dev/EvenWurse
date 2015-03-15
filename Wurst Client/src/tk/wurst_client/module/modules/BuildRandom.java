@@ -41,15 +41,15 @@ public class BuildRandom extends Module implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(Freecam.class)
+		if(Client.wurst.moduleManager.getMod(Freecam.class)
 			.getToggled()
-			|| Client.wurst.moduleManager.getModuleFromClass(RemoteView.class)
+			|| Client.wurst.moduleManager.getMod(RemoteView.class)
 				.getToggled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		if(Minecraft.getMinecraft().rightClickDelayTimer > 0
-			&& !Client.wurst.moduleManager.getModuleFromClass(FastPlace.class)
+			&& !Client.wurst.moduleManager.getMod(FastPlace.class)
 				.getToggled())
 			return;
 		float xDiff = 0;

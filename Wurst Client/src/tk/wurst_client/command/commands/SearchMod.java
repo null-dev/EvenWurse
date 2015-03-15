@@ -33,10 +33,10 @@ public class SearchMod extends Command
 	{
 		if(args == null)
 		{
-			Client.wurst.moduleManager.getModuleFromClass(Search.class)
+			Client.wurst.moduleManager.getMod(Search.class)
 				.toggleModule();
 			Client.wurst.chat.message("Search turned "
-				+ (Client.wurst.moduleManager.getModuleFromClass(Search.class)
+				+ (Client.wurst.moduleManager.getMod(Search.class)
 					.getToggled() == true ? "on" : "off") + ".");
 		}else if(args[0].toLowerCase().equals("id"))
 		{

@@ -50,7 +50,7 @@ public class PathUtils
 	{
 		if(jesusMod == null)
 			jesusMod =
-				Client.wurst.moduleManager.getModuleFromClass(Jesus.class);
+				Client.wurst.moduleManager.getMod(Jesus.class);
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
 			|| getMaterial(pos) == Material.water && jesusMod.getToggled();
@@ -68,7 +68,7 @@ public class PathUtils
 	{
 		if(spiderMod == null)
 			spiderMod =
-				Client.wurst.moduleManager.getModuleFromClass(Spider.class);
+				Client.wurst.moduleManager.getMod(Spider.class);
 		if(isSolid(pos.add(0, -1, 0))
 			|| spiderMod.getToggled()
 			|| getID(pos) == 65
@@ -85,7 +85,7 @@ public class PathUtils
 	{
 		if(noFallMod == null)
 			noFallMod =
-				Client.wurst.moduleManager.getModuleFromClass(NoFall.class);
+				Client.wurst.moduleManager.getMod(NoFall.class);
 		return noFallMod.getToggled() || isCreative();
 	}
 	
@@ -100,10 +100,10 @@ public class PathUtils
 	{
 		if(flightMod == null)
 			flightMod =
-				Client.wurst.moduleManager.getModuleFromClass(Flight.class);
+				Client.wurst.moduleManager.getMod(Flight.class);
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class);
+				Client.wurst.moduleManager.getMod(NoSlowdown.class);
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
 		return flightMod.getToggled()
@@ -116,11 +116,11 @@ public class PathUtils
 	{
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				Client.wurst.moduleManager.getModuleFromClass(NoSlowdown.class);
+				Client.wurst.moduleManager.getMod(NoSlowdown.class);
 		if(antiKnockbackMod == null)
 			antiKnockbackMod =
 				Client.wurst.moduleManager
-					.getModuleFromClass(AntiKnockback.class);
+					.getMod(AntiKnockback.class);
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)
 			if(noSlowdownMod.getToggled())

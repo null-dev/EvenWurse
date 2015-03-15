@@ -58,17 +58,17 @@ public class Killaura extends Module implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class)
+		if(Client.wurst.moduleManager.getMod(KillauraLegit.class)
 			.getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(KillauraLegit.class)
+			Client.wurst.moduleManager.getMod(KillauraLegit.class)
 				.setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
+		if(Client.wurst.moduleManager.getMod(MultiAura.class)
 			.getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(MultiAura.class)
+			Client.wurst.moduleManager.getMod(MultiAura.class)
 				.setToggled(false);
-		if(Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
+		if(Client.wurst.moduleManager.getMod(TriggerBot.class)
 			.getToggled())
-			Client.wurst.moduleManager.getModuleFromClass(TriggerBot.class)
+			Client.wurst.moduleManager.getMod(TriggerBot.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
 	}
@@ -76,7 +76,7 @@ public class Killaura extends Module implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.moduleManager.getModuleFromClass(YesCheat.class)
+		if(Client.wurst.moduleManager.getMod(YesCheat.class)
 			.getToggled())
 		{
 			realSpeed = yesCheatSpeed;

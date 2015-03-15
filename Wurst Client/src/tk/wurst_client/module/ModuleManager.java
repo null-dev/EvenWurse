@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-import tk.wurst_client.Client;
 import tk.wurst_client.module.modules.*;
 
 public class ModuleManager
@@ -130,17 +129,6 @@ public class ModuleManager
 	private void addMod(Module mod)
 	{
 		mods.put(mod.getClass(), mod);
-	}
-	
-	@Deprecated
-	public Module getModuleFromClass(Class moduleClass)
-	{
-		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-			if(Client.wurst.moduleManager.activeModules.get(i).getClass()
-				.getName().equals(moduleClass.getName()))
-				return Client.wurst.moduleManager.activeModules.get(i);
-		throw new IllegalArgumentException("There is no module called \""
-			+ moduleClass.getName() + "\".");
 	}
 	
 	/**

@@ -160,7 +160,7 @@ public class ForceOP extends Module implements ChatInputListener
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						Client.wurst.moduleManager.getModuleFromClass(
+						Client.wurst.moduleManager.getMod(
 							ForceOP.class).setToggled(false);
 					}
 				});
@@ -403,7 +403,7 @@ public class ForceOP extends Module implements ChatInputListener
 								for(int i = 0; i < passwords.length; i++)
 								{
 									if(!Client.wurst.moduleManager
-										.getModuleFromClass(ForceOP.class)
+										.getMod(ForceOP.class)
 										.getToggled())
 										return;
 									if(!cbDontWait.isSelected())
@@ -413,7 +413,7 @@ public class ForceOP extends Module implements ChatInputListener
 										|| Minecraft.getMinecraft().thePlayer == null)
 									{
 										if(!Client.wurst.moduleManager
-											.getModuleFromClass(ForceOP.class)
+											.getMod(ForceOP.class)
 											.getToggled())
 											return;
 										try
