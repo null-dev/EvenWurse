@@ -148,7 +148,7 @@ public class ModuleManager
 	 */
 	public Module getModByName(String name)
 	{
-		for(Module mod : getCollection())
+		for(Module mod : getAllMods())
 			if(mod.getName().equalsIgnoreCase(name))
 				return mod;
 		return null;
@@ -159,7 +159,7 @@ public class ModuleManager
 		return mods.size();
 	}
 	
-	public Collection<Module> getCollection()
+	public Collection<Module> getAllMods()
 	{
 		return mods.values();
 	}

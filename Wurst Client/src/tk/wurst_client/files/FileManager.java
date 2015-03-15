@@ -168,7 +168,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Module mod : Client.wurst.moduleManager.getCollection())
+			for(Module mod : Client.wurst.moduleManager.getAllMods())
 			{
 				JsonObject jsonMod = new JsonObject();
 				jsonMod.addProperty("enabled", mod.getToggled());
