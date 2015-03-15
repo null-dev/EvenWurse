@@ -20,7 +20,7 @@ import com.google.common.collect.Lists;
 public class GuiWurstOptions extends GuiScreen
 {
 	private GuiScreen prevMenu;
-	private String[] arrayListModes = {"Auto", "Count", "Hidden"};
+	private String[] modListModes = {"Auto", "Count", "Hidden"};
 	private String[] toolTips =
 	{
 		"",
@@ -78,8 +78,8 @@ public class GuiWurstOptions extends GuiScreen
 		buttonList.add(new GuiButton(2, width / 2 - 154, height / 4 + 48 - 16,
 			100, 20, "WIP Mods: " + (Client.wurst.options.WIP ? "ON" : "OFF")));
 		buttonList.add(new GuiButton(3, width / 2 - 154, height / 4 + 72 - 16,
-			100, 20, "ArrayList: "
-				+ arrayListModes[Client.wurst.options.arrayListMode]));
+			100, 20, "Mod List: "
+				+ modListModes[Client.wurst.options.modListMode]));
 		buttonList.add(new GuiButton(4, width / 2 - 154, height / 4 + 96 - 16,
 			100, 20, "AutoMaximize: " + (autoMaximize ? "ON" : "OFF")));
 		buttonList.add(new GuiButton(5, width / 2 - 154, height / 4 + 120 - 16,
@@ -130,13 +130,13 @@ public class GuiWurstOptions extends GuiScreen
 					"WIP Mods: " + (Client.wurst.options.WIP ? "ON" : "OFF");
 				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 3)
-			{// ArrayList
-				Client.wurst.options.arrayListMode++;
-				if(Client.wurst.options.arrayListMode > 2)
-					Client.wurst.options.arrayListMode = 0;
+			{// Mod List
+				Client.wurst.options.modListMode++;
+				if(Client.wurst.options.modListMode > 2)
+					Client.wurst.options.modListMode = 0;
 				clickedButton.displayString =
-					"ArrayList: "
-						+ arrayListModes[Client.wurst.options.arrayListMode];
+					"Mod List: "
+						+ modListModes[Client.wurst.options.modListMode];
 				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 4)
 			{// AutoMaximize
