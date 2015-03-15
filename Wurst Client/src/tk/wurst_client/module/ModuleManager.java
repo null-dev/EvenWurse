@@ -132,7 +132,8 @@ public class ModuleManager
 	}
 	
 	/**
-	 * @deprecated Use {@linkplain #getMod(Class)} instead if possible.
+	 * Very slow and not intended for frequent usage. If possible, use
+	 * {@linkplain #getMod(Class)} instead.
 	 */
 	public Module getModByName(String name)
 	{
