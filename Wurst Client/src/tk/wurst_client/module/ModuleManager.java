@@ -9,6 +9,7 @@ package tk.wurst_client.module;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.TreeMap;
 
 import tk.wurst_client.Client;
@@ -18,7 +19,15 @@ public class ModuleManager
 {
 	@Deprecated
 	public final ArrayList<Module> activeModules = new ArrayList<Module>();
-	private final TreeMap<Class, Module> mods = new TreeMap<Class, Module>();
+	private final TreeMap<Class, Module> mods = new TreeMap<Class, Module>(
+		new Comparator<Class>()
+		{
+			@Override
+			public int compare(Class o1, Class o2)
+			{
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
 	
 	public ModuleManager()
 	{
