@@ -143,13 +143,14 @@ public class ModuleManager
 			+ moduleClass.getName() + "\".");
 	}
 	
-	@Deprecated
-	public Module getModuleByName(String name)
+	/**
+	 * @deprecated Use {@linkplain #getMod(Class)} instead if possible.
+	 */
+	public Module getModByName(String name)
 	{
-		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-			if(Client.wurst.moduleManager.activeModules.get(i).getName()
-				.equals(name))
-				return Client.wurst.moduleManager.activeModules.get(i);
+		for(Module mod : getCollection())
+			if(mod.getName().equalsIgnoreCase(name))
+				return mod;
 		return null;
 	}
 	

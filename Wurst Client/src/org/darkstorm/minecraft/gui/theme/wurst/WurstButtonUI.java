@@ -204,10 +204,10 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			Category buttonCategory = null;
 			Category dButtonCategory = null;
 			buttonCategory =
-				Client.wurst.moduleManager.getModuleByName(button.getText())
+				Client.wurst.moduleManager.getModByName(button.getText())
 					.getCategory();
 			dButtonCategory =
-				Client.wurst.moduleManager.getModuleByName(dButton.getText())
+				Client.wurst.moduleManager.getModByName(dButton.getText())
 					.getCategory();
 			boolean isRightFrame =
 				buttonCategory == dButtonCategory && buttonCategory != null;

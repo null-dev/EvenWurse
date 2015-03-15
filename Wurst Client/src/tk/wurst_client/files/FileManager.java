@@ -215,7 +215,7 @@ public class FileManager
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				Module module =
-					Client.wurst.moduleManager.getModuleByName(entry.getKey());
+					Client.wurst.moduleManager.getModByName(entry.getKey());
 				if(module != null
 					&& module.getCategory() != Category.HIDDEN
 					&& module.getCategory() != Category.WIP
@@ -376,7 +376,7 @@ public class FileManager
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				Module module =
-					Client.wurst.moduleManager.getModuleByName(entry.getKey());
+					Client.wurst.moduleManager.getModByName(entry.getKey());
 				if(module != null)
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
