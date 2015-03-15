@@ -419,7 +419,7 @@ public class AutoBuild extends Module implements UpdateListener, RenderListener
 	{
 		updateMS();
 		if(!shouldBuild
-			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.moduleManager
+			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.modManager
 				.getMod(FastPlace.class).getToggled())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed
 			&& Minecraft.getMinecraft().objectMouseOver != null
@@ -429,12 +429,12 @@ public class AutoBuild extends Module implements UpdateListener, RenderListener
 					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
 				.getBlock().getMaterial() != Material.air)
 		{
-			if(Client.wurst.moduleManager.getMod(FastPlace.class)
+			if(Client.wurst.modManager.getMod(FastPlace.class)
 				.getToggled())
 				speed = 1000000000;
 			else
 				speed = 5;
-			if(Client.wurst.moduleManager.getMod(YesCheat.class)
+			if(Client.wurst.modManager.getMod(YesCheat.class)
 				.getToggled())
 			{
 				blockIndex = 0;
@@ -452,7 +452,7 @@ public class AutoBuild extends Module implements UpdateListener, RenderListener
 			return;
 		}
 		if(shouldBuild)
-			if((hasTimePassedS(speed) || Client.wurst.moduleManager
+			if((hasTimePassedS(speed) || Client.wurst.modManager
 				.getMod(FastPlace.class).getToggled())
 				&& blockIndex < templates
 					.get(Client.wurst.options.autobuildMode).length)
@@ -594,7 +594,7 @@ public class AutoBuild extends Module implements UpdateListener, RenderListener
 	{
 		updateMS();
 		if(!shouldBuild
-			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.moduleManager
+			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.modManager
 				.getMod(FastPlace.class).getToggled())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed
 			&& Minecraft.getMinecraft().objectMouseOver != null
@@ -604,12 +604,12 @@ public class AutoBuild extends Module implements UpdateListener, RenderListener
 					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
 				.getBlock().getMaterial() != Material.air)
 		{
-			if(Client.wurst.moduleManager.getMod(FastPlace.class)
+			if(Client.wurst.modManager.getMod(FastPlace.class)
 				.getToggled())
 				speed = 1000000000;
 			else
 				speed = 5;
-			if(Client.wurst.moduleManager.getMod(YesCheat.class)
+			if(Client.wurst.modManager.getMod(YesCheat.class)
 				.getToggled())
 			{
 				blockIndex = 0;
@@ -627,7 +627,7 @@ public class AutoBuild extends Module implements UpdateListener, RenderListener
 			return;
 		}
 		if(shouldBuild)
-			if((hasTimePassedS(speed) || Client.wurst.moduleManager
+			if((hasTimePassedS(speed) || Client.wurst.modManager
 				.getMod(FastPlace.class).getToggled())
 				&& blockIndex < templates
 					.get(Client.wurst.options.autobuildMode).length)

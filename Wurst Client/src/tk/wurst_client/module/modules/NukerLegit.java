@@ -60,13 +60,13 @@ public class NukerLegit extends Module implements UpdateListener, RenderListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getMod(Nuker.class)
+		if(Client.wurst.modManager.getMod(Nuker.class)
 			.getToggled())
-			Client.wurst.moduleManager.getMod(Nuker.class)
+			Client.wurst.modManager.getMod(Nuker.class)
 				.setToggled(false);
-		if(Client.wurst.moduleManager.getMod(SpeedNuker.class)
+		if(Client.wurst.modManager.getMod(SpeedNuker.class)
 			.getToggled())
-			Client.wurst.moduleManager.getMod(SpeedNuker.class)
+			Client.wurst.modManager.getMod(SpeedNuker.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
 		EventManager.addRenderListener(this);
@@ -116,7 +116,7 @@ public class NukerLegit extends Module implements UpdateListener, RenderListener
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
-			if(Client.wurst.moduleManager.getMod(AutoTool.class)
+			if(Client.wurst.modManager.getMod(AutoTool.class)
 				.getToggled() && oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
@@ -134,7 +134,7 @@ public class NukerLegit extends Module implements UpdateListener, RenderListener
 				return;
 			}
 		}
-		if(Client.wurst.moduleManager.getMod(AutoTool.class)
+		if(Client.wurst.modManager.getMod(AutoTool.class)
 			.getToggled())
 			AutoTool.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue

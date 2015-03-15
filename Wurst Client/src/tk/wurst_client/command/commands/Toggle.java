@@ -39,7 +39,7 @@ public class Toggle extends Command
 			commandError();
 			return;
 		}
-		Module mod = Client.wurst.moduleManager.getModByName(args[0]);
+		Module mod = Client.wurst.modManager.getModByName(args[0]);
 		if(mod == null)
 		{
 			Client.wurst.chat.error("Could not find mod \"" + args[0] + "\".");

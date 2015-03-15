@@ -33,7 +33,7 @@ public class Panic extends Module implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		for(Module mod : Client.wurst.moduleManager.getAllMods())
+		for(Module mod : Client.wurst.modManager.getAllMods())
 			if(mod.getCategory() != Category.HIDDEN && mod.getToggled())
 				mod.setToggled(false);
 	}

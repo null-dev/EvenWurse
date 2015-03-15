@@ -14,7 +14,7 @@ import java.util.TreeMap;
 
 import tk.wurst_client.module.modules.*;
 
-public class ModuleManager
+public class ModManager
 {
 	@Deprecated
 	public final ArrayList<Module> activeModules = new ArrayList<Module>();
@@ -28,7 +28,7 @@ public class ModuleManager
 			}
 		});
 	
-	public ModuleManager()
+	public ModManager()
 	{
 		addMod(new AntiAFK());
 		addMod(new AntiBlind());

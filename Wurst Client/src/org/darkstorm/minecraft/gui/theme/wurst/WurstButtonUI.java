@@ -136,7 +136,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
 			Module mod =
-				Client.wurst.moduleManager.getModByName(button.getText());
+				Client.wurst.modManager.getModByName(button.getText());
 			for(Frame frame : Client.wurst.guiManager.getFrames())
 				if(frame.getTitle().equalsIgnoreCase(mod.getCategory().name()))
 					Client.wurst.guiManager.bringForward(frame);
@@ -203,17 +203,17 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			Category buttonCategory = null;
 			Category dButtonCategory = null;
 			buttonCategory =
-				Client.wurst.moduleManager.getModByName(button.getText())
+				Client.wurst.modManager.getModByName(button.getText())
 					.getCategory();
 			dButtonCategory =
-				Client.wurst.moduleManager.getModByName(dButton.getText())
+				Client.wurst.modManager.getModByName(dButton.getText())
 					.getCategory();
 			boolean isRightFrame =
 				buttonCategory == dButtonCategory && buttonCategory != null;
 			if(!isRightFrame)
 				return false;
 			boolean isLastButton = false;
-			for(Module module : Client.wurst.moduleManager.getAllMods())
+			for(Module module : Client.wurst.modManager.getAllMods())
 				if(buttonCategory == module.getCategory())
 					if(button.getText().equals(module.getName()))
 						isLastButton = true;

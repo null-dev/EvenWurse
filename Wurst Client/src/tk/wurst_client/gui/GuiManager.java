@@ -116,7 +116,7 @@ public final class GuiManager extends AbstractGuiManager
 		settings.setPinnable(true);
 		addFrame(settings);
 		categoryFrames.put(Category.SETTINGS, settings);
-		for(final Module module : Client.wurst.moduleManager.getAllMods())
+		for(final Module module : Client.wurst.modManager.getAllMods())
 		{
 			ModuleFrame frame = categoryFrames.get(module.getCategory());
 			if(frame == null)

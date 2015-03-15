@@ -27,7 +27,7 @@ public class UIRenderer
 		if(Client.wurst.options.modListMode == 2)
 			return;
 		LinkedList<String> modList = new LinkedList<String>();
-		for(Module mod : Client.wurst.moduleManager.getAllMods())
+		for(Module mod : Client.wurst.modManager.getAllMods())
 		{
 			if(mod instanceof ClickGUI)
 				continue;

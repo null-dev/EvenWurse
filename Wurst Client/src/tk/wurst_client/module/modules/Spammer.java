@@ -75,7 +75,7 @@ public class Spammer extends Module
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						Client.wurst.moduleManager.getMod(
+						Client.wurst.modManager.getMod(
 							Spammer.class).setToggled(false);
 					}
 				});

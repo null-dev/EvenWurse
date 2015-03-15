@@ -104,12 +104,12 @@ public class InstantBunker extends Module implements UpdateListener, RenderListe
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getMod(FastPlace.class)
+		if(Client.wurst.modManager.getMod(FastPlace.class)
 			.getToggled())
 			speed = 1000000000;
 		else
 			speed = 5;
-		if(Client.wurst.moduleManager.getMod(YesCheat.class)
+		if(Client.wurst.modManager.getMod(YesCheat.class)
 			.getToggled())
 		{
 			i = 0;
@@ -282,7 +282,7 @@ public class InstantBunker extends Module implements UpdateListener, RenderListe
 		updateMS();
 		if(shouldBuild)
 		{
-			if((hasTimePassedS(speed) || Client.wurst.moduleManager
+			if((hasTimePassedS(speed) || Client.wurst.modManager
 				.getMod(FastPlace.class).getToggled())
 				&& i < building.length)
 			{

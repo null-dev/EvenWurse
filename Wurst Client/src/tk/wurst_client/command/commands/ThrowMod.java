@@ -31,10 +31,10 @@ public class ThrowMod extends Command
 	{
 		if(args == null)
 		{
-			Client.wurst.moduleManager.getMod(Throw.class)
+			Client.wurst.modManager.getMod(Throw.class)
 				.toggleModule();
 			Client.wurst.chat.message("Throw turned "
-				+ (Client.wurst.moduleManager.getMod(Throw.class)
+				+ (Client.wurst.modManager.getMod(Throw.class)
 					.getToggled() == true ? "on" : "off") + ".");
 		}else if(args[0].equalsIgnoreCase("amount")
 			&& MiscUtils.isInteger(args[1]))

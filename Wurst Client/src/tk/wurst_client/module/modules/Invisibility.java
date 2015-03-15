@@ -36,7 +36,7 @@ public class Invisibility extends Module implements UpdateListener
 	public void onUpdate()
 	{
 		if(getToggled()
-			&& Client.wurst.moduleManager.getMod(YesCheat.class)
+			&& Client.wurst.modManager.getMod(YesCheat.class)
 				.getToggled())
 		{
 			noCheatMessage();

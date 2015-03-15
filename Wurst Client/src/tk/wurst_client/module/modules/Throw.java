@@ -42,7 +42,7 @@ public class Throw extends Module implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.moduleManager
+		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.modManager
 			.getMod(FastPlace.class).getToggled())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 		{

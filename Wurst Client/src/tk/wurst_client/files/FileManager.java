@@ -168,7 +168,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Module mod : Client.wurst.moduleManager.getAllMods())
+			for(Module mod : Client.wurst.modManager.getAllMods())
 			{
 				JsonObject jsonMod = new JsonObject();
 				jsonMod.addProperty("enabled", mod.getToggled());
@@ -215,7 +215,7 @@ public class FileManager
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				Module module =
-					Client.wurst.moduleManager.getModByName(entry.getKey());
+					Client.wurst.modManager.getModByName(entry.getKey());
 				if(module != null
 					&& module.getCategory() != Category.HIDDEN
 					&& module.getCategory() != Category.WIP
@@ -342,7 +342,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Module module : Client.wurst.moduleManager.getAllMods())
+			for(Module module : Client.wurst.modManager.getAllMods())
 			{
 				if(module.getSliders().isEmpty())
 					continue;
@@ -376,7 +376,7 @@ public class FileManager
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				Module module =
-					Client.wurst.moduleManager.getModByName(entry.getKey());
+					Client.wurst.modManager.getModByName(entry.getKey());
 				if(module != null)
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();

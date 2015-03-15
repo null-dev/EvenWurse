@@ -35,7 +35,7 @@ public class Regen extends Module implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.moduleManager.getMod(YesCheat.class)
+		if(Client.wurst.modManager.getMod(YesCheat.class)
 			.getToggled())
 		{
 			noCheatMessage();

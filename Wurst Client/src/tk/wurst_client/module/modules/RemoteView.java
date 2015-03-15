@@ -73,7 +73,7 @@ public class RemoteView extends Module implements UpdateListener
 	{
 		if(otherID == null && !viewName.equals(""))
 			otherID = EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
-		Client.wurst.moduleManager.getMod(RemoteView.class)
+		Client.wurst.modManager.getMod(RemoteView.class)
 			.toggleModule();
 	}
 	

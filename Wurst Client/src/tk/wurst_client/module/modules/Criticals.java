@@ -34,7 +34,7 @@ public class Criticals extends Module
 	
 	public static void doCritical()
 	{
-		if(!Client.wurst.moduleManager.getMod(Criticals.class)
+		if(!Client.wurst.modManager.getMod(Criticals.class)
 			.getToggled())
 			return;
 		if(!Minecraft.getMinecraft().thePlayer.isInWater()

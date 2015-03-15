@@ -30,17 +30,17 @@ public class KillauraLegit extends Module implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.moduleManager.getMod(Killaura.class)
+		if(Client.wurst.modManager.getMod(Killaura.class)
 			.getToggled())
-			Client.wurst.moduleManager.getMod(Killaura.class)
+			Client.wurst.modManager.getMod(Killaura.class)
 				.setToggled(false);
-		if(Client.wurst.moduleManager.getMod(MultiAura.class)
+		if(Client.wurst.modManager.getMod(MultiAura.class)
 			.getToggled())
-			Client.wurst.moduleManager.getMod(MultiAura.class)
+			Client.wurst.modManager.getMod(MultiAura.class)
 				.setToggled(false);
-		if(Client.wurst.moduleManager.getMod(TriggerBot.class)
+		if(Client.wurst.modManager.getMod(TriggerBot.class)
 			.getToggled())
-			Client.wurst.moduleManager.getMod(TriggerBot.class)
+			Client.wurst.modManager.getMod(TriggerBot.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
 	}
@@ -55,7 +55,7 @@ public class KillauraLegit extends Module implements UpdateListener
 			EntityLivingBase en = EntityUtils.getClosestEntity(true);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= Killaura.yesCheatRange)
 			{
-				if(Client.wurst.moduleManager.getMod(
+				if(Client.wurst.modManager.getMod(
 					Criticals.class).getToggled()
 					&& Minecraft.getMinecraft().thePlayer.onGround)
 					Minecraft.getMinecraft().thePlayer.jump();
