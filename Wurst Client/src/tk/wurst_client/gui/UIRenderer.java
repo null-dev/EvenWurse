@@ -7,6 +7,8 @@
  */
 package tk.wurst_client.gui;
 
+import java.util.LinkedList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 
@@ -24,46 +26,37 @@ public class UIRenderer
 	{
 		if(Client.wurst.options.arrayListMode == 2)
 			return;
-		int arrayListLength = 0;
-		for(Module arrayModule : Client.wurst.moduleManager.activeModules)
+		LinkedList<String> arrayList = new LinkedList<String>();
+		for(Module mod : Client.wurst.moduleManager.getAllMods())
 		{
-			if(arrayModule instanceof ClickGUI)
+			if(mod instanceof ClickGUI)
 				continue;
-			if(arrayModule.getToggled())
-				arrayListLength++;
+			if(mod.getToggled())
+				arrayList.add(mod.getRenderName());
 		}
-		int yCount = 19;
-		ScaledResolution sr = new ScaledResolution
-			(
-				Minecraft.getMinecraft(),
+		ScaledResolution sr =
+			new ScaledResolution(Minecraft.getMinecraft(),
 				Minecraft.getMinecraft().displayWidth,
-				Minecraft.getMinecraft().displayHeight
-			);
-		if(yCount + arrayListLength * 9 > sr.getScaledHeight()
+				Minecraft.getMinecraft().displayHeight);
+		int yCount = 19;
+		if(yCount + arrayList.size() * 9 > sr.getScaledHeight()
 			|| Client.wurst.options.arrayListMode == 1)
 		{
 			String tooManyMods = "";
-			if(arrayListLength == 0)
+			if(arrayList.isEmpty())
 				return;
-			else if(arrayListLength > 1)
-				tooManyMods = arrayListLength + " mods active";
+			else if(arrayList.size() > 1)
+				tooManyMods = arrayList.size() + " mods active";
 			else
 				tooManyMods = "1 mod active";
 			Fonts.segoe18.drawString(tooManyMods, 3, yCount + 1, 0xFF000000);
 			Fonts.segoe18.drawString(tooManyMods, 2, yCount, 0xFFFFFFFF);
 		}else
-			for(Module arrayModule : Client.wurst.moduleManager.activeModules)
+			for(String name; (name = arrayList.poll()) != null;)
 			{
-				if(arrayModule instanceof ClickGUI)
-					continue;
-				if(arrayModule.getToggled())
-				{
-					Fonts.segoe18.drawString(arrayModule.getRenderName(), 3,
-						yCount + 1, 0xFF000000);
-					Fonts.segoe18.drawString(arrayModule.getRenderName(), 2,
-						yCount, 0xFFFFFFFF);
-					yCount += 9;
-				}
+				Fonts.segoe18.drawString(name, 3, yCount + 1, 0xFF000000);
+				Fonts.segoe18.drawString(name, 2, yCount, 0xFFFFFFFF);
+				yCount += 9;
 			}
 	}
 	
