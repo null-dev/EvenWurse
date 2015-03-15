@@ -39,19 +39,17 @@ public class Toggle extends Command
 			commandError();
 			return;
 		}
-		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-			if(Client.wurst.moduleManager.activeModules.get(i).getName()
-				.toLowerCase().equals(args[0].toLowerCase()))
-			{
-				Module module = Client.wurst.moduleManager.activeModules.get(i);
-				if(mode == 0)
-					module.toggleModule();
-				else if(mode == 1)
-					module.setToggled(true);
-				else if(mode == 2)
-					module.setToggled(false);
-				return;
-			}
-		commandError();
+		Module mod = Client.wurst.moduleManager.getModByName(args[0]);
+		if(mod == null)
+		{
+			Client.wurst.chat.error("Could not find mod \"" + args[0] + "\".");
+			return;
+		}
+		if(mode == 0)
+			mod.toggleModule();
+		else if(mode == 1)
+			mod.setToggled(true);
+		else if(mode == 2)
+			mod.setToggled(false);
 	}
 }
