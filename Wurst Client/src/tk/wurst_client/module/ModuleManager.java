@@ -127,7 +127,7 @@ public class ModuleManager
 		return mods.get(modClass);
 	}
 	
-	public void addMod(Module mod)
+	private void addMod(Module mod)
 	{
 		mods.put(mod.getClass(), mod);
 	}
