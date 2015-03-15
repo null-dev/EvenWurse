@@ -33,14 +33,9 @@ public class Panic extends Module implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-			if(!Client.wurst.moduleManager.activeModules.get(i).equals(this)
-				&& Client.wurst.moduleManager.activeModules.get(i)
-					.getCategory() != Category.HIDDEN
-				&& Client.wurst.moduleManager.activeModules.get(i).getToggled())
-				Client.wurst.moduleManager.activeModules.get(i).setToggled(
-					false);
-		setToggled(false);
+		for(Module mod : Client.wurst.moduleManager.getAllMods())
+			if(mod.getCategory() != Category.HIDDEN && mod.getToggled())
+				mod.setToggled(false);
 	}
 	
 	@Override
