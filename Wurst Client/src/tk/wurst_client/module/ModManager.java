@@ -126,11 +126,6 @@ public class ModManager
 		return mods.get(modClass);
 	}
 	
-	private void addMod(Module mod)
-	{
-		mods.put(mod.getClass(), mod);
-	}
-	
 	/**
 	 * Very slow and not intended for frequent usage. If possible, use
 	 * {@linkplain #getMod(Class)} instead.
@@ -143,13 +138,18 @@ public class ModManager
 		return null;
 	}
 	
+	public Collection<Module> getAllMods()
+	{
+		return mods.values();
+	}
+
 	public int countMods()
 	{
 		return mods.size();
 	}
 	
-	public Collection<Module> getAllMods()
+	private void addMod(Module mod)
 	{
-		return mods.values();
+		mods.put(mod.getClass(), mod);
 	}
 }
