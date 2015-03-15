@@ -342,7 +342,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Module module : Client.wurst.moduleManager.activeModules)
+			for(Module module : Client.wurst.moduleManager.getAllMods())
 			{
 				if(module.getSliders().isEmpty())
 					continue;
