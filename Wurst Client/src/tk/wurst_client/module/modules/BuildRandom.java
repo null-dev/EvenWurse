@@ -17,19 +17,14 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 
+@Info(category = Category.BLOCKS, description = "Places random blocks around you.", name = "BuildRandom")
 public class BuildRandom extends Mod implements UpdateListener
 {
 	private float range = 6;
-	
-	public BuildRandom()
-	{
-		super(
-			"BuildRandom",
-			"Builds random stuff around you.",
-			Category.BLOCKS);
-	}
 	
 	@Override
 	public void onEnable()

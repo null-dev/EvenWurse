@@ -11,18 +11,13 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Automatically jumps whenever you walk.\n"
+				+ "Tip: Jumping while sprinting is a faster way to move.", name = "BunnyHop")
 public class BunnyHop extends Mod implements UpdateListener
 {
-	public BunnyHop()
-	{
-		super(
-			"BunnyHop",
-			"Automatically jumps whenever you walk.\n"
-				+ "Tip: Jumping while sprinting is a faster way to move.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

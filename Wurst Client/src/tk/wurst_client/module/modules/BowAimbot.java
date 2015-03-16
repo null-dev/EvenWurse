@@ -26,22 +26,17 @@ import tk.wurst_client.event.listeners.GUIRenderListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.COMBAT, description = "Automatically aims your bow at the closest entity.\n"
+				+ "Tip: This works with FastBow.", name = "BowAimbot")
 public class BowAimbot extends Mod implements UpdateListener, RenderListener, GUIRenderListener
 {
 	private Entity target;
 	private float velocity;
-	
-	public BowAimbot()
-	{
-		super(
-			"BowAimbot",
-			"Automatically aims your bow at the closest entity.\n"
-				+ "Tip: This works with FastBow.",
-			Category.COMBAT);
-	}
 	
 	@Override
 	public void onEnable()
