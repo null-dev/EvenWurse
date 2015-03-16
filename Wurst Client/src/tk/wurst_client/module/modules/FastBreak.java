@@ -14,8 +14,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.BLOCKS, description = "Allows you to break blocks faster.\n"
-				+ "Tip: This works with Nuker.", name = "FastBreak")
+@Info(category = Category.BLOCKS,
+	description = "Allows you to break blocks faster.\n"
+		+ "Tip: This works with Nuker.",
+	name = "FastBreak")
 public class FastBreak extends Mod
 {
 	public static float speed = 2;

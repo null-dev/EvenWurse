@@ -47,9 +47,7 @@ public class AntiSpam extends Mod implements ChatInputListener
 				{
 					Thread.sleep(50);
 					if(chatLines.size() > 1)
-					{
 						for(int i = chatLines.size() - 1; i >= 1; i--)
-						{
 							for(int i2 = i - 1; i2 >= 0; i2--)
 							{
 								// Fixes concurrent modification
@@ -95,8 +93,6 @@ public class AntiSpam extends Mod implements ChatInputListener
 									chatLines.remove(i);
 								}
 							}
-						}
-					}
 				}catch(Exception e)
 				{
 					e.printStackTrace();

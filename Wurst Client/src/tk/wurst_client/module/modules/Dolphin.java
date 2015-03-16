@@ -14,7 +14,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Automatically swims like a dolphin.", name = "Dolphin")
+@Info(category = Category.MOVEMENT,
+	description = "Automatically swims like a dolphin.",
+	name = "Dolphin")
 public class Dolphin extends Mod implements UpdateListener
 {
 	@Override

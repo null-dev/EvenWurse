@@ -15,8 +15,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.FUN, description = "While this is active, other people will think you are\n"
-				+ "headless. Looks hilarious!", name = "Headless")
+@Info(category = Category.FUN,
+	description = "While this is active, other people will think you are\n"
+		+ "headless. Looks hilarious!",
+	name = "Headless")
 public class Headless extends Mod implements UpdateListener
 {
 	@Override

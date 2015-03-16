@@ -21,7 +21,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
-@Info(category = Category.COMBAT, description = "Automatically attacks everything in your range.", name = "Killaura")
+@Info(category = Category.COMBAT,
+	description = "Automatically attacks everything in your range.",
+	name = "Killaura")
 public class Killaura extends Mod implements UpdateListener
 {
 	public static float normalSpeed = 20F;

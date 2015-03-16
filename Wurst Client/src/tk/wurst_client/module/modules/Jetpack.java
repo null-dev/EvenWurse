@@ -15,8 +15,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Allows you to jump in mid-air.\n"
-				+ "Looks as if you had a jetpack.", name = "Jetpack")
+@Info(category = Category.MOVEMENT,
+	description = "Allows you to jump in mid-air.\n"
+		+ "Looks as if you had a jetpack.",
+	name = "Jetpack")
 public class Jetpack extends Mod implements UpdateListener
 {
 	@Override

@@ -14,8 +14,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Prevents you from getting slowed down in webs.\n"
-				+ "Note: This has nothing to do with websites.", name = "NoWeb")
+@Info(category = Category.MOVEMENT,
+	description = "Prevents you from getting slowed down in webs.\n"
+		+ "Note: This has nothing to do with websites.",
+	name = "NoWeb")
 public class NoWeb extends Mod implements UpdateListener
 {
 	@Override

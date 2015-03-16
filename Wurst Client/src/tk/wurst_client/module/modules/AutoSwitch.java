@@ -14,10 +14,12 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MISC, description = "Switches the item in your hand all the time.\n"
-				+ "Tip: Use this in combination with BuildRandom while\n"
-				+ "having a lot of different colored wool blocks in your\n"
-				+ "hotbar.", name = "AutoSwitch")
+@Info(category = Category.MISC,
+	description = "Switches the item in your hand all the time.\n"
+		+ "Tip: Use this in combination with BuildRandom while\n"
+		+ "having a lot of different colored wool blocks in your\n"
+		+ "hotbar.",
+	name = "AutoSwitch")
 public class AutoSwitch extends Mod implements UpdateListener
 {
 	@Override

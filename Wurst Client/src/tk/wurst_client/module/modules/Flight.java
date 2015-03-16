@@ -20,7 +20,7 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
 @Info(category = Category.MOVEMENT, description = "Makes you fly.\n"
-				+ "This is one of the oldest hacks in Minecraft.", name = "Flight")
+	+ "This is one of the oldest hacks in Minecraft.", name = "Flight")
 public class Flight extends Mod implements UpdateListener
 {
 	public static float speed = 1F;

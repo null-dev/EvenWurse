@@ -14,8 +14,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Exploits a bug in NoCheat+ that allows you to glitch\n"
-				+ "through blocks.", name = "Phase")
+@Info(category = Category.MOVEMENT,
+	description = "Exploits a bug in NoCheat+ that allows you to glitch\n"
+		+ "through blocks.",
+	name = "Phase")
 public class Phase extends Mod implements UpdateListener
 {
 	@Override

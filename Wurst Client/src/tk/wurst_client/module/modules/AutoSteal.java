@@ -11,9 +11,11 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MISC, description = "Automatically steals everything from all chests you\n"
-				+ "open.", name = "AutoSteal")
+@Info(category = Category.MISC,
+	description = "Automatically steals everything from all chests you\n"
+		+ "open.",
+	name = "AutoSteal")
 public class AutoSteal extends Mod
-{
+{	
 	
 }

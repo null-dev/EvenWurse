@@ -14,8 +14,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Allows you to walk on water.\n"
-				+ "The real Jesus used this hack ~2000 years ago.\n", name = "Jesus")
+@Info(category = Category.MOVEMENT,
+	description = "Allows you to walk on water.\n"
+		+ "The real Jesus used this hack ~2000 years ago.\n",
+	name = "Jesus")
 public class Jesus extends Mod implements UpdateListener
 {
 	@Override

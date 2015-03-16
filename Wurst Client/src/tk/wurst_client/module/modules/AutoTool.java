@@ -18,8 +18,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.BLOCKS, description = "Automatically uses the best tool in your hotbar to\n"
-				+ "mine blocks. Tip: This works with Nuker.", name = "AutoTool")
+@Info(category = Category.BLOCKS,
+	description = "Automatically uses the best tool in your hotbar to\n"
+		+ "mine blocks. Tip: This works with Nuker.",
+	name = "AutoTool")
 public class AutoTool extends Mod implements UpdateListener
 {
 	private boolean isActive = false;

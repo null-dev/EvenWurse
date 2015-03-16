@@ -15,8 +15,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.RENDER, description = "Allows you to fly out of your body.\n"
-				+ "Looks similar to spectator mode.", name = "Freecam")
+@Info(category = Category.RENDER,
+	description = "Allows you to fly out of your body.\n"
+		+ "Looks similar to spectator mode.",
+	name = "Freecam")
 public class Freecam extends Mod implements UpdateListener
 {
 	private EntityOtherPlayerMP fakePlayer = null;

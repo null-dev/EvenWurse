@@ -15,7 +15,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Allows you to step up full blocks.", name = "Step")
+@Info(category = Category.MOVEMENT,
+	description = "Allows you to step up full blocks.",
+	name = "Step")
 public class Step extends Mod implements UpdateListener
 {
 	@Override

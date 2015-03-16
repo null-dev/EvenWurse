@@ -17,9 +17,11 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
-@Info(category = Category.COMBAT, description = "A bot that automatically fights for you.\n"
-				+ "It walks around and kills everything.\n"
-				+ "Good for MobArena.", name = "FightBot")
+@Info(category = Category.COMBAT,
+	description = "A bot that automatically fights for you.\n"
+		+ "It walks around and kills everything.\n"
+		+ "Good for MobArena.",
+	name = "FightBot")
 public class FightBot extends Mod implements UpdateListener
 {
 	private float speed;

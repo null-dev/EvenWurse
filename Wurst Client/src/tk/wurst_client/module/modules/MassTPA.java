@@ -24,8 +24,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.CHAT, description = "Sends a TPA requests to all players.\n"
-				+ "Stops if someone accepts.", name = "MassTPA")
+@Info(category = Category.CHAT,
+	description = "Sends a TPA requests to all players.\n"
+		+ "Stops if someone accepts.",
+	name = "MassTPA")
 public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 {
 	private float speed = 1F;

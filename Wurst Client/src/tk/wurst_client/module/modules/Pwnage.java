@@ -21,8 +21,10 @@ import tk.wurst_client.servers.ServerConnector;
 import tk.wurst_client.servers.ServerConnector.Connection;
 import tk.wurst_client.utils.EmptyFutureListener;
 
-@Info(category = Category.WIP, description = "Spawns a ton of random players that spam chat\n"
-				+ "messages.", name = "Pwnage")
+@Info(category = Category.WIP,
+	description = "Spawns a ton of random players that spam chat\n"
+		+ "messages.",
+	name = "Pwnage")
 public class Pwnage extends Mod implements UpdateListener
 {
 	private ServerConnector connector;

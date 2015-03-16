@@ -14,7 +14,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Allows you to climb up ladders twice as fast.", name = "FastLadder")
+@Info(category = Category.MOVEMENT,
+	description = "Allows you to climb up ladders twice as fast.",
+	name = "FastLadder")
 public class FastLadder extends Mod implements UpdateListener
 {
 	@Override

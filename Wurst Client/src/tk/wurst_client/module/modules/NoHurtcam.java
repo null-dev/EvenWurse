@@ -11,8 +11,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.RENDER, description = "Disables the annoying effect when you get hurt.", name = "NoHurtcam")
+@Info(category = Category.RENDER,
+	description = "Disables the annoying effect when you get hurt.",
+	name = "NoHurtcam")
 public class NoHurtcam extends Mod
-{
+{	
 	
 }

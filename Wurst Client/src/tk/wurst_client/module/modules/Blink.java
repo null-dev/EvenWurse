@@ -17,9 +17,11 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Makes it harder for other players to see where you are.\n"
-				+ "They will think you are lagging badly, because your\n"
-				+ "position will only be updated every 3 seconds.", name = "Blink")
+@Info(category = Category.MOVEMENT,
+	description = "Makes it harder for other players to see where you are.\n"
+		+ "They will think you are lagging badly, because your\n"
+		+ "position will only be updated every 3 seconds.",
+	name = "Blink")
 public class Blink extends Mod implements UpdateListener
 {
 	private static ArrayList<Packet> packets = new ArrayList<Packet>();

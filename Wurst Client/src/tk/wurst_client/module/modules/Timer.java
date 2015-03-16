@@ -14,9 +14,11 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Changes the speed of almost everything.\n"
-				+ "Tip: Slow speeds make aiming easier and work well with\n"
-				+ "NoCheat+.", name = "Timer")
+@Info(category = Category.MOVEMENT,
+	description = "Changes the speed of almost everything.\n"
+		+ "Tip: Slow speeds make aiming easier and work well with\n"
+		+ "NoCheat+.",
+	name = "Timer")
 public class Timer extends Mod
 {
 	public static float speed = 2.0F;// Minimum: 0.1F, maximum: 10.0F

@@ -15,8 +15,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Cancels slowness effects caused by water, soul sand and\n"
-				+ "using items.", name = "NoSlowdown")
+@Info(category = Category.MOVEMENT,
+	description = "Cancels slowness effects caused by water, soul sand and\n"
+		+ "using items.",
+	name = "NoSlowdown")
 public class NoSlowdown extends Mod implements UpdateListener
 {
 	@Override

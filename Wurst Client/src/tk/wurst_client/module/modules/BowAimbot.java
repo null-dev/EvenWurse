@@ -31,9 +31,12 @@ import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-@Info(category = Category.COMBAT, description = "Automatically aims your bow at the closest entity.\n"
-				+ "Tip: This works with FastBow.", name = "BowAimbot")
-public class BowAimbot extends Mod implements UpdateListener, RenderListener, GUIRenderListener
+@Info(category = Category.COMBAT,
+	description = "Automatically aims your bow at the closest entity.\n"
+		+ "Tip: This works with FastBow.",
+	name = "BowAimbot")
+public class BowAimbot extends Mod implements UpdateListener, RenderListener,
+	GUIRenderListener
 {
 	private Entity target;
 	private float velocity;

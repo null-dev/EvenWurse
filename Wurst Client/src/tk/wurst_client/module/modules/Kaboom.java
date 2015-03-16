@@ -28,11 +28,13 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 
-@Info(category = Category.BLOCKS, description = "Breaks blocks around you like an explosion.\n"
-				+ "This can be a lot faster than Nuker if the server\n"
-				+ "doesn't have NoCheat+. It works best with fast tools\n"
-				+ "and weak blocks.\n"
-				+ "Note that this is not an actual explosion.", name = "Kaboom")
+@Info(category = Category.BLOCKS,
+	description = "Breaks blocks around you like an explosion.\n"
+		+ "This can be a lot faster than Nuker if the server\n"
+		+ "doesn't have NoCheat+. It works best with fast tools\n"
+		+ "and weak blocks.\n"
+		+ "Note that this is not an actual explosion.",
+	name = "Kaboom")
 public class Kaboom extends Mod implements UpdateListener
 {
 	private int range = 6;

@@ -21,7 +21,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.FUN, description = "Thousands of colors!", name = "LSD")
+@Info(category = Category.FUN,
+	description = "Thousands of colors!",
+	name = "LSD")
 public class LSD extends Mod implements UpdateListener
 {
 	private static float speed = 2;

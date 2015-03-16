@@ -15,7 +15,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MISC, description = "Automatically catches fish.", name = "AutoFish")
+@Info(category = Category.MISC,
+	description = "Automatically catches fish.",
+	name = "AutoFish")
 public class AutoFish extends Mod implements UpdateListener
 {
 	private boolean catching = false;

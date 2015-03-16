@@ -38,13 +38,15 @@ import tk.wurst_client.spam.exceptions.UnreadableTagException;
 import tk.wurst_client.spam.tag.Tag;
 import tk.wurst_client.utils.MiscUtils;
 
-@Info(category = Category.CHAT, description = "It's called Spammer, but it's a lot more.\n"
-				+ "Special features:\n"
-				+ ">ASCII art\n"
-				+ ">Run any Wurst command\n"
-				+ ">Variables\n"
-				+ ">HTML-like tags & comments\n"
-				+ ">Integrated help system", name = "Spammer")
+@Info(category = Category.CHAT,
+	description = "It's called Spammer, but it's a lot more.\n"
+		+ "Special features:\n"
+		+ ">ASCII art\n"
+		+ ">Run any Wurst command\n"
+		+ ">Variables\n"
+		+ ">HTML-like tags & comments\n"
+		+ ">Integrated help system",
+	name = "Spammer")
 public class Spammer extends Mod
 {
 	private JDialog dialog;

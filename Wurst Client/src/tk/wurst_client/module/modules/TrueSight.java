@@ -11,8 +11,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.RENDER, description = "Allows you to see invisible entities.", name = "TrueSight")
+@Info(category = Category.RENDER,
+	description = "Allows you to see invisible entities.",
+	name = "TrueSight")
 public class TrueSight extends Mod
-{
+{	
 	
 }

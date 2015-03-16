@@ -17,7 +17,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.CHAT, description = "Types \"/home\" instantly.", name = "/home")
+@Info(category = Category.CHAT,
+	description = "Types \"/home\" instantly.",
+	name = "/home")
 public class Home extends Mod implements UpdateListener, ChatInputListener
 {
 	private int disableTimer;

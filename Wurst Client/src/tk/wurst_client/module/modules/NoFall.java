@@ -15,7 +15,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Protects you from fall damage.", name = "NoFall")
+@Info(category = Category.MOVEMENT,
+	description = "Protects you from fall damage.",
+	name = "NoFall")
 public class NoFall extends Mod implements UpdateListener
 {
 	@Override

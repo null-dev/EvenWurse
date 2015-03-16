@@ -16,7 +16,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Makes you fall like if you had a hang glider.", name = "Glide")
+@Info(category = Category.MOVEMENT,
+	description = "Makes you fall like if you had a hang glider.",
+	name = "Glide")
 public class Glide extends Mod implements UpdateListener
 {
 	@Override

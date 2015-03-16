@@ -15,7 +15,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.BLOCKS, description = "Automatically mines a block as soon as you look at it.", name = "AutoMine")
+@Info(category = Category.BLOCKS,
+	description = "Automatically mines a block as soon as you look at it.",
+	name = "AutoMine")
 public class AutoMine extends Mod implements UpdateListener
 {
 	@Override

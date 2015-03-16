@@ -18,7 +18,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
-@Info(category = Category.COMBAT, description = "Automatically attacks the entity you're looking at.", name = "TriggerBot")
+@Info(category = Category.COMBAT,
+	description = "Automatically attacks the entity you're looking at.",
+	name = "TriggerBot")
 public class TriggerBot extends Mod implements UpdateListener
 {
 	@Override

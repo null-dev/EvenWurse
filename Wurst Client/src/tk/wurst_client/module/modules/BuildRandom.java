@@ -21,7 +21,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 
-@Info(category = Category.BLOCKS, description = "Places random blocks around you.", name = "BuildRandom")
+@Info(category = Category.BLOCKS,
+	description = "Places random blocks around you.",
+	name = "BuildRandom")
 public class BuildRandom extends Mod implements UpdateListener
 {
 	private float range = 6;

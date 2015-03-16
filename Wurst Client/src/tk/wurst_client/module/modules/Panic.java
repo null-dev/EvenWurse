@@ -14,8 +14,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MISC, description = "Instantly turns off all enabled mods.\n"
-				+ "Be careful with this!", name = "Panic")
+@Info(category = Category.MISC,
+	description = "Instantly turns off all enabled mods.\n"
+		+ "Be careful with this!",
+	name = "Panic")
 public class Panic extends Mod implements UpdateListener
 {
 	@Override

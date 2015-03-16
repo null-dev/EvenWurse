@@ -12,10 +12,11 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-
-@Info(category = Category.BLOCKS, description = "Instantly writes whatever text you want on every sign\n"
-				+ "you place. Once activated, you can write normally on\n"
-				+ "one sign to specify the text for all other signs.", name = "AutoSign")
+@Info(category = Category.BLOCKS,
+	description = "Instantly writes whatever text you want on every sign\n"
+		+ "you place. Once activated, you can write normally on\n"
+		+ "one sign to specify the text for all other signs.",
+	name = "AutoSign")
 public class AutoSign extends Mod
 {
 	public static IChatComponent[] signText;

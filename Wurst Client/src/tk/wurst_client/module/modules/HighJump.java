@@ -14,7 +14,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Makes you jump six times higher.", name = "HighJump")
+@Info(category = Category.MOVEMENT,
+	description = "Makes you jump six times higher.",
+	name = "HighJump")
 public class HighJump extends Mod implements UpdateListener
 {
 	public static double jumpHeight = 0.41999998688697815D * 6;

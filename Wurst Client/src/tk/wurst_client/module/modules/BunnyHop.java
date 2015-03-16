@@ -14,8 +14,10 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Automatically jumps whenever you walk.\n"
-				+ "Tip: Jumping while sprinting is a faster way to move.", name = "BunnyHop")
+@Info(category = Category.MOVEMENT,
+	description = "Automatically jumps whenever you walk.\n"
+		+ "Tip: Jumping while sprinting is a faster way to move.",
+	name = "BunnyHop")
 public class BunnyHop extends Mod implements UpdateListener
 {
 	@Override

@@ -16,8 +16,10 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
-@Info(category = Category.COMBAT, description = "A bot that follows the closest entity.\n"
-				+ "Very annoying.", name = "Follow")
+@Info(category = Category.COMBAT,
+	description = "A bot that follows the closest entity.\n"
+		+ "Very annoying.",
+	name = "Follow")
 public class Follow extends Mod implements UpdateListener
 {
 	private EntityLivingBase entity;

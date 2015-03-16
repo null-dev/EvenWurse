@@ -23,7 +23,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 
-@Info(category = Category.BLOCKS, description = "Faster Nuker that cannot bypass NoCheat+.", name = "SpeedNuker")
+@Info(category = Category.BLOCKS,
+	description = "Faster Nuker that cannot bypass NoCheat+.",
+	name = "SpeedNuker")
 public class SpeedNuker extends Mod implements UpdateListener
 {
 	private static Block currentBlock;

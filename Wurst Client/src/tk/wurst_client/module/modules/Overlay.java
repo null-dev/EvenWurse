@@ -19,7 +19,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
-@Info(category = Category.RENDER, description = "Renders the Nuker animation when you mine a block.", name = "Overlay")
+@Info(category = Category.RENDER,
+	description = "Renders the Nuker animation when you mine a block.",
+	name = "Overlay")
 public class Overlay extends Mod implements RenderListener
 {
 	@Override

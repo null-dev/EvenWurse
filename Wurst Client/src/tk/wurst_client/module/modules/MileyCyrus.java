@@ -14,7 +14,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.FUN, description = "Makes you twerk like Miley Cyrus!", name = "Miley Cyrus")
+@Info(category = Category.FUN,
+	description = "Makes you twerk like Miley Cyrus!",
+	name = "Miley Cyrus")
 public class MileyCyrus extends Mod implements UpdateListener
 {
 	private boolean shouldSneak = true;

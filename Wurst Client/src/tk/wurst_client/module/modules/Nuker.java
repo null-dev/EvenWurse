@@ -31,7 +31,7 @@ import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
 @Info(category = Category.BLOCKS, description = "Destroys blocks around you.\n"
-				+ "Use .nuker mode <mode> to change the mode.", name = "Nuker")
+	+ "Use .nuker mode <mode> to change the mode.", name = "Nuker")
 public class Nuker extends Mod implements UpdateListener, RenderListener
 {
 	public static float normalRange = 5F;
@@ -232,7 +232,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 			Client.wurst.fileManager.saveOptions();
 		}
 	}
-
+	
 	private BlockPos find()
 	{
 		BlockPos closest = null;

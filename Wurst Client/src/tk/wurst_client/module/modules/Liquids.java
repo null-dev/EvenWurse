@@ -14,7 +14,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.BLOCKS, description = "Allows you to interact with liquid blocks.", name = "Liquids")
+@Info(category = Category.BLOCKS,
+	description = "Allows you to interact with liquid blocks.",
+	name = "Liquids")
 public class Liquids extends Mod implements UpdateListener
 {
 	@Override

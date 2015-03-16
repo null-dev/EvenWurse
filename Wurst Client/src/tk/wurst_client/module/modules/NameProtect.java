@@ -12,9 +12,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
 @Info(category = Category.RENDER, description = "Hides all player names.\n"
-				+ "Some YouTubers like to censor out all names in their\n"
-				+ "videos.", name = "NameProtect")
+	+ "Some YouTubers like to censor out all names in their\n"
+	+ "videos.", name = "NameProtect")
 public class NameProtect extends Mod
-{
+{	
 	
 }

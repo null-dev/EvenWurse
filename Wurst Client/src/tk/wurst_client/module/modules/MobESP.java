@@ -17,7 +17,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
-@Info(category = Category.RENDER, description = "Allows you to see mobs through walls.", name = "MobESP")
+@Info(category = Category.RENDER,
+	description = "Allows you to see mobs through walls.",
+	name = "MobESP")
 public class MobESP extends Mod implements RenderListener
 {
 	@Override

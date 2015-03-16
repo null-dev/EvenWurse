@@ -37,11 +37,13 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.CHAT, description = "Cracks AuthMe passwords. Can be used to get OP.\n"
-				+ "If you want to know how to use this, press the\n"
-				+ "\"How to use\" button. That will open an online\n"
-				+ "tutorial explaining exactly how to use it.\n"
-				+ "Don't message me on this!", name = "ForceOP")
+@Info(category = Category.CHAT,
+	description = "Cracks AuthMe passwords. Can be used to get OP.\n"
+		+ "If you want to know how to use this, press the\n"
+		+ "\"How to use\" button. That will open an online\n"
+		+ "tutorial explaining exactly how to use it.\n"
+		+ "Don't message me on this!",
+	name = "ForceOP")
 public class ForceOP extends Mod implements ChatInputListener
 {
 	private String[] defaultList =

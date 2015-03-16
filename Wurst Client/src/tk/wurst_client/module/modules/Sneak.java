@@ -17,7 +17,9 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Automatically sneaks all the time.", name = "Sneak")
+@Info(category = Category.MOVEMENT,
+	description = "Automatically sneaks all the time.",
+	name = "Sneak")
 public class Sneak extends Mod implements UpdateListener
 {
 	@Override

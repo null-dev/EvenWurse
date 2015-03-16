@@ -11,9 +11,11 @@ import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 
-@Info(category = Category.RENDER, description = "Changes the scale of the nametags so you can always\n"
-				+ "read them.", name = "NameTags")
+@Info(category = Category.RENDER,
+	description = "Changes the scale of the nametags so you can always\n"
+		+ "read them.",
+	name = "NameTags")
 public class NameTags extends Mod
-{
+{	
 	
 }

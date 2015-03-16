@@ -21,9 +21,11 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
-@Info(category = Category.RENDER, description = "Helps you to find specific blocks.\n"
-				+ "Use .search id <block id> or .search name <block name>\n"
-				+ "to specify it.", name = "Search")
+@Info(category = Category.RENDER,
+	description = "Helps you to find specific blocks.\n"
+		+ "Use .search id <block id> or .search name <block name>\n"
+		+ "to specify it.",
+	name = "Search")
 public class Search extends Mod implements UpdateListener, RenderListener
 {
 	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();

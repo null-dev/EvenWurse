@@ -21,8 +21,11 @@ import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BuildUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-@Info(category = Category.BLOCKS, description = "Instantly builds a small bunker around you.", name = "InstantBunker")
-public class InstantBunker extends Mod implements UpdateListener, RenderListener
+@Info(category = Category.BLOCKS,
+	description = "Instantly builds a small bunker around you.",
+	name = "InstantBunker")
+public class InstantBunker extends Mod implements UpdateListener,
+	RenderListener
 {
 	private float speed = 5;
 	private int i;

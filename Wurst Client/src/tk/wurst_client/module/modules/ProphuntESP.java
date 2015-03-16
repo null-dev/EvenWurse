@@ -20,7 +20,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
-@Info(category = Category.RENDER, description = "Allows you to see fake blocks in Prophunt.", name = "ProphuntESP")
+@Info(category = Category.RENDER,
+	description = "Allows you to see fake blocks in Prophunt.",
+	name = "ProphuntESP")
 public class ProphuntESP extends Mod implements RenderListener
 {
 	@Override

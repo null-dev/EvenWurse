@@ -22,7 +22,9 @@ import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-@Info(category = Category.RENDER, description = "Finds far players during thunderstorms.", name = "PlayerFinder")
+@Info(category = Category.RENDER,
+	description = "Finds far players during thunderstorms.",
+	name = "PlayerFinder")
 public class PlayerFinder extends Mod implements RenderListener
 {
 	private BlockPos blockPos;

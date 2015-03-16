@@ -18,7 +18,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
-@Info(category = Category.RENDER, description = "Allows you to see players through walls.", name = "PlayerESP")
+@Info(category = Category.RENDER,
+	description = "Allows you to see players through walls.",
+	name = "PlayerESP")
 public class PlayerESP extends Mod implements RenderListener
 {
 	@Override
@@ -31,7 +33,7 @@ public class PlayerESP extends Mod implements RenderListener
 	public void onRender()
 	{
 		if(Client.wurst.modManager.getMod(ArenaBrawl.class)
-				.getToggled())
+			.getToggled())
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityPlayer

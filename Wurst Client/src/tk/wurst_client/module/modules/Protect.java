@@ -17,7 +17,9 @@ import tk.wurst_client.module.Mod.Category;
 import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
-@Info(category = Category.COMBAT, description = "A bot that follows the closest entity and protects it.", name = "Protect")
+@Info(category = Category.COMBAT,
+	description = "A bot that follows the closest entity and protects it.",
+	name = "Protect")
 public class Protect extends Mod implements UpdateListener
 {
 	private EntityLivingBase friend;
