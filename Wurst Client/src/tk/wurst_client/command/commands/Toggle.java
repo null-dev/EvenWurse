@@ -46,7 +46,7 @@ public class Toggle extends Command
 			return;
 		}
 		if(mode == 0)
-			mod.toggleModule();
+			mod.toggle();
 		else if(mode == 1)
 			mod.setToggled(true);
 		else if(mode == 2)

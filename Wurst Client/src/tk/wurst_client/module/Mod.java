@@ -90,7 +90,7 @@ public class Mod
 		Client.wurst.fileManager.saveMods();
 	}
 	
-	public final void toggleModule()
+	public final void toggle()
 	{
 		setToggled(!getToggled());
 	}

@@ -165,7 +165,7 @@ public final class GuiManager extends AbstractGuiManager
 				@Override
 				public void onButtonPress(Button button)
 				{
-					updateModule.toggleModule();
+					updateModule.toggle();
 				}
 			});
 			frame.add(button);

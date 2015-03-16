@@ -34,7 +34,7 @@ public class SearchMod extends Command
 		if(args == null)
 		{
 			Client.wurst.modManager.getModByClass(Search.class)
-				.toggleModule();
+				.toggle();
 			Client.wurst.chat.message("Search turned "
 				+ (Client.wurst.modManager.getModByClass(Search.class)
 					.getToggled() == true ? "on" : "off") + ".");
