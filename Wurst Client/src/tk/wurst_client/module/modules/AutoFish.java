@@ -12,18 +12,12 @@ import net.minecraft.entity.projectile.EntityFishHook;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MISC, description = "Automatically catches fish.", name = "AutoFish")
 public class AutoFish extends Mod implements UpdateListener
 {
-	
-	public AutoFish()
-	{
-		super(
-			"AutoFish",
-			"Automatically catches fish.",
-			Category.MISC);
-	}
-	
 	private boolean catching = false;
 	
 	@Override
