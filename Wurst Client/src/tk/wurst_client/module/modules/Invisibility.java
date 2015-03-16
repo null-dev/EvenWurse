@@ -14,20 +14,19 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.COMBAT, description = "Makes you invisible and invincible.\n"
+				+ "If you die and respawn near a certain player while\n"
+				+ "this mod is enabled, that player will be unable to see\n"
+				+ "you. Only works on vanilla servers!", name = "Invisibility")
 public class Invisibility extends Mod implements UpdateListener
 {
 	private boolean isInvisible;
 	
 	public Invisibility()
 	{
-		super(
-			"Invisibility",
-			"Makes you invisible and invincible.\n"
-				+ "If you die and respawn near a certain player while\n"
-				+ "this mod is enabled, that player will be unable to see\n"
-				+ "you. Only works on vanilla servers!",
-			Category.COMBAT);
 		EventManager.addUpdateListener(this);
 	}
 	

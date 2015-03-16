@@ -8,14 +8,11 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.RENDER, description = "Adds the health of players to their nametags.", name = "HealthTags")
 public class HealthTags extends Mod
 {
-	public HealthTags()
-	{
-		super(
-			"HealthTags",
-			"Adds the health of players to their nametags.",
-			Category.RENDER);
-	}
+	
 }

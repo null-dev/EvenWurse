@@ -14,18 +14,13 @@ import tk.wurst_client.event.events.ChatInputEvent;
 import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.CHAT, description = "Types \"/home\" instantly.", name = "/home")
 public class Home extends Mod implements UpdateListener, ChatInputListener
 {
 	private int disableTimer;
-	
-	public Home()
-	{
-		super(
-			"/home",
-			"Types \"/home\" instantly.",
-			Category.CHAT);
-	}
 	
 	@Override
 	public void onEnable()
