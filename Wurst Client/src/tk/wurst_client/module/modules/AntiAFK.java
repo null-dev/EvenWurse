@@ -28,14 +28,6 @@ public class AntiAFK extends Mod implements UpdateListener
 	private Random random;
 	private BlockPos nextBlock;
 	
-	public AntiAFK()
-	{
-		super("AntiAFK",
-			"Walks around randomly to hide you from AFK detectors.\n"
-				+ "Needs 3x3 blocks of free space.",
-			Category.MISC);
-	}
-	
 	@Override
 	public void onEnable()
 	{
