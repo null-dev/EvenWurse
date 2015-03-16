@@ -13,13 +13,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Mod;
-import tk.wurst_client.module.modules.AntiKnockback;
-import tk.wurst_client.module.modules.Flight;
-import tk.wurst_client.module.modules.Jesus;
-import tk.wurst_client.module.modules.NoFall;
-import tk.wurst_client.module.modules.NoSlowdown;
-import tk.wurst_client.module.modules.Spider;
+import tk.wurst_client.mod.Mod;
+import tk.wurst_client.mod.mods.AntiKnockback;
+import tk.wurst_client.mod.mods.Flight;
+import tk.wurst_client.mod.mods.Jesus;
+import tk.wurst_client.mod.mods.NoFall;
+import tk.wurst_client.mod.mods.NoSlowdown;
+import tk.wurst_client.mod.mods.Spider;
 
 public class PathUtils
 {

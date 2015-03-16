@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
-import tk.wurst_client.module.modules.Spammer;
+import tk.wurst_client.mod.mods.Spammer;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
 import tk.wurst_client.spam.exceptions.UnreadableTagException;

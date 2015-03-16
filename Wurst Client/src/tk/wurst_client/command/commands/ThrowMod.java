@@ -9,7 +9,7 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.modules.Throw;
+import tk.wurst_client.mod.mods.Throw;
 import tk.wurst_client.utils.MiscUtils;
 
 public class ThrowMod extends Command

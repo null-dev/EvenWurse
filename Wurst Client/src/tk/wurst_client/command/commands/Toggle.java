@@ -9,7 +9,7 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.Mod;
+import tk.wurst_client.mod.Mod;
 
 public class Toggle extends Command
 {

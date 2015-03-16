@@ -25,8 +25,8 @@ import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Mod;
-import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.mod.Mod;
+import tk.wurst_client.mod.Mod.Category;
 
 public class WurstButtonUI extends AbstractComponentUI<Button>
 {

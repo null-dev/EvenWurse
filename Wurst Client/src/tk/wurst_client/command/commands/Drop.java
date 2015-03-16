@@ -12,7 +12,7 @@ import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
-import tk.wurst_client.module.modules.YesCheat;
+import tk.wurst_client.mod.mods.YesCheat;
 
 public class Drop extends Command implements UpdateListener
 {

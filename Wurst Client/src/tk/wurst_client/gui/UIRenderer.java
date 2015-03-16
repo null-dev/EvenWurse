@@ -17,8 +17,8 @@ import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.font.Fonts;
-import tk.wurst_client.module.Mod;
-import tk.wurst_client.module.modules.ClickGUI;
+import tk.wurst_client.mod.Mod;
+import tk.wurst_client.mod.mods.ClickGUI;
 
 public class UIRenderer
 {

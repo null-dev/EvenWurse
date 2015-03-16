@@ -22,7 +22,7 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.module.modules.XRay;
+import tk.wurst_client.mod.mods.XRay;
 
 public class GuiXRayBlocksAdd extends GuiScreen
 {

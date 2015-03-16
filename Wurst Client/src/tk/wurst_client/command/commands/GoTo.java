@@ -12,7 +12,7 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.modules.GoToCmd;
+import tk.wurst_client.mod.mods.GoToCmd;
 import tk.wurst_client.utils.MiscUtils;
 
 public class GoTo extends Command

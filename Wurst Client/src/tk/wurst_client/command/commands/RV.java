@@ -8,7 +8,7 @@
 package tk.wurst_client.command.commands;
 
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.modules.RemoteView;
+import tk.wurst_client.mod.mods.RemoteView;
 
 public class RV extends Command
 {

@@ -65,9 +65,9 @@ import org.darkstorm.minecraft.gui.listener.SliderListener;
 import org.darkstorm.minecraft.gui.theme.Theme;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Mod;
-import tk.wurst_client.module.Mod.Category;
-import tk.wurst_client.module.modules.AutoBuild;
+import tk.wurst_client.mod.Mod;
+import tk.wurst_client.mod.Mod.Category;
+import tk.wurst_client.mod.mods.AutoBuild;
 
 /**
  * Minecraft GUI API
