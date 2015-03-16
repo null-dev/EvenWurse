@@ -19,23 +19,20 @@ import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BuildUtils;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.AUTOBUILD,
+	description = "Automatically builds the selected template whenever\n"
+		+ "you place a block. Use the combo box below to select\n"
+		+ "a template.\n"
+		+ "This mod can bypass NoCheat+ while YesCheat+ is\n"
+		+ "enabled.",
+	name = "AutoBuild")
 public class AutoBuild extends Mod implements UpdateListener, RenderListener
 {
-	public AutoBuild()
-	{
-		super(
-			"AutoBuild",
-			"Automatically builds the selected template whenever\n"
-				+ "you place a block. Use the combo box below to select\n"
-				+ "a template.\n"
-				+ "This mod can bypass NoCheat+ while YesCheat+ is\n"
-				+ "enabled.",
-			Category.AUTOBUILD);
-	}
-	
 	public static ArrayList<String> names = new ArrayList<String>();
 	public static ArrayList<int[][]> templates = new ArrayList<int[][]>();
 	private float speed = 5;
