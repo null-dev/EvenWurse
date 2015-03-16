@@ -16,19 +16,14 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Makes you fly.\n"
+				+ "This is one of the oldest hacks in Minecraft.", name = "Flight")
 public class Flight extends Mod implements UpdateListener
 {
 	public static float speed = 1F;
-	
-	public Flight()
-	{
-		super(
-			"Flight",
-			"Makes you fly.\n"
-				+ "This is one of the oldest hacks in Minecraft.",
-			Category.MOVEMENT);
-	}
 	
 	@Override
 	public void initSliders()

@@ -13,24 +13,19 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+@Info(category = Category.COMBAT, description = "A bot that automatically fights for you.\n"
+				+ "It walks around and kills everything.\n"
+				+ "Good for MobArena.", name = "FightBot")
 public class FightBot extends Mod implements UpdateListener
 {
 	private float speed;
 	private float range = 6F;
 	private double distance = 3D;
 	private EntityLivingBase entity;
-	
-	public FightBot()
-	{
-		super(
-			"FightBot",
-			"A bot that automatically fights for you.\n"
-				+ "It walks around and kills everything.\n"
-				+ "Good for MobArena.",
-			Category.COMBAT);
-	}
 	
 	@Override
 	public void onEnable()

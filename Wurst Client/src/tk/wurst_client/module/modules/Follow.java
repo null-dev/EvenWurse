@@ -12,21 +12,16 @@ import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+@Info(category = Category.COMBAT, description = "A bot that follows the closest entity.\n"
+				+ "Very annoying.", name = "Follow")
 public class Follow extends Mod implements UpdateListener
 {
 	private EntityLivingBase entity;
 	private float range = 12F;
-	
-	public Follow()
-	{
-		super(
-			"Follow",
-			"A bot that follows the closest entity.\n"
-				+ "Very annoying.",
-			Category.COMBAT);
-	}
 	
 	@Override
 	public String getRenderName()
