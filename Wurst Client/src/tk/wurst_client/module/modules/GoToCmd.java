@@ -15,10 +15,10 @@ import tk.wurst_client.ai.PathUtils;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.BlockUtils;
 
-public class GoToCmd extends Module implements UpdateListener
+public class GoToCmd extends Mod implements UpdateListener
 {
 	private static ArrayList<BlockPos> path;
 	private static BlockPos goal;

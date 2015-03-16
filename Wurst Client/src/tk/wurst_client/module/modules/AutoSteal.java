@@ -8,9 +8,9 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class AutoSteal extends Module
+public class AutoSteal extends Mod
 {
 	public AutoSteal()
 	{

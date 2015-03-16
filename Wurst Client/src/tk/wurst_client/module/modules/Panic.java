@@ -11,9 +11,9 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class Panic extends Module implements UpdateListener
+public class Panic extends Mod implements UpdateListener
 {
 	public Panic()
 	{
@@ -33,7 +33,7 @@ public class Panic extends Module implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		for(Module mod : Client.wurst.modManager.getAllMods())
+		for(Mod mod : Client.wurst.modManager.getAllMods())
 			if(mod.getCategory() != Category.HIDDEN && mod.getToggled())
 				mod.setToggled(false);
 	}

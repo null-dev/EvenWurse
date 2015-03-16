@@ -12,9 +12,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class Criticals extends Module
+public class Criticals extends Mod
 {
 	public Criticals()
 	{

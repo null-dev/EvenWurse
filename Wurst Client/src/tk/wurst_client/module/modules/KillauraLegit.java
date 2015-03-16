@@ -13,10 +13,10 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.EntityUtils;
 
-public class KillauraLegit extends Module implements UpdateListener
+public class KillauraLegit extends Mod implements UpdateListener
 {
 	public KillauraLegit()
 	{

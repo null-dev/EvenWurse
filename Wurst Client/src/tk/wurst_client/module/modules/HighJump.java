@@ -11,9 +11,9 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class HighJump extends Module implements UpdateListener
+public class HighJump extends Mod implements UpdateListener
 {
 	public static double jumpHeight = 0.41999998688697815D * 6;
 	

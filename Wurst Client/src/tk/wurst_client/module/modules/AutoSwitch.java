@@ -11,9 +11,9 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class AutoSwitch extends Module implements UpdateListener
+public class AutoSwitch extends Mod implements UpdateListener
 {
 	public AutoSwitch()
 	{

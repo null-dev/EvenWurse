@@ -31,13 +31,13 @@ import javax.swing.text.BadLocationException;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.spam.SpamProcessor;
 import tk.wurst_client.spam.exceptions.UnreadableTagException;
 import tk.wurst_client.spam.tag.Tag;
 import tk.wurst_client.utils.MiscUtils;
 
-public class Spammer extends Module
+public class Spammer extends Mod
 {
 	private JDialog dialog;
 	private static JSpinner delaySpinner;

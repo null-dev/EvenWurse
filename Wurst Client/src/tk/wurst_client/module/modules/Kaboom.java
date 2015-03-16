@@ -24,10 +24,10 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.BlockUtils;
 
-public class Kaboom extends Module implements UpdateListener
+public class Kaboom extends Mod implements UpdateListener
 {
 	private int range = 6;
 	public static int power = 128;

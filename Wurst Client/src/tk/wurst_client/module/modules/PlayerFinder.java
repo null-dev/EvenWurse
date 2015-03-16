@@ -17,11 +17,11 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class PlayerFinder extends Module implements RenderListener
+public class PlayerFinder extends Mod implements RenderListener
 {
 	private BlockPos blockPos;
 	

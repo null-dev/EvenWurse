@@ -14,7 +14,7 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
 public class Features extends Command
 {
@@ -33,7 +33,7 @@ public class Features extends Command
 			Client.wurst.chat.message("Features in this release of Wurst:");
 			int mods = Client.wurst.modManager.countMods();
 			int hiddenMods = 0;
-			for(Module mod : Client.wurst.modManager.getAllMods())
+			for(Mod mod : Client.wurst.modManager.getAllMods())
 				if(mod.getCategory() == Category.HIDDEN
 					|| mod.getCategory() == Category.WIP)
 					hiddenMods++;
@@ -45,7 +45,7 @@ public class Features extends Command
 			Client.wurst.chat.message(">" + Client.wurst.keybinds.size()
 				+ " keybinds in your current configuration");
 			ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
-			for(Module mod : Client.wurst.modManager.getAllMods())
+			for(Mod mod : Client.wurst.modManager.getAllMods())
 				for(BasicSlider slider : mod.getSliders())
 					sliders.add(slider);
 			Client.wurst.chat.message(">" + sliders.size()

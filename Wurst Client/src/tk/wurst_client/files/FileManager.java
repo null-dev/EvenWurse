@@ -28,7 +28,7 @@ import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.Encryption;
 import tk.wurst_client.gui.alts.GuiAltList;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.modules.*;
 import tk.wurst_client.options.Friends;
 import tk.wurst_client.options.Options;
@@ -168,7 +168,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Module mod : Client.wurst.modManager.getAllMods())
+			for(Mod mod : Client.wurst.modManager.getAllMods())
 			{
 				JsonObject jsonMod = new JsonObject();
 				jsonMod.addProperty("enabled", mod.getToggled());
@@ -214,18 +214,18 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Module module =
+				Mod mod =
 					Client.wurst.modManager.getModByName(entry.getKey());
-				if(module != null
-					&& module.getCategory() != Category.HIDDEN
-					&& module.getCategory() != Category.WIP
+				if(mod != null
+					&& mod.getCategory() != Category.HIDDEN
+					&& mod.getCategory() != Category.WIP
 					&& !Arrays.asList(moduleBlacklist).contains(
-						module.getClass().getName()))
+						mod.getClass().getName()))
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
 					boolean enabled = jsonModule.get("enabled").getAsBoolean();
-					if(module.getToggled() != enabled)
-						module.setToggled(enabled);
+					if(mod.getToggled() != enabled)
+						mod.setToggled(enabled);
 				}
 			}
 		}catch(Exception e)
@@ -342,17 +342,17 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Module module : Client.wurst.modManager.getAllMods())
+			for(Mod mod : Client.wurst.modManager.getAllMods())
 			{
-				if(module.getSliders().isEmpty())
+				if(mod.getSliders().isEmpty())
 					continue;
 				JsonObject jsonModule = new JsonObject();
-				for(BasicSlider slider : module.getSliders())
+				for(BasicSlider slider : mod.getSliders())
 					jsonModule.addProperty(slider.getText(),
 						(double)(Math.round(slider.getValue()
 							/ slider.getIncrement()) * 1000000 * (long)(slider
 							.getIncrement() * 1000000)) / 1000000 / 1000000);
-				json.add(module.getName(), jsonModule);
+				json.add(mod.getName(), jsonModule);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(sliders));
 			save.println(gson.toJson(json));
@@ -375,12 +375,12 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Module module =
+				Mod mod =
 					Client.wurst.modManager.getModByName(entry.getKey());
-				if(module != null)
+				if(mod != null)
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
-					for(BasicSlider slider : module.getSliders())
+					for(BasicSlider slider : mod.getSliders())
 						try
 						{
 							slider.setValue(jsonModule.get(slider.getText())

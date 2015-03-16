@@ -14,15 +14,15 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
-import tk.wurst_client.module.Module.Info;
+import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 
 @Info(name = "AntiAFK",
 	description = "Walks around randomly to hide you from AFK detectors.\n"
 		+ "Needs 3x3 blocks of free space.",
 	category = Category.MISC)
-public class AntiAFK extends Module implements UpdateListener
+public class AntiAFK extends Mod implements UpdateListener
 {
 	private BlockPos block;
 	private Random random;

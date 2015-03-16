@@ -37,13 +37,13 @@ import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ArenaBrawl extends Module implements UpdateListener, RenderListener, ChatInputListener
+public class ArenaBrawl extends Mod implements UpdateListener, RenderListener, ChatInputListener
 {
 	public ArenaBrawl()
 	{

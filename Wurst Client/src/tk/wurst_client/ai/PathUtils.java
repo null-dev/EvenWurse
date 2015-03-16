@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.module.modules.AntiKnockback;
 import tk.wurst_client.module.modules.Flight;
 import tk.wurst_client.module.modules.Jesus;
@@ -24,12 +24,12 @@ import tk.wurst_client.module.modules.Spider;
 public class PathUtils
 {
 	private static PlayerCapabilities playerCaps;
-	private static Module antiKnockbackMod;
-	private static Module flightMod;
-	private static Module jesusMod;
-	private static Module noFallMod;
-	private static Module noSlowdownMod;
-	private static Module spiderMod;
+	private static Mod antiKnockbackMod;
+	private static Mod flightMod;
+	private static Mod jesusMod;
+	private static Mod noFallMod;
+	private static Mod noSlowdownMod;
+	private static Mod spiderMod;
 	
 	public static boolean isSafe(BlockPos pos)
 	{

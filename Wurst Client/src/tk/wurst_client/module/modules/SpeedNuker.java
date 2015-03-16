@@ -19,10 +19,10 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.BlockUtils;
 
-public class SpeedNuker extends Module implements UpdateListener
+public class SpeedNuker extends Mod implements UpdateListener
 {
 	private static Block currentBlock;
 	private BlockPos pos;

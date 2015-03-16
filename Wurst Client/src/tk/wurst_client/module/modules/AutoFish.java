@@ -12,9 +12,9 @@ import net.minecraft.entity.projectile.EntityFishHook;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class AutoFish extends Module implements UpdateListener
+public class AutoFish extends Mod implements UpdateListener
 {
 	
 	public AutoFish()

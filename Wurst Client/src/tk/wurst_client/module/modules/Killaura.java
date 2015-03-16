@@ -17,10 +17,10 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.EntityUtils;
 
-public class Killaura extends Module implements UpdateListener
+public class Killaura extends Mod implements UpdateListener
 {
 	public static float normalSpeed = 20F;
 	public static float normalRange = 5F;

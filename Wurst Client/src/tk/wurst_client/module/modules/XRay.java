@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class XRay extends Module
+public class XRay extends Mod
 {
 	public XRay()
 	{

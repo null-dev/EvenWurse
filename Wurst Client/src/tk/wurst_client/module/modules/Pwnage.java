@@ -15,12 +15,12 @@ import tk.wurst_client.alts.NameGenerator;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.servers.ServerConnector;
 import tk.wurst_client.servers.ServerConnector.Connection;
 import tk.wurst_client.utils.EmptyFutureListener;
 
-public class Pwnage extends Module implements UpdateListener
+public class Pwnage extends Mod implements UpdateListener
 {
 	private ServerConnector connector;
 	

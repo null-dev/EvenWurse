@@ -15,9 +15,9 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class AutoTool extends Module implements UpdateListener
+public class AutoTool extends Mod implements UpdateListener
 {
 	private boolean isActive = false;
 	private int oldSlot;

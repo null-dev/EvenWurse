@@ -18,9 +18,9 @@ import net.minecraft.potion.PotionEffect;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class LSD extends Module implements UpdateListener
+public class LSD extends Mod implements UpdateListener
 {
 	private static float speed = 2;
 	private static long currentMS = 0L;

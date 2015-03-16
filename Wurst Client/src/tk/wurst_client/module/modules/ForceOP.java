@@ -34,9 +34,9 @@ import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatInputEvent;
 import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class ForceOP extends Module implements ChatInputListener
+public class ForceOP extends Mod implements ChatInputListener
 {
 	public ForceOP()
 	{

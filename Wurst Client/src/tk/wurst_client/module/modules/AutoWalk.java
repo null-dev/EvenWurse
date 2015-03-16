@@ -11,9 +11,9 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class AutoWalk extends Module implements UpdateListener
+public class AutoWalk extends Mod implements UpdateListener
 {
 	public AutoWalk()
 	{

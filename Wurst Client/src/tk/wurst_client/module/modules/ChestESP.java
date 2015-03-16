@@ -21,10 +21,10 @@ import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ChestESP extends Module implements UpdateListener, RenderListener
+public class ChestESP extends Mod implements UpdateListener, RenderListener
 {
 	private int range = 50;
 	private int maxChests = 1000;

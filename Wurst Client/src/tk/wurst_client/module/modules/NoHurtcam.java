@@ -8,9 +8,9 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class NoHurtcam extends Module
+public class NoHurtcam extends Mod
 {
 	public NoHurtcam()
 	{

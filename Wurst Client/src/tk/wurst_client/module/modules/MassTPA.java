@@ -21,9 +21,9 @@ import tk.wurst_client.event.events.ChatInputEvent;
 import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class MassTPA extends Module implements UpdateListener, ChatInputListener
+public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 {
 	private float speed = 1F;
 	private int i;

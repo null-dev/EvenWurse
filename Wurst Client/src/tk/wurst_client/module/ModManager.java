@@ -17,8 +17,8 @@ import tk.wurst_client.module.modules.*;
 public class ModManager
 {
 	@Deprecated
-	public final ArrayList<Module> activeModules = new ArrayList<Module>();
-	private final TreeMap<String, Module> mods = new TreeMap<String, Module>(
+	public final ArrayList<Mod> activeModules = new ArrayList<Mod>();
+	private final TreeMap<String, Mod> mods = new TreeMap<String, Mod>(
 		new Comparator<String>()
 		{
 			@Override
@@ -121,7 +121,7 @@ public class ModManager
 		addMod(new AutoBuild());
 	}
 	
-	public Module getMod(Class modClass)
+	public Mod getMod(Class modClass)
 	{
 		return mods.get(modClass);
 	}
@@ -130,15 +130,15 @@ public class ModManager
 	 * Very slow and not intended for frequent usage. If possible, use
 	 * {@linkplain #getMod(Class)} instead.
 	 */
-	public Module getModByName(String name)
+	public Mod getModByName(String name)
 	{
-		for(Module mod : getAllMods())
+		for(Mod mod : getAllMods())
 			if(mod.getName().equalsIgnoreCase(name))
 				return mod;
 		return null;
 	}
 	
-	public Collection<Module> getAllMods()
+	public Collection<Mod> getAllMods()
 	{
 		return mods.values();
 	}
@@ -148,7 +148,7 @@ public class ModManager
 		return mods.size();
 	}
 	
-	private void addMod(Module mod)
+	private void addMod(Mod mod)
 	{
 		mods.put(mod.getName(), mod);
 	}

@@ -13,9 +13,9 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class Regen extends Module implements UpdateListener
+public class Regen extends Mod implements UpdateListener
 {
 	public Regen()
 	{

@@ -13,10 +13,10 @@ import net.minecraft.entity.item.EntityItem;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ItemESP extends Module implements RenderListener
+public class ItemESP extends Mod implements RenderListener
 {
 	public ItemESP()
 	{

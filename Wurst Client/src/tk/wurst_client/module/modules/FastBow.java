@@ -18,9 +18,9 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class FastBow extends Module implements UpdateListener
+public class FastBow extends Mod implements UpdateListener
 {
 	public FastBow()
 	{

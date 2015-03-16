@@ -12,9 +12,9 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class Freecam extends Module implements UpdateListener
+public class Freecam extends Mod implements UpdateListener
 {
 	public Freecam()
 	{

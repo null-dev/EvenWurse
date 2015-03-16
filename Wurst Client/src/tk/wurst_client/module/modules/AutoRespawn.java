@@ -10,9 +10,9 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class AutoRespawn extends Module
+public class AutoRespawn extends Mod
 {
 	public AutoRespawn()
 	{

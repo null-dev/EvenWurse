@@ -17,7 +17,7 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
 
-public class Module
+public class Mod
 {
 	private String name;
 	private String description;
@@ -27,7 +27,7 @@ public class Module
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
 	
-	public Module(String moduleName, String moduleDescription,
+	public Mod(String moduleName, String moduleDescription,
 		Category moduleCategory)
 	{
 		this.name = moduleName;

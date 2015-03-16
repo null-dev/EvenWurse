@@ -26,7 +26,7 @@ import org.lwjgl.input.Mouse;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
 public class WurstButtonUI extends AbstractComponentUI<Button>
 {
@@ -135,7 +135,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 				(theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
-			Module mod =
+			Mod mod =
 				Client.wurst.modManager.getModByName(button.getText());
 			for(Frame frame : Client.wurst.guiManager.getFrames())
 				if(frame.getTitle().equalsIgnoreCase(mod.getCategory().name()))
@@ -213,9 +213,9 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			if(!isRightFrame)
 				return false;
 			boolean isLastButton = false;
-			for(Module module : Client.wurst.modManager.getAllMods())
-				if(buttonCategory == module.getCategory())
-					if(button.getText().equals(module.getName()))
+			for(Mod mod : Client.wurst.modManager.getAllMods())
+				if(buttonCategory == mod.getCategory())
+					if(button.getText().equals(mod.getName()))
 						isLastButton = true;
 					else
 						isLastButton = false;

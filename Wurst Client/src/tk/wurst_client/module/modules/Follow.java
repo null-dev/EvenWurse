@@ -12,10 +12,10 @@ import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.EntityUtils;
 
-public class Follow extends Module implements UpdateListener
+public class Follow extends Mod implements UpdateListener
 {
 	private EntityLivingBase entity;
 	private float range = 12F;

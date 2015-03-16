@@ -16,10 +16,10 @@ import net.minecraft.util.MathHelper;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ProphuntESP extends Module implements RenderListener
+public class ProphuntESP extends Mod implements RenderListener
 {
 	public ProphuntESP()
 	{

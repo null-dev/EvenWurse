@@ -11,9 +11,9 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.module.Mod;
 
-public class NoWeb extends Module implements UpdateListener
+public class NoWeb extends Mod implements UpdateListener
 {
 	public NoWeb()
 	{
