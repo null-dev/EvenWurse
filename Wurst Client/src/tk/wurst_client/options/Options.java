@@ -12,7 +12,7 @@ import tk.wurst_client.Client;
 public class Options
 {
 	public boolean autoReconnect = false;
-	public boolean cleanupFailed = false;
+	public boolean cleanupFailed = true;
 	public boolean cleanupOutdated = true;
 	public boolean cleanupRename = true;
 	public boolean cleanupUnknown = true;
