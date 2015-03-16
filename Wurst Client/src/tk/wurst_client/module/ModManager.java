@@ -7,7 +7,6 @@
  */
 package tk.wurst_client.module;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
@@ -17,8 +16,6 @@ import tk.wurst_client.module.modules.*;
 
 public class ModManager
 {
-	@Deprecated
-	public final ArrayList<Mod> activeModules = new ArrayList<Mod>();
 	private final TreeMap<String, Mod> mods = new TreeMap<String, Mod>(
 		new Comparator<String>()
 		{
