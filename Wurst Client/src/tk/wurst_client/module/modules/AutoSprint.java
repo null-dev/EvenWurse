@@ -11,18 +11,12 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Makes you sprint whenever you walk.", name = "AutoSprint")
 public class AutoSprint extends Mod implements UpdateListener
 {
-	
-	public AutoSprint()
-	{
-		super(
-			"AutoSprint",
-			"Makes you sprint whenever you walk.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

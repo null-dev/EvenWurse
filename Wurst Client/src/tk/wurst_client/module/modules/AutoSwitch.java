@@ -11,20 +11,15 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
-public class AutoSwitch extends Mod implements UpdateListener
-{
-	public AutoSwitch()
-	{
-		super(
-			"AutoSwitch",
-			"Switches the item in your hand all the time.\n"
+@Info(category = Category.MISC, description = "Switches the item in your hand all the time.\n"
 				+ "Tip: Use this in combination with BuildRandom while\n"
 				+ "having a lot of different colored wool blocks in your\n"
-				+ "hotbar.",
-			Category.MISC);
-	}
-	
+				+ "hotbar.", name = "AutoSwitch")
+public class AutoSwitch extends Mod implements UpdateListener
+{
 	@Override
 	public void onEnable()
 	{

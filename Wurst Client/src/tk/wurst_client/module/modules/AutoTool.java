@@ -15,20 +15,15 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.BLOCKS, description = "Automatically uses the best tool in your hotbar to\n"
+				+ "mine blocks. Tip: This works with Nuker.", name = "AutoTool")
 public class AutoTool extends Mod implements UpdateListener
 {
 	private boolean isActive = false;
 	private int oldSlot;
-	
-	public AutoTool()
-	{
-		super(
-			"AutoTool",
-			"Automatically uses the best tool in your hotbar to\n"
-				+ "mine blocks. Tip: This works with Nuker.",
-			Category.BLOCKS);
-	}
 	
 	@Override
 	public void onEnable()

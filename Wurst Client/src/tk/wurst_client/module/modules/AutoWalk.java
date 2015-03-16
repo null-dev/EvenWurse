@@ -11,17 +11,12 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Automatically walks all the time.", name = "AutoWalk")
 public class AutoWalk extends Mod implements UpdateListener
 {
-	public AutoWalk()
-	{
-		super(
-			"AutoWalk",
-			"Automatically walks all the time.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{
