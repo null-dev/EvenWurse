@@ -26,7 +26,7 @@ public class IP extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null)
+		if(args == null || args.length == 0)
 			Client.wurst.chat.message("IP: " + Client.wurst.currentServerIP);
 		else if(args[0].toLowerCase().equals("copy"))
 		{
