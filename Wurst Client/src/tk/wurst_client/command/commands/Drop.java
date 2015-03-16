@@ -7,12 +7,18 @@
  */
 package tk.wurst_client.command.commands;
 
+import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.modules.DropCMD;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.module.modules.YesCheat;
 
-public class Drop extends Command
+public class Drop extends Command implements UpdateListener
 {
+	private int timer;
+	private int counter;
+	
 	public Drop()
 	{
 		super("drop",
@@ -23,10 +29,38 @@ public class Drop extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null)
-			Client.wurst.modManager.getMod(DropCMD.class)
-				.setToggled(true);
-		else
+		if(args != null)
+		{
 			commandError();
+			return;
+		}
+			timer = 0;
+			counter = 9;
+			EventManager.addUpdateListener(this);
+	}
+	
+	@Override
+	public void onUpdate()
+	{
+		if(Client.wurst.modManager.getMod(YesCheat.class)
+			.getToggled())
+		{
+			timer++;
+			if(timer >= 5)
+			{
+				Minecraft.getMinecraft().playerController.windowClick(0,
+					counter, 1, 4, Minecraft.getMinecraft().thePlayer);
+				counter++;
+				timer = 0;
+				if(counter >= 45)
+					EventManager.removeUpdateListener(this);
+			}
+		}else
+		{
+			for(int i = 9; i < 45; i++)
+				Minecraft.getMinecraft().playerController.windowClick(0, i, 1,
+					4, Minecraft.getMinecraft().thePlayer);
+			EventManager.removeUpdateListener(this);
+		}
 	}
 }

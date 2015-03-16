@@ -55,7 +55,6 @@ public class ModManager
 		addMod(new Criticals());
 		addMod(new Derp());
 		addMod(new Dolphin());
-		addMod(new DropCMD());
 		addMod(new FastBreak());
 		addMod(new FastBow());
 		addMod(new FastEat());
