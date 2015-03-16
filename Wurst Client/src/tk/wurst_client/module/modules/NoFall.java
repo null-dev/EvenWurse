@@ -12,17 +12,12 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Protects you from fall damage.", name = "NoFall")
 public class NoFall extends Mod implements UpdateListener
 {
-	public NoFall()
-	{
-		super(
-			"NoFall",
-			"Protects you from fall damage.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

@@ -13,18 +13,13 @@ import net.minecraft.entity.EntityLiving;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.RENDER, description = "Allows you to see mobs through walls.", name = "MobESP")
 public class MobESP extends Mod implements RenderListener
 {
-	public MobESP()
-	{
-		super(
-			"MobESP",
-			"Allows you to see mobs through walls.",
-			Category.RENDER);
-	}
-	
 	@Override
 	public void onEnable()
 	{

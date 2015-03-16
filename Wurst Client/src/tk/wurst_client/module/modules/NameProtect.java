@@ -8,16 +8,13 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.RENDER, description = "Hides all player names.\n"
+				+ "Some YouTubers like to censor out all names in their\n"
+				+ "videos.", name = "NameProtect")
 public class NameProtect extends Mod
 {
-	public NameProtect()
-	{
-		super(
-			"NameProtect",
-			"Hides all player names.\n"
-				+ "Some YouTubers like to censor out all names in their\n"
-				+ "videos.",
-			Category.RENDER);
-	}
+	
 }

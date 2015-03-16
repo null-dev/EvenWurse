@@ -13,19 +13,14 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+@Info(category = Category.COMBAT, description = "Faster Killaura that attacks multiple entities at once.", name = "MultiAura")
 public class MultiAura extends Mod implements UpdateListener
 {
 	private float range = 6F;
-	
-	public MultiAura()
-	{
-		super(
-			"MultiAura",
-			"Faster Killaura that attacks multiple entities at once.",
-			Category.COMBAT);
-	}
 	
 	@Override
 	public void onEnable()
