@@ -8,14 +8,11 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.RENDER, description = "Blocks blindness and nausea.", name = "AntiBlind")
 public class AntiBlind extends Mod
 {
-	public AntiBlind()
-	{
-		super(
-			"AntiBlind",
-			"Blocks blindness and nausea.",
-			Category.RENDER);
-	}
+	
 }
