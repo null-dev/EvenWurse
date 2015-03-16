@@ -151,5 +151,6 @@ public class ModManager
 	private void addMod(Mod mod)
 	{
 		mods.put(mod.getName(), mod);
+		mod.initSliders();
 	}
 }
