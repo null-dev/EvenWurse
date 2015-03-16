@@ -12,17 +12,12 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.BLOCKS, description = "Automatically mines a block as soon as you look at it.", name = "AutoMine")
 public class AutoMine extends Mod implements UpdateListener
 {
-	public AutoMine()
-	{
-		super(
-			"AutoMine",
-			"Automatically mines a block as soon as you look at it.",
-			Category.BLOCKS);
-	}
-	
 	@Override
 	public void onEnable()
 	{
