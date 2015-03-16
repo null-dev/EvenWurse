@@ -12,20 +12,15 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
-public class Throw extends Mod implements UpdateListener
-{
-	public Throw()
-	{
-		super(
-			"Throw",
-			"Uses an item multiple times.\n"
+@Info(category = Category.MISC, description = "Uses an item multiple times.\n"
 				+ "This can cause a lot of lag and even crash a server.\n"
 				+ "Works best with snowballs or eggs.\n"
-				+ "Type .throw <amount> to change the amount of uses per click.",
-			Category.MISC);
-	}
-	
+				+ "Use the .throw command to change the amount of uses per click.", name = "Throw")
+public class Throw extends Mod implements UpdateListener
+{
 	@Override
 	public String getRenderName()
 	{

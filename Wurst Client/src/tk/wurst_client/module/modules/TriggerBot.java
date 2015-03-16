@@ -14,18 +14,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+@Info(category = Category.COMBAT, description = "Automatically attacks the entity you're looking at.", name = "TriggerBot")
 public class TriggerBot extends Mod implements UpdateListener
 {
-	public TriggerBot()
-	{
-		super(
-			"TriggerBot",
-			"Automatically attacks the entity you're looking at.",
-			Category.COMBAT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

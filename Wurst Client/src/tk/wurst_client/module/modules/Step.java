@@ -12,17 +12,12 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Allows you to step up full blocks.", name = "Step")
 public class Step extends Mod implements UpdateListener
 {
-	public Step()
-	{
-		super(
-			"Step",
-			"Allows you to step up full blocks.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

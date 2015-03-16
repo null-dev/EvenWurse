@@ -14,18 +14,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.RENDER, description = "Draws lines to players around you.", name = "Tracers")
 public class Tracers extends Mod implements RenderListener
 {
-	public Tracers()
-	{
-		super(
-			"Tracers",
-			"Draws lines to players around you.",
-			Category.RENDER);
-	}
-	
 	@Override
 	public void onEnable()
 	{
