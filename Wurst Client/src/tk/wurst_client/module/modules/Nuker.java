@@ -25,9 +25,13 @@ import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.BLOCKS, description = "Destroys blocks around you.\n"
+				+ "Use .nuker mode <mode> to change the mode.", name = "Nuker")
 public class Nuker extends Mod implements UpdateListener, RenderListener
 {
 	public static float normalRange = 5F;
@@ -41,15 +45,6 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 	private BlockPos pos;
 	private boolean shouldRenderESP;
 	private int oldSlot = -1;
-	
-	public Nuker()
-	{
-		super(
-			"Nuker",
-			"Destroys blocks around you.\n"
-				+ "Use .nuker mode <mode> to change the mode.",
-			Category.BLOCKS);
-	}
 	
 	@Override
 	public String getRenderName()

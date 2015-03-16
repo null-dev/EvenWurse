@@ -12,17 +12,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Cancels slowness effects caused by water, soul sand and\n"
+				+ "using items.", name = "NoSlowdown")
 public class NoSlowdown extends Mod implements UpdateListener
 {
-	public NoSlowdown()
-	{
-		super("NoSlowdown",
-			"Cancels slowness effects caused by water, soul sand and\n"
-				+ "using items.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

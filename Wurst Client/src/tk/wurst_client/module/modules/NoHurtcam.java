@@ -8,14 +8,11 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.RENDER, description = "Disables the annoying effect when you get hurt.", name = "NoHurtcam")
 public class NoHurtcam extends Mod
 {
-	public NoHurtcam()
-	{
-		super(
-			"NoHurtcam",
-			"Disables the annoying effect when you get hurt.",
-			Category.RENDER);
-	}
+	
 }

@@ -11,18 +11,13 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Prevents you from getting slowed down in webs.\n"
+				+ "Note: This has nothing to do with websites.", name = "NoWeb")
 public class NoWeb extends Mod implements UpdateListener
 {
-	public NoWeb()
-	{
-		super(
-			"NoWeb",
-			"Prevents you from getting slowed down in webs.\n"
-				+ "Note: This has nothing to do with websites.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{
