@@ -37,24 +37,22 @@ import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.utils.RenderUtils;
 
-public class ArenaBrawl extends Mod implements UpdateListener, RenderListener, ChatInputListener
+@Info(category = Category.MISC,
+	description = "Makes ArenaBrawl on mc.hypixel.net a lot easier.\n"
+		+ "This is a collection of mods that have been optimized\n"
+		+ "for ArenaBrawl. It will bypass everything that Hypixel\n"
+		+ "has to offer.",
+	name = "ArenaBrawl")
+public class ArenaBrawl extends Mod implements UpdateListener, RenderListener,
+	ChatInputListener
 {
-	public ArenaBrawl()
-	{
-		super(
-			"ArenaBrawl",
-			"Makes ArenaBrawl on mc.hypixel.net a lot easier.\n"
-				+ "This is a collection of mods that have been optimized\n"
-				+ "for ArenaBrawl. It will bypass everything that Hypixel\n"
-				+ "has to offer.",
-			Category.MISC);
-	}
-	
 	private EntityLivingBase friend;
 	public static float range = 4.25F;
 	public static ArrayList<String> scoreboard = new ArrayList<String>();
@@ -293,7 +291,7 @@ public class ArenaBrawl extends Mod implements UpdateListener, RenderListener, C
 			setToggled(false);
 		}
 	}
-
+	
 	@Override
 	public void onDeath()
 	{
@@ -304,7 +302,7 @@ public class ArenaBrawl extends Mod implements UpdateListener, RenderListener, C
 		Client.wurst.chat.message("You died.");
 		setToggled(false);
 	}
-
+	
 	private void setupFrame()
 	{
 		friendsName = formatSBName(0);
