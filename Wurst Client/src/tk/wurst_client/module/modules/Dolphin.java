@@ -11,17 +11,12 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Automatically swims like a dolphin.", name = "Dolphin")
 public class Dolphin extends Mod implements UpdateListener
 {
-	public Dolphin()
-	{
-		super(
-			"Dolphin",
-			"Automatically swims like a dolphin.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

@@ -12,17 +12,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.COMBAT, description = "Changes all your hits to critical hits.", name = "Criticals")
 public class Criticals extends Mod
 {
-	public Criticals()
-	{
-		super(
-			"Criticals",
-			"Changes all your hits to critical hits.",
-			Category.COMBAT);
-	}
-	
 	@Override
 	public void onLeftClick()
 	{

@@ -15,16 +15,14 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.HIDDEN, description = "", name = "ClickGUI")
 public class ClickGUI extends Mod implements UpdateListener
 {
-	
 	public ClickGUI()
 	{
-		super(
-			"ClickGUI",
-			"",
-			Category.HIDDEN);
 		EventManager.addUpdateListener(this);
 	}
 	

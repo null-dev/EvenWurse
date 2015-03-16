@@ -12,18 +12,13 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.FUN, description = "While this is active, other people will think you are\n"
+				+ "derping around.", name = "Derp")
 public class Derp extends Mod implements UpdateListener
 {
-	public Derp()
-	{
-		super(
-			"Derp",
-			"While this is active, other people will think you are\n"
-				+ "derping around.",
-			Category.FUN);
-	}
-	
 	@Override
 	public void onEnable()
 	{
