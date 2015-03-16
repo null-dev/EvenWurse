@@ -19,11 +19,10 @@ public class Options
 	public boolean forceOPDontWait = false;
 	public boolean middleClickFriends = true;
 	public boolean spamFont = false;
-	public boolean renameForceOPEvenThoughTheNameIsTechnicallyCorrect = false;
 	public boolean WIP = false;
 	public boolean wurstNews = true;
 	
-	public int arrayListMode = 0;
+	public int modListMode = 0;
 	public int autobuildMode = 1;
 	public int targetMode = 0;
 	public int fastbreakMode = 0;

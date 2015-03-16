@@ -10,7 +10,7 @@ package tk.wurst_client.command.commands;
 import net.minecraft.block.Block;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.modules.Search;
+import tk.wurst_client.mod.mods.Search;
 import tk.wurst_client.utils.MiscUtils;
 
 public class SearchMod extends Command
@@ -33,11 +33,11 @@ public class SearchMod extends Command
 	{
 		if(args == null)
 		{
-			Client.wurst.moduleManager.getModuleFromClass(Search.class)
-				.toggleModule();
+			Client.wurst.modManager.getModByClass(Search.class)
+				.toggle();
 			Client.wurst.chat.message("Search turned "
-				+ (Client.wurst.moduleManager.getModuleFromClass(Search.class)
-					.getToggled() == true ? "on" : "off") + ".");
+				+ (Client.wurst.modManager.getModByClass(Search.class)
+					.isEnabled() == true ? "on" : "off") + ".");
 		}else if(args[0].toLowerCase().equals("id"))
 		{
 			if(MiscUtils.isInteger(args[1]))

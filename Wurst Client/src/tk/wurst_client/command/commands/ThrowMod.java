@@ -9,7 +9,7 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.modules.Throw;
+import tk.wurst_client.mod.mods.Throw;
 import tk.wurst_client.utils.MiscUtils;
 
 public class ThrowMod extends Command
@@ -31,11 +31,11 @@ public class ThrowMod extends Command
 	{
 		if(args == null)
 		{
-			Client.wurst.moduleManager.getModuleFromClass(Throw.class)
-				.toggleModule();
+			Client.wurst.modManager.getModByClass(Throw.class)
+				.toggle();
 			Client.wurst.chat.message("Throw turned "
-				+ (Client.wurst.moduleManager.getModuleFromClass(Throw.class)
-					.getToggled() == true ? "on" : "off") + ".");
+				+ (Client.wurst.modManager.getModByClass(Throw.class)
+					.isEnabled() == true ? "on" : "off") + ".");
 		}else if(args[0].equalsIgnoreCase("amount")
 			&& MiscUtils.isInteger(args[1]))
 		{

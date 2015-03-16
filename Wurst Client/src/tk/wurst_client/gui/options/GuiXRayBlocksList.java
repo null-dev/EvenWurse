@@ -22,7 +22,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tk.wurst_client.gui.GuiWurstSlot;
-import tk.wurst_client.module.modules.XRay;
+import tk.wurst_client.mod.mods.XRay;
 
 public class GuiXRayBlocksList extends GuiWurstSlot
 {

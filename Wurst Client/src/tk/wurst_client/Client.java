@@ -17,7 +17,7 @@ import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.Event;
 import tk.wurst_client.files.FileManager;
 import tk.wurst_client.gui.GuiManager;
-import tk.wurst_client.module.ModuleManager;
+import tk.wurst_client.mod.ModManager;
 import tk.wurst_client.options.Friends;
 import tk.wurst_client.options.Keybinds;
 import tk.wurst_client.options.Options;
@@ -35,7 +35,7 @@ public class Client
 	public FileManager fileManager;
 	public Friends friends;
 	public GuiManager guiManager;
-	public ModuleManager moduleManager;
+	public ModManager modManager;
 	public Keybinds keybinds;
 	public Options options;
 	public Updater updater;
@@ -44,7 +44,7 @@ public class Client
 	
 	public void startClient()
 	{
-		moduleManager = new ModuleManager();
+		modManager = new ModManager();
 		guiManager = new GuiManager();
 		commandManager = new CommandManager();
 		fileManager = new FileManager();

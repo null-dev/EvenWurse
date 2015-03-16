@@ -15,7 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.Client;
 import tk.wurst_client.gui.GuiWurstSlot;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.mod.Mod;
 
 public class GuiKeybindList extends GuiWurstSlot
 {
@@ -29,7 +29,7 @@ public class GuiKeybindList extends GuiWurstSlot
 	private int selectedSlot;
 	private Minecraft mc;
 	@Deprecated
-	public static ArrayList<Module> modules = new ArrayList<Module>();
+	public static ArrayList<Mod> mods = new ArrayList<Mod>();
 	
 	@Override
 	protected boolean isSelected(int id)

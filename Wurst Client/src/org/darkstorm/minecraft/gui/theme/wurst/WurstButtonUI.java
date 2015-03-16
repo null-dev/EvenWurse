@@ -18,14 +18,15 @@ import net.minecraft.client.Minecraft;
 
 import org.darkstorm.minecraft.gui.component.Button;
 import org.darkstorm.minecraft.gui.component.Component;
+import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.mod.Mod;
+import tk.wurst_client.mod.Mod.Category;
 
 public class WurstButtonUI extends AbstractComponentUI<Button>
 {
@@ -134,13 +135,11 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 				(theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
-			for(Module module : Client.wurst.moduleManager.activeModules)
-				if(button.getText().equals(module.getName()))
-					for(org.darkstorm.minecraft.gui.component.Frame frame : Client.wurst.guiManager
-						.getFrames())
-						if(frame.getTitle().equalsIgnoreCase(
-							module.getCategory().name()))
-							Client.wurst.guiManager.bringForward(frame);
+			Mod mod =
+				Client.wurst.modManager.getModByName(button.getText());
+			for(Frame frame : Client.wurst.guiManager.getFrames())
+				if(frame.getTitle().equalsIgnoreCase(mod.getCategory().name()))
+					Client.wurst.guiManager.bringForward(frame);
 			int scale = Minecraft.getMinecraft().gameSettings.guiScale;
 			if(scale == 0)
 				scale = 1000;
@@ -204,19 +203,19 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			Category buttonCategory = null;
 			Category dButtonCategory = null;
 			buttonCategory =
-				Client.wurst.moduleManager.getModuleByName(button.getText())
+				Client.wurst.modManager.getModByName(button.getText())
 					.getCategory();
 			dButtonCategory =
-				Client.wurst.moduleManager.getModuleByName(dButton.getText())
+				Client.wurst.modManager.getModByName(dButton.getText())
 					.getCategory();
 			boolean isRightFrame =
 				buttonCategory == dButtonCategory && buttonCategory != null;
 			if(!isRightFrame)
 				return false;
 			boolean isLastButton = false;
-			for(Module module : Client.wurst.moduleManager.activeModules)
-				if(buttonCategory == module.getCategory())
-					if(button.getText().equals(module.getName()))
+			for(Mod mod : Client.wurst.modManager.getAllMods())
+				if(buttonCategory == mod.getCategory())
+					if(button.getText().equals(mod.getName()))
 						isLastButton = true;
 					else
 						isLastButton = false;

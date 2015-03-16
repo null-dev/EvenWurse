@@ -7,6 +7,8 @@
  */
 package tk.wurst_client.gui;
 
+import java.util.LinkedList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 
@@ -15,55 +17,46 @@ import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.font.Fonts;
-import tk.wurst_client.module.Module;
-import tk.wurst_client.module.modules.ClickGUI;
+import tk.wurst_client.mod.Mod;
+import tk.wurst_client.mod.mods.ClickGUI;
 
 public class UIRenderer
 {
-	private static void renderArrayList()
+	private static void renderModList()
 	{
-		if(Client.wurst.options.arrayListMode == 2)
+		if(Client.wurst.options.modListMode == 2)
 			return;
-		int arrayListLength = 0;
-		for(Module arrayModule : Client.wurst.moduleManager.activeModules)
+		LinkedList<String> modList = new LinkedList<String>();
+		for(Mod mod : Client.wurst.modManager.getAllMods())
 		{
-			if(arrayModule instanceof ClickGUI)
+			if(mod instanceof ClickGUI)
 				continue;
-			if(arrayModule.getToggled())
-				arrayListLength++;
+			if(mod.isEnabled())
+				modList.add(mod.getRenderName());
 		}
-		int yCount = 19;
-		ScaledResolution sr = new ScaledResolution
-			(
-				Minecraft.getMinecraft(),
+		ScaledResolution sr =
+			new ScaledResolution(Minecraft.getMinecraft(),
 				Minecraft.getMinecraft().displayWidth,
-				Minecraft.getMinecraft().displayHeight
-			);
-		if(yCount + arrayListLength * 9 > sr.getScaledHeight()
-			|| Client.wurst.options.arrayListMode == 1)
+				Minecraft.getMinecraft().displayHeight);
+		int yCount = 19;
+		if(yCount + modList.size() * 9 > sr.getScaledHeight()
+			|| Client.wurst.options.modListMode == 1)
 		{
 			String tooManyMods = "";
-			if(arrayListLength == 0)
+			if(modList.isEmpty())
 				return;
-			else if(arrayListLength > 1)
-				tooManyMods = arrayListLength + " mods active";
+			else if(modList.size() > 1)
+				tooManyMods = modList.size() + " mods active";
 			else
 				tooManyMods = "1 mod active";
 			Fonts.segoe18.drawString(tooManyMods, 3, yCount + 1, 0xFF000000);
 			Fonts.segoe18.drawString(tooManyMods, 2, yCount, 0xFFFFFFFF);
 		}else
-			for(Module arrayModule : Client.wurst.moduleManager.activeModules)
+			for(String name; (name = modList.poll()) != null;)
 			{
-				if(arrayModule instanceof ClickGUI)
-					continue;
-				if(arrayModule.getToggled())
-				{
-					Fonts.segoe18.drawString(arrayModule.getRenderName(), 3,
-						yCount + 1, 0xFF000000);
-					Fonts.segoe18.drawString(arrayModule.getRenderName(), 2,
-						yCount, 0xFFFFFFFF);
-					yCount += 9;
-				}
+				Fonts.segoe18.drawString(name, 3, yCount + 1, 0xFF000000);
+				Fonts.segoe18.drawString(name, 2, yCount, 0xFFFFFFFF);
+				yCount += 9;
 			}
 	}
 	
@@ -71,7 +64,7 @@ public class UIRenderer
 	{
 		Fonts.segoe22.drawString("v" + Client.wurst.CLIENT_VERSION, 74, 4,
 			0xFF000000);
-		renderArrayList();
+		renderModList();
 	}
 	
 	public static void renderPinnedFrames()

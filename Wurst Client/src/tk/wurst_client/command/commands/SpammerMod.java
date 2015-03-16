@@ -9,7 +9,7 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.modules.Spammer;
+import tk.wurst_client.mod.mods.Spammer;
 import tk.wurst_client.spam.SpamProcessor;
 
 public class SpammerMod extends Command

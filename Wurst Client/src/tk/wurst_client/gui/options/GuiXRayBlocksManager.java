@@ -12,7 +12,7 @@ import java.io.IOException;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.Client;
-import tk.wurst_client.module.modules.XRay;
+import tk.wurst_client.mod.mods.XRay;
 
 public class GuiXRayBlocksManager extends GuiScreen
 {

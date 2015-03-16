@@ -65,9 +65,9 @@ import org.darkstorm.minecraft.gui.listener.SliderListener;
 import org.darkstorm.minecraft.gui.theme.Theme;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Category;
-import tk.wurst_client.module.Module;
-import tk.wurst_client.module.modules.AutoBuild;
+import tk.wurst_client.mod.Mod;
+import tk.wurst_client.mod.Mod.Category;
+import tk.wurst_client.mod.mods.AutoBuild;
 
 /**
  * Minecraft GUI API
@@ -116,12 +116,12 @@ public final class GuiManager extends AbstractGuiManager
 		settings.setPinnable(true);
 		addFrame(settings);
 		categoryFrames.put(Category.SETTINGS, settings);
-		for(final Module module : Client.wurst.moduleManager.activeModules)
+		for(final Mod mod : Client.wurst.modManager.getAllMods())
 		{
-			ModuleFrame frame = categoryFrames.get(module.getCategory());
+			ModuleFrame frame = categoryFrames.get(mod.getCategory());
 			if(frame == null)
 			{
-				String name = module.getCategory().name().toLowerCase();
+				String name = mod.getCategory().name().toLowerCase();
 				if(Client.wurst.fileManager.options.exists())
 					Client.wurst.fileManager.loadOptions();
 				if(name.equalsIgnoreCase("HIDDEN")
@@ -142,21 +142,21 @@ public final class GuiManager extends AbstractGuiManager
 				frame.setMinimized(true);
 				frame.setPinnable(true);
 				addFrame(frame);
-				categoryFrames.put(module.getCategory(), frame);
+				categoryFrames.put(mod.getCategory(), frame);
 			}
-			String moduleDescription = module.getDescription();
+			String moduleDescription = mod.getDescription();
 			if(moduleDescription.equals(""))
 				moduleDescription = "Error! This is a bug. Please report it.";
-			final Module updateModule = module;
+			final Mod updateModule = mod;
 			Button button =
-				new BasicButton(module.getName(), moduleDescription)
+				new BasicButton(mod.getName(), moduleDescription)
 				{
 					@Override
 					public void update()
 					{
-						setForegroundColor(updateModule.getToggled()
+						setForegroundColor(updateModule.isEnabled()
 							? Color.BLACK : Color.WHITE);
-						setBackgroundColor(updateModule.getToggled()
+						setBackgroundColor(updateModule.isEnabled()
 							? new Color(0, 255, 0, 128) : new Color(0, 0, 0, 0));
 					}
 				};
@@ -165,12 +165,12 @@ public final class GuiManager extends AbstractGuiManager
 				@Override
 				public void onButtonPress(Button button)
 				{
-					updateModule.toggleModule();
+					updateModule.toggle();
 				}
 			});
 			frame.add(button);
-			if(!module.getSliders().isEmpty())
-				for(BasicSlider slider : module.getSliders())
+			if(!mod.getSliders().isEmpty())
+				for(BasicSlider slider : mod.getSliders())
 				{
 					slider.addSliderListener(new SliderListener()
 					{
@@ -178,15 +178,15 @@ public final class GuiManager extends AbstractGuiManager
 						public void onSliderValueChanged(Slider slider)
 						{
 							ArrayList<BasicSlider> moduleSliders =
-								module.getSliders();
+								mod.getSliders();
 							if(moduleSliders.contains(slider))
 							{
 								int id = moduleSliders.indexOf(slider);
 								moduleSliders.set(id, (BasicSlider)slider);
 								Client.wurst.fileManager.saveSliders();
 							}
-							module.setSliders(moduleSliders);
-							module.updateSettings();
+							mod.setSliders(moduleSliders);
+							mod.updateSettings();
 						}
 					});
 					settings.add(slider);

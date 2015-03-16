@@ -10,7 +10,7 @@ package tk.wurst_client.command.commands;
 import net.minecraft.block.Block;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.modules.Nuker;
+import tk.wurst_client.mod.mods.Nuker;
 import tk.wurst_client.utils.MiscUtils;
 
 public class NukerMod extends Command

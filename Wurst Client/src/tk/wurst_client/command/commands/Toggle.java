@@ -9,7 +9,7 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
-import tk.wurst_client.module.Module;
+import tk.wurst_client.mod.Mod;
 
 public class Toggle extends Command
 {
@@ -39,19 +39,17 @@ public class Toggle extends Command
 			commandError();
 			return;
 		}
-		for(int i = 0; i < Client.wurst.moduleManager.activeModules.size(); i++)
-			if(Client.wurst.moduleManager.activeModules.get(i).getName()
-				.toLowerCase().equals(args[0].toLowerCase()))
-			{
-				Module module = Client.wurst.moduleManager.activeModules.get(i);
-				if(mode == 0)
-					module.toggleModule();
-				else if(mode == 1)
-					module.setToggled(true);
-				else if(mode == 2)
-					module.setToggled(false);
-				return;
-			}
-		commandError();
+		Mod mod = Client.wurst.modManager.getModByName(args[0]);
+		if(mod == null)
+		{
+			Client.wurst.chat.error("Could not find mod \"" + args[0] + "\".");
+			return;
+		}
+		if(mode == 0)
+			mod.toggle();
+		else if(mode == 1)
+			mod.setEnabled(true);
+		else if(mode == 2)
+			mod.setEnabled(false);
 	}
 }
