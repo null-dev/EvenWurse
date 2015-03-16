@@ -101,12 +101,12 @@ public class InstantBunker extends Mod implements UpdateListener,
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getMod(FastPlace.class)
+		if(Client.wurst.modManager.getModByClass(FastPlace.class)
 			.getToggled())
 			speed = 1000000000;
 		else
 			speed = 5;
-		if(Client.wurst.modManager.getMod(YesCheat.class)
+		if(Client.wurst.modManager.getModByClass(YesCheat.class)
 			.getToggled())
 		{
 			i = 0;
@@ -280,7 +280,7 @@ public class InstantBunker extends Mod implements UpdateListener,
 		if(shouldBuild)
 		{
 			if((hasTimePassedS(speed) || Client.wurst.modManager
-				.getMod(FastPlace.class).getToggled())
+				.getModByClass(FastPlace.class).getToggled())
 				&& i < building.length)
 			{
 				BuildUtils.advancedInstantBuildNext(building, MouseOver,

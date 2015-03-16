@@ -42,7 +42,7 @@ public class Drop extends Command implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getMod(YesCheat.class)
+		if(Client.wurst.modManager.getModByClass(YesCheat.class)
 			.getToggled())
 		{
 			timer++;

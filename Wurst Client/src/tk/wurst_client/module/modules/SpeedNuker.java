@@ -48,13 +48,13 @@ public class SpeedNuker extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getMod(Nuker.class)
+		if(Client.wurst.modManager.getModByClass(Nuker.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(Nuker.class)
+			Client.wurst.modManager.getModByClass(Nuker.class)
 				.setToggled(false);
-		if(Client.wurst.modManager.getMod(NukerLegit.class)
+		if(Client.wurst.modManager.getModByClass(NukerLegit.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(NukerLegit.class)
+			Client.wurst.modManager.getModByClass(NukerLegit.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
 	}
@@ -62,15 +62,15 @@ public class SpeedNuker extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getMod(YesCheat.class)
+		if(Client.wurst.modManager.getModByClass(YesCheat.class)
 			.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
 			Client.wurst.chat.message("Switching to "
-				+ Client.wurst.modManager.getMod(Nuker.class)
+				+ Client.wurst.modManager.getModByClass(Nuker.class)
 					.getName() + ".");
-			Client.wurst.modManager.getMod(Nuker.class)
+			Client.wurst.modManager.getModByClass(Nuker.class)
 				.setToggled(true);
 			return;
 		}
@@ -80,9 +80,9 @@ public class SpeedNuker extends Mod implements UpdateListener
 				+ " doesn't work in creative mode.");
 			setToggled(false);
 			Client.wurst.chat.message("Switching to "
-				+ Client.wurst.modManager.getMod(Nuker.class)
+				+ Client.wurst.modManager.getModByClass(Nuker.class)
 					.getName() + ".");
-			Client.wurst.modManager.getMod(Nuker.class)
+			Client.wurst.modManager.getModByClass(Nuker.class)
 				.setToggled(true);
 			return;
 		}
@@ -100,11 +100,11 @@ public class SpeedNuker extends Mod implements UpdateListener
 		pos = newPos;
 		currentBlock =
 			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
-		if(Client.wurst.modManager.getMod(AutoTool.class)
+		if(Client.wurst.modManager.getModByClass(AutoTool.class)
 			.getToggled() && oldSlot == -1)
 			oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-			&& Client.wurst.modManager.getMod(AutoTool.class)
+			&& Client.wurst.modManager.getModByClass(AutoTool.class)
 				.getToggled()
 			&& currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,

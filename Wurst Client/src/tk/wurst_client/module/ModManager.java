@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
 
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.module.modules.*;
 
 public class ModManager
@@ -120,21 +121,14 @@ public class ModManager
 		addMod(new AutoBuild());
 	}
 	
-	public Mod getMod(Class modClass)
+	public Mod getModByClass(Class<?> modClass)
 	{
-		return mods.get(modClass);
+		return mods.get(modClass.getAnnotation(Info.class).name());
 	}
 	
-	/**
-	 * Very slow and not intended for frequent usage. If possible, use
-	 * {@linkplain #getMod(Class)} instead.
-	 */
 	public Mod getModByName(String name)
 	{
-		for(Mod mod : getAllMods())
-			if(mod.getName().equalsIgnoreCase(name))
-				return mod;
-		return null;
+		return mods.get(name);
 	}
 	
 	public Collection<Mod> getAllMods()

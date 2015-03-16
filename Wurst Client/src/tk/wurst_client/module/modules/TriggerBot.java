@@ -26,17 +26,17 @@ public class TriggerBot extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getMod(Killaura.class)
+		if(Client.wurst.modManager.getModByClass(Killaura.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(Killaura.class)
+			Client.wurst.modManager.getModByClass(Killaura.class)
 				.setToggled(false);
-		if(Client.wurst.modManager.getMod(KillauraLegit.class)
+		if(Client.wurst.modManager.getModByClass(KillauraLegit.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(KillauraLegit.class)
+			Client.wurst.modManager.getModByClass(KillauraLegit.class)
 				.setToggled(false);
-		if(Client.wurst.modManager.getMod(MultiAura.class)
+		if(Client.wurst.modManager.getModByClass(MultiAura.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(MultiAura.class)
+			Client.wurst.modManager.getModByClass(MultiAura.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
 	}
@@ -49,7 +49,7 @@ public class TriggerBot extends Mod implements UpdateListener
 		{
 			updateMS();
 			boolean yesCheatMode =
-				Client.wurst.modManager.getMod(YesCheat.class)
+				Client.wurst.modManager.getModByClass(YesCheat.class)
 					.getToggled();
 			if(yesCheatMode && hasTimePassedS(Killaura.yesCheatSpeed)
 				|| !yesCheatMode && hasTimePassedS(Killaura.normalSpeed))

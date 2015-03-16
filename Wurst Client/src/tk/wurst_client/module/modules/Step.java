@@ -29,7 +29,7 @@ public class Step extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getMod(YesCheat.class)
+		if(Client.wurst.modManager.getModByClass(YesCheat.class)
 			.getToggled())
 		{
 			Minecraft.getMinecraft().thePlayer.stepHeight = 0.5F;

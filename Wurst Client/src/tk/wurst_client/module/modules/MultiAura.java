@@ -27,17 +27,17 @@ public class MultiAura extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getMod(Killaura.class)
+		if(Client.wurst.modManager.getModByClass(Killaura.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(Killaura.class)
+			Client.wurst.modManager.getModByClass(Killaura.class)
 				.setToggled(false);
-		if(Client.wurst.modManager.getMod(KillauraLegit.class)
+		if(Client.wurst.modManager.getModByClass(KillauraLegit.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(KillauraLegit.class)
+			Client.wurst.modManager.getModByClass(KillauraLegit.class)
 				.setToggled(false);
-		if(Client.wurst.modManager.getMod(TriggerBot.class)
+		if(Client.wurst.modManager.getModByClass(TriggerBot.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(TriggerBot.class)
+			Client.wurst.modManager.getModByClass(TriggerBot.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
 	}
@@ -45,15 +45,15 @@ public class MultiAura extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getMod(YesCheat.class)
+		if(Client.wurst.modManager.getModByClass(YesCheat.class)
 			.getToggled())
 		{
 			noCheatMessage();
 			setToggled(false);
 			Client.wurst.chat.message("Switching to "
-				+ Client.wurst.modManager.getMod(Killaura.class)
+				+ Client.wurst.modManager.getModByClass(Killaura.class)
 					.getName() + ".");
-			Client.wurst.modManager.getMod(Killaura.class)
+			Client.wurst.modManager.getModByClass(Killaura.class)
 				.setToggled(true);
 			return;
 		}

@@ -61,7 +61,7 @@ public class GoTo extends Command
 				{
 					GoToCmd.setPath(pathFinder.formatPath());
 					Client.wurst.modManager
-						.getMod(GoToCmd.class).setToggled(true);
+						.getModByClass(GoToCmd.class).setToggled(true);
 				}else
 					Client.wurst.chat.error("Could not find a path.");
 				System.out.println("Done after "

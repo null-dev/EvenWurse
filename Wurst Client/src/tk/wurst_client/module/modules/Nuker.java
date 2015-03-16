@@ -76,13 +76,13 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getMod(NukerLegit.class)
+		if(Client.wurst.modManager.getModByClass(NukerLegit.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(NukerLegit.class)
+			Client.wurst.modManager.getModByClass(NukerLegit.class)
 				.setToggled(false);
-		if(Client.wurst.modManager.getMod(SpeedNuker.class)
+		if(Client.wurst.modManager.getModByClass(SpeedNuker.class)
 			.getToggled())
-			Client.wurst.modManager.getMod(SpeedNuker.class)
+			Client.wurst.modManager.getModByClass(SpeedNuker.class)
 				.setToggled(false);
 		EventManager.addUpdateListener(this);
 		EventManager.addRenderListener(this);
@@ -104,7 +104,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getMod(YesCheat.class)
+		if(Client.wurst.modManager.getModByClass(YesCheat.class)
 			.getToggled())
 			realRange = yesCheatRange;
 		else
@@ -137,7 +137,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
-			if(Client.wurst.modManager.getMod(AutoTool.class)
+			if(Client.wurst.modManager.getModByClass(AutoTool.class)
 				.getToggled() && oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
@@ -148,7 +148,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 			{
 				currentDamage = 0;
 				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-					&& !Client.wurst.modManager.getMod(
+					&& !Client.wurst.modManager.getModByClass(
 						YesCheat.class).getToggled())
 					nukeAll();
 				else
@@ -161,7 +161,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 				return;
 			}
 		}
-		if(Client.wurst.modManager.getMod(AutoTool.class)
+		if(Client.wurst.modManager.getModByClass(AutoTool.class)
 			.getToggled())
 			AutoTool.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
@@ -172,7 +172,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 			currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos)
-				* (Client.wurst.modManager.getMod(
+				* (Client.wurst.modManager.getModByClass(
 					FastBreak.class).getToggled()
 					&& Client.wurst.options.fastbreakMode == 0
 					? FastBreak.speed : 1);
@@ -188,7 +188,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 				side);
 			blockHitDelay = (byte)4;
 			currentDamage = 0;
-		}else if(Client.wurst.modManager.getMod(FastBreak.class)
+		}else if(Client.wurst.modManager.getModByClass(FastBreak.class)
 			.getToggled() && Client.wurst.options.fastbreakMode == 1)
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(

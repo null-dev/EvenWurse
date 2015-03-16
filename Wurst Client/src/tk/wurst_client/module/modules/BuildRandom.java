@@ -37,15 +37,15 @@ public class BuildRandom extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getMod(Freecam.class)
+		if(Client.wurst.modManager.getModByClass(Freecam.class)
 			.getToggled()
-			|| Client.wurst.modManager.getMod(RemoteView.class)
+			|| Client.wurst.modManager.getModByClass(RemoteView.class)
 				.getToggled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		if(Minecraft.getMinecraft().rightClickDelayTimer > 0
-			&& !Client.wurst.modManager.getMod(FastPlace.class)
+			&& !Client.wurst.modManager.getModByClass(FastPlace.class)
 				.getToggled())
 			return;
 		float xDiff = 0;
