@@ -13,17 +13,15 @@ import net.minecraft.item.ItemStack;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.COMBAT,
+	description = "Manages your armor automatically.",
+	name = "AutoArmor")
 public class AutoArmor extends Mod implements UpdateListener
 {
 	private int[] bestArmor;
-	
-	public AutoArmor()
-	{
-		super("AutoArmor",
-			"Manages your armor automatically.",
-			Category.COMBAT);
-	}
 	
 	@Override
 	public void onEnable()
