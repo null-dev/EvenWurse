@@ -13,18 +13,13 @@ import net.minecraft.entity.item.EntityItem;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.RENDER, description = "Allows you to see items through walls.", name = "ItemESP")
 public class ItemESP extends Mod implements RenderListener
 {
-	public ItemESP()
-	{
-		super(
-			"ItemESP",
-			"Allows you to see items through walls.",
-			Category.RENDER);
-	}
-	
 	@Override
 	public void onEnable()
 	{

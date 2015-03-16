@@ -17,8 +17,11 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+@Info(category = Category.COMBAT, description = "Automatically attacks everything in your range.", name = "Killaura")
 public class Killaura extends Mod implements UpdateListener
 {
 	public static float normalSpeed = 20F;
@@ -27,14 +30,6 @@ public class Killaura extends Mod implements UpdateListener
 	public static float yesCheatRange = 4.25F;
 	public static float realSpeed;
 	public static float realRange;
-	
-	public Killaura()
-	{
-		super(
-			"Killaura",
-			"Automatically attacks everything in your range.",
-			Category.COMBAT);
-	}
 	
 	@Override
 	public void initSliders()

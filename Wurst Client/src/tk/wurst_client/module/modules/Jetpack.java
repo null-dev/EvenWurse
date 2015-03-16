@@ -12,18 +12,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Allows you to jump in mid-air.\n"
+				+ "Looks as if you had a jetpack.", name = "Jetpack")
 public class Jetpack extends Mod implements UpdateListener
 {
-	public Jetpack()
-	{
-		super(
-			"Jetpack",
-			"Allows you to jump in mid-air.\n"
-				+ "Looks like if you had a jetpack.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

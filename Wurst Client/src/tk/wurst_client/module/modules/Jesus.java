@@ -11,20 +11,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Allows you to walk on water.\n"
+				+ "The real Jesus used this hack ~2000 years ago.\n", name = "Jesus")
 public class Jesus extends Mod implements UpdateListener
 {
-	public Jesus()
-	{
-		super(
-			"Jesus",
-			"Allows you to walk on water.\n"
-				+ "The real Jesus used this hack ~2000 years ago.\n"
-				+ "The Christians might get mad at me for this joke, but\n"
-				+ "who cares?",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{
