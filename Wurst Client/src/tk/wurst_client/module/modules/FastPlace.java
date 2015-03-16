@@ -11,18 +11,13 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.BLOCKS, description = "Allows you to place blocks 5 times faster.\n"
+				+ "Tip: This can speed up AutoBuild.", name = "FastPlace")
 public class FastPlace extends Mod implements UpdateListener
 {
-	public FastPlace()
-	{
-		super(
-			"FastPlace",
-			"Allows you to place blocks 5 times faster.\n"
-				+ "Tip: This can speed up AutoBuild.",
-			Category.BLOCKS);
-	}
-	
 	@Override
 	public void onEnable()
 	{

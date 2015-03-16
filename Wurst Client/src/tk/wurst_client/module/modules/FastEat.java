@@ -14,18 +14,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MISC, description = "Allows you to eat food ten times faster.\n"
+				+ "OM! NOM! NOM!", name = "FastEat")
 public class FastEat extends Mod implements UpdateListener
 {
-	public FastEat()
-	{
-		super(
-			"FastEat",
-			"Allows you to eat food ten times faster.\n"
-				+ "OM! NOM! NOM!",
-			Category.MISC);
-	}
-	
 	@Override
 	public void onEnable()
 	{
