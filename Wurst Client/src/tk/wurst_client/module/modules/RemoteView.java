@@ -17,19 +17,14 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+@Info(category = Category.RENDER, description = "Allows you to see the world as someone else.\n"
+				+ "Use the .rv command to make it target a specific entity.", name = "RemoteView")
 public class RemoteView extends Mod implements UpdateListener
 {
-	public RemoteView()
-	{
-		super(
-			"RemoteView",
-			"Allows you to see the world as someone else.\n"
-				+ "Use .rv <entity name> to make it target a specific entity.",
-			Category.RENDER);
-	}
-	
 	private EntityPlayerSP newView = null;
 	private double oldX;
 	private double oldY;

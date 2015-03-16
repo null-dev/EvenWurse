@@ -16,18 +16,13 @@ import net.minecraft.util.MathHelper;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.RENDER, description = "Allows you to see fake blocks in Prophunt.", name = "ProphuntESP")
 public class ProphuntESP extends Mod implements RenderListener
 {
-	public ProphuntESP()
-	{
-		super(
-			"ProphuntESP",
-			"Allows you to see fake blocks in Prophunt.",
-			Category.RENDER);
-	}
-	
 	@Override
 	public void onEnable()
 	{

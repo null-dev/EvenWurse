@@ -13,18 +13,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.COMBAT, description = "Regenerates your health 100 times faster.\n"
+				+ "Can cause unwanted \"Flying is not enabled!\" kicks.", name = "Regen")
 public class Regen extends Mod implements UpdateListener
 {
-	public Regen()
-	{
-		super(
-			"Regen",
-			"Regenerates your health 100 times faster.\n"
-				+ "Can cause unwanted \"Flying is not enabled!\" kicks.",
-			Category.COMBAT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

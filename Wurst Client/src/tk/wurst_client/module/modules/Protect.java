@@ -13,18 +13,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+@Info(category = Category.COMBAT, description = "A bot that follows the closest entity and protects it.", name = "Protect")
 public class Protect extends Mod implements UpdateListener
 {
-	public Protect()
-	{
-		super(
-			"Protect",
-			"A bot that follows the closest entity and protects it.",
-			Category.COMBAT);
-	}
-	
 	private EntityLivingBase friend;
 	private EntityLivingBase enemy;
 	private float range = 6F;
