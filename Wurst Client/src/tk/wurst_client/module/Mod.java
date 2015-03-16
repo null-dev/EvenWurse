@@ -46,22 +46,22 @@ public class Mod
 	
 	public String getName()
 	{
-		return name;
+		return getClass().getAnnotation(Info.class).name();
 	}
 	
 	public String getRenderName()
 	{
-		return name;
+		return getName();
 	}
 	
 	public String getDescription()
 	{
-		return description;
+		return getClass().getAnnotation(Info.class).description();
 	}
 	
 	public Category getCategory()
 	{
-		return category;
+		return getClass().getAnnotation(Info.class).category();
 	}
 	
 	public boolean getToggled()
