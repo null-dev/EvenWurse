@@ -26,14 +26,15 @@ public class Mod
 	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
-	
+
+	@Deprecated
 	public Mod(String moduleName, String moduleDescription,
 		Category moduleCategory)
 	{
-		this.name = moduleName;
-		this.description = moduleDescription;
-		this.category = moduleCategory;
-		initSliders();
+		//this.name = moduleName;
+		//this.description = moduleDescription;
+		//this.category = moduleCategory;
+		//initSliders();
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)
