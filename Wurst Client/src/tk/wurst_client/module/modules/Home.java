@@ -36,7 +36,7 @@ public class Home extends Mod implements UpdateListener, ChatInputListener
 	public void onUpdate()
 	{
 		if(disableTimer == 4)
-			setToggled(false);
+			setEnabled(false);
 		else if(disableTimer == 0)
 			Minecraft.getMinecraft().thePlayer.sendChatMessage("/home");
 		disableTimer++;

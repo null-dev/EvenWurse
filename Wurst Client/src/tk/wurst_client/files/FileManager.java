@@ -171,7 +171,7 @@ public class FileManager
 			for(Mod mod : Client.wurst.modManager.getAllMods())
 			{
 				JsonObject jsonMod = new JsonObject();
-				jsonMod.addProperty("enabled", mod.getToggled());
+				jsonMod.addProperty("enabled", mod.isEnabled());
 				json.add(mod.getName(), jsonMod);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(modules));
@@ -224,8 +224,8 @@ public class FileManager
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
 					boolean enabled = jsonModule.get("enabled").getAsBoolean();
-					if(mod.getToggled() != enabled)
-						mod.setToggled(enabled);
+					if(mod.isEnabled() != enabled)
+						mod.setEnabled(enabled);
 				}
 			}
 		}catch(Exception e)

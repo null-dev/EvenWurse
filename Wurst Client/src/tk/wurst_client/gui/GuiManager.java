@@ -154,9 +154,9 @@ public final class GuiManager extends AbstractGuiManager
 					@Override
 					public void update()
 					{
-						setForegroundColor(updateModule.getToggled()
+						setForegroundColor(updateModule.isEnabled()
 							? Color.BLACK : Color.WHITE);
-						setBackgroundColor(updateModule.getToggled()
+						setBackgroundColor(updateModule.isEnabled()
 							? new Color(0, 255, 0, 128) : new Color(0, 0, 0, 0));
 					}
 				};

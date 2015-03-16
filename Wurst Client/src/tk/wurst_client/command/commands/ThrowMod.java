@@ -35,7 +35,7 @@ public class ThrowMod extends Command
 				.toggle();
 			Client.wurst.chat.message("Throw turned "
 				+ (Client.wurst.modManager.getModByClass(Throw.class)
-					.getToggled() == true ? "on" : "off") + ".");
+					.isEnabled() == true ? "on" : "off") + ".");
 		}else if(args[0].equalsIgnoreCase("amount")
 			&& MiscUtils.isInteger(args[1]))
 		{

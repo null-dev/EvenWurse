@@ -31,10 +31,10 @@ public class Glide extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 		{
 			noCheatMessage();
-			setToggled(false);
+			setEnabled(false);
 		}else if(Minecraft.getMinecraft().thePlayer.motionY < 0
 			&& Minecraft.getMinecraft().thePlayer.isAirBorne
 			&& !Minecraft.getMinecraft().thePlayer.isInWater()

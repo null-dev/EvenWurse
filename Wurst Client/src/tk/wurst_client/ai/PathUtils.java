@@ -53,7 +53,7 @@ public class PathUtils
 				Client.wurst.modManager.getModByClass(Jesus.class);
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
-			|| getMaterial(pos) == Material.water && jesusMod.getToggled();
+			|| getMaterial(pos) == Material.water && jesusMod.isEnabled();
 	}
 	
 	public static boolean isFallable(BlockPos pos)
@@ -70,7 +70,7 @@ public class PathUtils
 			spiderMod =
 				Client.wurst.modManager.getModByClass(Spider.class);
 		if(isSolid(pos.add(0, -1, 0))
-			|| spiderMod.getToggled()
+			|| spiderMod.isEnabled()
 			|| getID(pos) == 65
 			|| isFlyable(pos))
 			if(isSolid(pos.add(0, 0, -1))
@@ -86,7 +86,7 @@ public class PathUtils
 		if(noFallMod == null)
 			noFallMod =
 				Client.wurst.modManager.getModByClass(NoFall.class);
-		return noFallMod.getToggled() || isCreative();
+		return noFallMod.isEnabled() || isCreative();
 	}
 	
 	public static boolean isCreative()
@@ -106,9 +106,9 @@ public class PathUtils
 				Client.wurst.modManager.getModByClass(NoSlowdown.class);
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
-		return flightMod.getToggled()
+		return flightMod.isEnabled()
 			|| playerCaps.isFlying
-			|| !noSlowdownMod.getToggled()
+			|| !noSlowdownMod.isEnabled()
 			&& getMaterial(pos) == Material.water;
 	}
 	
@@ -123,9 +123,9 @@ public class PathUtils
 					.getModByClass(AntiKnockback.class);
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)
-			if(noSlowdownMod.getToggled())
+			if(noSlowdownMod.isEnabled())
 				return 1;
-			else if(antiKnockbackMod.getToggled())
+			else if(antiKnockbackMod.isEnabled())
 				return 2;
 			else
 				return 3;

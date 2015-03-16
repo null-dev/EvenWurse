@@ -72,7 +72,7 @@ public class Spammer extends Mod
 					public void windowClosing(WindowEvent e)
 					{
 						Client.wurst.modManager.getModByClass(
-							Spammer.class).setToggled(false);
+							Spammer.class).setEnabled(false);
 					}
 				});
 				JPanel panel = new JPanel();

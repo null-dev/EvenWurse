@@ -48,7 +48,7 @@ public class GoToCmd extends Mod implements UpdateListener
 	{
 		if(path == null || goal == null)
 		{
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		BlockPos currentPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
@@ -101,7 +101,7 @@ public class GoToCmd extends Mod implements UpdateListener
 		if(dist < 1)
 			index++;
 		if(index >= path.size())
-			setToggled(false);
+			setEnabled(false);
 	}
 	
 	@Override

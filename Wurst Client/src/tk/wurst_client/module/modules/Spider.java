@@ -30,10 +30,10 @@ public class Spider extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 		{
 			noCheatMessage();
-			setToggled(false);
+			setEnabled(false);
 		}else if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally)
 			Minecraft.getMinecraft().thePlayer.motionY = 0.2;
 	}

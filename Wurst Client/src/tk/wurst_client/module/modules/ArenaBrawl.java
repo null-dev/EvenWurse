@@ -183,7 +183,7 @@ public class ArenaBrawl extends Mod implements UpdateListener, RenderListener,
 			&& (scoreboard.size() == 13 || scoreboard.size() == 11))
 		{// If you are in the lobby:
 			Client.wurst.chat.message("You need to be in a 2v2 arena.");
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		if(scoreboard == null)
@@ -288,19 +288,19 @@ public class ArenaBrawl extends Mod implements UpdateListener, RenderListener,
 		{
 			event.cancel();
 			Client.wurst.chat.message(event.getMessage().substring(9));
-			setToggled(false);
+			setEnabled(false);
 		}
 	}
 	
 	@Override
 	public void onDeath()
 	{
-		if(!getToggled())
+		if(!isEnabled())
 			return;
 		Minecraft.getMinecraft().thePlayer.respawnPlayer();
 		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
 		Client.wurst.chat.message("You died.");
-		setToggled(false);
+		setEnabled(false);
 	}
 	
 	private void setupFrame()

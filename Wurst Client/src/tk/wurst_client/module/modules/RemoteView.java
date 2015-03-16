@@ -41,7 +41,7 @@ public class RemoteView extends Mod implements UpdateListener
 		if(EntityUtils.getClosestEntityRaw(false) == null)
 		{
 			Client.wurst.chat.message("There is no nearby entity.");
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		oldX = Minecraft.getMinecraft().thePlayer.posX;
@@ -78,7 +78,7 @@ public class RemoteView extends Mod implements UpdateListener
 	{
 		if(EntityUtils.searchEntityByIdRaw(otherID) == null)
 		{
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		newView = Minecraft.getMinecraft().thePlayer;

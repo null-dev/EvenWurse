@@ -21,7 +21,7 @@ public class AutoRespawn extends Mod
 	@Override
 	public void onDeath()
 	{
-		if(getToggled())
+		if(isEnabled())
 		{
 			Minecraft.getMinecraft().thePlayer.respawnPlayer();
 			GuiScreen.mc.displayGuiScreen((GuiScreen)null);

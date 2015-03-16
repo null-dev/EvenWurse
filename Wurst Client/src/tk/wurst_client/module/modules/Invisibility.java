@@ -35,16 +35,16 @@ public class Invisibility extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(getToggled()
+		if(isEnabled()
 			&& Client.wurst.modManager.getModByClass(YesCheat.class)
-				.getToggled())
+				.isEnabled())
 		{
 			noCheatMessage();
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		if(Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
-			if(getToggled())
+			if(isEnabled())
 			{
 				// Respawning too early for server-side invisibility
 				Minecraft.getMinecraft().thePlayer.respawnPlayer();

@@ -57,13 +57,13 @@ public class NukerLegit extends Mod implements UpdateListener, RenderListener
 	public void onEnable()
 	{
 		if(Client.wurst.modManager.getModByClass(Nuker.class)
-			.getToggled())
+			.isEnabled())
 			Client.wurst.modManager.getModByClass(Nuker.class)
-				.setToggled(false);
+				.setEnabled(false);
 		if(Client.wurst.modManager.getModByClass(SpeedNuker.class)
-			.getToggled())
+			.isEnabled())
 			Client.wurst.modManager.getModByClass(SpeedNuker.class)
-				.setToggled(false);
+				.setEnabled(false);
 		EventManager.addUpdateListener(this);
 		EventManager.addRenderListener(this);
 	}
@@ -113,7 +113,7 @@ public class NukerLegit extends Mod implements UpdateListener, RenderListener
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
 			if(Client.wurst.modManager.getModByClass(AutoTool.class)
-				.getToggled() && oldSlot == -1)
+				.isEnabled() && oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
@@ -131,7 +131,7 @@ public class NukerLegit extends Mod implements UpdateListener, RenderListener
 			}
 		}
 		if(Client.wurst.modManager.getModByClass(AutoTool.class)
-			.getToggled())
+			.isEnabled())
 			AutoTool.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());
@@ -174,7 +174,7 @@ public class NukerLegit extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onLeftClick()
 	{
-		if(!getToggled()
+		if(!isEnabled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;

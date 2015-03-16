@@ -31,10 +31,10 @@ public class Jetpack extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 		{
 			noCheatMessage();
-			setToggled(false);
+			setEnabled(false);
 		}else if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
 			Minecraft.getMinecraft().thePlayer.jump();
 	}

@@ -63,16 +63,16 @@ public class Kaboom extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 		{
 			noCheatMessage();
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
 			Client.wurst.chat.error("Surivival mode only.");
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		new Thread("Kaboom")
@@ -149,7 +149,7 @@ public class Kaboom extends Mod implements UpdateListener
 				}
 			}
 		}.start();
-		setToggled(false);
+		setEnabled(false);
 	}
 	
 	@Override

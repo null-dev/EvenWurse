@@ -48,8 +48,8 @@ public class Toggle extends Command
 		if(mode == 0)
 			mod.toggle();
 		else if(mode == 1)
-			mod.setToggled(true);
+			mod.setEnabled(true);
 		else if(mode == 2)
-			mod.setToggled(false);
+			mod.setEnabled(false);
 	}
 }

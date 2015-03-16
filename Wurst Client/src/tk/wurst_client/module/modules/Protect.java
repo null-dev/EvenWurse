@@ -59,7 +59,7 @@ public class Protect extends Mod implements UpdateListener
 		{
 			friend = null;
 			enemy = null;
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		if(enemy != null && (enemy.getHealth() <= 0 || enemy.isDead))
@@ -94,7 +94,7 @@ public class Protect extends Mod implements UpdateListener
 			&& Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 			speed = Killaura.yesCheatSpeed;
 		else
 			speed = Killaura.normalSpeed;

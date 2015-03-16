@@ -32,10 +32,10 @@ public class Regen extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 		{
 			noCheatMessage();
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode

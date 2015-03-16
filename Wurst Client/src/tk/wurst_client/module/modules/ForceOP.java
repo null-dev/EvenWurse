@@ -149,7 +149,7 @@ public class ForceOP extends Mod implements ChatInputListener
 					public void windowClosing(WindowEvent e)
 					{
 						Client.wurst.modManager.getModByClass(
-							ForceOP.class).setToggled(false);
+							ForceOP.class).setEnabled(false);
 					}
 				});
 				
@@ -392,7 +392,7 @@ public class ForceOP extends Mod implements ChatInputListener
 								{
 									if(!Client.wurst.modManager
 										.getModByClass(ForceOP.class)
-										.getToggled())
+										.isEnabled())
 										return;
 									if(!cbDontWait.isSelected())
 										gotWrongPWMSG = false;
@@ -402,7 +402,7 @@ public class ForceOP extends Mod implements ChatInputListener
 									{
 										if(!Client.wurst.modManager
 											.getModByClass(ForceOP.class)
-											.getToggled())
+											.isEnabled())
 											return;
 										try
 										{
@@ -549,7 +549,7 @@ public class ForceOP extends Mod implements ChatInputListener
 				password = passwords[lastPW - 1];
 			Client.wurst.chat.success("The password \"" + password
 				+ "\" worked.");
-			setToggled(false);
+			setEnabled(false);
 		}else if(message.toLowerCase().contains("/help")
 			|| message.toLowerCase().contains("permission"))
 			Client.wurst.chat

@@ -52,13 +52,13 @@ public class Follow extends Mod implements UpdateListener
 	{
 		if(entity == null)
 		{
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		if(entity.isDead || Minecraft.getMinecraft().thePlayer.isDead)
 		{
 			entity = null;
-			setToggled(false);
+			setEnabled(false);
 			return;
 		}
 		double xDist =

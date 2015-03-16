@@ -43,7 +43,7 @@ public class Drop extends Command implements UpdateListener
 	public void onUpdate()
 	{
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 		{
 			timer++;
 			if(timer >= 5)

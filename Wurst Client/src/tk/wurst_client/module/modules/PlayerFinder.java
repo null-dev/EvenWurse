@@ -67,7 +67,7 @@ public class PlayerFinder extends Mod implements RenderListener
 	@Override
 	public void onPacket(Packet packet)
 	{
-		if(!getToggled())
+		if(!isEnabled())
 			return;
 		if(packet instanceof S28PacketEffect)
 		{

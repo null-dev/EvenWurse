@@ -416,7 +416,7 @@ public class AutoBuild extends Mod implements UpdateListener, RenderListener
 		updateMS();
 		if(!shouldBuild
 			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.modManager
-				.getModByClass(FastPlace.class).getToggled())
+				.getModByClass(FastPlace.class).isEnabled())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed
 			&& Minecraft.getMinecraft().objectMouseOver != null
 			&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null
@@ -426,12 +426,12 @@ public class AutoBuild extends Mod implements UpdateListener, RenderListener
 				.getBlock().getMaterial() != Material.air)
 		{
 			if(Client.wurst.modManager.getModByClass(FastPlace.class)
-				.getToggled())
+				.isEnabled())
 				speed = 1000000000;
 			else
 				speed = 5;
 			if(Client.wurst.modManager.getModByClass(YesCheat.class)
-				.getToggled())
+				.isEnabled())
 			{
 				blockIndex = 0;
 				shouldBuild = true;
@@ -449,7 +449,7 @@ public class AutoBuild extends Mod implements UpdateListener, RenderListener
 		}
 		if(shouldBuild)
 			if((hasTimePassedS(speed) || Client.wurst.modManager
-				.getModByClass(FastPlace.class).getToggled())
+				.getModByClass(FastPlace.class).isEnabled())
 				&& blockIndex < templates
 					.get(Client.wurst.options.autobuildMode).length)
 			{
@@ -591,7 +591,7 @@ public class AutoBuild extends Mod implements UpdateListener, RenderListener
 		updateMS();
 		if(!shouldBuild
 			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.modManager
-				.getModByClass(FastPlace.class).getToggled())
+				.getModByClass(FastPlace.class).isEnabled())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed
 			&& Minecraft.getMinecraft().objectMouseOver != null
 			&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null
@@ -601,12 +601,12 @@ public class AutoBuild extends Mod implements UpdateListener, RenderListener
 				.getBlock().getMaterial() != Material.air)
 		{
 			if(Client.wurst.modManager.getModByClass(FastPlace.class)
-				.getToggled())
+				.isEnabled())
 				speed = 1000000000;
 			else
 				speed = 5;
 			if(Client.wurst.modManager.getModByClass(YesCheat.class)
-				.getToggled())
+				.isEnabled())
 			{
 				blockIndex = 0;
 				shouldBuild = true;
@@ -624,7 +624,7 @@ public class AutoBuild extends Mod implements UpdateListener, RenderListener
 		}
 		if(shouldBuild)
 			if((hasTimePassedS(speed) || Client.wurst.modManager
-				.getModByClass(FastPlace.class).getToggled())
+				.getModByClass(FastPlace.class).isEnabled())
 				&& blockIndex < templates
 					.get(Client.wurst.options.autobuildMode).length)
 			{

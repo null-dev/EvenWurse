@@ -31,7 +31,7 @@ public class Criticals extends Mod
 	public static void doCritical()
 	{
 		if(!Client.wurst.modManager.getModByClass(Criticals.class)
-			.getToggled())
+			.isEnabled())
 			return;
 		if(!Minecraft.getMinecraft().thePlayer.isInWater()
 			&& !Minecraft.getMinecraft().thePlayer

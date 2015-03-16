@@ -39,7 +39,7 @@ public class Throw extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.modManager
-			.getModByClass(FastPlace.class).getToggled())
+			.getModByClass(FastPlace.class).isEnabled())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 		{
 			if(Minecraft.getMinecraft().objectMouseOver == null

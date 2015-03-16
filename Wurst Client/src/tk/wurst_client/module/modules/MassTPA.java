@@ -71,7 +71,7 @@ public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 			updateLastMS();
 			i++;
 			if(i == players.size())
-				setToggled(false);
+				setEnabled(false);
 		}
 	}
 	
@@ -94,7 +94,7 @@ public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 			event.cancel();
 			Client.wurst.chat
 				.message("§4§lERROR:§f This server doesn't have TPA.");
-			setToggled(false);
+			setEnabled(false);
 		}else if(message.toLowerCase().contains("accepted")
 			&& message.toLowerCase().contains("request")
 			|| message.toLowerCase().contains("akzeptiert")
@@ -103,7 +103,7 @@ public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 			event.cancel();
 			Client.wurst.chat
 				.message("Someone accepted your TPA request. Stopping.");
-			setToggled(false);
+			setEnabled(false);
 		}
 	}
 }

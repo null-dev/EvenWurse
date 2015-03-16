@@ -49,13 +49,13 @@ public class SpeedNuker extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		if(Client.wurst.modManager.getModByClass(Nuker.class)
-			.getToggled())
+			.isEnabled())
 			Client.wurst.modManager.getModByClass(Nuker.class)
-				.setToggled(false);
+				.setEnabled(false);
 		if(Client.wurst.modManager.getModByClass(NukerLegit.class)
-			.getToggled())
+			.isEnabled())
 			Client.wurst.modManager.getModByClass(NukerLegit.class)
-				.setToggled(false);
+				.setEnabled(false);
 		EventManager.addUpdateListener(this);
 	}
 	
@@ -63,27 +63,27 @@ public class SpeedNuker extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 		{
 			noCheatMessage();
-			setToggled(false);
+			setEnabled(false);
 			Client.wurst.chat.message("Switching to "
 				+ Client.wurst.modManager.getModByClass(Nuker.class)
 					.getName() + ".");
 			Client.wurst.modManager.getModByClass(Nuker.class)
-				.setToggled(true);
+				.setEnabled(true);
 			return;
 		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
 			Client.wurst.chat.error(getName()
 				+ " doesn't work in creative mode.");
-			setToggled(false);
+			setEnabled(false);
 			Client.wurst.chat.message("Switching to "
 				+ Client.wurst.modManager.getModByClass(Nuker.class)
 					.getName() + ".");
 			Client.wurst.modManager.getModByClass(Nuker.class)
-				.setToggled(true);
+				.setEnabled(true);
 			return;
 		}
 		BlockPos newPos = find();
@@ -101,11 +101,11 @@ public class SpeedNuker extends Mod implements UpdateListener
 		currentBlock =
 			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
 		if(Client.wurst.modManager.getModByClass(AutoTool.class)
-			.getToggled() && oldSlot == -1)
+			.isEnabled() && oldSlot == -1)
 			oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Client.wurst.modManager.getModByClass(AutoTool.class)
-				.getToggled()
+				.isEnabled()
 			&& currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos) < 1)
@@ -129,7 +129,7 @@ public class SpeedNuker extends Mod implements UpdateListener
 	@Override
 	public void onLeftClick()
 	{
-		if(!getToggled()
+		if(!isEnabled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;

@@ -67,7 +67,7 @@ public class FightBot extends Mod implements UpdateListener
 			&& Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
 		if(Client.wurst.modManager.getModByClass(YesCheat.class)
-			.getToggled())
+			.isEnabled())
 			speed = Killaura.yesCheatSpeed;
 		else
 			speed = Killaura.normalSpeed;

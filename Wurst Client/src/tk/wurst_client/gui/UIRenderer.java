@@ -31,7 +31,7 @@ public class UIRenderer
 		{
 			if(mod instanceof ClickGUI)
 				continue;
-			if(mod.getToggled())
+			if(mod.isEnabled())
 				modList.add(mod.getRenderName());
 		}
 		ScaledResolution sr =

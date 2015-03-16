@@ -22,7 +22,7 @@ public class Mod
 	private final String name = getClass().getAnnotation(Info.class).name();
 	private final String description = getClass().getAnnotation(Info.class).description();
 	private final Category category = getClass().getAnnotation(Info.class).category();
-	private boolean toggled;
+	private boolean enabled;
 	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
@@ -70,29 +70,25 @@ public class Mod
 		return category;
 	}
 	
-	public final boolean getToggled()
+	public final boolean isEnabled()
 	{
-		return toggled;
+		return enabled;
 	}
 	
-	public final void setToggled(boolean shouldToggle)
+	public final void setEnabled(boolean enabled)
 	{
+		this.enabled = enabled;
 		onToggle();
-		if(shouldToggle)
-		{
+		if(enabled)
 			onEnable();
-			toggled = true;
-		}else
-		{
+		else
 			onDisable();
-			toggled = false;
-		}
 		Client.wurst.fileManager.saveMods();
 	}
 	
 	public final void toggle()
 	{
-		setToggled(!getToggled());
+		setEnabled(!isEnabled());
 	}
 	
 	public final ArrayList<BasicSlider> getSliders()

@@ -63,7 +63,7 @@ public class AutoTool extends Mod implements UpdateListener
 	@Override
 	public void onLeftClick()
 	{
-		if(!getToggled()
+		if(!isEnabled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
