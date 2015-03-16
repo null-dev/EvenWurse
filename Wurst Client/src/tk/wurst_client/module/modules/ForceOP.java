@@ -50,13 +50,14 @@ public class ForceOP extends Mod implements ChatInputListener
 			Category.CHAT);
 	}
 	
+	/*TODO:
 	@Override
 	public String getName()
 	{
 		Client.wurst.fileManager.loadOptions();
 		return Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect
 			? "AuthMeCracker" : "ForceOP";
-	}
+	}*/
 	
 	private String[] defaultList =
 	{

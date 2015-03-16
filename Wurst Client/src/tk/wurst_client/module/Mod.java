@@ -19,9 +19,9 @@ import tk.wurst_client.Client;
 
 public class Mod
 {
-	private String name = getClass().getAnnotation(Info.class).name();
-	private String description = getClass().getAnnotation(Info.class).description();
-	private Category category = getClass().getAnnotation(Info.class).category();
+	private final String name = getClass().getAnnotation(Info.class).name();
+	private final String description = getClass().getAnnotation(Info.class).description();
+	private final Category category = getClass().getAnnotation(Info.class).category();
 	private boolean toggled;
 	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
@@ -45,7 +45,7 @@ public class Mod
 		Category category();
 	}
 	
-	public String getName()
+	public final String getName()
 	{
 		return name;
 	}
@@ -55,22 +55,22 @@ public class Mod
 		return name;
 	}
 	
-	public String getDescription()
+	public final String getDescription()
 	{
 		return description;
 	}
 	
-	public Category getCategory()
+	public final Category getCategory()
 	{
 		return category;
 	}
 	
-	public boolean getToggled()
+	public final boolean getToggled()
 	{
 		return toggled;
 	}
 	
-	public void setToggled(boolean shouldToggle)
+	public final void setToggled(boolean shouldToggle)
 	{
 		onToggle();
 		if(shouldToggle)
@@ -85,42 +85,42 @@ public class Mod
 		Client.wurst.fileManager.saveMods();
 	}
 	
-	public void toggleModule()
+	public final void toggleModule()
 	{
 		setToggled(!getToggled());
 	}
 	
-	public ArrayList<BasicSlider> getSliders()
+	public final ArrayList<BasicSlider> getSliders()
 	{
 		return sliders;
 	}
 	
-	public void setSliders(ArrayList<BasicSlider> newSliders)
+	public final void setSliders(ArrayList<BasicSlider> newSliders)
 	{
 		sliders = newSliders;
 	}
 	
-	public void noCheatMessage()
+	public final void noCheatMessage()
 	{
 		Client.wurst.chat.warning(name + " cannot bypass NoCheat+.");
 	}
 	
-	public void updateMS()
+	public final void updateMS()
 	{
 		currentMS = System.currentTimeMillis();
 	}
 	
-	public void updateLastMS()
+	public final void updateLastMS()
 	{
 		lastMS = System.currentTimeMillis();
 	}
 	
-	public boolean hasTimePassedM(long MS)
+	public final boolean hasTimePassedM(long MS)
 	{
 		return currentMS >= lastMS + MS;
 	}
 	
-	public boolean hasTimePassedS(float speed)
+	public final boolean hasTimePassedS(float speed)
 	{
 		return currentMS >= lastMS + (long)(1000 / speed);
 	}
