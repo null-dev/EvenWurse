@@ -37,6 +37,21 @@ public class Mod
 		//initSliders();
 	}
 	
+	public enum Category
+	{
+		AUTOBUILD,
+		BLOCKS,
+		CHAT,
+		COMBAT,
+		FUN,
+		HIDDEN,
+		RENDER,
+		MISC,
+		MOVEMENT,
+		SETTINGS,
+		WIP;
+	}
+	
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Info
 	{	
