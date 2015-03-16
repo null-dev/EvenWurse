@@ -8,15 +8,14 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.COMBAT,
+	description = "Protects you from getting pushed by players, mobs and\n"
+		+ "fluids.",
+	name = "AntiKnockback")
 public class AntiKnockback extends Mod
-{
-	public AntiKnockback()
-	{
-		super(
-			"AntiKnockback",
-			"Protects you from getting pushed by players, mobs and\n"
-				+ "fluids.",
-			Category.COMBAT);
-	}
+{	
+	
 }
