@@ -19,9 +19,9 @@ import tk.wurst_client.Client;
 
 public class Mod
 {
-	private String name;
-	private String description;
-	private Category category;
+	private String name = getClass().getAnnotation(Info.class).name();
+	private String description = getClass().getAnnotation(Info.class).description();
+	private Category category = getClass().getAnnotation(Info.class).category();
 	private boolean toggled;
 	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
@@ -47,22 +47,22 @@ public class Mod
 	
 	public String getName()
 	{
-		return getClass().getAnnotation(Info.class).name();
+		return name;
 	}
 	
 	public String getRenderName()
 	{
-		return getName();
+		return name;
 	}
 	
 	public String getDescription()
 	{
-		return getClass().getAnnotation(Info.class).description();
+		return description;
 	}
 	
 	public Category getCategory()
 	{
-		return getClass().getAnnotation(Info.class).category();
+		return category;
 	}
 	
 	public boolean getToggled()
