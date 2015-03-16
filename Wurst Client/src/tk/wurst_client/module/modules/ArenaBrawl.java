@@ -83,14 +83,14 @@ public class ArenaBrawl extends Module implements UpdateListener, RenderListener
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("ArenaBrawl level", level, 20, 100,
+		sliders.add(new BasicSlider("ArenaBrawl level", level, 20, 100,
 			10, ValueDisplay.INTEGER));
 	}
 	
 	@Override
 	public void updateSettings()
 	{
-		level = (int)moduleSliders.get(0).getValue();
+		level = (int)sliders.get(0).getValue();
 	}
 	
 	@Override

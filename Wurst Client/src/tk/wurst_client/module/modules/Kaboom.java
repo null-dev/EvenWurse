@@ -47,14 +47,14 @@ public class Kaboom extends Module implements UpdateListener
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("Kaboom power", power, 32, 512, 32,
+		sliders.add(new BasicSlider("Kaboom power", power, 32, 512, 32,
 			ValueDisplay.INTEGER));
 	}
 	
 	@Override
 	public void updateSettings()
 	{
-		power = (int)moduleSliders.get(0).getValue();
+		power = (int)sliders.get(0).getValue();
 	}
 	
 	@Override

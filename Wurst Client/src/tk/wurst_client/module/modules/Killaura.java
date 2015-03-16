@@ -40,18 +40,18 @@ public class Killaura extends Module implements UpdateListener
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("Killaura speed", normalSpeed, 2, 20,
+		sliders.add(new BasicSlider("Killaura speed", normalSpeed, 2, 20,
 			0.1, ValueDisplay.DECIMAL));
-		moduleSliders.add(new BasicSlider("Killaura range", normalRange, 1, 6,
+		sliders.add(new BasicSlider("Killaura range", normalRange, 1, 6,
 			0.05, ValueDisplay.DECIMAL));
 	}
 	
 	@Override
 	public void updateSettings()
 	{
-		normalSpeed = (float)moduleSliders.get(0).getValue();
+		normalSpeed = (float)sliders.get(0).getValue();
 		yesCheatSpeed = Math.min(normalSpeed, 12F);
-		normalRange = (float)moduleSliders.get(1).getValue();
+		normalRange = (float)sliders.get(1).getValue();
 		yesCheatRange = Math.min(normalRange, 4.25F);
 	}
 	

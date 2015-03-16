@@ -34,14 +34,14 @@ public class Flight extends Module implements UpdateListener
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("Flight speed", speed, 0.05, 5, 0.05,
+		sliders.add(new BasicSlider("Flight speed", speed, 0.05, 5, 0.05,
 			ValueDisplay.DECIMAL));
 	}
 	
 	@Override
 	public void updateSettings()
 	{
-		speed = (float)moduleSliders.get(0).getValue();
+		speed = (float)sliders.get(0).getValue();
 	}
 	
 	@Override

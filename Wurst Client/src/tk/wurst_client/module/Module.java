@@ -19,21 +19,20 @@ import tk.wurst_client.Client;
 
 public class Module
 {
-	private String moduleName;
-	private String moduleDescription;
-	private Category moduleCategory;
-	private boolean isToggled;
-	protected ArrayList<BasicSlider> moduleSliders =
-		new ArrayList<BasicSlider>();
+	private String name;
+	private String description;
+	private Category category;
+	private boolean toggled;
+	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
 	
 	public Module(String moduleName, String moduleDescription,
 		Category moduleCategory)
 	{
-		this.moduleName = moduleName;
-		this.moduleDescription = moduleDescription;
-		this.moduleCategory = moduleCategory;
+		this.name = moduleName;
+		this.description = moduleDescription;
+		this.category = moduleCategory;
 		initSliders();
 	}
 	
@@ -47,27 +46,27 @@ public class Module
 	
 	public String getName()
 	{
-		return moduleName;
+		return name;
 	}
 	
 	public String getRenderName()
 	{
-		return moduleName;
+		return name;
 	}
 	
 	public String getDescription()
 	{
-		return moduleDescription;
+		return description;
 	}
 	
 	public Category getCategory()
 	{
-		return moduleCategory;
+		return category;
 	}
 	
 	public boolean getToggled()
 	{
-		return isToggled;
+		return toggled;
 	}
 	
 	public void setToggled(boolean shouldToggle)
@@ -76,11 +75,11 @@ public class Module
 		if(shouldToggle)
 		{
 			onEnable();
-			isToggled = true;
+			toggled = true;
 		}else
 		{
 			onDisable();
-			isToggled = false;
+			toggled = false;
 		}
 		Client.wurst.fileManager.saveMods();
 	}
@@ -92,17 +91,17 @@ public class Module
 	
 	public ArrayList<BasicSlider> getSliders()
 	{
-		return moduleSliders;
+		return sliders;
 	}
 	
 	public void setSliders(ArrayList<BasicSlider> newSliders)
 	{
-		moduleSliders = newSliders;
+		sliders = newSliders;
 	}
 	
 	public void noCheatMessage()
 	{
-		Client.wurst.chat.warning(moduleName + " cannot bypass NoCheat+.");
+		Client.wurst.chat.warning(name + " cannot bypass NoCheat+.");
 	}
 	
 	public void updateMS()

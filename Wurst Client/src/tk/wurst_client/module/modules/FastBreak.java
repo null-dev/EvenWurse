@@ -29,13 +29,13 @@ public class FastBreak extends Module
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("FastBreak speed", speed, 1, 5, 0.05,
+		sliders.add(new BasicSlider("FastBreak speed", speed, 1, 5, 0.05,
 			ValueDisplay.DECIMAL));
 	}
 	
 	@Override
 	public void updateSettings()
 	{
-		speed = (int)moduleSliders.get(0).getValue();
+		speed = (int)sliders.get(0).getValue();
 	}
 }

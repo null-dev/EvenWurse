@@ -68,14 +68,14 @@ public class Nuker extends Module implements UpdateListener, RenderListener
 	@Override
 	public void initSliders()
 	{
-		moduleSliders.add(new BasicSlider("Nuker range", normalRange, 1, 6,
+		sliders.add(new BasicSlider("Nuker range", normalRange, 1, 6,
 			0.05, ValueDisplay.DECIMAL));
 	}
 	
 	@Override
 	public void updateSettings()
 	{
-		normalRange = (float)moduleSliders.get(0).getValue();
+		normalRange = (float)sliders.get(0).getValue();
 		yesCheatRange = Math.min(normalRange, 4.25F);
 	}
 	
