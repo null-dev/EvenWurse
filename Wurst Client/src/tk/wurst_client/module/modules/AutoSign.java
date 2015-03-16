@@ -9,19 +9,15 @@ package tk.wurst_client.module.modules;
 
 import net.minecraft.util.IChatComponent;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+
+@Info(category = Category.BLOCKS, description = "Instantly writes whatever text you want on every sign\n"
+				+ "you place. Once activated, you can write normally on\n"
+				+ "one sign to specify the text for all other signs.", name = "AutoSign")
 public class AutoSign extends Mod
 {
-	public AutoSign()
-	{
-		super(
-			"AutoSign",
-			"Instantly writes whatever text you want on every sign\n"
-				+ "you place. Once activated, you can write normally on\n"
-				+ "one sign to specify the text for all other signs.",
-			Category.BLOCKS);
-	}
-	
 	public static IChatComponent[] signText;
 	
 	@Override
