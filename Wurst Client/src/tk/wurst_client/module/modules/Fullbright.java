@@ -12,15 +12,14 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.RENDER, description = "Allows you to see in the dark.", name = "Fullbright")
 public class Fullbright extends Mod implements UpdateListener
 {
 	public Fullbright()
 	{
-		super(
-			"Fullbright",
-			"Allows you to see in the dark.",
-			Category.RENDER);
 		EventManager.addUpdateListener(this);
 	}
 	

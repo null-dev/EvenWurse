@@ -12,18 +12,13 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.FUN, description = "While this is active, other people will think you are\n"
+				+ "headless. Looks hilarious!", name = "Headless")
 public class Headless extends Mod implements UpdateListener
 {
-	public Headless()
-	{
-		super(
-			"Headless",
-			"While this is active, other people will think you are\n"
-				+ "headless. Looks hilarious!",
-			Category.FUN);
-	}
-	
 	@Override
 	public void onEnable()
 	{

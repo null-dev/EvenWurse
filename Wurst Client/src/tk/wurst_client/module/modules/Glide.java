@@ -13,17 +13,12 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Makes you fall like if you had a hang glider.", name = "Glide")
 public class Glide extends Mod implements UpdateListener
 {
-	public Glide()
-	{
-		super(
-			"Glide",
-			"Makes you fall like if you had a hang glider.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

@@ -12,18 +12,13 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.RENDER, description = "Allows you to fly out of your body.\n"
+				+ "Looks similar to spectator mode.", name = "Freecam")
 public class Freecam extends Mod implements UpdateListener
 {
-	public Freecam()
-	{
-		super(
-			"Freecam",
-			"Allows you to fly out of your body.\n"
-				+ "Looks similar to spectator mode.",
-			Category.RENDER);
-	}
-	
 	private EntityOtherPlayerMP fakePlayer = null;
 	private double oldX;
 	private double oldY;

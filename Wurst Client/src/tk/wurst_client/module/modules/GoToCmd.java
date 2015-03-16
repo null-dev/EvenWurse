@@ -15,18 +15,16 @@ import tk.wurst_client.ai.PathUtils;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 
+@Info(category = Category.HIDDEN, description = "", name = "GoTo")
 public class GoToCmd extends Mod implements UpdateListener
 {
 	private static ArrayList<BlockPos> path;
 	private static BlockPos goal;
 	private int index;
-	
-	public GoToCmd()
-	{
-		super("GoTo", "", Category.HIDDEN);
-	}
 	
 	@Override
 	public String getRenderName()
