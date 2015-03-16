@@ -18,13 +18,13 @@ public class ModManager
 {
 	@Deprecated
 	public final ArrayList<Module> activeModules = new ArrayList<Module>();
-	private final TreeMap<Class, Module> mods = new TreeMap<Class, Module>(
-		new Comparator<Class>()
+	private final TreeMap<String, Module> mods = new TreeMap<String, Module>(
+		new Comparator<String>()
 		{
 			@Override
-			public int compare(Class o1, Class o2)
+			public int compare(String o1, String o2)
 			{
-				return o1.getName().compareTo(o2.getName());
+				return o1.compareToIgnoreCase(o2);
 			}
 		});
 	
@@ -150,6 +150,6 @@ public class ModManager
 	
 	private void addMod(Module mod)
 	{
-		mods.put(mod.getClass(), mod);
+		mods.put(mod.getName(), mod);
 	}
 }
