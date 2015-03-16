@@ -8,14 +8,11 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.RENDER, description = "Allows you to see invisible entities.", name = "TrueSight")
 public class TrueSight extends Mod
 {
-	public TrueSight()
-	{
-		super(
-			"TrueSight",
-			"Allows you to see invisible entities.",
-			Category.RENDER);
-	}
+	
 }

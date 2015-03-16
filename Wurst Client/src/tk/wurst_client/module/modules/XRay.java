@@ -12,17 +12,12 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.RENDER, description = "Allows you to see ores through walls.", name = "X-Ray")
 public class XRay extends Mod
 {
-	public XRay()
-	{
-		super(
-			"X-Ray",
-			"Allows you to see ores through walls.",
-			Category.RENDER);
-	}
-	
 	public static ArrayList<Block> xrayBlocks = new ArrayList<Block>();
 	
 	@Override

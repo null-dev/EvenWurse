@@ -8,15 +8,12 @@
 package tk.wurst_client.module.modules;
 
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MISC, description = "Makes other mods bypass NoCheat+ or disables them if\n"
+				+ "they can't.", name = "YesCheat+")
 public class YesCheat extends Mod
 {
-	public YesCheat()
-	{
-		super(
-			"YesCheat+",
-			"Makes other mods bypass NoCheat+ or disables them if\n"
-				+ "they can't.",
-			Category.MISC);
-	}
+	
 }
