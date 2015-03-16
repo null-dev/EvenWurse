@@ -14,23 +14,20 @@ import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatInputEvent;
 import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.CHAT,
+	description = "Blocks chat spam.\n"
+		+ "Example:\n"
+		+ "Spam!\n"
+		+ "Spam!\n"
+		+ "Spam!\n"
+		+ "Will be changed to:\n"
+		+ "Spam! [x3]",
+	name = "AntiSpam")
 public class AntiSpam extends Mod implements ChatInputListener
 {
-	public AntiSpam()
-	{
-		super(
-			"AntiSpam",
-			"Blocks chat spam.\n"
-				+ "Example:\n"
-				+ "Spam!\n"
-				+ "Spam!\n"
-				+ "Spam!\n"
-				+ "Will be changed to:\n"
-				+ "Spam! [x3]",
-			Category.CHAT);
-	}
-	
 	@Override
 	public void onEnable()
 	{
