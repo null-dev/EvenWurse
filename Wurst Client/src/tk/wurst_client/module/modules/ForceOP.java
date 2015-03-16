@@ -44,15 +44,6 @@ import tk.wurst_client.module.Mod.Info;
 				+ "Don't message me on this!", name = "ForceOP")
 public class ForceOP extends Mod implements ChatInputListener
 {
-	/*FIXME:
-	@Override
-	public String getRenderName()
-	{
-		Client.wurst.fileManager.loadOptions();
-		return Client.wurst.options.renameForceOPEvenThoughTheNameIsTechnicallyCorrect
-			? "AuthMeCracker" : "ForceOP";
-	}*/
-	
 	private String[] defaultList =
 	{
 		"password",

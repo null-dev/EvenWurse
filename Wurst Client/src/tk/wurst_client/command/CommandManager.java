@@ -66,8 +66,6 @@ public class CommandManager implements ChatOutputListener
 		activeCommands.add(new Nothing());
 		activeCommands.add(new NukerMod());
 		activeCommands.add(new Path());
-		activeCommands
-			.add(new RenameForceOPEvenThoughTheNameIsTechnicallyCorrect());
 		activeCommands.add(new RV());
 		activeCommands.add(new Say());
 		activeCommands.add(new SearchMod());

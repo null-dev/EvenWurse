@@ -19,7 +19,6 @@ public class Options
 	public boolean forceOPDontWait = false;
 	public boolean middleClickFriends = true;
 	public boolean spamFont = false;
-	public boolean renameForceOPEvenThoughTheNameIsTechnicallyCorrect = false;
 	public boolean WIP = false;
 	public boolean wurstNews = true;
 	
