@@ -11,19 +11,14 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.FUN, description = "Makes you twerk like Miley Cyrus!", name = "Miley Cyrus")
 public class MileyCyrus extends Mod implements UpdateListener
 {
 	private boolean shouldSneak = true;
 	private float speed = 5;
-	
-	public MileyCyrus()
-	{
-		super(
-			"Miley Cyrus",
-			"Makes you twerk like Miley Cyrus!",
-			Category.FUN);
-	}
 	
 	@Override
 	public void onEnable()

@@ -18,21 +18,16 @@ import net.minecraft.potion.PotionEffect;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.FUN, description = "Thousands of colors!", name = "LSD")
 public class LSD extends Mod implements UpdateListener
 {
 	private static float speed = 2;
 	private static long currentMS = 0L;
 	private static long lastMS = -1L;
 	private static Color color = Color.WHITE;
-	
-	public LSD()
-	{
-		super(
-			"LSD",
-			"Thousands of colors!",
-			Category.FUN);
-	}
 	
 	@Override
 	public void onToggle()

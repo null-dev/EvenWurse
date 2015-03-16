@@ -21,21 +21,16 @@ import tk.wurst_client.event.events.ChatInputEvent;
 import tk.wurst_client.event.listeners.ChatInputListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.CHAT, description = "Sends a TPA requests to all players.\n"
+				+ "Stops if someone accepts.", name = "MassTPA")
 public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 {
 	private float speed = 1F;
 	private int i;
 	private ArrayList<String> players;
-	
-	public MassTPA()
-	{
-		super(
-			"MassTPA",
-			"Sends a TPA requests to all players.\n"
-				+ "Stops if someone accepts.",
-			Category.CHAT);
-	}
 	
 	@Override
 	public void onEnable()

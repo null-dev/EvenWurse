@@ -13,19 +13,14 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+@Info(category = Category.COMBAT, description = "Slower Killaura that bypasses any cheat prevention\n"
+				+ "PlugIn. Not required on most NoCheat+ servers!", name = "KillauraLegit")
 public class KillauraLegit extends Mod implements UpdateListener
 {
-	public KillauraLegit()
-	{
-		super(
-			"KillauraLegit",
-			"Slower Killaura that bypasses any cheat prevention\n"
-				+ "PlugIn. Not required on most NoCheat+ servers!",
-			Category.COMBAT);
-	}
-	
 	@Override
 	public void onEnable()
 	{
