@@ -7,6 +7,8 @@
  */
 package tk.wurst_client.module;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 import net.minecraft.network.Packet;
@@ -33,6 +35,14 @@ public class Module
 		this.moduleDescription = moduleDescription;
 		this.moduleCategory = moduleCategory;
 		initSliders();
+	}
+	
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface Info
+	{	
+		String name();
+		String description();
+		Category category();
 	}
 	
 	public String getName()
