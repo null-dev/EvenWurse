@@ -1,6 +1,6 @@
-From f82590888bf1b3f49c50a661d6e021ea8b7c8504 Mon Sep 17 00:00:00 2001
+From 2221a0a0ce7c2bf7bc13f548c0060d8d5a78c1b8 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Mon, 16 Mar 2015 23:23:05 +0100
+Date: Mon, 16 Mar 2015 23:25:32 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6912 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6911 ++++++++++----------
  .../client/entity/AbstractClientPlayer.java        |  267 +-
  .../minecraft/client/entity/EntityPlayerSP.java    | 1766 ++---
  src/net/minecraft/client/gui/FontRenderer.java     | 1994 +++---
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 24556 insertions(+), 22947 deletions(-)
+ 202 files changed, 24555 insertions(+), 22947 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -4602,10 +4602,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..102e2c4 100644
+index f503b64..2545d2f 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3606 @@
+@@ -1,3306 +1,3605 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -8334,8 +8334,7 @@ index f503b64..102e2c4 100644
 +    	//TODO: Client
 +    	String javaVersion = System.getProperty("java.version");
 +		if(javaVersion.startsWith("1.6")
-+			|| javaVersion.startsWith("1.7")
-+			|| true)
++			|| javaVersion.startsWith("1.7"))
 +		{
 +			JOptionPane.showMessageDialog(null,
 +				"<html>"
