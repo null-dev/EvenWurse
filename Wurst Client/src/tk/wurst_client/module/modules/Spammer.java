@@ -31,31 +31,26 @@ import javax.swing.text.BadLocationException;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.spam.SpamProcessor;
 import tk.wurst_client.spam.exceptions.UnreadableTagException;
 import tk.wurst_client.spam.tag.Tag;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(category = Category.CHAT, description = "It's called Spammer, but it's a lot more.\n"
+				+ "Special features:\n"
+				+ ">ASCII art\n"
+				+ ">Run any Wurst command\n"
+				+ ">Variables\n"
+				+ ">HTML-like tags & comments\n"
+				+ ">Integrated help system", name = "Spammer")
 public class Spammer extends Mod
 {
 	private JDialog dialog;
 	private static JSpinner delaySpinner;
 	private JTextArea spamArea;
 	private String spam;
-	
-	public Spammer()
-	{
-		super(
-			"Spammer",
-			"It's called Spammer, but it's a lot more.\n"
-				+ "Special features:\n"
-				+ ">ASCII art\n"
-				+ ">Run any Wurst command\n"
-				+ ">Variables\n"
-				+ ">HTML-like tags & comments\n"
-				+ ">Integrated help system",
-			Category.CHAT);
-	}
 	
 	@Override
 	public void onEnable()

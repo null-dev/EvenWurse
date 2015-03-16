@@ -12,17 +12,12 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Allows you to climb up walls like a spider.", name = "Spider")
 public class Spider extends Mod implements UpdateListener
 {
-	public Spider()
-	{
-		super(
-			"Spider",
-			"Allows you to climb up walls like a spider.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

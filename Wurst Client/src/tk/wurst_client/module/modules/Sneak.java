@@ -14,17 +14,12 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Automatically sneaks all the time.", name = "Sneak")
 public class Sneak extends Mod implements UpdateListener
 {
-	public Sneak()
-	{
-		super(
-			"Sneak",
-			"Automatically sneaks all the time.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{

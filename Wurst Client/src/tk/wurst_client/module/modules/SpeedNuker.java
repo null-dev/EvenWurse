@@ -19,21 +19,16 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 
+@Info(category = Category.BLOCKS, description = "Faster Nuker that cannot bypass NoCheat+.", name = "SpeedNuker")
 public class SpeedNuker extends Mod implements UpdateListener
 {
 	private static Block currentBlock;
 	private BlockPos pos;
 	private int oldSlot = -1;
-	
-	public SpeedNuker()
-	{
-		super(
-			"SpeedNuker",
-			"Faster Nuker that cannot bypass NoCheat+.",
-			Category.BLOCKS);
-	}
 	
 	@Override
 	public String getRenderName()
