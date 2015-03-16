@@ -11,18 +11,13 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MISC, description = "Instantly turns off all enabled mods.\n"
+				+ "Be careful with this!", name = "Panic")
 public class Panic extends Mod implements UpdateListener
 {
-	public Panic()
-	{
-		super(
-			"Panic",
-			"Instantly turns off all enabled mods.\n"
-				+ "Be careful with this!",
-			Category.MISC);
-	}
-	
 	@Override
 	public void onEnable()
 	{

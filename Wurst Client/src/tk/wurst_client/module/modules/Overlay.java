@@ -15,18 +15,13 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.RENDER, description = "Renders the Nuker animation when you mine a block.", name = "Overlay")
 public class Overlay extends Mod implements RenderListener
 {
-	public Overlay()
-	{
-		super(
-			"Overlay",
-			"Renders the Nuker animation when you mine a block.",
-			Category.RENDER);
-	}
-	
 	@Override
 	public void onEnable()
 	{

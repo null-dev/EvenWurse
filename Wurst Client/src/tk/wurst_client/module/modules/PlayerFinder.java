@@ -17,19 +17,15 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(category = Category.RENDER, description = "Finds far players during thunderstorms.", name = "PlayerFinder")
 public class PlayerFinder extends Mod implements RenderListener
 {
 	private BlockPos blockPos;
-	
-	public PlayerFinder()
-	{
-		super("PlayerFinder",
-			"Finds far players during thunderstorms.",
-			Category.RENDER);
-	}
 	
 	@Override
 	public void onEnable()

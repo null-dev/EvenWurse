@@ -11,18 +11,13 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.module.Mod;
+import tk.wurst_client.module.Mod.Category;
+import tk.wurst_client.module.Mod.Info;
 
+@Info(category = Category.MOVEMENT, description = "Exploits a bug in NoCheat+ that allows you to glitch\n"
+				+ "through blocks.", name = "Phase")
 public class Phase extends Mod implements UpdateListener
 {
-	public Phase()
-	{
-		super(
-			"Phase",
-			"Exploits a bug in NoCheat+ that allows you to glitch\n"
-				+ "through blocks.",
-			Category.MOVEMENT);
-	}
-	
 	@Override
 	public void onEnable()
 	{
