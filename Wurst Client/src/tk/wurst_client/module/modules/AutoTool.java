@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 
 public class AutoTool extends Mod implements UpdateListener

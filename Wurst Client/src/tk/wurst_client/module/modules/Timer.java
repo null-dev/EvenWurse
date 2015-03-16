@@ -10,7 +10,6 @@ package tk.wurst_client.module.modules;
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 
 public class Timer extends Mod

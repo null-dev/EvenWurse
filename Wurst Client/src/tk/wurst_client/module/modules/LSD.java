@@ -17,7 +17,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 
 public class LSD extends Mod implements UpdateListener

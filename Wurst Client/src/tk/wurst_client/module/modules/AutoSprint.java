@@ -10,7 +10,6 @@ package tk.wurst_client.module.modules;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 
 public class AutoSprint extends Mod implements UpdateListener

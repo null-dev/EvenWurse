@@ -8,7 +8,6 @@
 package tk.wurst_client.module.modules;
 
 import net.minecraft.util.IChatComponent;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 
 public class AutoSign extends Mod

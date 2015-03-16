@@ -14,7 +14,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.RenderUtils;
 

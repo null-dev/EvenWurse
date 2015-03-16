@@ -7,7 +7,6 @@
  */
 package tk.wurst_client.module.modules;
 
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 
 public class HealthTags extends Mod

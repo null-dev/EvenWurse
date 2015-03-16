@@ -30,7 +30,6 @@ import javax.swing.text.BadLocationException;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 import tk.wurst_client.spam.SpamProcessor;
 import tk.wurst_client.spam.exceptions.UnreadableTagException;

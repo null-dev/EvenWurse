@@ -16,7 +16,6 @@ import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.EntityUtils;
 

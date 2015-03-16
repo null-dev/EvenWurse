@@ -15,7 +15,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.MathHelper;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 import tk.wurst_client.utils.RenderUtils;
 

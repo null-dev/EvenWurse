@@ -13,7 +13,6 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
-import tk.wurst_client.module.Category;
 import tk.wurst_client.module.Mod;
 
 public class FastEat extends Mod implements UpdateListener
