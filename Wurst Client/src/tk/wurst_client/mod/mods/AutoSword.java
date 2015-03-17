@@ -31,6 +31,13 @@ public class AutoSword extends Mod implements LeftClickListener, UpdateListener
 	@Override
 	public void onEnable()
 	{
+		if(Client.wurst.modManager.getModByClass(YesCheat.class)
+			.isEnabled())
+		{
+			noCheatMessage();
+			setEnabled(false);
+			return;
+		}
 		oldSlot = -1;
 		EventManager.addLeftClickListener(this);
 	}
@@ -56,6 +63,13 @@ public class AutoSword extends Mod implements LeftClickListener, UpdateListener
 	@Override
 	public void onLeftClick()
 	{
+		if(Client.wurst.modManager.getModByClass(YesCheat.class)
+			.isEnabled())
+		{
+			noCheatMessage();
+			setEnabled(false);
+			return;
+		}
 		if(Minecraft.getMinecraft().objectMouseOver != null
 			&& Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase)
 			setSlot();
