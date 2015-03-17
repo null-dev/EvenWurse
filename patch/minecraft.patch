@@ -1,6 +1,6 @@
-From 0faa00eb8094089f40317a5bb9c42c69b724d58b Mon Sep 17 00:00:00 2001
+From 57fc0cdb87cc3ff5bf6471ae282b1474d570765c Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Tue, 17 Mar 2015 15:26:36 +0100
+Date: Tue, 17 Mar 2015 20:17:18 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6911 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6910 ++++++++++----------
  .../client/entity/AbstractClientPlayer.java        |  267 +-
  .../minecraft/client/entity/EntityPlayerSP.java    | 1766 ++---
  src/net/minecraft/client/gui/FontRenderer.java     | 1994 +++---
@@ -29,7 +29,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiEnchantment.java   |    2 +-
  src/net/minecraft/client/gui/GuiErrorScreen.java   |    2 +
  src/net/minecraft/client/gui/GuiFlatPresets.java   |    6 +-
- src/net/minecraft/client/gui/GuiGameOver.java      |  283 +-
+ src/net/minecraft/client/gui/GuiGameOver.java      |  282 +-
  src/net/minecraft/client/gui/GuiIngame.java        | 2478 +++----
  src/net/minecraft/client/gui/GuiIngameMenu.java    |   47 +
  .../minecraft/client/gui/GuiKeyBindingList.java    |    3 +
@@ -174,7 +174,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/nbt/CompressedStreamTools.java   |    1 +
  src/net/minecraft/nbt/NBTTagCompound.java          |    3 +
  .../minecraft/network/NetHandlerPlayServer.java    |   17 +-
- src/net/minecraft/network/NetworkManager.java      |  946 ++-
+ src/net/minecraft/network/NetworkManager.java      |  951 ++-
  src/net/minecraft/network/NetworkSystem.java       |    5 +
  src/net/minecraft/network/PacketBuffer.java        |    6 +-
  src/net/minecraft/realms/RealmsConnect.java        |    2 +
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 25099 insertions(+), 23488 deletions(-)
+ 202 files changed, 25102 insertions(+), 23488 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -4602,10 +4602,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..2545d2f 100644
+index f503b64..97fbe28 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3605 @@
+@@ -1,3306 +1,3604 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -8109,6 +8109,8 @@ index f503b64..2545d2f 100644
 +import org.lwjgl.util.glu.GLU;
 +
 +import tk.wurst_client.Client;
++import tk.wurst_client.event.EventManager;
++import tk.wurst_client.event.events.LeftClickEvent;
 +import tk.wurst_client.font.Fonts;
 +import tk.wurst_client.mod.Mod;
 +import tk.wurst_client.spam.SpamProcessor;
@@ -9671,10 +9673,7 @@ index f503b64..2545d2f 100644
 +        if (this.leftClickCounter <= 0)
 +        {
 +            //TODO: Client
-+            for(Mod eventModule : Client.wurst.modManager.getAllMods())
-+            {
-+            	eventModule.onLeftClick();
-+            }
++            EventManager.fireEvent(new LeftClickEvent());
 +            this.thePlayer.swingItem();
 +
 +            if (this.objectMouseOver == null)
@@ -16202,10 +16201,10 @@ index 47e1373..6361176 100644
              GlStateManager.disableRescaleNormal();
          }
 diff --git a/src/net/minecraft/client/gui/GuiGameOver.java b/src/net/minecraft/client/gui/GuiGameOver.java
-index c737e46..496935f 100644
+index c737e46..4ed0de4 100644
 --- a/src/net/minecraft/client/gui/GuiGameOver.java
 +++ b/src/net/minecraft/client/gui/GuiGameOver.java
-@@ -1,137 +1,146 @@
+@@ -1,137 +1,145 @@
 -package net.minecraft.client.gui;
 -
 -import java.io.IOException;
@@ -16349,6 +16348,8 @@ index c737e46..496935f 100644
 +import java.util.Iterator;
 +
 +import tk.wurst_client.Client;
++import tk.wurst_client.event.EventManager;
++import tk.wurst_client.event.events.DeathEvent;
 +import tk.wurst_client.mod.Mod;
 +import net.minecraft.client.gui.GuiButton;
 +import net.minecraft.client.multiplayer.WorldClient;
@@ -16481,10 +16482,7 @@ index c737e46..496935f 100644
 +            {
 +                var2 = (GuiButton)var1.next();
 +                //TODO: Client
-+                for(Mod eventModule : Client.wurst.modManager.getAllMods())
-+                {
-+                	eventModule.onDeath();
-+                }
++                EventManager.fireEvent(new DeathEvent());
 +            }
 +        }
 +    }
@@ -50874,10 +50872,10 @@ index 38b9ecd..f64dc7e 100644
              this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);
          }
 diff --git a/src/net/minecraft/network/NetworkManager.java b/src/net/minecraft/network/NetworkManager.java
-index f05dadf..16dc5e4 100644
+index f05dadf..549b18e 100644
 --- a/src/net/minecraft/network/NetworkManager.java
 +++ b/src/net/minecraft/network/NetworkManager.java
-@@ -1,479 +1,467 @@
+@@ -1,479 +1,472 @@
 -package net.minecraft.network;
 -
 -import com.google.common.collect.Queues;
@@ -51387,6 +51385,8 @@ index f05dadf..16dc5e4 100644
 +import org.apache.logging.log4j.MarkerManager;
 +
 +import tk.wurst_client.Client;
++import tk.wurst_client.event.EventManager;
++import tk.wurst_client.event.events.PacketInputEvent;
 +import tk.wurst_client.mod.Mod;
 +
 +import com.google.common.collect.Queues;
@@ -51508,8 +51508,11 @@ index f05dadf..16dc5e4 100644
 +		if(channel.isOpen())
 +		{
 +			//TODO: Client
-+			for(Mod mod : Client.wurst.modManager.getAllMods())
-+				mod.onPacket(p_channelRead0_2_);
++			PacketInputEvent event = new PacketInputEvent(p_channelRead0_2_);
++			EventManager.fireEvent(event);
++			if(event.isCancelled())
++				return;
++			
 +			try
 +			{
 +				p_channelRead0_2_.processPacket(packetListener);

@@ -9,6 +9,8 @@ package tk.wurst_client.mod.mods;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.DeathListener;
 import tk.wurst_client.mod.Mod;
 import tk.wurst_client.mod.Mod.Category;
 import tk.wurst_client.mod.Mod.Info;
@@ -16,15 +18,24 @@ import tk.wurst_client.mod.Mod.Info;
 @Info(category = Category.COMBAT,
 	description = "Automatically respawns you whenever you die.",
 	name = "AutoRespawn")
-public class AutoRespawn extends Mod
+public class AutoRespawn extends Mod implements DeathListener
 {
+	@Override
+	public void onEnable()
+	{
+		EventManager.addDeathListener(this);
+	}
+	
 	@Override
 	public void onDeath()
 	{
-		if(isEnabled())
-		{
-			Minecraft.getMinecraft().thePlayer.respawnPlayer();
-			GuiScreen.mc.displayGuiScreen((GuiScreen)null);
-		}
+		Minecraft.getMinecraft().thePlayer.respawnPlayer();
+		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeDeathListener(this);
 	}
 }

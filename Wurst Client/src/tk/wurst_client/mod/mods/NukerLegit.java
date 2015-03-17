@@ -18,6 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.LeftClickListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.mod.Mod;
@@ -30,7 +31,8 @@ import tk.wurst_client.utils.RenderUtils;
 	description = "Slower Nuker that bypasses any cheat prevention\n"
 		+ "PlugIn. Not required on most NoCheat+ servers!",
 	name = "NukerLegit")
-public class NukerLegit extends Mod implements UpdateListener, RenderListener
+public class NukerLegit extends Mod implements LeftClickListener,
+	RenderListener, UpdateListener
 {
 	private static Block currentBlock;
 	private float currentDamage;
@@ -64,6 +66,7 @@ public class NukerLegit extends Mod implements UpdateListener, RenderListener
 			.isEnabled())
 			Client.wurst.modManager.getModByClass(SpeedNuker.class)
 				.setEnabled(false);
+		EventManager.addLeftClickListener(this);
 		EventManager.addUpdateListener(this);
 		EventManager.addRenderListener(this);
 	}
@@ -158,6 +161,7 @@ public class NukerLegit extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeLeftClickListener(this);
 		EventManager.removeUpdateListener(this);
 		EventManager.removeRenderListener(this);
 		if(oldSlot != -1)
@@ -174,8 +178,7 @@ public class NukerLegit extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onLeftClick()
 	{
-		if(!isEnabled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
+		if(Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
 		if(Client.wurst.options.nukerMode == 1

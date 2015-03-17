@@ -14,17 +14,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import tk.wurst_client.event.events.ChatInputEvent;
-import tk.wurst_client.event.events.ChatOutputEvent;
-import tk.wurst_client.event.events.Event;
-import tk.wurst_client.event.events.GUIRenderEvent;
-import tk.wurst_client.event.events.RenderEvent;
-import tk.wurst_client.event.events.UpdateEvent;
-import tk.wurst_client.event.listeners.ChatInputListener;
-import tk.wurst_client.event.listeners.ChatOutputListener;
-import tk.wurst_client.event.listeners.GUIRenderListener;
-import tk.wurst_client.event.listeners.RenderListener;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.event.events.*;
+import tk.wurst_client.event.listeners.*;
 
 public class EventManager
 {
@@ -32,8 +23,14 @@ public class EventManager
 		.synchronizedSet(new HashSet<ChatInputListener>());
 	private static Set<ChatOutputListener> chatOutputListeners = Collections
 		.synchronizedSet(new HashSet<ChatOutputListener>());
+	private static Set<DeathListener> deathListeners = Collections
+		.synchronizedSet(new HashSet<DeathListener>());
 	private static Set<GUIRenderListener> guiRenderListeners = Collections
 		.synchronizedSet(new HashSet<GUIRenderListener>());
+	private static Set<LeftClickListener> leftClickListeners = Collections
+		.synchronizedSet(new HashSet<LeftClickListener>());
+	private static Set<PacketInputListener> packetInputListeners = Collections
+		.synchronizedSet(new HashSet<PacketInputListener>());
 	private static Set<RenderListener> renderListeners = Collections
 		.synchronizedSet(new HashSet<RenderListener>());
 	private static Set<UpdateListener> updateListeners = Collections
@@ -67,6 +64,22 @@ public class EventManager
 				GUIRenderListener listener = itr.next();
 				listener.onRenderGUI();
 			}
+		}else if(event instanceof PacketInputEvent)
+		{
+			Iterator<PacketInputListener> itr = packetInputListeners.iterator();
+			while(itr.hasNext())
+			{
+				PacketInputListener listener = itr.next();
+				listener.onReceivedPacket((PacketInputEvent)event);
+			}
+		}else if(event instanceof LeftClickEvent)
+		{
+			Iterator<LeftClickListener> itr = leftClickListeners.iterator();
+			while(itr.hasNext())
+			{
+				LeftClickListener listener = itr.next();
+				listener.onLeftClick();
+			}
 		}else if(event instanceof ChatInputEvent)
 		{
 			Iterator<ChatInputListener> itr = chatInputListeners.iterator();
@@ -82,6 +95,14 @@ public class EventManager
 			{
 				ChatOutputListener listener = itr.next();
 				listener.onSentMessage((ChatOutputEvent)event);
+			}
+		}else if(event instanceof DeathEvent)
+		{
+			Iterator<DeathListener> itr = deathListeners.iterator();
+			while(itr.hasNext())
+			{
+				DeathListener listener = itr.next();
+				listener.onDeath();
 			}
 		}
 		for(Runnable task; (task = queue.poll()) != null;)
@@ -140,6 +161,32 @@ public class EventManager
 		});
 	}
 	
+	public synchronized static void addDeathListener(
+		final DeathListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				deathListeners.add(listener);
+			}
+		});
+	}
+
+	public synchronized static void removeDeathListener(
+		final DeathListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				deathListeners.remove(listener);
+			}
+		});
+	}
+
 	public synchronized static void addGUIRenderListener(
 		final GUIRenderListener listener)
 	{
@@ -162,6 +209,58 @@ public class EventManager
 			public void run()
 			{
 				guiRenderListeners.remove(listener);
+			}
+		});
+	}
+	
+	public synchronized static void addLeftClickListener(
+		final LeftClickListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				leftClickListeners.add(listener);
+			}
+		});
+	}
+
+	public synchronized static void removeLeftClickListener(
+		final LeftClickListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				leftClickListeners.remove(listener);
+			}
+		});
+	}
+	
+	public synchronized static void addPacketInputListener(
+		final PacketInputListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				packetInputListeners.add(listener);
+			}
+		});
+	}
+
+	public synchronized static void removePacketInputListener(
+		final PacketInputListener listener)
+	{
+		queue.add(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				packetInputListeners.remove(listener);
 			}
 		});
 	}

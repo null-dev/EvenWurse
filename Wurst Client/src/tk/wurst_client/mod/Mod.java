@@ -11,8 +11,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
-import net.minecraft.network.Packet;
-
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
@@ -135,21 +133,9 @@ public class Mod
 	public void onDisable()
 	{}
 	
-	public void onDeath()
-	{}
-	
-	/**
-	 * Note: This runs before the swing animation.
-	 */
-	public void onLeftClick()
-	{}
-	
 	public void initSliders()
 	{}
 	
 	public void updateSettings()
-	{}
-	
-	public void onPacket(Packet packet)
 	{}
 }

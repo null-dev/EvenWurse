@@ -34,6 +34,7 @@ import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatInputEvent;
 import tk.wurst_client.event.listeners.ChatInputListener;
+import tk.wurst_client.event.listeners.DeathListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.mod.Mod;
@@ -50,8 +51,8 @@ import tk.wurst_client.utils.RenderUtils;
 		+ "for ArenaBrawl. It will bypass everything that Hypixel\n"
 		+ "has to offer.",
 	name = "ArenaBrawl")
-public class ArenaBrawl extends Mod implements UpdateListener, RenderListener,
-	ChatInputListener
+public class ArenaBrawl extends Mod implements ChatInputListener,
+	DeathListener, RenderListener, UpdateListener
 {
 	private EntityLivingBase friend;
 	public static float range = 4.25F;
@@ -95,6 +96,7 @@ public class ArenaBrawl extends Mod implements UpdateListener, RenderListener,
 	{
 		reset();
 		EventManager.addChatInputListener(this);
+		EventManager.addDeathListener(this);
 		EventManager.addRenderListener(this);
 		EventManager.addUpdateListener(this);
 	}
@@ -271,6 +273,7 @@ public class ArenaBrawl extends Mod implements UpdateListener, RenderListener,
 	public void onDisable()
 	{
 		EventManager.removeChatInputListener(this);
+		EventManager.removeDeathListener(this);
 		EventManager.removeRenderListener(this);
 		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
@@ -295,8 +298,6 @@ public class ArenaBrawl extends Mod implements UpdateListener, RenderListener,
 	@Override
 	public void onDeath()
 	{
-		if(!isEnabled())
-			return;
 		Minecraft.getMinecraft().thePlayer.respawnPlayer();
 		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
 		Client.wurst.chat.message("You died.");

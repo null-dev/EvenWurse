@@ -22,6 +22,7 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.LeftClickListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.mod.Mod;
@@ -32,7 +33,7 @@ import tk.wurst_client.utils.RenderUtils;
 
 @Info(category = Category.BLOCKS, description = "Destroys blocks around you.\n"
 	+ "Use .nuker mode <mode> to change the mode.", name = "Nuker")
-public class Nuker extends Mod implements UpdateListener, RenderListener
+public class Nuker extends Mod implements LeftClickListener, RenderListener, UpdateListener
 {
 	public static float normalRange = 5F;
 	public static float yesCheatRange = 4.25F;
@@ -84,6 +85,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 			.isEnabled())
 			Client.wurst.modManager.getModByClass(SpeedNuker.class)
 				.setEnabled(false);
+		EventManager.addLeftClickListener(this);
 		EventManager.addUpdateListener(this);
 		EventManager.addRenderListener(this);
 	}
@@ -198,6 +200,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeLeftClickListener(this);
 		EventManager.removeUpdateListener(this);
 		EventManager.removeRenderListener(this);
 		if(oldSlot != -1)
@@ -214,8 +217,7 @@ public class Nuker extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onLeftClick()
 	{
-		if(!isEnabled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
+		if(Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
 		if(Client.wurst.options.nukerMode == 1
