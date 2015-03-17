@@ -31,6 +31,7 @@ public class ModManager
 		addMod(new AntiAFK());
 		addMod(new AntiBlind());
 		addMod(new AntiKnockback());
+		addMod(new AntiPotion());
 		addMod(new AntiSpam());
 		addMod(new ArenaBrawl());
 		addMod(new AutoArmor());
