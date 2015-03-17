@@ -1,6 +1,6 @@
-From 0e0fb514d890f5cf6533a3ca8f55fdf6c9a21d39 Mon Sep 17 00:00:00 2001
+From 0faa00eb8094089f40317a5bb9c42c69b724d58b Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Tue, 17 Mar 2015 15:05:50 +0100
+Date: Tue, 17 Mar 2015 15:26:36 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -36,7 +36,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiLanguage.java      |    3 +
  src/net/minecraft/client/gui/GuiListButton.java    |    1 +
  .../minecraft/client/gui/GuiLockIconButton.java    |    1 +
- src/net/minecraft/client/gui/GuiMainMenu.java      | 1328 ++--
+ src/net/minecraft/client/gui/GuiMainMenu.java      | 1330 ++--
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |    2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |    4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   |  197 +-
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 25097 insertions(+), 23488 deletions(-)
+ 202 files changed, 25099 insertions(+), 23488 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -19121,10 +19121,10 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..a97c826 100644
+index 38033d9..4414e83 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
-@@ -1,567 +1,761 @@
+@@ -1,567 +1,763 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -20398,8 +20398,10 @@ index 38033d9..a97c826 100644
 +        while(fontRendererObj.getStringWidth(news) < width * 2 && !news.isEmpty())
 +        	news += news;
 +        if(!news.isEmpty())
++        {
 +        	this.drawCenteredString(fontRendererObj, "§nWurst News", this.width / 2, this.height - 20, -1);
-+        this.drawString(this.fontRendererObj, news, -(int)(mc.getSystemTime() / 50 % newsWidth), this.height - 10, -1);
++        	this.drawString(this.fontRendererObj, news, -(int)(mc.getSystemTime() / 50 % newsWidth), this.height - 10, -1);
++        }
 +
 +        if (this.field_92025_p != null && this.field_92025_p.length() > 0)
 +        {
