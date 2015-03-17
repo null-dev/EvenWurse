@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTool;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.LeftClickListener;
@@ -20,7 +21,7 @@ import tk.wurst_client.mod.Mod.Category;
 import tk.wurst_client.mod.Mod.Info;
 
 @Info(category = Category.COMBAT,
-	description = "Automatically uses the best sword in your hotbar to attack\n"
+	description = "Automatically uses the best weapon in your hotbar to attack\n"
 		+ "entities. Tip: This works with Killaura.",
 	name = "AutoSword")
 public class AutoSword extends Mod implements LeftClickListener, UpdateListener
@@ -84,19 +85,29 @@ public class AutoSword extends Mod implements LeftClickListener, UpdateListener
 			ItemStack item =
 				Minecraft.getMinecraft().thePlayer.inventory
 					.getStackInSlot(i);
-			if(item == null || !(item.getItem() instanceof ItemSword))
+			if(item == null)
 				continue;
-			float speed = ((ItemSword)item.getItem()).func_150931_i();
+			float speed = 0;
+			if(item.getItem() instanceof ItemSword)
+				speed = ((ItemSword)item.getItem()).func_150931_i();
+			else if(item.getItem() instanceof ItemTool)
+				speed =
+					((ItemTool)item.getItem()).getToolMaterial()
+						.getDamageVsEntity();
 			if(speed > bestSpeed)
 			{
 				bestSpeed = speed;
 				bestSlot = i;
 			}
 		}
-		if(bestSlot != -1 && bestSlot != Minecraft.getMinecraft().thePlayer.inventory.currentItem)
+		if(bestSlot != -1
+			&& bestSlot != Minecraft.getMinecraft().thePlayer.inventory.currentItem)
 		{
-			AutoSword instance = (AutoSword)Client.wurst.modManager.getModByClass(AutoSword.class);
-			instance.oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
+			AutoSword instance =
+				(AutoSword)Client.wurst.modManager
+					.getModByClass(AutoSword.class);
+			instance.oldSlot =
+				Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem =
 				bestSlot;
 			instance.timer = 4;
