@@ -11,8 +11,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
-import net.minecraft.network.Packet;
-
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
@@ -139,8 +137,5 @@ public class Mod
 	{}
 	
 	public void updateSettings()
-	{}
-	
-	public void onPacket(Packet packet)
 	{}
 }

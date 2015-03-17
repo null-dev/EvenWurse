@@ -15,6 +15,8 @@ import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.network.play.server.S2CPacketSpawnGlobalEntity;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.events.PacketInputEvent;
+import tk.wurst_client.event.listeners.PacketInputListener;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.mod.Mod;
 import tk.wurst_client.mod.Mod.Category;
@@ -25,7 +27,7 @@ import tk.wurst_client.utils.RenderUtils;
 @Info(category = Category.RENDER,
 	description = "Finds far players during thunderstorms.",
 	name = "PlayerFinder")
-public class PlayerFinder extends Mod implements RenderListener
+public class PlayerFinder extends Mod implements PacketInputListener, RenderListener
 {
 	private BlockPos blockPos;
 	
@@ -33,6 +35,7 @@ public class PlayerFinder extends Mod implements RenderListener
 	public void onEnable()
 	{
 		blockPos = null;
+		EventManager.addPacketInputListener(this);
 		EventManager.addRenderListener(this);
 	}
 	
@@ -61,14 +64,14 @@ public class PlayerFinder extends Mod implements RenderListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.removePacketInputListener(this);
 		EventManager.removeRenderListener(this);
 	}
 	
 	@Override
-	public void onPacket(Packet packet)
+	public void onReceivedPacket(PacketInputEvent event)
 	{
-		if(!isEnabled())
-			return;
+		Packet packet = event.getPacket();
 		if(packet instanceof S28PacketEffect)
 		{
 			S28PacketEffect effect = (S28PacketEffect)packet;
