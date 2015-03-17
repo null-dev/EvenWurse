@@ -43,6 +43,7 @@ public class ModManager
 		addMod(new AutoSprint());
 		addMod(new AutoSteal());
 		addMod(new AutoSwitch());
+		addMod(new AutoSword());
 		addMod(new AutoTool());
 		addMod(new AutoWalk());
 		addMod(new BaseFinder());
