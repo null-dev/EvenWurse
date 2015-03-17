@@ -17,6 +17,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.Client;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.LeftClickListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.mod.Mod;
 import tk.wurst_client.mod.Mod.Category;
@@ -26,7 +27,8 @@ import tk.wurst_client.utils.BlockUtils;
 @Info(category = Category.BLOCKS,
 	description = "Faster Nuker that cannot bypass NoCheat+.",
 	name = "SpeedNuker")
-public class SpeedNuker extends Mod implements UpdateListener
+public class SpeedNuker extends Mod implements LeftClickListener,
+	UpdateListener
 {
 	private static Block currentBlock;
 	private BlockPos pos;
@@ -56,6 +58,7 @@ public class SpeedNuker extends Mod implements UpdateListener
 			.isEnabled())
 			Client.wurst.modManager.getModByClass(NukerLegit.class)
 				.setEnabled(false);
+		EventManager.addLeftClickListener(this);
 		EventManager.addUpdateListener(this);
 	}
 	
@@ -116,6 +119,7 @@ public class SpeedNuker extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeLeftClickListener(this);
 		EventManager.removeUpdateListener(this);
 		if(oldSlot != -1)
 		{
@@ -129,8 +133,7 @@ public class SpeedNuker extends Mod implements UpdateListener
 	@Override
 	public void onLeftClick()
 	{
-		if(!isEnabled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
+		if(Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
 		if(Client.wurst.options.nukerMode == 1

@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.LeftClickListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.mod.Mod;
 import tk.wurst_client.mod.Mod.Category;
@@ -22,7 +23,7 @@ import tk.wurst_client.mod.Mod.Info;
 	description = "Automatically uses the best tool in your hotbar to\n"
 		+ "mine blocks. Tip: This works with Nuker.",
 	name = "AutoTool")
-public class AutoTool extends Mod implements UpdateListener
+public class AutoTool extends Mod implements LeftClickListener, UpdateListener
 {
 	private boolean isActive = false;
 	private int oldSlot;
@@ -30,6 +31,7 @@ public class AutoTool extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
+		EventManager.addLeftClickListener(this);
 		EventManager.addUpdateListener(this);
 	}
 	
@@ -55,6 +57,7 @@ public class AutoTool extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
+		EventManager.removeLeftClickListener(this);
 		EventManager.removeUpdateListener(this);
 		isActive = false;
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
@@ -63,8 +66,7 @@ public class AutoTool extends Mod implements UpdateListener
 	@Override
 	public void onLeftClick()
 	{
-		if(!isEnabled()
-			|| Minecraft.getMinecraft().objectMouseOver == null
+		if(Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
 		if(Minecraft.getMinecraft().theWorld

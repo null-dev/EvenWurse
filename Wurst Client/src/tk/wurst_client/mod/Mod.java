@@ -135,12 +135,6 @@ public class Mod
 	public void onDisable()
 	{}
 	
-	/**
-	 * Note: This runs before the swing animation.
-	 */
-	public void onLeftClick()
-	{}
-	
 	public void initSliders()
 	{}
 	

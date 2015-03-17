@@ -11,6 +11,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.LeftClickListener;
 import tk.wurst_client.mod.Mod;
 import tk.wurst_client.mod.Mod.Category;
 import tk.wurst_client.mod.Mod.Info;
@@ -18,8 +20,20 @@ import tk.wurst_client.mod.Mod.Info;
 @Info(category = Category.COMBAT,
 	description = "Changes all your hits to critical hits.",
 	name = "Criticals")
-public class Criticals extends Mod
+public class Criticals extends Mod implements LeftClickListener
 {
+	@Override
+	public void onEnable()
+	{
+		EventManager.addLeftClickListener(this);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		EventManager.removeLeftClickListener(this);
+	}
+	
 	@Override
 	public void onLeftClick()
 	{
