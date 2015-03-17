@@ -9,11 +9,11 @@ package tk.wurst_client.event.events;
 
 import net.minecraft.network.Packet;
 
-public class PacketEvent extends CancellableEvent
+public class PacketInputEvent extends CancellableEvent
 {
 	private Packet packet;
 
-	public PacketEvent(Packet packet)
+	public PacketInputEvent(Packet packet)
 	{
 		this.packet = packet;
 	}

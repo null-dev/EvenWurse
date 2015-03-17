@@ -29,8 +29,8 @@ public class EventManager
 		.synchronizedSet(new HashSet<GUIRenderListener>());
 	private static Set<LeftClickListener> leftClickListeners = Collections
 		.synchronizedSet(new HashSet<LeftClickListener>());
-	private static Set<PacketListener> packetListeners = Collections
-		.synchronizedSet(new HashSet<PacketListener>());
+	private static Set<PacketInputListener> packetInputListeners = Collections
+		.synchronizedSet(new HashSet<PacketInputListener>());
 	private static Set<RenderListener> renderListeners = Collections
 		.synchronizedSet(new HashSet<RenderListener>());
 	private static Set<UpdateListener> updateListeners = Collections
@@ -64,13 +64,13 @@ public class EventManager
 				GUIRenderListener listener = itr.next();
 				listener.onRenderGUI();
 			}
-		}else if(event instanceof PacketEvent)
+		}else if(event instanceof PacketInputEvent)
 		{
-			Iterator<PacketListener> itr = packetListeners.iterator();
+			Iterator<PacketInputListener> itr = packetInputListeners.iterator();
 			while(itr.hasNext())
 			{
-				PacketListener listener = itr.next();
-				listener.onPacket((PacketEvent)event);
+				PacketInputListener listener = itr.next();
+				listener.onReceivedPacket((PacketInputEvent)event);
 			}
 		}else if(event instanceof LeftClickEvent)
 		{
@@ -239,28 +239,28 @@ public class EventManager
 		});
 	}
 	
-	public synchronized static void addPacketListener(
-		final PacketListener listener)
+	public synchronized static void addPacketInputListener(
+		final PacketInputListener listener)
 	{
 		queue.add(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				packetListeners.add(listener);
+				packetInputListeners.add(listener);
 			}
 		});
 	}
 
-	public synchronized static void removePacketListener(
-		final PacketListener listener)
+	public synchronized static void removePacketInputListener(
+		final PacketInputListener listener)
 	{
 		queue.add(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				packetListeners.remove(listener);
+				packetInputListeners.remove(listener);
 			}
 		});
 	}

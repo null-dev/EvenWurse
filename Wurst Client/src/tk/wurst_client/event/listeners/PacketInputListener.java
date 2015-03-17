@@ -7,9 +7,9 @@
  */
 package tk.wurst_client.event.listeners;
 
-import tk.wurst_client.event.events.PacketEvent;
+import tk.wurst_client.event.events.PacketInputEvent;
 
-public interface PacketListener
+public interface PacketInputListener
 {	
-	public void onPacket(PacketEvent event);
+	public void onReceivedPacket(PacketInputEvent event);
 }
