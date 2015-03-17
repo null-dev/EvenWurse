@@ -28,7 +28,7 @@ public class Features extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null)
+		if(args == null || args.length == 0)
 		{
 			Client.wurst.chat.message("Features in this release of Wurst:");
 			int mods = Client.wurst.modManager.countMods();
