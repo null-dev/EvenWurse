@@ -135,9 +135,6 @@ public class Mod
 	public void onDisable()
 	{}
 	
-	public void onDeath()
-	{}
-	
 	/**
 	 * Note: This runs before the swing animation.
 	 */
