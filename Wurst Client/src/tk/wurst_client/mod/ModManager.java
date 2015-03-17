@@ -30,6 +30,7 @@ public class ModManager
 	{
 		addMod(new AntiAFK());
 		addMod(new AntiBlind());
+		addMod(new AntiFire());
 		addMod(new AntiKnockback());
 		addMod(new AntiPotion());
 		addMod(new AntiSpam());
