@@ -22,7 +22,7 @@ public class RV extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null)
+		if(args.length == 0)
 		{
 			RemoteView.onEnabledByCommand("");
 			return;

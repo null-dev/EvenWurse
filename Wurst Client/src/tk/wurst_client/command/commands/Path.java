@@ -40,7 +40,7 @@ public class Path extends Command implements RenderListener
 			enabled = false;
 			return;
 		}
-		if(args == null || args.length != 3)
+		if(args.length != 3)
 		{
 			commandError();
 			return;

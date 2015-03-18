@@ -31,6 +31,8 @@ public class AddAlt extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
+		if(args.length == 0)
+			commandError();
 		if(args[0].equals("all"))
 		{
 			int alts = 0;
@@ -64,7 +66,6 @@ public class AddAlt extends Command
 			Client.wurst.fileManager.saveAlts();
 			Client.wurst.chat.message("Added \"" + args[0]
 				+ "\" to the alt list.");
-		}else
-			commandError();
+		}
 	}
 }

@@ -29,7 +29,7 @@ public class SpammerMod extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null || args.length < 2)
+		if(args.length < 2)
 		{
 			commandError();
 			return;

@@ -30,7 +30,7 @@ public class Enchant extends Command
 			Client.wurst.chat.error("You have to be in creative mode.");
 			return;
 		}
-		if(args == null)
+		if(args.length == 0)
 		{
 			ItemStack currentItem =
 				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();

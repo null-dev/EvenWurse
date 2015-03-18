@@ -26,7 +26,7 @@ public class Binds extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null)
+		if(args.length == 0)
 		{
 			onEnable(null, new String[]{"1"});
 			return;

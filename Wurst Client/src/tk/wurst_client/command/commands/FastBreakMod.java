@@ -22,7 +22,7 @@ public class FastBreakMod extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null)
+		if(args.length == 0)
 			commandError();
 		else if(args[0].toLowerCase().equals("mode"))
 		{// 0=normal, 1=instant

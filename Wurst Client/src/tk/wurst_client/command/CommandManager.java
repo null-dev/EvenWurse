@@ -18,33 +18,38 @@ import tk.wurst_client.event.listeners.ChatOutputListener;
 public class CommandManager implements ChatOutputListener
 {
 	public ArrayList<Command> activeCommands = new ArrayList<Command>();
-
+	
 	@Override
 	public void onSentMessage(ChatOutputEvent event)
 	{
-      	if(event.getMessage().startsWith("."))
-      	{
-      		event.cancel();
-      		String input = event.getMessage().substring(1);
-      		String command = input.split(" ")[0];
-      	    for(Command eventCommand : Client.wurst.commandManager.activeCommands)
-      	    {
-      	        if(eventCommand.getName().equals(command))
-      	        {
-      	        	try
-      	        	{
-      	        		String[] args = input.contains(" ") ? input.substring(input.indexOf(" ") + 1).split(" ") : new String[0];
-      	        		eventCommand.onEnable(input, args);
-      	        	} catch (Exception e)
-      	        	{
-      	        		eventCommand.commandError();
-      	        	}
-      	        	return;
-      	        }
-      	    }
-  	        Client.wurst.chat.message("\"." + command + "\" is not a valid command.");
-  	        Client.wurst.chat.message("Type \".help\" to see the command list.");
-      	}
+		if(event.getMessage().startsWith("."))
+		{
+			event.cancel();
+			String input = event.getMessage().substring(1);
+			String command = input.split(" ")[0];
+			for(Command eventCommand : Client.wurst.commandManager.activeCommands)
+			{
+				if(eventCommand.getName().equals(command))
+				{
+					try
+					{
+						String[] args =
+							input.contains(" ") ? input.substring(
+								input.indexOf(" ") + 1).split(" ")
+								: new String[0];
+						eventCommand.onEnable(input, args);
+					}catch(Exception e)
+					{
+						EventManager.handleException(e, eventCommand, "executing");
+					}
+					return;
+				}
+			}
+			Client.wurst.chat.message("\"." + command
+				+ "\" is not a valid command.");
+			Client.wurst.chat
+				.message("Type \".help\" to see the command list.");
+		}
 	}
 	
 	public CommandManager()
