@@ -11,9 +11,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
+
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.gui.error.GuiError;
 
 public class Mod
 {
@@ -76,11 +79,29 @@ public class Mod
 	public final void setEnabled(boolean enabled)
 	{
 		this.enabled = enabled;
-		onToggle();
+		try
+		{
+			onToggle();
+		}catch(Exception e)
+		{
+			Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "toggling"));
+		}
 		if(enabled)
-			onEnable();
+			try
+			{
+				onEnable();
+			}catch(Exception e)
+			{
+				Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "enabling"));
+			}
 		else
-			onDisable();
+			try
+			{
+				onDisable();
+			}catch(Exception e)
+			{
+				Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "disabling"));
+			}
 		Client.wurst.fileManager.saveMods();
 	}
 	
