@@ -45,7 +45,7 @@ public class GuiError extends GuiScreen
 	public void initGui()
 	{
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
-			20, "Create/View Bug Report"));
+			20, "Report Bug on GitHub"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
 			98, 20, "View Stacktrace"));
 		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
@@ -100,10 +100,13 @@ public class GuiError extends GuiScreen
 							.getAsJsonObject();
 					boolean known = json.get("total_count").getAsInt() > 0;
 					if(known)
+					{
+						Client.wurst.chat.message("This bug has been reported before.");
+						Client.wurst.chat.message("Showing existing bug reports.");
 						MiscUtils
 							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=is%3Aissue+"
 								+ query);
-					else
+					}else
 					{
 						String title = "Error while " + action;
 						if(listener instanceof Mod)
@@ -112,6 +115,8 @@ public class GuiError extends GuiScreen
 									+ Client.wurst.modManager.getModByClass(
 										listener.getClass()).getName();
 						title = URLEncoder.encode(title, "UTF-8");
+						Client.wurst.chat.message("Generated a new bug report.");
+						Client.wurst.chat.message("Press the green submit button to report it.");
 						MiscUtils
 							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues/new?title="
 								+ title + "&body=" + report);
@@ -119,13 +124,10 @@ public class GuiError extends GuiScreen
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					Client.wurst.chat.error("Error could not be reported. :(");
+					Client.wurst.chat.error("Bug could not be reported. :(");
 					Client.wurst.chat.message("Try reporting it manually.");
 					MiscUtils
 						.openLink("https://github.com/Wurst-Imperium/Wurst-Client/labels/bug");
-				}finally
-				{
-					actionPerformed((GuiButton)buttonList.get(2));
 				}
 				break;
 			case 1:
