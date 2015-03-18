@@ -148,7 +148,7 @@ public class GuiError extends GuiScreen
 	{
 		drawDefaultBackground();
 		mc.getTextureManager().bindTexture(bugTexture);
-		drawScaledCustomSizeModalRect(width / 4 * 3, height / 3, 0, 0, 256,
+		drawScaledCustomSizeModalRect(width / 2 - 48, height / 3, 0, 0, 256,
 			256, 96, 96, 256, 256);
 		drawCenteredString(fontRendererObj, "§nError!§r", width / 2,
 			height / 4, 0xffffffff);
