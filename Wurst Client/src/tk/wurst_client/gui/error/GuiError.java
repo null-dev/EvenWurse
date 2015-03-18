@@ -69,8 +69,6 @@ public class GuiError extends GuiScreen
 			case 0:
 				try
 				{
-					String report = generateReport(trace);
-					report = URLEncoder.encode(report, "UTF-8");
 					String query =
 						trace.replace(" ", "+").replace("\r\n", "")
 							.replace("\t", "");
@@ -97,13 +95,10 @@ public class GuiError extends GuiScreen
 								+ query);
 					}else
 					{
-						String title = "Error while " + action;
-						if(listener instanceof Mod)
-							title +=
-								" "
-									+ Client.wurst.modManager.getModByClass(
-										listener.getClass()).getName();
-						title = URLEncoder.encode(title, "UTF-8");
+						String title =
+							URLEncoder.encode(getReportDescription(), "UTF-8");
+						String report =
+							URLEncoder.encode(generateReport(trace), "UTF-8");
 						Client.wurst.chat
 							.message("Generated a new bug report.");
 						Client.wurst.chat
@@ -148,31 +143,36 @@ public class GuiError extends GuiScreen
 		}
 	}
 	
+	private String getReportDescription()
+	{
+		String title = "An error occurred ";
+		if(listener instanceof Mod)
+			title +=
+				"in "
+					+ Client.wurst.modManager.getModByClass(
+						listener.getClass()).getName();
+		title += " while " + action + ".";
+		return title;
+	}
+	
 	private String generateReport(String trace)
 	{
 		String report = "# Description\n"
-			+ "An error occurred while " + action;
-		if(listener instanceof Mod)
-			report +=
-				" "
-					+ Client.wurst.modManager.getModByClass(
-						listener.getClass()).getName();
-		report += ".\n\n"
-			+ "# Stacktrace\n";
-		report += "```\n" + trace + "```"
+			+ getReportDescription() + "\n\n"
+			+ "# Stacktrace\n"
+			+ "```\n" + trace + "```"
 			+ "\n\n# System details\n"
-			+ "- OS: " + System.getProperty("os.name") + " ("
-			+ System.getProperty("os.arch") + ")\n"
+			+ "- OS: " + System.getProperty("os.name")
+			+ " (" + System.getProperty("os.arch") + ")\n"
 			+ "- Java version: "
 			+ System.getProperty("java.version") + " ("
 			+ System.getProperty("java.vendor") + ")\n"
 			+ "- Wurst version: "
-			+ Client.wurst.updater.getCurrentVersion()
-			+ " (latest: "
+			+ Client.wurst.updater.getCurrentVersion() + " (latest: "
 			+ Client.wurst.updater.getLatestVersion() + ")\n";
 		return report;
 	}
-
+	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
@@ -182,8 +182,7 @@ public class GuiError extends GuiScreen
 			256, 96, 96, 256, 256);
 		drawCenteredString(fontRendererObj, "§nError!§r", width / 2,
 			height / 4, 0xffffffff);
-		drawCenteredString(fontRendererObj,
-			"An error occurred while enabling /home.", width / 2,
+		drawCenteredString(fontRendererObj, getReportDescription(), width / 2,
 			height / 4 + 16, 0xffffffff);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
