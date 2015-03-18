@@ -14,6 +14,7 @@ import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import tk.wurst_client.Client;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -24,6 +25,16 @@ import com.google.gson.JsonParser;
 public class GuiError extends GuiScreen
 {
 	private ResourceLocation bugTexture = new ResourceLocation("wurst/bug.png");
+	private final Exception e;
+	private final Class<?> listener;
+	private final String action;
+	
+	public GuiError(Exception e, Class<?> listener, String action)
+	{
+		this.e = e;
+		this.listener = listener;
+		this.action = action;
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -58,6 +69,7 @@ public class GuiError extends GuiScreen
 			case 1:
 				break;
 			case 2:
+				Client.wurst.modManager.getModByClass(listener).setEnabled(false);
 				mc.displayGuiScreen(null);
 				break;
 			default:

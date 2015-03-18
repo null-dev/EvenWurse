@@ -14,8 +14,10 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import net.minecraft.client.Minecraft;
 import tk.wurst_client.event.events.*;
 import tk.wurst_client.event.listeners.*;
+import tk.wurst_client.gui.error.GuiError;
 
 public class EventManager
 {
@@ -46,7 +48,13 @@ public class EventManager
 			while(itr.hasNext())
 			{
 				UpdateListener listener = itr.next();
-				listener.onUpdate();
+				try
+				{
+					listener.onUpdate();
+				}catch(Exception e)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener.getClass(), "updating"));
+				}
 			}
 		}else if(event instanceof RenderEvent)
 		{
