@@ -150,8 +150,8 @@ public class GuiError extends GuiScreen
 			title +=
 				"in "
 					+ Client.wurst.modManager.getModByClass(
-						listener.getClass()).getName();
-		title += " while " + action + ".";
+						listener.getClass()).getName() + " ";
+		title += "while " + action + ".";
 		return title;
 	}
 	
