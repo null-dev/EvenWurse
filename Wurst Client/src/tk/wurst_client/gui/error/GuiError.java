@@ -7,6 +7,8 @@
  */
 package tk.wurst_client.gui.error;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -15,7 +17,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.swing.JOptionPane;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -57,6 +61,9 @@ public class GuiError extends GuiScreen
 	{
 		if(!button.enabled)
 			return;
+		StringWriter stacktraceWriter = new StringWriter();
+		e.printStackTrace(new PrintWriter(stacktraceWriter));
+		final String trace = stacktraceWriter.toString();
 		switch(button.id)
 		{
 			case 0:
@@ -71,9 +78,6 @@ public class GuiError extends GuiScreen
 									listener.getClass()).getName();
 					report += ".\n\n"
 						+ "# Stacktrace\n";
-					StringWriter stacktraceWriter = new StringWriter();
-					e.printStackTrace(new PrintWriter(stacktraceWriter));
-					String trace = stacktraceWriter.toString();
 					report +=
 						"```\n" + trace + "```"
 							+ "\n\n# System details\n"
@@ -100,8 +104,10 @@ public class GuiError extends GuiScreen
 					boolean known = json.get("total_count").getAsInt() > 0;
 					if(known)
 					{
-						Client.wurst.chat.message("This bug has been reported before.");
-						Client.wurst.chat.message("Showing existing bug reports.");
+						Client.wurst.chat
+							.message("This bug has been reported before.");
+						Client.wurst.chat
+							.message("Showing existing bug reports.");
 						MiscUtils
 							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=is%3Aissue+"
 								+ query);
@@ -114,8 +120,10 @@ public class GuiError extends GuiScreen
 									+ Client.wurst.modManager.getModByClass(
 										listener.getClass()).getName();
 						title = URLEncoder.encode(title, "UTF-8");
-						Client.wurst.chat.message("Generated a new bug report.");
-						Client.wurst.chat.message("Press the green submit button to report it.");
+						Client.wurst.chat
+							.message("Generated a new bug report.");
+						Client.wurst.chat
+							.message("Press the green submit button to report it.");
 						MiscUtils
 							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues/new?title="
 								+ title + "&body=" + report);
@@ -130,6 +138,19 @@ public class GuiError extends GuiScreen
 				}
 				break;
 			case 1:
+				new Thread(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						if(JOptionPane.showOptionDialog(Minecraft
+								.getMinecraft().getFrame(), trace,
+								"Stacktrace", JOptionPane.DEFAULT_OPTION,
+								JOptionPane.INFORMATION_MESSAGE, null,
+								new String[]{"Close", "Copy to Clipboard"}, 0) == 1)
+							Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(trace), null);
+					}
+				}).start();
 				break;
 			case 2:
 				if(listener instanceof Mod)
