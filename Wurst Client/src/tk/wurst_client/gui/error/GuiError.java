@@ -149,11 +149,11 @@ public class GuiError extends GuiScreen
 		String title = "An error occurred ";
 		if(listener instanceof Mod)
 			title +=
-				"in "
+				"in `"
 					+ Client.wurst.modManager.getModByClass(
-						listener.getClass()).getName() + " ";
+						listener.getClass()).getName() + "` ";
 		else if(listener instanceof Command)
-			title += "in ." + ((Command)listener).getName() + " ";
+			title += "in `." + ((Command)listener).getName() + "` ";
 		title += "while " + action + ".";
 		return title;
 	}
