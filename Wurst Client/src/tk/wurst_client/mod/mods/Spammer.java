@@ -523,7 +523,8 @@ public class Spammer extends Mod
 	
 	public static void updateDelaySpinner()
 	{
-		delaySpinner.setValue(Client.wurst.options.spamDelay);
+		if(delaySpinner != null)
+			delaySpinner.setValue(Client.wurst.options.spamDelay);
 	}
 	
 	public JDialog getDialog()
