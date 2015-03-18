@@ -53,7 +53,7 @@ public class EventManager
 					listener.onUpdate();
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener.getClass(), "updating"));
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "updating"));
 				}
 			}
 		}else if(event instanceof RenderEvent)

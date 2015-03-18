@@ -15,6 +15,8 @@ import java.net.URLEncoder;
 import javax.net.ssl.HttpsURLConnection;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.command.Command;
+import tk.wurst_client.mod.Mod;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -26,10 +28,10 @@ public class GuiError extends GuiScreen
 {
 	private ResourceLocation bugTexture = new ResourceLocation("wurst/bug.png");
 	private final Exception e;
-	private final Class<?> listener;
+	private final Object listener;
 	private final String action;
 	
-	public GuiError(Exception e, Class<?> listener, String action)
+	public GuiError(Exception e, Object listener, String action)
 	{
 		this.e = e;
 		this.listener = listener;
@@ -42,7 +44,7 @@ public class GuiError extends GuiScreen
 	{
 		buttonList.add(new GuiButton(0, width / 2 - 154, height / 3 * 2, 100, 20, "Report Bug"));
 		buttonList.add(new GuiButton(1, width / 2 - 50, height / 3 * 2, 100, 20, "View Stacktrace"));
-		buttonList.add(new GuiButton(2, width / 2 + 54, height / 3 * 2, 100, 20, "Disable /home"));
+		buttonList.add(new GuiButton(2, width / 2 + 54, height / 3 * 2, 100, 20, "Ignore"));
 	}
 	
 	@Override
@@ -69,7 +71,8 @@ public class GuiError extends GuiScreen
 			case 1:
 				break;
 			case 2:
-				Client.wurst.modManager.getModByClass(listener).setEnabled(false);
+				if(listener instanceof Mod)
+					Client.wurst.modManager.getModByClass(listener.getClass()).setEnabled(false);
 				mc.displayGuiScreen(null);
 				break;
 			default:
