@@ -53,7 +53,7 @@ public class EventManager
 					listener.onUpdate();
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "updating"));
+					handleException(e, listener, "updating");
 				}
 			}
 		}else if(event instanceof RenderEvent)
@@ -67,7 +67,7 @@ public class EventManager
 					listener.onRender();
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "rendering"));
+					handleException(e, listener, "rendering");
 				}
 			}
 		}else if(event instanceof GUIRenderEvent)
@@ -81,7 +81,7 @@ public class EventManager
 					listener.onRenderGUI();
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "rendering GUI"));
+					handleException(e, listener, "rendering GUI");
 				}
 			}
 		}else if(event instanceof PacketInputEvent)
@@ -95,7 +95,7 @@ public class EventManager
 					listener.onReceivedPacket((PacketInputEvent)event);
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "receiving packet"));
+					handleException(e, listener, "receiving packet");
 				}
 			}
 		}else if(event instanceof LeftClickEvent)
@@ -109,7 +109,7 @@ public class EventManager
 					listener.onLeftClick();
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "left-clicking"));
+					handleException(e, listener, "left-clicking");
 				}
 			}
 		}else if(event instanceof ChatInputEvent)
@@ -123,7 +123,7 @@ public class EventManager
 					listener.onReceivedMessage((ChatInputEvent)event);
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "receiving chat message"));
+					handleException(e, listener, "receiving chat message");
 				}
 			}
 		}else if(event instanceof ChatOutputEvent)
@@ -137,7 +137,7 @@ public class EventManager
 					listener.onSentMessage((ChatOutputEvent)event);
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "sending chat message"));
+					handleException(e, listener, "sending chat message");
 				}
 			}
 		}else if(event instanceof DeathEvent)
@@ -151,12 +151,25 @@ public class EventManager
 					listener.onDeath();
 				}catch(Exception e)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "dying"));
+					handleException(e, listener, "dying");
 				}
 			}
 		}
 		for(Runnable task; (task = queue.poll()) != null;)
 			task.run();
+	}
+	
+	public synchronized static void handleException(final Exception e, final Object listener, final String action)
+	{
+		addUpdateListener(new UpdateListener()
+		{
+			@Override
+			public void onUpdate()
+			{
+				Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, action));
+				EventManager.removeUpdateListener(this);
+			}
+		});
 	}
 	
 	public synchronized static void addChatInputListener(

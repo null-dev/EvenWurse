@@ -9,13 +9,11 @@ package tk.wurst_client.command;
 
 import java.util.ArrayList;
 
-import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.commands.*;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatOutputEvent;
 import tk.wurst_client.event.listeners.ChatOutputListener;
-import tk.wurst_client.gui.error.GuiError;
 
 public class CommandManager implements ChatOutputListener
 {
@@ -42,7 +40,7 @@ public class CommandManager implements ChatOutputListener
 						eventCommand.onEnable(input, args);
 					}catch(Exception e)
 					{
-						Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, eventCommand, "executing"));
+						EventManager.handleException(e, eventCommand, "executing");
 					}
 					return;
 				}
