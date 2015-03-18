@@ -62,7 +62,13 @@ public class EventManager
 			while(itr.hasNext())
 			{
 				RenderListener listener = itr.next();
-				listener.onRender();
+				try
+				{
+					listener.onRender();
+				}catch(Exception e)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "rendering"));
+				}
 			}
 		}else if(event instanceof GUIRenderEvent)
 		{
@@ -70,7 +76,13 @@ public class EventManager
 			while(itr.hasNext())
 			{
 				GUIRenderListener listener = itr.next();
-				listener.onRenderGUI();
+				try
+				{
+					listener.onRenderGUI();
+				}catch(Exception e)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "rendering GUI"));
+				}
 			}
 		}else if(event instanceof PacketInputEvent)
 		{
@@ -78,7 +90,13 @@ public class EventManager
 			while(itr.hasNext())
 			{
 				PacketInputListener listener = itr.next();
-				listener.onReceivedPacket((PacketInputEvent)event);
+				try
+				{
+					listener.onReceivedPacket((PacketInputEvent)event);
+				}catch(Exception e)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "receiving packet"));
+				}
 			}
 		}else if(event instanceof LeftClickEvent)
 		{
@@ -86,7 +104,13 @@ public class EventManager
 			while(itr.hasNext())
 			{
 				LeftClickListener listener = itr.next();
-				listener.onLeftClick();
+				try
+				{
+					listener.onLeftClick();
+				}catch(Exception e)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "left-clicking"));
+				}
 			}
 		}else if(event instanceof ChatInputEvent)
 		{
@@ -94,7 +118,13 @@ public class EventManager
 			while(itr.hasNext())
 			{
 				ChatInputListener listener = itr.next();
-				listener.onReceivedMessage((ChatInputEvent)event);
+				try
+				{
+					listener.onReceivedMessage((ChatInputEvent)event);
+				}catch(Exception e)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "receiving chat message"));
+				}
 			}
 		}else if(event instanceof ChatOutputEvent)
 		{
@@ -102,7 +132,13 @@ public class EventManager
 			while(itr.hasNext())
 			{
 				ChatOutputListener listener = itr.next();
-				listener.onSentMessage((ChatOutputEvent)event);
+				try
+				{
+					listener.onSentMessage((ChatOutputEvent)event);
+				}catch(Exception e)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "sending chat message"));
+				}
 			}
 		}else if(event instanceof DeathEvent)
 		{
@@ -110,7 +146,13 @@ public class EventManager
 			while(itr.hasNext())
 			{
 				DeathListener listener = itr.next();
-				listener.onDeath();
+				try
+				{
+					listener.onDeath();
+				}catch(Exception e)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, "dying"));
+				}
 			}
 		}
 		for(Runnable task; (task = queue.poll()) != null;)
