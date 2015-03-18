@@ -69,23 +69,7 @@ public class GuiError extends GuiScreen
 			case 0:
 				try
 				{
-					String report = "# Description\n"
-						+ "An error occurred while " + action;
-					if(listener instanceof Mod)
-						report +=
-							" "
-								+ Client.wurst.modManager.getModByClass(
-									listener.getClass()).getName();
-					report += ".\n\n"
-						+ "# Stacktrace\n";
-					report +=
-						"```\n" + trace + "```"
-							+ "\n\n# System details\n"
-							+ "- OS: " + System.getProperty("os.name") + " ("
-							+ System.getProperty("os.arch") + ")\n"
-							+ "- Java version: "
-							+ System.getProperty("java.version") + " ("
-							+ System.getProperty("java.vendor") + ")\n";
+					String report = generateReport(trace);
 					report = URLEncoder.encode(report, "UTF-8");
 					String query =
 						trace.replace(" ", "+").replace("\r\n", "")
@@ -144,11 +128,12 @@ public class GuiError extends GuiScreen
 					public void run()
 					{
 						if(JOptionPane.showOptionDialog(Minecraft
-								.getMinecraft().getFrame(), trace,
-								"Stacktrace", JOptionPane.DEFAULT_OPTION,
-								JOptionPane.INFORMATION_MESSAGE, null,
-								new String[]{"Close", "Copy to Clipboard"}, 0) == 1)
-							Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(trace), null);
+							.getMinecraft().getFrame(), trace,
+							"Stacktrace", JOptionPane.DEFAULT_OPTION,
+							JOptionPane.INFORMATION_MESSAGE, null,
+							new String[]{"Close", "Copy to Clipboard"}, 0) == 1)
+							Toolkit.getDefaultToolkit().getSystemClipboard()
+								.setContents(new StringSelection(trace), null);
 					}
 				}).start();
 				break;
@@ -163,6 +148,31 @@ public class GuiError extends GuiScreen
 		}
 	}
 	
+	private String generateReport(String trace)
+	{
+		String report = "# Description\n"
+			+ "An error occurred while " + action;
+		if(listener instanceof Mod)
+			report +=
+				" "
+					+ Client.wurst.modManager.getModByClass(
+						listener.getClass()).getName();
+		report += ".\n\n"
+			+ "# Stacktrace\n";
+		report += "```\n" + trace + "```"
+			+ "\n\n# System details\n"
+			+ "- OS: " + System.getProperty("os.name") + " ("
+			+ System.getProperty("os.arch") + ")\n"
+			+ "- Java version: "
+			+ System.getProperty("java.version") + " ("
+			+ System.getProperty("java.vendor") + ")\n"
+			+ "- Wurst version: "
+			+ Client.wurst.updater.getCurrentVersion()
+			+ " (latest: "
+			+ Client.wurst.updater.getLatestVersion() + ")\n";
+		return report;
+	}
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
