@@ -29,7 +29,7 @@ public class ThrowMod extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null)
+		if(args.length == 0)
 		{
 			Client.wurst.modManager.getModByClass(Throw.class)
 				.toggle();

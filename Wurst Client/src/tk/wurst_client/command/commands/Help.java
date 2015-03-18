@@ -31,7 +31,7 @@ public class Help extends Command
 			(float)Client.wurst.commandManager.activeCommands.size()
 				/ commandsPerPage;
 		int pages = (int)(Math.floor(pagesF) == pagesF ? pagesF : pagesF + 1);
-		if(args == null)
+		if(args.length == 0)
 		{
 			if(pages <= 1)
 			{

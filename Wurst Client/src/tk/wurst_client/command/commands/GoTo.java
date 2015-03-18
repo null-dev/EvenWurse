@@ -27,7 +27,7 @@ public class GoTo extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null || args.length != 3)
+		if(args.length != 3)
 		{
 			commandError();
 			return;

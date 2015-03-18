@@ -29,7 +29,7 @@ public class Invsee extends Command implements RenderListener
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args == null || args.length != 1)
+		if(args.length != 1)
 		{
 			commandError();
 			return;
