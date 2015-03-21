@@ -7,9 +7,7 @@
  */
 package tk.wurst_client.event.listeners;
 
-import tk.wurst_client.event.events.ChatOutputEvent;
-
-public interface ChatOutputListener extends Listener
+public interface Listener
 {
-	public void onSentMessage(ChatOutputEvent event);
+	
 }
