@@ -159,14 +159,14 @@ public class EventManager
 			task.run();
 	}
 	
-	public synchronized static void handleException(final Exception e, final Object listener, final String action)
+	public synchronized static void handleException(final Exception e, final Object cause, final String action)
 	{
 		addUpdateListener(new UpdateListener()
 		{
 			@Override
 			public void onUpdate()
 			{
-				Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, listener, action));
+				Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, cause, action));
 				EventManager.removeUpdateListener(this);
 			}
 		});

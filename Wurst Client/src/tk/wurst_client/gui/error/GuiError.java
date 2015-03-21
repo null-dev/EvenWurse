@@ -35,13 +35,13 @@ public class GuiError extends GuiScreen
 {
 	private ResourceLocation bugTexture = new ResourceLocation("wurst/bug.png");
 	private final Exception e;
-	private final Object listener;
+	private final Object cause;
 	private final String action;
 	
-	public GuiError(Exception e, Object listener, String action)
+	public GuiError(Exception e, Object cause, String action)
 	{
 		this.e = e;
-		this.listener = listener;
+		this.cause = cause;
 		this.action = action;
 	}
 	
@@ -135,8 +135,8 @@ public class GuiError extends GuiScreen
 				}).start();
 				break;
 			case 2:
-				if(listener instanceof Mod)
-					Client.wurst.modManager.getModByClass(listener.getClass())
+				if(cause instanceof Mod)
+					Client.wurst.modManager.getModByClass(cause.getClass())
 						.setEnabled(false);
 				mc.displayGuiScreen(null);
 				break;
@@ -148,13 +148,13 @@ public class GuiError extends GuiScreen
 	private String getReportDescription()
 	{
 		String title = "An error occurred ";
-		if(listener instanceof Mod)
+		if(cause instanceof Mod)
 			title +=
 				"in `"
 					+ Client.wurst.modManager.getModByClass(
-						listener.getClass()).getName() + "` ";
-		else if(listener instanceof Command)
-			title += "in `." + ((Command)listener).getName() + "` ";
+						cause.getClass()).getName() + "` ";
+		else if(cause instanceof Command)
+			title += "in `." + ((Command)cause).getName() + "` ";
 		title += "while " + action + ".";
 		return title;
 	}
