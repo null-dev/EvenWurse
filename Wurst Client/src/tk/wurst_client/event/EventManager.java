@@ -42,137 +42,143 @@ public class EventManager
 	
 	public synchronized static void fireEvent(Event event)
 	{
-		if(event instanceof UpdateEvent)
+		try
 		{
-			Iterator<UpdateListener> itr = updateListeners.iterator();
-			while(itr.hasNext())
+			if(event instanceof UpdateEvent)
 			{
-				UpdateListener listener = itr.next();
-				try
+				Iterator<UpdateListener> itr = updateListeners.iterator();
+				while(itr.hasNext())
 				{
-					listener.onUpdate();
-				}catch(Exception e)
-				{
-					handleException(e, listener, "updating", "");
+					UpdateListener listener = itr.next();
+					try
+					{
+						listener.onUpdate();
+					}catch(Exception e)
+					{
+						handleException(e, listener, "updating", "");
+					}
 				}
-			}
-		}else if(event instanceof RenderEvent)
-		{
-			Iterator<RenderListener> itr = renderListeners.iterator();
-			while(itr.hasNext())
+			}else if(event instanceof RenderEvent)
 			{
-				RenderListener listener = itr.next();
-				try
+				Iterator<RenderListener> itr = renderListeners.iterator();
+				while(itr.hasNext())
 				{
-					listener.onRender();
-				}catch(Exception e)
-				{
-					handleException(e, listener, "rendering", "GUI screen: "
-						+ Minecraft.getMinecraft().currentScreen != null
-						? Minecraft.getMinecraft().currentScreen.getClass()
-							.getSimpleName() : "null");
-				}
-			}
-		}else if(event instanceof GUIRenderEvent)
-		{
-			Iterator<GUIRenderListener> itr = guiRenderListeners.iterator();
-			while(itr.hasNext())
-			{
-				GUIRenderListener listener = itr.next();
-				try
-				{
-					listener.onRenderGUI();
-				}catch(Exception e)
-				{
-					handleException(
-						e,
-						listener,
-						"rendering GUI",
-						"GUI screen: " + Minecraft.getMinecraft().currentScreen != null
+					RenderListener listener = itr.next();
+					try
+					{
+						listener.onRender();
+					}catch(Exception e)
+					{
+						handleException(e, listener, "rendering", "GUI screen: "
+							+ Minecraft.getMinecraft().currentScreen != null
 							? Minecraft.getMinecraft().currentScreen.getClass()
 								.getSimpleName() : "null");
+					}
 				}
-			}
-		}else if(event instanceof PacketInputEvent)
-		{
-			Iterator<PacketInputListener> itr = packetInputListeners.iterator();
-			while(itr.hasNext())
+			}else if(event instanceof GUIRenderEvent)
 			{
-				PacketInputListener listener = itr.next();
-				try
+				Iterator<GUIRenderListener> itr = guiRenderListeners.iterator();
+				while(itr.hasNext())
 				{
-					listener.onReceivedPacket((PacketInputEvent)event);
-				}catch(Exception e)
-				{
-					handleException(e, listener, "receiving packet", "Packet: "
-						+ (((PacketInputEvent)event).getPacket() != null
-							? ((PacketInputEvent)event).getPacket().getClass()
-								.getSimpleName() : "null"));
+					GUIRenderListener listener = itr.next();
+					try
+					{
+						listener.onRenderGUI();
+					}catch(Exception e)
+					{
+						handleException(
+							e,
+							listener,
+							"rendering GUI",
+							"GUI screen: " + Minecraft.getMinecraft().currentScreen != null
+								? Minecraft.getMinecraft().currentScreen.getClass()
+									.getSimpleName() : "null");
+					}
 				}
-			}
-		}else if(event instanceof LeftClickEvent)
-		{
-			Iterator<LeftClickListener> itr = leftClickListeners.iterator();
-			while(itr.hasNext())
+			}else if(event instanceof PacketInputEvent)
 			{
-				LeftClickListener listener = itr.next();
-				try
+				Iterator<PacketInputListener> itr = packetInputListeners.iterator();
+				while(itr.hasNext())
 				{
-					listener.onLeftClick();
-				}catch(Exception e)
-				{
-					handleException(e, listener, "left-clicking", "");
+					PacketInputListener listener = itr.next();
+					try
+					{
+						listener.onReceivedPacket((PacketInputEvent)event);
+					}catch(Exception e)
+					{
+						handleException(e, listener, "receiving packet", "Packet: "
+							+ (((PacketInputEvent)event).getPacket() != null
+								? ((PacketInputEvent)event).getPacket().getClass()
+									.getSimpleName() : "null"));
+					}
 				}
-			}
-		}else if(event instanceof ChatInputEvent)
-		{
-			Iterator<ChatInputListener> itr = chatInputListeners.iterator();
-			while(itr.hasNext())
+			}else if(event instanceof LeftClickEvent)
 			{
-				ChatInputListener listener = itr.next();
-				try
+				Iterator<LeftClickListener> itr = leftClickListeners.iterator();
+				while(itr.hasNext())
 				{
-					listener.onReceivedMessage((ChatInputEvent)event);
-				}catch(Exception e)
-				{
-					handleException(e, listener, "receiving chat message",
-						"Message: `" + ((ChatInputEvent)event).getMessage()
-							+ "`");
+					LeftClickListener listener = itr.next();
+					try
+					{
+						listener.onLeftClick();
+					}catch(Exception e)
+					{
+						handleException(e, listener, "left-clicking", "");
+					}
 				}
-			}
-		}else if(event instanceof ChatOutputEvent)
-		{
-			Iterator<ChatOutputListener> itr = chatOutputListeners.iterator();
-			while(itr.hasNext())
+			}else if(event instanceof ChatInputEvent)
 			{
-				ChatOutputListener listener = itr.next();
-				try
+				Iterator<ChatInputListener> itr = chatInputListeners.iterator();
+				while(itr.hasNext())
 				{
-					listener.onSentMessage((ChatOutputEvent)event);
-				}catch(Exception e)
-				{
-					handleException(e, listener, "sending chat message",
-						"Message: `" + ((ChatOutputEvent)event).getMessage()
-							+ "`");
+					ChatInputListener listener = itr.next();
+					try
+					{
+						listener.onReceivedMessage((ChatInputEvent)event);
+					}catch(Exception e)
+					{
+						handleException(e, listener, "receiving chat message",
+							"Message: `" + ((ChatInputEvent)event).getMessage()
+								+ "`");
+					}
 				}
-			}
-		}else if(event instanceof DeathEvent)
-		{
-			Iterator<DeathListener> itr = deathListeners.iterator();
-			while(itr.hasNext())
+			}else if(event instanceof ChatOutputEvent)
 			{
-				DeathListener listener = itr.next();
-				try
+				Iterator<ChatOutputListener> itr = chatOutputListeners.iterator();
+				while(itr.hasNext())
 				{
-					listener.onDeath();
-				}catch(Exception e)
+					ChatOutputListener listener = itr.next();
+					try
+					{
+						listener.onSentMessage((ChatOutputEvent)event);
+					}catch(Exception e)
+					{
+						handleException(e, listener, "sending chat message",
+							"Message: `" + ((ChatOutputEvent)event).getMessage()
+								+ "`");
+					}
+				}
+			}else if(event instanceof DeathEvent)
+			{
+				Iterator<DeathListener> itr = deathListeners.iterator();
+				while(itr.hasNext())
 				{
-					handleException(e, listener, "dying", "");
+					DeathListener listener = itr.next();
+					try
+					{
+						listener.onDeath();
+					}catch(Exception e)
+					{
+						handleException(e, listener, "dying", "");
+					}
 				}
 			}
+			for(Runnable task; (task = queue.poll()) != null;)
+				task.run();
+		}catch(Exception e)
+		{
+			handleException(e, event, "processing events", "Event type: " + event.getClass().getSimpleName());
 		}
-		for(Runnable task; (task = queue.poll()) != null;)
-			task.run();
 	}
 	
 	public synchronized static void handleException(final Exception e,
