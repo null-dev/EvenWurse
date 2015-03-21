@@ -7,8 +7,12 @@
  */
 package tk.wurst_client.gui.error;
 
+import java.awt.Component;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -17,7 +21,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -127,13 +134,67 @@ public class GuiError extends GuiScreen
 					public void run()
 					{
 						String report = generateReport(trace);
-						if(JOptionPane.showOptionDialog(Minecraft
-							.getMinecraft().getFrame(), report,
-							"Stacktrace", JOptionPane.DEFAULT_OPTION,
+						switch(JOptionPane.showOptionDialog(Minecraft
+							.getMinecraft().getFrame(), report, "Stacktrace",
+							JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE, null,
-							new String[]{"Close", "Copy to Clipboard"}, 0) == 1)
-							Toolkit.getDefaultToolkit().getSystemClipboard()
-								.setContents(new StringSelection(report), null);
+							new String[]{"Close", "Copy to Clipboard",
+								"Save to File"}, 0))
+						{
+							case 1:
+								Toolkit
+									.getDefaultToolkit()
+									.getSystemClipboard()
+									.setContents(new StringSelection(report),
+										null);
+								break;
+							case 2:
+								JFileChooser fileChooser = new JFileChooser()
+								{
+									@Override
+									protected JDialog createDialog(
+										Component parent)
+										throws HeadlessException
+									{
+										JDialog dialog =
+											super.createDialog(parent);
+										dialog.setAlwaysOnTop(true);
+										return dialog;
+									}
+								};
+								fileChooser
+									.setFileSelectionMode(JFileChooser.FILES_ONLY);
+								fileChooser.setAcceptAllFileFilterUsed(false);
+								fileChooser
+									.addChoosableFileFilter(new FileNameExtensionFilter(
+										"Markdown files", "md"));
+								int action =
+									fileChooser.showSaveDialog(Minecraft
+										.getMinecraft().getFrame());
+								if(action == JFileChooser.APPROVE_OPTION)
+								{
+									try
+									{
+										File file =
+											fileChooser.getSelectedFile();
+										if(!file.getName().endsWith(".md"))
+											file =
+												new File(file.getPath() + ".md");
+										PrintWriter save =
+											new PrintWriter(
+												new FileWriter(file));
+										save.println(report);
+										save.close();
+									}catch(IOException e)
+									{
+										e.printStackTrace();
+										MiscUtils.simpleError(e, fileChooser);
+									}
+								}
+								break;
+							default:
+								break;
+						}
 					}
 				}).start();
 				break;
