@@ -87,8 +87,7 @@ public class GuiError extends GuiScreen
 						new JsonParser().parse(
 							new InputStreamReader(connection.getInputStream()))
 							.getAsJsonObject();
-					boolean known = json.get("total_count").getAsInt() > 0;
-					if(known)
+					if(json.get("total_count").getAsInt() > 0)
 					{
 						Client.wurst.chat
 							.message("This bug has been reported before.");
