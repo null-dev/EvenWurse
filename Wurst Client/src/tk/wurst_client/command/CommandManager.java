@@ -41,7 +41,7 @@ public class CommandManager implements ChatOutputListener
 					}catch(Exception e)
 					{
 						EventManager.handleException(e, eventCommand,
-							"executing", "Exact input: `" + input + "`");
+							"executing", "Exact input: `" + event.getMessage() + "`");
 					}
 					return;
 				}
