@@ -55,8 +55,8 @@ public class GuiError extends GuiScreen
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
 			20, "Report Bug on GitHub"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
-			98, 20, "View Stacktrace"));
-		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
+			98, 20, "View Bug"));
+		buttonList.add(new GuiButton(3, width / 2 + 2, height / 3 * 2 + 24, 98,
 			20, "Back to Game"));
 	}
 	
@@ -126,13 +126,14 @@ public class GuiError extends GuiScreen
 					@Override
 					public void run()
 					{
+						String report = generateReport(trace);
 						if(JOptionPane.showOptionDialog(Minecraft
-							.getMinecraft().getFrame(), trace,
+							.getMinecraft().getFrame(), report,
 							"Stacktrace", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE, null,
 							new String[]{"Close", "Copy to Clipboard"}, 0) == 1)
 							Toolkit.getDefaultToolkit().getSystemClipboard()
-								.setContents(new StringSelection(trace), null);
+								.setContents(new StringSelection(report), null);
 					}
 				}).start();
 				break;
