@@ -33,7 +33,7 @@ public class AddAlt extends Command
 	{
 		if(args.length == 0)
 			commandError();
-		if(args[0].equals("all"))
+		else if(args[0].equals("all"))
 		{
 			int alts = 0;
 			Iterator itr =
