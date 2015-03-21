@@ -7,8 +7,12 @@
  */
 package tk.wurst_client.gui.error;
 
+import java.awt.Component;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -17,7 +21,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -33,16 +40,19 @@ import com.google.gson.JsonParser;
 
 public class GuiError extends GuiScreen
 {
-	private ResourceLocation bugTexture = new ResourceLocation("wurst/bug.png");
+	private final ResourceLocation bugTexture = new ResourceLocation(
+		"wurst/bug.png");
 	private final Exception e;
-	private final Object listener;
+	private final Object cause;
 	private final String action;
+	private final String comment;
 	
-	public GuiError(Exception e, Object listener, String action)
+	public GuiError(Exception e, Object cause, String action, String comment)
 	{
 		this.e = e;
-		this.listener = listener;
+		this.cause = cause;
 		this.action = action;
+		this.comment = comment;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -52,7 +62,7 @@ public class GuiError extends GuiScreen
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
 			20, "Report Bug on GitHub"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
-			98, 20, "View Stacktrace"));
+			98, 20, "View Bug"));
 		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
 			20, "Back to Game"));
 	}
@@ -85,8 +95,7 @@ public class GuiError extends GuiScreen
 						new JsonParser().parse(
 							new InputStreamReader(connection.getInputStream()))
 							.getAsJsonObject();
-					boolean known = json.get("total_count").getAsInt() > 0;
-					if(known)
+					if(json.get("total_count").getAsInt() > 0)
 					{
 						Client.wurst.chat
 							.message("This bug has been reported before.");
@@ -124,19 +133,74 @@ public class GuiError extends GuiScreen
 					@Override
 					public void run()
 					{
-						if(JOptionPane.showOptionDialog(Minecraft
-							.getMinecraft().getFrame(), trace,
-							"Stacktrace", JOptionPane.DEFAULT_OPTION,
+						String report = generateReport(trace);
+						switch(JOptionPane.showOptionDialog(Minecraft
+							.getMinecraft().getFrame(), report, "Stacktrace",
+							JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE, null,
-							new String[]{"Close", "Copy to Clipboard"}, 0) == 1)
-							Toolkit.getDefaultToolkit().getSystemClipboard()
-								.setContents(new StringSelection(trace), null);
+							new String[]{"Close", "Copy to Clipboard",
+								"Save to File"}, 0))
+						{
+							case 1:
+								Toolkit
+									.getDefaultToolkit()
+									.getSystemClipboard()
+									.setContents(new StringSelection(report),
+										null);
+								break;
+							case 2:
+								JFileChooser fileChooser = new JFileChooser()
+								{
+									@Override
+									protected JDialog createDialog(
+										Component parent)
+										throws HeadlessException
+									{
+										JDialog dialog =
+											super.createDialog(parent);
+										dialog.setAlwaysOnTop(true);
+										return dialog;
+									}
+								};
+								fileChooser
+									.setFileSelectionMode(JFileChooser.FILES_ONLY);
+								fileChooser.setAcceptAllFileFilterUsed(false);
+								fileChooser
+									.addChoosableFileFilter(new FileNameExtensionFilter(
+										"Markdown files", "md"));
+								int action =
+									fileChooser.showSaveDialog(Minecraft
+										.getMinecraft().getFrame());
+								if(action == JFileChooser.APPROVE_OPTION)
+								{
+									try
+									{
+										File file =
+											fileChooser.getSelectedFile();
+										if(!file.getName().endsWith(".md"))
+											file =
+												new File(file.getPath() + ".md");
+										PrintWriter save =
+											new PrintWriter(
+												new FileWriter(file));
+										save.println(report);
+										save.close();
+									}catch(IOException e)
+									{
+										e.printStackTrace();
+										MiscUtils.simpleError(e, fileChooser);
+									}
+								}
+								break;
+							default:
+								break;
+						}
 					}
 				}).start();
 				break;
 			case 2:
-				if(listener instanceof Mod)
-					Client.wurst.modManager.getModByClass(listener.getClass())
+				if(cause instanceof Mod)
+					Client.wurst.modManager.getModByClass(cause.getClass())
 						.setEnabled(false);
 				mc.displayGuiScreen(null);
 				break;
@@ -148,21 +212,22 @@ public class GuiError extends GuiScreen
 	private String getReportDescription()
 	{
 		String title = "An error occurred ";
-		if(listener instanceof Mod)
+		if(cause instanceof Mod)
 			title +=
 				"in `"
 					+ Client.wurst.modManager.getModByClass(
-						listener.getClass()).getName() + "` ";
-		else if(listener instanceof Command)
-			title += "in `." + ((Command)listener).getName() + "` ";
+						cause.getClass()).getName() + "` ";
+		else if(cause instanceof Command)
+			title += "in `." + ((Command)cause).getName() + "` ";
 		title += "while " + action + ".";
 		return title;
 	}
 	
 	private String generateReport(String trace)
 	{
-		String report = "# Description\n"
-			+ getReportDescription() + "\n\n"
+		return "# Description\n"
+			+ getReportDescription() + "\n"
+			+ (comment.isEmpty() ? "" : comment + "\n") + "\n"
 			+ "# Stacktrace\n"
 			+ "```\n" + trace + "```"
 			+ "\n\n# System details\n"
@@ -174,7 +239,6 @@ public class GuiError extends GuiScreen
 			+ "- Wurst version: "
 			+ Client.wurst.updater.getCurrentVersion() + " (latest: "
 			+ Client.wurst.updater.getLatestVersion() + ")\n";
-		return report;
 	}
 	
 	@Override

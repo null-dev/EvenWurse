@@ -21,13 +21,15 @@ import tk.wurst_client.gui.error.GuiError;
 public class Mod
 {
 	private final String name = getClass().getAnnotation(Info.class).name();
-	private final String description = getClass().getAnnotation(Info.class).description();
-	private final Category category = getClass().getAnnotation(Info.class).category();
+	private final String description = getClass().getAnnotation(Info.class)
+		.description();
+	private final Category category = getClass().getAnnotation(Info.class)
+		.category();
 	private boolean enabled;
 	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
-
+	
 	public enum Category
 	{
 		AUTOBUILD,
@@ -45,9 +47,11 @@ public class Mod
 	
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Info
-	{	
+	{
 		String name();
+		
 		String description();
+		
 		Category category();
 	}
 	
@@ -84,7 +88,9 @@ public class Mod
 			onToggle();
 		}catch(Exception e)
 		{
-			Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "toggling"));
+			Minecraft.getMinecraft().displayGuiScreen(
+				new GuiError(e, this, "toggling", "Mod was toggled "
+					+ (enabled ? "on" : "off") + "."));
 		}
 		if(enabled)
 			try
@@ -92,7 +98,8 @@ public class Mod
 				onEnable();
 			}catch(Exception e)
 			{
-				Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "enabling"));
+				Minecraft.getMinecraft().displayGuiScreen(
+					new GuiError(e, this, "enabling", ""));
 			}
 		else
 			try
@@ -100,7 +107,8 @@ public class Mod
 				onDisable();
 			}catch(Exception e)
 			{
-				Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "disabling"));
+				Minecraft.getMinecraft().displayGuiScreen(
+					new GuiError(e, this, "disabling", ""));
 			}
 		Client.wurst.fileManager.saveMods();
 	}
