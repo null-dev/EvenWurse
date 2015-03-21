@@ -33,7 +33,8 @@ import com.google.gson.JsonParser;
 
 public class GuiError extends GuiScreen
 {
-	private final ResourceLocation bugTexture = new ResourceLocation("wurst/bug.png");
+	private final ResourceLocation bugTexture = new ResourceLocation(
+		"wurst/bug.png");
 	private final Exception e;
 	private final Object cause;
 	private final String action;
@@ -46,7 +47,7 @@ public class GuiError extends GuiScreen
 		this.action = action;
 		this.comment = comment;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
@@ -162,7 +163,7 @@ public class GuiError extends GuiScreen
 	
 	private String generateReport(String trace)
 	{
-		String report = "# Description\n"
+		return "# Description\n"
 			+ getReportDescription() + "\n"
 			+ (comment.isEmpty() ? "" : comment + "\n") + "\n"
 			+ "# Stacktrace\n"
@@ -176,7 +177,6 @@ public class GuiError extends GuiScreen
 			+ "- Wurst version: "
 			+ Client.wurst.updater.getCurrentVersion() + " (latest: "
 			+ Client.wurst.updater.getLatestVersion() + ")\n";
-		return report;
 	}
 	
 	@Override
