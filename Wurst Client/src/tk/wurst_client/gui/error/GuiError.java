@@ -63,7 +63,7 @@ public class GuiError extends GuiScreen
 			20, "Report Bug on GitHub"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
 			98, 20, "View Bug"));
-		buttonList.add(new GuiButton(3, width / 2 + 2, height / 3 * 2 + 24, 98,
+		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
 			20, "Back to Game"));
 	}
 	
