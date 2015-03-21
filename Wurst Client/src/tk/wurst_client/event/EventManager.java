@@ -53,7 +53,7 @@ public class EventManager
 					listener.onUpdate();
 				}catch(Exception e)
 				{
-					handleException(e, listener, "updating");
+					handleException(e, listener, "updating", "");
 				}
 			}
 		}else if(event instanceof RenderEvent)
@@ -67,7 +67,10 @@ public class EventManager
 					listener.onRender();
 				}catch(Exception e)
 				{
-					handleException(e, listener, "rendering");
+					handleException(e, listener, "rendering", "GUI screen: "
+						+ Minecraft.getMinecraft().currentScreen != null
+						? Minecraft.getMinecraft().currentScreen.getClass()
+							.getSimpleName() : "null");
 				}
 			}
 		}else if(event instanceof GUIRenderEvent)
@@ -81,7 +84,13 @@ public class EventManager
 					listener.onRenderGUI();
 				}catch(Exception e)
 				{
-					handleException(e, listener, "rendering GUI");
+					handleException(
+						e,
+						listener,
+						"rendering GUI",
+						"GUI screen: " + Minecraft.getMinecraft().currentScreen != null
+							? Minecraft.getMinecraft().currentScreen.getClass()
+								.getSimpleName() : "null");
 				}
 			}
 		}else if(event instanceof PacketInputEvent)
@@ -95,7 +104,10 @@ public class EventManager
 					listener.onReceivedPacket((PacketInputEvent)event);
 				}catch(Exception e)
 				{
-					handleException(e, listener, "receiving packet");
+					handleException(e, listener, "receiving packet", "Packet: "
+						+ (((PacketInputEvent)event).getPacket() != null
+							? ((PacketInputEvent)event).getPacket().getClass()
+								.getSimpleName() : "null"));
 				}
 			}
 		}else if(event instanceof LeftClickEvent)
@@ -109,7 +121,7 @@ public class EventManager
 					listener.onLeftClick();
 				}catch(Exception e)
 				{
-					handleException(e, listener, "left-clicking");
+					handleException(e, listener, "left-clicking", "");
 				}
 			}
 		}else if(event instanceof ChatInputEvent)
@@ -123,7 +135,9 @@ public class EventManager
 					listener.onReceivedMessage((ChatInputEvent)event);
 				}catch(Exception e)
 				{
-					handleException(e, listener, "receiving chat message");
+					handleException(e, listener, "receiving chat message",
+						"Message: `" + ((ChatInputEvent)event).getMessage()
+							+ "`");
 				}
 			}
 		}else if(event instanceof ChatOutputEvent)
@@ -137,7 +151,9 @@ public class EventManager
 					listener.onSentMessage((ChatOutputEvent)event);
 				}catch(Exception e)
 				{
-					handleException(e, listener, "sending chat message");
+					handleException(e, listener, "sending chat message",
+						"Message: `" + ((ChatOutputEvent)event).getMessage()
+							+ "`");
 				}
 			}
 		}else if(event instanceof DeathEvent)
@@ -151,7 +167,7 @@ public class EventManager
 					listener.onDeath();
 				}catch(Exception e)
 				{
-					handleException(e, listener, "dying");
+					handleException(e, listener, "dying", "");
 				}
 			}
 		}
@@ -159,14 +175,16 @@ public class EventManager
 			task.run();
 	}
 	
-	public synchronized static void handleException(final Exception e, final Object cause, final String action)
+	public synchronized static void handleException(final Exception e,
+		final Object cause, final String action, final String comment)
 	{
 		addUpdateListener(new UpdateListener()
 		{
 			@Override
 			public void onUpdate()
 			{
-				Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, cause, action));
+				Minecraft.getMinecraft().displayGuiScreen(
+					new GuiError(e, cause, action, comment));
 				EventManager.removeUpdateListener(this);
 			}
 		});
@@ -236,7 +254,7 @@ public class EventManager
 			}
 		});
 	}
-
+	
 	public synchronized static void removeDeathListener(
 		final DeathListener listener)
 	{
@@ -249,7 +267,7 @@ public class EventManager
 			}
 		});
 	}
-
+	
 	public synchronized static void addGUIRenderListener(
 		final GUIRenderListener listener)
 	{
@@ -288,7 +306,7 @@ public class EventManager
 			}
 		});
 	}
-
+	
 	public synchronized static void removeLeftClickListener(
 		final LeftClickListener listener)
 	{
@@ -314,7 +332,7 @@ public class EventManager
 			}
 		});
 	}
-
+	
 	public synchronized static void removePacketInputListener(
 		final PacketInputListener listener)
 	{

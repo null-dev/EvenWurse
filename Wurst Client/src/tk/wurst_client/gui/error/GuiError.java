@@ -33,18 +33,20 @@ import com.google.gson.JsonParser;
 
 public class GuiError extends GuiScreen
 {
-	private ResourceLocation bugTexture = new ResourceLocation("wurst/bug.png");
+	private final ResourceLocation bugTexture = new ResourceLocation("wurst/bug.png");
 	private final Exception e;
 	private final Object cause;
 	private final String action;
+	private final String comment;
 	
-	public GuiError(Exception e, Object cause, String action)
+	public GuiError(Exception e, Object cause, String action, String comment)
 	{
 		this.e = e;
 		this.cause = cause;
 		this.action = action;
+		this.comment = comment;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
@@ -162,7 +164,8 @@ public class GuiError extends GuiScreen
 	private String generateReport(String trace)
 	{
 		String report = "# Description\n"
-			+ getReportDescription() + "\n\n"
+			+ getReportDescription() + "\n"
+			+ (comment.isEmpty() ? "" : comment + "\n") + "\n"
 			+ "# Stacktrace\n"
 			+ "```\n" + trace + "```"
 			+ "\n\n# System details\n"
