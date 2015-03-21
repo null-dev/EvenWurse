@@ -71,9 +71,10 @@ public class GuiError extends GuiScreen
 				try
 				{
 					String query =
-						trace.replace(" ", "+").replace("\r\n", "")
-							.replace("\t", "");
+						trace.replace(" ", "+").replace("\r\n", "+")
+							.replace("\t", "+").replace("++", "+");
 					query = query.substring(0, 128);
+					query = query.substring(0, query.lastIndexOf("+"));
 					String url =
 						"https://api.github.com/search/issues?q=repo:Wurst-Imperium/Wurst-Client+is:issue+"
 							+ query;
