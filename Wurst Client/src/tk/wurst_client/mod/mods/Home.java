@@ -45,7 +45,7 @@ public class Home extends Mod implements UpdateListener, ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.addChatInputListener(this);
+		EventManager.removeChatInputListener(this);
 		EventManager.removeUpdateListener(this);
 	}
 	
