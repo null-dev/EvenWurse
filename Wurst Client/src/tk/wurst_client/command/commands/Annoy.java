@@ -37,7 +37,8 @@ public class Annoy extends Command implements ChatInputListener
 				name = args[0];
 				Client.wurst.chat.message("Now annoying " + name + ".");
 				if(name.equals(Minecraft.getMinecraft().thePlayer.getName()))
-					Client.wurst.chat.warning("Annoying yourself is a bad idea!");
+					Client.wurst.chat
+						.warning("Annoying yourself is a bad idea!");
 				EventManager.addChatInputListener(this);
 			}else
 			{

@@ -8,6 +8,6 @@
 package tk.wurst_client.event.events;
 
 public class LeftClickEvent extends Event
-{
+{	
 	
 }

@@ -33,7 +33,8 @@ import tk.wurst_client.utils.RenderUtils;
 
 @Info(category = Category.BLOCKS, description = "Destroys blocks around you.\n"
 	+ "Use .nuker mode <mode> to change the mode.", name = "Nuker")
-public class Nuker extends Mod implements LeftClickListener, RenderListener, UpdateListener
+public class Nuker extends Mod implements LeftClickListener, RenderListener,
+	UpdateListener
 {
 	public static float normalRange = 5F;
 	public static float yesCheatRange = 4.25F;

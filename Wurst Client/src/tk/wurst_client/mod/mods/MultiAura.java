@@ -65,7 +65,8 @@ public class MultiAura extends Mod implements UpdateListener
 			{
 				EntityLivingBase en =
 					EntityUtils.getCloseEntities(true, range).get(i);
-				if(Client.wurst.modManager.getModByClass(AutoSword.class).isEnabled())
+				if(Client.wurst.modManager.getModByClass(AutoSword.class)
+					.isEnabled())
 					AutoSword.setSlot();
 				Criticals.doCritical();
 				EntityUtils.faceEntityPacket(en);

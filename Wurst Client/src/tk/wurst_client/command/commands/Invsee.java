@@ -18,7 +18,7 @@ import tk.wurst_client.event.listeners.RenderListener;
 public class Invsee extends Command implements RenderListener
 {
 	private String playerName;
-
+	
 	public Invsee()
 	{
 		super("invsee",

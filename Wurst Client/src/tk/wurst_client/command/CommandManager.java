@@ -28,7 +28,6 @@ public class CommandManager implements ChatOutputListener
 			String input = event.getMessage().substring(1);
 			String command = input.split(" ")[0];
 			for(Command eventCommand : Client.wurst.commandManager.activeCommands)
-			{
 				if(eventCommand.getName().equals(command))
 				{
 					try
@@ -41,11 +40,11 @@ public class CommandManager implements ChatOutputListener
 					}catch(Exception e)
 					{
 						EventManager.handleException(e, eventCommand,
-							"executing", "Exact input: `" + event.getMessage() + "`");
+							"executing", "Exact input: `" + event.getMessage()
+								+ "`");
 					}
 					return;
 				}
-			}
 			Client.wurst.chat.message("\"." + command
 				+ "\" is not a valid command.");
 			Client.wurst.chat

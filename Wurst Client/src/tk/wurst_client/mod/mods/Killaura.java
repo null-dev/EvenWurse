@@ -89,7 +89,8 @@ public class Killaura extends Mod implements UpdateListener
 			EntityLivingBase en = EntityUtils.getClosestEntity(true);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
 			{
-				if(Client.wurst.modManager.getModByClass(AutoSword.class).isEnabled())
+				if(Client.wurst.modManager.getModByClass(AutoSword.class)
+					.isEnabled())
 					AutoSword.setSlot();
 				Criticals.doCritical();
 				EntityUtils.faceEntityPacket(en);

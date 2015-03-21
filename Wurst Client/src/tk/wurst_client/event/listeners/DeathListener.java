@@ -8,6 +8,6 @@
 package tk.wurst_client.event.listeners;
 
 public interface DeathListener extends Listener
-{	
+{
 	public void onDeath();
 }

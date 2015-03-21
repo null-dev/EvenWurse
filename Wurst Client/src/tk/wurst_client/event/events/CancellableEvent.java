@@ -8,14 +8,14 @@
 package tk.wurst_client.event.events;
 
 public class CancellableEvent extends Event
-{	
+{
 	private boolean cancelled = false;
-
+	
 	public void cancel()
 	{
-		this.cancelled = true;
+		cancelled = true;
 	}
-
+	
 	public boolean isCancelled()
 	{
 		return cancelled;

@@ -51,8 +51,9 @@ public class Path extends Command implements RenderListener
 				commandError();
 				return;
 			}
-		final BlockPos pos = new BlockPos(Integer.parseInt(args[0]), Integer.parseInt(args[1]),
-			Integer.parseInt(args[2]));
+		final BlockPos pos =
+			new BlockPos(Integer.parseInt(args[0]), Integer.parseInt(args[1]),
+				Integer.parseInt(args[2]));
 		Thread thread = new Thread(new Runnable()
 		{
 			@Override

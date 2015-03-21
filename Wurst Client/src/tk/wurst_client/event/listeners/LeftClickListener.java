@@ -8,6 +8,6 @@
 package tk.wurst_client.event.listeners;
 
 public interface LeftClickListener extends Listener
-{	
+{
 	public void onLeftClick();
 }

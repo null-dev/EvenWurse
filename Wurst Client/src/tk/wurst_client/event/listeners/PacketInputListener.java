@@ -10,6 +10,6 @@ package tk.wurst_client.event.listeners;
 import tk.wurst_client.event.events.PacketInputEvent;
 
 public interface PacketInputListener extends Listener
-{	
+{
 	public void onReceivedPacket(PacketInputEvent event);
 }

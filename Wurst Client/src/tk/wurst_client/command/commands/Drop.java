@@ -34,9 +34,9 @@ public class Drop extends Command implements UpdateListener
 			commandError();
 			return;
 		}
-			timer = 0;
-			counter = 9;
-			EventManager.addUpdateListener(this);
+		timer = 0;
+		counter = 9;
+		EventManager.addUpdateListener(this);
 	}
 	
 	@Override

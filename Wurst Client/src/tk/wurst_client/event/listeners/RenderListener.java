@@ -8,6 +8,6 @@
 package tk.wurst_client.event.listeners;
 
 public interface RenderListener extends Listener
-{	
+{
 	public void onRender();
 }

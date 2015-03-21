@@ -172,7 +172,6 @@ public class GuiError extends GuiScreen
 									fileChooser.showSaveDialog(Minecraft
 										.getMinecraft().getFrame());
 								if(action == JFileChooser.APPROVE_OPTION)
-								{
 									try
 									{
 										File file =
@@ -190,7 +189,6 @@ public class GuiError extends GuiScreen
 										e.printStackTrace();
 										MiscUtils.simpleError(e, fileChooser);
 									}
-								}
 								break;
 							default:
 								break;

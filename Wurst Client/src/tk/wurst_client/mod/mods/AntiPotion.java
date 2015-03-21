@@ -40,12 +40,14 @@ public class AntiPotion extends Mod implements UpdateListener
 		}
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Minecraft.getMinecraft().thePlayer.onGround
-			&& !Minecraft.getMinecraft().thePlayer.getActivePotionEffects().isEmpty())
+			&& !Minecraft.getMinecraft().thePlayer.getActivePotionEffects()
+				.isEmpty())
 			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.hunger)
-				|| Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.poison))
-			for(int i = 0; i < 1000; i++)
-				Minecraft.getMinecraft().thePlayer.sendQueue
-					.addToSendQueue(new C03PacketPlayer());
+				|| Minecraft.getMinecraft().thePlayer
+					.isPotionActive(Potion.poison))
+				for(int i = 0; i < 1000; i++)
+					Minecraft.getMinecraft().thePlayer.sendQueue
+						.addToSendQueue(new C03PacketPlayer());
 	}
 	
 	@Override
