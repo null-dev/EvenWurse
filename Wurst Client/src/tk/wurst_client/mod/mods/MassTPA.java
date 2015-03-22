@@ -85,7 +85,7 @@ public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 	@Override
 	public void onReceivedMessage(ChatInputEvent event)
 	{
-		String message = event.getMessage();
+		String message = event.getComponent().getUnformattedText();
 		if(message.startsWith("§c[§6Wurst§c]§f "))
 			return;
 		if(message.toLowerCase().contains("/help")

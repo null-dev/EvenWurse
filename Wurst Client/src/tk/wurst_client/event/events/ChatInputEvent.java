@@ -10,17 +10,29 @@ package tk.wurst_client.event.events;
 import java.util.List;
 
 import net.minecraft.client.gui.ChatLine;
+import net.minecraft.util.IChatComponent;
 
-public class ChatInputEvent extends ChatEvent
+public class ChatInputEvent extends CancellableEvent
 {
+	private IChatComponent component;
 	private List<ChatLine> chatLines;
 	
-	public ChatInputEvent(String message, List<ChatLine> chatLines)
+	public ChatInputEvent(IChatComponent component, List<ChatLine> chatLines)
 	{
-		super(message);
+		this.component = component;
 		this.chatLines = chatLines;
 	}
 	
+	public IChatComponent getComponent()
+	{
+		return component;
+	}
+
+	public void setComponent(IChatComponent component)
+	{
+		this.component = component;
+	}
+
 	public List<ChatLine> getChatLines()
 	{
 		return chatLines;

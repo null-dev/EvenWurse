@@ -59,7 +59,7 @@ public class Annoy extends Command implements ChatInputListener
 	@Override
 	public void onReceivedMessage(ChatInputEvent event)
 	{
-		String message = new String(event.getMessage());
+		String message = new String(event.getComponent().getUnformattedText());
 		if(message.startsWith("§c[§6Wurst§c]§f "))
 			return;
 		if(message.startsWith("<" + name + ">") || message.contains(name + ">"))

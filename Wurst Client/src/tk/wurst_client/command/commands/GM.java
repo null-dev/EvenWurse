@@ -17,12 +17,17 @@ public class GM extends Command
 		super("gm",
 			"Types \"/gamemode <args>\".",
 			"Useful for servers that don't support /gm.",
-			"§o.gm§r (<number> | <character> | <gamemode>)");
+			"§o.gm§r <gamemode>");
 	}
 	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
+		if(args.length != 1)
+		{
+			commandError();
+			return;
+		}
 		Minecraft.getMinecraft().thePlayer.sendChatMessage("/gamemode "
 			+ args[0]);
 	}

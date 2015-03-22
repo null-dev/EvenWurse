@@ -523,7 +523,7 @@ public class ForceOP extends Mod implements ChatInputListener
 	@Override
 	public void onReceivedMessage(ChatInputEvent event)
 	{
-		String message = event.getMessage();
+		String message = event.getComponent().getUnformattedText();
 		if(message.startsWith("§c[§6Wurst§c]§f "))
 			return;
 		if(message.toLowerCase().contains("wrong")// English

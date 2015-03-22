@@ -286,11 +286,12 @@ public class ArenaBrawl extends Mod implements ChatInputListener,
 	@Override
 	public void onReceivedMessage(ChatInputEvent event)
 	{
-		if(event.getMessage().startsWith("[Arena]: ")
-			&& event.getMessage().endsWith(" has won the game!"))
+		String message = event.getComponent().getUnformattedText();
+		if(message.startsWith("[Arena]: ")
+			&& message.endsWith(" has won the game!"))
 		{
 			event.cancel();
-			Client.wurst.chat.message(event.getMessage().substring(9));
+			Client.wurst.chat.message(message.substring(9));
 			setEnabled(false);
 		}
 	}

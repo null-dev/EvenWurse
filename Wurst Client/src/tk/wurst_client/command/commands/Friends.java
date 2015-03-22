@@ -26,6 +26,11 @@ public class Friends extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
+		if(args.length == 0)
+		{
+			commandError();
+			return;
+		}
 		if(args[0].equalsIgnoreCase("list"))
 		{
 			int totalFriends = Client.wurst.friends.size();

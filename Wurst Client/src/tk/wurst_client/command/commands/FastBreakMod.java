@@ -22,7 +22,7 @@ public class FastBreakMod extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args.length == 0)
+		if(args.length != 2)
 			commandError();
 		else if(args[0].toLowerCase().equals("mode"))
 		{// 0=normal, 1=instant
@@ -38,6 +38,7 @@ public class FastBreakMod extends Command
 			Client.wurst.fileManager.saveOptions();
 			Client.wurst.chat.message("FastBreak mode set to \"" + args[1]
 				+ "\".");
-		}
+		}else
+			commandError();
 	}
 }
