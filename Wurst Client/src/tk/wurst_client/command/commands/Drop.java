@@ -29,7 +29,7 @@ public class Drop extends Command implements UpdateListener
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		if(args != null)
+		if(args.length != 0)
 		{
 			commandError();
 			return;
