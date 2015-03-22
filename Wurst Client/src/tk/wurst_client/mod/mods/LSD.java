@@ -52,7 +52,7 @@ public class LSD extends Mod implements UpdateListener
 			Minecraft.getMinecraft().thePlayer
 				.addPotionEffect(new PotionEffect(Potion.confusion.getId(),
 					10801220));
-		Minecraft.getMinecraft().gameSettings.smoothCamera = true;
+		Minecraft.getMinecraft().gameSettings.smoothCamera = isEnabled();
 	}
 	
 	@Override
@@ -61,7 +61,6 @@ public class LSD extends Mod implements UpdateListener
 		EventManager.removeUpdateListener(this);
 		Minecraft.getMinecraft().thePlayer.removePotionEffect(Potion.confusion
 			.getId());
-		Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 		if(Minecraft.getMinecraft().entityRenderer.theShaderGroup != null)
 		{
 			Minecraft.getMinecraft().entityRenderer.theShaderGroup
