@@ -1,6 +1,6 @@
-From ebf8c6ad30f25478cf4184c54d18dc7a638aeeae Mon Sep 17 00:00:00 2001
+From ce06bfbd152c60f35fe85f92ea43fb17012a7bcb Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sun, 22 Mar 2015 12:51:58 +0100
+Date: Sun, 22 Mar 2015 14:50:24 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -19119,7 +19119,7 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..4414e83 100644
+index 38033d9..d6aec8d 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
 @@ -1,567 +1,763 @@
@@ -20393,7 +20393,7 @@ index 38033d9..4414e83 100644
 +			news += item + "§e+++§r";
 +		}
 +        int newsWidth = fontRendererObj.getStringWidth(news);
-+        while(fontRendererObj.getStringWidth(news) < width * 2 && !news.isEmpty())
++        while(fontRendererObj.getStringWidth(news) < Math.max(width * 2, newsWidth) && !news.isEmpty())
 +        	news += news;
 +        if(!news.isEmpty())
 +        {
