@@ -1,6 +1,6 @@
-From bd7c862bd43d96324b3b98cfc6c0849a3faf7357 Mon Sep 17 00:00:00 2001
+From ebf8c6ad30f25478cf4184c54d18dc7a638aeeae Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sat, 21 Mar 2015 21:09:06 +0100
+Date: Sun, 22 Mar 2015 12:51:58 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -20845,7 +20845,7 @@ index da42542..379980d 100644
              this.selectServer(var4);
          }
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..4af140f 100644
+index 1614678..67dd755 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
 @@ -1,386 +1,402 @@
@@ -21388,11 +21388,11 @@ index 1614678..4af140f 100644
 +    public void printChatMessageWithOptionalDeletion(IChatComponent p_146234_1_, int p_146234_2_)
 +    {
 +    	//TODO: Client
-+    	ChatInputEvent event = new ChatInputEvent(p_146234_1_.getFormattedText(), field_146253_i);
++    	ChatInputEvent event = new ChatInputEvent(p_146234_1_, field_146253_i);
 +    	EventManager.fireEvent(event);
 +    	if(event.isCancelled())
 +    		return;
-+    	p_146234_1_ = new ChatComponentText(event.getMessage());
++    	p_146234_1_ = event.getComponent();
 +    	
 +        this.setChatLine(p_146234_1_, p_146234_2_, this.mc.ingameGUI.getUpdateCounter(), false);
 +        logger.info("[CHAT] " + p_146234_1_.getUnformattedText());

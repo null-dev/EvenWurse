@@ -161,8 +161,9 @@ public class EventManager
 					}catch(Exception e)
 					{
 						handleException(e, listener, "receiving chat message",
-							"Message: `" + ((ChatInputEvent)event).getMessage()
-								+ "`");
+							"Message: `"
+								+ ((ChatInputEvent)event).getComponent()
+									.getUnformattedText() + "`");
 					}
 				}
 			}else if(event instanceof ChatOutputEvent)
