@@ -13,22 +13,20 @@ import tk.wurst_client.command.Command;
 
 public class Say extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Sends a chat message, even if the message starts",
-		"with a dot.",
-		"§o.say§r <message>"
-	};
-	
 	public Say()
 	{
-		super("say", commandHelp);
+		super("say", "Sends a chat message, even if the message starts",
+			"with a dot.",
+			"§o.say§r <message>");
 	}
 	
 	@Override
 	public void onEnable(String input, String[] args)
 	{
-		Minecraft.getMinecraft().thePlayer.sendQueue
-			.addToSendQueue(new C01PacketChatMessage(input.substring(4)));
+		if(input.length() > 4)
+			Minecraft.getMinecraft().thePlayer.sendQueue
+				.addToSendQueue(new C01PacketChatMessage(input.substring(4)));
+		else
+			commandError();
 	}
 }
