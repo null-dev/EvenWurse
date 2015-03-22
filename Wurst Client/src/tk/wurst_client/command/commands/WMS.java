@@ -23,6 +23,11 @@ public class WMS extends Command
 	@Override
 	public void onEnable(String input, String[] args)
 	{
+		if(args.length == 0)
+		{
+			commandError();
+			return;
+		}
 		if(args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off"))
 			Client.wurst.chat.setEnabled(args[0].equalsIgnoreCase("on"));
 		else if(args[0].equalsIgnoreCase("echo"))
