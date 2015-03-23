@@ -7,7 +7,21 @@
  */
 package tk.wurst_client.event.events;
 
+import net.minecraft.client.Minecraft;
+
 public class RenderEvent extends Event
-{	
+{
+	@Override
+	public String getAction()
+	{
+		return "rendering GUI";
+	}
 	
+	@Override
+	public String getComment()
+	{
+		return "GUI screen: " + Minecraft.getMinecraft().currentScreen != null
+			? Minecraft.getMinecraft().currentScreen.getClass().getSimpleName()
+			: "null";
+	}
 }

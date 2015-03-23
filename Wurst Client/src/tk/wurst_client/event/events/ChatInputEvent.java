@@ -27,14 +27,26 @@ public class ChatInputEvent extends CancellableEvent
 	{
 		return component;
 	}
-
+	
 	public void setComponent(IChatComponent component)
 	{
 		this.component = component;
 	}
-
+	
 	public List<ChatLine> getChatLines()
 	{
 		return chatLines;
+	}
+	
+	@Override
+	public String getAction()
+	{
+		return "receiving chat message";
+	}
+	
+	@Override
+	public String getComment()
+	{
+		return "Message: `" + component.getUnformattedText() + "`";
 	}
 }

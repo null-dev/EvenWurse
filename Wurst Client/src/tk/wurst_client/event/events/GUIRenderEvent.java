@@ -7,7 +7,11 @@
  */
 package tk.wurst_client.event.events;
 
-public class GUIRenderEvent extends Event
+public class GUIRenderEvent extends RenderEvent
 {	
-	
+	@Override
+	public String getAction()
+	{
+		return "rendering GUI";
+	}
 }

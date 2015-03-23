@@ -27,4 +27,17 @@ public class PacketInputEvent extends CancellableEvent
 	{
 		this.packet = packet;
 	}
+	
+	@Override
+	public String getAction()
+	{
+		return "receiving packet";
+	}
+	
+	@Override
+	public String getComment()
+	{
+		return "Packet: " + packet != null ? packet.getClass().getSimpleName()
+			: "null";
+	}
 }

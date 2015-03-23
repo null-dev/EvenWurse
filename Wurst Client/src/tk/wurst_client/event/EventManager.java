@@ -80,14 +80,14 @@ public abstract class EventManager<E extends Event, L extends Listener>
 					listen(listener, event);
 				}catch(Exception e)
 				{
-					handleException(e, listener, "(unknown action)", "");
+					handleException(e, listener, event.getAction(), event.getComment());
 				}
 			}
 			for(Runnable task; (task = listenerQueue.poll()) != null;)
 				task.run();
 		}catch(Exception e)
 		{
-			handleException(e, event, "processing events", "Event type: "
+			handleException(e, this, "processing events", "Event type: "
 				+ event.getClass().getSimpleName());
 			eventQueue.clear();
 		}finally
