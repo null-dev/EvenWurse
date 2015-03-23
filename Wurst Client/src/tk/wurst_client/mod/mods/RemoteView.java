@@ -62,7 +62,7 @@ public class RemoteView extends Mod implements UpdateListener
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
 		Client.wurst.chat.message("Now viewing " + otherView.getName() + ".");
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	public static void onEnabledByCommand(String viewName)
@@ -94,7 +94,7 @@ public class RemoteView extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 		if(otherView != null)
 		{
 			Client.wurst.chat.message("No longer viewing "

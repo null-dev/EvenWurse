@@ -40,7 +40,7 @@ public class GoToCmd extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		index = 0;
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -107,7 +107,7 @@ public class GoToCmd extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 		path = null;
 		goal = null;
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;

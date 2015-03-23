@@ -36,8 +36,8 @@ public class PlayerFinder extends Mod implements PacketInputListener,
 	public void onEnable()
 	{
 		blockPos = null;
-		EventManager.addPacketInputListener(this);
-		EventManager.addRenderListener(this);
+		EventManager.packetInput.addListener(this);
+		EventManager.render.addListener(this);
 	}
 	
 	@Override
@@ -65,8 +65,8 @@ public class PlayerFinder extends Mod implements PacketInputListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.removePacketInputListener(this);
-		EventManager.removeRenderListener(this);
+		EventManager.packetInput.removeListener(this);
+		EventManager.render.removeListener(this);
 	}
 	
 	@Override

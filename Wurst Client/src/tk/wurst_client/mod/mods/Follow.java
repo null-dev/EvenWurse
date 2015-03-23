@@ -44,7 +44,7 @@ public class Follow extends Mod implements UpdateListener
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
 				entity = en;
 		}
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -82,7 +82,7 @@ public class Follow extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 		if(entity != null)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;

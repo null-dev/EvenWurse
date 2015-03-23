@@ -41,7 +41,7 @@ public class Freecam extends Mod implements UpdateListener
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -61,7 +61,7 @@ public class Freecam extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 		Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY,
 			oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
 			Minecraft.getMinecraft().thePlayer.rotationPitch);

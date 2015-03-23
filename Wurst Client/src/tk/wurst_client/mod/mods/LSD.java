@@ -42,7 +42,7 @@ public class LSD extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		Minecraft.getMinecraft().entityRenderer.activateLSD();
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -58,7 +58,7 @@ public class LSD extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 		Minecraft.getMinecraft().thePlayer.removePotionEffect(Potion.confusion
 			.getId());
 		if(Minecraft.getMinecraft().entityRenderer.theShaderGroup != null)

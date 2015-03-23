@@ -23,7 +23,7 @@ public class ClickGUI extends Mod implements UpdateListener
 {
 	public ClickGUI()
 	{
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override

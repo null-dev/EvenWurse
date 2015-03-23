@@ -44,9 +44,9 @@ public class BowAimbot extends Mod implements UpdateListener, RenderListener,
 	@Override
 	public void onEnable()
 	{
-		EventManager.addGUIRenderListener(this);
-		EventManager.addRenderListener(this);
-		EventManager.addUpdateListener(this);
+		EventManager.guiRender.addListener(this);
+		EventManager.render.addListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -125,9 +125,9 @@ public class BowAimbot extends Mod implements UpdateListener, RenderListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeGUIRenderListener(this);
-		EventManager.removeRenderListener(this);
-		EventManager.removeUpdateListener(this);
+		EventManager.guiRender.removeListener(this);
+		EventManager.render.removeListener(this);
+		EventManager.update.removeListener(this);
 	}
 	
 	private void aimAtTarget()

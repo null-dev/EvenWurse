@@ -31,7 +31,7 @@ public class AntiSpam extends Mod implements ChatInputListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addChatInputListener(this);
+		EventManager.chatInput.addListener(this);
 	}
 	
 	@Override
@@ -104,6 +104,6 @@ public class AntiSpam extends Mod implements ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeChatInputListener(this);
+		EventManager.chatInput.removeListener(this);
 	}
 }

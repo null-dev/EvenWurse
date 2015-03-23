@@ -22,7 +22,7 @@ public class Fullbright extends Mod implements UpdateListener
 {
 	public Fullbright()
 	{
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override

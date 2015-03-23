@@ -95,10 +95,10 @@ public class ArenaBrawl extends Mod implements ChatInputListener,
 	public void onEnable()
 	{
 		reset();
-		EventManager.addChatInputListener(this);
-		EventManager.addDeathListener(this);
-		EventManager.addRenderListener(this);
-		EventManager.addUpdateListener(this);
+		EventManager.chatInput.addListener(this);
+		EventManager.death.addListener(this);
+		EventManager.render.addListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -272,10 +272,10 @@ public class ArenaBrawl extends Mod implements ChatInputListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeChatInputListener(this);
-		EventManager.removeDeathListener(this);
-		EventManager.removeRenderListener(this);
-		EventManager.removeUpdateListener(this);
+		EventManager.chatInput.removeListener(this);
+		EventManager.death.removeListener(this);
+		EventManager.render.removeListener(this);
+		EventManager.update.removeListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
 			Client.wurst.chat.message("No longer playing ArenaBrawl with "

@@ -36,7 +36,7 @@ public class Path extends Command implements RenderListener
 		path = null;
 		if(enabled)
 		{
-			EventManager.removeRenderListener(this);
+			EventManager.render.removeListener(this);
 			enabled = false;
 			return;
 		}
@@ -66,7 +66,7 @@ public class Path extends Command implements RenderListener
 				{
 					path = pathFinder.getRawPath();
 					enabled = true;
-					EventManager.addRenderListener(Path.this);
+					EventManager.render.addListener(Path.this);
 				}else
 					Client.wurst.chat.error("Could not find a path.");
 				System.out.println("Done after "

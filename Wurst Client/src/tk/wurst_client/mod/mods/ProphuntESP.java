@@ -28,7 +28,7 @@ public class ProphuntESP extends Mod implements RenderListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addRenderListener(this);
+		EventManager.render.addListener(this);
 	}
 	
 	@Override
@@ -58,6 +58,6 @@ public class ProphuntESP extends Mod implements RenderListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeRenderListener(this);
+		EventManager.render.removeListener(this);
 	}
 }

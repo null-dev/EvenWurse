@@ -35,7 +35,7 @@ public class Invsee extends Command implements RenderListener
 			return;
 		}
 		playerName = args[0];
-		EventManager.addRenderListener(this);
+		EventManager.render.addListener(this);
 	}
 	
 	@Override
@@ -58,6 +58,6 @@ public class Invsee extends Command implements RenderListener
 		if(!found)
 			Client.wurst.chat.error("Player not found.");
 		playerName = null;
-		EventManager.removeRenderListener(this);
+		EventManager.render.removeListener(this);
 	}
 }

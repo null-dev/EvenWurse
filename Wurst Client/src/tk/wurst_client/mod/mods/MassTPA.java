@@ -54,8 +54,8 @@ public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 				return random.nextInt();
 			}
 		});
-		EventManager.addChatInputListener(this);
-		EventManager.addUpdateListener(this);
+		EventManager.chatInput.addListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -78,8 +78,8 @@ public class MassTPA extends Mod implements UpdateListener, ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeChatInputListener(this);
-		EventManager.removeUpdateListener(this);
+		EventManager.chatInput.removeListener(this);
+		EventManager.update.removeListener(this);
 	}
 	
 	@Override

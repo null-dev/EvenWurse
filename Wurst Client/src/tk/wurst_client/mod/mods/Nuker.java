@@ -86,9 +86,9 @@ public class Nuker extends Mod implements LeftClickListener, RenderListener,
 			.isEnabled())
 			Client.wurst.modManager.getModByClass(SpeedNuker.class)
 				.setEnabled(false);
-		EventManager.addLeftClickListener(this);
-		EventManager.addUpdateListener(this);
-		EventManager.addRenderListener(this);
+		EventManager.leftClick.addListener(this);
+		EventManager.update.addListener(this);
+		EventManager.render.addListener(this);
 	}
 	
 	@Override
@@ -201,9 +201,9 @@ public class Nuker extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeLeftClickListener(this);
-		EventManager.removeUpdateListener(this);
-		EventManager.removeRenderListener(this);
+		EventManager.leftClick.removeListener(this);
+		EventManager.update.removeListener(this);
+		EventManager.render.removeListener(this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

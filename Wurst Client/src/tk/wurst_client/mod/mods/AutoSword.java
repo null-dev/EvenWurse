@@ -40,7 +40,7 @@ public class AutoSword extends Mod implements LeftClickListener, UpdateListener
 			return;
 		}
 		oldSlot = -1;
-		EventManager.addLeftClickListener(this);
+		EventManager.leftClick.addListener(this);
 	}
 	
 	@Override
@@ -52,13 +52,13 @@ public class AutoSword extends Mod implements LeftClickListener, UpdateListener
 			return;
 		}
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeLeftClickListener(this);
+		EventManager.leftClick.removeListener(this);
 	}
 	
 	@Override
@@ -111,7 +111,7 @@ public class AutoSword extends Mod implements LeftClickListener, UpdateListener
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem =
 				bestSlot;
 			instance.timer = 4;
-			EventManager.addUpdateListener(instance);
+			EventManager.update.addListener(instance);
 		}
 	}
 }

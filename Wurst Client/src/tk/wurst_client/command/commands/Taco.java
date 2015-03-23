@@ -49,12 +49,12 @@ public class Taco extends Command implements GUIRenderListener, UpdateListener
 		toggled = !toggled;
 		if(toggled)
 		{
-			EventManager.addGUIRenderListener(this);
-			EventManager.addUpdateListener(this);
+			EventManager.guiRender.addListener(this);
+			EventManager.update.addListener(this);
 		}else
 		{
-			EventManager.removeGUIRenderListener(this);
-			EventManager.removeUpdateListener(this);
+			EventManager.guiRender.removeListener(this);
+			EventManager.update.removeListener(this);
 		}
 	}
 	

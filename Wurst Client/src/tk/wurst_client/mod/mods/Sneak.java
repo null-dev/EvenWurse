@@ -25,7 +25,7 @@ public class Sneak extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class Sneak extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0BPacketEntityAction(
