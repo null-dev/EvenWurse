@@ -27,7 +27,7 @@ public abstract class EventManager<E extends Event, L extends Listener>
 		new ConcurrentLinkedQueue<Runnable>();
 	private static final Queue<Runnable> listenerQueue =
 		new ConcurrentLinkedQueue<Runnable>();
-	private boolean locked;
+	private static boolean locked;
 	
 	public static final EventManager<ChatInputEvent, ChatInputListener> chatInput =
 		new EventManager<ChatInputEvent, ChatInputListener>()
