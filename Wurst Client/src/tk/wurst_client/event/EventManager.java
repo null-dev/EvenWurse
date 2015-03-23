@@ -117,20 +117,6 @@ public abstract class EventManager<E extends Event, L extends Listener>
 			}
 		};
 	
-	/**
-	 * Events fired here will only update the {@link #listenerQueue}.
-	 */
-	public static final EventManager<Event, Listener> queue =
-		new EventManager<Event, Listener>()
-		{
-			@Override
-			protected void listen(Listener listener, Event event)
-				throws Exception
-			{	
-				
-			}
-		};
-	
 	public synchronized final void fireEvent(final E event)
 	{
 		if(locked)
@@ -176,8 +162,6 @@ public abstract class EventManager<E extends Event, L extends Listener>
 			task.run();
 	}
 	
-	protected abstract void listen(L listener, E event) throws Exception;
-	
 	public static final void handleException(final Exception e,
 		final Object cause, final String action, final String comment)
 	{
@@ -193,6 +177,14 @@ public abstract class EventManager<E extends Event, L extends Listener>
 		});
 	}
 	
+	public static final void init()
+	{
+		for(Runnable task; (task = listenerQueue.poll()) != null;)
+			task.run();
+	}
+	
+	protected abstract void listen(L listener, E event) throws Exception;
+
 	public final void addListener(final L listener)
 	{
 		listenerQueue.add(new Runnable()

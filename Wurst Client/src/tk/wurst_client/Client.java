@@ -57,6 +57,6 @@ public class Client
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();
 		updater.checkForUpdate();
-		EventManager.queue.fireEvent(null);
+		EventManager.init();
 	}
 }
