@@ -40,6 +40,20 @@ public abstract class EventManager<E extends Event, L extends Listener>
 			}
 		};
 	
+	/**
+	 * Events fired here will only update the {@link #listenerQueue}.
+	 */
+	public static final EventManager<Event, Listener> queue =
+		new EventManager<Event, Listener>()
+		{
+			@Override
+			protected void listen(Listener listener, Event event)
+				throws Exception
+			{
+				
+			}
+		};
+
 	public synchronized final void fireEvent(final E event)
 	{
 		if(locked)
