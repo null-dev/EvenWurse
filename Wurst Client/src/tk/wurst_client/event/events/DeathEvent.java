@@ -8,6 +8,11 @@
 package tk.wurst_client.event.events;
 
 public class DeathEvent extends Event
-{	
+{
+	@Override
+	public String getAction()
+	{
+		return "dying";
+	}	
 	
 }

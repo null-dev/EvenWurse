@@ -23,7 +23,7 @@ public class AutoRespawn extends Mod implements DeathListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addDeathListener(this);
+		EventManager.death.addListener(this);
 	}
 	
 	@Override
@@ -36,6 +36,6 @@ public class AutoRespawn extends Mod implements DeathListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeDeathListener(this);
+		EventManager.death.removeListener(this);
 	}
 }

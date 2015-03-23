@@ -40,8 +40,8 @@ public class ChestESP extends Mod implements UpdateListener, RenderListener
 	public void onEnable()
 	{
 		shouldInform = true;
-		EventManager.addUpdateListener(this);
-		EventManager.addRenderListener(this);
+		EventManager.update.addListener(this);
+		EventManager.render.addListener(this);
 	}
 	
 	@Override
@@ -130,7 +130,7 @@ public class ChestESP extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
-		EventManager.removeRenderListener(this);
+		EventManager.update.removeListener(this);
+		EventManager.render.removeListener(this);
 	}
 }

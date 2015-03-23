@@ -121,8 +121,8 @@ public class InstantBunker extends Mod implements UpdateListener,
 			while(playerYaw < -180)
 				playerYaw += 360;
 		}
-		EventManager.addUpdateListener(this);
-		EventManager.addRenderListener(this);
+		EventManager.update.addListener(this);
+		EventManager.render.addListener(this);
 	}
 	
 	@Override
@@ -401,8 +401,8 @@ public class InstantBunker extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
-		EventManager.addRenderListener(this);
+		EventManager.update.removeListener(this);
+		EventManager.render.addListener(this);
 		shouldBuild = false;
 	}
 }

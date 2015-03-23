@@ -462,7 +462,7 @@ public class ForceOP extends Mod implements ChatInputListener
 				dialog.toFront();
 			}
 		}.start();
-		EventManager.addChatInputListener(this);
+		EventManager.chatInput.addListener(this);
 	}
 	
 	private void loadPWList()
@@ -569,7 +569,7 @@ public class ForceOP extends Mod implements ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeChatInputListener(this);
+		EventManager.chatInput.removeListener(this);
 		new Thread()
 		{
 			@Override

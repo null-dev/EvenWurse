@@ -82,6 +82,6 @@ public class CommandManager implements ChatOutputListener
 		activeCommands.add(new VClip());
 		activeCommands.add(new WMS());
 		activeCommands.add(new XRay());
-		EventManager.addChatOutputListener(this);
+		EventManager.chatOutput.addListener(this);
 	}
 }

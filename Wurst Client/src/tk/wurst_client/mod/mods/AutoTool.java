@@ -31,8 +31,8 @@ public class AutoTool extends Mod implements LeftClickListener, UpdateListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addLeftClickListener(this);
-		EventManager.addUpdateListener(this);
+		EventManager.leftClick.addListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -57,8 +57,8 @@ public class AutoTool extends Mod implements LeftClickListener, UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeLeftClickListener(this);
-		EventManager.removeUpdateListener(this);
+		EventManager.leftClick.removeListener(this);
+		EventManager.update.removeListener(this);
 		isActive = false;
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
 	}

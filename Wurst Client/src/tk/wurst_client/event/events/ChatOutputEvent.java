@@ -25,4 +25,16 @@ public class ChatOutputEvent extends CancellableEvent
 	{
 		this.message = message;
 	}
+	
+	@Override
+	public String getAction()
+	{
+		return "sending chat message";
+	}
+	
+	@Override
+	public String getComment()
+	{
+		return "Message: `" + message + "`";
+	}
 }

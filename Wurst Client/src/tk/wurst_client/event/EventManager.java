@@ -19,423 +19,192 @@ import tk.wurst_client.event.events.*;
 import tk.wurst_client.event.listeners.*;
 import tk.wurst_client.gui.error.GuiError;
 
-public class EventManager
+public abstract class EventManager<E extends Event, L extends Listener>
 {
-	private static Set<ChatInputListener> chatInputListeners = Collections
-		.synchronizedSet(new HashSet<ChatInputListener>());
-	private static Set<ChatOutputListener> chatOutputListeners = Collections
-		.synchronizedSet(new HashSet<ChatOutputListener>());
-	private static Set<DeathListener> deathListeners = Collections
-		.synchronizedSet(new HashSet<DeathListener>());
-	private static Set<GUIRenderListener> guiRenderListeners = Collections
-		.synchronizedSet(new HashSet<GUIRenderListener>());
-	private static Set<LeftClickListener> leftClickListeners = Collections
-		.synchronizedSet(new HashSet<LeftClickListener>());
-	private static Set<PacketInputListener> packetInputListeners = Collections
-		.synchronizedSet(new HashSet<PacketInputListener>());
-	private static Set<RenderListener> renderListeners = Collections
-		.synchronizedSet(new HashSet<RenderListener>());
-	private static Set<UpdateListener> updateListeners = Collections
-		.synchronizedSet(new HashSet<UpdateListener>());
-	
-	private static Queue<Event> eventQueue =
-		new ConcurrentLinkedQueue<Event>();
-	private static Queue<Runnable> listenerQueue =
+	private final Set<L> listeners = Collections
+		.synchronizedSet(new HashSet<L>());
+	private static final Queue<Runnable> eventQueue =
+		new ConcurrentLinkedQueue<Runnable>();
+	private static final Queue<Runnable> listenerQueue =
 		new ConcurrentLinkedQueue<Runnable>();
 	private static boolean locked;
 	
-	public synchronized static void fireEvent(Event event)
+	public static final EventManager<ChatInputEvent, ChatInputListener> chatInput =
+		new EventManager<ChatInputEvent, ChatInputListener>()
+		{
+			@Override
+			protected void listen(ChatInputListener listener,
+				ChatInputEvent event) throws Exception
+			{
+				listener.onReceivedMessage(event);
+			}
+		};
+	
+	public static final EventManager<ChatOutputEvent, ChatOutputListener> chatOutput =
+		new EventManager<ChatOutputEvent, ChatOutputListener>()
+		{
+			@Override
+			protected void listen(ChatOutputListener listener,
+				ChatOutputEvent event) throws Exception
+			{
+				listener.onSentMessage(event);
+			}
+		};
+	
+	public static final EventManager<DeathEvent, DeathListener> death =
+		new EventManager<DeathEvent, DeathListener>()
+		{
+			@Override
+			protected void listen(DeathListener listener, DeathEvent event)
+				throws Exception
+			{
+				listener.onDeath();
+			}
+		};
+	
+	public static final EventManager<GUIRenderEvent, GUIRenderListener> guiRender =
+		new EventManager<GUIRenderEvent, GUIRenderListener>()
+		{
+			@Override
+			protected void listen(GUIRenderListener listener,
+				GUIRenderEvent event) throws Exception
+			{
+				listener.onRenderGUI();
+			}
+		};
+	
+	public static final EventManager<LeftClickEvent, LeftClickListener> leftClick =
+		new EventManager<LeftClickEvent, LeftClickListener>()
+		{
+			@Override
+			protected void listen(LeftClickListener listener,
+				LeftClickEvent event) throws Exception
+			{
+				listener.onLeftClick();
+			}
+		};
+	
+	public static final EventManager<PacketInputEvent, PacketInputListener> packetInput =
+		new EventManager<PacketInputEvent, PacketInputListener>()
+		{
+			@Override
+			protected void listen(PacketInputListener listener,
+				PacketInputEvent event) throws Exception
+			{
+				listener.onReceivedPacket(event);
+			}
+		};
+	
+	public static final EventManager<RenderEvent, RenderListener> render =
+		new EventManager<RenderEvent, RenderListener>()
+		{
+			@Override
+			protected void listen(RenderListener listener, RenderEvent event)
+				throws Exception
+			{
+				listener.onRender();
+			}
+		};
+	
+	public static final EventManager<UpdateEvent, UpdateListener> update =
+		new EventManager<UpdateEvent, UpdateListener>()
+		{
+			@Override
+			protected void listen(UpdateListener listener, UpdateEvent event)
+				throws Exception
+			{
+				listener.onUpdate();
+			}
+		};
+	
+	public synchronized final void fireEvent(final E event)
 	{
 		if(locked)
 		{
-			eventQueue.add(event);
+			eventQueue.add(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					fireEvent(event);
+				}
+			});
 			return;
 		}
 		locked = true;
 		try
 		{
-			if(event instanceof UpdateEvent)
+			Iterator<L> itr = listeners.iterator();
+			while(itr.hasNext())
 			{
-				Iterator<UpdateListener> itr = updateListeners.iterator();
-				while(itr.hasNext())
+				L listener = itr.next();
+				try
 				{
-					UpdateListener listener = itr.next();
-					try
-					{
-						listener.onUpdate();
-					}catch(Exception e)
-					{
-						handleException(e, listener, "updating", "");
-					}
-				}
-			}else if(event instanceof RenderEvent)
-			{
-				Iterator<RenderListener> itr = renderListeners.iterator();
-				while(itr.hasNext())
+					listen(listener, event);
+				}catch(Exception e)
 				{
-					RenderListener listener = itr.next();
-					try
-					{
-						listener.onRender();
-					}catch(Exception e)
-					{
-						handleException(
-							e,
-							listener,
-							"rendering",
-							"GUI screen: "
-								+ Minecraft.getMinecraft().currentScreen != null
-								? Minecraft.getMinecraft().currentScreen
-									.getClass()
-									.getSimpleName() : "null");
-					}
-				}
-			}else if(event instanceof GUIRenderEvent)
-			{
-				Iterator<GUIRenderListener> itr = guiRenderListeners.iterator();
-				while(itr.hasNext())
-				{
-					GUIRenderListener listener = itr.next();
-					try
-					{
-						listener.onRenderGUI();
-					}catch(Exception e)
-					{
-						handleException(
-							e,
-							listener,
-							"rendering GUI",
-							"GUI screen: "
-								+ Minecraft.getMinecraft().currentScreen != null
-								? Minecraft.getMinecraft().currentScreen
-									.getClass()
-									.getSimpleName() : "null");
-					}
-				}
-			}else if(event instanceof PacketInputEvent)
-			{
-				Iterator<PacketInputListener> itr =
-					packetInputListeners.iterator();
-				while(itr.hasNext())
-				{
-					PacketInputListener listener = itr.next();
-					try
-					{
-						listener.onReceivedPacket((PacketInputEvent)event);
-					}catch(Exception e)
-					{
-						handleException(
-							e,
-							listener,
-							"receiving packet",
-							"Packet: "
-								+ (((PacketInputEvent)event).getPacket() != null
-									? ((PacketInputEvent)event).getPacket()
-										.getClass()
-										.getSimpleName() : "null"));
-					}
-				}
-			}else if(event instanceof LeftClickEvent)
-			{
-				Iterator<LeftClickListener> itr = leftClickListeners.iterator();
-				while(itr.hasNext())
-				{
-					LeftClickListener listener = itr.next();
-					try
-					{
-						listener.onLeftClick();
-					}catch(Exception e)
-					{
-						handleException(e, listener, "left-clicking", "");
-					}
-				}
-			}else if(event instanceof ChatInputEvent)
-			{
-				Iterator<ChatInputListener> itr = chatInputListeners.iterator();
-				while(itr.hasNext())
-				{
-					ChatInputListener listener = itr.next();
-					try
-					{
-						listener.onReceivedMessage((ChatInputEvent)event);
-					}catch(Exception e)
-					{
-						handleException(e, listener, "receiving chat message",
-							"Message: `"
-								+ ((ChatInputEvent)event).getComponent()
-									.getUnformattedText() + "`");
-					}
-				}
-			}else if(event instanceof ChatOutputEvent)
-			{
-				Iterator<ChatOutputListener> itr =
-					chatOutputListeners.iterator();
-				while(itr.hasNext())
-				{
-					ChatOutputListener listener = itr.next();
-					try
-					{
-						listener.onSentMessage((ChatOutputEvent)event);
-					}catch(Exception e)
-					{
-						handleException(
-							e,
-							listener,
-							"sending chat message",
-							"Message: `"
-								+ ((ChatOutputEvent)event).getMessage()
-								+ "`");
-					}
-				}
-			}else if(event instanceof DeathEvent)
-			{
-				Iterator<DeathListener> itr = deathListeners.iterator();
-				while(itr.hasNext())
-				{
-					DeathListener listener = itr.next();
-					try
-					{
-						listener.onDeath();
-					}catch(Exception e)
-					{
-						handleException(e, listener, "dying", "");
-					}
+					handleException(e, listener, event.getAction(),
+						event.getComment());
 				}
 			}
 			for(Runnable task; (task = listenerQueue.poll()) != null;)
 				task.run();
 		}catch(Exception e)
 		{
-			handleException(e, event, "processing events", "Event type: "
+			handleException(e, this, "processing events", "Event type: "
 				+ event.getClass().getSimpleName());
 			eventQueue.clear();
 		}finally
 		{
 			locked = false;
-			for(Event ev; (ev = eventQueue.poll()) != null;)
-				fireEvent(ev);
 		}
+		for(Runnable task; (task = eventQueue.poll()) != null;)
+			task.run();
 	}
 	
-	public synchronized static void handleException(final Exception e,
+	public static final void handleException(final Exception e,
 		final Object cause, final String action, final String comment)
 	{
-		addUpdateListener(new UpdateListener()
+		update.addListener(new UpdateListener()
 		{
 			@Override
 			public void onUpdate()
 			{
 				Minecraft.getMinecraft().displayGuiScreen(
 					new GuiError(e, cause, action, comment));
-				EventManager.removeUpdateListener(this);
+				EventManager.update.removeListener(this);
 			}
 		});
 	}
 	
-	public synchronized static void addChatInputListener(
-		final ChatInputListener listener)
+	public static final void init()
+	{
+		for(Runnable task; (task = listenerQueue.poll()) != null;)
+			task.run();
+	}
+	
+	protected abstract void listen(L listener, E event) throws Exception;
+
+	public final void addListener(final L listener)
 	{
 		listenerQueue.add(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				chatInputListeners.add(listener);
+				listeners.add(listener);
 			}
 		});
 	}
 	
-	public synchronized static void removeChatInputListener(
-		final ChatInputListener listener)
+	public final void removeListener(final L listener)
 	{
 		listenerQueue.add(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				chatInputListeners.remove(listener);
-			}
-		});
-	}
-	
-	public synchronized static void addChatOutputListener(
-		final ChatOutputListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				chatOutputListeners.add(listener);
-			}
-		});
-	}
-	
-	public synchronized static void removeChatOutputListener(
-		final ChatOutputListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				chatOutputListeners.remove(listener);
-			}
-		});
-	}
-	
-	public synchronized static void addDeathListener(
-		final DeathListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				deathListeners.add(listener);
-			}
-		});
-	}
-	
-	public synchronized static void removeDeathListener(
-		final DeathListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				deathListeners.remove(listener);
-			}
-		});
-	}
-	
-	public synchronized static void addGUIRenderListener(
-		final GUIRenderListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				guiRenderListeners.add(listener);
-			}
-		});
-	}
-	
-	public synchronized static void removeGUIRenderListener(
-		final GUIRenderListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				guiRenderListeners.remove(listener);
-			}
-		});
-	}
-	
-	public synchronized static void addLeftClickListener(
-		final LeftClickListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				leftClickListeners.add(listener);
-			}
-		});
-	}
-	
-	public synchronized static void removeLeftClickListener(
-		final LeftClickListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				leftClickListeners.remove(listener);
-			}
-		});
-	}
-	
-	public synchronized static void addPacketInputListener(
-		final PacketInputListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				packetInputListeners.add(listener);
-			}
-		});
-	}
-	
-	public synchronized static void removePacketInputListener(
-		final PacketInputListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				packetInputListeners.remove(listener);
-			}
-		});
-	}
-	
-	public synchronized static void addRenderListener(
-		final RenderListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				renderListeners.add(listener);
-			}
-		});
-	}
-	
-	public synchronized static void removeRenderListener(
-		final RenderListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				renderListeners.remove(listener);
-			}
-		});
-	}
-	
-	public synchronized static void addUpdateListener(
-		final UpdateListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				updateListeners.add(listener);
-			}
-		});
-	}
-	
-	public synchronized static void removeUpdateListener(
-		final UpdateListener listener)
-	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				updateListeners.remove(listener);
+				listeners.remove(listener);
 			}
 		});
 	}

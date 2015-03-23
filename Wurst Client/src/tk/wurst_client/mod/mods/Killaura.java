@@ -66,7 +66,7 @@ public class Killaura extends Mod implements UpdateListener
 			.isEnabled())
 			Client.wurst.modManager.getModByClass(TriggerBot.class)
 				.setEnabled(false);
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -105,6 +105,6 @@ public class Killaura extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 	}
 }

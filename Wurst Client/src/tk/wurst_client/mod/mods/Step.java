@@ -23,7 +23,7 @@ public class Step extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class Step extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 		Minecraft.getMinecraft().thePlayer.stepHeight = 0.5F;
 	}
 }

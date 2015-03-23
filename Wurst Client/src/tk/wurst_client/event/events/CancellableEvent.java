@@ -7,7 +7,7 @@
  */
 package tk.wurst_client.event.events;
 
-public class CancellableEvent extends Event
+public abstract class CancellableEvent extends Event
 {
 	private boolean cancelled = false;
 	

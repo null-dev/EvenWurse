@@ -1,6 +1,6 @@
-From ce06bfbd152c60f35fe85f92ea43fb17012a7bcb Mon Sep 17 00:00:00 2001
+From 31627db950ae93464123a93926291aba98f62e0d Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sun, 22 Mar 2015 14:50:24 +0100
+Date: Tue, 24 Mar 2015 00:28:16 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -4602,7 +4602,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..97fbe28 100644
+index f503b64..618a7cf 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,3306 +1,3604 @@
@@ -9673,7 +9673,7 @@ index f503b64..97fbe28 100644
 +        if (this.leftClickCounter <= 0)
 +        {
 +            //TODO: Client
-+            EventManager.fireEvent(new LeftClickEvent());
++            EventManager.leftClick.fireEvent(new LeftClickEvent());
 +            this.thePlayer.swingItem();
 +
 +            if (this.objectMouseOver == null)
@@ -11789,7 +11789,7 @@ index de9ca57..8ea196a 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..28880c5 100644
+index eefe303..92cfecf 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
 @@ -1,863 +1,903 @@
@@ -12796,7 +12796,7 @@ index eefe303..28880c5 100644
 +        if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
 +        {
 +        	//TODO: Client
-+        	EventManager.fireEvent(new UpdateEvent());
++        	EventManager.update.fireEvent(new UpdateEvent());
 +        	
 +            super.onUpdate();
 +
@@ -12947,7 +12947,7 @@ index eefe303..28880c5 100644
 +    {
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_);
-+      	EventManager.fireEvent(event);
++      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;
 +      	
@@ -16201,7 +16201,7 @@ index 47e1373..6361176 100644
              GlStateManager.disableRescaleNormal();
          }
 diff --git a/src/net/minecraft/client/gui/GuiGameOver.java b/src/net/minecraft/client/gui/GuiGameOver.java
-index c737e46..4ed0de4 100644
+index c737e46..e1e7aa7 100644
 --- a/src/net/minecraft/client/gui/GuiGameOver.java
 +++ b/src/net/minecraft/client/gui/GuiGameOver.java
 @@ -1,137 +1,145 @@
@@ -16482,13 +16482,13 @@ index c737e46..4ed0de4 100644
 +            {
 +                var2 = (GuiButton)var1.next();
 +                //TODO: Client
-+                EventManager.fireEvent(new DeathEvent());
++                EventManager.death.fireEvent(new DeathEvent());
 +            }
 +        }
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiIngame.java b/src/net/minecraft/client/gui/GuiIngame.java
-index 6dbd34d..c26e21e 100644
+index 6dbd34d..6aadc8e 100644
 --- a/src/net/minecraft/client/gui/GuiIngame.java
 +++ b/src/net/minecraft/client/gui/GuiIngame.java
 @@ -1,1194 +1,1284 @@
@@ -18084,7 +18084,7 @@ index 6dbd34d..c26e21e 100644
 +            wr.addVertexWithUV((double)x + w, (double)y + 0, (double)this.zLevel, (double)((float)(u1 + fw) * 0.00390625F), (double)((float)(v1 + 0) * 0.00390625F));
 +            wr.addVertexWithUV((double)x + 0, (double)y + 0, (double)this.zLevel, (double)((float)(u1 + 0) * 0.00390625F), (double)((float)(v1 + 0) * 0.00390625F));
 +            ts.draw();
-+            EventManager.fireEvent(new GUIRenderEvent());
++            EventManager.guiRender.fireEvent(new GUIRenderEvent());
 +            GL11.glDepthMask(true);
 +            GL11.glEnable(GL11.GL_DEPTH_TEST);
 +            GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -20845,7 +20845,7 @@ index da42542..379980d 100644
              this.selectServer(var4);
          }
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..67dd755 100644
+index 1614678..7a1dfbc 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
 @@ -1,386 +1,402 @@
@@ -21389,7 +21389,7 @@ index 1614678..67dd755 100644
 +    {
 +    	//TODO: Client
 +    	ChatInputEvent event = new ChatInputEvent(p_146234_1_, field_146253_i);
-+    	EventManager.fireEvent(event);
++    	EventManager.chatInput.fireEvent(event);
 +    	if(event.isCancelled())
 +    		return;
 +    	p_146234_1_ = event.getComponent();
@@ -25348,7 +25348,7 @@ index e9db01f..18cbc00 100644
  import net.minecraft.block.state.IBlockState;
  import net.minecraft.client.Minecraft;
 diff --git a/src/net/minecraft/client/renderer/EntityRenderer.java b/src/net/minecraft/client/renderer/EntityRenderer.java
-index e32c68b..9ecb1d7 100644
+index e32c68b..1c77e14 100644
 --- a/src/net/minecraft/client/renderer/EntityRenderer.java
 +++ b/src/net/minecraft/client/renderer/EntityRenderer.java
 @@ -1,2052 +1,2096 @@
@@ -28916,7 +28916,7 @@ index e32c68b..9ecb1d7 100644
 +        this.mc.mcProfiler.endStartSection("hand");
 +
 +        //TODO: Client
-+        EventManager.fireEvent(new RenderEvent());
++        EventManager.render.fireEvent(new RenderEvent());
 +        
 +        if (this.field_175074_C)
 +        {
@@ -50872,7 +50872,7 @@ index 38b9ecd..f64dc7e 100644
              this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);
          }
 diff --git a/src/net/minecraft/network/NetworkManager.java b/src/net/minecraft/network/NetworkManager.java
-index f05dadf..549b18e 100644
+index f05dadf..a538895 100644
 --- a/src/net/minecraft/network/NetworkManager.java
 +++ b/src/net/minecraft/network/NetworkManager.java
 @@ -1,479 +1,472 @@
@@ -51509,7 +51509,7 @@ index f05dadf..549b18e 100644
 +		{
 +			//TODO: Client
 +			PacketInputEvent event = new PacketInputEvent(p_channelRead0_2_);
-+			EventManager.fireEvent(event);
++			EventManager.packetInput.fireEvent(event);
 +			if(event.isCancelled())
 +				return;
 +			

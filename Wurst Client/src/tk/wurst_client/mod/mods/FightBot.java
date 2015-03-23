@@ -32,7 +32,7 @@ public class FightBot extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -92,7 +92,7 @@ public class FightBot extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeUpdateListener(this);
+		EventManager.update.removeListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 	}
 }

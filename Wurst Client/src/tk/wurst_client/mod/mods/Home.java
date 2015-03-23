@@ -28,8 +28,8 @@ public class Home extends Mod implements UpdateListener, ChatInputListener
 	public void onEnable()
 	{
 		disableTimer = 0;
-		EventManager.addChatInputListener(this);
-		EventManager.addUpdateListener(this);
+		EventManager.chatInput.addListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -45,8 +45,8 @@ public class Home extends Mod implements UpdateListener, ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeChatInputListener(this);
-		EventManager.removeUpdateListener(this);
+		EventManager.chatInput.removeListener(this);
+		EventManager.update.removeListener(this);
 	}
 	
 	@Override

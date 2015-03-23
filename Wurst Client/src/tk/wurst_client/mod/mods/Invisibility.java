@@ -29,7 +29,7 @@ public class Invisibility extends Mod implements UpdateListener
 	
 	public Invisibility()
 	{
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override

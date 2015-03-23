@@ -8,6 +8,10 @@
 package tk.wurst_client.event.events;
 
 public class LeftClickEvent extends Event
-{	
-	
+{
+	@Override
+	public String getAction()
+	{
+		return "left-clicking";
+	}	
 }

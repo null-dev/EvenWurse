@@ -36,7 +36,7 @@ public class Drop extends Command implements UpdateListener
 		}
 		timer = 0;
 		counter = 9;
-		EventManager.addUpdateListener(this);
+		EventManager.update.addListener(this);
 	}
 	
 	@Override
@@ -53,14 +53,14 @@ public class Drop extends Command implements UpdateListener
 				counter++;
 				timer = 0;
 				if(counter >= 45)
-					EventManager.removeUpdateListener(this);
+					EventManager.update.removeListener(this);
 			}
 		}else
 		{
 			for(int i = 9; i < 45; i++)
 				Minecraft.getMinecraft().playerController.windowClick(0, i, 1,
 					4, Minecraft.getMinecraft().thePlayer);
-			EventManager.removeUpdateListener(this);
+			EventManager.update.removeListener(this);
 		}
 	}
 }

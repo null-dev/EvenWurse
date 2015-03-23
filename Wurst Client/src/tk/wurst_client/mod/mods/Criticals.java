@@ -25,13 +25,13 @@ public class Criticals extends Mod implements LeftClickListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.addLeftClickListener(this);
+		EventManager.leftClick.addListener(this);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		EventManager.removeLeftClickListener(this);
+		EventManager.leftClick.removeListener(this);
 	}
 	
 	@Override
