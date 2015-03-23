@@ -29,6 +29,83 @@ public abstract class EventManager<E extends Event, L extends Listener>
 		new ConcurrentLinkedQueue<Runnable>();
 	private boolean locked;
 	
+	public static final EventManager<ChatInputEvent, ChatInputListener> chatInput =
+		new EventManager<ChatInputEvent, ChatInputListener>()
+		{
+			@Override
+			protected void listen(ChatInputListener listener,
+				ChatInputEvent event) throws Exception
+			{
+				listener.onReceivedMessage(event);
+			}
+		};
+	
+	public static final EventManager<ChatOutputEvent, ChatOutputListener> chatOutput =
+		new EventManager<ChatOutputEvent, ChatOutputListener>()
+		{
+			@Override
+			protected void listen(ChatOutputListener listener,
+				ChatOutputEvent event) throws Exception
+			{
+				listener.onSentMessage(event);
+			}
+		};
+	
+	public static final EventManager<DeathEvent, DeathListener> death =
+		new EventManager<DeathEvent, DeathListener>()
+		{
+			@Override
+			protected void listen(DeathListener listener, DeathEvent event)
+				throws Exception
+			{
+				listener.onDeath();
+			}
+		};
+	
+	public static final EventManager<GUIRenderEvent, GUIRenderListener> guiRender =
+		new EventManager<GUIRenderEvent, GUIRenderListener>()
+		{
+			@Override
+			protected void listen(GUIRenderListener listener,
+				GUIRenderEvent event) throws Exception
+			{
+				listener.onRenderGUI();
+			}
+		};
+	
+	public static final EventManager<LeftClickEvent, LeftClickListener> leftClick =
+		new EventManager<LeftClickEvent, LeftClickListener>()
+		{
+			@Override
+			protected void listen(LeftClickListener listener,
+				LeftClickEvent event) throws Exception
+			{
+				listener.onLeftClick();
+			}
+		};
+	
+	public static final EventManager<PacketInputEvent, PacketInputListener> packetInput =
+		new EventManager<PacketInputEvent, PacketInputListener>()
+		{
+			@Override
+			protected void listen(PacketInputListener listener,
+				PacketInputEvent event) throws Exception
+			{
+				listener.onReceivedPacket(event);
+			}
+		};
+	
+	public static final EventManager<RenderEvent, RenderListener> render =
+		new EventManager<RenderEvent, RenderListener>()
+		{
+			@Override
+			protected void listen(RenderListener listener, RenderEvent event)
+				throws Exception
+			{
+				listener.onRender();
+			}
+		};
+	
 	public static final EventManager<UpdateEvent, UpdateListener> update =
 		new EventManager<UpdateEvent, UpdateListener>()
 		{
@@ -49,11 +126,11 @@ public abstract class EventManager<E extends Event, L extends Listener>
 			@Override
 			protected void listen(Listener listener, Event event)
 				throws Exception
-			{
+			{	
 				
 			}
 		};
-
+	
 	public synchronized final void fireEvent(final E event)
 	{
 		if(locked)
@@ -80,7 +157,8 @@ public abstract class EventManager<E extends Event, L extends Listener>
 					listen(listener, event);
 				}catch(Exception e)
 				{
-					handleException(e, listener, event.getAction(), event.getComment());
+					handleException(e, listener, event.getAction(),
+						event.getComment());
 				}
 			}
 			for(Runnable task; (task = listenerQueue.poll()) != null;)
