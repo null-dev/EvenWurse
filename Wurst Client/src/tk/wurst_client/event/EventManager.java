@@ -23,26 +23,35 @@ public abstract class EventManager<E extends Event, L extends Listener>
 {
 	private final Set<L> listeners = Collections
 		.synchronizedSet(new HashSet<L>());
-	private final Queue<E> eventQueue = new ConcurrentLinkedQueue<E>();
+	private static final Queue<Runnable> eventQueue =
+		new ConcurrentLinkedQueue<Runnable>();
 	private static final Queue<Runnable> listenerQueue =
 		new ConcurrentLinkedQueue<Runnable>();
 	private boolean locked;
 	
-	public static final EventManager<UpdateEvent, UpdateListener> update = new EventManager<UpdateEvent, UpdateListener>()
-	{
-		@Override
-		protected void listen(UpdateListener listener, UpdateEvent event)
-			throws Exception
+	public static final EventManager<UpdateEvent, UpdateListener> update =
+		new EventManager<UpdateEvent, UpdateListener>()
 		{
-			listener.onUpdate();
-		}
-	};
+			@Override
+			protected void listen(UpdateListener listener, UpdateEvent event)
+				throws Exception
+			{
+				listener.onUpdate();
+			}
+		};
 	
-	public synchronized final void fireEvent(E event)
+	public synchronized final void fireEvent(final E event)
 	{
 		if(locked)
 		{
-			eventQueue.add(event);
+			eventQueue.add(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					fireEvent(event);
+				}
+			});
 			return;
 		}
 		locked = true;
@@ -71,12 +80,12 @@ public abstract class EventManager<E extends Event, L extends Listener>
 		{
 			locked = false;
 		}
-		for(E ev; (ev = eventQueue.poll()) != null;)
-			fireEvent(ev);
+		for(Runnable task; (task = eventQueue.poll()) != null;)
+			task.run();
 	}
 	
 	protected abstract void listen(L listener, E event) throws Exception;
-
+	
 	public static final void handleException(final Exception e,
 		final Object cause, final String action, final String comment)
 	{
