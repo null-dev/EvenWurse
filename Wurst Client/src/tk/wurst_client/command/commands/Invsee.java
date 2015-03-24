@@ -34,6 +34,11 @@ public class Invsee extends Command implements RenderListener
 			commandError();
 			return;
 		}
+		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+		{
+			Client.wurst.chat.error("Survival mode only.");
+			return;
+		}
 		playerName = args[0];
 		EventManager.render.addListener(this);
 	}
