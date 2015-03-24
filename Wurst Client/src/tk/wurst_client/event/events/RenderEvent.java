@@ -20,8 +20,13 @@ public class RenderEvent extends Event
 	@Override
 	public String getComment()
 	{
-		return "GUI screen: " + Minecraft.getMinecraft().currentScreen != null
-			? Minecraft.getMinecraft().currentScreen.getClass().getSimpleName()
-			: "null";
+		String comment = "GUI screen: ";
+		if(Minecraft.getMinecraft().currentScreen != null)
+			comment +=
+				Minecraft.getMinecraft().currentScreen.getClass()
+					.getSimpleName();
+		else
+			comment += "null";
+		return comment;
 	}
 }
