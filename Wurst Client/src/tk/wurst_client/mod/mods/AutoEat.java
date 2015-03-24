@@ -7,6 +7,9 @@
  */
 package tk.wurst_client.mod.mods;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.mod.Mod;
@@ -18,16 +21,81 @@ import tk.wurst_client.mod.Mod.Info;
 	name = "AutoEat")
 public class AutoEat extends Mod implements UpdateListener
 {
+	private int oldSlot;
+	private int bestSlot;
+	
 	@Override
 	public void onEnable()
 	{
+		oldSlot = -1;
 		EventManager.update.addListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
-	{	
-		
+	{
+		if(oldSlot != -1
+			|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+			|| Minecraft.getMinecraft().thePlayer.getFoodStats().getFoodLevel() >= 20)
+			return;
+		float bestSaturation = 0F;
+		bestSlot = -1;
+		for(int i = 0; i < 9; i++)
+		{
+			ItemStack item =
+				Minecraft.getMinecraft().thePlayer.inventory
+					.getStackInSlot(i);
+			if(item == null)
+				continue;
+			float saturation = 0;
+			if(item.getItem() instanceof ItemFood)
+				saturation =
+					((ItemFood)item.getItem()).getSaturationModifier(item);
+			if(saturation > bestSaturation)
+			{
+				bestSaturation = saturation;
+				bestSlot = i;
+			}
+		}
+		if(bestSlot == -1)
+			return;
+		oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
+		EventManager.update.addListener(new UpdateListener()
+		{
+			@Override
+			public void onUpdate()
+			{
+				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+					|| Minecraft.getMinecraft().thePlayer.getFoodStats()
+						.getFoodLevel() >= 20)
+				{
+					stop();
+					return;
+				}
+				ItemStack item =
+					Minecraft.getMinecraft().thePlayer.inventory
+						.getStackInSlot(bestSlot);
+				if(item == null || !(item.getItem() instanceof ItemFood))
+				{
+					stop();
+					return;
+				}
+				Minecraft.getMinecraft().thePlayer.inventory.currentItem =
+					bestSlot;
+				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
+					true;
+			}
+			
+			private void stop()
+			{
+				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
+					false;
+				Minecraft.getMinecraft().thePlayer.inventory.currentItem =
+					oldSlot;
+				oldSlot = -1;
+				EventManager.update.removeListener(this);
+			}
+		});
 	}
 	
 	@Override
