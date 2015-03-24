@@ -74,7 +74,8 @@ public abstract class EventManager<E extends Event, L extends Listener>
 					listener.onRenderGUI();
 				}catch(RuntimeException e)
 				{
-					if(!e.getMessage().equals("No OpenGL context found in the current thread."))
+					if(!e.getMessage().equals(
+						"No OpenGL context found in the current thread."))
 						throw e;
 				}
 			}
@@ -109,7 +110,15 @@ public abstract class EventManager<E extends Event, L extends Listener>
 			protected void listen(RenderListener listener, RenderEvent event)
 				throws Exception
 			{
-				listener.onRender();
+				try
+				{
+					listener.onRender();
+				}catch(RuntimeException e)
+				{
+					if(!e.getMessage().equals(
+						"No OpenGL context found in the current thread."))
+						throw e;
+				}
 			}
 		};
 	
@@ -191,7 +200,7 @@ public abstract class EventManager<E extends Event, L extends Listener>
 	}
 	
 	protected abstract void listen(L listener, E event) throws Exception;
-
+	
 	public final void addListener(final L listener)
 	{
 		listenerQueue.add(new Runnable()
