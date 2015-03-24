@@ -64,6 +64,9 @@ public class TriggerBot extends Mod implements UpdateListener
 						.getDistanceToEntity(en) <= Killaura.normalRange)
 					&& EntityUtils.isCorrectEntity(en, true))
 				{
+					if(Client.wurst.modManager.getModByClass(AutoSword.class)
+						.isEnabled())
+						AutoSword.setSlot();
 					Criticals.doCritical();
 					Minecraft.getMinecraft().thePlayer.swingItem();
 					Minecraft.getMinecraft().playerController.attackEntity(
