@@ -10,23 +10,24 @@ package tk.wurst_client.command.commands;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Sends a chat message, even if the message starts with a dot.",
+	name = "say",
+	syntax = {"<message>"})
 public class Say extends Command
 {
-	public Say()
-	{
-		super("say", "Sends a chat message, even if the message starts",
-			"with a dot.",
-			"§o.say§r <message>");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
-		if(input.length() > 4)
+		if(args.length > 0)
+		{
+			String message = args[0];
+			for(int i = 1; i < args.length; i++)
+				message += " " + args[i];
 			Minecraft.getMinecraft().thePlayer.sendQueue
-				.addToSendQueue(new C01PacketChatMessage(input.substring(4)));
-		else
+				.addToSendQueue(new C01PacketChatMessage(message));
+		}else
 			commandError();
 	}
 }
