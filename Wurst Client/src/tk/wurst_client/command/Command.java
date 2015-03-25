@@ -28,6 +28,19 @@ public abstract class Command
 		String[] syntax();
 	}
 	
+	public class SyntaxError extends Throwable
+	{
+		public SyntaxError()
+		{
+			super();
+		}
+		
+		public SyntaxError(String message)
+		{
+			super(message);
+		}
+	}
+	
 	public String getName()
 	{
 		return name;
@@ -61,7 +74,7 @@ public abstract class Command
 		for(String line : output.split("\n"))
 			Client.wurst.chat.message(line);
 	}
-
+	
 	public void commandError()
 	{
 		Client.wurst.chat.error("Something went wrong.");
@@ -69,5 +82,5 @@ public abstract class Command
 			+ name + "\".");
 	}
 	
-	public abstract void execute(String[] args) throws CommandSyntaxException;
+	public abstract void execute(String[] args) throws SyntaxError;
 }

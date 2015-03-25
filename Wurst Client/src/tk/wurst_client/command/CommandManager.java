@@ -13,6 +13,7 @@ import java.util.TreeMap;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command.Info;
+import tk.wurst_client.command.Command.SyntaxError;
 import tk.wurst_client.command.commands.*;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatOutputEvent;
@@ -50,7 +51,7 @@ public class CommandManager implements ChatOutputListener
 				try
 				{
 					command.execute(args);
-				}catch(CommandSyntaxException e)
+				}catch(SyntaxError e)
 				{
 					if(e.getMessage() != null)
 						Client.wurst.chat.message("§4Syntax error:§r " + e.getMessage());
