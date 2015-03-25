@@ -27,7 +27,7 @@ public class Annoy extends Command implements ChatInputListener
 	}
 	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String input, String[] args)
 	{
 		toggled = !toggled;
 		if(toggled)

@@ -31,7 +31,7 @@ public class Path extends Command implements RenderListener
 	}
 	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String input, String[] args)
 	{
 		path = null;
 		if(enabled)

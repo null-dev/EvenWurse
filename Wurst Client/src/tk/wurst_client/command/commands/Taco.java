@@ -44,7 +44,7 @@ public class Taco extends Command implements GUIRenderListener, UpdateListener
 	}
 	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String input, String[] args)
 	{
 		toggled = !toggled;
 		if(toggled)

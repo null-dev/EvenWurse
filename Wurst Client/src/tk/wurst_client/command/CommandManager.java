@@ -49,7 +49,7 @@ public class CommandManager implements ChatOutputListener
 				args = new String[0];
 			Command command = getCommandByName(commandName);
 			if(command != null)
-				command.onEnable(input, args);
+				command.execute(args);
 			else
 				Client.wurst.chat.error("\"." + commandName + "\" is not a valid command.");
 		}

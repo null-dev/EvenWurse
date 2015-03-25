@@ -28,7 +28,7 @@ public class VClip extends Command
 	}
 	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String input, String[] args)
 	{
 		if(MiscUtils.isInteger(args[0]))
 			Minecraft.getMinecraft().thePlayer.setPosition

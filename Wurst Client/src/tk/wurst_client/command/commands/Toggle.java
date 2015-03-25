@@ -25,7 +25,7 @@ public class Toggle extends Command
 	}
 	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String input, String[] args)
 	{
 		int mode;
 		if(args.length == 1)

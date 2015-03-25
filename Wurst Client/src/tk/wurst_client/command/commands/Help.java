@@ -24,7 +24,7 @@ public class Help extends Command
 	private int commandsPerPage = 8;
 	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String input, String[] args)
 	{
 		commandsPerPage = 8;
 		float pagesF =

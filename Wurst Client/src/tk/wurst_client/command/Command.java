@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import tk.wurst_client.Client;
 
-public class Command
+public abstract class Command
 {
 	private String name = getClass().getAnnotation(Info.class).name();
 	private String help = getClass().getAnnotation(Info.class).help();
@@ -57,6 +57,5 @@ public class Command
 			+ name + "\".");
 	}
 	
-	public void onEnable(String input, String[] args)
-	{}
+	public abstract void execute(String[] args);
 }
