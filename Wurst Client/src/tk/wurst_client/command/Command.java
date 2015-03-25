@@ -28,13 +28,6 @@ public abstract class Command
 		String[] syntax();
 	}
 	
-	@Deprecated
-	public Command(String commandName, String... commandHelp)
-	{
-		//this.name = commandName;
-		//this.help = commandHelp;
-	}
-	
 	public String getName()
 	{
 		return name;
