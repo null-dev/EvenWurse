@@ -68,18 +68,14 @@ public class Friends extends Command
 			Client.wurst.chat.message("Added friend \"" + args[1] + "\".");
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
-			for(int i = 0; i < Client.wurst.friends.size(); i++)
-				if(Client.wurst.friends.get(i).toLowerCase()
-					.equals(args[1].toLowerCase()))
-				{
-					Client.wurst.friends.remove(i);
-					Client.wurst.fileManager.saveFriends();
-					Client.wurst.chat.message("Removed friend \"" + args[1]
-						+ "\".");
-					return;
-				}
-			Client.wurst.chat.error("\"" + args[1]
-				+ "\" is not in your friends list.");
+			if(Client.wurst.friends.remove(args[1]))
+			{
+				Client.wurst.fileManager.saveFriends();
+				Client.wurst.chat.message("Removed friend \"" + args[1]
+					+ "\".");
+			}else
+				Client.wurst.chat.error("\"" + args[1]
+					+ "\" is not in your friends list.");
 		}else
 			commandError();
 	}

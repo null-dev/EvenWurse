@@ -1,6 +1,6 @@
-From f1b38c552860252d777c387b5bdedcb0e8115801 Mon Sep 17 00:00:00 2001
+From 4041059d8386f176a56ac17301893e1b2a759d0f Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Tue, 24 Mar 2015 00:52:29 +0100
+Date: Wed, 25 Mar 2015 22:11:16 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6910 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6905 ++++++++++----------
  .../client/entity/AbstractClientPlayer.java        |  267 +-
  .../minecraft/client/entity/EntityPlayerSP.java    | 1766 ++---
  src/net/minecraft/client/gui/FontRenderer.java     | 1994 +++---
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 25102 insertions(+), 23488 deletions(-)
+ 202 files changed, 25097 insertions(+), 23488 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -4602,10 +4602,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..618a7cf 100644
+index f503b64..fa44034 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3604 @@
+@@ -1,3306 +1,3599 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -10696,30 +10696,25 @@ index f503b64..618a7cf 100644
 +            }
 +            else
 +            {
-+                //TODO: Client
-+                if (this.objectMouseOver.entityHit != null && this.objectMouseOver.entityHit instanceof EntityPlayer)
-+                {
-+                    if(Client.wurst.options.middleClickFriends)
-+                    {
-+                    	if(Client.wurst.friends.contains(this.objectMouseOver.entityHit.getName()))
-+                    	{
-+                    		for(int i = 0; i < Client.wurst.friends.size(); i++)
-+                    		{
-+                    			if(Client.wurst.friends.get(i).equals(this.objectMouseOver.entityHit.getName()))
-+                    			{
-+                    				Client.wurst.friends.remove(i);
-+                    				Client.wurst.fileManager.saveFriends();
-+                    				break;
-+                    			}
-+                    		}
-+                    	}
-+                    	else
-+                    	{
-+                    		Client.wurst.friends.add(this.objectMouseOver.entityHit.getName());
-+            				Client.wurst.fileManager.saveFriends();
-+                    	}
-+                    }
-+                }
++				// TODO: Client
++				if(this.objectMouseOver.entityHit != null
++					&& this.objectMouseOver.entityHit instanceof EntityPlayer)
++				{
++					if(Client.wurst.options.middleClickFriends)
++					{
++						if(Client.wurst.friends
++							.contains(objectMouseOver.entityHit.getName()))
++						{
++							Client.wurst.friends
++								.remove(objectMouseOver.entityHit.getName());
++						}else
++						{
++							Client.wurst.friends
++								.add(this.objectMouseOver.entityHit.getName());
++						}
++						Client.wurst.fileManager.saveFriends();
++					}
++				}
 +                
 +                if (this.objectMouseOver.typeOfHit != MovingObjectPosition.MovingObjectType.ENTITY || this.objectMouseOver.entityHit == null || !var1)
 +                {
