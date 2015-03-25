@@ -9,25 +9,17 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.Throw;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Changes the amount of Throw or toggles it.",
+	name = "throw",
+	syntax = {"[amount <amount>]"})
 public class ThrowMod extends Command
 {
-	
-	private static String[] commandHelp =
-	{
-		"Changes the amount of Throw or toggles it.",
-		"§o.throw§r [amount <amount>]",
-	};
-	
-	public ThrowMod()
-	{
-		super("throw", commandHelp);
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length == 0)
 		{
