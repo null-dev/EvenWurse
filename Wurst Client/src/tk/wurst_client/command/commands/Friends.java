@@ -7,6 +7,8 @@
  */
 package tk.wurst_client.command.commands;
 
+import java.util.Iterator;
+
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
 import tk.wurst_client.command.Command.Info;
@@ -16,8 +18,6 @@ import tk.wurst_client.utils.MiscUtils;
 	"(add | remove) <player>", "list [<page>]"})
 public class Friends extends Command
 {
-	private int friendsPerPage = 8;
-	
 	@Override
 	public void execute(String[] args)
 	{
@@ -28,59 +28,33 @@ public class Friends extends Command
 		}
 		if(args[0].equalsIgnoreCase("list"))
 		{
-			int totalFriends = Client.wurst.friends.size();
-			float pagesF =
-				(float)((double)totalFriends / (double)friendsPerPage);
-			int pages =
-				(int)(Math.round(pagesF) == pagesF ? pagesF : pagesF + 1);
-			friendsPerPage = 8;
 			if(args.length == 1)
 			{
-				if(pages <= 1)
-				{
-					friendsPerPage = totalFriends;
-					Client.wurst.chat.message("Current friends: "
-						+ totalFriends);
-					for(int i = 0; i < Client.wurst.friends.size()
-						&& i < friendsPerPage; i++)
-						Client.wurst.chat.message(Client.wurst.friends.get(i));
-				}else
-				{
-					Client.wurst.chat.message("Current friends: "
-						+ totalFriends);
-					Client.wurst.chat.message("Friends list (page 1/" + pages
-						+ "):");
-					for(int i = 0; i < Client.wurst.friends.size()
-						&& i < friendsPerPage; i++)
-						Client.wurst.chat.message(Client.wurst.friends.get(i));
-				}
-			}else
+				execute(new String[]{"list", "1"});
+				return;
+			}
+			int pages = (int)Math.ceil(Client.wurst.friends.size() / 8D);
+			if(MiscUtils.isInteger(args[1]))
 			{
-				if(MiscUtils.isInteger(args[1]))
+				int page = Integer.valueOf(args[1]);
+				if(page > pages || page == 0)
 				{
-					int page = Integer.valueOf(args[1]);
-					if(page > pages || page == 0)
-					{
-						commandError();
-						return;
-					}
-					Client.wurst.chat.message("Current friends: "
-						+ Integer.toString(totalFriends));
-					Client.wurst.chat.message("Friends list (page " + page
-						+ "/" + pages + "):");
-					int i2 = 0;
-					for(int i = 0; i < Client.wurst.friends.size()
-						&& i2 < (page - 1) * friendsPerPage + friendsPerPage; i++)
-					{
-						if(i2 >= (page - 1) * friendsPerPage)
-							Client.wurst.chat.message(Client.wurst.friends
-								.get(i));
-						i2++;
-					}
+					commandError();
 					return;
 				}
+				Client.wurst.chat.message("Current friends: "
+					+ Client.wurst.friends.size());
+				Client.wurst.chat.message("Friends list (page " + page + "/"
+					+ pages + "):");
+				Iterator<String> itr = Client.wurst.friends.iterator();
+				for(int i = 0; itr.hasNext(); i++)
+				{
+					String friend = itr.next();
+					if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
+						Client.wurst.chat.message(friend);
+				}
+			}else
 				commandError();
-			}
 		}else if(args[0].equalsIgnoreCase("add"))
 		{
 			if(Client.wurst.friends.contains(args[1]))
