@@ -9,23 +9,14 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.Mod;
 
+@Info(help = "Toggles a mod.", name = "t", syntax = {"<mod> [(on|off)]"})
 public class Toggle extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Toggles a mod.",
-		"§o.t§r <mod> [(on | off)]"
-	};
-	
-	public Toggle()
-	{
-		super("t", commandHelp);
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		int mode;
 		if(args.length == 1)
