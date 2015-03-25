@@ -37,7 +37,7 @@ public class Friends extends Command
 			if(MiscUtils.isInteger(args[1]))
 			{
 				int page = Integer.valueOf(args[1]);
-				if(page > pages || page == 0)
+				if(page > pages || page < 1)
 				{
 					commandError();
 					return;
