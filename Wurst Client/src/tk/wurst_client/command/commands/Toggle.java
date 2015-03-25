@@ -16,9 +16,9 @@ import tk.wurst_client.mod.Mod;
 public class Toggle extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
-		int mode;
+		int mode = -1;
 		if(args.length == 1)
 			mode = 0;
 		else if(args.length == 2 && args[1].equalsIgnoreCase("on"))
@@ -26,16 +26,10 @@ public class Toggle extends Command
 		else if(args.length == 2 && args[1].equalsIgnoreCase("off"))
 			mode = 2;
 		else
-		{
 			syntaxError();
-			return;
-		}
 		Mod mod = Client.wurst.modManager.getModByName(args[0]);
 		if(mod == null)
-		{
-			Client.wurst.chat.error("Could not find mod \"" + args[0] + "\".");
-			return;
-		}
+			error("Could not find mod \"" + args[0] + "\".");
 		if(mode == 0)
 			mod.toggle();
 		else if(mode == 1)

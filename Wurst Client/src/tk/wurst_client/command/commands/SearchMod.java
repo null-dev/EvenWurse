@@ -20,7 +20,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class SearchMod extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 		{
@@ -34,10 +34,7 @@ public class SearchMod extends Command
 			if(MiscUtils.isInteger(args[1]))
 				Client.wurst.options.searchID = Integer.valueOf(args[1]);
 			else
-			{
-				syntaxError();
-				return;
-			}
+				syntaxError("ID must be a number.");
 			Client.wurst.fileManager.saveOptions();
 			Search.shouldInform = true;
 			Client.wurst.chat.message("Search ID set to " + args[1] + ".");
@@ -45,11 +42,7 @@ public class SearchMod extends Command
 		{
 			int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
 			if(newID == -1)
-			{
-				Client.wurst.chat.message("The block \"" + args[1]
-					+ "\" could not be found.");
-				return;
-			}
+				error("Block \"" + args[1] + "\" could not be found.");
 			Client.wurst.options.searchID = Integer.valueOf(newID);
 			Client.wurst.fileManager.saveOptions();
 			Search.shouldInform = true;

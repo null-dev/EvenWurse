@@ -15,7 +15,7 @@ import tk.wurst_client.command.Command.Info;
 public class Clear extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 			Minecraft.getMinecraft().ingameGUI.getChatGUI().clearChatMessages();

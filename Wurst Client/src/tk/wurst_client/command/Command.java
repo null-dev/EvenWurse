@@ -53,7 +53,7 @@ public abstract class Command
 			super(message);
 		}
 	}
-
+	
 	public String getName()
 	{
 		return name;

@@ -20,7 +20,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class VClip extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(MiscUtils.isInteger(args[0]))
 			Minecraft.getMinecraft().thePlayer.setPosition

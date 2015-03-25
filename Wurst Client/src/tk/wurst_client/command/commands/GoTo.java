@@ -22,19 +22,13 @@ import tk.wurst_client.utils.MiscUtils;
 public class GoTo extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length != 3)
-		{
 			syntaxError();
-			return;
-		}
 		for(String arg : args)
 			if(!MiscUtils.isInteger(arg))
-			{
-				syntaxError();
-				return;
-			}
+				syntaxError("Invalid coordinates.");
 		if(Math.abs(Integer.parseInt(args[0])
 			- Minecraft.getMinecraft().thePlayer.posX) > 256
 			|| Math.abs(Integer.parseInt(args[2])

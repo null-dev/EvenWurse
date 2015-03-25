@@ -16,7 +16,7 @@ import tk.wurst_client.command.Command.Info;
 public class Nothing extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{	
 		
 	}

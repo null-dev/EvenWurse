@@ -24,11 +24,11 @@ import tk.wurst_client.gui.alts.GuiAltList;
 public class AddAlt extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
-		if(args.length == 0)
+		if(args.length != 1)
 			syntaxError();
-		else if(args[0].equals("all"))
+		if(args[0].equals("all"))
 		{
 			int alts = 0;
 			Iterator itr =

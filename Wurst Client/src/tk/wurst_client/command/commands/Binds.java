@@ -19,7 +19,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class Binds extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 		{
@@ -32,7 +32,7 @@ public class Binds extends Command
 			int page = Integer.valueOf(args[0]);
 			if(page > pages || page == 0)
 			{
-				syntaxError();
+				syntaxError("Invalid page: " + page);
 				return;
 			}
 			Client.wurst.chat.message("Current keybinds: "
@@ -49,6 +49,6 @@ public class Binds extends Command
 						+ entry.getValue());
 			}
 		}else
-			syntaxError();
+			syntaxError("Not a number: \"" + args[0] + "\"");
 	}
 }

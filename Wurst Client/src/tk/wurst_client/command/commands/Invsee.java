@@ -24,13 +24,10 @@ public class Invsee extends Command implements RenderListener
 	private String playerName;
 	
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length != 1)
-		{
 			syntaxError();
-			return;
-		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
 			Client.wurst.chat.error("Survival mode only.");

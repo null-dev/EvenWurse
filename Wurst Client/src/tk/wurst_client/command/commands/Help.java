@@ -20,7 +20,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class Help extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 		{
@@ -33,10 +33,7 @@ public class Help extends Command
 		{
 			int page = Integer.valueOf(args[0]);
 			if(page > pages || page < 1)
-			{
-				syntaxError();
-				return;
-			}
+				syntaxError("Invalid page: " + page);
 			Client.wurst.chat.message("Available commands: "
 				+ Client.wurst.commandManager.countCommands());
 			Client.wurst.chat.message("Command list (page " + page + "/"
@@ -53,8 +50,9 @@ public class Help extends Command
 		{
 			Command cmd = Client.wurst.commandManager.getCommandByName(args[0]);
 			if(cmd != null)
-			{	
-				Client.wurst.chat.message("Available help for ." + args[0] + ":");
+			{
+				Client.wurst.chat.message("Available help for ." + args[0]
+					+ ":");
 				cmd.printHelp();
 				cmd.printSyntax();
 			}else

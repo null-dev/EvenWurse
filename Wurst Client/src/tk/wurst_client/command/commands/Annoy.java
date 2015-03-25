@@ -15,19 +15,21 @@ import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatInputEvent;
 import tk.wurst_client.event.listeners.ChatInputListener;
 
-@Info(help = "Annoys a player by repeating everything he says.", name = "annoy", syntax = {"[<player>]"})
+@Info(help = "Annoys a player by repeating everything he says.",
+	name = "annoy",
+	syntax = {"[<player>]"})
 public class Annoy extends Command implements ChatInputListener
 {
 	private boolean toggled;
 	private String name;
 	
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		toggled = !toggled;
 		if(toggled)
 		{
-			if(args != null && args.length == 1)
+			if(args.length == 1)
 			{
 				name = args[0];
 				Client.wurst.chat.message("Now annoying " + name + ".");

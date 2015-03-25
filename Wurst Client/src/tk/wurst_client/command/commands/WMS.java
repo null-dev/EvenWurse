@@ -17,13 +17,10 @@ import tk.wurst_client.command.Command.Info;
 public class WMS extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
-		{
 			syntaxError();
-			return;
-		}
 		if(args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off"))
 			Client.wurst.chat.setEnabled(args[0].equalsIgnoreCase("on"));
 		else if(args[0].equalsIgnoreCase("echo"))

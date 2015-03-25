@@ -27,7 +27,7 @@ public class Path extends Command implements RenderListener
 	private boolean enabled;
 	
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		path = null;
 		if(enabled)
@@ -37,16 +37,10 @@ public class Path extends Command implements RenderListener
 			return;
 		}
 		if(args.length != 3)
-		{
 			syntaxError();
-			return;
-		}
 		for(String arg : args)
 			if(!MiscUtils.isInteger(arg))
-			{
-				syntaxError();
-				return;
-			}
+				syntaxError("Invalid coordinates.");
 		final BlockPos pos =
 			new BlockPos(Integer.parseInt(args[0]), Integer.parseInt(args[1]),
 				Integer.parseInt(args[2]));

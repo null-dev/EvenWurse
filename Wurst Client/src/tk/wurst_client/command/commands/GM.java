@@ -17,13 +17,10 @@ import tk.wurst_client.command.Command.Info;
 public class GM extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length != 1)
-		{
 			syntaxError();
-			return;
-		}
 		Minecraft.getMinecraft().thePlayer.sendChatMessage("/gamemode "
 			+ args[0]);
 	}

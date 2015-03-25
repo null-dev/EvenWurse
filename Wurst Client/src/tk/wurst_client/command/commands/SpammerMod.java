@@ -19,13 +19,10 @@ import tk.wurst_client.spam.SpamProcessor;
 public class SpammerMod extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
-		if(args.length < 2)
-		{
+		if(args.length != 2)
 			syntaxError();
-			return;
-		}
 		if(args[0].equalsIgnoreCase("delay"))
 		{
 			int newDelay = Integer.parseInt(args[1]);

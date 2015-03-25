@@ -25,7 +25,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class XRayMod extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 			syntaxError();
@@ -41,10 +41,7 @@ public class XRayMod extends Command
 			{
 				int page = Integer.valueOf(args[1]);
 				if(page > pages || page < 1)
-				{
-					syntaxError();
-					return;
-				}
+					syntaxError("Invalid page: " + page);
 				Client.wurst.chat.message("Current X-Ray blocks: "
 					+ XRay.xrayBlocks.size());
 				Client.wurst.chat.message("X-Ray blocks list (page " + page

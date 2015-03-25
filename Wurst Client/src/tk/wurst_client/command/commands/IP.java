@@ -20,7 +20,7 @@ import tk.wurst_client.command.Command.Info;
 public class IP extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 			Client.wurst.chat.message("IP: " + Client.wurst.currentServerIP);

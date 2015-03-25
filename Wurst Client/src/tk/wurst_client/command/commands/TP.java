@@ -18,7 +18,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class TP extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 3 && MiscUtils.isInteger(args[0])
 			&& MiscUtils.isInteger(args[1]) && MiscUtils.isInteger(args[2]))

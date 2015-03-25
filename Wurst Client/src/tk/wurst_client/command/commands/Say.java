@@ -18,7 +18,7 @@ import tk.wurst_client.command.Command.Info;
 public class Say extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length > 0)
 		{
@@ -28,6 +28,6 @@ public class Say extends Command
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C01PacketChatMessage(message));
 		}else
-			syntaxError();
+			syntaxError("Message required.");
 	}
 }

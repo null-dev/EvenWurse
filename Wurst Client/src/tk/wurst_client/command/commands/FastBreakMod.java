@@ -17,21 +17,18 @@ import tk.wurst_client.command.Command.Info;
 public class FastBreakMod extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length != 2)
 			syntaxError();
-		else if(args[0].toLowerCase().equals("mode"))
+		if(args[0].toLowerCase().equals("mode"))
 		{// 0=normal, 1=instant
 			if(args[1].toLowerCase().equals("normal"))
 				Client.wurst.options.fastbreakMode = 0;
 			else if(args[1].toLowerCase().equals("instant"))
 				Client.wurst.options.fastbreakMode = 1;
 			else
-			{
 				syntaxError();
-				return;
-			}
 			Client.wurst.fileManager.saveOptions();
 			Client.wurst.chat.message("FastBreak mode set to \"" + args[1]
 				+ "\".");

@@ -20,22 +20,16 @@ import tk.wurst_client.command.Command.Info;
 public class Enchant extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
-		{
-			Client.wurst.chat.error("Creative mode only.");
-			return;
-		}
+			error("Creative mode only.");
 		if(args.length == 0)
 		{
 			ItemStack currentItem =
 				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
 			if(currentItem == null)
-			{
-				Client.wurst.chat.error("There is no item in your hand.");
-				return;
-			}
+				error("There is no item in your hand.");
 			for(Enchantment enchantment : Enchantment.enchantmentsList)
 				try
 				{

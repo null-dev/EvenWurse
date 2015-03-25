@@ -21,7 +21,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class NukerMod extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length != 2)
 			syntaxError();
@@ -44,10 +44,7 @@ public class NukerMod extends Command
 				Client.wurst.options.nukerMode = 3;
 				Nuker.id = 0;
 			}else
-			{
 				syntaxError();
-				return;
-			}
 			Client.wurst.fileManager.saveOptions();
 			Client.wurst.chat.message("Nuker mode set to \"" + args[1] + "\".");
 		}else if(args[0].equalsIgnoreCase("id") && MiscUtils.isInteger(args[1]))

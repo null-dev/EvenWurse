@@ -17,14 +17,15 @@ import tk.wurst_client.mod.mods.RemoteView;
 public class RV extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 		{
 			RemoteView.onEnabledByCommand("");
 			return;
-		}
-		else
+		}else if(args.length == 1)
 			RemoteView.onEnabledByCommand(args[0]);
+		else
+			syntaxError("too many arguments.");
 	}
 }

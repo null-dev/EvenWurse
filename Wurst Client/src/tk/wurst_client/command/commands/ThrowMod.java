@@ -19,7 +19,7 @@ import tk.wurst_client.utils.MiscUtils;
 public class ThrowMod extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 		{
@@ -28,7 +28,7 @@ public class ThrowMod extends Command
 			Client.wurst.chat.message("Throw turned "
 				+ (Client.wurst.modManager.getModByClass(Throw.class)
 					.isEnabled() == true ? "on" : "off") + ".");
-		}else if(args[0].equalsIgnoreCase("amount")
+		}else if(args.length == 2 && args[0].equalsIgnoreCase("amount")
 			&& MiscUtils.isInteger(args[1]))
 		{
 			if(Integer.valueOf(args[1]) < 1)

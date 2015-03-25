@@ -19,13 +19,10 @@ import tk.wurst_client.utils.MiscUtils;
 public class Friends extends Command
 {
 	@Override
-	public void execute(String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
-		{
 			syntaxError();
-			return;
-		}
 		if(args[0].equalsIgnoreCase("list"))
 		{
 			if(args.length == 1)
@@ -38,10 +35,7 @@ public class Friends extends Command
 			{
 				int page = Integer.valueOf(args[1]);
 				if(page > pages || page < 1)
-				{
 					syntaxError();
-					return;
-				}
 				Client.wurst.chat.message("Current friends: "
 					+ Client.wurst.friends.size());
 				Client.wurst.chat.message("Friends list (page " + page + "/"
