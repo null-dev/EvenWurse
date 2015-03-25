@@ -41,7 +41,7 @@ public class CommandManager implements ChatOutputListener
 			String commandName = input.split(" ")[0];
 			String[] args;
 			if(input.contains(" "))
-				args = input.substring(input.indexOf(" ")).split(" ");
+				args = input.substring(input.indexOf(" ") + 1).split(" ");
 			else
 				args = new String[0];
 			Command command = getCommandByName(commandName);
