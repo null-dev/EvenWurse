@@ -10,24 +10,19 @@ package tk.wurst_client.command.commands;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatInputEvent;
 import tk.wurst_client.event.listeners.ChatInputListener;
 
+@Info(help = "Annoys a player by repeating everything he says.", name = "annoy", syntax = {"[<player>]"})
 public class Annoy extends Command implements ChatInputListener
 {
 	private boolean toggled;
 	private String name;
 	
-	public Annoy()
-	{
-		super("annoy",
-			"Annoys a player by repeating everything he says.",
-			"§o.annoy§r [<player>]");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		toggled = !toggled;
 		if(toggled)
