@@ -12,26 +12,22 @@ import tk.wurst_client.Client;
 import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.ai.PathPoint;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.utils.RenderUtils;
 
+@Info(help = "Shows the shortest path to a specific point. Useful for labyrinths and caves.",
+	name = "path",
+	syntax = {"[<x> <y> <z>]"})
 public class Path extends Command implements RenderListener
 {
 	private PathPoint path;
 	private boolean enabled;
 	
-	public Path()
-	{
-		super("path",
-			"Shows the shortest path to a specific point. Useful for",
-			"labyrinths and caves.",
-			"§o.path§r [<x> <y> <z>]");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		path = null;
 		if(enabled)
