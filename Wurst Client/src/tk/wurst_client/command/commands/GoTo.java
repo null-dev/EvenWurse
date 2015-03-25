@@ -12,20 +12,17 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.GoToCmd;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Walks or flies you to a specific location.",
+	name = "goto",
+	syntax = {"<x> <y> <z>"})
 public class GoTo extends Command
 {
-	public GoTo()
-	{
-		super("goto",
-			"Walks or flies you to a specific location.",
-			"§o.goto§r <x> <y> <z>");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length != 3)
 		{
