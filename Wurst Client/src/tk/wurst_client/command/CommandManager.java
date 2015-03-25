@@ -103,7 +103,7 @@ public class CommandManager implements ChatOutputListener
 		return commands.values();
 	}
 	
-	public int countCommand()
+	public int countCommands()
 	{
 		return commands.size();
 	}

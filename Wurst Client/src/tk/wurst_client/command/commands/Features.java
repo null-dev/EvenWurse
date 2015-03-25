@@ -13,20 +13,17 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.Mod;
 import tk.wurst_client.mod.Mod.Category;
 
+@Info(help = "Counts the features in this release of Wurst.",
+	name = "features",
+	syntax = {})
 public class Features extends Command
 {
-	public Features()
-	{
-		super("features",
-			"Counts the features in this release of Wurst.",
-			"§o.features§r");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length == 0)
 		{
@@ -40,7 +37,7 @@ public class Features extends Command
 			Client.wurst.chat.message(">" + (mods - hiddenMods) + " mods (+"
 				+ hiddenMods + " hidden mods)");
 			int commands =
-				Client.wurst.commandManager.activeCommands.size();
+				Client.wurst.commandManager.countCommands();
 			Client.wurst.chat.message(">" + commands + " commands");
 			Client.wurst.chat.message(">" + Client.wurst.keybinds.size()
 				+ " keybinds in your current configuration");
