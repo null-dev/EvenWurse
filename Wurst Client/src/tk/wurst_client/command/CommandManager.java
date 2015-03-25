@@ -36,33 +36,22 @@ public class CommandManager implements ChatOutputListener
 	@Override
 	public void onSentMessage(ChatOutputEvent event)
 	{
-		if(event.getMessage().startsWith("."))
+		String message = event.getMessage();
+		if(message.startsWith("."))
 		{
 			event.cancel();
-			String input = event.getMessage().substring(1);
-			String command = input.split(" ")[0];
-			for(Command eventCommand : Client.wurst.commandManager.activeCommands)
-				if(eventCommand.getName().equals(command))
-				{
-					try
-					{
-						String[] args =
-							input.contains(" ") ? input.substring(
-								input.indexOf(" ") + 1).split(" ")
-								: new String[0];
-						eventCommand.onEnable(input, args);
-					}catch(Exception e)
-					{
-						EventManager.handleException(e, eventCommand,
-							"executing", "Exact input: `" + event.getMessage()
-								+ "`");
-					}
-					return;
-				}
-			Client.wurst.chat.message("\"." + command
-				+ "\" is not a valid command.");
-			Client.wurst.chat
-				.message("Type \".help\" to see the command list.");
+			String input = message.substring(1);
+			String commandName = input.split(" ")[0];
+			String[] args;
+			if(input.contains(" "))
+				args = input.substring(input.indexOf(" ")).split(" ");
+			else
+				args = new String[0];
+			Command command = getCommandByName(commandName);
+			if(command != null)
+				command.onEnable(input, args);
+			else
+				Client.wurst.chat.error("\"." + commandName + "\" is not a valid command.");
 		}
 	}
 	
