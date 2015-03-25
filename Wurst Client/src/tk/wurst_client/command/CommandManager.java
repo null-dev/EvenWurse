@@ -13,11 +13,11 @@ import java.util.Comparator;
 import java.util.TreeMap;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.command.commands.*;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatOutputEvent;
 import tk.wurst_client.event.listeners.ChatOutputListener;
-import tk.wurst_client.mod.Mod.Info;
 
 public class CommandManager implements ChatOutputListener
 {

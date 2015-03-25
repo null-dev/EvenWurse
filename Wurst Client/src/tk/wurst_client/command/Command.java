@@ -7,35 +7,54 @@
  */
 package tk.wurst_client.command;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import tk.wurst_client.Client;
 
 public class Command
 {
-	private String commandName;
+	private String name = getClass().getAnnotation(Info.class).name();
+	private String help = getClass().getAnnotation(Info.class).help();
+	private String[] syntax = getClass().getAnnotation(Info.class).syntax();
 	
-	private String[] commandHelp;
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface Info
+	{
+		String name();
+		
+		String help();
+		
+		String[] syntax();
+	}
 	
+	@Deprecated
 	public Command(String commandName, String... commandHelp)
 	{
-		this.commandName = commandName;
-		this.commandHelp = commandHelp;
+		//this.name = commandName;
+		//this.help = commandHelp;
 	}
 	
 	public String getName()
 	{
-		return commandName;
+		return name;
 	}
 	
-	public String[] getHelp()
+	public String getHelp()
 	{
-		return commandHelp;
+		return help;
 	}
 	
+	public String[] getSyntax()
+	{
+		return syntax;
+	}
+
 	public void commandError()
 	{
 		Client.wurst.chat.error("Something went wrong.");
 		Client.wurst.chat.message("If you need help, type \".help "
-			+ commandName + "\".");
+			+ name + "\".");
 	}
 	
 	public void onEnable(String input, String[] args)
