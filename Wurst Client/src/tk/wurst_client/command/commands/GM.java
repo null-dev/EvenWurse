@@ -9,19 +9,15 @@ package tk.wurst_client.command.commands;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Types \"/gamemode <args>\".\nUseful for servers that don't support /gm.",
+	name = "gm",
+	syntax = {"<gamemode>"})
 public class GM extends Command
 {
-	public GM()
-	{
-		super("gm",
-			"Types \"/gamemode <args>\".",
-			"Useful for servers that don't support /gm.",
-			"§o.gm§r <gamemode>");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length != 1)
 		{
