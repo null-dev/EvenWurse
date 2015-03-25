@@ -43,7 +43,13 @@ public abstract class Command
 		return syntax;
 	}
 	
-	public String formatSyntax()
+	public void printHelp()
+	{
+		for(String line : help.split("\n"))
+			Client.wurst.chat.message(line);
+	}
+	
+	public void printSyntax()
 	{
 		String output = "§o." + name + "§r";
 		if(syntax.length != 0)
@@ -52,7 +58,8 @@ public abstract class Command
 			for(int i = 1; i < syntax.length; i++)
 				output += "\n    " + syntax[i];
 		}
-		return output;
+		for(String line : output.split("\n"))
+			Client.wurst.chat.message(line);
 	}
 
 	public void commandError()
