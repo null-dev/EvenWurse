@@ -10,26 +10,17 @@ package tk.wurst_client.command.commands;
 import net.minecraft.block.Block;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.Search;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Changes the settings of Search or toggles it.",
+	name = "search",
+	syntax = {"id <block_id>", "name <block_name>"})
 public class SearchMod extends Command
 {
-	
-	private static String[] commandHelp =
-	{
-		"Changes the settings of Search or toggles it.",
-		"§o.search§r id <block id>",
-		"    name <block name>"
-	};
-	
-	public SearchMod()
-	{
-		super("search", commandHelp);
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length == 0)
 		{
