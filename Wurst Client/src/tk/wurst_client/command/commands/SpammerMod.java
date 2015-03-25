@@ -9,25 +9,17 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.Spammer;
 import tk.wurst_client.spam.SpamProcessor;
 
+@Info(help = "Changes the delay of Spammer or spams spam from a file.",
+	name = "spammer",
+	syntax = {"delay <delay_in_ms>", "spam <file>"})
 public class SpammerMod extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Changes the delay of Spammer or spams spam from a file.",
-		"§o.spammer§r delay <delay in ms>",
-		"    spam <file>"
-	};
-	
-	public SpammerMod()
-	{
-		super("spammer", commandHelp);
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length < 2)
 		{
