@@ -12,22 +12,19 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Enchants items with everything.",
+	name = "enchant",
+	syntax = {"[all]"})
 public class Enchant extends Command
 {
-	public Enchant()
-	{
-		super("enchant",
-			"Enchants items with everything.",
-			"§o.enchant§r [all]");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
-			Client.wurst.chat.error("You have to be in creative mode.");
+			Client.wurst.chat.error("Creative mode only.");
 			return;
 		}
 		if(args.length == 0)
