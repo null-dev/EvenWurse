@@ -10,22 +10,18 @@ package tk.wurst_client.command.commands;
 import net.minecraft.block.Block;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.Nuker;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Changes the settings of Nuker.",
+	name = "nuker",
+	syntax = {"mode (normal|id|flat|smash)", "id <block_id>",
+		"name <block_name>"})
 public class NukerMod extends Command
 {
-	public NukerMod()
-	{
-		super("nuker",
-			"Changes the settings of Nuker.",
-			"§o.nuker§r mode (normal | id | flat | smash)",
-			"    id <block id>",
-			"    name <block name>");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length != 2)
 			commandError();
