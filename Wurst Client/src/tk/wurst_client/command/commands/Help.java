@@ -7,97 +7,58 @@
  */
 package tk.wurst_client.command.commands;
 
+import java.util.Iterator;
+
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Shows the command list or the help for a command.",
+	name = "help",
+	syntax = {"[<page>]", "[<command>]"})
 public class Help extends Command
 {
-	public Help()
-	{
-		super("help",
-			"Shows the command list or the help for a command.",
-			"§o.help§r <page>",
-			"    <command>");
-	}
-	
-	private int commandsPerPage = 8;
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
-		commandsPerPage = 8;
-		float pagesF =
-			(float)Client.wurst.commandManager.activeCommands.size()
-				/ commandsPerPage;
-		int pages = (int)(Math.floor(pagesF) == pagesF ? pagesF : pagesF + 1);
 		if(args.length == 0)
 		{
-			if(pages <= 1)
+			execute(new String[]{"1"});
+			return;
+		}
+		int pages =
+			(int)Math.ceil(Client.wurst.commandManager.countCommands() / 8D);
+		if(MiscUtils.isInteger(args[0]))
+		{
+			int page = Integer.valueOf(args[0]);
+			if(page > pages || page < 1)
 			{
-				commandsPerPage =
-					Client.wurst.commandManager.activeCommands.size();
-				Client.wurst.chat.message("Available commands: "
-					+ Integer
-						.toString(Client.wurst.commandManager.activeCommands
-							.size()));
-				for(int i = 0; i < commandsPerPage; i++)
-					Client.wurst.chat.message("."
-						+ Client.wurst.commandManager.activeCommands.get(i)
-							.getName());
-			}else
+				commandError();
+				return;
+			}
+			Client.wurst.chat.message("Available commands: "
+				+ Client.wurst.commandManager.countCommands());
+			Client.wurst.chat.message("Command list (page " + page + "/"
+				+ pages + "):");
+			Iterator<Command> itr =
+				Client.wurst.commandManager.getAllCommands().iterator();
+			for(int i = 0; itr.hasNext(); i++)
 			{
-				Client.wurst.chat.message("Available commands: "
-					+ Integer
-						.toString(Client.wurst.commandManager.activeCommands
-							.size()));
-				Client.wurst.chat.message("Command list (page 1/" + pages
-					+ "):");
-				for(int i = 0; i < commandsPerPage; i++)
-					Client.wurst.chat.message("."
-						+ Client.wurst.commandManager.activeCommands.get(i)
-							.getName());
+				Command cmd = itr.next();
+				if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
+					Client.wurst.chat.message(cmd.getName());
 			}
 		}else
 		{
-			for(int i = 0; i < Client.wurst.commandManager.activeCommands
-				.size(); i++)
-				if(Client.wurst.commandManager.activeCommands.get(i).getName()
-					.equals(args[0]))
-				{
-					Client.wurst.chat.message("Available help for ." + args[0]
-						+ ":");
-					for(int i2 = 0; i2 < Client.wurst.commandManager.activeCommands
-						.get(i).getHelp().length; i2++)
-						Client.wurst.chat
-							.message(Client.wurst.commandManager.activeCommands
-								.get(i).getHelp()[i2]);
-					return;
-				}else if(MiscUtils.isInteger(args[0]))
-				{
-					int page = Integer.valueOf(args[0]);
-					if(page > pages || page == 0)
-					{
-						commandError();
-						return;
-					}
-					Client.wurst.chat
-						.message("Available commands: "
-							+ Integer
-								.toString(Client.wurst.commandManager.activeCommands
-									.size()));
-					Client.wurst.chat.message("Command list (page " + page
-						+ "/" + pages + "):");
-					for(int i2 = (page - 1) * commandsPerPage; i2 < (page - 1)
-						* commandsPerPage + commandsPerPage
-						&& i2 < Client.wurst.commandManager.activeCommands
-							.size(); i2++)
-						Client.wurst.chat.message("."
-							+ Client.wurst.commandManager.activeCommands
-								.get(i2).getName());
-					return;
-				}
-			commandError();
+			Command cmd = Client.wurst.commandManager.getCommandByName(args[0]);
+			if(cmd != null)
+			{	
+				Client.wurst.chat.message("Available help for ." + args[0] + ":");
+				for(String line : cmd.getHelp().split("\n"))
+					Client.wurst.chat.message(line);
+			}else
+				commandError();
 		}
 	}
 }
