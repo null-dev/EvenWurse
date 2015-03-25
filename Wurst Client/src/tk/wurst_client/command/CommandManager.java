@@ -57,6 +57,7 @@ public class CommandManager implements ChatOutputListener
 						Client.wurst.chat.message("§4Syntax error:§r " + e.getMessage());
 					else
 						Client.wurst.chat.message("§4Syntax error!§r");
+					command.printSyntax();
 				}catch(Exception e)
 				{
 					EventManager.handleException(e, command, "executing",
