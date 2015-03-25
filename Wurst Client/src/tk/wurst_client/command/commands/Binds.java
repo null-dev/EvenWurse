@@ -12,23 +12,18 @@ import java.util.Map.Entry;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Lists all keybinds.", name = "binds", syntax = {"[<page>]"})
 public class Binds extends Command
 {
-	public Binds()
-	{
-		super("binds",
-			"Lists all keybinds.",
-			"§o.bind§r [<page>]");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length == 0)
 		{
-			execute(null, new String[]{"1"});
+			execute(new String[]{"1"});
 			return;
 		}
 		int pages = (int)Math.ceil(Client.wurst.keybinds.size() / 8D);
