@@ -57,6 +57,8 @@ public class Help extends Command
 				Client.wurst.chat.message("Available help for ." + args[0] + ":");
 				for(String line : cmd.getHelp().split("\n"))
 					Client.wurst.chat.message(line);
+				for(String line : cmd.formatSyntax().split("\n"))
+					Client.wurst.chat.message(line);
 			}else
 				commandError();
 		}

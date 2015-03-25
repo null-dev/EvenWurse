@@ -42,6 +42,18 @@ public abstract class Command
 	{
 		return syntax;
 	}
+	
+	public String formatSyntax()
+	{
+		String output = "§o." + name + "§r";
+		if(syntax.length != 0)
+		{
+			output += " " + syntax[0];
+			for(int i = 1; i < syntax.length; i++)
+				output += "\n    " + syntax[i];
+		}
+		return output;
+	}
 
 	public void commandError()
 	{
