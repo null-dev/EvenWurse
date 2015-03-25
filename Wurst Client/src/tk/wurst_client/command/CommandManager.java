@@ -20,15 +20,16 @@ import tk.wurst_client.event.listeners.ChatOutputListener;
 
 public class CommandManager implements ChatOutputListener
 {
-	private final TreeMap<String, Command> commands = new TreeMap<String, Command>(
-		new Comparator<String>()
-		{
-			@Override
-			public int compare(String o1, String o2)
+	private final TreeMap<String, Command> commands =
+		new TreeMap<String, Command>(
+			new Comparator<String>()
 			{
-				return o1.compareToIgnoreCase(o2);
-			}
-		});
+				@Override
+				public int compare(String o1, String o2)
+				{
+					return o1.compareToIgnoreCase(o2);
+				}
+			});
 	
 	@Override
 	public void onSentMessage(ChatOutputEvent event)
@@ -46,9 +47,23 @@ public class CommandManager implements ChatOutputListener
 				args = new String[0];
 			Command command = getCommandByName(commandName);
 			if(command != null)
-				command.execute(args);
+				try
+				{
+					command.execute(args);
+				}catch(CommandSyntaxException e)
+				{
+					if(e.getMessage() != null)
+						Client.wurst.chat.message("§4Syntax error:§r " + e.getMessage());
+					else
+						Client.wurst.chat.message("§4Syntax error!§r");
+				}catch(Exception e)
+				{
+					EventManager.handleException(e, command, "executing",
+						"Exact input: `" + event.getMessage() + "`");
+				}
 			else
-				Client.wurst.chat.error("\"." + commandName + "\" is not a valid command.");
+				Client.wurst.chat.error("\"." + commandName
+					+ "\" is not a valid command.");
 		}
 	}
 	

@@ -62,5 +62,5 @@ public abstract class Command
 			+ name + "\".");
 	}
 	
-	public abstract void execute(String[] args);
+	public abstract void execute(String[] args) throws CommandSyntaxException;
 }
