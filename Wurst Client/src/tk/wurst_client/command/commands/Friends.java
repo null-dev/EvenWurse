@@ -9,22 +9,17 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Manages your friends list.", name = "friends", syntax = {
+	"(add | remove) <player>", "list [<page>]"})
 public class Friends extends Command
 {
-	public Friends()
-	{
-		super("friends",
-			"Adds or removes a friend or lists all friends.",
-			"§o.friends§r (add | remove) <player>",
-			"    list [<page>]");
-	}
-	
 	private int friendsPerPage = 8;
 	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length == 0)
 		{
