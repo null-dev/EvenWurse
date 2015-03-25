@@ -7,7 +7,6 @@
  */
 package tk.wurst_client.command;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
@@ -21,8 +20,6 @@ import tk.wurst_client.event.listeners.ChatOutputListener;
 
 public class CommandManager implements ChatOutputListener
 {
-	@Deprecated
-	public ArrayList<Command> activeCommands = new ArrayList<Command>();
 	private final TreeMap<String, Command> commands = new TreeMap<String, Command>(
 		new Comparator<String>()
 		{
