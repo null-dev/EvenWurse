@@ -17,10 +17,14 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.GUIRenderListener;
 import tk.wurst_client.event.listeners.UpdateListener;
 
+@Info(help = "\"I love that little guy. So cute!\" -WiZARD",
+	name = "taco",
+	syntax = {})
 public class Taco extends Command implements GUIRenderListener, UpdateListener
 {
 	private static final ResourceLocation tacoTexture1 = new ResourceLocation(
@@ -36,15 +40,8 @@ public class Taco extends Command implements GUIRenderListener, UpdateListener
 	private int ticks = 0;
 	private boolean toggled;
 	
-	public Taco()
-	{
-		super("taco",
-			"\"I love that little guy. So cute!\" -WiZARDHAX",
-			"§o.taco§r");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		toggled = !toggled;
 		if(toggled)
