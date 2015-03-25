@@ -10,24 +10,19 @@ package tk.wurst_client.command.commands;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.mod.mods.YesCheat;
 
+@Info(help = "Drops all your items on the ground.", name = "drop", syntax = {})
 public class Drop extends Command implements UpdateListener
 {
 	private int timer;
 	private int counter;
 	
-	public Drop()
-	{
-		super("drop",
-			"Drops all your items on the ground.",
-			"§o.drop§r");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length != 0)
 		{
