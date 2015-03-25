@@ -12,22 +12,19 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
 
+@Info(help = "Allows you to see parts of another player's inventory.",
+	name = "invsee",
+	syntax = {"<player>"})
 public class Invsee extends Command implements RenderListener
 {
 	private String playerName;
 	
-	public Invsee()
-	{
-		super("invsee",
-			"Allows you to see parts of another player's inventory.",
-			"§o.invsee§r <player>");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length != 1)
 		{
