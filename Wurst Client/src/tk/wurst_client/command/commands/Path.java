@@ -38,13 +38,13 @@ public class Path extends Command implements RenderListener
 		}
 		if(args.length != 3)
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		for(String arg : args)
 			if(!MiscUtils.isInteger(arg))
 			{
-				commandError();
+				syntaxError();
 				return;
 			}
 		final BlockPos pos =

@@ -28,7 +28,7 @@ public class Invsee extends Command implements RenderListener
 	{
 		if(args.length != 1)
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)

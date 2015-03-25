@@ -35,7 +35,7 @@ public class SearchMod extends Command
 				Client.wurst.options.searchID = Integer.valueOf(args[1]);
 			else
 			{
-				commandError();
+				syntaxError();
 				return;
 			}
 			Client.wurst.fileManager.saveOptions();
@@ -56,6 +56,6 @@ public class SearchMod extends Command
 			Client.wurst.chat.message("Search ID set to " + newID + " ("
 				+ args[1] + ").");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

@@ -40,6 +40,6 @@ public class ThrowMod extends Command
 			Client.wurst.fileManager.saveOptions();
 			Client.wurst.chat.message("Throw amount set to " + args[1] + ".");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

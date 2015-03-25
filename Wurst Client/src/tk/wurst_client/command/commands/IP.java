@@ -33,6 +33,6 @@ public class IP extends Command
 					null);
 			Client.wurst.chat.message("IP copied to clipboard.");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

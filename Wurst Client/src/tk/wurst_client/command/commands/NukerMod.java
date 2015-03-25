@@ -24,7 +24,7 @@ public class NukerMod extends Command
 	public void execute(String[] args)
 	{
 		if(args.length != 2)
-			commandError();
+			syntaxError();
 		else if(args[0].toLowerCase().equals("mode"))
 		{// 0=normal, 1=id, 2=flat, 3=smash
 			if(args[1].toLowerCase().equals("normal"))
@@ -45,7 +45,7 @@ public class NukerMod extends Command
 				Nuker.id = 0;
 			}else
 			{
-				commandError();
+				syntaxError();
 				return;
 			}
 			Client.wurst.fileManager.saveOptions();
@@ -81,6 +81,6 @@ public class NukerMod extends Command
 			Client.wurst.chat.message("Nuker ID set to " + newID + " ("
 				+ args[1] + ").");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

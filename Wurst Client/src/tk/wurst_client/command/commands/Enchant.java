@@ -73,6 +73,6 @@ public class Enchant extends Command
 			else
 				Client.wurst.chat.message("Enchanted " + items + " items.");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

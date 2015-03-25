@@ -32,7 +32,7 @@ public class Binds extends Command
 			int page = Integer.valueOf(args[0]);
 			if(page > pages || page == 0)
 			{
-				commandError();
+				syntaxError();
 				return;
 			}
 			Client.wurst.chat.message("Current keybinds: "
@@ -49,6 +49,6 @@ public class Binds extends Command
 						+ entry.getValue());
 			}
 		}else
-			commandError();
+			syntaxError();
 	}
 }

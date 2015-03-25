@@ -27,7 +27,7 @@ public class Toggle extends Command
 			mode = 2;
 		else
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		Mod mod = Client.wurst.modManager.getModByName(args[0]);

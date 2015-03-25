@@ -23,7 +23,7 @@ public class Friends extends Command
 	{
 		if(args.length == 0)
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		if(args[0].equalsIgnoreCase("list"))
@@ -39,7 +39,7 @@ public class Friends extends Command
 				int page = Integer.valueOf(args[1]);
 				if(page > pages || page < 1)
 				{
-					commandError();
+					syntaxError();
 					return;
 				}
 				Client.wurst.chat.message("Current friends: "
@@ -54,7 +54,7 @@ public class Friends extends Command
 						Client.wurst.chat.message(friend);
 				}
 			}else
-				commandError();
+				syntaxError();
 		}else if(args[0].equalsIgnoreCase("add"))
 		{
 			if(Client.wurst.friends.contains(args[1]))
@@ -77,6 +77,6 @@ public class Friends extends Command
 				Client.wurst.chat.error("\"" + args[1]
 					+ "\" is not in your friends list.");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

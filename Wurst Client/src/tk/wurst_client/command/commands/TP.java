@@ -29,6 +29,6 @@ public class TP extends Command
 					Integer.valueOf(args[2])
 				);
 		else
-			commandError();
+			syntaxError();
 	}
 }

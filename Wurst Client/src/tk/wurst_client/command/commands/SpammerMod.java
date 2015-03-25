@@ -23,7 +23,7 @@ public class SpammerMod extends Command
 	{
 		if(args.length < 2)
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		if(args[0].equalsIgnoreCase("delay"))

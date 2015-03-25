@@ -28,7 +28,7 @@ public class XRayMod extends Command
 	public void execute(String[] args)
 	{
 		if(args.length == 0)
-			commandError();
+			syntaxError();
 		else if(args[0].equalsIgnoreCase("list"))
 		{
 			if(args.length == 1)
@@ -42,7 +42,7 @@ public class XRayMod extends Command
 				int page = Integer.valueOf(args[1]);
 				if(page > pages || page < 1)
 				{
-					commandError();
+					syntaxError();
 					return;
 				}
 				Client.wurst.chat.message("Current X-Ray blocks: "
@@ -58,7 +58,7 @@ public class XRayMod extends Command
 							.getItemFromBlock(block)).getDisplayName());
 				}
 			}else
-				commandError();
+				syntaxError();
 		}else if(args[0].equalsIgnoreCase("add"))
 		{
 			if(args[1].equalsIgnoreCase("id") && MiscUtils.isInteger(args[2]))
@@ -92,7 +92,7 @@ public class XRayMod extends Command
 					+ args[2] + "\").");
 				Minecraft.getMinecraft().renderGlobal.loadRenderers();
 			}else
-				commandError();
+				syntaxError();
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
 			if(args[1].equalsIgnoreCase("id") && MiscUtils.isInteger(args[2]))
@@ -143,8 +143,8 @@ public class XRayMod extends Command
 				Client.wurst.chat.error("Block " + newID + " (\"" + args[2]
 					+ "\") is not in your X-Ray blocks list.");
 			}else
-				commandError();
+				syntaxError();
 		}else
-			commandError();
+			syntaxError();
 	}
 }

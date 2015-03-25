@@ -75,11 +75,14 @@ public abstract class Command
 			Client.wurst.chat.message(line);
 	}
 	
-	public void commandError()
+	public void syntaxError() throws SyntaxError
 	{
-		Client.wurst.chat.error("Something went wrong.");
-		Client.wurst.chat.message("If you need help, type \".help "
-			+ name + "\".");
+		throw new SyntaxError();
+	}
+	
+	public void syntaxError(String message) throws SyntaxError
+	{
+		throw new SyntaxError(message);
 	}
 	
 	public abstract void execute(String[] args) throws SyntaxError;

@@ -21,7 +21,7 @@ public class GM extends Command
 	{
 		if(args.length != 1)
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		Minecraft.getMinecraft().thePlayer.sendChatMessage("/gamemode "

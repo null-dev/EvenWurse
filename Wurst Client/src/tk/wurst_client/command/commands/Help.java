@@ -34,7 +34,7 @@ public class Help extends Command
 			int page = Integer.valueOf(args[0]);
 			if(page > pages || page < 1)
 			{
-				commandError();
+				syntaxError();
 				return;
 			}
 			Client.wurst.chat.message("Available commands: "
@@ -58,7 +58,7 @@ public class Help extends Command
 				cmd.printHelp();
 				cmd.printSyntax();
 			}else
-				commandError();
+				syntaxError();
 		}
 	}
 }

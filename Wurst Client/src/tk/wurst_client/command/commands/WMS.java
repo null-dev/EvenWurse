@@ -21,7 +21,7 @@ public class WMS extends Command
 	{
 		if(args.length == 0)
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		if(args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off"))
@@ -33,6 +33,6 @@ public class WMS extends Command
 				message += " " + args[i];
 			Client.wurst.chat.cmd(message);
 		}else
-			commandError();
+			syntaxError();
 	}
 }

@@ -26,13 +26,13 @@ public class GoTo extends Command
 	{
 		if(args.length != 3)
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		for(String arg : args)
 			if(!MiscUtils.isInteger(arg))
 			{
-				commandError();
+				syntaxError();
 				return;
 			}
 		if(Math.abs(Integer.parseInt(args[0])

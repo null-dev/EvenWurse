@@ -26,7 +26,7 @@ public class Drop extends Command implements UpdateListener
 	{
 		if(args.length != 0)
 		{
-			commandError();
+			syntaxError();
 			return;
 		}
 		timer = 0;

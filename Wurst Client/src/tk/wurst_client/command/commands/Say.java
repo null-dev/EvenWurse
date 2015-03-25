@@ -28,6 +28,6 @@ public class Say extends Command
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C01PacketChatMessage(message));
 		}else
-			commandError();
+			syntaxError();
 	}
 }

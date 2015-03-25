@@ -27,7 +27,7 @@ public class AddAlt extends Command
 	public void execute(String[] args)
 	{
 		if(args.length == 0)
-			commandError();
+			syntaxError();
 		else if(args[0].equals("all"))
 		{
 			int alts = 0;

@@ -38,7 +38,7 @@ public class Annoy extends Command implements ChatInputListener
 			}else
 			{
 				toggled = false;
-				commandError();
+				syntaxError();
 			}
 		}else
 		{

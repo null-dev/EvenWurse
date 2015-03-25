@@ -20,6 +20,6 @@ public class Clear extends Command
 		if(args.length == 0)
 			Minecraft.getMinecraft().ingameGUI.getChatGUI().clearChatMessages();
 		else
-			commandError();
+			syntaxError();
 	}
 }

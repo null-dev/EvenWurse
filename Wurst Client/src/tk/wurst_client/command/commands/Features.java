@@ -49,6 +49,6 @@ public class Features extends Command
 				+ " sliders in the Settings frame");
 		}
 		else
-			commandError();
+			syntaxError();
 	}
 }
