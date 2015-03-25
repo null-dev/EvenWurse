@@ -9,26 +9,18 @@ package tk.wurst_client.command.commands;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Teleports you up/down. Can glitch you through floors & "
+	+ "ceilings.\nThe maximum distance is 100 blocks on vanilla servers and "
+	+ "10 blocks on Bukkit servers.",
+	name = "vclip",
+	syntax = {"<height>"})
 public class VClip extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Teleports you up/down. Can glitch you through",
-		"floors & ceilings.",
-		"The maximum distance is 100 blocks on vanilla servers",
-		"and 10 blocks on Bukkit servers.",
-		"§o.vclip§r <height>"
-	};
-	
-	public VClip()
-	{
-		super("vclip", commandHelp);
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(MiscUtils.isInteger(args[0]))
 			Minecraft.getMinecraft().thePlayer.setPosition
