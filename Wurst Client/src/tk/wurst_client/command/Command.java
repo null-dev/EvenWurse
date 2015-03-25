@@ -28,7 +28,7 @@ public abstract class Command
 		String[] syntax();
 	}
 	
-	public class SyntaxError extends Throwable
+	public class SyntaxError extends Error
 	{
 		public SyntaxError()
 		{
@@ -41,6 +41,19 @@ public abstract class Command
 		}
 	}
 	
+	public class Error extends Throwable
+	{
+		public Error()
+		{
+			super();
+		}
+		
+		public Error(String message)
+		{
+			super(message);
+		}
+	}
+
 	public String getName()
 	{
 		return name;
@@ -75,15 +88,20 @@ public abstract class Command
 			Client.wurst.chat.message(line);
 	}
 	
-	public void syntaxError() throws SyntaxError
+	protected final void syntaxError() throws SyntaxError
 	{
 		throw new SyntaxError();
 	}
 	
-	public void syntaxError(String message) throws SyntaxError
+	protected final void syntaxError(String message) throws SyntaxError
 	{
 		throw new SyntaxError(message);
 	}
 	
-	public abstract void execute(String[] args) throws SyntaxError;
+	protected final void error(String message) throws Error
+	{
+		throw new Error(message);
+	}
+	
+	public abstract void execute(String[] args) throws Command.Error;
 }
