@@ -9,18 +9,15 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Changes the settings of FastBreak.",
+	name = "fastbreak",
+	syntax = {"mode (normal|instant)"})
 public class FastBreakMod extends Command
 {
-	public FastBreakMod()
-	{
-		super("fastbreak",
-			"Changes the settings of FastBreak.",
-			"§o.fastbreak§r mode (normal | instant)");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length != 2)
 			commandError();
