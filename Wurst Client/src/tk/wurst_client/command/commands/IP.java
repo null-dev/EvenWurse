@@ -12,19 +12,15 @@ import java.awt.datatransfer.StringSelection;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Shows the IP of the server you are currently playing on or copies it to the clipboard.",
+	name = "ip",
+	syntax = {"[copy]"})
 public class IP extends Command
 {
-	public IP()
-	{
-		super("ip",
-			"Shows the IP of the server you are currently",
-			"playing on or copies it to the clipboard.",
-			"§o.ip§r [copy]");
-	}
-	
 	@Override
-	public void execute(String input, String[] args)
+	public void execute(String[] args)
 	{
 		if(args.length == 0)
 			Client.wurst.chat.message("IP: " + Client.wurst.currentServerIP);
