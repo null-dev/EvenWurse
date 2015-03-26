@@ -254,7 +254,8 @@ public class GuiAlts extends GuiScreen
 	{
 		drawDefaultBackground();
 		altList.drawScreen(par1, par2, par3);
-		if(altList.getSelectedSlot() != -1)
+		if(altList.getSelectedSlot() != -1
+			&& altList.getSelectedSlot() < GuiAltList.alts.size())
 		{
 			Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 			AltRenderer.drawAltBack(alt.getName(), (width / 2 - 125) / 2 - 32,
