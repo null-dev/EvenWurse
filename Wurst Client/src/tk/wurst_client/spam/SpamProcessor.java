@@ -14,8 +14,7 @@ import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.event.events.ChatOutputEvent;
 import tk.wurst_client.mod.mods.Spammer;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
@@ -32,64 +31,56 @@ public class SpamProcessor
 	
 	public static void runScript(final String filename, final String description)
 	{
-		EventManager.update.addListener(new UpdateListener()
+		new Thread(new Runnable()
 		{
 			@Override
-			public void onUpdate()
+			public void run()
 			{
-				new Thread(new Runnable()
+				File file =
+					new File(Client.wurst.fileManager.scriptsDir,
+						filename
+							+ ".wspam");
+				try
 				{
-					@Override
-					public void run()
+					long startTime = System.currentTimeMillis();
+					while(!canSpam())
 					{
-						File file =
-							new File(Client.wurst.fileManager.scriptsDir,
-								filename
-									+ ".wspam");
-						try
-						{
-							long startTime = System.currentTimeMillis();
-							while(!canSpam())
-							{
-								Thread.sleep(50);
-								if(System.currentTimeMillis() > startTime + 10000)
-									return;
-							}
-							if(!file.getParentFile().exists())
-								file.getParentFile().mkdirs();
-							if(!file.exists())
-							{
-								PrintWriter save =
-									new PrintWriter(new OutputStreamWriter(
-										new FileOutputStream(file), "UTF-8"));
-								save.println("<!--");
-								for(String line : description.split("\n"))
-									save.println("  " + line);
-								save.println("-->");
-								save.close();
-							}
-							runFile(file);
-						}catch(Exception e)
-						{
-							e.printStackTrace();
-							StringWriter tracewriter = new StringWriter();
-							e.printStackTrace(new PrintWriter(tracewriter));
-							String message =
-								"An error occurred while running "
-									+ file.getName()
-									+ ":\n"
-									+ e.getLocalizedMessage() + "\n"
-									+ tracewriter.toString();
-							JOptionPane.showMessageDialog(Minecraft
-								.getMinecraft()
-								.getFrame(),
-								message, "Error", JOptionPane.ERROR_MESSAGE);
-						}
+						Thread.sleep(50);
+						if(System.currentTimeMillis() > startTime + 10000)
+							return;
 					}
-				}).start();
-				EventManager.update.removeListener(this);
+					if(!file.getParentFile().exists())
+						file.getParentFile().mkdirs();
+					if(!file.exists())
+					{
+						PrintWriter save =
+							new PrintWriter(new OutputStreamWriter(
+								new FileOutputStream(file), "UTF-8"));
+						save.println("<!--");
+						for(String line : description.split("\n"))
+							save.println("  " + line);
+						save.println("-->");
+						save.close();
+					}
+					runFile(file);
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+					StringWriter tracewriter = new StringWriter();
+					e.printStackTrace(new PrintWriter(tracewriter));
+					String message =
+						"An error occurred while running "
+							+ file.getName()
+							+ ":\n"
+							+ e.getLocalizedMessage() + "\n"
+							+ tracewriter.toString();
+					JOptionPane.showMessageDialog(Minecraft
+						.getMinecraft()
+						.getFrame(),
+						message, "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
-		});
+		}).start();
 	}
 	
 	public static boolean runSpam(final String filename)
@@ -115,7 +106,8 @@ public class SpamProcessor
 					runFile(file);
 				}catch(Exception e)
 				{
-					if(e instanceof NullPointerException && Minecraft.getMinecraft().thePlayer == null)
+					if(e instanceof NullPointerException
+						&& Minecraft.getMinecraft().thePlayer == null)
 						return;
 					e.printStackTrace();
 					StringWriter tracewriter = new StringWriter();
@@ -148,8 +140,7 @@ public class SpamProcessor
 			return;
 		for(int i = 0; i < spam.split("\n").length; i++)
 		{
-			String message = spam.split("\n")[i];
-			Minecraft.getMinecraft().thePlayer.sendChatMessage(message);
+			Client.wurst.commandManager.onSentMessage(new ChatOutputEvent(spam.split("\n")[i]));
 			Thread.sleep(Client.wurst.options.spamDelay);
 		}
 	}
