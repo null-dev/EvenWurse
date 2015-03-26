@@ -115,6 +115,8 @@ public class SpamProcessor
 					runFile(file);
 				}catch(Exception e)
 				{
+					if(e instanceof NullPointerException && Minecraft.getMinecraft().thePlayer == null)
+						return;
 					e.printStackTrace();
 					StringWriter tracewriter = new StringWriter();
 					e.printStackTrace(new PrintWriter(tracewriter));
