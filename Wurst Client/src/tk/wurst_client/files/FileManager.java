@@ -464,7 +464,6 @@ public class FileManager
 	{
 		try
 		{
-			Client.wurst.friends.sort();
 			PrintWriter save = new PrintWriter(new FileWriter(friends));
 			save.println(gson.toJson(Client.wurst.friends));
 			save.close();
@@ -481,7 +480,6 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(friends));
 			Client.wurst.friends = gson.fromJson(load, Friends.class);
 			load.close();
-			Client.wurst.friends.sort();
 		}catch(Exception e)
 		{
 			e.printStackTrace();

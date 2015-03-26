@@ -10,25 +10,21 @@ package tk.wurst_client.command.commands;
 import net.minecraft.block.Block;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.Nuker;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Changes the settings of Nuker.",
+	name = "nuker",
+	syntax = {"mode (normal|id|flat|smash)", "id <block_id>",
+		"name <block_name>"})
 public class NukerMod extends Command
 {
-	public NukerMod()
-	{
-		super("nuker",
-			"Changes the settings of Nuker.",
-			"§o.nuker§r mode (normal | id | flat | smash)",
-			"    id <block id>",
-			"    name <block name>");
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length != 2)
-			commandError();
+			syntaxError();
 		else if(args[0].toLowerCase().equals("mode"))
 		{// 0=normal, 1=id, 2=flat, 3=smash
 			if(args[1].toLowerCase().equals("normal"))
@@ -48,10 +44,7 @@ public class NukerMod extends Command
 				Client.wurst.options.nukerMode = 3;
 				Nuker.id = 0;
 			}else
-			{
-				commandError();
-				return;
-			}
+				syntaxError();
 			Client.wurst.fileManager.saveOptions();
 			Client.wurst.chat.message("Nuker mode set to \"" + args[1] + "\".");
 		}else if(args[0].equalsIgnoreCase("id") && MiscUtils.isInteger(args[1]))
@@ -85,6 +78,6 @@ public class NukerMod extends Command
 			Client.wurst.chat.message("Nuker ID set to " + newID + " ("
 				+ args[1] + ").");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

@@ -8,26 +8,24 @@
 package tk.wurst_client.command.commands;
 
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.RemoteView;
 
+@Info(help = "Toggles RemoteView or makes it target a specific entity.",
+	name = "rv",
+	syntax = {"[<Player>]"})
 public class RV extends Command
 {
-	public RV()
-	{
-		super("rv",
-			"Toggles RemoteView or makes it target a specific entity.",
-			"§o.rv§r [<Player>]");
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 		{
 			RemoteView.onEnabledByCommand("");
 			return;
-		}
-		else
+		}else if(args.length == 1)
 			RemoteView.onEnabledByCommand(args[0]);
+		else
+			syntaxError("too many arguments.");
 	}
 }

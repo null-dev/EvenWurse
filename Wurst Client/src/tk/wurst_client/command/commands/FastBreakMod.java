@@ -9,36 +9,30 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Changes the settings of FastBreak.",
+	name = "fastbreak",
+	syntax = {"mode (normal|instant)"})
 public class FastBreakMod extends Command
 {
-	public FastBreakMod()
-	{
-		super("fastbreak",
-			"Changes the settings of FastBreak.",
-			"§o.fastbreak§r mode (normal | instant)");
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length != 2)
-			commandError();
-		else if(args[0].toLowerCase().equals("mode"))
+			syntaxError();
+		if(args[0].toLowerCase().equals("mode"))
 		{// 0=normal, 1=instant
 			if(args[1].toLowerCase().equals("normal"))
 				Client.wurst.options.fastbreakMode = 0;
 			else if(args[1].toLowerCase().equals("instant"))
 				Client.wurst.options.fastbreakMode = 1;
 			else
-			{
-				commandError();
-				return;
-			}
+				syntaxError();
 			Client.wurst.fileManager.saveOptions();
 			Client.wurst.chat.message("FastBreak mode set to \"" + args[1]
 				+ "\".");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

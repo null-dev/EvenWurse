@@ -10,26 +10,17 @@ package tk.wurst_client.command.commands;
 import net.minecraft.block.Block;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.Search;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Changes the settings of Search or toggles it.",
+	name = "search",
+	syntax = {"id <block_id>", "name <block_name>"})
 public class SearchMod extends Command
 {
-	
-	private static String[] commandHelp =
-	{
-		"Changes the settings of Search or toggles it.",
-		"§o.search§r id <block id>",
-		"    name <block name>"
-	};
-	
-	public SearchMod()
-	{
-		super("search", commandHelp);
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 		{
@@ -43,10 +34,7 @@ public class SearchMod extends Command
 			if(MiscUtils.isInteger(args[1]))
 				Client.wurst.options.searchID = Integer.valueOf(args[1]);
 			else
-			{
-				commandError();
-				return;
-			}
+				syntaxError("ID must be a number.");
 			Client.wurst.fileManager.saveOptions();
 			Search.shouldInform = true;
 			Client.wurst.chat.message("Search ID set to " + args[1] + ".");
@@ -54,17 +42,13 @@ public class SearchMod extends Command
 		{
 			int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
 			if(newID == -1)
-			{
-				Client.wurst.chat.message("The block \"" + args[1]
-					+ "\" could not be found.");
-				return;
-			}
+				error("Block \"" + args[1] + "\" could not be found.");
 			Client.wurst.options.searchID = Integer.valueOf(newID);
 			Client.wurst.fileManager.saveOptions();
 			Search.shouldInform = true;
 			Client.wurst.chat.message("Search ID set to " + newID + " ("
 				+ args[1] + ").");
 		}else
-			commandError();
+			syntaxError();
 	}
 }

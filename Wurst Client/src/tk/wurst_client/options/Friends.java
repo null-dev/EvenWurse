@@ -7,21 +7,9 @@
  */
 package tk.wurst_client.options;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.TreeSet;
 
-public class Friends extends ArrayList<String>
+public class Friends extends TreeSet<String>
 {
-	public void sort()
-	{
-		Collections.sort(this, new Comparator<String>()
-		{
-			@Override
-			public int compare(String o1, String o2)
-			{
-				return o1.compareToIgnoreCase(o2);
-			}
-		});
-	}
+	
 }

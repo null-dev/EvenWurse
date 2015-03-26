@@ -9,24 +9,16 @@ package tk.wurst_client.command.commands;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Teleports you up to 100 blocks away.\nOnly works on vanilla servers!",
+	name = "tp",
+	syntax = {"<x> <y> <z>"})
 public class TP extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Teleports you up to 100 blocks away.",
-		"Only works on vanilla servers!",
-		"§o.tp§r <x> <y> <z>"
-	};
-	
-	public TP()
-	{
-		super("tp", commandHelp);
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 3 && MiscUtils.isInteger(args[0])
 			&& MiscUtils.isInteger(args[1]) && MiscUtils.isInteger(args[2]))
@@ -37,6 +29,6 @@ public class TP extends Command
 					Integer.valueOf(args[2])
 				);
 		else
-			commandError();
+			syntaxError();
 	}
 }

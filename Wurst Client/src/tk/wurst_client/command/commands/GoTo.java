@@ -12,32 +12,23 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
 import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.GoToCmd;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Walks or flies you to a specific location.",
+	name = "goto",
+	syntax = {"<x> <y> <z>"})
 public class GoTo extends Command
 {
-	public GoTo()
-	{
-		super("goto",
-			"Walks or flies you to a specific location.",
-			"§o.goto§r <x> <y> <z>");
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length != 3)
-		{
-			commandError();
-			return;
-		}
+			syntaxError();
 		for(String arg : args)
 			if(!MiscUtils.isInteger(arg))
-			{
-				commandError();
-				return;
-			}
+				syntaxError("Invalid coordinates.");
 		if(Math.abs(Integer.parseInt(args[0])
 			- Minecraft.getMinecraft().thePlayer.posX) > 256
 			|| Math.abs(Integer.parseInt(args[2])

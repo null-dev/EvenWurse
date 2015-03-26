@@ -9,25 +9,16 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.Mod;
 
+@Info(help = "Toggles a mod.", name = "t", syntax = {"<mod> [(on|off)]"})
 public class Toggle extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Toggles a mod.",
-		"§o.t§r <mod> [(on | off)]"
-	};
-	
-	public Toggle()
-	{
-		super("t", commandHelp);
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
-		int mode;
+		int mode = -1;
 		if(args.length == 1)
 			mode = 0;
 		else if(args.length == 2 && args[1].equalsIgnoreCase("on"))
@@ -35,16 +26,10 @@ public class Toggle extends Command
 		else if(args.length == 2 && args[1].equalsIgnoreCase("off"))
 			mode = 2;
 		else
-		{
-			commandError();
-			return;
-		}
+			syntaxError();
 		Mod mod = Client.wurst.modManager.getModByName(args[0]);
 		if(mod == null)
-		{
-			Client.wurst.chat.error("Could not find mod \"" + args[0] + "\".");
-			return;
-		}
+			error("Could not find mod \"" + args[0] + "\".");
 		if(mode == 0)
 			mod.toggle();
 		else if(mode == 1)

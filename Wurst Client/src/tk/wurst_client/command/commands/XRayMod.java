@@ -7,100 +7,55 @@
  */
 package tk.wurst_client.command.commands;
 
+import java.util.Iterator;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
+import tk.wurst_client.mod.mods.XRay;
 import tk.wurst_client.utils.MiscUtils;
 
-public class XRay extends Command
+@Info(help = "Manages or toggles X-Ray.", name = "xray", syntax = {
+	"add (id <block_id>|name <block_name>)",
+	"remove (id <block_id>|name <block_name>)", "list [<page>]"})
+public class XRayMod extends Command
 {
-	private static String[] commandHelp =
-	{
-		"Adds, removes or lists X-Ray blocks or toggles X-Ray.",
-		"§o.xray§r add (id <block id> | name <block name>)",
-		"    remove (id <block id> | name <block name>)",
-		"    list [<page>]",
-	};
-	
-	public XRay()
-	{
-		super("xray", commandHelp);
-	}
-	
-	private int blocksPerPage = 8;
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
-			commandError();
+			syntaxError();
 		else if(args[0].equalsIgnoreCase("list"))
 		{
-			int totalBlocks =
-				tk.wurst_client.mod.mods.XRay.xrayBlocks.size();
-			float pagesF = (float)((double)totalBlocks / (double)blocksPerPage);
-			int pages =
-				(int)(Math.round(pagesF) == pagesF ? pagesF : pagesF + 1);
-			blocksPerPage = 8;
 			if(args.length == 1)
 			{
-				if(pages <= 1)
+				execute(new String[]{"list", "1"});
+				return;
+			}
+			int pages = (int)Math.ceil(XRay.xrayBlocks.size() / 8D);
+			if(MiscUtils.isInteger(args[1]))
+			{
+				int page = Integer.valueOf(args[1]);
+				if(page > pages || page < 1)
+					syntaxError("Invalid page: " + page);
+				Client.wurst.chat.message("Current X-Ray blocks: "
+					+ XRay.xrayBlocks.size());
+				Client.wurst.chat.message("X-Ray blocks list (page " + page
+					+ "/" + pages + "):");
+				Iterator<Block> itr = XRay.xrayBlocks.iterator();
+				for(int i = 0; itr.hasNext(); i++)
 				{
-					blocksPerPage = totalBlocks;
-					Client.wurst.chat.message("Current X-Ray blocks: "
-						+ totalBlocks);
-					for(int i = 0; i < tk.wurst_client.mod.mods.XRay.xrayBlocks
-						.size()
-						&& i < blocksPerPage; i++)
-						Client.wurst.chat
-							.message(Integer.toString(Block
-								.getIdFromBlock(tk.wurst_client.mod.mods.XRay.xrayBlocks
-									.get(i))));
-				}else
-				{
-					Client.wurst.chat.message("Current X-Ray blocks: "
-						+ totalBlocks);
-					Client.wurst.chat.message("X-Ray blocks list (page 1/"
-						+ pages + "):");
-					for(int i = 0; i < tk.wurst_client.mod.mods.XRay.xrayBlocks
-						.size()
-						&& i < blocksPerPage; i++)
-						Client.wurst.chat
-							.message(Integer.toString(Block
-								.getIdFromBlock(tk.wurst_client.mod.mods.XRay.xrayBlocks
-									.get(i))));
+					Block block = itr.next();
+					if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
+						Client.wurst.chat.message(new ItemStack(Item
+							.getItemFromBlock(block)).getDisplayName());
 				}
 			}else
-			{
-				if(MiscUtils.isInteger(args[1]))
-				{
-					int page = Integer.valueOf(args[1]);
-					if(page > pages || page == 0)
-					{
-						commandError();
-						return;
-					}
-					Client.wurst.chat.message("Current X-Ray blocks: "
-						+ Integer.toString(totalBlocks));
-					Client.wurst.chat.message("X-Ray blocks list (page " + page
-						+ "/" + pages + "):");
-					int i2 = 0;
-					for(int i = 0; i < tk.wurst_client.mod.mods.XRay.xrayBlocks
-						.size()
-						&& i2 < (page - 1) * blocksPerPage + blocksPerPage; i++)
-					{
-						if(i2 >= (page - 1) * blocksPerPage)
-							Client.wurst.chat
-								.message(Integer.toString(Block
-									.getIdFromBlock(tk.wurst_client.mod.mods.XRay.xrayBlocks
-										.get(i))));
-						i2++;
-					}
-					return;
-				}
-				commandError();
-			}
+				syntaxError();
 		}else if(args[0].equalsIgnoreCase("add"))
 		{
 			if(args[1].equalsIgnoreCase("id") && MiscUtils.isInteger(args[2]))
@@ -134,7 +89,7 @@ public class XRay extends Command
 					+ args[2] + "\").");
 				Minecraft.getMinecraft().renderGlobal.loadRenderers();
 			}else
-				commandError();
+				syntaxError();
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
 			if(args[1].equalsIgnoreCase("id") && MiscUtils.isInteger(args[2]))
@@ -185,8 +140,8 @@ public class XRay extends Command
 				Client.wurst.chat.error("Block " + newID + " (\"" + args[2]
 					+ "\") is not in your X-Ray blocks list.");
 			}else
-				commandError();
+				syntaxError();
 		}else
-			commandError();
+			syntaxError();
 	}
 }

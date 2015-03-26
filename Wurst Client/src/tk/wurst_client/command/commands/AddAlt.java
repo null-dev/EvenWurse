@@ -15,25 +15,20 @@ import net.minecraft.util.StringUtils;
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.gui.alts.GuiAltList;
 
+@Info(help = "Adds a player or all players on a server to your alt list.",
+	name = "addalt",
+	syntax = {"<player>", "all"})
 public class AddAlt extends Command
 {
-	public AddAlt()
-	{
-		super("addalt",
-			"Adds a player or all players on a server to your alt",
-			"list.",
-			"§o.addalt§r <player>",
-			"    all");
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
-		if(args.length == 0)
-			commandError();
-		else if(args[0].equals("all"))
+		if(args.length != 1)
+			syntaxError();
+		if(args[0].equals("all"))
 		{
 			int alts = 0;
 			Iterator itr =

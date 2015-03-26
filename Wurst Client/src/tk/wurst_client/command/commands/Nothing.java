@@ -8,13 +8,16 @@
 package tk.wurst_client.command.commands;
 
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Does nothing. Useful for scripting.",
+	name = "nothing",
+	syntax = {})
 public class Nothing extends Command
 {
-	public Nothing()
-	{
-		super("nothing",
-			"Does nothing. Useful for scripting.",
-			"§o.nothing§r");
+	@Override
+	public void execute(String[] args) throws Error
+	{	
+		
 	}
 }

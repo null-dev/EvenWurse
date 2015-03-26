@@ -7,37 +7,101 @@
  */
 package tk.wurst_client.command;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import tk.wurst_client.Client;
 
-public class Command
+public abstract class Command
 {
-	private String commandName;
+	private String name = getClass().getAnnotation(Info.class).name();
+	private String help = getClass().getAnnotation(Info.class).help();
+	private String[] syntax = getClass().getAnnotation(Info.class).syntax();
 	
-	private String[] commandHelp;
-	
-	public Command(String commandName, String... commandHelp)
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface Info
 	{
-		this.commandName = commandName;
-		this.commandHelp = commandHelp;
+		String name();
+		
+		String help();
+		
+		String[] syntax();
+	}
+	
+	public class SyntaxError extends Error
+	{
+		public SyntaxError()
+		{
+			super();
+		}
+		
+		public SyntaxError(String message)
+		{
+			super(message);
+		}
+	}
+	
+	public class Error extends Throwable
+	{
+		public Error()
+		{
+			super();
+		}
+		
+		public Error(String message)
+		{
+			super(message);
+		}
 	}
 	
 	public String getName()
 	{
-		return commandName;
+		return name;
 	}
 	
-	public String[] getHelp()
+	public String getHelp()
 	{
-		return commandHelp;
+		return help;
 	}
 	
-	public void commandError()
+	public String[] getSyntax()
 	{
-		Client.wurst.chat.error("Something went wrong.");
-		Client.wurst.chat.message("If you need help, type \".help "
-			+ commandName + "\".");
+		return syntax;
 	}
 	
-	public void onEnable(String input, String[] args)
-	{}
+	public void printHelp()
+	{
+		for(String line : help.split("\n"))
+			Client.wurst.chat.message(line);
+	}
+	
+	public void printSyntax()
+	{
+		String output = "§o." + name + "§r";
+		if(syntax.length != 0)
+		{
+			output += " " + syntax[0];
+			for(int i = 1; i < syntax.length; i++)
+				output += "\n    " + syntax[i];
+		}
+		for(String line : output.split("\n"))
+			Client.wurst.chat.message(line);
+	}
+	
+	protected final void syntaxError() throws SyntaxError
+	{
+		throw new SyntaxError();
+	}
+	
+	protected final void syntaxError(String message) throws SyntaxError
+	{
+		throw new SyntaxError(message);
+	}
+	
+	protected final void error(String message) throws Error
+	{
+		throw new Error(message);
+	}
+	
+	public abstract void execute(String[] args) throws Command.Error;
 }

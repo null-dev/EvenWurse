@@ -9,22 +9,17 @@ package tk.wurst_client.command.commands;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Clears the chat completely.", name = "clear", syntax = {})
 public class Clear extends Command
 {
-	public Clear()
-	{
-		super("clear",
-			"Clears the chat completely.",
-			"§o.clear§r");
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 			Minecraft.getMinecraft().ingameGUI.getChatGUI().clearChatMessages();
 		else
-			commandError();
+			syntaxError();
 	}
 }

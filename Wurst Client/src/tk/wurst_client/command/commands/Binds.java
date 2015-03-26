@@ -12,23 +12,18 @@ import java.util.Map.Entry;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.utils.MiscUtils;
 
+@Info(help = "Lists all keybinds.", name = "binds", syntax = {"[<page>]"})
 public class Binds extends Command
 {
-	public Binds()
-	{
-		super("binds",
-			"Lists all keybinds.",
-			"§o.bind§r [<page>]");
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
 		{
-			onEnable(null, new String[]{"1"});
+			execute(new String[]{"1"});
 			return;
 		}
 		int pages = (int)Math.ceil(Client.wurst.keybinds.size() / 8D);
@@ -37,7 +32,7 @@ public class Binds extends Command
 			int page = Integer.valueOf(args[0]);
 			if(page > pages || page == 0)
 			{
-				commandError();
+				syntaxError("Invalid page: " + page);
 				return;
 			}
 			Client.wurst.chat.message("Current keybinds: "
@@ -54,6 +49,6 @@ public class Binds extends Command
 						+ entry.getValue());
 			}
 		}else
-			commandError();
+			syntaxError("Not a number: \"" + args[0] + "\"");
 	}
 }

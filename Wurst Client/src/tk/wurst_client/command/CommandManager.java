@@ -7,9 +7,13 @@
  */
 package tk.wurst_client.command;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.TreeMap;
 
 import tk.wurst_client.Client;
+import tk.wurst_client.command.Command.Info;
+import tk.wurst_client.command.Command.SyntaxError;
 import tk.wurst_client.command.commands.*;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.events.ChatOutputEvent;
@@ -17,71 +21,113 @@ import tk.wurst_client.event.listeners.ChatOutputListener;
 
 public class CommandManager implements ChatOutputListener
 {
-	public ArrayList<Command> activeCommands = new ArrayList<Command>();
+	private final TreeMap<String, Command> commands =
+		new TreeMap<String, Command>(
+			new Comparator<String>()
+			{
+				@Override
+				public int compare(String o1, String o2)
+				{
+					return o1.compareToIgnoreCase(o2);
+				}
+			});
 	
 	@Override
 	public void onSentMessage(ChatOutputEvent event)
 	{
-		if(event.getMessage().startsWith("."))
+		String message = event.getMessage();
+		if(message.startsWith("."))
 		{
 			event.cancel();
-			String input = event.getMessage().substring(1);
-			String command = input.split(" ")[0];
-			for(Command eventCommand : Client.wurst.commandManager.activeCommands)
-				if(eventCommand.getName().equals(command))
+			String input = message.substring(1);
+			String commandName = input.split(" ")[0];
+			String[] args;
+			if(input.contains(" "))
+				args = input.substring(input.indexOf(" ") + 1).split(" ");
+			else
+				args = new String[0];
+			Command command = getCommandByName(commandName);
+			if(command != null)
+				try
 				{
-					try
-					{
-						String[] args =
-							input.contains(" ") ? input.substring(
-								input.indexOf(" ") + 1).split(" ")
-								: new String[0];
-						eventCommand.onEnable(input, args);
-					}catch(Exception e)
-					{
-						EventManager.handleException(e, eventCommand,
-							"executing", "Exact input: `" + event.getMessage()
-								+ "`");
-					}
-					return;
+					command.execute(args);
+				}catch(SyntaxError e)
+				{
+					if(e.getMessage() != null)
+						Client.wurst.chat.message("§4Syntax error:§r "
+							+ e.getMessage());
+					else
+						Client.wurst.chat.message("§4Syntax error!§r");
+					command.printSyntax();
+				}catch(Command.Error e)
+				{
+					Client.wurst.chat.error(e.getMessage());
+				}catch(Exception e)
+				{
+					EventManager.handleException(e, command, "executing",
+						"Exact input: `" + event.getMessage() + "`");
 				}
-			Client.wurst.chat.message("\"." + command
-				+ "\" is not a valid command.");
-			Client.wurst.chat
-				.message("Type \".help\" to see the command list.");
+			else
+				Client.wurst.chat.error("\"." + commandName
+					+ "\" is not a valid command.");
 		}
 	}
 	
 	public CommandManager()
 	{
-		activeCommands.add(new AddAlt());
-		activeCommands.add(new Annoy());
-		activeCommands.add(new Binds());
-		activeCommands.add(new Clear());
-		activeCommands.add(new Drop());
-		activeCommands.add(new Enchant());
-		activeCommands.add(new FastBreakMod());
-		activeCommands.add(new Features());
-		activeCommands.add(new Friends());
-		activeCommands.add(new GM());
-		activeCommands.add(new GoTo());
-		activeCommands.add(new Help());
-		activeCommands.add(new Invsee());
-		activeCommands.add(new IP());
-		activeCommands.add(new Nothing());
-		activeCommands.add(new NukerMod());
-		activeCommands.add(new Path());
-		activeCommands.add(new RV());
-		activeCommands.add(new Say());
-		activeCommands.add(new SearchMod());
-		activeCommands.add(new SpammerMod());
-		activeCommands.add(new Taco());
-		activeCommands.add(new ThrowMod());
-		activeCommands.add(new Toggle());
-		activeCommands.add(new TP());
-		activeCommands.add(new VClip());
-		activeCommands.add(new WMS());
-		activeCommands.add(new XRay());
+		addCommand(new AddAlt());
+		addCommand(new Annoy());
+		addCommand(new Binds());
+		addCommand(new Clear());
+		addCommand(new Drop());
+		addCommand(new Enchant());
+		addCommand(new FastBreakMod());
+		addCommand(new Features());
+		addCommand(new Friends());
+		addCommand(new GM());
+		addCommand(new GoTo());
+		addCommand(new Help());
+		addCommand(new Invsee());
+		addCommand(new IP());
+		addCommand(new Nothing());
+		addCommand(new NukerMod());
+		addCommand(new Path());
+		addCommand(new RV());
+		addCommand(new Say());
+		addCommand(new SearchMod());
+		addCommand(new SpammerMod());
+		addCommand(new Taco());
+		addCommand(new ThrowMod());
+		addCommand(new Toggle());
+		addCommand(new TP());
+		addCommand(new VClip());
+		addCommand(new WMS());
+		addCommand(new XRayMod());
 		EventManager.chatOutput.addListener(this);
+	}
+	
+	public Command getCommandByClass(Class<?> commandClass)
+	{
+		return commands.get(commandClass.getAnnotation(Info.class).name());
+	}
+	
+	public Command getCommandByName(String name)
+	{
+		return commands.get(name);
+	}
+	
+	public Collection<Command> getAllCommands()
+	{
+		return commands.values();
+	}
+	
+	public int countCommands()
+	{
+		return commands.size();
+	}
+	
+	private void addCommand(Command commmand)
+	{
+		commands.put(commmand.getName(), commmand);
 	}
 }

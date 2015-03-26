@@ -9,30 +9,27 @@ package tk.wurst_client.command.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.command.Command;
+import tk.wurst_client.command.Command.Info;
 
+@Info(help = "Enables/disables Wurst messages or sends a message.",
+	name = "wms",
+	syntax = {"(on | off)", "echo <message>"})
 public class WMS extends Command
 {
-	public WMS()
-	{
-		super("wms",
-			"Enables/disables Wurst messages or sends a message.",
-			"§o.wms§r (on | off)",
-			"    echo <message>");
-	}
-	
 	@Override
-	public void onEnable(String input, String[] args)
+	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
-		{
-			commandError();
-			return;
-		}
+			syntaxError();
 		if(args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off"))
 			Client.wurst.chat.setEnabled(args[0].equalsIgnoreCase("on"));
 		else if(args[0].equalsIgnoreCase("echo"))
-			Client.wurst.chat.cmd(input.substring(9));
-		else
-			commandError();
+		{
+			String message = args[1];
+			for(int i = 2; i < args.length; i++)
+				message += " " + args[i];
+			Client.wurst.chat.cmd(message);
+		}else
+			syntaxError();
 	}
 }
