@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.event.EventManager;
+import tk.wurst_client.event.listeners.UpdateListener;
 import tk.wurst_client.mod.mods.Spammer;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
@@ -30,53 +32,64 @@ public class SpamProcessor
 	
 	public static void runScript(final String filename, final String description)
 	{
-		new Thread(new Runnable()
+		EventManager.update.addListener(new UpdateListener()
 		{
 			@Override
-			public void run()
+			public void onUpdate()
 			{
-				File file =
-					new File(Client.wurst.fileManager.scriptsDir, filename
-						+ ".wspam");
-				try
+				new Thread(new Runnable()
 				{
-					long startTime = System.currentTimeMillis();
-					while(!canSpam())
+					@Override
+					public void run()
 					{
-						Thread.sleep(50);
-						if(System.currentTimeMillis() > startTime + 10000)
-							return;
+						File file =
+							new File(Client.wurst.fileManager.scriptsDir,
+								filename
+									+ ".wspam");
+						try
+						{
+							long startTime = System.currentTimeMillis();
+							while(!canSpam())
+							{
+								Thread.sleep(50);
+								if(System.currentTimeMillis() > startTime + 10000)
+									return;
+							}
+							if(!file.getParentFile().exists())
+								file.getParentFile().mkdirs();
+							if(!file.exists())
+							{
+								PrintWriter save =
+									new PrintWriter(new OutputStreamWriter(
+										new FileOutputStream(file), "UTF-8"));
+								save.println("<!--");
+								for(String line : description.split("\n"))
+									save.println("  " + line);
+								save.println("-->");
+								save.close();
+							}
+							runFile(file);
+						}catch(Exception e)
+						{
+							e.printStackTrace();
+							StringWriter tracewriter = new StringWriter();
+							e.printStackTrace(new PrintWriter(tracewriter));
+							String message =
+								"An error occurred while running "
+									+ file.getName()
+									+ ":\n"
+									+ e.getLocalizedMessage() + "\n"
+									+ tracewriter.toString();
+							JOptionPane.showMessageDialog(Minecraft
+								.getMinecraft()
+								.getFrame(),
+								message, "Error", JOptionPane.ERROR_MESSAGE);
+						}
 					}
-					if(!file.getParentFile().exists())
-						file.getParentFile().mkdirs();
-					if(!file.exists())
-					{
-						PrintWriter save =
-							new PrintWriter(new OutputStreamWriter(
-								new FileOutputStream(file), "UTF-8"));
-						save.println("<!--");
-						for(String line : description.split("\n"))
-							save.println("  " + line);
-						save.println("-->");
-						save.close();
-					}
-					runFile(file);
-				}catch(Exception e)
-				{
-					e.printStackTrace();
-					StringWriter tracewriter = new StringWriter();
-					e.printStackTrace(new PrintWriter(tracewriter));
-					String message =
-						"An error occurred while running " + file.getName()
-							+ ":\n"
-							+ e.getLocalizedMessage() + "\n"
-							+ tracewriter.toString();
-					JOptionPane.showMessageDialog(Minecraft.getMinecraft()
-						.getFrame(),
-						message, "Error", JOptionPane.ERROR_MESSAGE);
-				}
+				}).start();
+				EventManager.update.removeListener(this);
 			}
-		}).start();
+		});
 	}
 	
 	public static boolean runSpam(final String filename)
