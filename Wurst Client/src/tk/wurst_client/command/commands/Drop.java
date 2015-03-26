@@ -53,7 +53,7 @@ public class Drop extends Command implements UpdateListener
 		{
 			Item item = null;
 			while(item == null)
-				item = Item.getItemById(new Random().nextInt(32876));
+				item = Item.getItemById(new Random().nextInt(431));
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C10PacketCreativeInventoryAction(-1,
 					new ItemStack(item, 64)));
