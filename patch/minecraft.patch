@@ -1,6 +1,6 @@
-From 4041059d8386f176a56ac17301893e1b2a759d0f Mon Sep 17 00:00:00 2001
+From b26cf4329049ff90928f26c1eaffa29ad3f03d2c Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 25 Mar 2015 22:11:16 +0100
+Date: Thu, 26 Mar 2015 23:44:42 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -25,7 +25,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiCreateWorld.java   |    3 +
  src/net/minecraft/client/gui/GuiCustomizeSkin.java |    2 +
  .../client/gui/GuiCustomizeWorldScreen.java        |    5 +-
- src/net/minecraft/client/gui/GuiDisconnected.java  |   58 +-
+ src/net/minecraft/client/gui/GuiDisconnected.java  |  218 +-
  src/net/minecraft/client/gui/GuiEnchantment.java   |    2 +-
  src/net/minecraft/client/gui/GuiErrorScreen.java   |    2 +
  src/net/minecraft/client/gui/GuiFlatPresets.java   |    6 +-
@@ -174,7 +174,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/nbt/CompressedStreamTools.java   |    1 +
  src/net/minecraft/nbt/NBTTagCompound.java          |    3 +
  .../minecraft/network/NetHandlerPlayServer.java    |   17 +-
- src/net/minecraft/network/NetworkManager.java      |  951 ++-
+ src/net/minecraft/network/NetworkManager.java      |  943 ++-
  src/net/minecraft/network/NetworkSystem.java       |    5 +
  src/net/minecraft/network/PacketBuffer.java        |    6 +-
  src/net/minecraft/realms/RealmsConnect.java        |    2 +
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 25097 insertions(+), 23488 deletions(-)
+ 202 files changed, 25180 insertions(+), 23557 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -16045,38 +16045,141 @@ index 94b72e0..89e3d7f 100644
              var7.addVertexWithUV((double)(this.width / 2 + 90), 185.0D, 0.0D, 5.625D, 2.65625D);
              var7.addVertexWithUV((double)(this.width / 2 + 90), 100.0D, 0.0D, 5.625D, 0.0D);
 diff --git a/src/net/minecraft/client/gui/GuiDisconnected.java b/src/net/minecraft/client/gui/GuiDisconnected.java
-index 957deda..596dc3b 100644
+index 957deda..7910edb 100644
 --- a/src/net/minecraft/client/gui/GuiDisconnected.java
 +++ b/src/net/minecraft/client/gui/GuiDisconnected.java
-@@ -3,6 +3,10 @@ package net.minecraft.client.gui;
- import java.io.IOException;
- import java.util.Iterator;
- import java.util.List;
+@@ -1,70 +1,148 @@
+-package net.minecraft.client.gui;
+-
+-import java.io.IOException;
+-import java.util.Iterator;
+-import java.util.List;
+-import net.minecraft.client.resources.I18n;
+-import net.minecraft.util.IChatComponent;
+-
+-public class GuiDisconnected extends GuiScreen
+-{
+-    private String reason;
+-    private IChatComponent message;
+-    private List multilineMessage;
+-    private final GuiScreen parentScreen;
+-    private int field_175353_i;
+-    private static final String __OBFID = "CL_00000693";
+-
+-    public GuiDisconnected(GuiScreen p_i45020_1_, String p_i45020_2_, IChatComponent p_i45020_3_)
+-    {
+-        this.parentScreen = p_i45020_1_;
+-        this.reason = I18n.format(p_i45020_2_, new Object[0]);
+-        this.message = p_i45020_3_;
+-    }
+-
+-    /**
+-     * Fired when a key is typed (except F11 who toggle full screen). This is the equivalent of
+-     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
+-     */
+-    protected void keyTyped(char typedChar, int keyCode) throws IOException {}
+-
+-    /**
+-     * Adds the buttons (and other controls) to the screen in question.
+-     */
+-    public void initGui()
+-    {
+-        this.buttonList.clear();
+-        this.multilineMessage = this.fontRendererObj.listFormattedStringToWidth(this.message.getFormattedText(), this.width - 50);
+-        this.field_175353_i = this.multilineMessage.size() * this.fontRendererObj.FONT_HEIGHT;
+-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 2 + this.field_175353_i / 2 + this.fontRendererObj.FONT_HEIGHT, I18n.format("gui.toMenu", new Object[0])));
+-    }
+-
+-    protected void actionPerformed(GuiButton button) throws IOException
+-    {
+-        if (button.id == 0)
+-        {
+-            this.mc.displayGuiScreen(this.parentScreen);
+-        }
+-    }
+-
+-    /**
+-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
+-     */
+-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+-    {
+-        this.drawDefaultBackground();
+-        this.drawCenteredString(this.fontRendererObj, this.reason, this.width / 2, this.height / 2 - this.field_175353_i / 2 - this.fontRendererObj.FONT_HEIGHT * 2, 11184810);
+-        int var4 = this.height / 2 - this.field_175353_i / 2;
+-
+-        if (this.multilineMessage != null)
+-        {
+-            for (Iterator var5 = this.multilineMessage.iterator(); var5.hasNext(); var4 += this.fontRendererObj.FONT_HEIGHT)
+-            {
+-                String var6 = (String)var5.next();
+-                this.drawCenteredString(this.fontRendererObj, var6, this.width / 2, var4, 16777215);
+-            }
+-        }
+-
+-        super.drawScreen(mouseX, mouseY, partialTicks);
+-    }
+-}
++package net.minecraft.client.gui;
++
++import java.io.IOException;
++import java.util.Iterator;
++import java.util.List;
 +
 +import tk.wurst_client.Client;
 +import net.minecraft.client.gui.GuiButton;
 +import net.minecraft.client.multiplayer.GuiConnecting;
- import net.minecraft.client.resources.I18n;
- import net.minecraft.util.IChatComponent;
- 
-@@ -13,6 +17,8 @@ public class GuiDisconnected extends GuiScreen
-     private List multilineMessage;
-     private final GuiScreen parentScreen;
-     private int field_175353_i;
++import net.minecraft.client.resources.I18n;
++import net.minecraft.util.IChatComponent;
++
++public class GuiDisconnected extends GuiScreen
++{
++    private String reason;
++    private IChatComponent message;
++    private List multilineMessage;
++    private final GuiScreen parentScreen;
++    private int field_175353_i;
 +    //TODO: Client
 +	private int autoReconnectTimer;
-     private static final String __OBFID = "CL_00000693";
- 
-     public GuiDisconnected(GuiScreen p_i45020_1_, String p_i45020_2_, IChatComponent p_i45020_3_)
-@@ -37,13 +43,63 @@ public class GuiDisconnected extends GuiScreen
-         this.multilineMessage = this.fontRendererObj.listFormattedStringToWidth(this.message.getFormattedText(), this.width - 50);
-         this.field_175353_i = this.multilineMessage.size() * this.fontRendererObj.FONT_HEIGHT;
-         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 2 + this.field_175353_i / 2 + this.fontRendererObj.FONT_HEIGHT, I18n.format("gui.toMenu", new Object[0])));
-+        //TODO: Client
-+        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 144 + 12, "Reconnect"));
-+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 168 + 12, "AutoReconnect"));
-+        if(Client.wurst.options.autoReconnect)
-+        	this.autoReconnectTimer = 100;
++    private static final String __OBFID = "CL_00000693";
++
++    public GuiDisconnected(GuiScreen p_i45020_1_, String p_i45020_2_, IChatComponent p_i45020_3_)
++    {
++        this.parentScreen = p_i45020_1_;
++        this.reason = I18n.format(p_i45020_2_, new Object[0]);
++        this.message = p_i45020_3_;
++    }
++
++    /**
++     * Fired when a key is typed (except F11 who toggle full screen). This is the equivalent of
++     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
++     */
++    protected void keyTyped(char typedChar, int keyCode) throws IOException {}
++
++    /**
++     * Adds the buttons (and other controls) to the screen in question.
++     */
++    public void initGui()
++    {
++        this.buttonList.clear();
++        this.multilineMessage = this.fontRendererObj.listFormattedStringToWidth(this.message.getFormattedText(), this.width - 50);
++        this.field_175353_i = this.multilineMessage.size() * this.fontRendererObj.FONT_HEIGHT;
++        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 2 + this.field_175353_i / 2 + this.fontRendererObj.FONT_HEIGHT, I18n.format("gui.toMenu", new Object[0])));
++        
++		// TODO: Client
++		this.buttonList.add(new GuiButton(1, this.width / 2 - 100,
++			this.height / 4 + 144 + 12, "Reconnect"));
++		this.buttonList.add(new GuiButton(2, this.width / 2 - 100,
++			this.height / 4 + 168 + 12, "AutoReconnect"));
++		if(message.getUnformattedText().toLowerCase().contains("whitelist")
++			|| message.getUnformattedText().toLowerCase()
++				.contains("white-list"))
++			if(parentScreen instanceof GuiMultiplayer
++				&& ((GuiMultiplayer)parentScreen).serverListSelector
++					.getSelectedServer() != -1)
++				this.buttonList.add(new GuiButton(3, this.width / 2 - 100,
++					this.height / 4 + 192 + 12, "§4Delete Server§r"));
++		if(Client.wurst.options.autoReconnect)
++			this.autoReconnectTimer = 100;
 +    }
 +
 +    //TODO: Client
@@ -16106,13 +16209,12 @@ index 957deda..596dc3b 100644
 +        {
 +        	((GuiButton)this.buttonList.get(2)).displayString = "AutoReconnect";
 +        }
-     }
- 
-     protected void actionPerformed(GuiButton button) throws IOException
-     {
-         if (button.id == 0)
-         {
--            this.mc.displayGuiScreen(this.parentScreen);
++    }
++
++    protected void actionPerformed(GuiButton button) throws IOException
++    {
++        if (button.id == 0)
++        {
 +            this.mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
 +          //TODO: Client
 +        }else if (button.id == 1)
@@ -16130,9 +16232,41 @@ index 957deda..596dc3b 100644
 +        	Client.wurst.fileManager.saveOptions();
 +        	if(Client.wurst.options.autoReconnect)
 +        		this.autoReconnectTimer = 100;
-         }
-     }
- 
++        }else if(button.id == 3)
++		{
++			GuiMultiplayer servers = (GuiMultiplayer)parentScreen;
++			servers.savedServerList
++				.removeServerData(servers.serverListSelector
++					.getSelectedServer());
++			servers.savedServerList.saveServerList();
++			servers.serverListSelector.setSelectedServer(-1);
++			servers.serverListSelector
++				.func_148195_a(servers.savedServerList);
++			mc.displayGuiScreen(servers);
++		}
++    }
++
++    /**
++     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
++     */
++    public void drawScreen(int mouseX, int mouseY, float partialTicks)
++    {
++        this.drawDefaultBackground();
++        this.drawCenteredString(this.fontRendererObj, this.reason, this.width / 2, this.height / 2 - this.field_175353_i / 2 - this.fontRendererObj.FONT_HEIGHT * 2, 11184810);
++        int var4 = this.height / 2 - this.field_175353_i / 2;
++
++        if (this.multilineMessage != null)
++        {
++            for (Iterator var5 = this.multilineMessage.iterator(); var5.hasNext(); var4 += this.fontRendererObj.FONT_HEIGHT)
++            {
++                String var6 = (String)var5.next();
++                this.drawCenteredString(this.fontRendererObj, var6, this.width / 2, var4, 16777215);
++            }
++        }
++
++        super.drawScreen(mouseX, mouseY, partialTicks);
++    }
++}
 diff --git a/src/net/minecraft/client/gui/GuiEnchantment.java b/src/net/minecraft/client/gui/GuiEnchantment.java
 index f1f80fa..f2607b0 100644
 --- a/src/net/minecraft/client/gui/GuiEnchantment.java
@@ -50867,10 +51001,10 @@ index 38b9ecd..f64dc7e 100644
              this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);
          }
 diff --git a/src/net/minecraft/network/NetworkManager.java b/src/net/minecraft/network/NetworkManager.java
-index f05dadf..a538895 100644
+index f05dadf..af6fe01 100644
 --- a/src/net/minecraft/network/NetworkManager.java
 +++ b/src/net/minecraft/network/NetworkManager.java
-@@ -1,479 +1,472 @@
+@@ -1,479 +1,464 @@
 -package net.minecraft.network;
 -
 -import com.google.common.collect.Queues;
@@ -51479,23 +51613,15 @@ index f05dadf..a538895 100644
 +	{
 +		logger.debug("Disconnecting " + getRemoteAddress(), p_exceptionCaught_2_);
 +
-+		/*
-+		 * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
-+		 *
-+		 * This Source Code Form is subject to the terms of the Mozilla Public
-+		 * License, v. 2.0. If a copy of the MPL was not distributed with this
-+		 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
-+		 */
-+		{
-+			if(p_exceptionCaught_2_ instanceof NullPointerException)
-+				closeChannel(new ChatComponentTranslation(
-+					"disconnect.genericReason",
-+					"§c[§6Wurst§c]§r\n"
-+						+ "You are using a §lcracked§r alt on a §lpremium§r server."
-+						+ "\n§cDon't do this!"));
-+			else
-+				closeChannel(new ChatComponentTranslation("disconnect.genericReason", new Object[]{"Internal Exception: " + p_exceptionCaught_2_}));
-+		}
++		// TODO: Client
++		if(p_exceptionCaught_2_ instanceof NullPointerException)
++			closeChannel(new ChatComponentTranslation(
++				"disconnect.genericReason",
++				"§c[§6Wurst§c]§r\n"
++					+ "You are using a §lcracked§r alt on a §lpremium§r server."
++					+ "\n§cDon't do this!"));
++		else
++			closeChannel(new ChatComponentTranslation("disconnect.genericReason", new Object[]{"Internal Exception: " + p_exceptionCaught_2_}));
 +	}
 +
 +	protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_)
