@@ -17,8 +17,9 @@ import tk.wurst_client.mod.Mod.Category;
 import tk.wurst_client.mod.Mod.Info;
 
 @Info(category = Category.MISC,
-	description = "Blocks fire & lava damage.\n"
-		+ "It's not perfect, so watch out!",
+	description = "Blocks damage from catching on fire.\n"
+		+ "Does NOT block damage from standing inside of fire.\n"
+		+ "Requires a full hunger bar.",
 	name = "AntiFire")
 public class AntiFire extends Mod implements UpdateListener
 {
@@ -40,8 +41,8 @@ public class AntiFire extends Mod implements UpdateListener
 		}
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Minecraft.getMinecraft().thePlayer.onGround
-			&& !Minecraft.getMinecraft().thePlayer.isBurning())
-			for(int i = 0; i < 1000; i++)
+			&& Minecraft.getMinecraft().thePlayer.isBurning())
+			for(int i = 0; i < 100; i++)
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C03PacketPlayer());
 	}
