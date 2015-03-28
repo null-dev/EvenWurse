@@ -135,8 +135,8 @@ public class EntityUtils
 			throw new IllegalArgumentException("Unknown target mode selected: "
 				+ Client.wurst.options.targetMode);
 		if(ignoreFriends && o instanceof EntityPlayer)
-				if(Client.wurst.friends.contains(((EntityPlayer)o).getName()))
-					condition = false;
+			if(Client.wurst.friends.contains(((EntityPlayer)o).getName()))
+				condition = false;
 		return condition;
 	}
 	
@@ -147,9 +147,12 @@ public class EntityUtils
 			if(isCorrectEntity(o, ignoreFriends))
 			{
 				EntityLivingBase en = (EntityLivingBase)o;
-				if(!(o instanceof EntityPlayerSP) && !en.isDead
+				if(!(o instanceof EntityPlayerSP)
+					&& !en.isDead
 					&& en.getHealth() > 0
-					&& Minecraft.getMinecraft().thePlayer.canEntityBeSeen(en))
+					&& Minecraft.getMinecraft().thePlayer.canEntityBeSeen(en)
+					&& !en.getName().equals(
+						Minecraft.getMinecraft().thePlayer.getName()))
 					if(closestEntity == null
 						|| Minecraft.getMinecraft().thePlayer
 							.getDistanceToEntity(en) < Minecraft.getMinecraft().thePlayer
@@ -172,6 +175,8 @@ public class EntityUtils
 					&& !en.isDead
 					&& en.getHealth() > 0
 					&& Minecraft.getMinecraft().thePlayer.canEntityBeSeen(en)
+					&& !en.getName().equals(
+						Minecraft.getMinecraft().thePlayer.getName())
 					&& Minecraft.getMinecraft().thePlayer
 						.getDistanceToEntity(en) <= range)
 					closeEntities.add(en);
