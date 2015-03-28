@@ -22,6 +22,15 @@ public class WurstBot implements Runnable
 		try
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println();
+			System.out.println("           +++++++++++++++++++++++++++++++++++++++++++++++           ");
+			System.out.println("       +++#++++##++++#+#+++++++#++######+++++######+#######+++       ");
+			System.out.println("     +++++#++++##++++#+#+++++++#++#+++++##++#++++++++++#++++++++     ");
+			System.out.println("    +++++++#++#++#++#++#+++++++#++#######++++######++++#+++++++++    ");
+			System.out.println("     ++++++#++#++#++#+++#+++++#+++#+++##+++++++++++#+++#++++++++     ");
+			System.out.println("       +++++##++++##+++++#####++++#+++++##+++######++++#++++++       ");
+			System.out.println("           +++++++++++++++++++++++++++++++++++++++++++++++           ");
+			System.out.println();
 			System.out.println("Starting WurstBot v" + Client.wurst.CLIENT_VERSION);
 			while(true)
 			{
