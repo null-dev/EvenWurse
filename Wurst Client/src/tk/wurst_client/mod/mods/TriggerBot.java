@@ -45,7 +45,8 @@ public class TriggerBot extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(Minecraft.getMinecraft().objectMouseOver != null
-			&& Minecraft.getMinecraft().objectMouseOver.typeOfHit == MovingObjectType.ENTITY)
+			&& Minecraft.getMinecraft().objectMouseOver.typeOfHit == MovingObjectType.ENTITY
+			&& Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase)
 		{
 			updateMS();
 			boolean yesCheatMode =
