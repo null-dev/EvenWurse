@@ -1,6 +1,6 @@
-From b26cf4329049ff90928f26c1eaffa29ad3f03d2c Mon Sep 17 00:00:00 2001
+From 95c3ab311c2785a1168e428350d89c7c33691f2f Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 26 Mar 2015 23:44:42 +0100
+Date: Sat, 28 Mar 2015 16:46:44 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6905 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6836 ++++++++++----------
  .../client/entity/AbstractClientPlayer.java        |  267 +-
  .../minecraft/client/entity/EntityPlayerSP.java    | 1766 ++---
  src/net/minecraft/client/gui/FontRenderer.java     | 1994 +++---
@@ -157,7 +157,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/entity/boss/EntityDragon.java    |    2 +-
  .../minecraft/entity/item/EntityArmorStand.java    |    2 +-
  src/net/minecraft/entity/item/EntityXPOrb.java     |    2 +-
- src/net/minecraft/entity/player/EntityPlayer.java  | 5073 +++++++-------
+ src/net/minecraft/entity/player/EntityPlayer.java  | 5073 +++++++--------
  .../minecraft/entity/player/EntityPlayerMP.java    |   12 +-
  .../minecraft/entity/player/InventoryPlayer.java   |    1 +
  .../minecraft/entity/projectile/EntityArrow.java   |    2 +-
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 25180 insertions(+), 23557 deletions(-)
+ 202 files changed, 25111 insertions(+), 23557 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -4602,10 +4602,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..fa44034 100644
+index f503b64..9b01607 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3599 @@
+@@ -1,3306 +1,3530 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -7941,17 +7941,7 @@ index f503b64..fa44034 100644
 +import java.nio.ByteOrder;
 +import java.text.DecimalFormat;
 +import java.text.SimpleDateFormat;
-+import java.util.ArrayList;
-+import java.util.Collections;
-+import java.util.Date;
-+import java.util.HashMap;
-+import java.util.HashSet;
-+import java.util.Iterator;
-+import java.util.List;
-+import java.util.Map;
-+import java.util.Queue;
-+import java.util.UUID;
-+import java.util.Map.Entry;
++import java.util.*;
 +import java.util.concurrent.Callable;
 +import java.util.concurrent.Executors;
 +import java.util.concurrent.FutureTask;
@@ -7964,20 +7954,7 @@ index f503b64..fa44034 100644
 +import net.minecraft.client.audio.MusicTicker;
 +import net.minecraft.client.audio.SoundHandler;
 +import net.minecraft.client.entity.EntityPlayerSP;
-+import net.minecraft.client.gui.FontRenderer;
-+import net.minecraft.client.gui.GuiChat;
-+import net.minecraft.client.gui.GuiControls;
-+import net.minecraft.client.gui.GuiGameOver;
-+import net.minecraft.client.gui.GuiIngame;
-+import net.minecraft.client.gui.GuiIngameMenu;
-+import net.minecraft.client.gui.GuiMainMenu;
-+import net.minecraft.client.gui.GuiMemoryErrorScreen;
-+import net.minecraft.client.gui.GuiScreen;
-+import net.minecraft.client.gui.GuiSleepMP;
-+import net.minecraft.client.gui.GuiWinGame;
-+import net.minecraft.client.gui.GuiYesNo;
-+import net.minecraft.client.gui.GuiYesNoCallback;
-+import net.minecraft.client.gui.ScaledResolution;
++import net.minecraft.client.gui.*;
 +import net.minecraft.client.gui.achievement.GuiAchievement;
 +import net.minecraft.client.gui.inventory.GuiInventory;
 +import net.minecraft.client.gui.stream.GuiStreamUnavailable;
@@ -7989,42 +7966,15 @@ index f503b64..fa44034 100644
 +import net.minecraft.client.network.NetHandlerLoginClient;
 +import net.minecraft.client.network.NetHandlerPlayClient;
 +import net.minecraft.client.particle.EffectRenderer;
-+import net.minecraft.client.renderer.BlockRendererDispatcher;
-+import net.minecraft.client.renderer.EntityRenderer;
-+import net.minecraft.client.renderer.GlStateManager;
-+import net.minecraft.client.renderer.ItemRenderer;
-+import net.minecraft.client.renderer.OpenGlHelper;
-+import net.minecraft.client.renderer.RenderGlobal;
-+import net.minecraft.client.renderer.Tessellator;
-+import net.minecraft.client.renderer.WorldRenderer;
++import net.minecraft.client.renderer.*;
 +import net.minecraft.client.renderer.chunk.RenderChunk;
 +import net.minecraft.client.renderer.entity.RenderItem;
 +import net.minecraft.client.renderer.entity.RenderManager;
 +import net.minecraft.client.renderer.texture.DynamicTexture;
 +import net.minecraft.client.renderer.texture.TextureManager;
 +import net.minecraft.client.renderer.texture.TextureMap;
-+import net.minecraft.client.resources.DefaultResourcePack;
-+import net.minecraft.client.resources.FoliageColorReloadListener;
-+import net.minecraft.client.resources.GrassColorReloadListener;
-+import net.minecraft.client.resources.I18n;
-+import net.minecraft.client.resources.IReloadableResourceManager;
-+import net.minecraft.client.resources.IResourceManager;
-+import net.minecraft.client.resources.LanguageManager;
-+import net.minecraft.client.resources.ResourceIndex;
-+import net.minecraft.client.resources.ResourcePackRepository;
-+import net.minecraft.client.resources.SimpleReloadableResourceManager;
-+import net.minecraft.client.resources.SkinManager;
-+import net.minecraft.client.resources.data.AnimationMetadataSection;
-+import net.minecraft.client.resources.data.AnimationMetadataSectionSerializer;
-+import net.minecraft.client.resources.data.FontMetadataSection;
-+import net.minecraft.client.resources.data.FontMetadataSectionSerializer;
-+import net.minecraft.client.resources.data.IMetadataSerializer;
-+import net.minecraft.client.resources.data.LanguageMetadataSection;
-+import net.minecraft.client.resources.data.LanguageMetadataSectionSerializer;
-+import net.minecraft.client.resources.data.PackMetadataSection;
-+import net.minecraft.client.resources.data.PackMetadataSectionSerializer;
-+import net.minecraft.client.resources.data.TextureMetadataSection;
-+import net.minecraft.client.resources.data.TextureMetadataSectionSerializer;
++import net.minecraft.client.resources.*;
++import net.minecraft.client.resources.data.*;
 +import net.minecraft.client.resources.model.ModelManager;
 +import net.minecraft.client.settings.GameSettings;
 +import net.minecraft.client.settings.KeyBinding;
@@ -8067,18 +8017,7 @@ index f503b64..fa44034 100644
 +import net.minecraft.stats.IStatStringFormat;
 +import net.minecraft.stats.StatFileWriter;
 +import net.minecraft.tileentity.TileEntity;
-+import net.minecraft.util.BlockPos;
-+import net.minecraft.util.ChatComponentText;
-+import net.minecraft.util.IThreadListener;
-+import net.minecraft.util.MathHelper;
-+import net.minecraft.util.MinecraftError;
-+import net.minecraft.util.MouseHelper;
-+import net.minecraft.util.MovementInputFromOptions;
-+import net.minecraft.util.MovingObjectPosition;
-+import net.minecraft.util.ReportedException;
-+import net.minecraft.util.ResourceLocation;
-+import net.minecraft.util.ScreenShotHelper;
-+import net.minecraft.util.Session;
++import net.minecraft.util.*;
 +import net.minecraft.util.Timer;
 +import net.minecraft.util.Util;
 +import net.minecraft.world.EnumDifficulty;
@@ -8098,21 +8037,13 @@ index f503b64..fa44034 100644
 +import org.lwjgl.Sys;
 +import org.lwjgl.input.Keyboard;
 +import org.lwjgl.input.Mouse;
-+import org.lwjgl.opengl.ContextCapabilities;
-+import org.lwjgl.opengl.Display;
-+import org.lwjgl.opengl.DisplayMode;
-+import org.lwjgl.opengl.GL11;
-+import org.lwjgl.opengl.GL20;
-+import org.lwjgl.opengl.GLContext;
-+import org.lwjgl.opengl.OpenGLException;
-+import org.lwjgl.opengl.PixelFormat;
++import org.lwjgl.opengl.*;
 +import org.lwjgl.util.glu.GLU;
 +
 +import tk.wurst_client.Client;
 +import tk.wurst_client.event.EventManager;
 +import tk.wurst_client.event.events.LeftClickEvent;
 +import tk.wurst_client.font.Fonts;
-+import tk.wurst_client.mod.Mod;
 +import tk.wurst_client.spam.SpamProcessor;
 +import tk.wurst_client.utils.MiscUtils;
 +
@@ -8648,9 +8579,9 @@ index f503b64..fa44034 100644
 +                icons.add(ImageIO.read(var2));
 +                icons.add(ImageIO.read(var3));
 +                frame.setIconImages(icons);
-+            }catch (IOException var8)
++            }catch(Exception var8)
 +            {
-+                logger.error("Couldn\'t set icon", var8);
++                logger.error("Couldn't set icon", var8);
 +            }finally
 +            {
 +                IOUtils.closeQuietly(var2);
