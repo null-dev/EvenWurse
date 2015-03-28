@@ -74,7 +74,9 @@ public class GuiError extends GuiScreen
 			return;
 		StringWriter stacktraceWriter = new StringWriter();
 		e.printStackTrace(new PrintWriter(stacktraceWriter));
-		final String trace = stacktraceWriter.toString();
+		String trace = stacktraceWriter.toString();
+		final String report = generateReport(trace);
+		System.err.println(report);
 		switch(button.id)
 		{
 			case 0:
@@ -108,15 +110,15 @@ public class GuiError extends GuiScreen
 					{
 						String title =
 							URLEncoder.encode(getReportDescription(), "UTF-8");
-						String report =
-							URLEncoder.encode(generateReport(trace), "UTF-8");
+						String encodedReport =
+							URLEncoder.encode(report, "UTF-8");
 						Client.wurst.chat
 							.message("Generated a new bug report.");
 						Client.wurst.chat
 							.message("Press the green submit button to report it.");
 						MiscUtils
 							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues/new?title="
-								+ title + "&body=" + report);
+								+ title + "&body=" + encodedReport);
 					}
 				}catch(Exception e)
 				{
@@ -133,7 +135,6 @@ public class GuiError extends GuiScreen
 					@Override
 					public void run()
 					{
-						String report = generateReport(trace);
 						switch(JOptionPane.showOptionDialog(Minecraft
 							.getMinecraft().getFrame(), report, "Stacktrace",
 							JOptionPane.DEFAULT_OPTION,
