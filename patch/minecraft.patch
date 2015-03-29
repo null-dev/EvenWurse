@@ -1,6 +1,6 @@
-From e5eac5703df7be734b2914bb412725b2b8d019d6 Mon Sep 17 00:00:00 2001
+From e6428542e35a5e4c998d0383d43bb5b6845fc13a Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sun, 29 Mar 2015 21:50:21 +0200
+Date: Sun, 29 Mar 2015 23:46:50 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -4602,7 +4602,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..1776434 100644
+index f503b64..3a5357c 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,3306 +1,3534 @@
@@ -8494,7 +8494,7 @@ index f503b64..1776434 100644
 +
 +        this.renderGlobal.func_174966_b();
 +        if(WurstBot.isEnabled())
-+        	new Thread(new WurstBot()).start();
++        	WurstBot.getBot().start();
 +    }
 +
 +    private void func_175608_ak()
