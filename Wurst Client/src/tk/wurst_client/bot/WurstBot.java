@@ -11,7 +11,8 @@ import tk.wurst_client.bot.commands.CommandManager;
 public class WurstBot implements Runnable
 {
 	private static boolean enabled = false;
-	private CommandManager commandManager;
+	private static WurstBot wurstBot;
+	private final CommandManager commandManager;
 	
 	public WurstBot()
 	{
@@ -20,8 +21,9 @@ public class WurstBot implements Runnable
 	
 	public static void main(String[] args)
 	{
-		enabled = true;
 		System.out.println("Starting Wurst-Bot...");
+		enabled = true;
+		wurstBot = new WurstBot();
 		Main.main(new String[]{"--version", "mcp", "--accessToken", "0",
 			"--assetsDir", "assets", "--assetIndex", "1.8", "--userProperties",
 			"{}"});
@@ -93,5 +95,15 @@ public class WurstBot implements Runnable
 	public static boolean isEnabled()
 	{
 		return enabled;
+	}
+
+	public static WurstBot getBot()
+	{
+		return wurstBot;
+	}
+
+	public CommandManager getCommandManager()
+	{
+		return commandManager;
 	}
 }
