@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.TreeMap;
 
 import tk.wurst_client.bot.Command.Info;
+import tk.wurst_client.bot.commands.*;
 
 public class CommandManager
 {
@@ -28,7 +29,7 @@ public class CommandManager
 	
 	public CommandManager()
 	{
-		//TODO: Add commands
+		addCommand(new StopCmd());
 	}
 	
 	public Command getCommandByClass(Class<?> commandClass)
