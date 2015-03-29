@@ -5,14 +5,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package tk.wurst_client.bot;
+package tk.wurst_client.bot.commands;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-import tk.wurst_client.bot.Command.Info;
-import tk.wurst_client.bot.commands.*;
+import tk.wurst_client.bot.commands.Command.Info;
 
 public class CommandManager
 {

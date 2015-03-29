@@ -8,7 +8,6 @@
 package tk.wurst_client.bot.commands;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.bot.Command;
 
 @Command.Info(help = "Stops Wurst-Bot.", name = "stop", syntax = {})
 public class StopCmd extends Command

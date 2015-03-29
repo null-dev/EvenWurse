@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 
 import net.minecraft.client.main.Main;
 import tk.wurst_client.Client;
+import tk.wurst_client.bot.commands.Command;
+import tk.wurst_client.bot.commands.CommandManager;
 
 public class WurstBot implements Runnable
 {
