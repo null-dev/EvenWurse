@@ -75,12 +75,17 @@ public abstract class Command
 	
 	public void printSyntax()
 	{
-		String output = "§o." + name + "§r";
+		System.out.println("Syntax:");
+		String output = name;
 		if(syntax.length != 0)
 		{
-			output += " " + syntax[0];
+			output += " ";
+			String spaces = "";
+			while(spaces.length() < output.length())
+				spaces += " ";
+			output += syntax[0];
 			for(int i = 1; i < syntax.length; i++)
-				output += "\n    " + syntax[i];
+				output += "\n" + spaces + syntax[i];
 		}
 		for(String line : output.split("\n"))
 			System.out.println(line);

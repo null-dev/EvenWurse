@@ -28,6 +28,7 @@ public class CommandManager
 	
 	public CommandManager()
 	{
+		addCommand(new HelpCmd());
 		addCommand(new StopCmd());
 	}
 	

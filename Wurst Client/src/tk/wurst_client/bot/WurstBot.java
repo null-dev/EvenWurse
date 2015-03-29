@@ -68,6 +68,7 @@ public class WurstBot
 			.println("           +++++++++++++++++++++++++++++++++++++++++++++++           ");
 		System.out.println();
 		System.out.println("Wurst-Bot v" + Client.wurst.CLIENT_VERSION);
+		System.out.println("Type \"help\" for a list of commands.");
 		while(true)
 		{
 			String input = br.readLine();
