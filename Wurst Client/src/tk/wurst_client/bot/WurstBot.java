@@ -19,7 +19,7 @@ public class WurstBot implements Runnable
 	public static void main(String[] args)
 	{
 		enabled = true;
-		new Thread(new WurstBot()).start();
+		System.out.println("Starting Wurst-Bot...");
 		Main.main(new String[]{"--version", "mcp", "--accessToken", "0",
 			"--assetsDir", "assets", "--assetIndex", "1.8", "--userProperties",
 			"{}"});
@@ -32,7 +32,6 @@ public class WurstBot implements Runnable
 		{
 			BufferedReader br =
 				new BufferedReader(new InputStreamReader(System.in));
-			
 			System.out.println();
 			System.out
 				.println("           +++++++++++++++++++++++++++++++++++++++++++++++           ");
@@ -49,8 +48,7 @@ public class WurstBot implements Runnable
 			System.out
 				.println("           +++++++++++++++++++++++++++++++++++++++++++++++           ");
 			System.out.println();
-			System.out.println("Starting Wurst-Bot v"
-				+ Client.wurst.CLIENT_VERSION);
+			System.out.println("Wurst-Bot v" + Client.wurst.CLIENT_VERSION);
 			while(true)
 			{
 				String input = br.readLine();

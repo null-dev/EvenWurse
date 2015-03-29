@@ -1,6 +1,6 @@
-From 997554076793432bc9944d0b133099d48e095c2f Mon Sep 17 00:00:00 2001
+From e5eac5703df7be734b2914bb412725b2b8d019d6 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sun, 29 Mar 2015 00:20:02 +0100
+Date: Sun, 29 Mar 2015 21:50:21 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6838 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6840 ++++++++++----------
  .../client/entity/AbstractClientPlayer.java        |  267 +-
  .../minecraft/client/entity/EntityPlayerSP.java    | 1766 ++---
  src/net/minecraft/client/gui/FontRenderer.java     | 1994 +++---
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 25113 insertions(+), 23557 deletions(-)
+ 202 files changed, 25115 insertions(+), 23557 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -4602,10 +4602,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..a89b741 100644
+index f503b64..1776434 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3532 @@
+@@ -1,3306 +1,3534 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -8493,6 +8493,8 @@ index f503b64..a89b741 100644
 +        }
 +
 +        this.renderGlobal.func_174966_b();
++        if(WurstBot.isEnabled())
++        	new Thread(new WurstBot()).start();
 +    }
 +
 +    private void func_175608_ak()
