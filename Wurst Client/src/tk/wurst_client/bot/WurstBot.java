@@ -49,7 +49,7 @@ public class WurstBot implements Runnable
 			System.out
 				.println("           +++++++++++++++++++++++++++++++++++++++++++++++           ");
 			System.out.println();
-			System.out.println("Starting WurstBot v"
+			System.out.println("Starting Wurst-Bot v"
 				+ Client.wurst.CLIENT_VERSION);
 			while(true)
 			{
