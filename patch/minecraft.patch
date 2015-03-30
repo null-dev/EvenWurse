@@ -1,6 +1,6 @@
-From e6428542e35a5e4c998d0383d43bb5b6845fc13a Mon Sep 17 00:00:00 2001
+From 9de91b5a7243ba037637e9e5464dbb4473e9f8d2 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sun, 29 Mar 2015 23:46:50 +0200
+Date: Mon, 30 Mar 2015 14:51:46 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -4602,7 +4602,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..3a5357c 100644
+index f503b64..96ea595 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,3306 +1,3534 @@
@@ -8561,7 +8561,7 @@ index f503b64..3a5357c 100644
 +        }else
 +        {
 +            Display.setDisplayMode(new DisplayMode(this.displayWidth, this.displayHeight));
-+            if(!isAutoMaximize())
++            if(!isAutoMaximize() && !WurstBot.isEnabled())
 +            	return;
 +        	frame = new JFrame("Minecraft 1.8");
 +        	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
