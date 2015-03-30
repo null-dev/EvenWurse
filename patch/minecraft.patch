@@ -1,6 +1,6 @@
-From 9de91b5a7243ba037637e9e5464dbb4473e9f8d2 Mon Sep 17 00:00:00 2001
+From 39584baefe3fe925ef3b90483146cb79ed43885b Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Mon, 30 Mar 2015 14:51:46 +0200
+Date: Mon, 30 Mar 2015 16:11:31 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -25,7 +25,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiCreateWorld.java   |    3 +
  src/net/minecraft/client/gui/GuiCustomizeSkin.java |    2 +
  .../client/gui/GuiCustomizeWorldScreen.java        |    5 +-
- src/net/minecraft/client/gui/GuiDisconnected.java  |  218 +-
+ src/net/minecraft/client/gui/GuiDisconnected.java  |  224 +-
  src/net/minecraft/client/gui/GuiEnchantment.java   |    2 +-
  src/net/minecraft/client/gui/GuiErrorScreen.java   |    2 +
  src/net/minecraft/client/gui/GuiFlatPresets.java   |    6 +-
@@ -206,7 +206,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 202 files changed, 25115 insertions(+), 23557 deletions(-)
+ 202 files changed, 25121 insertions(+), 23557 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -15980,10 +15980,10 @@ index 94b72e0..89e3d7f 100644
              var7.addVertexWithUV((double)(this.width / 2 + 90), 185.0D, 0.0D, 5.625D, 2.65625D);
              var7.addVertexWithUV((double)(this.width / 2 + 90), 100.0D, 0.0D, 5.625D, 0.0D);
 diff --git a/src/net/minecraft/client/gui/GuiDisconnected.java b/src/net/minecraft/client/gui/GuiDisconnected.java
-index 957deda..7910edb 100644
+index 957deda..b33e28d 100644
 --- a/src/net/minecraft/client/gui/GuiDisconnected.java
 +++ b/src/net/minecraft/client/gui/GuiDisconnected.java
-@@ -1,70 +1,148 @@
+@@ -1,70 +1,154 @@
 -package net.minecraft.client.gui;
 -
 -import java.io.IOException;
@@ -16060,6 +16060,8 @@ index 957deda..7910edb 100644
 +import java.util.Iterator;
 +import java.util.List;
 +
++import org.apache.logging.log4j.LogManager;
++
 +import tk.wurst_client.Client;
 +import net.minecraft.client.gui.GuiButton;
 +import net.minecraft.client.multiplayer.GuiConnecting;
@@ -16078,11 +16080,15 @@ index 957deda..7910edb 100644
 +    private static final String __OBFID = "CL_00000693";
 +
 +    public GuiDisconnected(GuiScreen p_i45020_1_, String p_i45020_2_, IChatComponent p_i45020_3_)
-+    {
-+        this.parentScreen = p_i45020_1_;
-+        this.reason = I18n.format(p_i45020_2_, new Object[0]);
-+        this.message = p_i45020_3_;
-+    }
++	{
++		this.parentScreen = p_i45020_1_;
++		this.reason = I18n.format(p_i45020_2_, new Object[0]);
++		this.message = p_i45020_3_;
++		LogManager.getLogger().info(
++			"Disconnected.\n    Message: "
++				+ (message == null ? null : message.getUnformattedText())
++				+ "\n    Reason: " + reason);
++	}
 +
 +    /**
 +     * Fired when a key is typed (except F11 who toggle full screen). This is the equivalent of
