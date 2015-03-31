@@ -65,7 +65,8 @@ public class AutoEat extends Mod implements UpdateListener
 			@Override
 			public void onUpdate()
 			{
-				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+				if(!AutoEat.this.isEnabled()
+					|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 					|| Minecraft.getMinecraft().thePlayer.getFoodStats()
 						.getFoodLevel() >= 20)
 				{
@@ -82,8 +83,10 @@ public class AutoEat extends Mod implements UpdateListener
 				}
 				Minecraft.getMinecraft().thePlayer.inventory.currentItem =
 					bestSlot;
-				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
-					true;
+				Minecraft.getMinecraft().playerController.sendUseItem(
+					Minecraft.getMinecraft().thePlayer,
+					Minecraft.getMinecraft().theWorld, item);
+				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed  = true;
 			}
 			
 			private void stop()
