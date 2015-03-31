@@ -15,6 +15,8 @@ public class StopCmd extends Command
 	@Override
 	public void execute(String[] args) throws Error
 	{
+		if(args.length != 0)
+			syntaxError();
 		System.out.println("Stopping Wurst-Bot...");
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
 		{
