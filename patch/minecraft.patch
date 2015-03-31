@@ -1,6 +1,6 @@
-From 510c55362c3aab4bd20b7a62e1992e843b9e9d90 Mon Sep 17 00:00:00 2001
+From e856ba819e531733236d3df14f44e058b7f4b956 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Tue, 31 Mar 2015 00:15:16 +0200
+Date: Tue, 31 Mar 2015 16:20:43 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -12,7 +12,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/Minecraft.java            | 6840 ++++++++++----------
  src/net/minecraft/client/audio/SoundManager.java   | 1188 ++--
  .../client/entity/AbstractClientPlayer.java        |  267 +-
- .../minecraft/client/entity/EntityPlayerSP.java    | 1766 ++---
+ .../minecraft/client/entity/EntityPlayerSP.java    | 1768 ++---
  src/net/minecraft/client/gui/FontRenderer.java     | 1994 +++---
  src/net/minecraft/client/gui/Gui.java              |    8 +-
  src/net/minecraft/client/gui/GuiButton.java        |  252 +-
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 25877 insertions(+), 24299 deletions(-)
+ 203 files changed, 25879 insertions(+), 24299 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -12913,10 +12913,10 @@ index de9ca57..8ea196a 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..92cfecf 100644
+index eefe303..e4193e8 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
-@@ -1,863 +1,903 @@
+@@ -1,863 +1,905 @@
 -package net.minecraft.client.entity;
 -
 -import net.minecraft.client.Minecraft;
@@ -13784,6 +13784,7 @@ index eefe303..92cfecf 100644
 +
 +import tk.wurst_client.Client;
 +import tk.wurst_client.command.Command;
++import tk.wurst_client.command.CommandManager;
 +import tk.wurst_client.event.EventManager;
 +import tk.wurst_client.event.events.ChatOutputEvent;
 +import tk.wurst_client.event.events.UpdateEvent;
@@ -14071,6 +14072,7 @@ index eefe303..92cfecf 100644
 +    {
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_);
++      	Client.wurst.commandManager.onSentMessage(event);
 +      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;

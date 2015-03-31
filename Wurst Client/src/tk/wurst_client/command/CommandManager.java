@@ -103,7 +103,6 @@ public class CommandManager implements ChatOutputListener
 		addCommand(new VClip());
 		addCommand(new WMS());
 		addCommand(new XRayMod());
-		EventManager.chatOutput.addListener(this);
 	}
 	
 	public Command getCommandByClass(Class<?> commandClass)

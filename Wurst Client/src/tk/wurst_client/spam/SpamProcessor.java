@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
-import tk.wurst_client.event.events.ChatOutputEvent;
 import tk.wurst_client.mod.mods.Spammer;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
@@ -140,7 +139,8 @@ public class SpamProcessor
 			return;
 		for(int i = 0; i < spam.split("\n").length; i++)
 		{
-			Client.wurst.commandManager.onSentMessage(new ChatOutputEvent(spam.split("\n")[i]));
+			Minecraft.getMinecraft().thePlayer
+				.sendChatMessage(spam.split("\n")[i]);
 			Thread.sleep(Client.wurst.options.spamDelay);
 		}
 	}
