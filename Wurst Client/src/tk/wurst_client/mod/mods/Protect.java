@@ -122,4 +122,9 @@ public class Protect extends Mod implements UpdateListener
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;
 	}
+
+	public void setFriend(EntityLivingBase friend)
+	{
+		this.friend = friend;
+	}
 }
