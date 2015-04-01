@@ -87,4 +87,9 @@ public class Follow extends Mod implements UpdateListener
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;
 	}
+
+	public void setEntity(EntityLivingBase entity)
+	{
+		this.entity = entity;
+	}
 }
