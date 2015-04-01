@@ -56,7 +56,7 @@ public class Help extends Command
 				cmd.printHelp();
 				cmd.printSyntax();
 			}else
-				syntaxError();
+				error("Command \"" + args[0] + "\" could not be found.");
 		}
 	}
 }
