@@ -41,6 +41,7 @@ public class Regen extends Mod implements UpdateListener
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Minecraft.getMinecraft().thePlayer.getFoodStats().getFoodLevel() > 17
 			&& Minecraft.getMinecraft().thePlayer.getHealth() < 20
+			&& Minecraft.getMinecraft().thePlayer.getHealth() != 0
 			&& Minecraft.getMinecraft().thePlayer.onGround)
 			for(int i = 0; i < 1000; i++)
 				Minecraft.getMinecraft().thePlayer.sendQueue
