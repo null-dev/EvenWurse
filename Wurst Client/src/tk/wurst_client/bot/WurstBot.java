@@ -3,14 +3,10 @@ package tk.wurst_client.bot;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.main.Main;
 import tk.wurst_client.Client;
 import tk.wurst_client.bot.commands.Command;
 import tk.wurst_client.bot.commands.CommandManager;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.UpdateListener;
 
 public class WurstBot
 {
@@ -53,14 +49,6 @@ public class WurstBot
 	
 	private void run() throws Exception
 	{
-		EventManager.update.addListener(new UpdateListener()
-		{
-			@Override
-			public void onUpdate()
-			{
-				WurstBot.this.onUpdate();
-			}
-		});
 		BufferedReader br =
 			new BufferedReader(new InputStreamReader(System.in));
 		System.out.println();
@@ -114,13 +102,6 @@ public class WurstBot
 				System.err.println("\"" + commandName
 					+ "\" is not a valid command.");
 		}
-	}
-	
-	private void onUpdate()
-	{
-		if(Minecraft.getMinecraft().thePlayer.getHealth() <= 0
-			&& Minecraft.getMinecraft().currentScreen instanceof GuiIngameMenu)
-			Minecraft.getMinecraft().displayGuiScreen(null);
 	}
 	
 	public static boolean isEnabled()

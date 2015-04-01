@@ -1,6 +1,6 @@
-From e856ba819e531733236d3df14f44e058b7f4b956 Mon Sep 17 00:00:00 2001
+From 2ca9a281f91bf867a568d474799335aafc38b4e8 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Tue, 31 Mar 2015 16:20:43 +0200
+Date: Wed, 1 Apr 2015 02:32:29 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -158,7 +158,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/entity/boss/EntityDragon.java    |    2 +-
  .../minecraft/entity/item/EntityArmorStand.java    |    2 +-
  src/net/minecraft/entity/item/EntityXPOrb.java     |    2 +-
- src/net/minecraft/entity/player/EntityPlayer.java  | 5073 +++++++--------
+ src/net/minecraft/entity/player/EntityPlayer.java  | 5079 +++++++--------
  .../minecraft/entity/player/EntityPlayerMP.java    |   12 +-
  .../minecraft/entity/player/InventoryPlayer.java   |    1 +
  .../minecraft/entity/projectile/EntityArrow.java   |    2 +-
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 25879 insertions(+), 24299 deletions(-)
+ 203 files changed, 25885 insertions(+), 24299 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -46952,10 +46952,10 @@ index 9f8f79c..eab2d65 100644
              this.closestPlayer = null;
          }
 diff --git a/src/net/minecraft/entity/player/EntityPlayer.java b/src/net/minecraft/entity/player/EntityPlayer.java
-index 8a0a656..556841b 100644
+index 8a0a656..5fb757f 100644
 --- a/src/net/minecraft/entity/player/EntityPlayer.java
 +++ b/src/net/minecraft/entity/player/EntityPlayer.java
-@@ -1,2534 +1,2539 @@
+@@ -1,2534 +1,2545 @@
 -package net.minecraft.entity.player;
 -
 -import com.google.common.base.Charsets;
@@ -49498,12 +49498,14 @@ index 8a0a656..556841b 100644
 +import java.util.UUID;
 +
 +import tk.wurst_client.Client;
++import tk.wurst_client.bot.WurstBot;
 +import tk.wurst_client.mod.mods.AntiKnockback;
 +import net.minecraft.block.Block;
 +import net.minecraft.block.BlockBed;
 +import net.minecraft.block.BlockDirectional;
 +import net.minecraft.block.material.Material;
 +import net.minecraft.block.state.IBlockState;
++import net.minecraft.client.Minecraft;
 +import net.minecraft.command.server.CommandBlockLogic;
 +import net.minecraft.enchantment.EnchantmentHelper;
 +import net.minecraft.entity.Entity;
@@ -50209,6 +50211,10 @@ index 8a0a656..556841b 100644
 +     */
 +    public void onDeath(DamageSource cause)
 +    {
++    	//TODO: Client
++    	if(this.equals(Minecraft.getMinecraft().thePlayer) && WurstBot.isEnabled())
++			Minecraft.getMinecraft().displayGuiScreen(null);
++    	
 +        super.onDeath(cause);
 +        this.setSize(0.2F, 0.2F);
 +        this.setPosition(this.posX, this.posY, this.posZ);
