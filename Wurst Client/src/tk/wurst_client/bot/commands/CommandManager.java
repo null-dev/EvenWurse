@@ -34,6 +34,7 @@ public class CommandManager
 		addCommand(new JoinCmd());
 		addCommand(new LeaveCmd());
 		addCommand(new LoginCmd());
+		addCommand(new ProxyCmd());
 		addCommand(new StopCmd());
 	}
 	
