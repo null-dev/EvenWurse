@@ -222,8 +222,8 @@ public class FileManager
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
 					boolean enabled = jsonModule.get("enabled").getAsBoolean();
-					if(mod.isEnabled() != enabled)
-						mod.setEnabled(enabled);
+					if(enabled)
+						mod.enableOnStartup();
 				}
 			}
 		}catch(Exception e)

@@ -110,7 +110,30 @@ public class Mod
 					new GuiError(e, this, "disabling", ""));
 			}
 		Client.wurst.fileManager.saveMods();
-		Client.wurst.analytics.trackEvent("mod", name, (enabled ? "enable" : "disable"));
+		Client.wurst.analytics.trackEvent("mod", name, (enabled ? "enable"
+			: "disable"));
+	}
+	
+	public final void enableOnStartup()
+	{
+		enabled = true;
+		try
+		{
+			onToggle();
+		}catch(Exception e)
+		{
+			Minecraft.getMinecraft().displayGuiScreen(
+				new GuiError(e, this, "toggling", "Mod was toggled "
+					+ (enabled ? "on" : "off") + "."));
+		}
+		try
+		{
+			onEnable();
+		}catch(Exception e)
+		{
+			Minecraft.getMinecraft().displayGuiScreen(
+				new GuiError(e, this, "enabling", ""));
+		}
 	}
 	
 	public final void toggle()
