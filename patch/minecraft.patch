@@ -1,6 +1,6 @@
-From a4712ab24945ffba8a463ed2f926abab7c142255 Mon Sep 17 00:00:00 2001
+From 053f420fbd36373e2bc8deba61cf16ba45932128 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 2 Apr 2015 12:33:34 +0200
+Date: Thu, 2 Apr 2015 22:42:54 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -12,7 +12,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/Minecraft.java            | 6853 ++++++++++----------
  src/net/minecraft/client/audio/SoundManager.java   | 1188 ++--
  .../client/entity/AbstractClientPlayer.java        |  267 +-
- .../minecraft/client/entity/EntityPlayerSP.java    | 1768 ++---
+ .../minecraft/client/entity/EntityPlayerSP.java    | 1783 ++---
  src/net/minecraft/client/gui/FontRenderer.java     | 1994 +++---
  src/net/minecraft/client/gui/Gui.java              |    8 +-
  src/net/minecraft/client/gui/GuiButton.java        |  252 +-
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 25898 insertions(+), 24299 deletions(-)
+ 203 files changed, 25913 insertions(+), 24299 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -4603,7 +4603,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..9355b24 100644
+index f503b64..2cbe1fe 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,3306 +1,3547 @@
@@ -10042,7 +10042,7 @@ index f503b64..9355b24 100644
 +            			{
 +            				String eventCommand = Client.wurst.keybinds.get(Keyboard.getKeyName(Keyboard.getEventKey()));
 +            				if(eventCommand != null)
-+            					thePlayer.sendChatMessage(eventCommand);
++            					thePlayer.sendAutomaticChatMessage(eventCommand);
 +            			}
 +                    	
 +                        if (var1 == 1)
@@ -12926,10 +12926,10 @@ index de9ca57..8ea196a 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..e4193e8 100644
+index eefe303..2579b17 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
-@@ -1,863 +1,905 @@
+@@ -1,863 +1,920 @@
 -package net.minecraft.client.entity;
 -
 -import net.minecraft.client.Minecraft;
@@ -14084,13 +14084,28 @@ index eefe303..e4193e8 100644
 +    public void sendChatMessage(String p_71165_1_)
 +    {
 +        //TODO: Client
-+      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_);
++      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_, false);
 +      	Client.wurst.commandManager.onSentMessage(event);
 +      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;
 +      	
 +        this.sendQueue.addToSendQueue(new C01PacketChatMessage(p_71165_1_));
++    }
++
++    /**
++     * Sends a chat message from the player. Args: chatMessage
++     */
++    public void sendAutomaticChatMessage(String message)
++    {
++        //TODO: Client
++      	ChatOutputEvent event = new ChatOutputEvent(message, true);
++      	Client.wurst.commandManager.onSentMessage(event);
++      	EventManager.chatOutput.fireEvent(event);
++      	if(event.isCancelled())
++      		return;
++      	
++        this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
 +    }
 +
 +    /**

@@ -447,7 +447,7 @@ public class Spammer extends Mod
 									{
 										String message = spam.split("\n")[i];
 										Minecraft.getMinecraft().thePlayer
-											.sendChatMessage(message);
+											.sendAutomaticChatMessage(message);
 										Thread
 											.sleep(Client.wurst.options.spamDelay);
 									}
