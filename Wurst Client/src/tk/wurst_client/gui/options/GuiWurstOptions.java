@@ -26,10 +26,7 @@ public class GuiWurstOptions extends GuiScreen
 		"",
 		"Manage your friends by clicking them\n"
 			+ "with the middle mouse button.",
-		"Work in progress mods.\n"
-			+ "These mods are unstable and can cause\n"
-			+ "problems. Changing this option requires\n"
-			+ "a restart.",
+		"",
 		"How the mod list under the Wurst logo\n"
 			+ "should be displayed.\n"
 			+ "§nModes§r:\n"
