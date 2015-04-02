@@ -1,5 +1,7 @@
 package tk.wurst_client.analytics;
 
+import tk.wurst_client.Client;
+
 
 
 public class Tracker extends JGoogleAnalyticsTracker
@@ -19,21 +21,21 @@ public class Tracker extends JGoogleAnalyticsTracker
 	
 	public void trackPageView(String url, String title)
 	{
-		if(Main.options.google_analytics.enabled)
+		if(Client.wurst.options.google_analytics.enabled)
 			super.trackPageView(url, title, HOSTNAME);
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void trackPageViewFromReferrer(String url, String title, String referrerSite, String referrerPage)
 	{
-		if(Main.options.google_analytics.enabled)
+		if(Client.wurst.options.google_analytics.enabled)
 			super.trackPageViewFromReferrer(url, title, HOSTNAME, referrerSite, referrerPage);
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void trackPageViewFromSearch(String url, String title, String searchSite, String keywords)
 	{
-		if(Main.options.google_analytics.enabled)
+		if(Client.wurst.options.google_analytics.enabled)
 			super.trackPageViewFromSearch(url, title, HOSTNAME, searchSite, keywords);
 		lastRequest = System.currentTimeMillis();
 	}
@@ -41,7 +43,7 @@ public class Tracker extends JGoogleAnalyticsTracker
 	@Override
 	public void trackEvent(String category, String action)
 	{
-		if(Main.options.google_analytics.enabled)
+		if(Client.wurst.options.google_analytics.enabled)
 			super.trackEvent(category, action);
 		lastRequest = System.currentTimeMillis();
 	}
@@ -49,14 +51,14 @@ public class Tracker extends JGoogleAnalyticsTracker
 	@Override
 	public void trackEvent(String category, String action, String label)
 	{
-		if(Main.options.google_analytics.enabled)
+		if(Client.wurst.options.google_analytics.enabled)
 			super.trackEvent(category, action, label);
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void trackEvent(String category, String action, String label, int value)
 	{
-		if(Main.options.google_analytics.enabled)
+		if(Client.wurst.options.google_analytics.enabled)
 			super.trackEvent(category, action, label, new Integer(value));
 		lastRequest = System.currentTimeMillis();
 	}
@@ -64,7 +66,7 @@ public class Tracker extends JGoogleAnalyticsTracker
 	@Override
 	public void makeCustomRequest(AnalyticsRequestData data)
 	{
-		if(Main.options.google_analytics.enabled)
+		if(Client.wurst.options.google_analytics.enabled)
 			super.makeCustomRequest(data);
 		lastRequest = System.currentTimeMillis();
 	}
