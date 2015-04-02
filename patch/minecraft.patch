@@ -1,6 +1,6 @@
-From 2ca9a281f91bf867a568d474799335aafc38b4e8 Mon Sep 17 00:00:00 2001
+From a4712ab24945ffba8a463ed2f926abab7c142255 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 1 Apr 2015 02:32:29 +0200
+Date: Thu, 2 Apr 2015 12:33:34 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6840 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6853 ++++++++++----------
  src/net/minecraft/client/audio/SoundManager.java   | 1188 ++--
  .../client/entity/AbstractClientPlayer.java        |  267 +-
  .../minecraft/client/entity/EntityPlayerSP.java    | 1768 ++---
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 25885 insertions(+), 24299 deletions(-)
+ 203 files changed, 25898 insertions(+), 24299 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -4603,10 +4603,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..96ea595 100644
+index f503b64..9355b24 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3534 @@
+@@ -1,3306 +1,3547 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -7949,6 +7949,7 @@ index f503b64..96ea595 100644
 +
 +import javax.imageio.ImageIO;
 +import javax.swing.*;
++import javax.tools.Tool;
 +
 +import net.minecraft.block.Block;
 +import net.minecraft.block.material.Material;
@@ -8271,19 +8272,31 @@ index f503b64..96ea595 100644
 +		if(javaVersion.startsWith("1.6")
 +			|| javaVersion.startsWith("1.7"))
 +		{
-+			JOptionPane.showMessageDialog(null,
-+				"<html>"
-+					+ "<h1>Your Java is outdated.</h1>"
-+					+ "<p>(your current Java version: " + javaVersion + ")</p>"
-+					+ "<h1>Get Java 8!</h1>",
-+				"Outdated Java", JOptionPane.ERROR_MESSAGE);
++			Toolkit.getDefaultToolkit().beep();
++			int button =
++				JOptionPane.showOptionDialog(null, "<html><body width=320>"
++					+ "<h1>You are using an outdated Java version.</h1>"
++					+ "<p>You are currently using Java " + javaVersion + ".</p>"
++					+ "<p>To use the Wurst Client, Java 1.8.0 or higher is required.</p>",
++					"Outdated Java",
++					JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
++					null,
++					new String[]{"Download Java 8", "Help Me"}, 0);
++			String link;
++			if(button == 1)
++				link =
++					"https://www.wurst-client.tk/redirect/outdated-java-help/";
++			else
++				link = "http://www.java.com/download";
 +			try
 +			{
-+				Desktop.getDesktop().browse(new URI("http://www.java.com/download"));
++				Desktop.getDesktop().browse(
++					new URI(link));
 +			}catch(Exception e)
 +			{
 +				e.printStackTrace();
 +			}
++			System.exit(-1);
 +			return;
 +		}
 +		
