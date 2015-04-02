@@ -38,7 +38,8 @@ public class GuiWurstOptions extends GuiScreen
 			+ "Windows & Linux only!",
 		"Whether or not the Wurst news should be\n"
 			+ "shown in the main menu",
-		"",
+		"Sends anonymous usage statistics that help us\n"
+			+ "improve the Wurst Client.",
 		"Manager for the keybinds",
 		"Manager for the blocks that X-Ray will\n"
 			+ "show",
@@ -80,9 +81,11 @@ public class GuiWurstOptions extends GuiScreen
 		buttonList.add(new GuiButton(4, width / 2 - 154, height / 4 + 96 - 16,
 			100, 20, "Wurst news: "
 				+ (Client.wurst.options.wurstNews ? "ON" : "OFF")));
-		// buttonList.add(new GuiButton(2, this.width / 2 - 154, height / 4 +
-		// 120
-		// - 16, 100, 20, "???"));
+		buttonList
+			.add(new GuiButton(5, this.width / 2 - 154,
+				height / 4 + 120 - 16, 100, 20, "Analytics: "
+					+ (Client.wurst.options.google_analytics.enabled ? "ON"
+						: "OFF")));
 		buttonList.add(new GuiButton(6, width / 2 - 50, height / 4 + 24 - 16,
 			100, 20, "Keybinds"));
 		buttonList.add(new GuiButton(7, width / 2 - 50, height / 4 + 48 - 16,
@@ -101,7 +104,8 @@ public class GuiWurstOptions extends GuiScreen
 			100, 20, "Report a Bug"));
 		buttonList.add(new GuiButton(14, width / 2 + 54, height / 4 + 96 - 16,
 			100, 20, "Suggest a Feature"));
-		//buttonList.add(new GuiButton(15, width / 2 + 54, height / 4 + 120 - 16, 100, 20, "???"));
+		// buttonList.add(new GuiButton(15, width / 2 + 54, height / 4 + 120 -
+		// 16, 100, 20, "???"));
 		((GuiButton)buttonList.get(4)).enabled = !Minecraft.isRunningOnMac;
 	}
 	
@@ -144,8 +148,14 @@ public class GuiWurstOptions extends GuiScreen
 						+ (Client.wurst.options.wurstNews ? "ON" : "OFF");
 				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 5)
-			{// Unused
-			
+			{// Analytics
+				Client.wurst.options.google_analytics.enabled =
+					!Client.wurst.options.google_analytics.enabled;
+				clickedButton.displayString =
+					"Analytics: "
+						+ (Client.wurst.options.google_analytics.enabled ? "ON"
+							: "OFF");
+				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 6)
 				mc.displayGuiScreen(new GuiKeybindManager(this));
 			else if(clickedButton.id == 7)
@@ -168,7 +178,7 @@ public class GuiWurstOptions extends GuiScreen
 			else if(clickedButton.id == 14)
 				MiscUtils.openLink("http://www.wurst-client.tk/ideas");
 			else if(clickedButton.id == 15)
-			{
+			{	
 				
 			}
 	}
