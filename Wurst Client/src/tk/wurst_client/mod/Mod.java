@@ -41,8 +41,7 @@ public class Mod
 		RENDER,
 		MISC,
 		MOVEMENT,
-		SETTINGS,
-		WIP;
+		SETTINGS;
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)

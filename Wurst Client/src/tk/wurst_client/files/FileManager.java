@@ -197,7 +197,6 @@ public class FileManager
 		LSD.class.getName(),
 		MassTPA.class.getName(),
 		Protect.class.getName(),
-		Pwnage.class.getName(),
 		RemoteView.class.getName(),
 		Spammer.class.getName(),
 	};
@@ -218,7 +217,6 @@ public class FileManager
 					Client.wurst.modManager.getModByName(entry.getKey());
 				if(mod != null
 					&& mod.getCategory() != Category.HIDDEN
-					&& mod.getCategory() != Category.WIP
 					&& !Arrays.asList(moduleBlacklist).contains(
 						mod.getClass().getName()))
 				{
