@@ -90,6 +90,7 @@ public class CommandManager implements ChatOutputListener
 		addCommand(new Help());
 		addCommand(new Invsee());
 		addCommand(new IP());
+		addCommand(new Jump());
 		addCommand(new Nothing());
 		addCommand(new NukerMod());
 		addCommand(new Path());
