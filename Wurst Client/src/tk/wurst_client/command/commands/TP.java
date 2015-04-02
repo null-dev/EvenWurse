@@ -10,7 +10,6 @@ package tk.wurst_client.command.commands;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.command.Command;
 import tk.wurst_client.command.Command.Info;
-import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Teleports you up to 100 blocks away.\nOnly works on vanilla servers!",
 	name = "tp",
@@ -20,15 +19,9 @@ public class TP extends Command
 	@Override
 	public void execute(String[] args) throws Error
 	{
-		if(args.length == 3 && MiscUtils.isInteger(args[0])
-			&& MiscUtils.isInteger(args[1]) && MiscUtils.isInteger(args[2]))
-			Minecraft.getMinecraft().thePlayer.setPosition
-				(
-					Integer.valueOf(args[0]),
-					Integer.valueOf(args[1]),
-					Integer.valueOf(args[2])
-				);
-		else
+		if(args.length != 3)
 			syntaxError();
+		int[] pos = argsToPos(args);
+		Minecraft.getMinecraft().thePlayer.setPosition(pos[0], pos[1], pos[2]);
 	}
 }
