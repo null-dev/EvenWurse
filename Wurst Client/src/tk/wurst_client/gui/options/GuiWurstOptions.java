@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.Client;
+import tk.wurst_client.options.Options.GoogleAnalytics;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.common.collect.Lists;
@@ -116,7 +117,7 @@ public class GuiWurstOptions extends GuiScreen
 			if(clickedButton.id == 0)
 				mc.displayGuiScreen(prevMenu);
 			else if(clickedButton.id == 1)
-			{// Middle Click Friends
+			{// Click Friends
 				Client.wurst.options.middleClickFriends =
 					!Client.wurst.options.middleClickFriends;
 				clickedButton.displayString =
@@ -124,6 +125,8 @@ public class GuiWurstOptions extends GuiScreen
 						+ (Client.wurst.options.middleClickFriends ? "ON"
 							: "OFF");
 				Client.wurst.fileManager.saveOptions();
+				Client.wurst.analytics.trackEvent("options", "click friends",
+					(Client.wurst.options.middleClickFriends ? "ON" : "OFF"));
 			}else if(clickedButton.id == 2)
 			{// Mod List
 				Client.wurst.options.modListMode++;
@@ -133,28 +136,39 @@ public class GuiWurstOptions extends GuiScreen
 					"Mod List: "
 						+ modListModes[Client.wurst.options.modListMode];
 				Client.wurst.fileManager.saveOptions();
+				Client.wurst.analytics.trackEvent("options", "mod list",
+					modListModes[Client.wurst.options.modListMode]);
 			}else if(clickedButton.id == 3)
 			{// AutoMaximize
 				autoMaximize = !autoMaximize;
 				clickedButton.displayString =
 					"AutoMaximize: " + (autoMaximize ? "ON" : "OFF");
 				Client.wurst.fileManager.saveAutoMaximize(autoMaximize);
+				Client.wurst.analytics.trackEvent("options", "automaximize",
+					autoMaximize ? "ON" : "OFF");
 			}else if(clickedButton.id == 4)
-			{
+			{// Wurst News
 				Client.wurst.options.wurstNews =
 					!Client.wurst.options.wurstNews;
 				clickedButton.displayString =
 					"Wurst news: "
 						+ (Client.wurst.options.wurstNews ? "ON" : "OFF");
 				Client.wurst.fileManager.saveOptions();
+				Client.wurst.analytics.trackEvent("options", "wurst news",
+					Client.wurst.options.wurstNews ? "ON" : "OFF");
 			}else if(clickedButton.id == 5)
 			{// Analytics
-				Client.wurst.options.google_analytics.enabled =
-					!Client.wurst.options.google_analytics.enabled;
+				GoogleAnalytics analytics =
+					Client.wurst.options.google_analytics;
+				if(analytics.enabled)
+					Client.wurst.analytics.trackEvent("options", "analytics",
+						"disable");
+				analytics.enabled = !analytics.enabled;
+				if(analytics.enabled)
+					Client.wurst.analytics.trackEvent("options", "analytics",
+						"enable");
 				clickedButton.displayString =
-					"Analytics: "
-						+ (Client.wurst.options.google_analytics.enabled ? "ON"
-							: "OFF");
+					"Analytics: " + (analytics.enabled ? "ON" : "OFF");
 				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 6)
 				mc.displayGuiScreen(new GuiKeybindManager(this));
@@ -170,14 +184,22 @@ public class GuiWurstOptions extends GuiScreen
 			{	
 				
 			}else if(clickedButton.id == 11)
+			{
 				MiscUtils.openLink("http://www.wurst-client.tk/");
-			else if(clickedButton.id == 12)
+				Client.wurst.analytics.trackEvent("options", "wurst client website");
+			}else if(clickedButton.id == 12)
+			{
 				MiscUtils.openLink("http://www.wurst-client.tk/faq");
-			else if(clickedButton.id == 13)
+				Client.wurst.analytics.trackEvent("options", "faq");
+			}else if(clickedButton.id == 13)
+			{
 				MiscUtils.openLink("http://www.wurst-client.tk/bugs");
-			else if(clickedButton.id == 14)
+				Client.wurst.analytics.trackEvent("options", "bug report");
+			}else if(clickedButton.id == 14)
+			{
 				MiscUtils.openLink("http://www.wurst-client.tk/ideas");
-			else if(clickedButton.id == 15)
+				Client.wurst.analytics.trackEvent("options", "suggestion");
+			}else if(clickedButton.id == 15)
 			{	
 				
 			}
