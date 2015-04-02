@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2010 Daniel Murphy
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -8,10 +8,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -30,13 +30,14 @@ import java.util.Random;
 /**
  * http://code.google.com/apis/analytics/docs/tracking/gaTrackingTroubleshooting
  * .html#gifParameters
- * 
+ *
  * @author Daniel Murphy
- * 
+ *
  */
 public class GoogleAnalyticsV4_7_2 implements IGoogleAnalyticsURLBuilder
 {
-	public static final String URL_PREFIX = "http://www.google-analytics.com/__utm.gif";
+	public static final String URL_PREFIX =
+		"http://www.google-analytics.com/__utm.gif";
 	
 	private AnalyticsConfigData config;
 	private Random random = new Random((long)(Math.random() * Long.MAX_VALUE));
@@ -72,7 +73,8 @@ public class GoogleAnalyticsV4_7_2 implements IGoogleAnalyticsURLBuilder
 		if(argData.getHostName() != null)
 			sb.append("&utmhn=" + getURIString(argData.getHostName())); // hostname
 			
-		if(argData.getEventAction() != null && argData.getEventCategory() != null)
+		if(argData.getEventAction() != null
+			&& argData.getEventCategory() != null)
 		{
 			sb.append("&utmt=event");
 			String category = getURIString(argData.getEventCategory());
@@ -86,8 +88,10 @@ public class GoogleAnalyticsV4_7_2 implements IGoogleAnalyticsURLBuilder
 			
 			if(argData.getEventValue() != null)
 				sb.append("(" + argData.getEventValue() + ")");
-		}else if(argData.getEventAction() != null || argData.getEventCategory() != null)
-			throw new IllegalArgumentException("Event tracking must have both a category and an action");
+		}else if(argData.getEventAction() != null
+			|| argData.getEventCategory() != null)
+			throw new IllegalArgumentException(
+				"Event tracking must have both a category and an action");
 		
 		if(config.getEncoding() != null)
 			sb.append("&utmcs=" + getURIString(config.getEncoding())); // encoding
@@ -95,28 +99,28 @@ public class GoogleAnalyticsV4_7_2 implements IGoogleAnalyticsURLBuilder
 			sb.append("&utmcs=-");
 		if(config.getScreenResolution() != null)
 			sb.append("&utmsr=" + getURIString(config.getScreenResolution())); // screen
-																				// resolution
+		// resolution
 		if(config.getColorDepth() != null)
 			sb.append("&utmsc=" + getURIString(config.getColorDepth())); // color
-																			// depth
+		// depth
 		if(config.getUserLanguage() != null)
 			sb.append("&utmul=" + getURIString(config.getUserLanguage())); // language
 		sb.append("&utmje=1"); // java enabled (probably)
 		
 		if(config.getFlashVersion() != null)
 			sb.append("&utmfl=" + getURIString(config.getFlashVersion())); // flash
-																			// version
-			
+		// version
+		
 		if(argData.getPageTitle() != null)
 			sb.append("&utmdt=" + getURIString(argData.getPageTitle())); // page
-																			// title
-			
+		// title
+		
 		sb.append("&utmhid=" + random.nextInt());
 		
 		if(argData.getPageURL() != null)
 			sb.append("&utmp=" + getURIString(argData.getPageURL())); // page
-																		// url
-			
+		// url
+		
 		sb.append("&utmac=" + config.getTrackingCode()); // tracking code
 		
 		// cookie data
@@ -135,7 +139,13 @@ public class GoogleAnalyticsV4_7_2 implements IGoogleAnalyticsURLBuilder
 		long timestampCurrent = config.getVisitorData().getTimestampCurrent();
 		int visits = config.getVisitorData().getVisits();
 		
-		sb.append("&utmcc=__utma%3D" + hostnameHash + "." + visitorId + "." + timestampFirst + "." + timestampPrevious + "." + timestampCurrent + "." + visits + "%3B%2B__utmz%3D" + hostnameHash + "." + timestampCurrent + ".1.1.utmcsr%3D" + utmcsr + "%7Cutmccn%3D" + utmccn + "%7Cutmcmd%3D" + utmcmd + (utmctr != null ? "%7Cutmctr%3D" + utmctr : "") + (utmcct != null ? "%7Cutmcct%3D" + utmcct : "") + "%3B&gaq=1");
+		sb.append("&utmcc=__utma%3D" + hostnameHash + "." + visitorId + "."
+			+ timestampFirst + "." + timestampPrevious + "." + timestampCurrent
+			+ "." + visits + "%3B%2B__utmz%3D" + hostnameHash + "."
+			+ timestampCurrent + ".1.1.utmcsr%3D" + utmcsr + "%7Cutmccn%3D"
+			+ utmccn + "%7Cutmcmd%3D" + utmcmd
+			+ (utmctr != null ? "%7Cutmctr%3D" + utmctr : "")
+			+ (utmcct != null ? "%7Cutmcct%3D" + utmcct : "") + "%3B&gaq=1");
 		return sb.toString();
 	}
 	

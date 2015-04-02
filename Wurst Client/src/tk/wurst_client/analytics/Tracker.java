@@ -2,8 +2,6 @@ package tk.wurst_client.analytics;
 
 import tk.wurst_client.Client;
 
-
-
 public class Tracker extends JGoogleAnalyticsTracker
 {
 	public final String ANALYTICS_CODE;
@@ -12,7 +10,8 @@ public class Tracker extends JGoogleAnalyticsTracker
 	
 	public Tracker(String analyticsCode, String hostName)
 	{
-		super(new AnalyticsConfigData(analyticsCode), GoogleAnalyticsVersion.V_4_7_2);
+		super(new AnalyticsConfigData(analyticsCode),
+			GoogleAnalyticsVersion.V_4_7_2);
 		ANALYTICS_CODE = analyticsCode;
 		HOSTNAME = hostName;
 		lastRequest = System.currentTimeMillis();
@@ -26,17 +25,21 @@ public class Tracker extends JGoogleAnalyticsTracker
 		lastRequest = System.currentTimeMillis();
 	}
 	
-	public void trackPageViewFromReferrer(String url, String title, String referrerSite, String referrerPage)
+	public void trackPageViewFromReferrer(String url, String title,
+		String referrerSite, String referrerPage)
 	{
 		if(Client.wurst.options.google_analytics.enabled)
-			super.trackPageViewFromReferrer(url, title, HOSTNAME, referrerSite, referrerPage);
+			super.trackPageViewFromReferrer(url, title, HOSTNAME, referrerSite,
+				referrerPage);
 		lastRequest = System.currentTimeMillis();
 	}
 	
-	public void trackPageViewFromSearch(String url, String title, String searchSite, String keywords)
+	public void trackPageViewFromSearch(String url, String title,
+		String searchSite, String keywords)
 	{
 		if(Client.wurst.options.google_analytics.enabled)
-			super.trackPageViewFromSearch(url, title, HOSTNAME, searchSite, keywords);
+			super.trackPageViewFromSearch(url, title, HOSTNAME, searchSite,
+				keywords);
 		lastRequest = System.currentTimeMillis();
 	}
 	
@@ -56,7 +59,8 @@ public class Tracker extends JGoogleAnalyticsTracker
 		lastRequest = System.currentTimeMillis();
 	}
 	
-	public void trackEvent(String category, String action, String label, int value)
+	public void trackEvent(String category, String action, String label,
+		int value)
 	{
 		if(Client.wurst.options.google_analytics.enabled)
 			super.trackEvent(category, action, label, new Integer(value));
