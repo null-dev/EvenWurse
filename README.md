@@ -5,8 +5,8 @@
 The Wurst Client is a Hack Client for Minecraft, packed full of the latest and most exciting mods, commands and other features. Over 85 mods and over 25 commands are instantly deployable at any moment, through buttons, keybinds and even automatic scripts. *You rule the game!*
 
 ## :sparkles::sparkles::sparkles: Special Features :sparkles::sparkles::sparkles:
-### AltManager :clipboard:
-Wurst comes packed with a full featured Alt Manager that supports both premium and cracked accounts. It's the only Alt Manager out there that uses modern encryption algorithms to ensure your alts are stored securely. :closed_lock_with_key:
+### Secure AltManager :closed_lock_with_key:
+Wurst comes packed with a full featured Alt Manager that supports both premium and cracked accounts. It's the only Alt Manager out there that uses modern encryption algorithms to ensure your alts are stored securely.
 
 ### Custom AutoBuild :construction:
 Wurst is the only client containing an AutoBuild mod that is fully customizable. You can create your very own templates using the popular JSON language or download some samples from the Wurst Client website. It also comes with 7 templates pre-installed, so you can instantly start using it.
