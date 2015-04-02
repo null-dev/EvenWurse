@@ -104,6 +104,9 @@ public class Protect extends Mod implements UpdateListener
 			enemy = EntityUtils.getClosestEnemy(friend);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= range)
 			{
+				if(Client.wurst.modManager.getModByClass(AutoSword.class)
+					.isEnabled())
+					AutoSword.setSlot();
 				Criticals.doCritical();
 				EntityUtils.faceEntityClient(enemy);
 				Minecraft.getMinecraft().thePlayer.swingItem();
