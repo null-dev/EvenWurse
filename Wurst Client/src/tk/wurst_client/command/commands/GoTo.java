@@ -26,20 +26,34 @@ public class GoTo extends Command
 	{
 		if(args.length != 3)
 			syntaxError();
-		for(String arg : args)
-			if(!MiscUtils.isInteger(arg))
+		int[] pos = new int[3];
+		int[] playerPos =
+			new int[]{(int)Minecraft.getMinecraft().thePlayer.posX,
+				(int)Minecraft.getMinecraft().thePlayer.posY,
+				(int)Minecraft.getMinecraft().thePlayer.posZ};
+		for(int i = 0; i < args.length; i++)
+		{
+			if(MiscUtils.isInteger(args[i]))
+				pos[i] = Integer.parseInt(args[i]);
+			else if(args[i].startsWith("~"))
+				if(args[i].equals("~"))
+					pos[i] = playerPos[i];
+				else if(MiscUtils.isInteger(args[i].substring(1)))
+					pos[i] =
+						playerPos[i] + Integer.parseInt(args[i].substring(1));
+				else
+					syntaxError("Invalid coordinates.");
+			else
 				syntaxError("Invalid coordinates.");
-		if(Math.abs(Integer.parseInt(args[0])
-			- Minecraft.getMinecraft().thePlayer.posX) > 256
-			|| Math.abs(Integer.parseInt(args[2])
-				- Minecraft.getMinecraft().thePlayer.posZ) > 256)
+		}
+		if(Math.abs(pos[0] - Minecraft.getMinecraft().thePlayer.posX) > 256
+			|| Math.abs(pos[2] - Minecraft.getMinecraft().thePlayer.posZ) > 256)
 		{
 			Client.wurst.chat.error("Goal is out of range!");
 			Client.wurst.chat.message("Maximum range is 256 blocks.");
 			return;
 		}
-		GoToCmd.setGoal(new BlockPos(Integer.parseInt(args[0]), Integer
-			.parseInt(args[1]), Integer.parseInt(args[2])));
+		GoToCmd.setGoal(new BlockPos(pos[0], pos[1], pos[2]));
 		Thread thread = new Thread(new Runnable()
 		{
 			@Override
