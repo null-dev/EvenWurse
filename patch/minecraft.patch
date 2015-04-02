@@ -1,6 +1,6 @@
-From 053f420fbd36373e2bc8deba61cf16ba45932128 Mon Sep 17 00:00:00 2001
+From a43bc624ad31ae1e35432ab8b6ff6d60781b2142 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 2 Apr 2015 22:42:54 +0200
+Date: Thu, 2 Apr 2015 23:40:07 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -37,7 +37,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiLanguage.java      |    3 +
  src/net/minecraft/client/gui/GuiListButton.java    |    1 +
  .../minecraft/client/gui/GuiLockIconButton.java    |    1 +
- src/net/minecraft/client/gui/GuiMainMenu.java      | 1330 ++--
+ src/net/minecraft/client/gui/GuiMainMenu.java      | 1347 ++--
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |    2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |    4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   |  197 +-
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 25913 insertions(+), 24299 deletions(-)
+ 203 files changed, 25930 insertions(+), 24299 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -20413,10 +20413,10 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..170cde4 100644
+index 38033d9..b8ea6fa 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
-@@ -1,567 +1,763 @@
+@@ -1,567 +1,780 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -21034,7 +21034,7 @@ index 38033d9..170cde4 100644
 +
 +import tk.wurst_client.Client;
 +import tk.wurst_client.gui.alts.GuiAlts;
-+import tk.wurst_client.update.GuiUpdate;
++import tk.wurst_client.gui.update.GuiUpdate;
 +import tk.wurst_client.utils.MiscUtils;
 +
 +import com.google.common.collect.Lists;
@@ -21382,20 +21382,33 @@ index 38033d9..170cde4 100644
 +        }
 +        //TODO: Client
 +        if(id == 0)
-+        {
-+        	if(result)
-+        		this.mc.displayGuiScreen(new GuiUpdate());
-+        	else
-+        		this.mc.displayGuiScreen(this);
-+        }else if(id == 1)
-+        {
-+        	if(result)
-+        	{
-+        		MiscUtils.openLink("https://www.youtube.com/watch?v=_Gf8oaC9QKM");
-+        		this.mc.shutdown();
-+        	}else
-+        		this.mc.displayGuiScreen(this);
-+        }
++		{
++			if(result)
++			{
++				this.mc.displayGuiScreen(new GuiUpdate());
++				Client.wurst.analytics.trackEvent("updater", "get new version");
++			}else
++			{
++				this.mc.displayGuiScreen(this);
++				Client.wurst.analytics
++					.trackEvent("updater", "keep old version");
++			}
++		}else if(id == 1)
++		{
++			if(result)
++			{
++				MiscUtils
++					.openLink("https://www.youtube.com/watch?v=_Gf8oaC9QKM");
++				Client.wurst.analytics.trackEvent("christmas easter egg",
++					"play christmas song");
++				this.mc.shutdown();
++			}else
++			{
++				this.mc.displayGuiScreen(this);
++				Client.wurst.analytics.trackEvent("christmas easter egg",
++					"grief on christmas");
++			}
++		}
 +    }
 +
 +    /**
@@ -21705,20 +21718,24 @@ index 38033d9..170cde4 100644
 +        
 +        //TODO: Client
 +        if(!Client.wurst.startupMessageDisabled)
-+        {
-+        	if(Client.wurst.updater.isOutdated())
-+        	{
-+        		this.mc.displayGuiScreen(new GuiYesNo(this, "Wurst v" + Client.wurst.updater.getLatestVersion() + " is available.", "Would you like to update?", 0));
-+        	}else if
-+        	(
-+        		Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
-+        		&& Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24
-+        	)
-+        	{
-+        		this.mc.displayGuiScreen(new GuiYesNo(this, "Dude, it's Christmas!", "What do you want here?", "I want a Christmas song", "I want to grief", 1));
-+        	}
-+        	Client.wurst.startupMessageDisabled = true;
-+        }
++		{
++			if(Client.wurst.updater.isOutdated())
++			{
++				this.mc.displayGuiScreen(new GuiYesNo(this, "Wurst v"
++					+ Client.wurst.updater.getLatestVersion()
++					+ " is available.", "Would you like to update?", 0));
++				Client.wurst.analytics.trackPageView("/update", "Update Found");
++			}else if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
++				&& Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24)
++			{
++				this.mc.displayGuiScreen(new GuiYesNo(this,
++					"Dude, it's Christmas!", "What do you want here?",
++					"I want a Christmas song", "I want to grief", 1));
++				Client.wurst.analytics.trackPageView("/easter-eggs/christmas",
++					"Dude, it's Christmas!");
++			}
++			Client.wurst.startupMessageDisabled = true;
++		}
 +    }
 +
 +    /**
