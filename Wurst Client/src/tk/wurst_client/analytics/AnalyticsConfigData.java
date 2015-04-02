@@ -25,7 +25,7 @@
  */
 package tk.wurst_client.analytics;
 
-import tk.wurst_client.fuck_cubik.Main;
+import tk.wurst_client.Client;
 
 /**
  * Data that is client-specific, and should be common for all tracking requests.
@@ -55,10 +55,10 @@ public class AnalyticsConfigData
 	public AnalyticsConfigData(String argTrackingCode)
 	{
 		this(argTrackingCode, VisitorData.newSession(
-			Main.options.google_analytics.tracking_id,
-			Main.options.google_analytics.first_launch,
-			Main.options.google_analytics.last_launch,
-			Main.options.google_analytics.launches));
+			Client.wurst.options.google_analytics.id,
+			Client.wurst.options.google_analytics.first_launch,
+			Client.wurst.options.google_analytics.last_launch,
+			Client.wurst.options.google_analytics.launches));
 	}
 	
 	/**
