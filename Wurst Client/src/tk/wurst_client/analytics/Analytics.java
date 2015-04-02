@@ -2,6 +2,7 @@ package tk.wurst_client.analytics;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.analytics.JGoogleAnalyticsTracker.GoogleAnalyticsVersion;
+import tk.wurst_client.bot.WurstBot;
 
 public class Analytics
 {
@@ -22,58 +23,71 @@ public class Analytics
 		JGoogleAnalyticsTracker.setProxy(System.getenv("http_proxy"));
 	}
 	
+	private boolean shouldTrack()
+	{
+		return Client.wurst.options.google_analytics.enabled
+			&& !WurstBot.isEnabled();
+	}
+	
 	public void trackPageView(String url, String title)
 	{
-		if(Client.wurst.options.google_analytics.enabled)
-			tracker.trackPageView(url, title, HOSTNAME);
+		if(!shouldTrack())
+			return;
+		tracker.trackPageView(url, title, HOSTNAME);
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void trackPageViewFromReferrer(String url, String title,
 		String referrerSite, String referrerPage)
 	{
-		if(Client.wurst.options.google_analytics.enabled)
-			tracker.trackPageViewFromReferrer(url, title, HOSTNAME,
-				referrerSite,
-				referrerPage);
+		if(!shouldTrack())
+			return;
+		tracker.trackPageViewFromReferrer(url, title, HOSTNAME,
+			referrerSite,
+			referrerPage);
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void trackPageViewFromSearch(String url, String title,
 		String searchSite, String keywords)
 	{
-		if(Client.wurst.options.google_analytics.enabled)
-			tracker.trackPageViewFromSearch(url, title, HOSTNAME, searchSite,
-				keywords);
+		if(!shouldTrack())
+			return;
+		tracker.trackPageViewFromSearch(url, title, HOSTNAME, searchSite,
+			keywords);
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void trackEvent(String category, String action)
 	{
-		if(Client.wurst.options.google_analytics.enabled)
-			tracker.trackEvent(category, action);
+		if(!shouldTrack())
+			return;
+		tracker.trackEvent(category, action);
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void trackEvent(String category, String action, String label)
 	{
-		if(Client.wurst.options.google_analytics.enabled)
-			tracker.trackEvent(category, action, label);
+		if(!shouldTrack())
+			return;
+		tracker.trackEvent(category, action, label);
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void trackEvent(String category, String action, String label,
 		int value)
 	{
-		if(Client.wurst.options.google_analytics.enabled)
-			tracker.trackEvent(category, action, label, new Integer(value));
+		if(!shouldTrack())
+			return;
+		tracker.trackEvent(category, action, label, new Integer(value));
 		lastRequest = System.currentTimeMillis();
 	}
 	
 	public void makeCustomRequest(AnalyticsRequestData data)
 	{
-		if(Client.wurst.options.google_analytics.enabled)
-			tracker.makeCustomRequest(data);
+		if(!shouldTrack())
+			return;
+		tracker.makeCustomRequest(data);
 		lastRequest = System.currentTimeMillis();
 	}
 }
