@@ -65,6 +65,7 @@ public class GuiError extends GuiScreen
 			98, 20, "View Bug"));
 		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
 			20, "Back to Game"));
+		Client.wurst.analytics.trackPageView("/error", "Error");
 	}
 	
 	@Override
@@ -128,6 +129,7 @@ public class GuiError extends GuiScreen
 					MiscUtils
 						.openLink("https://github.com/Wurst-Imperium/Wurst-Client/labels/bug");
 				}
+				Client.wurst.analytics.trackEvent("error", "report");
 				break;
 			case 1:
 				new Thread(new Runnable()
@@ -196,12 +198,14 @@ public class GuiError extends GuiScreen
 						}
 					}
 				}).start();
+				Client.wurst.analytics.trackEvent("error", "view");
 				break;
 			case 2:
 				if(cause instanceof Mod)
 					Client.wurst.modManager.getModByClass(cause.getClass())
 						.setEnabled(false);
 				mc.displayGuiScreen(null);
+				Client.wurst.analytics.trackEvent("error", "back");
 				break;
 			default:
 				break;
