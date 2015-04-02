@@ -197,7 +197,6 @@ public class FileManager
 		LSD.class.getName(),
 		MassTPA.class.getName(),
 		Protect.class.getName(),
-		Pwnage.class.getName(),
 		RemoteView.class.getName(),
 		Spammer.class.getName(),
 	};
