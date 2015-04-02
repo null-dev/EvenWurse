@@ -78,6 +78,8 @@ public class AutoSword extends Mod implements LeftClickListener, UpdateListener
 	
 	public static void setSlot()
 	{
+		if(((AutoEat)Client.wurst.modManager.getModByClass(AutoEat.class)).isActive())
+			return;
 		float bestSpeed = 1F;
 		int bestSlot = -1;
 		for(int i = 0; i < 9; i++)

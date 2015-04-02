@@ -75,6 +75,9 @@ public class FightBot extends Mod implements UpdateListener
 		if(hasTimePassedS(speed))
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) <= range)
 			{
+				if(Client.wurst.modManager.getModByClass(AutoSword.class)
+					.isEnabled())
+					AutoSword.setSlot();
 				Criticals.doCritical();
 				if(EntityUtils.getDistanceFromMouse(entity) > 55)
 					EntityUtils.faceEntityClient(entity);

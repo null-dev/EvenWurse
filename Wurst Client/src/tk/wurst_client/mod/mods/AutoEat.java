@@ -106,4 +106,9 @@ public class AutoEat extends Mod implements UpdateListener
 	{
 		EventManager.update.removeListener(this);
 	}
+	
+	public boolean isActive()
+	{
+		return oldSlot != -1;
+	}
 }
