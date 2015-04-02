@@ -9,6 +9,7 @@ package tk.wurst_client.gui.options;
 
 import java.io.IOException;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.Client;
@@ -39,6 +40,8 @@ public class GuiXRayBlocksManager extends GuiScreen
 			"Remove"));
 		buttonList.add(new GuiButton(2, width / 2 - 100, height - 28, 200, 20,
 			"Back"));
+		Client.wurst.analytics.trackPageView("/options/xray-manager",
+			"X-Ray Block Manager");
 	}
 	
 	/**
@@ -59,6 +62,9 @@ public class GuiXRayBlocksManager extends GuiScreen
 				mc.displayGuiScreen(new GuiXRayBlocksAdd(this));
 			else if(clickedButton.id == 1)
 			{// Remove
+				Client.wurst.analytics.trackEvent("x-ray blocks", "remove",
+					Integer.toString(Block.getIdFromBlock(XRay.xrayBlocks
+						.get(blockList.getSelectedSlot()))));
 				XRay.xrayBlocks.remove(blockList.getSelectedSlot());
 				GuiXRayBlocksList.sortBlocks();
 				Client.wurst.fileManager.saveXRayBlocks();

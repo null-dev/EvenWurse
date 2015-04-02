@@ -11,6 +11,7 @@ import net.minecraft.client.gui.ServerListEntryNormal;
 
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
+import tk.wurst_client.analytics.Analytics;
 import tk.wurst_client.command.ChatMessenger;
 import tk.wurst_client.command.CommandManager;
 import tk.wurst_client.event.EventManager;
@@ -38,6 +39,7 @@ public class Client
 	public Keybinds keybinds;
 	public Options options;
 	public Updater updater;
+	public Analytics analytics;
 	
 	public static final Client wurst = new Client();
 	
@@ -52,11 +54,13 @@ public class Client
 		keybinds = new Keybinds();
 		options = new Options();
 		friends = new Friends();
+		analytics = new Analytics("UA-52838431-5", "client.wurst-client.tk");
 		
 		fileManager.init();
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();
 		updater.checkForUpdate();
 		EventManager.init();
+		analytics.trackPageView("/", "Launch");
 	}
 }

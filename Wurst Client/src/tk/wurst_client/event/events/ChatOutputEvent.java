@@ -10,12 +10,14 @@ package tk.wurst_client.event.events;
 public class ChatOutputEvent extends CancellableEvent
 {
 	private String message;
+	private boolean automatic;
 	
-	public ChatOutputEvent(String message)
+	public ChatOutputEvent(String message, boolean automatic)
 	{
 		this.message = message;
+		this.automatic = automatic;
 	}
-	
+
 	public String getMessage()
 	{
 		return message;
@@ -36,5 +38,10 @@ public class ChatOutputEvent extends CancellableEvent
 	public String getComment()
 	{
 		return "Message: `" + message + "`";
+	}
+
+	public boolean isAutomatic()
+	{
+		return automatic;
 	}
 }

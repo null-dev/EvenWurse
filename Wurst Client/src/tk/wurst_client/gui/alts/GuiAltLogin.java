@@ -53,6 +53,12 @@ public class GuiAltLogin extends AltEditorScreen
 		else
 			errorTimer = 8;
 	}
+
+	@Override
+	protected String getUrl()
+	{
+		return "/alt-manager/direct-login";
+	}
 	
 	@Override
 	protected String getTitle()

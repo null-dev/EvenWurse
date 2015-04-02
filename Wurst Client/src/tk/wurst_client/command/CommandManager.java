@@ -51,6 +51,9 @@ public class CommandManager implements ChatOutputListener
 				try
 				{
 					command.execute(args);
+					if(!event.isAutomatic())
+						Client.wurst.analytics.trackEvent("command",
+							commandName);
 				}catch(SyntaxError e)
 				{
 					if(e.getMessage() != null)

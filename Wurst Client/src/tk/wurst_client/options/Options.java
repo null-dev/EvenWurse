@@ -7,6 +7,8 @@
  */
 package tk.wurst_client.options;
 
+import java.security.SecureRandom;
+
 import tk.wurst_client.Client;
 
 public class Options
@@ -33,4 +35,15 @@ public class Options
 	public int throwAmount = 16;
 	
 	public String forceOPList = Client.wurst.fileManager.wurstDir.getPath();
+
+	public Options.GoogleAnalytics google_analytics = new Options.GoogleAnalytics();
+	
+	public class GoogleAnalytics
+	{
+		public boolean enabled = true;
+		public int id = new SecureRandom().nextInt() & 0x7FFFFFFF;
+		public long first_launch = System.currentTimeMillis() / 1000L;
+		public long last_launch = System.currentTimeMillis() / 1000L;
+		public int launches = 0;
+	}
 }

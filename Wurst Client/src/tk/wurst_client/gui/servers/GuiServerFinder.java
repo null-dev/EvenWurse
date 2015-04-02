@@ -93,6 +93,8 @@ public class GuiServerFinder extends GuiScreen
 			.toString(Client.wurst.options.serverFinderThreads));
 		running = false;
 		terminated = false;
+		Client.wurst.analytics.trackPageView("/multiplayer/server-finder",
+			"Server Finder");
 	}
 	
 	/**
@@ -155,8 +157,11 @@ public class GuiServerFinder extends GuiScreen
 							}
 						while(pingers.size() > 0)
 							pingers = updatePingers(pingers);
+						Client.wurst.analytics.trackEvent("server finder",
+							"complete", "complete", working);
 					}
 				}.start();
+				Client.wurst.analytics.trackEvent("server finder", "start");
 			}else if(clickedButton.id == 1)
 				mc.displayGuiScreen(prevMenu);
 	}

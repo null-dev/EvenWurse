@@ -105,8 +105,10 @@ public abstract class AltEditorScreen extends GuiScreen
 			new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
 		passwordBox.setFocused(false);
 		passwordBox.setText(getPasswordBoxText());
+		Client.wurst.analytics.trackPageView(getUrl(), getTitle());
 	}
 	
+
 	/**
 	 * "Called when the screen is unloaded. Used to disable keyboard repeat events."
 	 */
@@ -163,6 +165,8 @@ public abstract class AltEditorScreen extends GuiScreen
 		if(emailBox.isFocused() || passwordBox.isFocused())
 			displayText = "";
 	}
+	
+	protected abstract String getUrl();
 	
 	protected abstract String getTitle();
 	

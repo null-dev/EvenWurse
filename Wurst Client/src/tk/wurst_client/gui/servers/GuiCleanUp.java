@@ -89,6 +89,8 @@ public class GuiCleanUp extends GuiScreen
 		buttonList.add(new GuiButton(6, width / 2 - 100, height / 4 + 72 + 12,
 			"Rename all Servers: "
 				+ yesOrNo(Client.wurst.options.cleanupRename)));
+		Client.wurst.analytics.trackPageView("/multiplayer/clean-up",
+			"Clean Up");
 	}
 	
 	private String yesOrNo(boolean bool)
@@ -118,6 +120,7 @@ public class GuiCleanUp extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			else if(clickedButton.id == 1)
 			{// Clean Up
+				Client.wurst.analytics.trackEvent("clean up", "start");
 				if(removeAll)
 				{
 					prevMenu.savedServerList.clearServerList();
@@ -168,6 +171,8 @@ public class GuiCleanUp extends GuiScreen
 					"Unknown Hosts: "
 						+ removeOrKeep(Client.wurst.options.cleanupUnknown);
 				Client.wurst.fileManager.saveOptions();
+				Client.wurst.analytics.trackEvent("clean up", "unknown host",
+					removeOrKeep(Client.wurst.options.cleanupUnknown));
 			}else if(clickedButton.id == 3)
 			{// Outdated
 				Client.wurst.options.cleanupOutdated =
@@ -176,6 +181,9 @@ public class GuiCleanUp extends GuiScreen
 					"Outdated Servers: "
 						+ removeOrKeep(Client.wurst.options.cleanupOutdated);
 				Client.wurst.fileManager.saveOptions();
+				Client.wurst.analytics.trackEvent("clean up",
+					"outdated servers",
+					removeOrKeep(Client.wurst.options.cleanupOutdated));
 			}else if(clickedButton.id == 4)
 			{// Failed ping
 				Client.wurst.options.cleanupFailed =
@@ -184,11 +192,15 @@ public class GuiCleanUp extends GuiScreen
 					"Failed Ping: "
 						+ removeOrKeep(Client.wurst.options.cleanupFailed);
 				Client.wurst.fileManager.saveOptions();
+				Client.wurst.analytics.trackEvent("clean up", "failed ping",
+					removeOrKeep(Client.wurst.options.cleanupFailed));
 			}else if(clickedButton.id == 5)
 			{// Remove
 				removeAll = !removeAll;
 				clickedButton.displayString =
 					"§cRemove all Servers: " + yesOrNo(removeAll);
+				Client.wurst.analytics.trackEvent("clean up",
+					"remove all servers", yesOrNo(removeAll));
 			}else if(clickedButton.id == 6)
 			{// Rename
 				Client.wurst.options.cleanupRename =
@@ -197,6 +209,8 @@ public class GuiCleanUp extends GuiScreen
 					"Rename all Servers: "
 						+ yesOrNo(Client.wurst.options.cleanupRename);
 				Client.wurst.fileManager.saveOptions();
+				Client.wurst.analytics.trackEvent("clean up", "rename servers",
+					yesOrNo(Client.wurst.options.cleanupRename));
 			}
 	}
 	

@@ -140,7 +140,7 @@ public class SpamProcessor
 		for(int i = 0; i < spam.split("\n").length; i++)
 		{
 			Minecraft.getMinecraft().thePlayer
-				.sendChatMessage(spam.split("\n")[i]);
+				.sendAutomaticChatMessage(spam.split("\n")[i]);
 			Thread.sleep(Client.wurst.options.spamDelay);
 		}
 	}
