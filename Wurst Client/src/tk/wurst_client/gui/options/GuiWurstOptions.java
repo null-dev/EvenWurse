@@ -75,8 +75,8 @@ public class GuiWurstOptions extends GuiScreen
 		buttonList.add(new GuiButton(1, width / 2 - 154, height / 4 + 24 - 16,
 			100, 20, "Click Friends: "
 				+ (Client.wurst.options.middleClickFriends ? "ON" : "OFF")));
-		buttonList.add(new GuiButton(2, width / 2 - 154, height / 4 + 48 - 16,
-			100, 20, "WIP Mods: " + (Client.wurst.options.WIP ? "ON" : "OFF")));
+		// buttonList.add(new GuiButton(2, this.width / 2 - 154, height / 4 + 48
+		// - 16, 100, 20, "???"));
 		buttonList.add(new GuiButton(3, width / 2 - 154, height / 4 + 72 - 16,
 			100, 20, "Mod List: "
 				+ modListModes[Client.wurst.options.modListMode]));
@@ -124,11 +124,8 @@ public class GuiWurstOptions extends GuiScreen
 							: "OFF");
 				Client.wurst.fileManager.saveOptions();
 			}else if(clickedButton.id == 2)
-			{// WIP
-				Client.wurst.options.WIP = !Client.wurst.options.WIP;
-				clickedButton.displayString =
-					"WIP Mods: " + (Client.wurst.options.WIP ? "ON" : "OFF");
-				Client.wurst.fileManager.saveOptions();
+			{// Unused
+			
 			}else if(clickedButton.id == 3)
 			{// Mod List
 				Client.wurst.options.modListMode++;
