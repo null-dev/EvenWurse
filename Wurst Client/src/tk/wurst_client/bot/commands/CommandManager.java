@@ -30,6 +30,7 @@ public class CommandManager
 	{
 		addCommand(new ChatCmd());
 		addCommand(new DebugCmd());
+		addCommand(new FixmeCmd());
 		addCommand(new HelpCmd());
 		addCommand(new JoinCmd());
 		addCommand(new LeaveCmd());
