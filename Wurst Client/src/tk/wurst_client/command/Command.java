@@ -10,7 +10,9 @@ package tk.wurst_client.command;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
+import tk.wurst_client.utils.MiscUtils;
 
 public abstract class Command
 {
@@ -86,6 +88,33 @@ public abstract class Command
 		}
 		for(String line : output.split("\n"))
 			Client.wurst.chat.message(line);
+	}
+	
+	protected final int[] argsToPos(String... args) throws SyntaxError
+	{
+		if(args.length < 3)
+			throw new IllegalArgumentException("Too few arguments. Only " + args.length + " instead of 3.");
+		int[] pos = new int[3];
+		int[] playerPos =
+			new int[]{(int)Minecraft.getMinecraft().thePlayer.posX,
+				(int)Minecraft.getMinecraft().thePlayer.posY,
+				(int)Minecraft.getMinecraft().thePlayer.posZ};
+		for(int i = 0; i < args.length; i++)
+		{
+			if(MiscUtils.isInteger(args[i]))
+				pos[i] = Integer.parseInt(args[i]);
+			else if(args[i].startsWith("~"))
+				if(args[i].equals("~"))
+					pos[i] = playerPos[i];
+				else if(MiscUtils.isInteger(args[i].substring(1)))
+					pos[i] =
+						playerPos[i] + Integer.parseInt(args[i].substring(1));
+				else
+					syntaxError("Invalid coordinates.");
+			else
+				syntaxError("Invalid coordinates.");
+		}
+		return pos;
 	}
 	
 	protected final void syntaxError() throws SyntaxError
