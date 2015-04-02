@@ -217,7 +217,6 @@ public class FileManager
 					Client.wurst.modManager.getModByName(entry.getKey());
 				if(mod != null
 					&& mod.getCategory() != Category.HIDDEN
-					&& mod.getCategory() != Category.WIP
 					&& !Arrays.asList(moduleBlacklist).contains(
 						mod.getClass().getName()))
 				{
