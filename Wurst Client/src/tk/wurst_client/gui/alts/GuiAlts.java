@@ -72,6 +72,7 @@ public class GuiAlts extends GuiScreen
 		buttonList.add(new GuiButton(6, width / 2 + 80, height - 28, 75, 20,
 			"Cancel"));
 		buttonList.add(new GuiButton(7, 8, 8, 75, 20, "Import Alts"));
+		Client.wurst.analytics.trackPageView("/alt-manager/", "Alt Manager");
 	}
 	
 	/**

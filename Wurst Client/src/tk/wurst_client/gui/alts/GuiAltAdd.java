@@ -62,6 +62,12 @@ public class GuiAltAdd extends AltEditorScreen
 		}else
 			errorTimer = 8;
 	}
+
+	@Override
+	protected String getUrl()
+	{
+		return "/alt-manager/add";
+	}
 	
 	@Override
 	protected String getTitle()
