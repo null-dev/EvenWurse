@@ -103,7 +103,6 @@ public class ModManager
 		addMod(new PlayerFinder());
 		addMod(new ProphuntESP());
 		addMod(new Protect());
-		addMod(new Pwnage());
 		addMod(new Regen());
 		addMod(new RemoteView());
 		addMod(new Search());

@@ -18,7 +18,7 @@ import tk.wurst_client.mod.Mod.Category;
 import tk.wurst_client.mod.Mod.Info;
 
 @Info(category = Category.MISC,
-	description = "Allows you to eat food ten times faster.\n"
+	description = "Allows you to eat food much faster.\n"
 		+ "OM! NOM! NOM!",
 	name = "FastEat")
 public class FastEat extends Mod implements UpdateListener
@@ -46,7 +46,7 @@ public class FastEat extends Mod implements UpdateListener
 				.getItem() instanceof ItemFood
 			&& Minecraft.getMinecraft().thePlayer.getFoodStats().needFood()
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
-			for(int i = 0; i < 10; i++)
+			for(int i = 0; i < 100; i++)
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C03PacketPlayer(false));
 	}

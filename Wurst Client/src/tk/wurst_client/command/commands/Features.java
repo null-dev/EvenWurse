@@ -31,8 +31,7 @@ public class Features extends Command
 		int mods = Client.wurst.modManager.countMods();
 		int hiddenMods = 0;
 		for(Mod mod : Client.wurst.modManager.getAllMods())
-			if(mod.getCategory() == Category.HIDDEN
-				|| mod.getCategory() == Category.WIP)
+			if(mod.getCategory() == Category.HIDDEN)
 				hiddenMods++;
 		Client.wurst.chat.message(">" + (mods - hiddenMods) + " mods (+"
 			+ hiddenMods + " hidden mods)");
