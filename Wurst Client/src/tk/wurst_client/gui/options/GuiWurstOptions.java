@@ -49,7 +49,7 @@ public class GuiWurstOptions extends GuiScreen
 		"Frequently asked questions",
 		"",
 		"",
-		"Online feedback survey",
+		""
 	};
 	private boolean autoMaximize;
 	
@@ -101,8 +101,7 @@ public class GuiWurstOptions extends GuiScreen
 			100, 20, "Report a Bug"));
 		buttonList.add(new GuiButton(14, width / 2 + 54, height / 4 + 96 - 16,
 			100, 20, "Suggest a Feature"));
-		buttonList.add(new GuiButton(15, width / 2 + 54, height / 4 + 120 - 16,
-			100, 20, "Give Feedback"));
+		//buttonList.add(new GuiButton(15, width / 2 + 54, height / 4 + 120 - 16, 100, 20, "???"));
 		((GuiButton)buttonList.get(4)).enabled = !Minecraft.isRunningOnMac;
 	}
 	
@@ -169,7 +168,9 @@ public class GuiWurstOptions extends GuiScreen
 			else if(clickedButton.id == 14)
 				MiscUtils.openLink("http://www.wurst-client.tk/ideas");
 			else if(clickedButton.id == 15)
-				MiscUtils.openLink("https://www.surveymonkey.com/r/QDTKZDY");
+			{
+				
+			}
 	}
 	
 	/**
