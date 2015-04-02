@@ -15,12 +15,11 @@ import tk.wurst_client.command.Command;
 import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.RenderListener;
-import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.utils.RenderUtils;
 
 @Info(help = "Shows the shortest path to a specific point. Useful for labyrinths and caves.",
 	name = "path",
-	syntax = {"[<x> <y> <z>]"})
+	syntax = {"<x> <y> <z>"})
 public class Path extends Command implements RenderListener
 {
 	private PathPoint path;
@@ -38,12 +37,9 @@ public class Path extends Command implements RenderListener
 		}
 		if(args.length != 3)
 			syntaxError();
-		for(String arg : args)
-			if(!MiscUtils.isInteger(arg))
-				syntaxError("Invalid coordinates.");
+		int[] posArray = argsToPos(args);
 		final BlockPos pos =
-			new BlockPos(Integer.parseInt(args[0]), Integer.parseInt(args[1]),
-				Integer.parseInt(args[2]));
+			new BlockPos(posArray[0], posArray[1], posArray[2]);
 		Thread thread = new Thread(new Runnable()
 		{
 			@Override

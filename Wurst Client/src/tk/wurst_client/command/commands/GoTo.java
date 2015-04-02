@@ -14,7 +14,6 @@ import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.command.Command;
 import tk.wurst_client.command.Command.Info;
 import tk.wurst_client.mod.mods.GoToCmd;
-import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Walks or flies you to a specific location.",
 	name = "goto",
@@ -26,20 +25,15 @@ public class GoTo extends Command
 	{
 		if(args.length != 3)
 			syntaxError();
-		for(String arg : args)
-			if(!MiscUtils.isInteger(arg))
-				syntaxError("Invalid coordinates.");
-		if(Math.abs(Integer.parseInt(args[0])
-			- Minecraft.getMinecraft().thePlayer.posX) > 256
-			|| Math.abs(Integer.parseInt(args[2])
-				- Minecraft.getMinecraft().thePlayer.posZ) > 256)
+		int[] pos = argsToPos(args);
+		if(Math.abs(pos [0] - Minecraft.getMinecraft().thePlayer.posX) > 256
+			|| Math.abs(pos[2] - Minecraft.getMinecraft().thePlayer.posZ) > 256)
 		{
 			Client.wurst.chat.error("Goal is out of range!");
 			Client.wurst.chat.message("Maximum range is 256 blocks.");
 			return;
 		}
-		GoToCmd.setGoal(new BlockPos(Integer.parseInt(args[0]), Integer
-			.parseInt(args[1]), Integer.parseInt(args[2])));
+		GoToCmd.setGoal(new BlockPos(pos[0], pos[1], pos[2]));
 		Thread thread = new Thread(new Runnable()
 		{
 			@Override

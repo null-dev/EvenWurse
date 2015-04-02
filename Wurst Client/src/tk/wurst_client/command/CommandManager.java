@@ -83,15 +83,18 @@ public class CommandManager implements ChatOutputListener
 		addCommand(new Enchant());
 		addCommand(new FastBreakMod());
 		addCommand(new Features());
+		addCommand(new FollowMod());
 		addCommand(new Friends());
 		addCommand(new GM());
 		addCommand(new GoTo());
 		addCommand(new Help());
 		addCommand(new Invsee());
 		addCommand(new IP());
+		addCommand(new Jump());
 		addCommand(new Nothing());
 		addCommand(new NukerMod());
 		addCommand(new Path());
+		addCommand(new ProtectMod());
 		addCommand(new RV());
 		addCommand(new Say());
 		addCommand(new SearchMod());
