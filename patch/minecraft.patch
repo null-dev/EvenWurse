@@ -1,6 +1,6 @@
-From a43bc624ad31ae1e35432ab8b6ff6d60781b2142 Mon Sep 17 00:00:00 2001
+From 10e926abf4b3bc784fafd87635b7001c09811a4c Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 2 Apr 2015 23:40:07 +0200
+Date: Fri, 3 Apr 2015 15:29:43 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -20413,7 +20413,7 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..b8ea6fa 100644
+index 38033d9..c1f6dfe 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
 @@ -1,567 +1,780 @@
@@ -21579,6 +21579,7 @@ index 38033d9..b8ea6fa 100644
 +        GlStateManager.enableAlpha();
 +        Tessellator var4 = Tessellator.getInstance();
 +        WorldRenderer var5 = var4.getWorldRenderer();
++        
 +        //TODO: Client
 +        short var6 = 256;
 +        int var7 = this.width / 2 - var6 / 2;
@@ -21649,14 +21650,12 @@ index 38033d9..b8ea6fa 100644
 +            fh = 256;
 +            u = 0;
 +            v = 0;
-+        	//GL11.glRotatef(10.0F, 0.0F, 0.0F, 1.0F);
 +            var5.startDrawingQuads();
 +            var5.addVertexWithUV((double)x + 0, (double)y + h, (double)0, (double)((float)(u + 0) * 0.00390625F), (double)((float)(v + fh) * 0.00390625F));
 +            var5.addVertexWithUV((double)x + w, (double)y + h, (double)0, (double)((float)(u + fw) * 0.00390625F), (double)((float)(v + fh) * 0.00390625F));
 +            var5.addVertexWithUV((double)x + w, (double)y + 0, (double)0, (double)((float)(u + fw) * 0.00390625F), (double)((float)(v + 0) * 0.00390625F));
 +            var5.addVertexWithUV((double)x + 0, (double)y + 0, (double)0, (double)((float)(u + 0) * 0.00390625F), (double)((float)(v + 0) * 0.00390625F));
 +            var4.draw();
-+        	//GL11.glRotatef(-10.0F, 0.0F, 0.0F, 1.0F);
 +        }
 +        if(GuiMainMenu.splashText.equals("umop-apisdn!"))
 +        {
@@ -21734,6 +21733,7 @@ index 38033d9..b8ea6fa 100644
 +				Client.wurst.analytics.trackPageView("/easter-eggs/christmas",
 +					"Dude, it's Christmas!");
 +			}
++			Client.wurst.analytics.trackPageView("/", "Main Menu");
 +			Client.wurst.startupMessageDisabled = true;
 +		}
 +    }
