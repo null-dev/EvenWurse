@@ -25,7 +25,7 @@ import tk.wurst_client.update.Updater;
 
 public class Client
 {
-	public final String CLIENT_VERSION = "1.11";
+	public final String CLIENT_VERSION = "1.11.1";
 	public String currentServerIP = "127.0.0.1:25565";
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
@@ -54,13 +54,12 @@ public class Client
 		keybinds = new Keybinds();
 		options = new Options();
 		friends = new Friends();
-		analytics = new Analytics("UA-52838431-5", "client.wurst-client.tk");
 		
 		fileManager.init();
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();
 		updater.checkForUpdate();
 		EventManager.init();
-		analytics.trackPageView("/", "Launch");
+		analytics = new Analytics("UA-52838431-5", "client.wurst-client.tk");
 	}
 }
