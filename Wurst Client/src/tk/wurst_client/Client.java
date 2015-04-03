@@ -61,6 +61,5 @@ public class Client
 		updater.checkForUpdate();
 		EventManager.init();
 		analytics = new Analytics("UA-52838431-5", "client.wurst-client.tk");
-		analytics.trackPageView("/", "Launch");
 	}
 }
