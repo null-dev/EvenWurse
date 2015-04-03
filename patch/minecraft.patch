@@ -1,6 +1,6 @@
-From eda0c43e2e7f8687b293acbb3fdf3f84a07fbb72 Mon Sep 17 00:00:00 2001
+From e519cd4e5e4cfc4de707f28b8a68b307b873ea30 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Fri, 3 Apr 2015 15:50:29 +0200
+Date: Fri, 3 Apr 2015 15:57:44 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6854 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6853 ++++++++++----------
  src/net/minecraft/client/audio/SoundManager.java   | 1188 ++--
  .../client/entity/AbstractClientPlayer.java        |  267 +-
  .../minecraft/client/entity/EntityPlayerSP.java    | 1783 ++---
@@ -37,7 +37,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiLanguage.java      |    3 +
  src/net/minecraft/client/gui/GuiListButton.java    |    1 +
  .../minecraft/client/gui/GuiLockIconButton.java    |    1 +
- src/net/minecraft/client/gui/GuiMainMenu.java      | 1346 ++--
+ src/net/minecraft/client/gui/GuiMainMenu.java      | 1349 ++--
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |    2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |    4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   |  197 +-
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 25930 insertions(+), 24299 deletions(-)
+ 203 files changed, 25932 insertions(+), 24299 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..d0888c5 100644
@@ -4603,10 +4603,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..fa5b032 100644
+index f503b64..2cbe1fe 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3548 @@
+@@ -1,3306 +1,3547 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -9098,7 +9098,6 @@ index f503b64..fa5b032 100644
 +
 +        if (guiScreenIn instanceof GuiMainMenu)
 +        {
-+			Client.wurst.analytics.trackPageView("/", "Main Menu");
 +            this.gameSettings.showDebugInfo = false;
 +            this.ingameGUI.getChatGUI().clearChatMessages();
 +        }
@@ -20414,10 +20413,10 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..da7e672 100644
+index 38033d9..ec0f0b3 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
-@@ -1,567 +1,779 @@
+@@ -1,567 +1,782 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -21144,6 +21143,9 @@ index 38033d9..da7e672 100644
 +            this.field_146972_A = I18n.format("title.oldgl2", new Object[0]);
 +            this.field_104024_v = "https://help.mojang.com/customer/portal/articles/325948?ref=game";
 +        }
++        
++        //TODO: Client
++		Client.wurst.analytics.trackPageView("/", "Main Menu");
 +    }
 +
 +    /**
