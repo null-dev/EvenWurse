@@ -13,5 +13,5 @@ public class UpdateEvent extends Event
 	public String getAction()
 	{
 		return "updating";
-	}	
+	}
 }

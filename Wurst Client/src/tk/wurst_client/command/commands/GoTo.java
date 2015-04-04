@@ -26,7 +26,7 @@ public class GoTo extends Command
 		if(args.length != 3)
 			syntaxError();
 		int[] pos = argsToPos(args);
-		if(Math.abs(pos [0] - Minecraft.getMinecraft().thePlayer.posX) > 256
+		if(Math.abs(pos[0] - Minecraft.getMinecraft().thePlayer.posX) > 256
 			|| Math.abs(pos[2] - Minecraft.getMinecraft().thePlayer.posZ) > 256)
 		{
 			Client.wurst.chat.error("Goal is out of range!");

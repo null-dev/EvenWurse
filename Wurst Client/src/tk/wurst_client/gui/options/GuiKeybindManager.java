@@ -40,7 +40,8 @@ public class GuiKeybindManager extends GuiScreen
 			"Remove"));
 		buttonList.add(new GuiButton(3, width / 2 + 2, height - 28, 100, 20,
 			"Back"));
-		Client.wurst.analytics.trackPageView("/options/keybind-manager", "Keybind Manager");
+		Client.wurst.analytics.trackPageView("/options/keybind-manager",
+			"Keybind Manager");
 	}
 	
 	/**
@@ -77,7 +78,8 @@ public class GuiKeybindManager extends GuiScreen
 						.getSelectedSlot()];
 				Client.wurst.keybinds.remove(entry.getKey());
 				Client.wurst.fileManager.saveKeybinds();
-				Client.wurst.analytics.trackEvent("keybinds", "remove", entry.getKey());
+				Client.wurst.analytics.trackEvent("keybinds", "remove",
+					entry.getKey());
 			}else if(clickedButton.id == 3)
 				mc.displayGuiScreen(prevMenu);
 	}

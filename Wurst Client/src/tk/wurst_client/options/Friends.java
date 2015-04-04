@@ -10,6 +10,6 @@ package tk.wurst_client.options;
 import java.util.TreeSet;
 
 public class Friends extends TreeSet<String>
-{
+{	
 	
 }

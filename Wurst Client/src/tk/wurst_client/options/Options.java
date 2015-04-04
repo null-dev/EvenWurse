@@ -35,8 +35,9 @@ public class Options
 	public int throwAmount = 16;
 	
 	public String forceOPList = Client.wurst.fileManager.wurstDir.getPath();
-
-	public Options.GoogleAnalytics google_analytics = new Options.GoogleAnalytics();
+	
+	public Options.GoogleAnalytics google_analytics =
+		new Options.GoogleAnalytics();
 	
 	public class GoogleAnalytics
 	{

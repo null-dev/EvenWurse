@@ -110,8 +110,8 @@ public class Mod
 					new GuiError(e, this, "disabling", ""));
 			}
 		Client.wurst.fileManager.saveMods();
-		Client.wurst.analytics.trackEvent("mod", name, (enabled ? "enable"
-			: "disable"));
+		Client.wurst.analytics.trackEvent("mod", name, enabled ? "enable"
+			: "disable");
 	}
 	
 	public final void enableOnStartup()

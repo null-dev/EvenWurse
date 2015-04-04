@@ -17,7 +17,7 @@ public class ChatOutputEvent extends CancellableEvent
 		this.message = message;
 		this.automatic = automatic;
 	}
-
+	
 	public String getMessage()
 	{
 		return message;
@@ -39,7 +39,7 @@ public class ChatOutputEvent extends CancellableEvent
 	{
 		return "Message: `" + message + "`";
 	}
-
+	
 	public boolean isAutomatic()
 	{
 		return automatic;

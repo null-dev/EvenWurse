@@ -26,7 +26,8 @@ public class HelpCmd extends Command
 			return;
 		}
 		int pages =
-			(int)Math.ceil(WurstBot.getBot().getCommandManager().countCommands() / 8D);
+			(int)Math.ceil(WurstBot.getBot().getCommandManager()
+				.countCommands() / 8D);
 		if(MiscUtils.isInteger(args[0]))
 		{
 			int page = Integer.valueOf(args[0]);
@@ -37,7 +38,8 @@ public class HelpCmd extends Command
 			System.out.println("Command list (page " + page + "/"
 				+ pages + "):");
 			Iterator<Command> itr =
-				WurstBot.getBot().getCommandManager().getAllCommands().iterator();
+				WurstBot.getBot().getCommandManager().getAllCommands()
+					.iterator();
 			for(int i = 0; itr.hasNext(); i++)
 			{
 				Command cmd = itr.next();
@@ -46,7 +48,8 @@ public class HelpCmd extends Command
 			}
 		}else
 		{
-			Command cmd = WurstBot.getBot().getCommandManager().getCommandByName(args[0]);
+			Command cmd =
+				WurstBot.getBot().getCommandManager().getCommandByName(args[0]);
 			if(cmd != null)
 			{
 				System.out.println("Available help for \"" + args[0] + "\":");

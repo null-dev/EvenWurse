@@ -108,7 +108,6 @@ public abstract class AltEditorScreen extends GuiScreen
 		Client.wurst.analytics.trackPageView(getUrl(), getTitle());
 	}
 	
-
 	/**
 	 * "Called when the screen is unloaded. Used to disable keyboard repeat events."
 	 */

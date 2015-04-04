@@ -28,7 +28,8 @@ public class LoginCmd extends Command
 		{
 			String error = LoginManager.login(args[0], args[1]);
 			if(error.isEmpty())
-				System.out.println("Logged in as " + Minecraft.getMinecraft().session.getUsername());
+				System.out.println("Logged in as "
+					+ Minecraft.getMinecraft().session.getUsername());
 			else
 				error(error);
 		}

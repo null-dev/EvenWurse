@@ -20,10 +20,11 @@ public class FollowMod extends Command
 {
 	@Override
 	public void execute(String[] args) throws Error
-	{	
+	{
 		if(args.length > 1)
 			syntaxError();
-		Follow follow = ((Follow)Client.wurst.modManager.getModByClass(Follow.class));
+		Follow follow =
+			(Follow)Client.wurst.modManager.getModByClass(Follow.class);
 		if(args.length == 0)
 			follow.toggle();
 		else

@@ -93,14 +93,14 @@ public abstract class Command
 	protected final int[] argsToPos(String... args) throws SyntaxError
 	{
 		if(args.length < 3)
-			throw new IllegalArgumentException("Too few arguments. Only " + args.length + " instead of 3.");
+			throw new IllegalArgumentException("Too few arguments. Only "
+				+ args.length + " instead of 3.");
 		int[] pos = new int[3];
 		int[] playerPos =
 			new int[]{(int)Minecraft.getMinecraft().thePlayer.posX,
 				(int)Minecraft.getMinecraft().thePlayer.posY,
 				(int)Minecraft.getMinecraft().thePlayer.posZ};
 		for(int i = 0; i < args.length; i++)
-		{
 			if(MiscUtils.isInteger(args[i]))
 				pos[i] = Integer.parseInt(args[i]);
 			else if(args[i].startsWith("~"))
@@ -113,7 +113,6 @@ public abstract class Command
 					syntaxError("Invalid coordinates.");
 			else
 				syntaxError("Invalid coordinates.");
-		}
 		return pos;
 	}
 	

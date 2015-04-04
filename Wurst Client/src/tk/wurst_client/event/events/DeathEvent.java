@@ -13,6 +13,6 @@ public class DeathEvent extends Event
 	public String getAction()
 	{
 		return "dying";
-	}	
+	}
 	
 }

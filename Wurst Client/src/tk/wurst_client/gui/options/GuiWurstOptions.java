@@ -83,7 +83,7 @@ public class GuiWurstOptions extends GuiScreen
 			100, 20, "Wurst news: "
 				+ (Client.wurst.options.wurstNews ? "ON" : "OFF")));
 		buttonList
-			.add(new GuiButton(5, this.width / 2 - 154,
+			.add(new GuiButton(5, width / 2 - 154,
 				height / 4 + 120 - 16, 100, 20, "Analytics: "
 					+ (Client.wurst.options.google_analytics.enabled ? "ON"
 						: "OFF")));
@@ -126,7 +126,7 @@ public class GuiWurstOptions extends GuiScreen
 							: "OFF");
 				Client.wurst.fileManager.saveOptions();
 				Client.wurst.analytics.trackEvent("options", "click friends",
-					(Client.wurst.options.middleClickFriends ? "ON" : "OFF"));
+					Client.wurst.options.middleClickFriends ? "ON" : "OFF");
 			}else if(clickedButton.id == 2)
 			{// Mod List
 				Client.wurst.options.modListMode++;
@@ -186,7 +186,8 @@ public class GuiWurstOptions extends GuiScreen
 			}else if(clickedButton.id == 11)
 			{
 				MiscUtils.openLink("http://www.wurst-client.tk/");
-				Client.wurst.analytics.trackEvent("options", "wurst client website");
+				Client.wurst.analytics.trackEvent("options",
+					"wurst client website");
 			}else if(clickedButton.id == 12)
 			{
 				MiscUtils.openLink("http://www.wurst-client.tk/faq");

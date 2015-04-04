@@ -9,7 +9,9 @@ package tk.wurst_client.bot.commands;
 
 import net.minecraft.client.Minecraft;
 
-@Command.Info(help = "Fixes you if you get stuck in a menu.", name = "fixme", syntax = {})
+@Command.Info(help = "Fixes you if you get stuck in a menu.",
+	name = "fixme",
+	syntax = {})
 public class FixmeCmd extends Command
 {
 	@Override

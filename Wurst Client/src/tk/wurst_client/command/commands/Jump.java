@@ -15,7 +15,7 @@ public class Jump extends Command
 {
 	@Override
 	public void execute(String[] args) throws Error
-	{	
+	{
 		if(args.length != 0)
 			syntaxError();
 		if(!Minecraft.getMinecraft().thePlayer.onGround)

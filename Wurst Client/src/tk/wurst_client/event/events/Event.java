@@ -8,7 +8,7 @@
 package tk.wurst_client.event.events;
 
 public abstract class Event
-{	
+{
 	public abstract String getAction();
 	
 	public String getComment()

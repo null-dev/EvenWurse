@@ -86,7 +86,8 @@ public class AutoEat extends Mod implements UpdateListener
 				Minecraft.getMinecraft().playerController.sendUseItem(
 					Minecraft.getMinecraft().thePlayer,
 					Minecraft.getMinecraft().theWorld, item);
-				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed  = true;
+				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
+					true;
 			}
 			
 			private void stop()

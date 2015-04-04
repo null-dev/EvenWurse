@@ -20,10 +20,11 @@ public class ProtectMod extends Command
 {
 	@Override
 	public void execute(String[] args) throws Error
-	{	
+	{
 		if(args.length > 1)
 			syntaxError();
-		Protect protect = ((Protect)Client.wurst.modManager.getModByClass(Protect.class));
+		Protect protect =
+			(Protect)Client.wurst.modManager.getModByClass(Protect.class);
 		if(args.length == 0)
 			protect.toggle();
 		else

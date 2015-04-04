@@ -53,7 +53,7 @@ public class GuiAltLogin extends AltEditorScreen
 		else
 			errorTimer = 8;
 	}
-
+	
 	@Override
 	protected String getUrl()
 	{

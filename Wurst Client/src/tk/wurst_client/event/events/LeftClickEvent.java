@@ -13,5 +13,5 @@ public class LeftClickEvent extends Event
 	public String getAction()
 	{
 		return "left-clicking";
-	}	
+	}
 }

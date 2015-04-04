@@ -68,7 +68,7 @@ public class GuiAltEdit extends AltEditorScreen
 		}else
 			errorTimer = 8;
 	}
-
+	
 	@Override
 	protected String getUrl()
 	{

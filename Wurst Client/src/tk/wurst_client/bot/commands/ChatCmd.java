@@ -16,7 +16,7 @@ public class ChatCmd extends Command
 {
 	@Override
 	public void execute(String[] args) throws Error
-	{	
+	{
 		if(args.length == 0)
 			syntaxError();
 		if(Minecraft.getMinecraft().thePlayer == null)
