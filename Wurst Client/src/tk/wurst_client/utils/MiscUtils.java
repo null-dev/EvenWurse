@@ -9,16 +9,23 @@ package tk.wurst_client.utils;
 
 import java.awt.Component;
 import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URI;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Util;
 
 import org.apache.logging.log4j.LogManager;
@@ -131,5 +138,50 @@ public class MiscUtils
 		String message = writer.toString();
 		JOptionPane.showMessageDialog(parent, message, "Error",
 			JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public static String post(URL url, String content)
+	{
+		try
+		{
+			Proxy proxy =
+				MinecraftServer.getServer() == null ? null : MinecraftServer
+					.getServer().getServerProxy();
+			if(proxy == null)
+				proxy = Proxy.NO_PROXY;
+			
+			HttpURLConnection connection =
+				(HttpURLConnection)url.openConnection(proxy);
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type",
+				"application/x-www-form-urlencoded");
+			connection.setRequestProperty("Content-Length",
+				"" + content.getBytes().length);
+			connection.setRequestProperty("Content-Language", "en-US");
+			connection.setUseCaches(false);
+			connection.setDoInput(true);
+			connection.setDoOutput(true);
+			DataOutputStream output =
+				new DataOutputStream(connection.getOutputStream());
+			output.writeBytes(content);
+			output.flush();
+			output.close();
+			
+			BufferedReader input =
+				new BufferedReader(new InputStreamReader(
+					connection.getInputStream()));
+			StringBuffer buffer = new StringBuffer();
+			for(String line; (line = input.readLine()) != null;)
+			{
+				buffer.append(line);
+				buffer.append('\n');
+			}
+			input.close();
+			return buffer.toString();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return "";
+		}
 	}
 }
