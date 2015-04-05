@@ -31,7 +31,7 @@ public class GoToCmd extends Cmd
 			Client.wurst.chat.message("Maximum range is 256 blocks.");
 			return;
 		}
-		tk.wurst_client.mod.mods.GoToCmd.setGoal(new BlockPos(pos[0], pos[1], pos[2]));
+		tk.wurst_client.mods.GoToCmdMod.setGoal(new BlockPos(pos[0], pos[1], pos[2]));
 		Thread thread = new Thread(new Runnable()
 		{
 			@Override
@@ -39,12 +39,12 @@ public class GoToCmd extends Cmd
 			{
 				System.out.println("Finding path");
 				long startTime = System.nanoTime();
-				PathFinder pathFinder = new PathFinder(tk.wurst_client.mod.mods.GoToCmd.getGoal());
+				PathFinder pathFinder = new PathFinder(tk.wurst_client.mods.GoToCmdMod.getGoal());
 				if(pathFinder.find())
 				{
-					tk.wurst_client.mod.mods.GoToCmd.setPath(pathFinder.formatPath());
+					tk.wurst_client.mods.GoToCmdMod.setPath(pathFinder.formatPath());
 					Client.wurst.modManager
-						.getModByClass(tk.wurst_client.mod.mods.GoToCmd.class).setEnabled(true);
+						.getModByClass(tk.wurst_client.mods.GoToCmdMod.class).setEnabled(true);
 				}else
 					Client.wurst.chat.error("Could not find a path.");
 				System.out.println("Done after "

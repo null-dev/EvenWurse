@@ -10,7 +10,7 @@ package tk.wurst_client.commands;
 import net.minecraft.block.Block;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.mod.mods.Nuker;
+import tk.wurst_client.mods.NukerMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Changes the settings of Nuker.",
@@ -29,19 +29,19 @@ public class NukerCmd extends Cmd
 			if(args[1].toLowerCase().equals("normal"))
 			{
 				Client.wurst.options.nukerMode = 0;
-				Nuker.id = 0;
+				NukerMod.id = 0;
 			}else if(args[1].toLowerCase().equals("id"))
 			{
 				Client.wurst.options.nukerMode = 1;
-				Nuker.id = 0;
+				NukerMod.id = 0;
 			}else if(args[1].toLowerCase().equals("flat"))
 			{
 				Client.wurst.options.nukerMode = 2;
-				Nuker.id = 0;
+				NukerMod.id = 0;
 			}else if(args[1].toLowerCase().equals("smash"))
 			{
 				Client.wurst.options.nukerMode = 3;
-				Nuker.id = 0;
+				NukerMod.id = 0;
 			}else
 				syntaxError();
 			Client.wurst.fileManager.saveOptions();
@@ -54,7 +54,7 @@ public class NukerCmd extends Cmd
 				Client.wurst.chat.message("Nuker mode set to \"" + args[0]
 					+ "\".");
 			}
-			Nuker.id = Integer.valueOf(args[1]);
+			NukerMod.id = Integer.valueOf(args[1]);
 			Client.wurst.fileManager.saveOptions();
 			Client.wurst.chat.message("Nuker ID set to " + args[1] + ".");
 		}else if(args[0].equalsIgnoreCase("name"))
@@ -72,7 +72,7 @@ public class NukerCmd extends Cmd
 					+ "\" could not be found.");
 				return;
 			}
-			Nuker.id = Integer.valueOf(newID);
+			NukerMod.id = Integer.valueOf(newID);
 			Client.wurst.fileManager.saveOptions();
 			Client.wurst.chat.message("Nuker ID set to " + newID + " ("
 				+ args[1] + ").");

@@ -9,7 +9,7 @@ package tk.wurst_client.commands;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.mod.mods.Spammer;
+import tk.wurst_client.mods.SpammerMod;
 import tk.wurst_client.spam.SpamProcessor;
 
 @Info(help = "Changes the delay of Spammer or spams spam from a file.",
@@ -28,7 +28,7 @@ public class SpammerCmd extends Cmd
 			if(newDelay % 50 > 0)
 				newDelay = newDelay - newDelay % 50;
 			Client.wurst.options.spamDelay = newDelay;
-			Spammer.updateDelaySpinner();
+			SpammerMod.updateDelaySpinner();
 			Client.wurst.chat.message("Spammer delay set to " + newDelay
 				+ "ms.");
 		}else if(args[0].equalsIgnoreCase("spam"))

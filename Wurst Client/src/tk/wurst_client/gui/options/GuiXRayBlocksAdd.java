@@ -22,7 +22,7 @@ import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.mod.mods.XRay;
+import tk.wurst_client.mods.XRayMod;
 
 public class GuiXRayBlocksAdd extends GuiScreen
 {
@@ -80,7 +80,7 @@ public class GuiXRayBlocksAdd extends GuiScreen
 			if(clickedButton.id == 0)
 			{// Add
 				Block block = Block.getBlockFromName(nameBox.getText());
-				XRay.xrayBlocks.add(block);
+				XRayMod.xrayBlocks.add(block);
 				GuiXRayBlocksList.sortBlocks();
 				Client.wurst.fileManager.saveXRayBlocks();
 				mc.displayGuiScreen(prevMenu);

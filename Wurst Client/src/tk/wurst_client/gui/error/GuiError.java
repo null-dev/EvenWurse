@@ -32,7 +32,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd;
-import tk.wurst_client.mod.Mod;
+import tk.wurst_client.mods.Mod;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonObject;

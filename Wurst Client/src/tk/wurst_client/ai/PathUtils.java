@@ -13,13 +13,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
-import tk.wurst_client.mod.Mod;
-import tk.wurst_client.mod.mods.AntiKnockback;
-import tk.wurst_client.mod.mods.Flight;
-import tk.wurst_client.mod.mods.Jesus;
-import tk.wurst_client.mod.mods.NoFall;
-import tk.wurst_client.mod.mods.NoSlowdown;
-import tk.wurst_client.mod.mods.Spider;
+import tk.wurst_client.mods.AntiKnockbackMod;
+import tk.wurst_client.mods.FlightMod;
+import tk.wurst_client.mods.JesusMod;
+import tk.wurst_client.mods.Mod;
+import tk.wurst_client.mods.NoFallMod;
+import tk.wurst_client.mods.NoSlowdownMod;
+import tk.wurst_client.mods.SpiderMod;
 
 public class PathUtils
 {
@@ -50,7 +50,7 @@ public class PathUtils
 	{
 		if(jesusMod == null)
 			jesusMod =
-				Client.wurst.modManager.getModByClass(Jesus.class);
+				Client.wurst.modManager.getModByClass(JesusMod.class);
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
 			|| getMaterial(pos) == Material.water && jesusMod.isEnabled();
@@ -68,7 +68,7 @@ public class PathUtils
 	{
 		if(spiderMod == null)
 			spiderMod =
-				Client.wurst.modManager.getModByClass(Spider.class);
+				Client.wurst.modManager.getModByClass(SpiderMod.class);
 		if(isSolid(pos.add(0, -1, 0))
 			|| spiderMod.isEnabled()
 			|| getID(pos) == 65
@@ -85,7 +85,7 @@ public class PathUtils
 	{
 		if(noFallMod == null)
 			noFallMod =
-				Client.wurst.modManager.getModByClass(NoFall.class);
+				Client.wurst.modManager.getModByClass(NoFallMod.class);
 		return noFallMod.isEnabled() || isCreative();
 	}
 	
@@ -100,10 +100,10 @@ public class PathUtils
 	{
 		if(flightMod == null)
 			flightMod =
-				Client.wurst.modManager.getModByClass(Flight.class);
+				Client.wurst.modManager.getModByClass(FlightMod.class);
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				Client.wurst.modManager.getModByClass(NoSlowdown.class);
+				Client.wurst.modManager.getModByClass(NoSlowdownMod.class);
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
 		return flightMod.isEnabled()
@@ -116,11 +116,11 @@ public class PathUtils
 	{
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				Client.wurst.modManager.getModByClass(NoSlowdown.class);
+				Client.wurst.modManager.getModByClass(NoSlowdownMod.class);
 		if(antiKnockbackMod == null)
 			antiKnockbackMod =
 				Client.wurst.modManager
-					.getModByClass(AntiKnockback.class);
+					.getModByClass(AntiKnockbackMod.class);
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)
 			if(noSlowdownMod.isEnabled())

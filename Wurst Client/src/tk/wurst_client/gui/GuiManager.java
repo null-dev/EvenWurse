@@ -65,9 +65,9 @@ import org.darkstorm.minecraft.gui.listener.SliderListener;
 import org.darkstorm.minecraft.gui.theme.Theme;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.mod.Mod;
-import tk.wurst_client.mod.Mod.Category;
-import tk.wurst_client.mod.mods.AutoBuild;
+import tk.wurst_client.mods.AutoBuildMod;
+import tk.wurst_client.mods.Mod;
+import tk.wurst_client.mods.Mod.Category;
 
 /**
  * Minecraft GUI API
@@ -195,7 +195,7 @@ public final class GuiManager extends AbstractGuiManager
 		ModuleFrame autobuild = categoryFrames.get(Category.AUTOBUILD);
 		ComboBox autoBuildBox =
 			new BasicComboBox(
-				AutoBuild.names.toArray(new String[AutoBuild.names.size()]));
+				AutoBuildMod.names.toArray(new String[AutoBuildMod.names.size()]));
 		autoBuildBox.addComboBoxListener(new ComboBoxListener()
 		{
 			@Override

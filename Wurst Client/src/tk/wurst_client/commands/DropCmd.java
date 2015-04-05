@@ -17,7 +17,7 @@ import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.event.listeners.UpdateListener;
-import tk.wurst_client.mod.mods.YesCheat;
+import tk.wurst_client.mods.YesCheatMod;
 
 @Info(help = "Drops all your items on the ground.",
 	name = "drop",
@@ -58,7 +58,7 @@ public class DropCmd extends Cmd implements UpdateListener
 					new ItemStack(item, 64)));
 			return;
 		}
-		if(Client.wurst.modManager.getModByClass(YesCheat.class)
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
 			.isEnabled())
 		{
 			timer++;

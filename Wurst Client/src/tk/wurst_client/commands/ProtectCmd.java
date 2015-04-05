@@ -9,7 +9,7 @@ package tk.wurst_client.commands;
 
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
-import tk.wurst_client.mod.mods.Protect;
+import tk.wurst_client.mods.ProtectMod;
 import tk.wurst_client.utils.EntityUtils;
 
 @Cmd.Info(help = "Toggles Protect or makes it protect a specific entity.",
@@ -22,19 +22,19 @@ public class ProtectCmd extends Cmd
 	{
 		if(args.length > 1)
 			syntaxError();
-		Protect protect =
-			(Protect)Client.wurst.modManager.getModByClass(Protect.class);
+		ProtectMod protectMod =
+			(ProtectMod)Client.wurst.modManager.getModByClass(ProtectMod.class);
 		if(args.length == 0)
-			protect.toggle();
+			protectMod.toggle();
 		else
 		{
-			if(protect.isEnabled())
-				protect.setEnabled(false);
+			if(protectMod.isEnabled())
+				protectMod.setEnabled(false);
 			EntityLivingBase entity = EntityUtils.searchEntityByName(args[0]);
 			if(entity == null)
 				error("Entity \"" + args[0] + "\" could not be found.");
-			protect.setEnabled(true);
-			protect.setFriend(entity);
+			protectMod.setEnabled(true);
+			protectMod.setFriend(entity);
 		}
 	}
 }

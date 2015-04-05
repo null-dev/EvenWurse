@@ -9,7 +9,7 @@ package tk.wurst_client.commands;
 
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.Client;
-import tk.wurst_client.mod.mods.Follow;
+import tk.wurst_client.mods.FollowMod;
 import tk.wurst_client.utils.EntityUtils;
 
 @Cmd.Info(help = "Toggles Follow or makes it target a specific entity.",
@@ -22,19 +22,19 @@ public class FollowCmd extends Cmd
 	{
 		if(args.length > 1)
 			syntaxError();
-		Follow follow =
-			(Follow)Client.wurst.modManager.getModByClass(Follow.class);
+		FollowMod followMod =
+			(FollowMod)Client.wurst.modManager.getModByClass(FollowMod.class);
 		if(args.length == 0)
-			follow.toggle();
+			followMod.toggle();
 		else
 		{
-			if(follow.isEnabled())
-				follow.setEnabled(false);
+			if(followMod.isEnabled())
+				followMod.setEnabled(false);
 			EntityLivingBase entity = EntityUtils.searchEntityByName(args[0]);
 			if(entity == null)
 				error("Entity \"" + args[0] + "\" could not be found.");
-			follow.setEnabled(true);
-			follow.setEntity(entity);
+			followMod.setEnabled(true);
+			followMod.setEntity(entity);
 		}
 	}
 }

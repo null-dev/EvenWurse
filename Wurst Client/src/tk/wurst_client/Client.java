@@ -17,7 +17,7 @@ import tk.wurst_client.commands.CmdManager;
 import tk.wurst_client.event.EventManager;
 import tk.wurst_client.files.FileManager;
 import tk.wurst_client.gui.GuiManager;
-import tk.wurst_client.mod.ModManager;
+import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.options.Friends;
 import tk.wurst_client.options.Keybinds;
 import tk.wurst_client.options.Options;

@@ -13,8 +13,8 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.mod.Mod;
-import tk.wurst_client.mod.Mod.Category;
+import tk.wurst_client.mods.Mod;
+import tk.wurst_client.mods.Mod.Category;
 
 @Info(help = "Counts the features in this release of Wurst.",
 	name = "features",

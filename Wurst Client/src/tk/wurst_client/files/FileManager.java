@@ -27,9 +27,8 @@ import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.Encryption;
 import tk.wurst_client.gui.alts.GuiAltList;
-import tk.wurst_client.mod.Mod;
-import tk.wurst_client.mod.Mod.Category;
-import tk.wurst_client.mod.mods.*;
+import tk.wurst_client.mods.*;
+import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.options.Friends;
 import tk.wurst_client.options.Options;
 import tk.wurst_client.utils.XRayUtils;
@@ -185,20 +184,20 @@ public class FileManager
 	
 	private String[] moduleBlacklist =
 	{
-		AntiAFK.class.getName(),
-		ArenaBrawl.class.getName(),
-		AutoBuild.class.getName(),
-		AutoSign.class.getName(),
-		FightBot.class.getName(),
-		Follow.class.getName(),
-		ForceOP.class.getName(),
-		Freecam.class.getName(),
-		Invisibility.class.getName(),
-		LSD.class.getName(),
-		MassTPA.class.getName(),
-		Protect.class.getName(),
-		RemoteView.class.getName(),
-		Spammer.class.getName(),
+		AntiAfkMod.class.getName(),
+		ArenaBrawlMod.class.getName(),
+		AutoBuildMod.class.getName(),
+		AutoSignMod.class.getName(),
+		FightBotMod.class.getName(),
+		FollowMod.class.getName(),
+		ForceOpMod.class.getName(),
+		FreecamMod.class.getName(),
+		InvisibilityMod.class.getName(),
+		LsdMod.class.getName(),
+		MassTpaMod.class.getName(),
+		ProtectMod.class.getName(),
+		RemoteViewMod.class.getName(),
+		SpammerMod.class.getName(),
 	};
 	
 	public void loadMods()
@@ -490,8 +489,8 @@ public class FileManager
 		{
 			XRayUtils.sortBlocks();
 			JsonArray json = new JsonArray();
-			for(int i = 0; i < XRay.xrayBlocks.size(); i++)
-				json.add(gson.toJsonTree(Block.getIdFromBlock(XRay.xrayBlocks
+			for(int i = 0; i < XRayMod.xrayBlocks.size(); i++)
+				json.add(gson.toJsonTree(Block.getIdFromBlock(XRayMod.xrayBlocks
 					.get(i))));
 			PrintWriter save = new PrintWriter(new FileWriter(xray));
 			save.println(gson.toJson(json));
@@ -514,7 +513,7 @@ public class FileManager
 				try
 				{
 					String jsonBlock = itr.next().getAsString();
-					XRay.xrayBlocks.add(Block.getBlockFromName(jsonBlock));
+					XRayMod.xrayBlocks.add(Block.getBlockFromName(jsonBlock));
 				}catch(Exception e)
 				{
 					e.printStackTrace();
@@ -567,9 +566,9 @@ public class FileManager
 				BufferedReader load = new BufferedReader(new FileReader(file));
 				JsonObject json = (JsonObject)new JsonParser().parse(load);
 				load.close();
-				AutoBuild.templates.add(gson.fromJson(json.get("blocks"),
+				AutoBuildMod.templates.add(gson.fromJson(json.get("blocks"),
 					int[][].class));
-				AutoBuild.names.add(file.getName().substring(0,
+				AutoBuildMod.names.add(file.getName().substring(0,
 					file.getName().indexOf(".json")));
 			}
 		}catch(Exception e)

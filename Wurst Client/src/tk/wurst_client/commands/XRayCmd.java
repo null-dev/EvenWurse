@@ -15,7 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.mod.mods.XRay;
+import tk.wurst_client.mods.XRayMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Manages or toggles X-Ray.", name = "xray", syntax = {
@@ -35,17 +35,17 @@ public class XRayCmd extends Cmd
 				execute(new String[]{"list", "1"});
 				return;
 			}
-			int pages = (int)Math.ceil(XRay.xrayBlocks.size() / 8D);
+			int pages = (int)Math.ceil(XRayMod.xrayBlocks.size() / 8D);
 			if(MiscUtils.isInteger(args[1]))
 			{
 				int page = Integer.valueOf(args[1]);
 				if(page > pages || page < 1)
 					syntaxError("Invalid page: " + page);
 				Client.wurst.chat.message("Current X-Ray blocks: "
-					+ XRay.xrayBlocks.size());
+					+ XRayMod.xrayBlocks.size());
 				Client.wurst.chat.message("X-Ray blocks list (page " + page
 					+ "/" + pages + "):");
-				Iterator<Block> itr = XRay.xrayBlocks.iterator();
+				Iterator<Block> itr = XRayMod.xrayBlocks.iterator();
 				for(int i = 0; itr.hasNext(); i++)
 				{
 					Block block = itr.next();
@@ -59,14 +59,14 @@ public class XRayCmd extends Cmd
 		{
 			if(args[1].equalsIgnoreCase("id") && MiscUtils.isInteger(args[2]))
 			{
-				if(tk.wurst_client.mod.mods.XRay.xrayBlocks
+				if(tk.wurst_client.mods.XRayMod.xrayBlocks
 					.contains(Block.getBlockById(Integer.valueOf(args[2]))))
 				{
 					Client.wurst.chat.error("\"" + args[2]
 						+ "\" is already in your X-Ray blocks list.");
 					return;
 				}
-				tk.wurst_client.mod.mods.XRay.xrayBlocks.add(Block
+				tk.wurst_client.mods.XRayMod.xrayBlocks.add(Block
 					.getBlockById(Integer.valueOf(args[2])));
 				Client.wurst.fileManager.saveXRayBlocks();
 				Client.wurst.chat.message("Added block " + args[2] + ".");
@@ -81,7 +81,7 @@ public class XRayCmd extends Cmd
 						+ "\" could not be found.");
 					return;
 				}
-				tk.wurst_client.mod.mods.XRay.xrayBlocks.add(Block
+				tk.wurst_client.mods.XRayMod.xrayBlocks.add(Block
 					.getBlockById(newID));
 				Client.wurst.fileManager.saveXRayBlocks();
 				Client.wurst.chat.message("Added block " + newID + " (\""
@@ -93,16 +93,16 @@ public class XRayCmd extends Cmd
 		{
 			if(args[1].equalsIgnoreCase("id") && MiscUtils.isInteger(args[2]))
 			{
-				for(int i = 0; i < tk.wurst_client.mod.mods.XRay.xrayBlocks
+				for(int i = 0; i < tk.wurst_client.mods.XRayMod.xrayBlocks
 					.size(); i++)
 					if(Integer
 						.toString(
 							Block
-								.getIdFromBlock(tk.wurst_client.mod.mods.XRay.xrayBlocks
+								.getIdFromBlock(tk.wurst_client.mods.XRayMod.xrayBlocks
 									.get(i))).toLowerCase()
 						.equals(args[2].toLowerCase()))
 					{
-						tk.wurst_client.mod.mods.XRay.xrayBlocks
+						tk.wurst_client.mods.XRayMod.xrayBlocks
 							.remove(i);
 						Client.wurst.fileManager.saveXRayBlocks();
 						Client.wurst.chat.message("Removed block " + args[2]
@@ -122,13 +122,13 @@ public class XRayCmd extends Cmd
 						+ "\" could not be found.");
 					return;
 				}
-				for(int i = 0; i < tk.wurst_client.mod.mods.XRay.xrayBlocks
+				for(int i = 0; i < tk.wurst_client.mods.XRayMod.xrayBlocks
 					.size(); i++)
 					if(Block
-						.getIdFromBlock(tk.wurst_client.mod.mods.XRay.xrayBlocks
+						.getIdFromBlock(tk.wurst_client.mods.XRayMod.xrayBlocks
 							.get(i)) == newID)
 					{
-						tk.wurst_client.mod.mods.XRay.xrayBlocks
+						tk.wurst_client.mods.XRayMod.xrayBlocks
 							.remove(i);
 						Client.wurst.fileManager.saveXRayBlocks();
 						Client.wurst.chat.message("Removed block " + newID

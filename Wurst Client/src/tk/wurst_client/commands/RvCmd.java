@@ -8,7 +8,7 @@
 package tk.wurst_client.commands;
 
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.mod.mods.RemoteView;
+import tk.wurst_client.mods.RemoteViewMod;
 
 @Info(help = "Toggles RemoteView or makes it target a specific entity.",
 	name = "rv",
@@ -20,10 +20,10 @@ public class RvCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			RemoteView.onEnabledByCommand("");
+			RemoteViewMod.onEnabledByCommand("");
 			return;
 		}else if(args.length == 1)
-			RemoteView.onEnabledByCommand(args[0]);
+			RemoteViewMod.onEnabledByCommand(args[0]);
 		else
 			syntaxError("too many arguments.");
 	}
