@@ -1,6 +1,6 @@
-From e9469b5a73a1a2a0d717ded004a5fc68740e99cb Mon Sep 17 00:00:00 2001
+From edccb309b6f0a36e5c04a477704f10e9f43c10e5 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Fri, 3 Apr 2015 17:24:59 +0200
+Date: Sun, 5 Apr 2015 10:46:12 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -12927,7 +12927,7 @@ index de9ca57..8ea196a 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..2579b17 100644
+index eefe303..3194225 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
 @@ -1,863 +1,920 @@
@@ -13797,8 +13797,8 @@ index eefe303..2579b17 100644
 +package net.minecraft.client.entity;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.command.Command;
-+import tk.wurst_client.command.CommandManager;
++import tk.wurst_client.commands.Cmd;
++import tk.wurst_client.commands.CmdManager;
 +import tk.wurst_client.event.EventManager;
 +import tk.wurst_client.event.events.ChatOutputEvent;
 +import tk.wurst_client.event.events.UpdateEvent;
@@ -14086,7 +14086,7 @@ index eefe303..2579b17 100644
 +    {
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_, false);
-+      	Client.wurst.commandManager.onSentMessage(event);
++      	Client.wurst.cmdManager.onSentMessage(event);
 +      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;
@@ -14101,7 +14101,7 @@ index eefe303..2579b17 100644
 +    {
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(message, true);
-+      	Client.wurst.commandManager.onSentMessage(event);
++      	Client.wurst.cmdManager.onSentMessage(event);
 +      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;

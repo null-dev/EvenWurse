@@ -31,7 +31,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import tk.wurst_client.Client;
-import tk.wurst_client.command.Command;
+import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.mod.Mod;
 import tk.wurst_client.utils.MiscUtils;
 
@@ -220,8 +220,8 @@ public class GuiError extends GuiScreen
 				"in `"
 					+ Client.wurst.modManager.getModByClass(
 						cause.getClass()).getName() + "` ";
-		else if(cause instanceof Command)
-			title += "in `." + ((Command)cause).getName() + "` ";
+		else if(cause instanceof Cmd)
+			title += "in `." + ((Cmd)cause).getName() + "` ";
 		title += "while " + action + ".";
 		return title;
 	}
