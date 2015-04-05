@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -260,18 +261,30 @@ public class GuiError extends GuiScreen
 	
 	private String generateReport(String trace)
 	{
-		return "> This is an auto-generated error report for the [Wurst Client](https://www.wurst-client.tk).\n\n"
-			+ "# Description\n" + getReportDescription() + "\n"
-			+ (comment.isEmpty() ? "" : comment + "\n") + "\n" + "Time: "
-			+ new SimpleDateFormat("yyyy.MM.dd-hh:mm:ss").format(new Date())
-			+ "\n\n" + "# Stacktrace\n" + "```\n" + trace + "```"
-			+ "\n\n# System details\n" + "- OS: "
-			+ System.getProperty("os.name") + " ("
-			+ System.getProperty("os.arch") + ")\n" + "- Java version: "
-			+ System.getProperty("java.version") + " ("
-			+ System.getProperty("java.vendor") + ")\n" + "- Wurst version: "
-			+ Client.wurst.updater.getCurrentVersion() + " (latest: "
-			+ Client.wurst.updater.getLatestVersion() + ")\n";
+		try
+		{
+			BufferedReader input = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("report.md")));
+			StringWriter writer = new StringWriter();
+			PrintWriter output = new PrintWriter(writer);
+			for(String line; (line = input.readLine()) != null;)
+				output.println(line);
+			String content = writer.toString();
+			content = content.replace("§time", new SimpleDateFormat("yyyy.MM.dd-hh:mm:ss").format(new Date()));
+			content = content.replace("§trace", trace);
+			content = content.replace("§os", System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ")");
+			content = content.replace("§java", System.getProperty("java.version") + " (" + System.getProperty("java.vendor") + ")");
+			content = content.replace("§wurst", Client.wurst.updater.getCurrentVersion() + " (latest: " + Client.wurst.updater.getLatestVersion() + ")");
+			content = content.replace("§desc", getReportDescription() + (comment.isEmpty() ? "" : "\n" + comment));
+			return content;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			StringWriter stacktraceWriter = new StringWriter();
+			e.printStackTrace(new PrintWriter(stacktraceWriter));
+			String eString = stacktraceWriter.toString();
+			return "Could not generate error report. Stack trace:\n"
+				+ eString;
+		}
 	}
 	
 	@Override
