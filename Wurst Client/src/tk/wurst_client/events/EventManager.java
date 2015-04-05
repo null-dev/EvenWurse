@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package tk.wurst_client.event;
+package tk.wurst_client.events;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,8 +15,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.event.events.*;
-import tk.wurst_client.event.listeners.*;
+import tk.wurst_client.events.listeners.*;
 import tk.wurst_client.gui.error.GuiError;
 
 public abstract class EventManager<E extends Event, L extends Listener>

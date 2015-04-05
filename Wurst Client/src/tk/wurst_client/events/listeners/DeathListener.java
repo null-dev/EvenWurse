@@ -5,14 +5,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package tk.wurst_client.event.events;
+package tk.wurst_client.events.listeners;
 
-public abstract class Event
+public interface DeathListener extends Listener
 {
-	public abstract String getAction();
-	
-	public String getComment()
-	{
-		return "";
-	}
+	public void onDeath();
 }

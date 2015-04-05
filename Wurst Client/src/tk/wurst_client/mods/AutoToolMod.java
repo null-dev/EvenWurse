@@ -12,9 +12,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.LeftClickListener;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.LeftClickListener;
+import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 

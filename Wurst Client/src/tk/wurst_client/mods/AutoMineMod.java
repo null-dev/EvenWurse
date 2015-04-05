@@ -9,8 +9,8 @@ package tk.wurst_client.mods;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 

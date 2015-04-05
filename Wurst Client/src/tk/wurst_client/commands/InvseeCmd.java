@@ -12,8 +12,8 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.RenderListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.RenderListener;
 
 @Info(help = "Allows you to see parts of another player's inventory.",
 	name = "invsee",

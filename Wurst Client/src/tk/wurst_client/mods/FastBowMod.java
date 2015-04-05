@@ -15,8 +15,8 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging.Action;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import tk.wurst_client.Client;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 

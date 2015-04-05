@@ -17,9 +17,9 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.GUIRenderListener;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.GUIRenderListener;
+import tk.wurst_client.events.listeners.UpdateListener;
 
 @Info(help = "\"I love that little guy. So cute!\" -WiZARD",
 	name = "taco",

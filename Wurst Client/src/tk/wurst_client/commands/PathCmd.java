@@ -12,8 +12,8 @@ import tk.wurst_client.Client;
 import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.ai.PathPoint;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.RenderListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.utils.RenderUtils;
 
 @Info(help = "Shows the shortest path to a specific point. Useful for labyrinths and caves.",

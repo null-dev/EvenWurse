@@ -15,8 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.YesCheatMod;
 
 @Info(help = "Drops all your items on the ground.",

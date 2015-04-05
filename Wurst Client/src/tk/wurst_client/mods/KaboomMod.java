@@ -21,8 +21,8 @@ import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;

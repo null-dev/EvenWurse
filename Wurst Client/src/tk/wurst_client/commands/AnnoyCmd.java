@@ -10,9 +10,9 @@ package tk.wurst_client.commands;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.events.ChatInputEvent;
-import tk.wurst_client.event.listeners.ChatInputListener;
+import tk.wurst_client.events.ChatInputEvent;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.ChatInputListener;
 
 @Info(help = "Annoys a player by repeating everything he says.",
 	name = "annoy",

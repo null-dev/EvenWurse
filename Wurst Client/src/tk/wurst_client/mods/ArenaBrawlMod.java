@@ -31,12 +31,12 @@ import org.darkstorm.minecraft.gui.layout.GridLayoutManager.HorizontalGridConstr
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.events.ChatInputEvent;
-import tk.wurst_client.event.listeners.ChatInputListener;
-import tk.wurst_client.event.listeners.DeathListener;
-import tk.wurst_client.event.listeners.RenderListener;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.events.ChatInputEvent;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.ChatInputListener;
+import tk.wurst_client.events.listeners.DeathListener;
+import tk.wurst_client.events.listeners.RenderListener;
+import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;

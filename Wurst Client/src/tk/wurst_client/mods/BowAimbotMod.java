@@ -21,10 +21,10 @@ import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 
 import tk.wurst_client.Client;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.GUIRenderListener;
-import tk.wurst_client.event.listeners.RenderListener;
-import tk.wurst_client.event.listeners.UpdateListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.GUIRenderListener;
+import tk.wurst_client.events.listeners.RenderListener;
+import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;

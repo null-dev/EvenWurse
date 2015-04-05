@@ -5,11 +5,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package tk.wurst_client.event.listeners;
+package tk.wurst_client.events.listeners;
 
-import tk.wurst_client.event.events.ChatOutputEvent;
+import tk.wurst_client.events.ChatInputEvent;
 
-public interface ChatOutputListener extends Listener
+public interface ChatInputListener extends Listener
 {
-	public void onSentMessage(ChatOutputEvent event);
+	public void onReceivedMessage(ChatInputEvent event);
 }

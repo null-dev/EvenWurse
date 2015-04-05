@@ -9,8 +9,8 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import tk.wurst_client.event.EventManager;
-import tk.wurst_client.event.listeners.DeathListener;
+import tk.wurst_client.events.EventManager;
+import tk.wurst_client.events.listeners.DeathListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 

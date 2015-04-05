@@ -1,6 +1,6 @@
-From 5caf1c38d2be57bfdd5c984390d8d474b000d4d1 Mon Sep 17 00:00:00 2001
+From f277550758a02edf9218205f3cfde86101374a2d Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sun, 5 Apr 2015 11:03:29 +0200
+Date: Sun, 5 Apr 2015 11:16:34 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -4603,7 +4603,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..7708ec1 100644
+index f503b64..9bc22b0 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,3306 +1,3548 @@
@@ -8044,8 +8044,8 @@ index f503b64..7708ec1 100644
 +
 +import tk.wurst_client.Client;
 +import tk.wurst_client.bot.WurstBot;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.LeftClickEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.LeftClickEvent;
 +import tk.wurst_client.font.Fonts;
 +import tk.wurst_client.spam.SpamProcessor;
 +import tk.wurst_client.utils.MiscUtils;
@@ -12927,7 +12927,7 @@ index de9ca57..4d6a95f 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..14a4962 100644
+index eefe303..611e443 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
 @@ -1,863 +1,920 @@
@@ -13799,9 +13799,9 @@ index eefe303..14a4962 100644
 +import tk.wurst_client.Client;
 +import tk.wurst_client.commands.Cmd;
 +import tk.wurst_client.commands.CmdManager;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.ChatOutputEvent;
-+import tk.wurst_client.event.events.UpdateEvent;
++import tk.wurst_client.events.ChatOutputEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.UpdateEvent;
 +import tk.wurst_client.mods.BlinkMod;
 +import tk.wurst_client.mods.FreecamMod;
 +import tk.wurst_client.mods.Mod;
@@ -17496,7 +17496,7 @@ index 47e1373..6361176 100644
              GlStateManager.disableRescaleNormal();
          }
 diff --git a/src/net/minecraft/client/gui/GuiGameOver.java b/src/net/minecraft/client/gui/GuiGameOver.java
-index c737e46..5b44a9d 100644
+index c737e46..fc61ae9 100644
 --- a/src/net/minecraft/client/gui/GuiGameOver.java
 +++ b/src/net/minecraft/client/gui/GuiGameOver.java
 @@ -1,137 +1,145 @@
@@ -17643,8 +17643,8 @@ index c737e46..5b44a9d 100644
 +import java.util.Iterator;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.DeathEvent;
++import tk.wurst_client.events.DeathEvent;
++import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.mods.Mod;
 +import net.minecraft.client.gui.GuiButton;
 +import net.minecraft.client.multiplayer.WorldClient;
@@ -17783,7 +17783,7 @@ index c737e46..5b44a9d 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiIngame.java b/src/net/minecraft/client/gui/GuiIngame.java
-index 6dbd34d..b1cb961 100644
+index 6dbd34d..03892e6 100644
 --- a/src/net/minecraft/client/gui/GuiIngame.java
 +++ b/src/net/minecraft/client/gui/GuiIngame.java
 @@ -1,1194 +1,1284 @@
@@ -19042,8 +19042,8 @@ index 6dbd34d..b1cb961 100644
 +import org.lwjgl.opengl.GL11;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.GUIRenderEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.GUIRenderEvent;
 +import tk.wurst_client.font.Fonts;
 +import tk.wurst_client.gui.UIRenderer;
 +import tk.wurst_client.mods.ArenaBrawlMod;
@@ -22927,7 +22927,7 @@ index da42542..1b72646 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..ed2188f 100644
+index 1614678..3a9f708 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
 @@ -1,386 +1,402 @@
@@ -23335,8 +23335,8 @@ index 1614678..ed2188f 100644
 +import org.apache.logging.log4j.Logger;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.ChatInputEvent;
++import tk.wurst_client.events.ChatInputEvent;
++import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.mods.AntiSpamMod;
 +import tk.wurst_client.mods.Mod;
 +
@@ -28072,7 +28072,7 @@ index e9db01f..18cbc00 100644
  import net.minecraft.block.state.IBlockState;
  import net.minecraft.client.Minecraft;
 diff --git a/src/net/minecraft/client/renderer/EntityRenderer.java b/src/net/minecraft/client/renderer/EntityRenderer.java
-index e32c68b..a9007b9 100644
+index e32c68b..cc24935 100644
 --- a/src/net/minecraft/client/renderer/EntityRenderer.java
 +++ b/src/net/minecraft/client/renderer/EntityRenderer.java
 @@ -1,2052 +1,2096 @@
@@ -30195,8 +30195,8 @@ index e32c68b..a9007b9 100644
 +import org.lwjgl.util.glu.Project;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.RenderEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.RenderEvent;
 +import tk.wurst_client.mods.AntiBlindMod;
 +import tk.wurst_client.mods.Mod;
 +import tk.wurst_client.mods.TracersMod;
@@ -53894,7 +53894,7 @@ index 38b9ecd..f64dc7e 100644
              this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);
          }
 diff --git a/src/net/minecraft/network/NetworkManager.java b/src/net/minecraft/network/NetworkManager.java
-index f05dadf..6df5aeb 100644
+index f05dadf..bd2f0e9 100644
 --- a/src/net/minecraft/network/NetworkManager.java
 +++ b/src/net/minecraft/network/NetworkManager.java
 @@ -1,479 +1,464 @@
@@ -54407,8 +54407,8 @@ index f05dadf..6df5aeb 100644
 +import org.apache.logging.log4j.MarkerManager;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.PacketInputEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.PacketInputEvent;
 +import tk.wurst_client.mods.Mod;
 +
 +import com.google.common.collect.Queues;
