@@ -18,25 +18,23 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "Miley Cyrus")
 public class MileyCyrusMod extends Mod implements UpdateListener
 {
-	private boolean shouldSneak = true;
-	private float speed = 5;
+	private int timer;
 	
 	@Override
 	public void onEnable()
 	{
+		timer = 0;
 		EventManager.update.addListener(this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		updateMS();
-		if(hasTimePassedS(speed))
+		timer++;
+		if(timer >= 6)
 		{
-			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed =
-				shouldSneak;
-			shouldSneak = !shouldSneak;
-			updateLastMS();
+			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = !Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed;
+			timer = 0;
 		}
 	}
 	
