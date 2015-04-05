@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JDialog;
@@ -35,6 +36,7 @@ import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.utils.MiscUtils;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -59,7 +61,7 @@ public class GuiError extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
+		buttonList.add(new GuiButton(3, width / 2 - 100, height / 3 * 2, 200,
 			20, "Report Bug on GitHub"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
 			98, 20, "View Bug"));
@@ -207,6 +209,17 @@ public class GuiError extends GuiScreen
 				mc.displayGuiScreen(null);
 				Client.wurst.analytics.trackEvent("error", "back");
 				break;
+			case 3:
+				JsonObject gist = new JsonObject();
+				gist.addProperty("description", getReportDescription());
+				gist.addProperty("public", true);
+				JsonObject gistFiles = new JsonObject();
+				JsonObject gistError = new JsonObject();
+				gistError.addProperty("content", report);
+				gistFiles.add(new Date().toString() + ".md", gistError);
+				gist.add("files", gistFiles);
+				System.out.println(MiscUtils.post(new URL(
+					"https://api.github.com/gists"), new Gson().toJson(gist)));
 			default:
 				break;
 		}
