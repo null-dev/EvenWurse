@@ -27,25 +27,22 @@ public class GuiCleanUp extends GuiScreen
 	private GuiMultiplayer prevMenu;
 	private boolean removeAll;
 	private String[] toolTips =
-	{
-		"",
-		"Start the Clean Up with the settings\n"
-			+ "you specified above.\n"
-			+ "It might look like the game is not\n"
-			+ "reacting for a couple of seconds.",
-		"Servers that clearly don't exist.",
-		"Servers that run a different Minecraft\n"
-			+ "version than you.",
-		"All servers that failed the last ping.\n"
-			+ "Make sure that the last ping is complete\n"
-			+ "before you do this. That means: Go back,\n"
-			+ "press the refresh button and wait until\n"
-			+ "all servers are done refreshing.",
-		"This will completely clear your server\n"
-			+ "list. §cUse with caution!§r",
-		"Renames your servers to \"Grief me #1\",\n"
-			+ "\"Grief me #2\", etc.",
-	};
+		{
+			"",
+			"Start the Clean Up with the settings\n" + "you specified above.\n"
+				+ "It might look like the game is not\n"
+				+ "reacting for a couple of seconds.",
+			"Servers that clearly don't exist.",
+			"Servers that run a different Minecraft\n" + "version than you.",
+			"All servers that failed the last ping.\n"
+				+ "Make sure that the last ping is complete\n"
+				+ "before you do this. That means: Go back,\n"
+				+ "press the refresh button and wait until\n"
+				+ "all servers are done refreshing.",
+			"This will completely clear your server\n"
+				+ "list. §cUse with caution!§r",
+			"Renames your servers to \"Grief me #1\",\n"
+				+ "\"Grief me #2\", etc.",};
 	
 	public GuiCleanUp(GuiMultiplayer prevMultiplayerMenu)
 	{

@@ -34,14 +34,17 @@ public class SimpleLabelUI extends AbstractComponentUI<Label>
 		switch(label.getHorizontalAlignment())
 		{
 			case CENTER:
-				x += label.getWidth() / 2
-					- theme.getFontRenderer().getStringWidth(label.getText())
-					/ 2;
+				x +=
+					label.getWidth()
+						/ 2
+						- theme.getFontRenderer().getStringWidth(
+							label.getText()) / 2;
 				break;
 			case RIGHT:
-				x += label.getWidth()
-					- theme.getFontRenderer().getStringWidth(label.getText())
-					- 2;
+				x +=
+					label.getWidth()
+						- theme.getFontRenderer().getStringWidth(
+							label.getText()) - 2;
 				break;
 			default:
 				x += 2;
@@ -75,7 +78,6 @@ public class SimpleLabelUI extends AbstractComponentUI<Label>
 	protected Dimension getDefaultComponentSize(Label component)
 	{
 		return new Dimension(theme.getFontRenderer().getStringWidth(
-			component.getText()) + 4,
-			theme.getFontRenderer().FONT_HEIGHT + 4);
+			component.getText()) + 4, theme.getFontRenderer().FONT_HEIGHT + 4);
 	}
 }

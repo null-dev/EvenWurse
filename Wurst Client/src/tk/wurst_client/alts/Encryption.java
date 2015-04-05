@@ -94,18 +94,14 @@ public class Encryption
 	
 	private static boolean hasKeyFiles()
 	{
-		return privateFile != null
-			&& privateFile.exists()
-			&& publicFile != null
-			&& publicFile.exists()
-			&& aesFile != null
+		return privateFile != null && privateFile.exists()
+			&& publicFile != null && publicFile.exists() && aesFile != null
 			&& aesFile.exists();
 	}
 	
 	private static boolean hasKey()
 	{
-		return keypair != null
-			&& keypair.getPrivate().getEncoded() != null
+		return keypair != null && keypair.getPrivate().getEncoded() != null
 			&& keypair.getPublic().getEncoded() != null
 			&& aesKey.getEncoded() != null;
 	}
@@ -202,17 +198,21 @@ public class Encryption
 			{
 				ObjectInputStream publicLoad =
 					new ObjectInputStream(new FileInputStream(publicFile));
-				PublicKey loadedPublicKey = KeyFactory.getInstance("RSA")
-					.generatePublic(new RSAPublicKeySpec(
-						(BigInteger)publicLoad.readObject(),
-						(BigInteger)publicLoad.readObject()));
+				PublicKey loadedPublicKey =
+					KeyFactory.getInstance("RSA")
+						.generatePublic(
+							new RSAPublicKeySpec((BigInteger)publicLoad
+								.readObject(), (BigInteger)publicLoad
+								.readObject()));
 				publicLoad.close();
 				ObjectInputStream privateLoad =
 					new ObjectInputStream(new FileInputStream(privateFile));
-				PrivateKey loadedPrivateKey = KeyFactory.getInstance("RSA")
-					.generatePrivate(new RSAPrivateKeySpec(
-						(BigInteger)privateLoad.readObject(),
-						(BigInteger)privateLoad.readObject()));
+				PrivateKey loadedPrivateKey =
+					KeyFactory.getInstance("RSA")
+						.generatePrivate(
+							new RSAPrivateKeySpec((BigInteger)privateLoad
+								.readObject(), (BigInteger)privateLoad
+								.readObject()));
 				privateLoad.close();
 				keypair = new KeyPair(loadedPublicKey, loadedPrivateKey);
 				Cipher rsaCipher = Cipher.getInstance("RSA");

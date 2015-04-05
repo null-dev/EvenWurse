@@ -159,8 +159,7 @@ public class GuiEmailField extends Gui
 		{
 			var2 = var2 + var3.substring(0, var6);
 			var8 = var6;
-		}
-		else
+		}else
 		{
 			var2 = var2 + var3;
 			var8 = var3.length();
@@ -263,8 +262,7 @@ public class GuiEmailField extends Gui
 				
 				while(var4 > 0 && text.charAt(var4 - 1) != 32)
 					--var4;
-			}
-			else
+			}else
 			{
 				int var8 = text.length();
 				var4 = text.indexOf(32, var4);
@@ -327,20 +325,17 @@ public class GuiEmailField extends Gui
 			setCursorPositionEnd();
 			setSelectionPos(0);
 			return true;
-		}
-		else if(GuiScreen.func_175280_f(p_146201_2_))
+		}else if(GuiScreen.func_175280_f(p_146201_2_))
 		{
 			GuiScreen.setClipboardString(getSelectedText());
 			return true;
-		}
-		else if(GuiScreen.func_175279_e(p_146201_2_))
+		}else if(GuiScreen.func_175279_e(p_146201_2_))
 		{
 			if(isEnabled)
 				writeText(GuiScreen.getClipboardString());
 			
 			return true;
-		}
-		else if(GuiScreen.func_175277_d(p_146201_2_))
+		}else if(GuiScreen.func_175277_d(p_146201_2_))
 		{
 			GuiScreen.setClipboardString(getSelectedText());
 			
@@ -356,8 +351,7 @@ public class GuiEmailField extends Gui
 					{
 						if(isEnabled)
 							deleteWords(-1);
-					}
-					else if(isEnabled)
+					}else if(isEnabled)
 						deleteFromCursor(-1);
 					
 					return true;
@@ -378,8 +372,7 @@ public class GuiEmailField extends Gui
 								getSelectionEnd()));
 						else
 							setSelectionPos(getSelectionEnd() - 1);
-					}
-					else if(GuiScreen.isCtrlKeyDown())
+					}else if(GuiScreen.isCtrlKeyDown())
 						setCursorPosition(getNthWordFromCursor(-1));
 					else
 						moveCursorBy(-1);
@@ -394,8 +387,7 @@ public class GuiEmailField extends Gui
 								getSelectionEnd()));
 						else
 							setSelectionPos(getSelectionEnd() + 1);
-					}
-					else if(GuiScreen.isCtrlKeyDown())
+					}else if(GuiScreen.isCtrlKeyDown())
 						setCursorPosition(getNthWordFromCursor(1));
 					else
 						moveCursorBy(1);
@@ -415,8 +407,7 @@ public class GuiEmailField extends Gui
 					{
 						if(isEnabled)
 							deleteWords(1);
-					}
-					else if(isEnabled)
+					}else if(isEnabled)
 						deleteFromCursor(1);
 					
 					return true;

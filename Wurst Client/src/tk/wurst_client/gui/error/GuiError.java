@@ -31,8 +31,8 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import tk.wurst_client.Client;
-import tk.wurst_client.command.Command;
-import tk.wurst_client.mod.Mod;
+import tk.wurst_client.commands.Cmd;
+import tk.wurst_client.mods.Mod;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonObject;
@@ -218,28 +218,24 @@ public class GuiError extends GuiScreen
 		if(cause instanceof Mod)
 			title +=
 				"in `"
-					+ Client.wurst.modManager.getModByClass(
-						cause.getClass()).getName() + "` ";
-		else if(cause instanceof Command)
-			title += "in `." + ((Command)cause).getName() + "` ";
+					+ Client.wurst.modManager.getModByClass(cause.getClass())
+						.getName() + "` ";
+		else if(cause instanceof Cmd)
+			title += "in `." + ((Cmd)cause).getName() + "` ";
 		title += "while " + action + ".";
 		return title;
 	}
 	
 	private String generateReport(String trace)
 	{
-		return "# Description\n"
-			+ getReportDescription() + "\n"
+		return "# Description\n" + getReportDescription() + "\n"
 			+ (comment.isEmpty() ? "" : comment + "\n") + "\n"
-			+ "# Stacktrace\n"
-			+ "```\n" + trace + "```"
-			+ "\n\n# System details\n"
-			+ "- OS: " + System.getProperty("os.name")
-			+ " (" + System.getProperty("os.arch") + ")\n"
-			+ "- Java version: "
+			+ "# Stacktrace\n" + "```\n" + trace + "```"
+			+ "\n\n# System details\n" + "- OS: "
+			+ System.getProperty("os.name") + " ("
+			+ System.getProperty("os.arch") + ")\n" + "- Java version: "
 			+ System.getProperty("java.version") + " ("
-			+ System.getProperty("java.vendor") + ")\n"
-			+ "- Wurst version: "
+			+ System.getProperty("java.vendor") + ")\n" + "- Wurst version: "
 			+ Client.wurst.updater.getCurrentVersion() + " (latest: "
 			+ Client.wurst.updater.getLatestVersion() + ")\n";
 	}

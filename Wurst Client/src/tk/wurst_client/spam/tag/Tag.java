@@ -47,33 +47,22 @@ public abstract class Tag
 	
 	public String getHelp()
 	{
-		return "<html>"
-			+ "<table width=\"512px\"><tr><td>"
-			+ "<h1>&lt;" + name + "&gt;</h1>"
-			+ "<h2>Description</h2>"
-			+ "<p>" + format(description) + "</p>"
-			+ "<h2>Syntax</h2>"
-			+ "<div bgcolor=\"#000000\" color=\"#00ff00\">"
-			+ "<code>" + format(syntax) + "</code>"
-			+ "</div>"
-			+ "<h2>Example</h2>"
-			+ "<div bgcolor=\"#000000\" color=\"#00ff00\">"
-			+ "<code>" + format(example) + "</code>"
-			+ "</div><br>"
+		return "<html>" + "<table width=\"512px\"><tr><td>" + "<h1>&lt;" + name
+			+ "&gt;</h1>" + "<h2>Description</h2>" + "<p>"
+			+ format(description) + "</p>" + "<h2>Syntax</h2>"
+			+ "<div bgcolor=\"#000000\" color=\"#00ff00\">" + "<code>"
+			+ format(syntax) + "</code>" + "</div>" + "<h2>Example</h2>"
+			+ "<div bgcolor=\"#000000\" color=\"#00ff00\">" + "<code>"
+			+ format(example) + "</code>" + "</div><br>"
 			+ "<p>Would be processed to:</p><br>"
-			+ "<div bgcolor=\"#444444\" color=\"#ffffff\">"
-			+ "<p>" + format(SpamProcessor.process(example, null, false))
-			+ "</p>"
-			+ "</div>"
-			+ "</td></tr></table>"
-			+ "</html>";
+			+ "<div bgcolor=\"#444444\" color=\"#ffffff\">" + "<p>"
+			+ format(SpamProcessor.process(example, null, false)) + "</p>"
+			+ "</div>" + "</td></tr></table>" + "</html>";
 	}
 	
 	private String format(String string)
 	{
-		return string
-			.replaceAll("<", "&lt;")
-			.replaceAll(">", "&gt;")
+		return string.replaceAll("<", "&lt;").replaceAll(">", "&gt;")
 			.replaceAll("\n", "<br>");
 	}
 	

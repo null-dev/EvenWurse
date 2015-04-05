@@ -77,15 +77,13 @@ public class EntityUtils
 		float yaw =
 			(float)(Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F;
 		float pitch = (float)-(Math.atan2(diffY, dist) * 180.0D / Math.PI);
-		return new float[]
-		{
+		return new float[]{
 			Minecraft.getMinecraft().thePlayer.rotationYaw
 				+ MathHelper.wrapAngleTo180_float(yaw
 					- Minecraft.getMinecraft().thePlayer.rotationYaw),
 			Minecraft.getMinecraft().thePlayer.rotationPitch
 				+ MathHelper.wrapAngleTo180_float(pitch
-					- Minecraft.getMinecraft().thePlayer.rotationPitch)
-		};
+					- Minecraft.getMinecraft().thePlayer.rotationPitch)};
 		
 	}
 	

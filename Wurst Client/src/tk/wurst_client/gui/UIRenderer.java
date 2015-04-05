@@ -17,8 +17,8 @@ import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 
 import tk.wurst_client.Client;
 import tk.wurst_client.font.Fonts;
-import tk.wurst_client.mod.Mod;
-import tk.wurst_client.mod.mods.ClickGUI;
+import tk.wurst_client.mods.ClickGuiMod;
+import tk.wurst_client.mods.Mod;
 
 public class UIRenderer
 {
@@ -29,7 +29,7 @@ public class UIRenderer
 		LinkedList<String> modList = new LinkedList<String>();
 		for(Mod mod : Client.wurst.modManager.getAllMods())
 		{
-			if(mod instanceof ClickGUI)
+			if(mod instanceof ClickGuiMod)
 				continue;
 			if(mod.isEnabled())
 				modList.add(mod.getRenderName());

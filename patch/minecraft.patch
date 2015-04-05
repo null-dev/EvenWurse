@@ -1,6 +1,6 @@
-From e9469b5a73a1a2a0d717ded004a5fc68740e99cb Mon Sep 17 00:00:00 2001
+From f277550758a02edf9218205f3cfde86101374a2d Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Fri, 3 Apr 2015 17:24:59 +0200
+Date: Sun, 5 Apr 2015 11:16:34 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -210,7 +210,7 @@ Subject: [PATCH] Wurst
  203 files changed, 26724 insertions(+), 25085 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
-index 5c07aa4..d0888c5 100644
+index 5c07aa4..f0f9ace 100644
 --- a/src/net/minecraft/block/Block.java
 +++ b/src/net/minecraft/block/Block.java
 @@ -1,1511 +1,1527 @@
@@ -1762,8 +1762,8 @@ index 5c07aa4..d0888c5 100644
 +import net.minecraft.world.IBlockAccess;
 +import net.minecraft.world.World;
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.Freecam;
-+import tk.wurst_client.mod.mods.XRay;
++import tk.wurst_client.mods.FreecamMod;
++import tk.wurst_client.mods.XRayMod;
 +import tk.wurst_client.utils.XRayUtils;
 +
 +public class Block
@@ -2086,7 +2086,7 @@ index 5c07aa4..d0888c5 100644
 +    public boolean isFullCube()
 +    {
 +    	//TODO: Client
-+        return !Client.wurst.modManager.getModByClass(XRay.class).isEnabled() && !Client.wurst.modManager.getModByClass(Freecam.class).isEnabled();
++        return !Client.wurst.modManager.getModByClass(XRayMod.class).isEnabled() && !Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled();
 +    }
 +
 +    public boolean isPassable(IBlockAccess blockAccess, BlockPos pos)
@@ -3253,7 +3253,7 @@ index 5c07aa4..d0888c5 100644
 +    }
 +}
 diff --git a/src/net/minecraft/block/BlockLiquid.java b/src/net/minecraft/block/BlockLiquid.java
-index 4689151..b71f6fc 100644
+index 4689151..7843cab 100644
 --- a/src/net/minecraft/block/BlockLiquid.java
 +++ b/src/net/minecraft/block/BlockLiquid.java
 @@ -1,419 +1,427 @@
@@ -3699,9 +3699,9 @@ index 4689151..b71f6fc 100644
 +import net.minecraft.world.World;
 +import net.minecraft.world.biome.BiomeColorHelper;
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.Jesus;
-+import tk.wurst_client.mod.mods.Liquids;
-+import tk.wurst_client.mod.mods.XRay;
++import tk.wurst_client.mods.JesusMod;
++import tk.wurst_client.mods.LiquidsMod;
++import tk.wurst_client.mods.XRayMod;
 +
 +public abstract class BlockLiquid extends Block
 +{
@@ -3719,7 +3719,7 @@ index 4689151..b71f6fc 100644
 +    public boolean isPassable(IBlockAccess blockAccess, BlockPos pos)
 +    {
 +    	//TODO: Client
-+        return Client.wurst.modManager.getModByClass(XRay.class).isEnabled() ? true : this.blockMaterial != Material.lava;
++        return Client.wurst.modManager.getModByClass(XRayMod.class).isEnabled() ? true : this.blockMaterial != Material.lava;
 +    }
 +
 +    public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
@@ -3764,7 +3764,7 @@ index 4689151..b71f6fc 100644
 +    public boolean canCollideCheck(IBlockState state, boolean p_176209_2_)
 +    {
 +    	//TODO: Client
-+        return (p_176209_2_ && ((Integer)state.getValue(LEVEL)).intValue() == 0) || Client.wurst.modManager.getModByClass(Liquids.class).isEnabled();
++        return (p_176209_2_ && ((Integer)state.getValue(LEVEL)).intValue() == 0) || Client.wurst.modManager.getModByClass(LiquidsMod.class).isEnabled();
 +    }
 +
 +    /**
@@ -3804,7 +3804,7 @@ index 4689151..b71f6fc 100644
 +    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
 +    {
 +    	//TODO: Client
-+    	return Client.wurst.modManager.getModByClass(Jesus.class).isEnabled() ? AxisAlignedBB.fromBounds(pos.getX() + minX, pos.getY() + minY, pos.getZ() + minZ, pos.getX() + maxX, pos.getY() + maxY, pos.getZ() + maxZ) : null;
++    	return Client.wurst.modManager.getModByClass(JesusMod.class).isEnabled() ? AxisAlignedBB.fromBounds(pos.getX() + minX, pos.getY() + minY, pos.getZ() + minZ, pos.getX() + maxX, pos.getY() + maxY, pos.getZ() + maxZ) : null;
 +    }
 +
 +    /**
@@ -4104,7 +4104,7 @@ index 4689151..b71f6fc 100644
 +    }
 +}
 diff --git a/src/net/minecraft/block/BlockSlab.java b/src/net/minecraft/block/BlockSlab.java
-index 0c52e06..bd76ec9 100644
+index 0c52e06..283d6e7 100644
 --- a/src/net/minecraft/block/BlockSlab.java
 +++ b/src/net/minecraft/block/BlockSlab.java
 @@ -1,186 +1,190 @@
@@ -4314,7 +4314,7 @@ index 0c52e06..bd76ec9 100644
 +import net.minecraft.world.IBlockAccess;
 +import net.minecraft.world.World;
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.Freecam;
++import tk.wurst_client.mods.FreecamMod;
 +
 +public abstract class BlockSlab extends Block
 +{
@@ -4414,7 +4414,7 @@ index 0c52e06..bd76ec9 100644
 +    public boolean isFullCube()
 +    {
 +    	//TODO: Client
-+    	return Client.wurst.modManager.getModByClass(Freecam.class).isEnabled() ? false : this.isDouble();
++    	return Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled() ? false : this.isDouble();
 +    }
 +
 +    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
@@ -4485,7 +4485,7 @@ index 0c52e06..bd76ec9 100644
 +    }
 +}
 diff --git a/src/net/minecraft/block/BlockSoulSand.java b/src/net/minecraft/block/BlockSoulSand.java
-index 6520f1d..51f448b 100644
+index 6520f1d..e4e0aeb 100644
 --- a/src/net/minecraft/block/BlockSoulSand.java
 +++ b/src/net/minecraft/block/BlockSoulSand.java
 @@ -1,35 +1,39 @@
@@ -4527,7 +4527,7 @@ index 6520f1d..51f448b 100644
 +package net.minecraft.block;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.NoSlowdown;
++import tk.wurst_client.mods.NoSlowdownMod;
 +import net.minecraft.block.material.Material;
 +import net.minecraft.block.state.IBlockState;
 +import net.minecraft.creativetab.CreativeTabs;
@@ -4557,7 +4557,7 @@ index 6520f1d..51f448b 100644
 +     */
 +    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 +    {
-+    	if(Client.wurst.modManager.getModByClass(NoSlowdown.class).isEnabled())
++    	if(Client.wurst.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
 +    		return;
 +        entityIn.motionX *= 0.4D;
 +        entityIn.motionZ *= 0.4D;
@@ -4603,7 +4603,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..7708ec1 100644
+index f503b64..9bc22b0 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,3306 +1,3548 @@
@@ -8044,8 +8044,8 @@ index f503b64..7708ec1 100644
 +
 +import tk.wurst_client.Client;
 +import tk.wurst_client.bot.WurstBot;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.LeftClickEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.LeftClickEvent;
 +import tk.wurst_client.font.Fonts;
 +import tk.wurst_client.spam.SpamProcessor;
 +import tk.wurst_client.utils.MiscUtils;
@@ -12655,7 +12655,7 @@ index 9397e9d..4bd9472 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/AbstractClientPlayer.java b/src/net/minecraft/client/entity/AbstractClientPlayer.java
-index de9ca57..8ea196a 100644
+index de9ca57..4d6a95f 100644
 --- a/src/net/minecraft/client/entity/AbstractClientPlayer.java
 +++ b/src/net/minecraft/client/entity/AbstractClientPlayer.java
 @@ -1,131 +1,136 @@
@@ -12810,7 +12810,7 @@ index de9ca57..8ea196a 100644
 +import net.minecraft.world.World;
 +import net.minecraft.world.WorldSettings;
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.Freecam;
++import tk.wurst_client.mods.FreecamMod;
 +
 +import com.mojang.authlib.GameProfile;
 +
@@ -12828,7 +12828,7 @@ index de9ca57..8ea196a 100644
 +    {
 +        NetworkPlayerInfo var1 = Minecraft.getMinecraft().getNetHandler().func_175102_a(this.getGameProfile().getId());
 +        //TODO: Client
-+        return Client.wurst.modManager.getModByClass(Freecam.class).isEnabled() ? true : var1 != null && var1.getGameType() == WorldSettings.GameType.SPECTATOR;
++        return Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled() ? true : var1 != null && var1.getGameType() == WorldSettings.GameType.SPECTATOR;
 +    }
 +
 +    public boolean hasCape()
@@ -12927,7 +12927,7 @@ index de9ca57..8ea196a 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..2579b17 100644
+index eefe303..611e443 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
 @@ -1,863 +1,920 @@
@@ -13797,16 +13797,16 @@ index eefe303..2579b17 100644
 +package net.minecraft.client.entity;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.command.Command;
-+import tk.wurst_client.command.CommandManager;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.ChatOutputEvent;
-+import tk.wurst_client.event.events.UpdateEvent;
-+import tk.wurst_client.mod.Mod;
-+import tk.wurst_client.mod.mods.Blink;
-+import tk.wurst_client.mod.mods.Freecam;
-+import tk.wurst_client.mod.mods.NoSlowdown;
-+import tk.wurst_client.mod.mods.RemoteView;
++import tk.wurst_client.commands.Cmd;
++import tk.wurst_client.commands.CmdManager;
++import tk.wurst_client.events.ChatOutputEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.UpdateEvent;
++import tk.wurst_client.mods.BlinkMod;
++import tk.wurst_client.mods.FreecamMod;
++import tk.wurst_client.mods.Mod;
++import tk.wurst_client.mods.NoSlowdownMod;
++import tk.wurst_client.mods.RemoteViewMod;
 +import net.minecraft.client.Minecraft;
 +import net.minecraft.client.audio.MovingSoundMinecartRiding;
 +import net.minecraft.client.audio.PositionedSoundRecord;
@@ -13999,28 +13999,28 @@ index eefe303..2579b17 100644
 +            //Stops motion updates
 +            if
 +            (
-+            	Client.wurst.modManager.getModByClass(RemoteView.class).isEnabled()
-+            	|| Client.wurst.modManager.getModByClass(Freecam.class).isEnabled()
++            	Client.wurst.modManager.getModByClass(RemoteViewMod.class).isEnabled()
++            	|| Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled()
 +            )
 +            {
 +            	
-+            }else if (Client.wurst.modManager.getModByClass(Blink.class).isEnabled())
++            }else if (Client.wurst.modManager.getModByClass(BlinkMod.class).isEnabled())
 +            {//Redirects motion updates to the Blink queue
 +            	if (var13 && var14)
 +                {
-+                    Blink.addToBlinkQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround));
++                    BlinkMod.addToBlinkQueue(new C03PacketPlayer.C06PacketPlayerPosLook(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround));
 +                }
 +                else if (var13)
 +                {
-+                	Blink.addToBlinkQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.onGround));
++                	BlinkMod.addToBlinkQueue(new C03PacketPlayer.C04PacketPlayerPosition(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.onGround));
 +                }
 +                else if (var14)
 +                {
-+                	Blink.addToBlinkQueue(new C03PacketPlayer.C05PacketPlayerLook(this.rotationYaw, this.rotationPitch, this.onGround));
++                	BlinkMod.addToBlinkQueue(new C03PacketPlayer.C05PacketPlayerLook(this.rotationYaw, this.rotationPitch, this.onGround));
 +                }
 +                else
 +                {
-+                	Blink.addToBlinkQueue(new C03PacketPlayer(this.onGround));
++                	BlinkMod.addToBlinkQueue(new C03PacketPlayer(this.onGround));
 +                }
 +			}else if(this.ridingEntity == null)
 +            {
@@ -14086,7 +14086,7 @@ index eefe303..2579b17 100644
 +    {
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_, false);
-+      	Client.wurst.commandManager.onSentMessage(event);
++      	Client.wurst.cmdManager.onSentMessage(event);
 +      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;
@@ -14101,7 +14101,7 @@ index eefe303..2579b17 100644
 +    {
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(message, true);
-+      	Client.wurst.commandManager.onSentMessage(event);
++      	Client.wurst.cmdManager.onSentMessage(event);
 +      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;
@@ -14591,7 +14591,7 @@ index eefe303..2579b17 100644
 +
 +        //TODO: Client
 +        if (this.isUsingItem() && !this.isRiding()
-+        	&& !Client.wurst.modManager.getModByClass(NoSlowdown.class).isEnabled())
++        	&& !Client.wurst.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
 +        {
 +            this.movementInput.moveStrafe *= 0.2F;
 +            this.movementInput.moveForward *= 0.2F;
@@ -14715,7 +14715,7 @@ index eefe303..2579b17 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/FontRenderer.java b/src/net/minecraft/client/gui/FontRenderer.java
-index 2d4215d..7c6c123 100644
+index 2d4215d..95f8b7e 100644
 --- a/src/net/minecraft/client/gui/FontRenderer.java
 +++ b/src/net/minecraft/client/gui/FontRenderer.java
 @@ -1,984 +1,1010 @@
@@ -15729,7 +15729,7 @@ index 2d4215d..7c6c123 100644
 +import org.lwjgl.opengl.GL11;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.NameProtect;
++import tk.wurst_client.mods.NameProtectMod;
 +
 +import com.ibm.icu.text.ArabicShaping;
 +import com.ibm.icu.text.ArabicShapingException;
@@ -16045,7 +16045,7 @@ index 2d4215d..7c6c123 100644
 +    public int drawString(String p_175065_1_, float p_175065_2_, float p_175065_3_, int p_175065_4_, boolean p_175065_5_)
 +    {
 +    	//TODO: Client
-+    	if(Minecraft.getMinecraft().getNetHandler() != null && Client.wurst.modManager.getModByClass(NameProtect.class).isEnabled())
++    	if(Minecraft.getMinecraft().getNetHandler() != null && Client.wurst.modManager.getModByClass(NameProtectMod.class).isEnabled())
 +    	{
 +    		Iterator itr = Minecraft.getMinecraft().getNetHandler().getPlayerInfo().iterator();
 +    		int i = 0;
@@ -17496,7 +17496,7 @@ index 47e1373..6361176 100644
              GlStateManager.disableRescaleNormal();
          }
 diff --git a/src/net/minecraft/client/gui/GuiGameOver.java b/src/net/minecraft/client/gui/GuiGameOver.java
-index c737e46..e1e7aa7 100644
+index c737e46..fc61ae9 100644
 --- a/src/net/minecraft/client/gui/GuiGameOver.java
 +++ b/src/net/minecraft/client/gui/GuiGameOver.java
 @@ -1,137 +1,145 @@
@@ -17643,9 +17643,9 @@ index c737e46..e1e7aa7 100644
 +import java.util.Iterator;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.DeathEvent;
-+import tk.wurst_client.mod.Mod;
++import tk.wurst_client.events.DeathEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.mods.Mod;
 +import net.minecraft.client.gui.GuiButton;
 +import net.minecraft.client.multiplayer.WorldClient;
 +import net.minecraft.client.renderer.GlStateManager;
@@ -17783,7 +17783,7 @@ index c737e46..e1e7aa7 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiIngame.java b/src/net/minecraft/client/gui/GuiIngame.java
-index 6dbd34d..6aadc8e 100644
+index 6dbd34d..03892e6 100644
 --- a/src/net/minecraft/client/gui/GuiIngame.java
 +++ b/src/net/minecraft/client/gui/GuiIngame.java
 @@ -1,1194 +1,1284 @@
@@ -19042,12 +19042,12 @@ index 6dbd34d..6aadc8e 100644
 +import org.lwjgl.opengl.GL11;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.GUIRenderEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.GUIRenderEvent;
 +import tk.wurst_client.font.Fonts;
 +import tk.wurst_client.gui.UIRenderer;
-+import tk.wurst_client.mod.Mod;
-+import tk.wurst_client.mod.mods.ArenaBrawl;
++import tk.wurst_client.mods.ArenaBrawlMod;
++import tk.wurst_client.mods.Mod;
 +
 +import com.google.common.base.Predicate;
 +import com.google.common.collect.Iterables;
@@ -19335,7 +19335,7 @@ index 6dbd34d..6aadc8e 100644
 +            //TODO: Client
 +        }else
 +        {
-+            ArenaBrawl.scoreboard = null;
++            ArenaBrawlMod.scoreboard = null;
 +        }
 +
 +        //TODO: Client
@@ -19671,7 +19671,7 @@ index 6dbd34d..6aadc8e 100644
 +                this.func_175179_f().drawString(var20, var25 + var6 / 2 - this.func_175179_f().getStringWidth(var20) / 2, var18 - this.func_175179_f().FONT_HEIGHT, 553648127);
 +            }
 +            //TODO: Client
-+            ArenaBrawl.scoreboard = wurst1;
++            ArenaBrawlMod.scoreboard = wurst1;
 +        }
 +    }
 +
@@ -22927,7 +22927,7 @@ index da42542..1b72646 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..7a1dfbc 100644
+index 1614678..3a9f708 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
 @@ -1,386 +1,402 @@
@@ -23335,10 +23335,10 @@ index 1614678..7a1dfbc 100644
 +import org.apache.logging.log4j.Logger;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.ChatInputEvent;
-+import tk.wurst_client.mod.Mod;
-+import tk.wurst_client.mod.mods.AntiSpam;
++import tk.wurst_client.events.ChatInputEvent;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.mods.AntiSpamMod;
++import tk.wurst_client.mods.Mod;
 +
 +public class GuiNewChat extends Gui
 +{
@@ -25385,7 +25385,7 @@ index ba125d8..4c3f8fd 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/gui/inventory/GuiChest.java b/src/net/minecraft/client/gui/inventory/GuiChest.java
-index 93156ec..2e98f90 100644
+index 93156ec..ebb1d12 100644
 --- a/src/net/minecraft/client/gui/inventory/GuiChest.java
 +++ b/src/net/minecraft/client/gui/inventory/GuiChest.java
 @@ -1,54 +1,138 @@
@@ -25454,8 +25454,8 @@ index 93156ec..2e98f90 100644
 +import net.minecraft.inventory.Slot;
 +import net.minecraft.util.ResourceLocation;
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.AutoSteal;
-+import tk.wurst_client.mod.mods.YesCheat;
++import tk.wurst_client.mods.AutoStealMod;
++import tk.wurst_client.mods.YesCheatMod;
 +
 +public class GuiChest extends GuiContainer
 +{
@@ -25489,7 +25489,7 @@ index 93156ec..2e98f90 100644
 +		super.initGui();
 +		buttonList.add(new GuiButton(0, guiLeft + xSize - 108, guiTop + 4, 50, 12, "Steal"));
 +		buttonList.add(new GuiButton(1, guiLeft + xSize - 56, guiTop + 4, 50, 12, "Store"));
-+		if(Client.wurst.modManager.getModByClass(AutoSteal.class).isEnabled())
++		if(Client.wurst.modManager.getModByClass(AutoStealMod.class).isEnabled())
 +			actionPerformed((GuiButton)buttonList.get(0));
 +	}
 +
@@ -25518,7 +25518,7 @@ index 93156ec..2e98f90 100644
 +							if(slot.getStack() == null)
 +								continue;
 +							if(Client.wurst.modManager
-+								.getModByClass(YesCheat.class).isEnabled())
++								.getModByClass(YesCheatMod.class).isEnabled())
 +								Thread.sleep(250);
 +							handleMouseClick(slot, slot.slotNumber, 0, 1);
 +							handleMouseClick(slot, slot.slotNumber, 0, 6);
@@ -25543,7 +25543,7 @@ index 93156ec..2e98f90 100644
 +							if(slot.getStack() == null)
 +								continue;
 +							if(Client.wurst.modManager
-+								.getModByClass(YesCheat.class).isEnabled())
++								.getModByClass(YesCheatMod.class).isEnabled())
 +								Thread.sleep(250);
 +							handleMouseClick(slot, slot.slotNumber, 0, 1);
 +							handleMouseClick(slot, slot.slotNumber, 0, 6);
@@ -25720,7 +25720,7 @@ index 3ba9565..30138df 100644
  
          public ItemStack decrStackSize(int p_75209_1_)
 diff --git a/src/net/minecraft/client/gui/inventory/GuiEditSign.java b/src/net/minecraft/client/gui/inventory/GuiEditSign.java
-index 21ea6e9..ae4a252 100644
+index 21ea6e9..61f3715 100644
 --- a/src/net/minecraft/client/gui/inventory/GuiEditSign.java
 +++ b/src/net/minecraft/client/gui/inventory/GuiEditSign.java
 @@ -1,176 +1,192 @@
@@ -25920,7 +25920,7 @@ index 21ea6e9..ae4a252 100644
 +import org.lwjgl.input.Keyboard;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.AutoSign;
++import tk.wurst_client.mods.AutoSignMod;
 +
 +public class GuiEditSign extends GuiScreen
 +{
@@ -25948,9 +25948,9 @@ index 21ea6e9..ae4a252 100644
 +    public void initGui()
 +    {
 +    	//TODO: Client
-+    	if(Client.wurst.modManager.getModByClass(AutoSign.class).isEnabled() && AutoSign.signText != null)
++    	if(Client.wurst.modManager.getModByClass(AutoSignMod.class).isEnabled() && AutoSignMod.signText != null)
 +    	{
-+    		this.tileSign.signText = AutoSign.signText;
++    		this.tileSign.signText = AutoSignMod.signText;
 +    		mc.displayGuiScreen(null);
 +    	}
 +        this.buttonList.clear();
@@ -25990,9 +25990,9 @@ index 21ea6e9..ae4a252 100644
 +            if (button.id == 0)
 +            {
 +            	//TODO: Client
-+            	if(Client.wurst.modManager.getModByClass(AutoSign.class).isEnabled() && AutoSign.signText == null)
++            	if(Client.wurst.modManager.getModByClass(AutoSignMod.class).isEnabled() && AutoSignMod.signText == null)
 +            	{
-+            		AutoSign.signText = this.tileSign.signText;
++            		AutoSignMod.signText = this.tileSign.signText;
 +            	}
 +                this.tileSign.markDirty();
 +                this.mc.displayGuiScreen((GuiScreen)null);
@@ -26299,7 +26299,7 @@ index ee9ae67..6130e68 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/multiplayer/PlayerControllerMP.java b/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
-index 1c4d5a3..fe64c85 100644
+index 1c4d5a3..319e23f 100644
 --- a/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
 +++ b/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
 @@ -1,616 +1,629 @@
@@ -26922,7 +26922,7 @@ index 1c4d5a3..fe64c85 100644
 +package net.minecraft.client.multiplayer;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.FastBreak;
++import tk.wurst_client.mods.FastBreakMod;
 +import net.minecraft.block.Block;
 +import net.minecraft.block.material.Material;
 +import net.minecraft.block.state.IBlockState;
@@ -27153,7 +27153,7 @@ index 1c4d5a3..fe64c85 100644
 +                this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK, p_180511_1_, p_180511_2_));
 +                clickBlockCreative(this.mc, this, p_180511_1_, p_180511_2_);
 +                //TODO: Client
-+                this.blockHitDelay = Client.wurst.modManager.getModByClass(FastBreak.class).isEnabled() ? 0 : 5;
++                this.blockHitDelay = Client.wurst.modManager.getModByClass(FastBreakMod.class).isEnabled() ? 0 : 5;
 +            }
 +            else if (!this.isHittingBlock || !this.sameToolAndBlock(p_180511_1_))
 +            {
@@ -27219,7 +27219,7 @@ index 1c4d5a3..fe64c85 100644
 +        else if (this.currentGameType.isCreative() && this.mc.theWorld.getWorldBorder().contains(p_180512_1_))
 +        {
 +        	//TODO: Client
-+            this.blockHitDelay = Client.wurst.modManager.getModByClass(FastBreak.class).isEnabled() ? 0 : 5;
++            this.blockHitDelay = Client.wurst.modManager.getModByClass(FastBreakMod.class).isEnabled() ? 0 : 5;
 +            this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK, p_180512_1_, p_180512_2_));
 +            clickBlockCreative(this.mc, this, p_180512_1_, p_180512_2_);
 +            return true;
@@ -27236,7 +27236,7 @@ index 1c4d5a3..fe64c85 100644
 +            else
 +            {
 +                //TODO: Client
-+                this.curBlockDamageMP += var3.getPlayerRelativeBlockHardness(this.mc.thePlayer, this.mc.thePlayer.worldObj, p_180512_1_) * (!this.currentGameType.isCreative() && Client.wurst.modManager.getModByClass(FastBreak.class).isEnabled() && Client.wurst.options.fastbreakMode == 0 ? FastBreak.speed : 1);
++                this.curBlockDamageMP += var3.getPlayerRelativeBlockHardness(this.mc.thePlayer, this.mc.thePlayer.worldObj, p_180512_1_) * (!this.currentGameType.isCreative() && Client.wurst.modManager.getModByClass(FastBreakMod.class).isEnabled() && Client.wurst.options.fastbreakMode == 0 ? FastBreakMod.speed : 1);
 +
 +                if (this.stepSoundTickCounter % 4.0F == 0.0F)
 +                {
@@ -27254,7 +27254,7 @@ index 1c4d5a3..fe64c85 100644
 +                    this.stepSoundTickCounter = 0.0F;
 +                    this.blockHitDelay = 5;
 +                    //TODO: Client
-+                }else if(!this.currentGameType.isCreative() && Client.wurst.modManager.getModByClass(FastBreak.class).isEnabled() && Client.wurst.options.fastbreakMode == 1)
++                }else if(!this.currentGameType.isCreative() && Client.wurst.modManager.getModByClass(FastBreakMod.class).isEnabled() && Client.wurst.options.fastbreakMode == 1)
 +                {
 +                    this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, p_180512_1_, p_180512_2_));
 +                }
@@ -28072,7 +28072,7 @@ index e9db01f..18cbc00 100644
  import net.minecraft.block.state.IBlockState;
  import net.minecraft.client.Minecraft;
 diff --git a/src/net/minecraft/client/renderer/EntityRenderer.java b/src/net/minecraft/client/renderer/EntityRenderer.java
-index e32c68b..1c77e14 100644
+index e32c68b..cc24935 100644
 --- a/src/net/minecraft/client/renderer/EntityRenderer.java
 +++ b/src/net/minecraft/client/renderer/EntityRenderer.java
 @@ -1,2052 +1,2096 @@
@@ -30195,11 +30195,11 @@ index e32c68b..1c77e14 100644
 +import org.lwjgl.util.glu.Project;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.RenderEvent;
-+import tk.wurst_client.mod.Mod;
-+import tk.wurst_client.mod.mods.AntiBlind;
-+import tk.wurst_client.mod.mods.Tracers;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.RenderEvent;
++import tk.wurst_client.mods.AntiBlindMod;
++import tk.wurst_client.mods.Mod;
++import tk.wurst_client.mods.TracersMod;
 +
 +public class EntityRenderer implements IResourceManagerReloadListener
 +{
@@ -30917,7 +30917,7 @@ index e32c68b..1c77e14 100644
 +        this.hurtCameraEffect(p_78479_1_);
 +
 +        //TODO: Client
-+        if (this.mc.gameSettings.viewBobbing && !Client.wurst.modManager.getModByClass(Tracers.class).isEnabled())
++        if (this.mc.gameSettings.viewBobbing && !Client.wurst.modManager.getModByClass(TracersMod.class).isEnabled())
 +        {
 +            this.setupViewBobbing(p_78479_1_);
 +        }
@@ -30925,7 +30925,7 @@ index e32c68b..1c77e14 100644
 +        float var4 = this.mc.thePlayer.prevTimeInPortal + (this.mc.thePlayer.timeInPortal - this.mc.thePlayer.prevTimeInPortal) * p_78479_1_;
 +
 +        //TODO: Client
-+        if (var4 > 0.0F && !Client.wurst.modManager.getModByClass(AntiBlind.class).isEnabled())
++        if (var4 > 0.0F && !Client.wurst.modManager.getModByClass(AntiBlindMod.class).isEnabled())
 +        {
 +            byte var5 = 20;
 +
@@ -32031,7 +32031,7 @@ index e32c68b..1c77e14 100644
 +        double var23 = (var3.lastTickPosY + (var3.posY - var3.lastTickPosY) * (double)p_78466_1_) * var2.provider.getVoidFogYFactor();
 +
 +        //TODO: Client
-+        if (var3 instanceof EntityLivingBase && ((EntityLivingBase)var3).isPotionActive(Potion.blindness) && !Client.wurst.modManager.getModByClass(AntiBlind.class).isEnabled())
++        if (var3 instanceof EntityLivingBase && ((EntityLivingBase)var3).isPotionActive(Potion.blindness) && !Client.wurst.modManager.getModByClass(AntiBlindMod.class).isEnabled())
 +        {
 +            int var16 = ((EntityLivingBase)var3).getActivePotionEffect(Potion.blindness).getDuration();
 +
@@ -32124,7 +32124,7 @@ index e32c68b..1c77e14 100644
 +        float var6;
 +
 +        //TODO: Client
-+        if (var3 instanceof EntityLivingBase && ((EntityLivingBase)var3).isPotionActive(Potion.blindness) && !Client.wurst.modManager.getModByClass(AntiBlind.class).isEnabled())
++        if (var3 instanceof EntityLivingBase && ((EntityLivingBase)var3).isPotionActive(Potion.blindness) && !Client.wurst.modManager.getModByClass(AntiBlindMod.class).isEnabled())
 +        {
 +            var6 = 5.0F;
 +            int var7 = ((EntityLivingBase)var3).getActivePotionEffect(Potion.blindness).getDuration();
@@ -32479,7 +32479,7 @@ index 72b9763..34a4e61 100644
                  finally
                  {
 diff --git a/src/net/minecraft/client/renderer/WorldRenderer.java b/src/net/minecraft/client/renderer/WorldRenderer.java
-index 736354e..86bbd5d 100644
+index 736354e..cbcce03 100644
 --- a/src/net/minecraft/client/renderer/WorldRenderer.java
 +++ b/src/net/minecraft/client/renderer/WorldRenderer.java
 @@ -1,615 +1,623 @@
@@ -33115,7 +33115,7 @@ index 736354e..86bbd5d 100644
 +
 +import org.apache.logging.log4j.LogManager;
 +
-+import tk.wurst_client.mod.mods.LSD;
++import tk.wurst_client.mods.LsdMod;
 +
 +public class WorldRenderer
 +{
@@ -33420,9 +33420,9 @@ index 736354e..86bbd5d 100644
 +            //TODO: Client
 +            if(Tessellator.shouldRenderLSD)
 +            {
-+            	red = LSD.randomColor().getRed();
-+            	blue = LSD.randomColor().getBlue();
-+            	green = LSD.randomColor().getGreen();
++            	red = LsdMod.randomColor().getRed();
++            	blue = LsdMod.randomColor().getBlue();
++            	green = LsdMod.randomColor().getGreen();
 +            }
 +
 +            if (!this.vertexFormat.func_177346_d())
@@ -33744,7 +33744,7 @@ index c1aa703..f240c63 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/renderer/entity/Render.java b/src/net/minecraft/client/renderer/entity/Render.java
-index a00ffea..8c9cecc 100644
+index a00ffea..8e93c6b 100644
 --- a/src/net/minecraft/client/renderer/entity/Render.java
 +++ b/src/net/minecraft/client/renderer/entity/Render.java
 @@ -1,392 +1,418 @@
@@ -34166,8 +34166,8 @@ index a00ffea..8c9cecc 100644
 +import org.lwjgl.opengl.GL11;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.HealthTags;
-+import tk.wurst_client.mod.mods.NameTags;
++import tk.wurst_client.mods.HealthTagsMod;
++import tk.wurst_client.mods.NameTagsMod;
 +
 +public abstract class Render
 +{
@@ -34493,8 +34493,8 @@ index a00ffea..8c9cecc 100644
 +            FontRenderer var12 = this.getFontRendererFromRenderManager();
 +            float var13 = 1.6F;
 +            //TODO: Client
-+            float var14 = 0.016666668F * var13 * (p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) > 10 && Client.wurst.modManager.getModByClass(NameTags.class).isEnabled() ? p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) / 10 : 1);
-+            var14 *= (Client.wurst.modManager.getModByClass(NameTags.class).isEnabled() ? (p_147906_1_.boundingBox.getAverageEdgeLength() > - 50 ? 1 : p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) / 300) : 1);
++            float var14 = 0.016666668F * var13 * (p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) > 10 && Client.wurst.modManager.getModByClass(NameTagsMod.class).isEnabled() ? p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) / 10 : 1);
++            var14 *= (Client.wurst.modManager.getModByClass(NameTagsMod.class).isEnabled() ? (p_147906_1_.boundingBox.getAverageEdgeLength() > - 50 ? 1 : p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) / 300) : 1);
 +            GlStateManager.pushMatrix();
 +            GlStateManager.translate((float)p_147906_3_ + 0.0F, (float)p_147906_5_ + p_147906_1_.height + 0.5F, (float)p_147906_7_);
 +            GL11.glNormal3f(0.0F, 1.0F, 0.0F);
@@ -34518,7 +34518,7 @@ index a00ffea..8c9cecc 100644
 +            //TODO: Client
 +            if(Client.wurst.friends.contains(p_147906_1_.getName()))
 +            	p_147906_2_ = "§2" + (p_147906_2_.startsWith("§") ? p_147906_2_.substring(2) : p_147906_2_);
-+            if(p_147906_1_ instanceof EntityLivingBase && Client.wurst.modManager.getModByClass(HealthTags.class).isEnabled())
++            if(p_147906_1_ instanceof EntityLivingBase && Client.wurst.modManager.getModByClass(HealthTagsMod.class).isEnabled())
 +            {
 +            	p_147906_2_ += " ";
 +            	int health = (int)((EntityLivingBase) p_147906_1_).getHealth();
@@ -34575,7 +34575,7 @@ index 63a12a1..03a9cce 100644
          }
  
 diff --git a/src/net/minecraft/client/renderer/entity/RenderFallingBlock.java b/src/net/minecraft/client/renderer/entity/RenderFallingBlock.java
-index 6936e51..41a8a6e 100644
+index 6936e51..0756a90 100644
 --- a/src/net/minecraft/client/renderer/entity/RenderFallingBlock.java
 +++ b/src/net/minecraft/client/renderer/entity/RenderFallingBlock.java
 @@ -1,93 +1,96 @@
@@ -34675,7 +34675,7 @@ index 6936e51..41a8a6e 100644
 +package net.minecraft.client.renderer.entity;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.ProphuntESP;
++import tk.wurst_client.mods.ProphuntEspMod;
 +import net.minecraft.block.Block;
 +import net.minecraft.block.state.IBlockState;
 +import net.minecraft.client.Minecraft;
@@ -34705,7 +34705,7 @@ index 6936e51..41a8a6e 100644
 +    public void doRender(EntityFallingBlock p_180557_1_, double p_180557_2_, double p_180557_4_, double p_180557_6_, float p_180557_8_, float p_180557_9_)
 +    {
 +    	//TODO: Client
-+        if (p_180557_1_.getBlock() != null && !Client.wurst.modManager.getModByClass(ProphuntESP.class).isEnabled())
++        if (p_180557_1_.getBlock() != null && !Client.wurst.modManager.getModByClass(ProphuntEspMod.class).isEnabled())
 +        {
 +            this.bindTexture(TextureMap.locationBlocksTexture);
 +            IBlockState var10 = p_180557_1_.getBlock();
@@ -35047,7 +35047,7 @@ index 7fdac31..12df2a4 100644
          var14.addVertex(p_85094_2_ + var15.xCoord * 2.0D, p_85094_4_ + (double)p_85094_1_.getEyeHeight() + var15.yCoord * 2.0D, p_85094_6_ + var15.zCoord * 2.0D);
          var16.draw();
 diff --git a/src/net/minecraft/client/renderer/entity/RenderPlayer.java b/src/net/minecraft/client/renderer/entity/RenderPlayer.java
-index bc2dd09..18c4f75 100644
+index bc2dd09..6bda3d8 100644
 --- a/src/net/minecraft/client/renderer/entity/RenderPlayer.java
 +++ b/src/net/minecraft/client/renderer/entity/RenderPlayer.java
 @@ -1,268 +1,271 @@
@@ -35322,7 +35322,7 @@ index bc2dd09..18c4f75 100644
 +package net.minecraft.client.renderer.entity;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.Freecam;
++import tk.wurst_client.mods.FreecamMod;
 +import net.minecraft.client.entity.AbstractClientPlayer;
 +import net.minecraft.client.entity.EntityPlayerSP;
 +import net.minecraft.client.model.ModelBase;
@@ -35392,7 +35392,7 @@ index bc2dd09..18c4f75 100644
 +        ModelPlayer var2 = this.func_177136_g();
 +
 +        //TODO: Client
-+        if (p_177137_1_.isSpectator() && !Client.wurst.modManager.getModByClass(Freecam.class).isEnabled())
++        if (p_177137_1_.isSpectator() && !Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled())
 +        {
 +            var2.func_178719_a(false);
 +            var2.bipedHead.showModel = true;
@@ -35604,7 +35604,7 @@ index 7bcac52..fb3ac3e 100644
          var26.addVertexWithUV((double)(0.0F - var16), (double)(0.0F - var17), 0.0D, (double)var11, (double)var14);
          var26.addVertexWithUV((double)(var15 - var16), (double)(0.0F - var17), 0.0D, (double)var12, (double)var14);
 diff --git a/src/net/minecraft/client/renderer/entity/RendererLivingEntity.java b/src/net/minecraft/client/renderer/entity/RendererLivingEntity.java
-index 8703f17..b7d9bb5 100644
+index 8703f17..15d3e40 100644
 --- a/src/net/minecraft/client/renderer/entity/RendererLivingEntity.java
 +++ b/src/net/minecraft/client/renderer/entity/RendererLivingEntity.java
 @@ -1,678 +1,685 @@
@@ -36319,7 +36319,7 @@ index 8703f17..b7d9bb5 100644
 +import org.lwjgl.opengl.GL11;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.TrueSight;
++import tk.wurst_client.mods.TrueSightMod;
 +
 +public abstract class RendererLivingEntity extends Render
 +{
@@ -36546,7 +36546,7 @@ index 8703f17..b7d9bb5 100644
 +    {
 +        boolean var8 = !p_77036_1_.isInvisible();
 +        //TODO: Client
-+        boolean var9 = !var8 && (!p_77036_1_.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || Client.wurst.modManager.getModByClass(TrueSight.class).isEnabled());
++        boolean var9 = !var8 && (!p_77036_1_.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || Client.wurst.modManager.getModByClass(TrueSightMod.class).isEnabled());
 +
 +        if (var8 || var9)
 +        {
@@ -38232,7 +38232,7 @@ index 6b59121..b819849 100644
  
      /**
 diff --git a/src/net/minecraft/entity/Entity.java b/src/net/minecraft/entity/Entity.java
-index 7397345..18e856d 100644
+index 7397345..091bdfb 100644
 --- a/src/net/minecraft/entity/Entity.java
 +++ b/src/net/minecraft/entity/Entity.java
 @@ -1,2763 +1,2787 @@
@@ -41050,9 +41050,9 @@ index 7397345..18e856d 100644
 +import net.minecraft.world.World;
 +import net.minecraft.world.WorldServer;
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.AntiKnockback;
-+import tk.wurst_client.mod.mods.Freecam;
-+import tk.wurst_client.mod.mods.Phase;
++import tk.wurst_client.mods.AntiKnockbackMod;
++import tk.wurst_client.mods.FreecamMod;
++import tk.wurst_client.mods.PhaseMod;
 +
 +public abstract class Entity implements ICommandSender
 +{
@@ -41591,13 +41591,13 @@ index 7397345..18e856d 100644
 +        if
 +        (
 +        	this.noClip
-+        	|| Client.wurst.modManager.getModByClass(Freecam.class).isEnabled()
-+        	|| Client.wurst.modManager.getModByClass(Phase.class).isEnabled()
++        	|| Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled()
++        	|| Client.wurst.modManager.getModByClass(PhaseMod.class).isEnabled()
 +        )
 +        {
 +        	//TODO: Client
 +        	//Fixes Freecam flight speed
-+        	if(this == Minecraft.getMinecraft().thePlayer && Client.wurst.modManager.getModByClass(Freecam.class).isEnabled())
++        	if(this == Minecraft.getMinecraft().thePlayer && Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled())
 +        	{
 +        		this.func_174826_a(this.getEntityBoundingBox().offset(x * 10, y, z * 10));
 +        	}else
@@ -43105,7 +43105,7 @@ index 7397345..18e856d 100644
 +    public void setVelocity(double x, double y, double z)
 +    {
 +    	//TODO: Client
-+    	if(!Client.wurst.modManager.getModByClass(AntiKnockback.class).isEnabled())
++    	if(!Client.wurst.modManager.getModByClass(AntiKnockbackMod.class).isEnabled())
 +    	{
 +    		this.motionX = x;
 +        	this.motionY = y;
@@ -43787,7 +43787,7 @@ index 7397345..18e856d 100644
 +    }
 +}
 diff --git a/src/net/minecraft/entity/EntityLivingBase.java b/src/net/minecraft/entity/EntityLivingBase.java
-index c6f8843..3319d6b 100644
+index c6f8843..cfef287 100644
 --- a/src/net/minecraft/entity/EntityLivingBase.java
 +++ b/src/net/minecraft/entity/EntityLivingBase.java
 @@ -1,2273 +1,2281 @@
@@ -46076,8 +46076,8 @@ index c6f8843..3319d6b 100644
 +import java.util.UUID;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.mod.mods.HighJump;
-+import tk.wurst_client.mod.mods.NoSlowdown;
++import tk.wurst_client.mods.HighJumpMod;
++import tk.wurst_client.mods.NoSlowdownMod;
 +import net.minecraft.block.Block;
 +import net.minecraft.block.material.Material;
 +import net.minecraft.block.state.IBlockState;
@@ -47627,7 +47627,7 @@ index c6f8843..3319d6b 100644
 +    protected void jump()
 +    {
 +    	//TODO: Client
-+        this.motionY = Client.wurst.modManager.getModByClass(HighJump.class).isEnabled() ? (double)this.func_175134_bD() * HighJump.jumpHeight : (double)this.func_175134_bD();
++        this.motionY = Client.wurst.modManager.getModByClass(HighJumpMod.class).isEnabled() ? (double)this.func_175134_bD() * HighJumpMod.jumpHeight : (double)this.func_175134_bD();
 +
 +        if (this.isPotionActive(Potion.jump))
 +        {
@@ -47672,7 +47672,7 @@ index c6f8843..3319d6b 100644
 +
 +            //TODO: Client
 +            if (this.isInWater() && (!(this instanceof EntityPlayer) || !((EntityPlayer)this).capabilities.isFlying)
-+            	&& !Client.wurst.modManager.getModByClass(NoSlowdown.class).isEnabled())
++            	&& !Client.wurst.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
 +            {
 +                var8 = this.posY;
 +                var5 = 0.8F;
@@ -48410,7 +48410,7 @@ index 9f8f79c..eab2d65 100644
              this.closestPlayer = null;
          }
 diff --git a/src/net/minecraft/entity/player/EntityPlayer.java b/src/net/minecraft/entity/player/EntityPlayer.java
-index 8a0a656..5fb757f 100644
+index 8a0a656..7454b1b 100644
 --- a/src/net/minecraft/entity/player/EntityPlayer.java
 +++ b/src/net/minecraft/entity/player/EntityPlayer.java
 @@ -1,2534 +1,2545 @@
@@ -50957,7 +50957,7 @@ index 8a0a656..5fb757f 100644
 +
 +import tk.wurst_client.Client;
 +import tk.wurst_client.bot.WurstBot;
-+import tk.wurst_client.mod.mods.AntiKnockback;
++import tk.wurst_client.mods.AntiKnockbackMod;
 +import net.minecraft.block.Block;
 +import net.minecraft.block.BlockBed;
 +import net.minecraft.block.BlockDirectional;
@@ -53230,7 +53230,7 @@ index 8a0a656..5fb757f 100644
 +    public boolean isPushedByWater()
 +    {
 +    	//TODO: Client
-+        return !Client.wurst.modManager.getModByClass(AntiKnockback.class).isEnabled() && !this.capabilities.isFlying;
++        return !Client.wurst.modManager.getModByClass(AntiKnockbackMod.class).isEnabled() && !this.capabilities.isFlying;
 +    }
 +
 +    public Scoreboard getWorldScoreboard()
@@ -53894,7 +53894,7 @@ index 38b9ecd..f64dc7e 100644
              this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);
          }
 diff --git a/src/net/minecraft/network/NetworkManager.java b/src/net/minecraft/network/NetworkManager.java
-index f05dadf..af6fe01 100644
+index f05dadf..bd2f0e9 100644
 --- a/src/net/minecraft/network/NetworkManager.java
 +++ b/src/net/minecraft/network/NetworkManager.java
 @@ -1,479 +1,464 @@
@@ -54407,9 +54407,9 @@ index f05dadf..af6fe01 100644
 +import org.apache.logging.log4j.MarkerManager;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.event.EventManager;
-+import tk.wurst_client.event.events.PacketInputEvent;
-+import tk.wurst_client.mod.Mod;
++import tk.wurst_client.events.EventManager;
++import tk.wurst_client.events.PacketInputEvent;
++import tk.wurst_client.mods.Mod;
 +
 +import com.google.common.collect.Queues;
 +import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -55492,7 +55492,7 @@ index a682077..381c34c 100644
  
      public static enum MovingObjectType
 diff --git a/src/net/minecraft/util/Timer.java b/src/net/minecraft/util/Timer.java
-index 7d59775..ee3d397 100644
+index 7d59775..f5b019c 100644
 --- a/src/net/minecraft/util/Timer.java
 +++ b/src/net/minecraft/util/Timer.java
 @@ -1,109 +1,115 @@
@@ -55672,8 +55672,8 @@ index 7d59775..ee3d397 100644
 +    public void updateTimer()
 +    {
 +    	//TODO: Client
-+    	if(Client.wurst.modManager.getModByClass(tk.wurst_client.mod.mods.Timer.class).isEnabled())
-+    		timerSpeed = tk.wurst_client.mod.mods.Timer.speed;
++    	if(Client.wurst.modManager.getModByClass(tk.wurst_client.mods.TimerMod.class).isEnabled())
++    		timerSpeed = tk.wurst_client.mods.TimerMod.speed;
 +    	else
 +    		timerSpeed = 1.0F;
 +        long var1 = Minecraft.getSystemTime();

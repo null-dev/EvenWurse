@@ -18,15 +18,10 @@ public class Repeat extends Tag
 {
 	public Repeat()
 	{
-		super(
-			"repeat",
-			"Repeats a chat message or a part of a chat message.",
-			"<repeat number>",
-			"Repeating a part of a message:\n"
-				+ "Spam<repeat 2>, spam</repeat>!\n"
-				+ "\n"
-				+ "Repeating a message:<repeat 3>\n"
-				+ "Spam!</repeat>");
+		super("repeat", "Repeats a chat message or a part of a chat message.",
+			"<repeat number>", "Repeating a part of a message:\n"
+				+ "Spam<repeat 2>, spam</repeat>!\n" + "\n"
+				+ "Repeating a message:<repeat 3>\n" + "Spam!</repeat>");
 	}
 	
 	@Override

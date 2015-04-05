@@ -55,16 +55,14 @@ public class BlockUtils
 			(float)(Math.atan2(diffZ, diffX) * 180.0D / Math.PI) - 90.0F;
 		float pitch = (float)-(Math.atan2(diffY, dist) * 180.0D / Math.PI);
 		Minecraft.getMinecraft().thePlayer.sendQueue
-			.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook
-			(
-				Minecraft.getMinecraft().thePlayer.rotationYaw
-					+ MathHelper.wrapAngleTo180_float(yaw
-						- Minecraft.getMinecraft().thePlayer.rotationYaw),
+			.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(Minecraft
+				.getMinecraft().thePlayer.rotationYaw
+				+ MathHelper.wrapAngleTo180_float(yaw
+					- Minecraft.getMinecraft().thePlayer.rotationYaw),
 				Minecraft.getMinecraft().thePlayer.rotationPitch
 					+ MathHelper.wrapAngleTo180_float(pitch
 						- Minecraft.getMinecraft().thePlayer.rotationPitch),
-				Minecraft.getMinecraft().thePlayer.onGround
-			));
+				Minecraft.getMinecraft().thePlayer.onGround));
 	}
 	
 	public static void faceBlockClientHorizontally(BlockPos blockPos)

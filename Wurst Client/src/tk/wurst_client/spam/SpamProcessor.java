@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.Client;
-import tk.wurst_client.mod.mods.Spammer;
+import tk.wurst_client.mods.SpammerMod;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
 import tk.wurst_client.spam.exceptions.UnreadableTagException;
@@ -36,9 +36,8 @@ public class SpamProcessor
 			public void run()
 			{
 				File file =
-					new File(Client.wurst.fileManager.scriptsDir,
-						filename
-							+ ".wspam");
+					new File(Client.wurst.fileManager.scriptsDir, filename
+						+ ".wspam");
 				try
 				{
 					long startTime = System.currentTimeMillis();
@@ -68,15 +67,12 @@ public class SpamProcessor
 					StringWriter tracewriter = new StringWriter();
 					e.printStackTrace(new PrintWriter(tracewriter));
 					String message =
-						"An error occurred while running "
-							+ file.getName()
-							+ ":\n"
-							+ e.getLocalizedMessage() + "\n"
+						"An error occurred while running " + file.getName()
+							+ ":\n" + e.getLocalizedMessage() + "\n"
 							+ tracewriter.toString();
-					JOptionPane.showMessageDialog(Minecraft
-						.getMinecraft()
-						.getFrame(),
-						message, "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(Minecraft.getMinecraft()
+						.getFrame(), message, "Error",
+						JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}).start();
@@ -113,12 +109,11 @@ public class SpamProcessor
 					e.printStackTrace(new PrintWriter(tracewriter));
 					String message =
 						"An error occurred while running " + file.getName()
-							+ ":\n"
-							+ e.getLocalizedMessage() + "\n"
+							+ ":\n" + e.getLocalizedMessage() + "\n"
 							+ tracewriter.toString();
 					JOptionPane.showMessageDialog(Minecraft.getMinecraft()
-						.getFrame(),
-						message, "Error", JOptionPane.ERROR_MESSAGE);
+						.getFrame(), message, "Error",
+						JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}).start();
@@ -139,8 +134,8 @@ public class SpamProcessor
 			return;
 		for(int i = 0; i < spam.split("\n").length; i++)
 		{
-			Minecraft.getMinecraft().thePlayer
-				.sendAutomaticChatMessage(spam.split("\n")[i]);
+			Minecraft.getMinecraft().thePlayer.sendAutomaticChatMessage(spam
+				.split("\n")[i]);
 			Thread.sleep(Client.wurst.options.spamDelay);
 		}
 	}
@@ -151,7 +146,8 @@ public class SpamProcessor
 			&& Minecraft.getMinecraft().theWorld != null;
 	}
 	
-	public static String process(String spam, Spammer spammer, boolean test)
+	public static String process(String spam, SpammerMod spammerMod,
+		boolean test)
 	{
 		try
 		{
@@ -297,7 +293,7 @@ public class SpamProcessor
 		{
 			if(!test)
 				return null;
-			if(spammer == null)
+			if(spammerMod == null)
 			{
 				e.printStackTrace();
 				return null;
@@ -305,17 +301,18 @@ public class SpamProcessor
 			String message =
 				e.getClass().getSimpleName() + " at line " + (e.line + 1)
 					+ ":\n" + e.getMessage();
-			switch(JOptionPane.showOptionDialog(spammer.getDialog(), message,
-				"Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
-				null, new String[]{"Go to line", "Show help"}, 0))
+			switch(JOptionPane.showOptionDialog(spammerMod.getDialog(),
+				message, "Error", JOptionPane.DEFAULT_OPTION,
+				JOptionPane.ERROR_MESSAGE, null, new String[]{"Go to line",
+					"Show help"}, 0))
 			{
 				case 0:
-					spammer.goToLine(e.line);
+					spammerMod.goToLine(e.line);
 					break;
 				case 1:
 					try
 					{
-						JOptionPane.showOptionDialog(spammer.getDialog(),
+						JOptionPane.showOptionDialog(spammerMod.getDialog(),
 							e.getHelp(), "Help", JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE, null,
 							new String[]{"OK"}, 0);

@@ -70,8 +70,8 @@ public class BasicFrame extends AbstractContainer implements Frame
 		if(dragging)
 		{
 			Point mouseLocation = RenderUtil.calculateMouseLocation();
-			dragOffset = new Point(mouseLocation.x - getX(), mouseLocation.y
-				- getY());
+			dragOffset =
+				new Point(mouseLocation.x - getX(), mouseLocation.y - getY());
 		}else
 			dragOffset = null;
 	}

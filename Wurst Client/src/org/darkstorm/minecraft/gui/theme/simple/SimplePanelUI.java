@@ -56,8 +56,8 @@ public class SimplePanelUI extends AbstractComponentUI<Panel>
 		for(int i = 0; i < children.length; i++)
 		{
 			Component child = children[i];
-			Dimension size = child.getTheme().getUIForComponent(child)
-				.getDefaultSize(child);
+			Dimension size =
+				child.getTheme().getUIForComponent(child).getDefaultSize(child);
 			areas[i] = new Rectangle(0, 0, size.width, size.height);
 			constraints[i] = component.getConstraints(child);
 		}

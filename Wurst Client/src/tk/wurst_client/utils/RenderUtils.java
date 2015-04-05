@@ -52,23 +52,10 @@ public class RenderUtils
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
-		drawColorBox(new AxisAlignedBB(
-			x,
-			y,
-			z,
-			x2,
-			y2,
-			z2));
+		drawColorBox(new AxisAlignedBB(x, y, z, x2, y2, z2));
 		GL11.glColor4d(0, 0, 0, 0.5F);
-		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB
-			(
-				x,
-				y,
-				z,
-				x2,
-				y2,
-				z2
-			), -1);
+		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x, y, z, x2, y2,
+			z2), -1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
@@ -102,15 +89,8 @@ public class RenderUtils
 		GL11.glDisable(GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
 		RenderUtil.setColor(color);
-		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB
-			(
-				x,
-				y,
-				z,
-				x2,
-				y2,
-				z2
-			), -1);
+		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x, y, z, x2, y2,
+			z2), -1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
@@ -143,23 +123,10 @@ public class RenderUtils
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
-		drawColorBox(new AxisAlignedBB(
-			x,
-			y,
-			z,
-			x + 1.0,
-			y + 1.0,
-			z + 1.0));
+		drawColorBox(new AxisAlignedBB(x, y, z, x + 1.0, y + 1.0, z + 1.0));
 		GL11.glColor4d(0, 0, 0, 0.5F);
-		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB
-			(
-				x,
-				y,
-				z,
-				x + 1.0,
-				y + 1.0,
-				z + 1.0
-			), -1);
+		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x, y, z,
+			x + 1.0, y + 1.0, z + 1.0), -1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
@@ -180,23 +147,12 @@ public class RenderUtils
 		GL11.glBlendFunc(770, 771);
 		GL11.glEnable(GL_BLEND);
 		GL11.glLineWidth(2.0F);
-		GL11.glColor4d
-			(
-				color.getRed() / 255,
-				color.getGreen() / 255,
-				color.getBlue() / 255,
-				0.15
-			);
+		GL11.glColor4d(color.getRed() / 255, color.getGreen() / 255,
+			color.getBlue() / 255, 0.15);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
-		drawColorBox(new AxisAlignedBB(
-			x,
-			y,
-			z,
-			x + 1.0,
-			y + 1.0,
-			z + 1.0));
+		drawColorBox(new AxisAlignedBB(x, y, z, x + 1.0, y + 1.0, z + 1.0));
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
@@ -221,15 +177,8 @@ public class RenderUtils
 		GL11.glDisable(GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
 		GL11.glColor4d(0, 0, 0, 0.5F);
-		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB
-			(
-				x,
-				y,
-				z,
-				x + 1.0,
-				y + 1.0,
-				z + 1.0
-			), -1);
+		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x, y, z,
+			x + 1.0, y + 1.0, z + 1.0), -1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
@@ -265,8 +214,8 @@ public class RenderUtils
 		else if(mode == 4)// Team
 			GL11.glColor4d(0, 1, 0, 0.5F);
 		Minecraft.getMinecraft().getRenderManager();
-		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB
-			(
+		RenderGlobal.drawOutlinedBoundingBox(
+			new AxisAlignedBB(
 				entity.boundingBox.minX
 					- 0.05
 					- entity.posX
@@ -295,8 +244,7 @@ public class RenderUtils
 					+ 0.05
 					- entity.posZ
 					+ (entity.posZ - Minecraft.getMinecraft()
-						.getRenderManager().renderPosZ)
-			), -1);
+						.getRenderManager().renderPosZ)), -1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
@@ -321,23 +269,13 @@ public class RenderUtils
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
-		drawColorBox(new AxisAlignedBB(
-			x + 0.5 - damage / 2,
-			y + 0.5 - damage / 2,
-			z + 0.5 - damage / 2,
-			x + 0.5 + damage / 2,
-			y + 0.5 + damage / 2,
-			z + 0.5 + damage / 2));
+		drawColorBox(new AxisAlignedBB(x + 0.5 - damage / 2, y + 0.5 - damage
+			/ 2, z + 0.5 - damage / 2, x + 0.5 + damage / 2, y + 0.5 + damage
+			/ 2, z + 0.5 + damage / 2));
 		GL11.glColor4d(0, 0, 0, 0.5F);
-		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB
-			(
-				x + 0.5 - damage / 2,
-				y + 0.5 - damage / 2,
-				z + 0.5 - damage / 2,
-				x + 0.5 + damage / 2,
-				y + 0.5 + damage / 2,
-				z + 0.5 + damage / 2
-			), -1);
+		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x + 0.5 - damage
+			/ 2, y + 0.5 - damage / 2, z + 0.5 - damage / 2, x + 0.5 + damage
+			/ 2, y + 0.5 + damage / 2, z + 0.5 + damage / 2), -1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
@@ -365,23 +303,10 @@ public class RenderUtils
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
-		drawColorBox(new AxisAlignedBB(
-			x,
-			y,
-			z,
-			x + 1.0,
-			y + 1.0,
-			z + 1.0));
+		drawColorBox(new AxisAlignedBB(x, y, z, x + 1.0, y + 1.0, z + 1.0));
 		GL11.glColor4d(0, 0, 0, 0.5);
-		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB
-			(
-				x,
-				y,
-				z,
-				x + 1.0,
-				y + 1.0,
-				z + 1.0
-			), -1);
+		RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(x, y, z,
+			x + 1.0, y + 1.0, z + 1.0), -1);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL_DEPTH_TEST);
 		GL11.glDepthMask(true);

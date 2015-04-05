@@ -46,7 +46,7 @@ public class GuiServerFinder extends GuiScreen
 	{
 		ipBox.updateCursorCounter();
 		((GuiButton)buttonList.get(0)).enabled =
-			// 1.1.1.1 has a length of 7
+		// 1.1.1.1 has a length of 7
 			ipBox.getText().trim().length() >= 7
 				// Must have dots
 				&& ipBox.getText().contains(".")
@@ -62,8 +62,7 @@ public class GuiServerFinder extends GuiScreen
 				&& MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[2])
 				// And so on
 				&& MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[3])
-				&& !running
-				&& MiscUtils.isInteger(maxThreadsBox.getText());
+				&& !running && MiscUtils.isInteger(maxThreadsBox.getText());
 	}
 	
 	/**

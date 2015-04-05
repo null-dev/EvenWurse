@@ -22,7 +22,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tk.wurst_client.gui.GuiWurstSlot;
-import tk.wurst_client.mod.mods.XRay;
+import tk.wurst_client.mods.XRayMod;
 
 public class GuiXRayBlocksList extends GuiWurstSlot
 {
@@ -39,7 +39,7 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 	
 	public static void sortBlocks()
 	{
-		blocks = XRay.xrayBlocks;
+		blocks = XRayMod.xrayBlocks;
 		Collections.sort(blocks, new Comparator<Block>()
 		{
 			@Override
@@ -51,10 +51,10 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 		});
 		ArrayList<Block> newBlocks = new ArrayList<Block>();
 		for(Block block : blocks)
-			if(XRay.xrayBlocks.contains(block))
+			if(XRayMod.xrayBlocks.contains(block))
 				newBlocks.add(block);
 		for(Block block : blocks)
-			if(!XRay.xrayBlocks.contains(block))
+			if(!XRayMod.xrayBlocks.contains(block))
 				newBlocks.add(block);
 		blocks = newBlocks;
 	}

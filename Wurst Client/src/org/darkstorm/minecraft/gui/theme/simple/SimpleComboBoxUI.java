@@ -37,8 +37,9 @@ public class SimpleComboBoxUI extends AbstractComponentUI<ComboBox>
 		glDisable(GL_TEXTURE_2D);
 		int maxWidth = 0;
 		for(String element : component.getElements())
-			maxWidth = Math.max(maxWidth, theme.getFontRenderer()
-				.getStringWidth(element));
+			maxWidth =
+				Math.max(maxWidth,
+					theme.getFontRenderer().getStringWidth(element));
 		int extendedHeight = 0;
 		if(component.isSelected())
 		{
@@ -88,8 +89,7 @@ public class SimpleComboBoxUI extends AbstractComponentUI<ComboBox>
 				int height = theme.getFontRenderer().FONT_HEIGHT + 2;
 				if((component.getSelectedIndex() == 0 ? i == 1 : i == 0)
 					|| (component.getSelectedIndex() == elements.length - 1
-						? i == elements.length - 2
-						: i == elements.length - 1))
+						? i == elements.length - 2 : i == elements.length - 1))
 					height++;
 				if(mouse.y >= area.y + offset
 					&& mouse.y <= area.y + offset + height)
@@ -194,8 +194,9 @@ public class SimpleComboBoxUI extends AbstractComponentUI<ComboBox>
 	{
 		int maxWidth = 0;
 		for(String element : component.getElements())
-			maxWidth = Math.max(maxWidth, theme.getFontRenderer()
-				.getStringWidth(element));
+			maxWidth =
+				Math.max(maxWidth,
+					theme.getFontRenderer().getStringWidth(element));
 		return new Dimension(
 			maxWidth + 8 + theme.getFontRenderer().FONT_HEIGHT,
 			theme.getFontRenderer().FONT_HEIGHT + 4);
@@ -213,8 +214,7 @@ public class SimpleComboBoxUI extends AbstractComponentUI<ComboBox>
 				height += theme.getFontRenderer().FONT_HEIGHT + 2;
 			height += 2;
 		}
-		return new Rectangle[]{new Rectangle(0, 0, component.getWidth(),
-			height)};
+		return new Rectangle[]{new Rectangle(0, 0, component.getWidth(), height)};
 	}
 	
 	@Override

@@ -35,8 +35,8 @@ public class HelpCmd extends Command
 				syntaxError("Invalid page: " + page);
 			System.out.println("Available commands: "
 				+ WurstBot.getBot().getCommandManager().countCommands());
-			System.out.println("Command list (page " + page + "/"
-				+ pages + "):");
+			System.out.println("Command list (page " + page + "/" + pages
+				+ "):");
 			Iterator<Command> itr =
 				WurstBot.getBot().getCommandManager().getAllCommands()
 					.iterator();

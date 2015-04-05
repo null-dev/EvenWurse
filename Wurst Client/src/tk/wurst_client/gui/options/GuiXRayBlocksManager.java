@@ -13,7 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.Client;
-import tk.wurst_client.mod.mods.XRay;
+import tk.wurst_client.mods.XRayMod;
 
 public class GuiXRayBlocksManager extends GuiScreen
 {
@@ -63,9 +63,9 @@ public class GuiXRayBlocksManager extends GuiScreen
 			else if(clickedButton.id == 1)
 			{// Remove
 				Client.wurst.analytics.trackEvent("x-ray blocks", "remove",
-					Integer.toString(Block.getIdFromBlock(XRay.xrayBlocks
+					Integer.toString(Block.getIdFromBlock(XRayMod.xrayBlocks
 						.get(blockList.getSelectedSlot()))));
-				XRay.xrayBlocks.remove(blockList.getSelectedSlot());
+				XRayMod.xrayBlocks.remove(blockList.getSelectedSlot());
 				GuiXRayBlocksList.sortBlocks();
 				Client.wurst.fileManager.saveXRayBlocks();
 			}else if(clickedButton.id == 2)
@@ -110,7 +110,7 @@ public class GuiXRayBlocksManager extends GuiScreen
 			8, 16777215);
 		int totalBlocks = 0;
 		for(int i = 0; i < GuiXRayBlocksList.blocks.size(); i++)
-			if(XRay.xrayBlocks.contains(GuiXRayBlocksList.blocks.get(i)))
+			if(XRayMod.xrayBlocks.contains(GuiXRayBlocksList.blocks.get(i)))
 				totalBlocks++;
 		drawCenteredString(fontRendererObj, "Blocks: " + totalBlocks,
 			width / 2, 20, 16777215);

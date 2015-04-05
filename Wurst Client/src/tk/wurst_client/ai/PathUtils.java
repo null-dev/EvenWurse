@@ -13,13 +13,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
-import tk.wurst_client.mod.Mod;
-import tk.wurst_client.mod.mods.AntiKnockback;
-import tk.wurst_client.mod.mods.Flight;
-import tk.wurst_client.mod.mods.Jesus;
-import tk.wurst_client.mod.mods.NoFall;
-import tk.wurst_client.mod.mods.NoSlowdown;
-import tk.wurst_client.mod.mods.Spider;
+import tk.wurst_client.mods.AntiKnockbackMod;
+import tk.wurst_client.mods.FlightMod;
+import tk.wurst_client.mods.JesusMod;
+import tk.wurst_client.mods.Mod;
+import tk.wurst_client.mods.NoFallMod;
+import tk.wurst_client.mods.NoSlowdownMod;
+import tk.wurst_client.mods.SpiderMod;
 
 public class PathUtils
 {
@@ -35,22 +35,18 @@ public class PathUtils
 	{
 		Material material = getMaterial(pos);
 		int id = getID(pos);
-		boolean alwaysSafe = !material.blocksMovement()
-			&& id != 132;// tripwire
+		boolean alwaysSafe = !material.blocksMovement() && id != 132;// tripwire
 		if(isCreative())
 			return alwaysSafe;
 		Material materialBelow = getMaterial(pos.add(0, -1, 0));
-		return alwaysSafe
-			&& material != Material.lava
-			&& materialBelow != Material.cactus
-			&& material != Material.fire;
+		return alwaysSafe && material != Material.lava
+			&& materialBelow != Material.cactus && material != Material.fire;
 	}
 	
 	public static boolean isSolid(BlockPos pos)
 	{
 		if(jesusMod == null)
-			jesusMod =
-				Client.wurst.modManager.getModByClass(Jesus.class);
+			jesusMod = Client.wurst.modManager.getModByClass(JesusMod.class);
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
 			|| getMaterial(pos) == Material.water && jesusMod.isEnabled();
@@ -67,16 +63,11 @@ public class PathUtils
 	public static boolean isClimbable(BlockPos pos)
 	{
 		if(spiderMod == null)
-			spiderMod =
-				Client.wurst.modManager.getModByClass(Spider.class);
-		if(isSolid(pos.add(0, -1, 0))
-			|| spiderMod.isEnabled()
-			|| getID(pos) == 65
-			|| isFlyable(pos))
-			if(isSolid(pos.add(0, 0, -1))
-				|| isSolid(pos.add(0, 0, 1))
-				|| isSolid(pos.add(1, 0, 0))
-				|| isSolid(pos.add(-1, 0, 0)))
+			spiderMod = Client.wurst.modManager.getModByClass(SpiderMod.class);
+		if(isSolid(pos.add(0, -1, 0)) || spiderMod.isEnabled()
+			|| getID(pos) == 65 || isFlyable(pos))
+			if(isSolid(pos.add(0, 0, -1)) || isSolid(pos.add(0, 0, 1))
+				|| isSolid(pos.add(1, 0, 0)) || isSolid(pos.add(-1, 0, 0)))
 				return true;
 		return false;
 	}
@@ -84,8 +75,7 @@ public class PathUtils
 	public static boolean isNoFall()
 	{
 		if(noFallMod == null)
-			noFallMod =
-				Client.wurst.modManager.getModByClass(NoFall.class);
+			noFallMod = Client.wurst.modManager.getModByClass(NoFallMod.class);
 		return noFallMod.isEnabled() || isCreative();
 	}
 	
@@ -99,28 +89,24 @@ public class PathUtils
 	public static boolean isFlyable(BlockPos pos)
 	{
 		if(flightMod == null)
-			flightMod =
-				Client.wurst.modManager.getModByClass(Flight.class);
+			flightMod = Client.wurst.modManager.getModByClass(FlightMod.class);
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				Client.wurst.modManager.getModByClass(NoSlowdown.class);
+				Client.wurst.modManager.getModByClass(NoSlowdownMod.class);
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
-		return flightMod.isEnabled()
-			|| playerCaps.isFlying
-			|| !noSlowdownMod.isEnabled()
-			&& getMaterial(pos) == Material.water;
+		return flightMod.isEnabled() || playerCaps.isFlying
+			|| !noSlowdownMod.isEnabled() && getMaterial(pos) == Material.water;
 	}
 	
 	public static int getCost(BlockPos current, BlockPos next)
 	{
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				Client.wurst.modManager.getModByClass(NoSlowdown.class);
+				Client.wurst.modManager.getModByClass(NoSlowdownMod.class);
 		if(antiKnockbackMod == null)
 			antiKnockbackMod =
-				Client.wurst.modManager
-					.getModByClass(AntiKnockback.class);
+				Client.wurst.modManager.getModByClass(AntiKnockbackMod.class);
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)
 			if(noSlowdownMod.isEnabled())

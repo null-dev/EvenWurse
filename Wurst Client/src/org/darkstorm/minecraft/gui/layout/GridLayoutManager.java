@@ -48,8 +48,8 @@ public class GridLayoutManager implements LayoutManager
 			componentsPerColumn = rows;
 		}
 		double elementWidth = (double)area.width / (double)componentsPerRow;
-		double elementHeight = (double)area.height
-			/ (double)componentsPerColumn;
+		double elementHeight =
+			(double)area.height / (double)componentsPerColumn;
 		rowLabel: for(int row = 0; row < componentsPerColumn; row++)
 			for(int element = 0; element < componentsPerRow; element++)
 			{
@@ -77,12 +77,12 @@ public class GridLayoutManager implements LayoutManager
 						break;
 					case RIGHT:
 						componentArea.x =
-							(int)(area.x
-								+ (element + 1) * elementWidth - componentArea.width);
+							(int)(area.x + (element + 1) * elementWidth - componentArea.width);
 						break;
 					case CENTER:
-						componentArea.x = (int)(area.x + element * elementWidth
-							+ elementWidth / 2 - componentArea.width / 2);
+						componentArea.x =
+							(int)(area.x + element * elementWidth
+								+ elementWidth / 2 - componentArea.width / 2);
 						break;
 				}
 				switch(verticalAlign)
@@ -93,12 +93,13 @@ public class GridLayoutManager implements LayoutManager
 						componentArea.y = (int)(area.y + row * elementHeight);
 						break;
 					case BOTTOM:
-						componentArea.y = (int)(area.y
-							+ (row + 1) * elementHeight - componentArea.height);
+						componentArea.y =
+							(int)(area.y + (row + 1) * elementHeight - componentArea.height);
 						break;
 					case CENTER:
-						componentArea.y = (int)(area.y + row * elementHeight
-							+ elementHeight / 2 - componentArea.height / 2);
+						componentArea.y =
+							(int)(area.y + row * elementHeight + elementHeight
+								/ 2 - componentArea.height / 2);
 						break;
 				}
 			}

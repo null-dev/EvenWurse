@@ -12,12 +12,12 @@ import net.minecraft.client.gui.ServerListEntryNormal;
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.analytics.Analytics;
-import tk.wurst_client.command.ChatMessenger;
-import tk.wurst_client.command.CommandManager;
-import tk.wurst_client.event.EventManager;
+import tk.wurst_client.chat.ChatMessenger;
+import tk.wurst_client.commands.CmdManager;
+import tk.wurst_client.events.EventManager;
 import tk.wurst_client.files.FileManager;
 import tk.wurst_client.gui.GuiManager;
-import tk.wurst_client.mod.ModManager;
+import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.options.Friends;
 import tk.wurst_client.options.Keybinds;
 import tk.wurst_client.options.Options;
@@ -31,7 +31,7 @@ public class Client
 	public boolean startupMessageDisabled = false;
 	
 	public ChatMessenger chat;
-	public CommandManager commandManager;
+	public CmdManager cmdManager;
 	public FileManager fileManager;
 	public Friends friends;
 	public GuiManager guiManager;
@@ -47,7 +47,7 @@ public class Client
 	{
 		modManager = new ModManager();
 		guiManager = new GuiManager();
-		commandManager = new CommandManager();
+		cmdManager = new CmdManager();
 		fileManager = new FileManager();
 		updater = new Updater();
 		chat = new ChatMessenger();

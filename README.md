@@ -1,10 +1,10 @@
-# Wurst Client
+# Wurst Client![](https://ga-beacon.appspot.com/UA-52838431-1/GitHub/README.md?pixel)
 ![Wurst Client logo](https://cloud.githubusercontent.com/assets/10100202/6868084/c764a252-d488-11e4-94cf-1daa5e398c35.png)
 
-![](https://ga-beacon.appspot.com/UA-52838431-1/GitHub/README)
+[![latest release](https://img.shields.io/github/release/Wurst-Imperium/Wurst-Client.svg?label=latest%20release)](https://github.com/Wurst-Imperium/Wurst-Client/releases/latest) [![mods](https://img.shields.io/badge/mods-85+-brightgreen.svg)](#) [![commands](https://img.shields.io/badge/commands-30+-brightgreen.svg)](#) [![hot, fresh & sexy](https://img.shields.io/badge/hot,%20fresh%20&%20sexy-100%-ff69e3.svg)](http://wizardhax.com/wurst) [![analytics](https://img.shields.io/badge/analytics-GA-blue.svg)](https://github.com/igrigorik/ga-beacon)
 
 ## About :information_source:
-The Wurst Client is a Hack Client for Minecraft, packed full of the latest and most exciting mods, commands and other features. Over 85 mods and over 30 commands are instantly deployable at any moment, through buttons, keybinds and even automatic scripts. *You rule the game!*
+The Wurst Client is a Hack Client for Minecraft, packed full of the latest and most exciting mods, commands and other features. All of the mods and commands are instantly deployable at any moment, through buttons, keybinds and even automatic scripts. *You rule the game!*
 
 ## :sparkles::sparkles::sparkles: Special Features :sparkles::sparkles::sparkles:
 ### Secure AltManager :closed_lock_with_key:

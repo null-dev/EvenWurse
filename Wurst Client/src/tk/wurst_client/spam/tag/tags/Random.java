@@ -19,9 +19,7 @@ public class Random extends Tag
 {
 	public Random()
 	{
-		super(
-			"random",
-			"Generates random strings, numbers and junk.",
+		super("random", "Generates random strings, numbers and junk.",
 			"<random \"number\"|\"string\"|\"junk\" length>",
 			"Random number: <random number 3>\n"
 				+ "Random string: <random string 5>\n"
@@ -67,9 +65,9 @@ public class Random extends Tag
 				new java.util.Random().nextBytes(nextChar);
 				if(ChatAllowedCharacters.isAllowedCharacter((char)nextChar[0]))
 				{
-					String nextString = new String(nextChar)
-						.replace("<", "§_lt;")
-						.replace("§", "");
+					String nextString =
+						new String(nextChar).replace("<", "§_lt;").replace("§",
+							"");
 					random += nextString;
 					i++;
 				}
