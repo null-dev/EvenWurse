@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -210,16 +211,34 @@ public class GuiError extends GuiScreen
 				Client.wurst.analytics.trackEvent("error", "back");
 				break;
 			case 3:
-				JsonObject gist = new JsonObject();
-				gist.addProperty("description", getReportDescription());
-				gist.addProperty("public", true);
-				JsonObject gistFiles = new JsonObject();
-				JsonObject gistError = new JsonObject();
-				gistError.addProperty("content", report);
-				gistFiles.add(new Date().toString() + ".md", gistError);
-				gist.add("files", gistFiles);
-				System.out.println(MiscUtils.post(new URL(
-					"https://api.github.com/gists"), new Gson().toJson(gist)));
+				try
+				{
+					JsonObject gist = new JsonObject();
+					gist.addProperty("description", getReportDescription());
+					gist.addProperty("public", true);
+					JsonObject gistFiles = new JsonObject();
+					JsonObject gistError = new JsonObject();
+					gistError.addProperty("content", report);
+					gistFiles.add(
+						"Wurst-Client-v"
+							+ Client.wurst.CLIENT_VERSION
+							+ "-Error-Report" + ".md", gistError);
+					gist.add("files", gistFiles);
+					JsonObject response =
+						new JsonParser().parse(
+							MiscUtils.post(new URL("https://api.github.com/gists"),
+								new Gson().toJson(gist))).getAsJsonObject();
+					Client.wurst.analytics.trackEvent("error", "report", response
+						.get("id").getAsString());
+					MiscUtils.openLink(response.get("html_url").getAsString());
+					Minecraft.getMinecraft().displayGuiScreen(null);
+					Client.wurst.chat.message("Error report successful. Thank you! <3");
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+					Client.wurst.chat.error("Something went wrong with that error report.");
+					Client.wurst.analytics.trackEvent("error", "report failed");
+				}
 			default:
 				break;
 		}
@@ -241,9 +260,11 @@ public class GuiError extends GuiScreen
 	
 	private String generateReport(String trace)
 	{
-		return "# Description\n" + getReportDescription() + "\n"
-			+ (comment.isEmpty() ? "" : comment + "\n") + "\n"
-			+ "# Stacktrace\n" + "```\n" + trace + "```"
+		return "> This is an auto-generated error report for the [Wurst Client](https://www.wurst-client.tk).\n\n"
+			+ "# Description\n" + getReportDescription() + "\n"
+			+ (comment.isEmpty() ? "" : comment + "\n") + "\n" + "Time: "
+			+ new SimpleDateFormat("yyyy.MM.dd-hh:mm:ss").format(new Date())
+			+ "\n\n" + "# Stacktrace\n" + "```\n" + trace + "```"
 			+ "\n\n# System details\n" + "- OS: "
 			+ System.getProperty("os.name") + " ("
 			+ System.getProperty("os.arch") + ")\n" + "- Java version: "
