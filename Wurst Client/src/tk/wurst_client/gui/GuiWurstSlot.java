@@ -175,8 +175,7 @@ public abstract class GuiWurstSlot
 				field_148169_q -= field_148149_f * 2 / 3;
 				field_148157_o = -2.0F;
 				func_148121_k();
-			}
-			else if(p_148147_1_.id == field_148156_n)
+			}else if(p_148147_1_.id == field_148156_n)
 			{
 				field_148169_q += field_148149_f * 2 / 3;
 				field_148157_o = -2.0F;
@@ -226,8 +225,7 @@ public abstract class GuiWurstSlot
 								p_148128_2_);
 							field_148168_r = var11;
 							field_148167_s = Minecraft.getSystemTime();
-						}
-						else if(p_148128_1_ >= var8 && p_148128_1_ <= var9
+						}else if(p_148128_1_ >= var8 && p_148128_1_ <= var9
 							&& var10 < 0)
 						{
 							func_148132_a(p_148128_1_ - var8, p_148128_2_
@@ -264,15 +262,13 @@ public abstract class GuiWurstSlot
 							field_148157_o = -2.0F;
 					}else
 						field_148157_o = -2.0F;
-				}
-				else if(field_148157_o >= 0.0F)
+				}else if(field_148157_o >= 0.0F)
 				{
 					field_148169_q -=
 						(p_148128_2_ - field_148157_o) * field_148170_p;
 					field_148157_o = p_148128_2_;
 				}
-			}
-			else
+			}else
 			{
 				try
 				{

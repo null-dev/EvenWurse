@@ -35,10 +35,10 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void initSliders()
 	{
-		sliders.add(new BasicSlider("Killaura speed", normalSpeed, 2, 20,
-			0.1, ValueDisplay.DECIMAL));
-		sliders.add(new BasicSlider("Killaura range", normalRange, 1, 6,
-			0.05, ValueDisplay.DECIMAL));
+		sliders.add(new BasicSlider("Killaura speed", normalSpeed, 2, 20, 0.1,
+			ValueDisplay.DECIMAL));
+		sliders.add(new BasicSlider("Killaura range", normalRange, 1, 6, 0.05,
+			ValueDisplay.DECIMAL));
 	}
 	
 	@Override
@@ -71,8 +71,7 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			realSpeed = yesCheatSpeed;
 			realRange = yesCheatRange;

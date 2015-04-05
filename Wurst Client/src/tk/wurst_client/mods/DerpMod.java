@@ -34,12 +34,8 @@ public class DerpMod extends Mod implements UpdateListener
 				+ (float)(Math.random() * 360 - 180);
 		float pitch = (float)(Math.random() * 180 - 90);
 		Minecraft.getMinecraft().thePlayer.sendQueue
-			.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook
-			(
-				yaw,
-				pitch,
-				Minecraft.getMinecraft().thePlayer.onGround
-			));
+			.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(yaw, pitch,
+				Minecraft.getMinecraft().thePlayer.onGround));
 	}
 	
 	@Override

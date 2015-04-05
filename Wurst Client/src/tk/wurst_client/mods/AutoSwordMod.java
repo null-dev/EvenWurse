@@ -23,7 +23,8 @@ import tk.wurst_client.mods.Mod.Info;
 	description = "Automatically uses the best weapon in your hotbar to attack\n"
 		+ "entities. Tip: This works with Killaura.",
 	name = "AutoSword")
-public class AutoSwordMod extends Mod implements LeftClickListener, UpdateListener
+public class AutoSwordMod extends Mod implements LeftClickListener,
+	UpdateListener
 {
 	private int oldSlot;
 	private int timer;
@@ -31,8 +32,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener, UpdateListen
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);
@@ -63,8 +63,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener, UpdateListen
 	@Override
 	public void onLeftClick()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);
@@ -85,8 +84,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener, UpdateListen
 		for(int i = 0; i < 9; i++)
 		{
 			ItemStack item =
-				Minecraft.getMinecraft().thePlayer.inventory
-					.getStackInSlot(i);
+				Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
 			if(item == null)
 				continue;
 			float speed = 0;
@@ -110,8 +108,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener, UpdateListen
 					.getModByClass(AutoSwordMod.class);
 			instance.oldSlot =
 				Minecraft.getMinecraft().thePlayer.inventory.currentItem;
-			Minecraft.getMinecraft().thePlayer.inventory.currentItem =
-				bestSlot;
+			Minecraft.getMinecraft().thePlayer.inventory.currentItem = bestSlot;
 			instance.timer = 4;
 			EventManager.update.addListener(instance);
 		}

@@ -18,10 +18,7 @@ public class Var extends Tag
 {
 	public Var()
 	{
-		super(
-			"var",
-			"Defines a new variable.",
-			"<var name>value</var>",
+		super("var", "Defines a new variable.", "<var name>value</var>",
 			"<var link>example.com</var><!--\n"
 				+ "-->Check out my website: §link;");
 	}

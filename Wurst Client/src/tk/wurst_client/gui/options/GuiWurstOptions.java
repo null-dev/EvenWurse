@@ -22,37 +22,23 @@ public class GuiWurstOptions extends GuiScreen
 {
 	private GuiScreen prevMenu;
 	private String[] modListModes = {"Auto", "Count", "Hidden"};
-	private String[] toolTips =
-	{
+	private String[] toolTips = {
 		"",
 		"Manage your friends by clicking them\n"
 			+ "with the middle mouse button.",
-		"How the mod list under the Wurst logo\n"
-			+ "should be displayed.\n"
-			+ "§nModes§r:\n"
-			+ "§lAuto§r: Renders the whole list if it fits\n"
+		"How the mod list under the Wurst logo\n" + "should be displayed.\n"
+			+ "§nModes§r:\n" + "§lAuto§r: Renders the whole list if it fits\n"
 			+ "onto the screen.\n"
-			+ "§lCount§r: Only renders the number of active\n"
-			+ "mods.\n"
+			+ "§lCount§r: Only renders the number of active\n" + "mods.\n"
 			+ "§lHidden§r: Renders nothing.",
 		"Automatically maximizes the Minecraft window.\n"
 			+ "Windows & Linux only!",
-		"Whether or not the Wurst news should be\n"
-			+ "shown in the main menu",
+		"Whether or not the Wurst news should be\n" + "shown in the main menu",
 		"Sends anonymous usage statistics that help us\n"
-			+ "improve the Wurst Client.",
-		"Manager for the keybinds",
-		"Manager for the blocks that X-Ray will\n"
-			+ "show",
-		"",
-		"",
-		"",
+			+ "improve the Wurst Client.", "Manager for the keybinds",
+		"Manager for the blocks that X-Ray will\n" + "show", "", "", "",
 		"The official Website of the Wurst Client",
-		"Frequently asked questions",
-		"",
-		"",
-		""
-	};
+		"Frequently asked questions", "", "", ""};
 	private boolean autoMaximize;
 	
 	public GuiWurstOptions(GuiScreen par1GuiScreen)
@@ -83,8 +69,8 @@ public class GuiWurstOptions extends GuiScreen
 			100, 20, "Wurst news: "
 				+ (Client.wurst.options.wurstNews ? "ON" : "OFF")));
 		buttonList
-			.add(new GuiButton(5, width / 2 - 154,
-				height / 4 + 120 - 16, 100, 20, "Analytics: "
+			.add(new GuiButton(5, width / 2 - 154, height / 4 + 120 - 16, 100,
+				20, "Analytics: "
 					+ (Client.wurst.options.google_analytics.enabled ? "ON"
 						: "OFF")));
 		buttonList.add(new GuiButton(6, width / 2 - 50, height / 4 + 24 - 16,

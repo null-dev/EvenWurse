@@ -66,21 +66,20 @@ public class AutoArmorMod extends Mod implements UpdateListener
 				ItemArmor bestArmor;
 				try
 				{
-					bestArmor = (ItemArmor)Minecraft.getMinecraft().thePlayer
-						.inventory.getStackInSlot(this.bestArmor[i]).getItem();
+					bestArmor =
+						(ItemArmor)Minecraft.getMinecraft().thePlayer.inventory
+							.getStackInSlot(this.bestArmor[i]).getItem();
 				}catch(Exception e)
 				{
 					bestArmor = null;
 				}
 				if(bestArmor != null
-					&& (currentArmor == null
-					|| bestArmor.damageReduceAmount > currentArmor.damageReduceAmount))
+					&& (currentArmor == null || bestArmor.damageReduceAmount > currentArmor.damageReduceAmount))
 					if(Minecraft.getMinecraft().thePlayer.inventory
 						.getFirstEmptyStack() != -1 || currentArmor == null)
 					{
-						Minecraft.getMinecraft().playerController
-							.windowClick(0, 8 - i, 0, 1,
-								Minecraft.getMinecraft().thePlayer);
+						Minecraft.getMinecraft().playerController.windowClick(
+							0, 8 - i, 0, 1, Minecraft.getMinecraft().thePlayer);
 						Minecraft.getMinecraft().playerController.windowClick(
 							0, this.bestArmor[i] < 9 ? 36 + this.bestArmor[i]
 								: this.bestArmor[i], 0, 1, Minecraft

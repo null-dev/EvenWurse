@@ -16,15 +16,9 @@ import tk.wurst_client.events.listeners.ChatInputListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
-@Info(category = Category.CHAT,
-	description = "Blocks chat spam.\n"
-		+ "Example:\n"
-		+ "Spam!\n"
-		+ "Spam!\n"
-		+ "Spam!\n"
-		+ "Will be changed to:\n"
-		+ "Spam! [x3]",
-	name = "AntiSpam")
+@Info(category = Category.CHAT, description = "Blocks chat spam.\n"
+	+ "Example:\n" + "Spam!\n" + "Spam!\n" + "Spam!\n"
+	+ "Will be changed to:\n" + "Spam! [x3]", name = "AntiSpam")
 public class AntiSpamMod extends Mod implements ChatInputListener
 {
 	@Override

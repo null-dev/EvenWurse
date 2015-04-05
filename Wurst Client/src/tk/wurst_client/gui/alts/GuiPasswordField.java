@@ -105,8 +105,7 @@ public class GuiPasswordField extends Gui
 		{
 			var2 = var2 + var3.substring(0, var6);
 			var8 = var6;
-		}
-		else
+		}else
 		{
 			var2 = var2 + var3;
 			var8 = var3.length();
@@ -179,8 +178,7 @@ public class GuiPasswordField extends Gui
 				
 				while(var4 > 0 && field_146216_j.charAt(var4 - 1) != 32)
 					--var4;
-			}
-			else
+			}else
 			{
 				int var8 = field_146216_j.length();
 				var4 = field_146216_j.indexOf(32, var4);
@@ -266,8 +264,7 @@ public class GuiPasswordField extends Gui
 							{
 								if(field_146226_p)
 									func_146177_a(-1);
-							}
-							else if(field_146226_p)
+							}else if(field_146226_p)
 								func_146175_b(-1);
 							
 							return true;
@@ -288,8 +285,7 @@ public class GuiPasswordField extends Gui
 										func_146186_n()));
 								else
 									func_146199_i(func_146186_n() - 1);
-							}
-							else if(GuiScreen.isCtrlKeyDown())
+							}else if(GuiScreen.isCtrlKeyDown())
 								func_146190_e(func_146187_c(-1));
 							else
 								func_146182_d(-1);
@@ -304,8 +300,7 @@ public class GuiPasswordField extends Gui
 										func_146186_n()));
 								else
 									func_146199_i(func_146186_n() + 1);
-							}
-							else if(GuiScreen.isCtrlKeyDown())
+							}else if(GuiScreen.isCtrlKeyDown())
 								func_146190_e(func_146187_c(1));
 							else
 								func_146182_d(1);
@@ -325,8 +320,7 @@ public class GuiPasswordField extends Gui
 							{
 								if(field_146226_p)
 									func_146177_a(1);
-							}
-							else if(field_146226_p)
+							}else if(field_146226_p)
 								func_146175_b(1);
 							
 							return true;

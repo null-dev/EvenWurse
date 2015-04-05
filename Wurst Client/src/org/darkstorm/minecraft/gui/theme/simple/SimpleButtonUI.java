@@ -67,10 +67,8 @@ public class SimpleButtonUI extends AbstractComponentUI<Button>
 		glEnable(GL_TEXTURE_2D);
 		
 		String text = button.getText();
-		theme.getFontRenderer().drawString(
-			text,
-			area.width / 2 - theme.getFontRenderer().getStringWidth(text)
-				/ 2,
+		theme.getFontRenderer().drawString(text,
+			area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
 			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
 			RenderUtil.toRGBA(button.getForegroundColor()));
 		
@@ -83,8 +81,7 @@ public class SimpleButtonUI extends AbstractComponentUI<Button>
 	protected Dimension getDefaultComponentSize(Button component)
 	{
 		return new Dimension(theme.getFontRenderer().getStringWidth(
-			component.getText()) + 4,
-			theme.getFontRenderer().FONT_HEIGHT + 4);
+			component.getText()) + 4, theme.getFontRenderer().FONT_HEIGHT + 4);
 	}
 	
 	@Override

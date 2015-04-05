@@ -28,8 +28,7 @@ public class SpiderMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);

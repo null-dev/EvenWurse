@@ -16,15 +16,14 @@ import tk.wurst_client.bot.commands.Command.Info;
 public class CommandManager
 {
 	private final TreeMap<String, Command> commands =
-		new TreeMap<String, Command>(
-			new Comparator<String>()
+		new TreeMap<String, Command>(new Comparator<String>()
+		{
+			@Override
+			public int compare(String o1, String o2)
 			{
-				@Override
-				public int compare(String o1, String o2)
-				{
-					return o1.compareToIgnoreCase(o2);
-				}
-			});
+				return o1.compareToIgnoreCase(o2);
+			}
+		});
 	
 	public CommandManager()
 	{

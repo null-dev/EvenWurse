@@ -146,18 +146,17 @@ public final class GuiManager extends AbstractGuiManager
 			if(moduleDescription.equals(""))
 				moduleDescription = "Error! This is a bug. Please report it.";
 			final Mod updateModule = mod;
-			Button button =
-				new BasicButton(mod.getName(), moduleDescription)
+			Button button = new BasicButton(mod.getName(), moduleDescription)
+			{
+				@Override
+				public void update()
 				{
-					@Override
-					public void update()
-					{
-						setForegroundColor(updateModule.isEnabled()
-							? Color.BLACK : Color.WHITE);
-						setBackgroundColor(updateModule.isEnabled()
-							? new Color(0, 255, 0, 128) : new Color(0, 0, 0, 0));
-					}
-				};
+					setForegroundColor(updateModule.isEnabled() ? Color.BLACK
+						: Color.WHITE);
+					setBackgroundColor(updateModule.isEnabled() ? new Color(0,
+						255, 0, 128) : new Color(0, 0, 0, 0));
+				}
+			};
 			button.addButtonListener(new ButtonListener()
 			{
 				@Override

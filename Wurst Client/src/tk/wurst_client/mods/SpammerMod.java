@@ -39,11 +39,8 @@ import tk.wurst_client.utils.MiscUtils;
 
 @Info(category = Category.CHAT,
 	description = "It's called Spammer, but it's a lot more.\n"
-		+ "Special features:\n"
-		+ ">ASCII art\n"
-		+ ">Run any Wurst command\n"
-		+ ">Variables\n"
-		+ ">HTML-like tags & comments\n"
+		+ "Special features:\n" + ">ASCII art\n" + ">Run any Wurst command\n"
+		+ ">Variables\n" + ">HTML-like tags & comments\n"
 		+ ">Integrated help system",
 	name = "Spammer")
 public class SpammerMod extends Mod
@@ -70,8 +67,8 @@ public class SpammerMod extends Mod
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						Client.wurst.modManager.getModByClass(
-							SpammerMod.class).setEnabled(false);
+						Client.wurst.modManager.getModByClass(SpammerMod.class)
+							.setEnabled(false);
 					}
 				});
 				JPanel panel = new JPanel();
@@ -435,8 +432,8 @@ public class SpammerMod extends Mod
 								try
 								{
 									updateSpam();
-									SpamProcessor.process(spam, SpammerMod.this,
-										true);
+									SpamProcessor.process(spam,
+										SpammerMod.this, true);
 									spam =
 										SpamProcessor.process(spam,
 											SpammerMod.this, false);

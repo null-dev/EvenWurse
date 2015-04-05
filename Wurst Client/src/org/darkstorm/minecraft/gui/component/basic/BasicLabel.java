@@ -3,8 +3,7 @@ package org.darkstorm.minecraft.gui.component.basic;
 import org.darkstorm.minecraft.gui.component.AbstractComponent;
 import org.darkstorm.minecraft.gui.component.Label;
 
-public class BasicLabel extends AbstractComponent implements
-	Label
+public class BasicLabel extends AbstractComponent implements Label
 {
 	protected String text;
 	protected TextAlignment horizontalAlignment = TextAlignment.LEFT,

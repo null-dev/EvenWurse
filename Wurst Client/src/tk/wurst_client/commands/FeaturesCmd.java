@@ -34,8 +34,7 @@ public class FeaturesCmd extends Cmd
 				hiddenMods++;
 		Client.wurst.chat.message(">" + (mods - hiddenMods) + " mods (+"
 			+ hiddenMods + " hidden mods)");
-		int commands =
-			Client.wurst.cmdManager.countCommands();
+		int commands = Client.wurst.cmdManager.countCommands();
 		Client.wurst.chat.message(">" + commands + " commands");
 		Client.wurst.chat.message(">" + Client.wurst.keybinds.size()
 			+ " keybinds in your current configuration");

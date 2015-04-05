@@ -18,8 +18,7 @@ import tk.wurst_client.utils.EntityUtils;
 
 @Info(category = Category.COMBAT,
 	description = "A bot that automatically fights for you.\n"
-		+ "It walks around and kills everything.\n"
-		+ "Good for MobArena.",
+		+ "It walks around and kills everything.\n" + "Good for MobArena.",
 	name = "FightBot")
 public class FightBotMod extends Mod implements UpdateListener
 {
@@ -65,8 +64,7 @@ public class FightBotMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 			speed = KillauraMod.yesCheatSpeed;
 		else
 			speed = KillauraMod.normalSpeed;

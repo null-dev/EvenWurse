@@ -34,8 +34,7 @@ public class NameGenerator
 				}
 				usedConsonants = 0;
 				usedVowels++;
-			}
-			else
+			}else
 			{
 				while(nextLetter.equals(lastLetter))
 				{

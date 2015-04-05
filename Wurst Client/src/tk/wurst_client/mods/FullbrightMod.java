@@ -28,8 +28,7 @@ public class FullbrightMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(isEnabled()
-			|| Client.wurst.modManager.getModByClass(XRayMod.class)
-				.isEnabled())
+			|| Client.wurst.modManager.getModByClass(XRayMod.class).isEnabled())
 		{
 			if(Minecraft.getMinecraft().gameSettings.gammaSetting < 16F)
 				Minecraft.getMinecraft().gameSettings.gammaSetting += 0.5F;

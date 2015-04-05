@@ -31,8 +31,7 @@ import tk.wurst_client.utils.BlockUtils;
 	description = "Breaks blocks around you like an explosion.\n"
 		+ "This can be a lot faster than Nuker if the server\n"
 		+ "doesn't have NoCheat+. It works best with fast tools\n"
-		+ "and weak blocks.\n"
-		+ "Note that this is not an actual explosion.",
+		+ "and weak blocks.\n" + "Note that this is not an actual explosion.",
 	name = "Kaboom")
 public class KaboomMod extends Mod implements UpdateListener
 {
@@ -61,8 +60,7 @@ public class KaboomMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);
@@ -81,14 +79,11 @@ public class KaboomMod extends Mod implements UpdateListener
 			{
 				for(int y = range; y >= -range; y--)
 				{
-					new Explosion(
-						Minecraft.getMinecraft().theWorld,
+					new Explosion(Minecraft.getMinecraft().theWorld,
 						Minecraft.getMinecraft().thePlayer,
 						Minecraft.getMinecraft().thePlayer.posX,
 						Minecraft.getMinecraft().thePlayer.posY,
-						Minecraft.getMinecraft().thePlayer.posZ,
-						6F,
-						false,
+						Minecraft.getMinecraft().thePlayer.posZ, 6F, false,
 						true).doExplosionB(true);
 					for(int x = range; x >= -range - 1; x--)
 						for(int z = range; z >= -range; z--)

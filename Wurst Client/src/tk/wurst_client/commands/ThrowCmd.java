@@ -22,8 +22,7 @@ public class ThrowCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			Client.wurst.modManager.getModByClass(ThrowMod.class)
-				.toggle();
+			Client.wurst.modManager.getModByClass(ThrowMod.class).toggle();
 			Client.wurst.chat.message("Throw turned "
 				+ (Client.wurst.modManager.getModByClass(ThrowMod.class)
 					.isEnabled() == true ? "on" : "off") + ".");

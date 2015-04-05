@@ -20,16 +20,15 @@ import tk.wurst_client.events.listeners.ChatOutputListener;
 
 public class CmdManager implements ChatOutputListener
 {
-	private final TreeMap<String, Cmd> cmds =
-		new TreeMap<String, Cmd>(
-			new Comparator<String>()
+	private final TreeMap<String, Cmd> cmds = new TreeMap<String, Cmd>(
+		new Comparator<String>()
+		{
+			@Override
+			public int compare(String o1, String o2)
 			{
-				@Override
-				public int compare(String o1, String o2)
-				{
-					return o1.compareToIgnoreCase(o2);
-				}
-			});
+				return o1.compareToIgnoreCase(o2);
+			}
+		});
 	
 	@Override
 	public void onSentMessage(ChatOutputEvent event)

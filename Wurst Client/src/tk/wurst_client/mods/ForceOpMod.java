@@ -45,58 +45,15 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "ForceOP")
 public class ForceOpMod extends Mod implements ChatInputListener
 {
-	private String[] defaultList =
-	{
-		"password",
-		"passwort",
-		"password1",
-		"passwort1",
-		"password123",
-		"passwort123",
-		"pass",
-		"pw",
-		"pw1",
-		"pw123",
-		"hallo",
-		"Wurst",
-		"wurst",
-		"1234",
-		"12345",
-		"123456",
-		"1234567",
-		"12345678",
-		"123456789",
-		"login",
-		"register",
-		"test",
-		"sicher",
-		"me",
-		"penis",
-		"penis1",
-		"penis123",
-		"minecraft",
-		"minecraft1",
-		"minecraft123",
-		"mc",
-		"admin",
-		"server",
-		"yourmom",
-		"tester",
-		"account",
-		"creeper",
-		"gronkh",
-		"lol",
-		"auth",
-		"authme",
-		"qwerty",
-		"qwertz",
-		"ficken",
-		"ficken1",
-		"ficken123",
-		"fuck",
-		"fuckme",
-		"fuckyou",
-	};
+	private String[] defaultList = {"password", "passwort", "password1",
+		"passwort1", "password123", "passwort123", "pass", "pw", "pw1",
+		"pw123", "hallo", "Wurst", "wurst", "1234", "12345", "123456",
+		"1234567", "12345678", "123456789", "login", "register", "test",
+		"sicher", "me", "penis", "penis1", "penis123", "minecraft",
+		"minecraft1", "minecraft123", "mc", "admin", "server", "yourmom",
+		"tester", "account", "creeper", "gronkh", "lol", "auth", "authme",
+		"qwerty", "qwertz", "ficken", "ficken1", "ficken123", "fuck", "fuckme",
+		"fuckyou",};
 	private String[] passwords = {};
 	
 	private JDialog dialog;
@@ -147,8 +104,8 @@ public class ForceOpMod extends Mod implements ChatInputListener
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						Client.wurst.modManager.getModByClass(
-							ForceOpMod.class).setEnabled(false);
+						Client.wurst.modManager.getModByClass(ForceOpMod.class)
+							.setEnabled(false);
 					}
 				});
 				
@@ -269,14 +226,11 @@ public class ForceOpMod extends Mod implements ChatInputListener
 				
 				spDelay = new JSpinner();
 				spDelay
-					.setToolTipText
-					(
-					"<html>"
+					.setToolTipText("<html>"
 						+ "50ms: fastest, doesn't bypass AntiSpam plugins<br>"
 						+ "1.000ms: recommended, bypasses most AntiSpam plugins<br>"
 						+ "10.000ms: slowest, bypasses all AntiSpam plugins"
-						+ "</html>"
-					);
+						+ "</html>");
 				spDelay.setModel(new SpinnerNumberModel(
 					Client.wurst.options.forceOPDelay, 50, 10000, 50));
 				spDelay
@@ -389,9 +343,8 @@ public class ForceOpMod extends Mod implements ChatInputListener
 								update();
 								for(int i = 0; i < passwords.length; i++)
 								{
-									if(!Client.wurst.modManager
-										.getModByClass(ForceOpMod.class)
-										.isEnabled())
+									if(!Client.wurst.modManager.getModByClass(
+										ForceOpMod.class).isEnabled())
 										return;
 									if(!cbDontWait.isSelected())
 										gotWrongPWMSG = false;
@@ -510,8 +463,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 					.toMinutes(TimeUnit.MILLISECONDS.toHours(timeMS)))
 				+ "m "
 				+ (TimeUnit.MILLISECONDS.toSeconds(timeMS) - TimeUnit.MINUTES
-					.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeMS)))
-				+ "s";
+					.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeMS))) + "s";
 		lTime.setText("Estimated time: " + timeString);
 		lTime.setSize(lTime.getPreferredSize());
 		lAttempts.setText("Attempts: " + (lastPW + 1) + "/"

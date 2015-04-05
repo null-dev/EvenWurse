@@ -58,8 +58,7 @@ public class DropCmd extends Cmd implements UpdateListener
 					new ItemStack(item, 64)));
 			return;
 		}
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			timer++;
 			if(timer >= 5)

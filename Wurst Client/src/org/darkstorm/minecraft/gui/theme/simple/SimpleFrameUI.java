@@ -60,10 +60,11 @@ public class SimpleFrameUI extends AbstractComponentUI<Frame>
 			mouse.y -= parent.getY();
 			parent = parent.getParent();
 		}
-		boolean[] checks = new boolean[]{component.isClosable(),
-			component.isPinnable(), component.isMinimizable()};
-		boolean[] overlays = new boolean[]{false, component.isPinned(),
-			component.isMinimized()};
+		boolean[] checks =
+			new boolean[]{component.isClosable(), component.isPinnable(),
+				component.isMinimizable()};
+		boolean[] overlays =
+			new boolean[]{false, component.isPinned(), component.isMinimized()};
 		for(int i = 0; i < checks.length; i++)
 		{
 			if(!checks[i])
@@ -151,13 +152,14 @@ public class SimpleFrameUI extends AbstractComponentUI<Frame>
 		for(int i = 0; i < children.length; i++)
 		{
 			Component child = children[i];
-			Dimension size = child.getTheme().getUIForComponent(child)
-				.getDefaultSize(child);
+			Dimension size =
+				child.getTheme().getUIForComponent(child).getDefaultSize(child);
 			areas[i] = new Rectangle(0, 0, size.width, size.height);
 			constraints[i] = component.getConstraints(child);
 		}
-		Dimension size = component.getLayoutManager().getOptimalPositionedSize(
-			areas, constraints);
+		Dimension size =
+			component.getLayoutManager().getOptimalPositionedSize(areas,
+				constraints);
 		size.width += 4;
 		size.height += theme.getFontRenderer().FONT_HEIGHT + 8;
 		return size;

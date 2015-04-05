@@ -100,8 +100,7 @@ public class FileManager
 		{
 			XRayUtils.initXRayBlocks();
 			saveXRayBlocks();
-		}
-		else
+		}else
 			loadXRayBlocks();
 		if(autobuildDir.listFiles().length == 0)
 			createDefaultAutoBuildTemplates();
@@ -182,23 +181,14 @@ public class FileManager
 		}
 	}
 	
-	private String[] moduleBlacklist =
-	{
-		AntiAfkMod.class.getName(),
-		ArenaBrawlMod.class.getName(),
-		AutoBuildMod.class.getName(),
-		AutoSignMod.class.getName(),
-		FightBotMod.class.getName(),
-		FollowMod.class.getName(),
-		ForceOpMod.class.getName(),
-		FreecamMod.class.getName(),
-		InvisibilityMod.class.getName(),
-		LsdMod.class.getName(),
-		MassTpaMod.class.getName(),
-		ProtectMod.class.getName(),
-		RemoteViewMod.class.getName(),
-		SpammerMod.class.getName(),
-	};
+	private String[] moduleBlacklist = {AntiAfkMod.class.getName(),
+		ArenaBrawlMod.class.getName(), AutoBuildMod.class.getName(),
+		AutoSignMod.class.getName(), FightBotMod.class.getName(),
+		FollowMod.class.getName(), ForceOpMod.class.getName(),
+		FreecamMod.class.getName(), InvisibilityMod.class.getName(),
+		LsdMod.class.getName(), MassTpaMod.class.getName(),
+		ProtectMod.class.getName(), RemoteViewMod.class.getName(),
+		SpammerMod.class.getName(),};
 	
 	public void loadMods()
 	{
@@ -212,8 +202,7 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Mod mod =
-					Client.wurst.modManager.getModByName(entry.getKey());
+				Mod mod = Client.wurst.modManager.getModByName(entry.getKey());
 				if(mod != null
 					&& mod.getCategory() != Category.HIDDEN
 					&& !Arrays.asList(moduleBlacklist).contains(
@@ -372,8 +361,7 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Mod mod =
-					Client.wurst.modManager.getModByName(entry.getKey());
+				Mod mod = Client.wurst.modManager.getModByName(entry.getKey());
 				if(mod != null)
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
@@ -421,9 +409,9 @@ public class FileManager
 		try
 		{
 			JsonObject json =
-				(JsonObject)new JsonParser()
-					.parse(Encryption.decrypt(new String(
-						Files.readAllBytes(alts.toPath()), Encryption.CHARSET)));
+				(JsonObject)new JsonParser().parse(Encryption
+					.decrypt(new String(Files.readAllBytes(alts.toPath()),
+						Encryption.CHARSET)));
 			GuiAltList.alts.clear();
 			Iterator<Entry<String, JsonElement>> itr =
 				json.entrySet().iterator();
@@ -490,8 +478,8 @@ public class FileManager
 			XRayUtils.sortBlocks();
 			JsonArray json = new JsonArray();
 			for(int i = 0; i < XRayMod.xrayBlocks.size(); i++)
-				json.add(gson.toJsonTree(Block.getIdFromBlock(XRayMod.xrayBlocks
-					.get(i))));
+				json.add(gson.toJsonTree(Block
+					.getIdFromBlock(XRayMod.xrayBlocks.get(i))));
 			PrintWriter save = new PrintWriter(new FileWriter(xray));
 			save.println(gson.toJson(json));
 			save.close();
@@ -534,8 +522,7 @@ public class FileManager
 					"Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.",
 					"This Source Code Form is subject to the terms of the Mozilla Public",
 					"License, v. 2.0. If a copy of the MPL was not distributed with this",
-					"file, You can obtain one at http://mozilla.org/MPL/2.0/."
-				};
+					"file, You can obtain one at http://mozilla.org/MPL/2.0/."};
 			Iterator<Entry<String, int[][]>> itr =
 				new DefaultAutoBuildTemplates().entrySet().iterator();
 			while(itr.hasNext())

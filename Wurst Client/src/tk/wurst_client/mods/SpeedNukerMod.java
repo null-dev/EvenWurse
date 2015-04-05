@@ -49,10 +49,9 @@ public class SpeedNukerMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(NukerMod.class)
-			.isEnabled())
-			Client.wurst.modManager.getModByClass(NukerMod.class)
-				.setEnabled(false);
+		if(Client.wurst.modManager.getModByClass(NukerMod.class).isEnabled())
+			Client.wurst.modManager.getModByClass(NukerMod.class).setEnabled(
+				false);
 		if(Client.wurst.modManager.getModByClass(NukerLegitMod.class)
 			.isEnabled())
 			Client.wurst.modManager.getModByClass(NukerLegitMod.class)
@@ -64,16 +63,15 @@ public class SpeedNukerMod extends Mod implements LeftClickListener,
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);
 			Client.wurst.chat.message("Switching to "
 				+ Client.wurst.modManager.getModByClass(NukerMod.class)
 					.getName() + ".");
-			Client.wurst.modManager.getModByClass(NukerMod.class)
-				.setEnabled(true);
+			Client.wurst.modManager.getModByClass(NukerMod.class).setEnabled(
+				true);
 			return;
 		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
@@ -84,8 +82,8 @@ public class SpeedNukerMod extends Mod implements LeftClickListener,
 			Client.wurst.chat.message("Switching to "
 				+ Client.wurst.modManager.getModByClass(NukerMod.class)
 					.getName() + ".");
-			Client.wurst.modManager.getModByClass(NukerMod.class)
-				.setEnabled(true);
+			Client.wurst.modManager.getModByClass(NukerMod.class).setEnabled(
+				true);
 			return;
 		}
 		BlockPos newPos = find();
@@ -102,8 +100,8 @@ public class SpeedNukerMod extends Mod implements LeftClickListener,
 		pos = newPos;
 		currentBlock =
 			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
-		if(Client.wurst.modManager.getModByClass(AutoToolMod.class)
-			.isEnabled() && oldSlot == -1)
+		if(Client.wurst.modManager.getModByClass(AutoToolMod.class).isEnabled()
+			&& oldSlot == -1)
 			oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Client.wurst.modManager.getModByClass(AutoToolMod.class)

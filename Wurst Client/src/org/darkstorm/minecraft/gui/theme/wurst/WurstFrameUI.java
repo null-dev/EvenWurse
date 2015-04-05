@@ -81,8 +81,9 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			mouse.y -= parent.getY();
 			parent = parent.getParent();
 		}
-		boolean[] checks = new boolean[]{component.isClosable(),
-			component.isPinnable(), component.isMinimizable()};
+		boolean[] checks =
+			new boolean[]{component.isClosable(), component.isPinnable(),
+				component.isMinimizable()};
 		boolean[] overlays =
 			new boolean[]{component.isClosable(), !component.isPinned(),
 				component.isMinimized()};
@@ -517,13 +518,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			glEnd();
 		}
 		glEnable(GL_TEXTURE_2D);
-		theme.getFontRenderer().drawStringWithShadow
-			(
-				component.getTitle(),
-				2,
-				2,
-				RenderUtil.toRGBA(component.getForegroundColor())
-			);
+		theme.getFontRenderer().drawStringWithShadow(component.getTitle(), 2,
+			2, RenderUtil.toRGBA(component.getForegroundColor()));
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
 		translateComponent(component, true);
@@ -549,13 +545,14 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		for(int i = 0; i < children.length; i++)
 		{
 			Component child = children[i];
-			Dimension size = child.getTheme().getUIForComponent(child)
-				.getDefaultSize(child);
+			Dimension size =
+				child.getTheme().getUIForComponent(child).getDefaultSize(child);
 			areas[i] = new Rectangle(0, 0, size.width, size.height);
 			constraints[i] = component.getConstraints(child);
 		}
-		Dimension size = component.getLayoutManager().getOptimalPositionedSize(
-			areas, constraints);
+		Dimension size =
+			component.getLayoutManager().getOptimalPositionedSize(areas,
+				constraints);
 		size.width += 4;
 		size.height += theme.getFontRenderer().FONT_HEIGHT + 8;
 		return size;

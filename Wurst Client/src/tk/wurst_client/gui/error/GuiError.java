@@ -218,8 +218,8 @@ public class GuiError extends GuiScreen
 		if(cause instanceof Mod)
 			title +=
 				"in `"
-					+ Client.wurst.modManager.getModByClass(
-						cause.getClass()).getName() + "` ";
+					+ Client.wurst.modManager.getModByClass(cause.getClass())
+						.getName() + "` ";
 		else if(cause instanceof Cmd)
 			title += "in `." + ((Cmd)cause).getName() + "` ";
 		title += "while " + action + ".";
@@ -228,18 +228,14 @@ public class GuiError extends GuiScreen
 	
 	private String generateReport(String trace)
 	{
-		return "# Description\n"
-			+ getReportDescription() + "\n"
+		return "# Description\n" + getReportDescription() + "\n"
 			+ (comment.isEmpty() ? "" : comment + "\n") + "\n"
-			+ "# Stacktrace\n"
-			+ "```\n" + trace + "```"
-			+ "\n\n# System details\n"
-			+ "- OS: " + System.getProperty("os.name")
-			+ " (" + System.getProperty("os.arch") + ")\n"
-			+ "- Java version: "
+			+ "# Stacktrace\n" + "```\n" + trace + "```"
+			+ "\n\n# System details\n" + "- OS: "
+			+ System.getProperty("os.name") + " ("
+			+ System.getProperty("os.arch") + ")\n" + "- Java version: "
 			+ System.getProperty("java.version") + " ("
-			+ System.getProperty("java.vendor") + ")\n"
-			+ "- Wurst version: "
+			+ System.getProperty("java.vendor") + ")\n" + "- Wurst version: "
 			+ Client.wurst.updater.getCurrentVersion() + " (latest: "
 			+ Client.wurst.updater.getLatestVersion() + ")\n";
 	}

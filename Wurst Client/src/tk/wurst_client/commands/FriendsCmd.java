@@ -64,8 +64,8 @@ public class FriendsCmd extends Cmd
 			if(Client.wurst.friends.remove(args[1]))
 			{
 				Client.wurst.fileManager.saveFriends();
-				Client.wurst.chat.message("Removed friend \"" + args[1]
-					+ "\".");
+				Client.wurst.chat
+					.message("Removed friend \"" + args[1] + "\".");
 			}else
 				Client.wurst.chat.error("\"" + args[1]
 					+ "\" is not in your friends list.");

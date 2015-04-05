@@ -96,14 +96,10 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			glEnd();
 		}
 		String text = button.getText();
-		theme.getFontRenderer().drawString
-			(
-				text,
-				area.width / 2 - theme.getFontRenderer().getStringWidth(text)
-					/ 2,
-				area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
-				RenderUtil.toRGBA(button.getForegroundColor())
-			);
+		theme.getFontRenderer().drawString(text,
+			area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
+			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
+			RenderUtil.toRGBA(button.getForegroundColor()));
 		translateComponent(button, true);
 		if(area.contains(mouse) && describedButton != button)
 		{
@@ -135,8 +131,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 				(theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
-			Mod mod =
-				Client.wurst.modManager.getModByName(button.getText());
+			Mod mod = Client.wurst.modManager.getModByName(button.getText());
 			for(Frame frame : Client.wurst.guiManager.getFrames())
 				if(frame.getTitle().equalsIgnoreCase(mod.getCategory().name()))
 					Client.wurst.guiManager.bringForward(frame);
@@ -231,8 +226,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 	protected Dimension getDefaultComponentSize(Button component)
 	{
 		return new Dimension(theme.getFontRenderer().getStringWidth(
-			component.getText()) + 4,
-			theme.getFontRenderer().FONT_HEIGHT + 4);
+			component.getText()) + 4, theme.getFontRenderer().FONT_HEIGHT + 4);
 	}
 	
 	@Override

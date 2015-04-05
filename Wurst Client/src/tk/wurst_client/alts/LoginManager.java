@@ -38,13 +38,10 @@ public class LoginManager
 		try
 		{
 			authentication.logIn();
-			Minecraft.getMinecraft().session = new Session
-				(
-					authentication.getSelectedProfile().getName(),
+			Minecraft.getMinecraft().session =
+				new Session(authentication.getSelectedProfile().getName(),
 					authentication.getSelectedProfile().getId().toString(),
-					authentication.getAuthenticatedToken(),
-					"mojang"
-				);
+					authentication.getAuthenticatedToken(), "mojang");
 			displayText = "";
 		}catch(AuthenticationUnavailableException e)
 		{

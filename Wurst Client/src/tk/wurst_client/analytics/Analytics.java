@@ -42,8 +42,7 @@ public class Analytics
 	{
 		if(!shouldTrack())
 			return;
-		tracker.trackPageViewFromReferrer(url, title, HOSTNAME,
-			referrerSite,
+		tracker.trackPageViewFromReferrer(url, title, HOSTNAME, referrerSite,
 			referrerPage);
 		lastRequest = System.currentTimeMillis();
 	}

@@ -57,10 +57,9 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(NukerMod.class)
-			.isEnabled())
-			Client.wurst.modManager.getModByClass(NukerMod.class)
-				.setEnabled(false);
+		if(Client.wurst.modManager.getModByClass(NukerMod.class).isEnabled())
+			Client.wurst.modManager.getModByClass(NukerMod.class).setEnabled(
+				false);
 		if(Client.wurst.modManager.getModByClass(SpeedNukerMod.class)
 			.isEnabled())
 			Client.wurst.modManager.getModByClass(SpeedNukerMod.class)
@@ -132,8 +131,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 				return;
 			}
 		}
-		if(Client.wurst.modManager.getModByClass(AutoToolMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(AutoToolMod.class).isEnabled())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());

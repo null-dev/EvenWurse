@@ -13,10 +13,8 @@ import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.mods.NukerMod;
 import tk.wurst_client.utils.MiscUtils;
 
-@Info(help = "Changes the settings of Nuker.",
-	name = "nuker",
-	syntax = {"mode (normal|id|flat|smash)", "id <block_id>",
-		"name <block_name>"})
+@Info(help = "Changes the settings of Nuker.", name = "nuker", syntax = {
+	"mode (normal|id|flat|smash)", "id <block_id>", "name <block_name>"})
 public class NukerCmd extends Cmd
 {
 	@Override

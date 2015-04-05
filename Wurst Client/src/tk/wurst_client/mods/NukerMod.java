@@ -63,8 +63,8 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void initSliders()
 	{
-		sliders.add(new BasicSlider("Nuker range", normalRange, 1, 6,
-			0.05, ValueDisplay.DECIMAL));
+		sliders.add(new BasicSlider("Nuker range", normalRange, 1, 6, 0.05,
+			ValueDisplay.DECIMAL));
 	}
 	
 	@Override
@@ -106,8 +106,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 			realRange = yesCheatRange;
 		else
 			realRange = normalRange;
@@ -150,8 +149,8 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			{
 				currentDamage = 0;
 				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-					&& !Client.wurst.modManager.getModByClass(
-						YesCheatMod.class).isEnabled())
+					&& !Client.wurst.modManager
+						.getModByClass(YesCheatMod.class).isEnabled())
 					nukeAll();
 				else
 				{
@@ -163,8 +162,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 				return;
 			}
 		}
-		if(Client.wurst.modManager.getModByClass(AutoToolMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(AutoToolMod.class).isEnabled())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());
@@ -174,9 +172,8 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos)
-				* (Client.wurst.modManager.getModByClass(
-					FastBreakMod.class).isEnabled()
-					&& Client.wurst.options.fastbreakMode == 0
+				* (Client.wurst.modManager.getModByClass(FastBreakMod.class)
+					.isEnabled() && Client.wurst.options.fastbreakMode == 0
 					? FastBreakMod.speed : 1);
 		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(
 			Minecraft.getMinecraft().thePlayer.getEntityId(), pos,

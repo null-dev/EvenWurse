@@ -34,8 +34,8 @@ import tk.wurst_client.utils.RenderUtils;
 	description = "Automatically aims your bow at the closest entity.\n"
 		+ "Tip: This works with FastBow.",
 	name = "BowAimbot")
-public class BowAimbotMod extends Mod implements UpdateListener, RenderListener,
-	GUIRenderListener
+public class BowAimbotMod extends Mod implements UpdateListener,
+	RenderListener, GUIRenderListener
 {
 	private Entity target;
 	private float velocity;
@@ -137,8 +137,7 @@ public class BowAimbotMod extends Mod implements UpdateListener, RenderListener,
 			Minecraft.getMinecraft().thePlayer.getItemInUseDuration();
 		velocity = bowCharge / 20;
 		velocity = (velocity * velocity + velocity * 2) / 3;
-		if(Client.wurst.modManager.getModByClass(FastBowMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(FastBowMod.class).isEnabled())
 			velocity = 1;
 		if(velocity < 0.1)
 		{

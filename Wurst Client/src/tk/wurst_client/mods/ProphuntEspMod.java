@@ -34,8 +34,7 @@ public class ProphuntEspMod extends Mod implements RenderListener
 	public void onRender()
 	{
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
-			if(entity instanceof EntityLiving
-				&& ((Entity)entity).isInvisible())
+			if(entity instanceof EntityLiving && ((Entity)entity).isInvisible())
 			{
 				double x = ((Entity)entity).posX;
 				double y = ((Entity)entity).posY;

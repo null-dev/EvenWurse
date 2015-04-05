@@ -71,8 +71,7 @@ public class RemoteViewMod extends Mod implements UpdateListener
 			if(otherID == null && !viewName.equals(""))
 				otherID =
 					EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
-			Client.wurst.modManager.getModByClass(RemoteViewMod.class)
-				.toggle();
+			Client.wurst.modManager.getModByClass(RemoteViewMod.class).toggle();
 		}catch(NullPointerException e)
 		{
 			Client.wurst.chat.error("Entity not found.");

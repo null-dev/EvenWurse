@@ -42,8 +42,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 		for(int i = 0; i < 9; i++)
 		{
 			ItemStack item =
-				Minecraft.getMinecraft().thePlayer.inventory
-					.getStackInSlot(i);
+				Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
 			if(item == null)
 				continue;
 			float saturation = 0;

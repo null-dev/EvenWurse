@@ -22,7 +22,8 @@ import tk.wurst_client.mods.Mod.Info;
 	description = "Automatically uses the best tool in your hotbar to\n"
 		+ "mine blocks. Tip: This works with Nuker.",
 	name = "AutoTool")
-public class AutoToolMod extends Mod implements LeftClickListener, UpdateListener
+public class AutoToolMod extends Mod implements LeftClickListener,
+	UpdateListener
 {
 	private boolean isActive = false;
 	private int oldSlot;
@@ -42,8 +43,7 @@ public class AutoToolMod extends Mod implements LeftClickListener, UpdateListene
 		{
 			isActive = false;
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
-		}
-		else if(isActive
+		}else if(isActive
 			&& Minecraft.getMinecraft().objectMouseOver != null
 			&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null
 			&& Minecraft.getMinecraft().theWorld

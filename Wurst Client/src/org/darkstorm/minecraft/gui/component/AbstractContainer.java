@@ -138,13 +138,13 @@ public abstract class AbstractContainer extends AbstractComponent implements
 	{
 		synchronized(children)
 		{
-			Component[] components = children.keySet().toArray(
-				new Component[children.size()]);
+			Component[] components =
+				children.keySet().toArray(new Component[children.size()]);
 			Rectangle[] areas = new Rectangle[components.length];
 			for(int i = 0; i < components.length; i++)
 				areas[i] = components[i].getArea();
-			Constraint[][] allConstraints = children.values().toArray(
-				new Constraint[children.size()][]);
+			Constraint[][] allConstraints =
+				children.values().toArray(new Constraint[children.size()][]);
 			if(getTheme() != null)
 				layoutManager.reposition(ui.getChildRenderArea(this), areas,
 					allConstraints);
@@ -166,8 +166,7 @@ public abstract class AbstractContainer extends AbstractComponent implements
 					continue;
 				if(!child.getArea().contains(x, y))
 					for(Rectangle area : child.getTheme()
-						.getUIForComponent(child)
-						.getInteractableRegions(child))
+						.getUIForComponent(child).getInteractableRegions(child))
 						if(area.contains(x - child.getX(), y - child.getY()))
 						{
 							child.onMousePress(x - child.getX(),
@@ -202,8 +201,7 @@ public abstract class AbstractContainer extends AbstractComponent implements
 					continue;
 				if(!child.getArea().contains(x, y))
 					for(Rectangle area : child.getTheme()
-						.getUIForComponent(child)
-						.getInteractableRegions(child))
+						.getUIForComponent(child).getInteractableRegions(child))
 						if(area.contains(x - child.getX(), y - child.getY()))
 						{
 							child.onMouseRelease(x - child.getX(),

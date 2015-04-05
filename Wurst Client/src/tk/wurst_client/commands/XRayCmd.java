@@ -59,8 +59,8 @@ public class XRayCmd extends Cmd
 		{
 			if(args[1].equalsIgnoreCase("id") && MiscUtils.isInteger(args[2]))
 			{
-				if(tk.wurst_client.mods.XRayMod.xrayBlocks
-					.contains(Block.getBlockById(Integer.valueOf(args[2]))))
+				if(tk.wurst_client.mods.XRayMod.xrayBlocks.contains(Block
+					.getBlockById(Integer.valueOf(args[2]))))
 				{
 					Client.wurst.chat.error("\"" + args[2]
 						+ "\" is already in your X-Ray blocks list.");
@@ -102,8 +102,7 @@ public class XRayCmd extends Cmd
 									.get(i))).toLowerCase()
 						.equals(args[2].toLowerCase()))
 					{
-						tk.wurst_client.mods.XRayMod.xrayBlocks
-							.remove(i);
+						tk.wurst_client.mods.XRayMod.xrayBlocks.remove(i);
 						Client.wurst.fileManager.saveXRayBlocks();
 						Client.wurst.chat.message("Removed block " + args[2]
 							+ ".");
@@ -128,8 +127,7 @@ public class XRayCmd extends Cmd
 						.getIdFromBlock(tk.wurst_client.mods.XRayMod.xrayBlocks
 							.get(i)) == newID)
 					{
-						tk.wurst_client.mods.XRayMod.xrayBlocks
-							.remove(i);
+						tk.wurst_client.mods.XRayMod.xrayBlocks.remove(i);
 						Client.wurst.fileManager.saveXRayBlocks();
 						Client.wurst.chat.message("Removed block " + newID
 							+ " (\"" + args[2] + "\").");

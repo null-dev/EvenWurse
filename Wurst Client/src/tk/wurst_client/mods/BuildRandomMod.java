@@ -36,8 +36,7 @@ public class BuildRandomMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(FreecamMod.class)
-			.isEnabled()
+		if(Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled()
 			|| Client.wurst.modManager.getModByClass(RemoteViewMod.class)
 				.isEnabled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
@@ -105,18 +104,15 @@ public class BuildRandomMod extends Mod implements UpdateListener
 		BlockUtils.faceBlockPacket(randomPos);
 		Minecraft.getMinecraft().thePlayer.swingItem();
 		Minecraft.getMinecraft().thePlayer.sendQueue
-			.addToSendQueue(new C08PacketPlayerBlockPlacement
-			(
-				randomPos,
-				fakeObjectMouseOver.sideHit.getIndex(),
-				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem(),
+			.addToSendQueue(new C08PacketPlayerBlockPlacement(randomPos,
+				fakeObjectMouseOver.sideHit.getIndex(), Minecraft
+					.getMinecraft().thePlayer.inventory.getCurrentItem(),
 				(float)fakeObjectMouseOver.hitVec.xCoord
 					- fakeObjectMouseOver.getBlockPos().getX(),
 				(float)fakeObjectMouseOver.hitVec.yCoord
 					- fakeObjectMouseOver.getBlockPos().getY(),
 				(float)fakeObjectMouseOver.hitVec.zCoord
-					- fakeObjectMouseOver.getBlockPos().getZ()
-			));
+					- fakeObjectMouseOver.getBlockPos().getZ()));
 	}
 	
 	@Override

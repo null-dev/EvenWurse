@@ -33,12 +33,10 @@ public class LeaveCmd extends Command
 					Minecraft.getMinecraft().loadWorld((WorldClient)null);
 					Minecraft.getMinecraft()
 						.displayGuiScreen(new GuiMainMenu());
-					System.out
-						.println("Left current server.");
+					System.out.println("Left current server.");
 				}catch(Exception e)
 				{
-					System.err
-						.println("Could not leave server.");
+					System.err.println("Could not leave server.");
 					e.printStackTrace();
 				}
 			}

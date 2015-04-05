@@ -17,8 +17,7 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
-	description = "Allows you to eat food much faster.\n"
-		+ "OM! NOM! NOM!",
+	description = "Allows you to eat food much faster.\n" + "OM! NOM! NOM!",
 	name = "FastEat")
 public class FastEatMod extends Mod implements UpdateListener
 {
@@ -31,8 +30,7 @@ public class FastEatMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);

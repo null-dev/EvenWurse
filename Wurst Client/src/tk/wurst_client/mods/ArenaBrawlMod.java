@@ -80,8 +80,8 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	@Override
 	public void initSliders()
 	{
-		sliders.add(new BasicSlider("ArenaBrawl level", level, 20, 100,
-			10, ValueDisplay.INTEGER));
+		sliders.add(new BasicSlider("ArenaBrawl level", level, 20, 100, 10,
+			ValueDisplay.INTEGER));
 	}
 	
 	@Override

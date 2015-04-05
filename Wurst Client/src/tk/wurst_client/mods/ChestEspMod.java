@@ -55,8 +55,7 @@ public class ChestEspMod extends Mod implements UpdateListener, RenderListener
 			{
 				i++;
 				RenderUtils.blockESPBox(((TileEntityChest)o).getPos());
-			}
-			else if(o instanceof TileEntityEnderChest)
+			}else if(o instanceof TileEntityEnderChest)
 			{
 				i++;
 				RenderUtils.blockESPBox(((TileEntityEnderChest)o).getPos());
@@ -114,12 +113,8 @@ public class ChestEspMod extends Mod implements UpdateListener, RenderListener
 								.getBlockState(pos);
 						Block block = state.getBlock();
 						int metadata = block.getMetaFromState(state);
-						if(Block.getIdFromBlock(block) == 33 &&
-							(
-							metadata == 6
-								|| metadata == 7
-								|| metadata == 15
-							))
+						if(Block.getIdFromBlock(block) == 33
+							&& (metadata == 6 || metadata == 7 || metadata == 15))
 							matchingBlocks.add(pos);
 					}
 			updateLastMS();

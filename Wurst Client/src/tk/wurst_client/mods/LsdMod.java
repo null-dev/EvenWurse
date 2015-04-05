@@ -78,13 +78,9 @@ public class LsdMod extends Mod implements UpdateListener
 			lastMS = System.currentTimeMillis();
 		}
 		while(color == Color.WHITE)
-			color = new Color
-				(
-					new Random().nextInt(256),
-					new Random().nextInt(256),
-					new Random().nextInt(256),
-					new Random().nextInt(256)
-				);
+			color =
+				new Color(new Random().nextInt(256), new Random().nextInt(256),
+					new Random().nextInt(256), new Random().nextInt(256));
 		return color;
 	}
 }

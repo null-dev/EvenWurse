@@ -25,8 +25,7 @@ public class TriggerBotMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(KillauraMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(KillauraMod.class).isEnabled())
 			Client.wurst.modManager.getModByClass(KillauraMod.class)
 				.setEnabled(false);
 		if(Client.wurst.modManager.getModByClass(KillauraLegit.class)
@@ -58,14 +57,13 @@ public class TriggerBotMod extends Mod implements UpdateListener
 					(EntityLivingBase)Minecraft.getMinecraft().objectMouseOver.entityHit;
 				if((yesCheatMode
 					&& Minecraft.getMinecraft().thePlayer
-						.getDistanceToEntity(en) <= KillauraMod.yesCheatRange
-					|| !yesCheatMode
+						.getDistanceToEntity(en) <= KillauraMod.yesCheatRange || !yesCheatMode
 					&& Minecraft.getMinecraft().thePlayer
 						.getDistanceToEntity(en) <= KillauraMod.normalRange)
 					&& EntityUtils.isCorrectEntity(en, true))
 				{
-					if(Client.wurst.modManager.getModByClass(AutoSwordMod.class)
-						.isEnabled())
+					if(Client.wurst.modManager
+						.getModByClass(AutoSwordMod.class).isEnabled())
 						AutoSwordMod.setSlot();
 					CriticalsMod.doCritical();
 					Minecraft.getMinecraft().thePlayer.swingItem();

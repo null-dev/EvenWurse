@@ -36,66 +36,20 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 	private double posZ;
 	
 	// Bottom = 0, Top = 1, Front = 2, Back = 3, Right = 4, Left = 5.
-	private int[][] building =
-	{
-		{0, 1, 2, 1},
-		{1, 1, 2, 1},
-		{-1, 1, 2, 1},
-		{2, 1, 2, 1},
-		{-2, 1, 2, 1},
-		{2, 1, 1, 1},
-		{-2, 1, 1, 1},
-		{2, 1, 0, 1},
-		{-2, 1, 0, 1},
-		{2, 1, -1, 1},
-		{-2, 1, -1, 1},
-		{0, 1, -2, 1},
-		{1, 1, -2, 1},
-		{-1, 1, -2, 1},
-		{2, 1, -2, 1},
-		{-2, 1, -2, 1},
-		{0, 2, 2, 1},
-		{1, 2, 2, 1},
-		{-1, 2, 2, 1},
-		{2, 2, 2, 1},
-		{-2, 2, 2, 1},
-		{2, 2, 1, 1},
-		{-2, 2, 1, 1},
-		{2, 2, 0, 1},
-		{-2, 2, 0, 1},
-		{2, 2, -1, 1},
-		{-2, 2, -1, 1},
-		{0, 2, -2, 1},
-		{1, 2, -2, 1},
-		{-1, 2, -2, 1},
-		{2, 2, -2, 1},
-		{-2, 2, -2, 1},
-		{0, 3, 2, 1},
-		{1, 3, 2, 1},
-		{-1, 3, 2, 1},
-		{2, 3, 2, 1},
-		{-2, 3, 2, 1},
-		{2, 3, 1, 1},
-		{-2, 3, 1, 1},
-		{2, 3, 0, 1},
-		{-2, 3, 0, 1},
-		{2, 3, -1, 1},
-		{-2, 3, -1, 1},
-		{0, 3, -2, 1},
-		{1, 3, -2, 1},
-		{-1, 3, -2, 1},
-		{2, 3, -2, 1},
-		{-2, 3, -2, 1},
-		{0, 4, 2, 2},
-		{1, 4, 2, 2},
-		{-1, 4, 2, 2},
-		{0, 4, -2, 3},
-		{1, 4, -2, 3},
-		{-1, 4, -2, 3},
-		{2, 4, 0, 4},
-		{-2, 4, 0, 5},
-		{0, 4, 1, 2},
-	};
+	private int[][] building = {{0, 1, 2, 1}, {1, 1, 2, 1}, {-1, 1, 2, 1},
+		{2, 1, 2, 1}, {-2, 1, 2, 1}, {2, 1, 1, 1}, {-2, 1, 1, 1}, {2, 1, 0, 1},
+		{-2, 1, 0, 1}, {2, 1, -1, 1}, {-2, 1, -1, 1}, {0, 1, -2, 1},
+		{1, 1, -2, 1}, {-1, 1, -2, 1}, {2, 1, -2, 1}, {-2, 1, -2, 1},
+		{0, 2, 2, 1}, {1, 2, 2, 1}, {-1, 2, 2, 1}, {2, 2, 2, 1}, {-2, 2, 2, 1},
+		{2, 2, 1, 1}, {-2, 2, 1, 1}, {2, 2, 0, 1}, {-2, 2, 0, 1},
+		{2, 2, -1, 1}, {-2, 2, -1, 1}, {0, 2, -2, 1}, {1, 2, -2, 1},
+		{-1, 2, -2, 1}, {2, 2, -2, 1}, {-2, 2, -2, 1}, {0, 3, 2, 1},
+		{1, 3, 2, 1}, {-1, 3, 2, 1}, {2, 3, 2, 1}, {-2, 3, 2, 1}, {2, 3, 1, 1},
+		{-2, 3, 1, 1}, {2, 3, 0, 1}, {-2, 3, 0, 1}, {2, 3, -1, 1},
+		{-2, 3, -1, 1}, {0, 3, -2, 1}, {1, 3, -2, 1}, {-1, 3, -2, 1},
+		{2, 3, -2, 1}, {-2, 3, -2, 1}, {0, 4, 2, 2}, {1, 4, 2, 2},
+		{-1, 4, 2, 2}, {0, 4, -2, 3}, {1, 4, -2, 3}, {-1, 4, -2, 3},
+		{2, 4, 0, 4}, {-2, 4, 0, 5}, {0, 4, 1, 2},};
 	
 	@Override
 	public void onEnable()
@@ -105,8 +59,7 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 			speed = 1000000000;
 		else
 			speed = 5;
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			i = 0;
 			shouldBuild = true;
@@ -278,8 +231,8 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 		updateMS();
 		if(shouldBuild)
 		{
-			if((hasTimePassedS(speed) || Client.wurst.modManager
-				.getModByClass(FastPlaceMod.class).isEnabled())
+			if((hasTimePassedS(speed) || Client.wurst.modManager.getModByClass(
+				FastPlaceMod.class).isEnabled())
 				&& i < building.length)
 			{
 				BuildUtils.advancedInstantBuildNext(building, MouseOver,
@@ -290,22 +243,17 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
-										(int)posX
-											+ BuildUtils
-												.convertPosInAdvancedBuiling(1,
-													i, building),
-										(int)posY
-											- 2
-											+ BuildUtils
-												.convertPosInAdvancedBuiling(2,
-													i, building),
-										(int)posZ
-											+ BuildUtils
-												.convertPosInAdvancedBuiling(3,
-													i, building)
-									)).getBlock()) != 0)
+									new BlockPos((int)posX
+										+ BuildUtils
+											.convertPosInAdvancedBuiling(1, i,
+												building), (int)posY
+										- 2
+										+ BuildUtils
+											.convertPosInAdvancedBuiling(2, i,
+												building), (int)posZ
+										+ BuildUtils
+											.convertPosInAdvancedBuiling(3, i,
+												building))).getBlock()) != 0)
 							i += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -315,22 +263,17 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
-										(int)posX
-											- BuildUtils
-												.convertPosInAdvancedBuiling(3,
-													i, building),
-										(int)posY
-											- 2
-											+ BuildUtils
-												.convertPosInAdvancedBuiling(2,
-													i, building),
-										(int)posZ
-											+ BuildUtils
-												.convertPosInAdvancedBuiling(1,
-													i, building)
-									)).getBlock()) != 0)
+									new BlockPos((int)posX
+										- BuildUtils
+											.convertPosInAdvancedBuiling(3, i,
+												building), (int)posY
+										- 2
+										+ BuildUtils
+											.convertPosInAdvancedBuiling(2, i,
+												building), (int)posZ
+										+ BuildUtils
+											.convertPosInAdvancedBuiling(1, i,
+												building))).getBlock()) != 0)
 							i += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -340,22 +283,17 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
-										(int)posX
-											- BuildUtils
-												.convertPosInAdvancedBuiling(1,
-													i, building),
-										(int)posY
-											- 2
-											+ BuildUtils
-												.convertPosInAdvancedBuiling(2,
-													i, building),
-										(int)posZ
-											- BuildUtils
-												.convertPosInAdvancedBuiling(3,
-													i, building)
-									)).getBlock()) != 0)
+									new BlockPos((int)posX
+										- BuildUtils
+											.convertPosInAdvancedBuiling(1, i,
+												building), (int)posY
+										- 2
+										+ BuildUtils
+											.convertPosInAdvancedBuiling(2, i,
+												building), (int)posZ
+										- BuildUtils
+											.convertPosInAdvancedBuiling(3, i,
+												building))).getBlock()) != 0)
 							i += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -365,22 +303,17 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
-										(int)posX
-											+ BuildUtils
-												.convertPosInAdvancedBuiling(3,
-													i, building),
-										(int)posY
-											- 2
-											+ BuildUtils
-												.convertPosInAdvancedBuiling(2,
-													i, building),
-										(int)posZ
-											- BuildUtils
-												.convertPosInAdvancedBuiling(1,
-													i, building)
-									)).getBlock()) != 0)
+									new BlockPos((int)posX
+										+ BuildUtils
+											.convertPosInAdvancedBuiling(3, i,
+												building), (int)posY
+										- 2
+										+ BuildUtils
+											.convertPosInAdvancedBuiling(2, i,
+												building), (int)posZ
+										- BuildUtils
+											.convertPosInAdvancedBuiling(1, i,
+												building))).getBlock()) != 0)
 							i += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.

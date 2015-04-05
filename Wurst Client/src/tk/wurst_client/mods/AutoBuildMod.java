@@ -26,8 +26,7 @@ import tk.wurst_client.utils.RenderUtils;
 @Info(category = Category.AUTOBUILD,
 	description = "Automatically builds the selected template whenever\n"
 		+ "you place a block. Use the combo box below to select\n"
-		+ "a template.\n"
-		+ "This mod can bypass NoCheat+ while YesCheat+ is\n"
+		+ "a template.\n" + "This mod can bypass NoCheat+ while YesCheat+ is\n"
 		+ "enabled.",
 	name = "AutoBuild")
 public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
@@ -447,8 +446,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 			return;
 		}
 		if(shouldBuild)
-			if((hasTimePassedS(speed) || Client.wurst.modManager
-				.getModByClass(FastPlaceMod.class).isEnabled())
+			if((hasTimePassedS(speed) || Client.wurst.modManager.getModByClass(
+				FastPlaceMod.class).isEnabled())
 				&& blockIndex < templates
 					.get(Client.wurst.options.autobuildMode).length)
 			{
@@ -461,8 +460,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
+									new BlockPos(
 										BuildUtils.convertPosNext(1, mouseOver)
 											+ BuildUtils
 												.convertPosInAdvancedBuiling(
@@ -481,8 +479,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 												3,
 												blockIndex,
 												templates
-													.get(Client.wurst.options.autobuildMode))
-									)).getBlock()) != 0)
+													.get(Client.wurst.options.autobuildMode))))
+								.getBlock()) != 0)
 							blockIndex += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -492,8 +490,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
+									new BlockPos(
 										BuildUtils.convertPosNext(1, mouseOver)
 											- BuildUtils
 												.convertPosInAdvancedBuiling(
@@ -512,8 +509,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 												1,
 												blockIndex,
 												templates
-													.get(Client.wurst.options.autobuildMode))
-									)).getBlock()) != 0)
+													.get(Client.wurst.options.autobuildMode))))
+								.getBlock()) != 0)
 							blockIndex += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -523,8 +520,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
+									new BlockPos(
 										BuildUtils.convertPosNext(1, mouseOver)
 											- BuildUtils
 												.convertPosInAdvancedBuiling(
@@ -543,8 +539,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 												3,
 												blockIndex,
 												templates
-													.get(Client.wurst.options.autobuildMode))
-									)).getBlock()) != 0)
+													.get(Client.wurst.options.autobuildMode))))
+								.getBlock()) != 0)
 							blockIndex += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -554,8 +550,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
+									new BlockPos(
 										BuildUtils.convertPosNext(1, mouseOver)
 											+ BuildUtils
 												.convertPosInAdvancedBuiling(
@@ -574,8 +569,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 												1,
 												blockIndex,
 												templates
-													.get(Client.wurst.options.autobuildMode))
-									)).getBlock()) != 0)
+													.get(Client.wurst.options.autobuildMode))))
+								.getBlock()) != 0)
 							blockIndex += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -622,8 +617,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 			return;
 		}
 		if(shouldBuild)
-			if((hasTimePassedS(speed) || Client.wurst.modManager
-				.getModByClass(FastPlaceMod.class).isEnabled())
+			if((hasTimePassedS(speed) || Client.wurst.modManager.getModByClass(
+				FastPlaceMod.class).isEnabled())
 				&& blockIndex < templates
 					.get(Client.wurst.options.autobuildMode).length)
 			{
@@ -636,8 +631,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
+									new BlockPos(
 										mouseOver.getBlockPos().getX()
 											+ BuildUtils.convertPosInBuiling(
 												1,
@@ -658,8 +652,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 												blockIndex,
 												templates
 													.get(Client.wurst.options.autobuildMode),
-												mouseOver)
-									)).getBlock()) != 0)
+												mouseOver))).getBlock()) != 0)
 							blockIndex += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -669,8 +662,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
+									new BlockPos(
 										mouseOver.getBlockPos().getX()
 											- BuildUtils.convertPosInBuiling(
 												3,
@@ -691,8 +683,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 												blockIndex,
 												templates
 													.get(Client.wurst.options.autobuildMode),
-												mouseOver)
-									)).getBlock()) != 0)
+												mouseOver))).getBlock()) != 0)
 							blockIndex += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -702,8 +693,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
+									new BlockPos(
 										mouseOver.getBlockPos().getX()
 											- BuildUtils.convertPosInBuiling(
 												1,
@@ -724,8 +714,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 												blockIndex,
 												templates
 													.get(Client.wurst.options.autobuildMode),
-												mouseOver)
-									)).getBlock()) != 0)
+												mouseOver))).getBlock()) != 0)
 							blockIndex += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.
@@ -735,8 +724,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 						if(Block
 							.getIdFromBlock(Minecraft.getMinecraft().theWorld
 								.getBlockState(
-									new BlockPos
-									(
+									new BlockPos(
 										mouseOver.getBlockPos().getX()
 											+ BuildUtils.convertPosInBuiling(
 												3,
@@ -757,8 +745,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 												blockIndex,
 												templates
 													.get(Client.wurst.options.autobuildMode),
-												mouseOver)
-									)).getBlock()) != 0)
+												mouseOver))).getBlock()) != 0)
 							blockIndex += 1;
 					}catch(NullPointerException e)
 					{}// If the current item is null.

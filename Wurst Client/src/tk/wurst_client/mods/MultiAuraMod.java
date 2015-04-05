@@ -26,8 +26,7 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(KillauraMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(KillauraMod.class).isEnabled())
 			Client.wurst.modManager.getModByClass(KillauraMod.class)
 				.setEnabled(false);
 		if(Client.wurst.modManager.getModByClass(KillauraLegit.class)
@@ -44,8 +43,7 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);

@@ -27,7 +27,8 @@ import tk.wurst_client.mods.Mod.Info;
 	description = "Sends a TPA requests to all players.\n"
 		+ "Stops if someone accepts.",
 	name = "MassTPA")
-public class MassTpaMod extends Mod implements UpdateListener, ChatInputListener
+public class MassTpaMod extends Mod implements UpdateListener,
+	ChatInputListener
 {
 	private float speed = 1F;
 	private int i;

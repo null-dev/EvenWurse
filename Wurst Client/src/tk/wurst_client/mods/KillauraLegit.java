@@ -25,8 +25,7 @@ public class KillauraLegit extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(KillauraMod.class)
-			.isEnabled())
+		if(Client.wurst.modManager.getModByClass(KillauraMod.class).isEnabled())
 			Client.wurst.modManager.getModByClass(KillauraMod.class)
 				.setEnabled(false);
 		if(Client.wurst.modManager.getModByClass(MultiAuraMod.class)
@@ -50,9 +49,8 @@ public class KillauraLegit extends Mod implements UpdateListener
 			EntityLivingBase en = EntityUtils.getClosestEntity(true);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= KillauraMod.yesCheatRange)
 			{
-				if(Client.wurst.modManager.getModByClass(
-					CriticalsMod.class).isEnabled()
-					&& Minecraft.getMinecraft().thePlayer.onGround)
+				if(Client.wurst.modManager.getModByClass(CriticalsMod.class)
+					.isEnabled() && Minecraft.getMinecraft().thePlayer.onGround)
 					Minecraft.getMinecraft().thePlayer.jump();
 				if(EntityUtils.getDistanceFromMouse(en) > 55)
 					EntityUtils.faceEntityClient(en);
