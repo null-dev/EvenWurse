@@ -30,6 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.util.ResourceLocation;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd;
@@ -62,7 +63,7 @@ public class GuiError extends GuiScreen
 	public void initGui()
 	{
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
-			20, "Report Bug"));
+			20, "§a§l§nReport Bug"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
 			98, 20, "View Bug"));
 		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
@@ -207,15 +208,30 @@ public class GuiError extends GuiScreen
 				Client.wurst.analytics.trackEvent("error", "view");
 				break;
 			case 2:
-				if(cause instanceof Mod)
-					Client.wurst.modManager.getModByClass(cause.getClass())
-						.setEnabled(false);
-				mc.displayGuiScreen(null);
-				Client.wurst.analytics.trackEvent("error", "back");
+				mc.displayGuiScreen(new GuiYesNo(
+					this,
+					"Are you absolutely sure you don't want to report this error?",
+					"We can't fix it that way!", "§4Yes", "§2No", 0));
 				break;
 			default:
 				break;
 		}
+	}
+	
+	@Override
+	public void confirmClicked(boolean result, int id)
+	{
+		super.confirmClicked(result, id);
+		if(result)
+		{
+			if(cause instanceof Mod)
+				Client.wurst.modManager.getModByClass(cause.getClass())
+					.setEnabled(false);
+			mc.displayGuiScreen(null);
+			Client.wurst.analytics.trackEvent("error", "back");
+		}else
+			mc.displayGuiScreen(this);
+		
 	}
 	
 	private String getReportDescription()
