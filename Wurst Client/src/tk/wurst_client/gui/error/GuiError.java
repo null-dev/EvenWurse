@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,9 +19,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -29,12 +30,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.util.ResourceLocation;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.utils.MiscUtils;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -60,7 +63,7 @@ public class GuiError extends GuiScreen
 	public void initGui()
 	{
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
-			20, "Report Bug on GitHub"));
+			20, "§a§l§nReport Bug"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
 			98, 20, "View Bug"));
 		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
@@ -81,55 +84,59 @@ public class GuiError extends GuiScreen
 		switch(button.id)
 		{
 			case 0:
+				if(Client.wurst.updater.isOutdated()
+					|| Client.wurst.updater.getLatestVersion() == null)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(null);
+					Client.wurst.chat
+						.error("Error reports can only be sent from the latest version.");
+					return;
+				}
 				try
 				{
-					String query =
-						trace.replace(" ", "+").replace("\r\n", "+")
-							.replace("\t", "+").replace("++", "+");
-					query = query.substring(0, 128);
-					query = query.substring(0, query.lastIndexOf("+"));
-					String url =
-						"https://api.github.com/search/issues?q=repo:Wurst-Imperium/Wurst-Client+is:issue+"
-							+ query;
-					HttpsURLConnection connection =
-						(HttpsURLConnection)new URL(url).openConnection();
-					connection.connect();
-					JsonObject json =
+					JsonObject gist = new JsonObject();
+					gist.addProperty("description", getReportDescription());
+					gist.addProperty("public", true);
+					JsonObject gistFiles = new JsonObject();
+					JsonObject gistError = new JsonObject();
+					gistError.addProperty("content", report);
+					gistFiles.add(
+						"Wurst-Client-v" + Client.wurst.CLIENT_VERSION
+							+ "-Error-Report" + ".md", gistError);
+					gist.add("files", gistFiles);
+					JsonObject gistResponse =
 						new JsonParser().parse(
-							new InputStreamReader(connection.getInputStream()))
-							.getAsJsonObject();
-					if(json.get("total_count").getAsInt() > 0)
-					{
-						Client.wurst.chat
-							.message("This bug has been reported before.");
-						Client.wurst.chat
-							.message("Showing existing bug reports.");
+							MiscUtils.post(new URL(
+								"https://api.github.com/gists"), new Gson()
+								.toJson(gist))).getAsJsonObject();
+					MiscUtils.openLink(gistResponse.get("html_url")
+						.getAsString());
+					
+					String reportUrl =
 						MiscUtils
-							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=is%3Aissue+"
-								+ query);
-					}else
-					{
-						String title =
-							URLEncoder.encode(getReportDescription(), "UTF-8");
-						String encodedReport =
-							URLEncoder.encode(report, "UTF-8");
-						Client.wurst.chat
-							.message("Generated a new bug report.");
-						Client.wurst.chat
-							.message("Press the green submit button to report it.");
-						MiscUtils
-							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues/new?title="
-								+ title + "&body=" + encodedReport);
-					}
+							.get(
+								new URL(
+									"https://www.wurst-client.tk/api/v1/submit-error-report.txt"))
+							.trim();
+					String reportResponse =
+						MiscUtils.get(new URL(reportUrl + "?id="
+							+ gistResponse.get("id").getAsString()
+							+ "&version="
+							+ Client.wurst.updater.getCurrentVersion()
+							+ "&class=" + cause.getClass().getName()
+							+ "&action=" + action));
+					
+					Minecraft.getMinecraft().displayGuiScreen(null);
+					Client.wurst.analytics.trackEvent("error", "report");
+					Client.wurst.chat.message("Server response: "
+						+ reportResponse);
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					Client.wurst.chat.error("Bug could not be reported. :(");
-					Client.wurst.chat.message("Try reporting it manually.");
-					MiscUtils
-						.openLink("https://github.com/Wurst-Imperium/Wurst-Client/labels/bug");
+					Client.wurst.chat
+						.error("Something went wrong with that error report.");
+					Client.wurst.analytics.trackEvent("error", "report failed");
 				}
-				Client.wurst.analytics.trackEvent("error", "report");
 				break;
 			case 1:
 				new Thread(new Runnable()
@@ -201,15 +208,30 @@ public class GuiError extends GuiScreen
 				Client.wurst.analytics.trackEvent("error", "view");
 				break;
 			case 2:
-				if(cause instanceof Mod)
-					Client.wurst.modManager.getModByClass(cause.getClass())
-						.setEnabled(false);
-				mc.displayGuiScreen(null);
-				Client.wurst.analytics.trackEvent("error", "back");
+				mc.displayGuiScreen(new GuiYesNo(
+					this,
+					"Are you absolutely sure you don't want to report this error?",
+					"We can't fix it that way!", "§4Yes", "§2No", 0));
 				break;
 			default:
 				break;
 		}
+	}
+	
+	@Override
+	public void confirmClicked(boolean result, int id)
+	{
+		super.confirmClicked(result, id);
+		if(result)
+		{
+			if(cause instanceof Mod)
+				Client.wurst.modManager.getModByClass(cause.getClass())
+					.setEnabled(false);
+			mc.displayGuiScreen(null);
+			Client.wurst.analytics.trackEvent("error", "back");
+		}else
+			mc.displayGuiScreen(this);
+		
 	}
 	
 	private String getReportDescription()
@@ -228,16 +250,43 @@ public class GuiError extends GuiScreen
 	
 	private String generateReport(String trace)
 	{
-		return "# Description\n" + getReportDescription() + "\n"
-			+ (comment.isEmpty() ? "" : comment + "\n") + "\n"
-			+ "# Stacktrace\n" + "```\n" + trace + "```"
-			+ "\n\n# System details\n" + "- OS: "
-			+ System.getProperty("os.name") + " ("
-			+ System.getProperty("os.arch") + ")\n" + "- Java version: "
-			+ System.getProperty("java.version") + " ("
-			+ System.getProperty("java.vendor") + ")\n" + "- Wurst version: "
-			+ Client.wurst.updater.getCurrentVersion() + " (latest: "
-			+ Client.wurst.updater.getLatestVersion() + ")\n";
+		try
+		{
+			BufferedReader input =
+				new BufferedReader(new InputStreamReader(getClass()
+					.getResourceAsStream("report.md")));
+			StringWriter writer = new StringWriter();
+			PrintWriter output = new PrintWriter(writer);
+			for(String line; (line = input.readLine()) != null;)
+				output.println(line);
+			String content = writer.toString();
+			content =
+				content.replace("§time", new SimpleDateFormat(
+					"yyyy.MM.dd-hh:mm:ss").format(new Date()));
+			content = content.replace("§trace", trace);
+			content =
+				content.replace("§os", System.getProperty("os.name") + " ("
+					+ System.getProperty("os.arch") + ")");
+			content =
+				content.replace("§java", System.getProperty("java.version")
+					+ " (" + System.getProperty("java.vendor") + ")");
+			content =
+				content.replace("§wurst",
+					Client.wurst.updater.getCurrentVersion() + " (latest: "
+						+ Client.wurst.updater.getLatestVersion() + ")");
+			content =
+				content.replace("§desc",
+					getReportDescription()
+						+ (comment.isEmpty() ? "" : "\n" + comment));
+			return content;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			StringWriter stacktraceWriter = new StringWriter();
+			e.printStackTrace(new PrintWriter(stacktraceWriter));
+			String eString = stacktraceWriter.toString();
+			return "Could not generate error report. Stack trace:\n" + eString;
+		}
 	}
 	
 	@Override
