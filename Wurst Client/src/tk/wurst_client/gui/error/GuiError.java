@@ -212,6 +212,12 @@ public class GuiError extends GuiScreen
 				Client.wurst.analytics.trackEvent("error", "back");
 				break;
 			case 3:
+				if(Client.wurst.updater.isOutdated() || Client.wurst.updater.getLatestVersion() == null)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(null);
+					Client.wurst.chat.error("Error reports can only be sent from the latest version.");
+					return;
+				}
 				try
 				{
 					JsonObject gist = new JsonObject();
