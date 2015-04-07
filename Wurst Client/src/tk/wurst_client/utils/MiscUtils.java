@@ -140,48 +140,58 @@ public class MiscUtils
 			JOptionPane.ERROR_MESSAGE);
 	}
 	
-	public static String post(URL url, String content)
+	public static String get(URL url) throws IOException
 	{
-		try
+		HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+		connection.setRequestMethod("GET");
+		BufferedReader input =
+			new BufferedReader(new InputStreamReader(
+				connection.getInputStream()));
+		StringBuilder buffer = new StringBuilder();
+		for(String line; (line = input.readLine()) != null;)
 		{
-			Proxy proxy =
-				MinecraftServer.getServer() == null ? null : MinecraftServer
-					.getServer().getServerProxy();
-			if(proxy == null)
-				proxy = Proxy.NO_PROXY;
-			
-			HttpURLConnection connection =
-				(HttpURLConnection)url.openConnection(proxy);
-			connection.setRequestMethod("POST");
-			connection.setRequestProperty("Content-Type",
-				"application/x-www-form-urlencoded");
-			connection.setRequestProperty("Content-Length",
-				"" + content.getBytes().length);
-			connection.setRequestProperty("Content-Language", "en-US");
-			connection.setUseCaches(false);
-			connection.setDoInput(true);
-			connection.setDoOutput(true);
-			DataOutputStream output =
-				new DataOutputStream(connection.getOutputStream());
-			output.writeBytes(content);
-			output.flush();
-			output.close();
-			
-			BufferedReader input =
-				new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
-			StringBuffer buffer = new StringBuffer();
-			for(String line; (line = input.readLine()) != null;)
-			{
-				buffer.append(line);
-				buffer.append('\n');
-			}
-			input.close();
-			return buffer.toString();
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			return "";
+			buffer.append(line);
+			buffer.append("\n");
 		}
+		input.close();
+		return buffer.toString();
+	}
+	
+	public static String post(URL url, String content) throws IOException
+	{
+		Proxy proxy =
+			MinecraftServer.getServer() == null ? null : MinecraftServer
+				.getServer().getServerProxy();
+		if(proxy == null)
+			proxy = Proxy.NO_PROXY;
+		
+		HttpURLConnection connection =
+			(HttpURLConnection)url.openConnection(proxy);
+		connection.setRequestMethod("POST");
+		connection.setRequestProperty("Content-Type",
+			"application/x-www-form-urlencoded");
+		connection.setRequestProperty("Content-Length", ""
+			+ content.getBytes().length);
+		connection.setRequestProperty("Content-Language", "en-US");
+		connection.setUseCaches(false);
+		connection.setDoInput(true);
+		connection.setDoOutput(true);
+		DataOutputStream output =
+			new DataOutputStream(connection.getOutputStream());
+		output.writeBytes(content);
+		output.flush();
+		output.close();
+		
+		BufferedReader input =
+			new BufferedReader(new InputStreamReader(
+				connection.getInputStream()));
+		StringBuffer buffer = new StringBuffer();
+		for(String line; (line = input.readLine()) != null;)
+		{
+			buffer.append(line);
+			buffer.append("\n");
+		}
+		input.close();
+		return buffer.toString();
 	}
 }
