@@ -30,6 +30,7 @@ public class BlinkMod extends Mod
 		fakePlayer =
 			new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld,
 				Minecraft.getMinecraft().thePlayer.getGameProfile());
+		fakePlayer.clonePlayer(Minecraft.getMinecraft().thePlayer, true);
 		fakePlayer
 			.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
 		fakePlayer.rotationYawHead =
