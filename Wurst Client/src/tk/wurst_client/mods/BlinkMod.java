@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.network.Packet;
-import tk.wurst_client.events.EventManager;
-import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
@@ -22,7 +20,7 @@ import tk.wurst_client.mods.Mod.Info;
 		+ "You have the control of lag in your hands!\n"
 		+ "Position will be updated every time you disable and enable it.\n",
 	name = "Blink")
-public class BlinkMod extends Mod implements UpdateListener
+public class BlinkMod extends Mod
 {
 	private static ArrayList<Packet> packets = new ArrayList<Packet>();
 	private EntityOtherPlayerMP fakePlayer = null;
@@ -38,13 +36,6 @@ public class BlinkMod extends Mod implements UpdateListener
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		EventManager.update.addListener(this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{	
-		
 	}
 	
 	@Override
@@ -53,7 +44,6 @@ public class BlinkMod extends Mod implements UpdateListener
 		for(Packet packet : packets)
 			Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(packet);
 		packets.clear();
-		EventManager.update.removeListener(this);
 		Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
 		fakePlayer = null;
 	}
