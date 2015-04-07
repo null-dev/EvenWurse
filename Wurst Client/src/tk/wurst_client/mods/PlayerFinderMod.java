@@ -9,6 +9,7 @@ package tk.wurst_client.mods;
 
 import java.awt.Color;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S28PacketEffect;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
@@ -71,6 +72,8 @@ public class PlayerFinderMod extends Mod implements PacketInputListener,
 	@Override
 	public void onReceivedPacket(PacketInputEvent event)
 	{
+		if(Minecraft.getMinecraft().thePlayer == null)
+			return;
 		Packet packet = event.getPacket();
 		if(packet instanceof S28PacketEffect)
 		{
