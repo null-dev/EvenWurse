@@ -212,10 +212,12 @@ public class GuiError extends GuiScreen
 				Client.wurst.analytics.trackEvent("error", "back");
 				break;
 			case 3:
-				if(Client.wurst.updater.isOutdated() || Client.wurst.updater.getLatestVersion() == null)
+				if(Client.wurst.updater.isOutdated()
+					|| Client.wurst.updater.getLatestVersion() == null)
 				{
 					Minecraft.getMinecraft().displayGuiScreen(null);
-					Client.wurst.chat.error("Error reports can only be sent from the latest version.");
+					Client.wurst.chat
+						.error("Error reports can only be sent from the latest version.");
 					return;
 				}
 				try
@@ -227,23 +229,34 @@ public class GuiError extends GuiScreen
 					JsonObject gistError = new JsonObject();
 					gistError.addProperty("content", report);
 					gistFiles.add(
-						"Wurst-Client-v"
-							+ Client.wurst.CLIENT_VERSION
+						"Wurst-Client-v" + Client.wurst.CLIENT_VERSION
 							+ "-Error-Report" + ".md", gistError);
 					gist.add("files", gistFiles);
-					JsonObject response =
+					JsonObject gistResponse =
 						new JsonParser().parse(
-							MiscUtils.post(new URL("https://api.github.com/gists"),
-								new Gson().toJson(gist))).getAsJsonObject();
-					Client.wurst.analytics.trackEvent("error", "report", response
-						.get("id").getAsString());
-					MiscUtils.openLink(response.get("html_url").getAsString());
+							MiscUtils.post(new URL(
+								"https://api.github.com/gists"), new Gson()
+								.toJson(gist))).getAsJsonObject();
+					MiscUtils.openLink(gistResponse.get("html_url").getAsString());
+					
+					String reportUrl =
+						MiscUtils
+							.get(new URL(
+								"https://www.wurst-client.tk/api/v1/submit-error-report.txt")).trim();
+					String reportResponse = MiscUtils.get(new URL(reportUrl + "?id="
+						+ gistResponse.get("id").getAsString() + "&version="
+						+ Client.wurst.updater.getCurrentVersion() + "&class="
+						+ cause.getClass().getName() + "&action=" + action));
+					
 					Minecraft.getMinecraft().displayGuiScreen(null);
-					Client.wurst.chat.message("Error report successful. Thank you! <3");
+					Client.wurst.analytics.trackEvent("error", "report");
+					Client.wurst.chat
+						.message("Server response: " + reportResponse);
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					Client.wurst.chat.error("Something went wrong with that error report.");
+					Client.wurst.chat
+						.error("Something went wrong with that error report.");
 					Client.wurst.analytics.trackEvent("error", "report failed");
 				}
 			default:
@@ -269,18 +282,32 @@ public class GuiError extends GuiScreen
 	{
 		try
 		{
-			BufferedReader input = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("report.md")));
+			BufferedReader input =
+				new BufferedReader(new InputStreamReader(getClass()
+					.getResourceAsStream("report.md")));
 			StringWriter writer = new StringWriter();
 			PrintWriter output = new PrintWriter(writer);
 			for(String line; (line = input.readLine()) != null;)
 				output.println(line);
 			String content = writer.toString();
-			content = content.replace("§time", new SimpleDateFormat("yyyy.MM.dd-hh:mm:ss").format(new Date()));
+			content =
+				content.replace("§time", new SimpleDateFormat(
+					"yyyy.MM.dd-hh:mm:ss").format(new Date()));
 			content = content.replace("§trace", trace);
-			content = content.replace("§os", System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ")");
-			content = content.replace("§java", System.getProperty("java.version") + " (" + System.getProperty("java.vendor") + ")");
-			content = content.replace("§wurst", Client.wurst.updater.getCurrentVersion() + " (latest: " + Client.wurst.updater.getLatestVersion() + ")");
-			content = content.replace("§desc", getReportDescription() + (comment.isEmpty() ? "" : "\n" + comment));
+			content =
+				content.replace("§os", System.getProperty("os.name") + " ("
+					+ System.getProperty("os.arch") + ")");
+			content =
+				content.replace("§java", System.getProperty("java.version")
+					+ " (" + System.getProperty("java.vendor") + ")");
+			content =
+				content.replace("§wurst",
+					Client.wurst.updater.getCurrentVersion() + " (latest: "
+						+ Client.wurst.updater.getLatestVersion() + ")");
+			content =
+				content.replace("§desc",
+					getReportDescription()
+						+ (comment.isEmpty() ? "" : "\n" + comment));
 			return content;
 		}catch(Exception e)
 		{
@@ -288,8 +315,7 @@ public class GuiError extends GuiScreen
 			StringWriter stacktraceWriter = new StringWriter();
 			e.printStackTrace(new PrintWriter(stacktraceWriter));
 			String eString = stacktraceWriter.toString();
-			return "Could not generate error report. Stack trace:\n"
-				+ eString;
+			return "Could not generate error report. Stack trace:\n" + eString;
 		}
 	}
 	
