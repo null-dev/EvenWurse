@@ -16,9 +16,8 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
-	description = "Makes it harder for other players to see where you are.\n"
-		+ "You have the control of lag in your hands!\n"
-		+ "Position will be updated every time you disable and enable it.\n",
+	description = "Suspends all motion updates while enabled.\n"
+		+ "Can be used for teleportation, instant picking up of items and more.",
 	name = "Blink")
 public class BlinkMod extends Mod
 {
