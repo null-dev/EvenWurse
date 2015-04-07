@@ -19,6 +19,8 @@ public class VClipCmd extends Cmd
 	@Override
 	public void execute(String[] args) throws Error
 	{
+		if(args.length != 1)
+			syntaxError();
 		if(MiscUtils.isInteger(args[0]))
 			Minecraft.getMinecraft().thePlayer.setPosition(
 				Minecraft.getMinecraft().thePlayer.posX,
