@@ -19,11 +19,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -63,8 +61,8 @@ public class GuiError extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		buttonList.add(new GuiButton(3, width / 2 - 100, height / 3 * 2, 200,
-			20, "Report Bug on GitHub"));
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
+			20, "Report Bug"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
 			98, 20, "View Bug"));
 		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
@@ -85,55 +83,59 @@ public class GuiError extends GuiScreen
 		switch(button.id)
 		{
 			case 0:
+				if(Client.wurst.updater.isOutdated()
+					|| Client.wurst.updater.getLatestVersion() == null)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(null);
+					Client.wurst.chat
+						.error("Error reports can only be sent from the latest version.");
+					return;
+				}
 				try
 				{
-					String query =
-						trace.replace(" ", "+").replace("\r\n", "+")
-							.replace("\t", "+").replace("++", "+");
-					query = query.substring(0, 128);
-					query = query.substring(0, query.lastIndexOf("+"));
-					String url =
-						"https://api.github.com/search/issues?q=repo:Wurst-Imperium/Wurst-Client+is:issue+"
-							+ query;
-					HttpsURLConnection connection =
-						(HttpsURLConnection)new URL(url).openConnection();
-					connection.connect();
-					JsonObject json =
+					JsonObject gist = new JsonObject();
+					gist.addProperty("description", getReportDescription());
+					gist.addProperty("public", true);
+					JsonObject gistFiles = new JsonObject();
+					JsonObject gistError = new JsonObject();
+					gistError.addProperty("content", report);
+					gistFiles.add(
+						"Wurst-Client-v" + Client.wurst.CLIENT_VERSION
+							+ "-Error-Report" + ".md", gistError);
+					gist.add("files", gistFiles);
+					JsonObject gistResponse =
 						new JsonParser().parse(
-							new InputStreamReader(connection.getInputStream()))
-							.getAsJsonObject();
-					if(json.get("total_count").getAsInt() > 0)
-					{
-						Client.wurst.chat
-							.message("This bug has been reported before.");
-						Client.wurst.chat
-							.message("Showing existing bug reports.");
+							MiscUtils.post(new URL(
+								"https://api.github.com/gists"), new Gson()
+								.toJson(gist))).getAsJsonObject();
+					MiscUtils.openLink(gistResponse.get("html_url")
+						.getAsString());
+					
+					String reportUrl =
 						MiscUtils
-							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues?q=is%3Aissue+"
-								+ query);
-					}else
-					{
-						String title =
-							URLEncoder.encode(getReportDescription(), "UTF-8");
-						String encodedReport =
-							URLEncoder.encode(report, "UTF-8");
-						Client.wurst.chat
-							.message("Generated a new bug report.");
-						Client.wurst.chat
-							.message("Press the green submit button to report it.");
-						MiscUtils
-							.openLink("https://github.com/Wurst-Imperium/Wurst-Client/issues/new?title="
-								+ title + "&body=" + encodedReport);
-					}
+							.get(
+								new URL(
+									"https://www.wurst-client.tk/api/v1/submit-error-report.txt"))
+							.trim();
+					String reportResponse =
+						MiscUtils.get(new URL(reportUrl + "?id="
+							+ gistResponse.get("id").getAsString()
+							+ "&version="
+							+ Client.wurst.updater.getCurrentVersion()
+							+ "&class=" + cause.getClass().getName()
+							+ "&action=" + action));
+					
+					Minecraft.getMinecraft().displayGuiScreen(null);
+					Client.wurst.analytics.trackEvent("error", "report");
+					Client.wurst.chat.message("Server response: "
+						+ reportResponse);
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					Client.wurst.chat.error("Bug could not be reported. :(");
-					Client.wurst.chat.message("Try reporting it manually.");
-					MiscUtils
-						.openLink("https://github.com/Wurst-Imperium/Wurst-Client/labels/bug");
+					Client.wurst.chat
+						.error("Something went wrong with that error report.");
+					Client.wurst.analytics.trackEvent("error", "report failed");
 				}
-				Client.wurst.analytics.trackEvent("error", "report");
 				break;
 			case 1:
 				new Thread(new Runnable()
@@ -211,54 +213,6 @@ public class GuiError extends GuiScreen
 				mc.displayGuiScreen(null);
 				Client.wurst.analytics.trackEvent("error", "back");
 				break;
-			case 3:
-				if(Client.wurst.updater.isOutdated()
-					|| Client.wurst.updater.getLatestVersion() == null)
-				{
-					Minecraft.getMinecraft().displayGuiScreen(null);
-					Client.wurst.chat
-						.error("Error reports can only be sent from the latest version.");
-					return;
-				}
-				try
-				{
-					JsonObject gist = new JsonObject();
-					gist.addProperty("description", getReportDescription());
-					gist.addProperty("public", true);
-					JsonObject gistFiles = new JsonObject();
-					JsonObject gistError = new JsonObject();
-					gistError.addProperty("content", report);
-					gistFiles.add(
-						"Wurst-Client-v" + Client.wurst.CLIENT_VERSION
-							+ "-Error-Report" + ".md", gistError);
-					gist.add("files", gistFiles);
-					JsonObject gistResponse =
-						new JsonParser().parse(
-							MiscUtils.post(new URL(
-								"https://api.github.com/gists"), new Gson()
-								.toJson(gist))).getAsJsonObject();
-					MiscUtils.openLink(gistResponse.get("html_url").getAsString());
-					
-					String reportUrl =
-						MiscUtils
-							.get(new URL(
-								"https://www.wurst-client.tk/api/v1/submit-error-report.txt")).trim();
-					String reportResponse = MiscUtils.get(new URL(reportUrl + "?id="
-						+ gistResponse.get("id").getAsString() + "&version="
-						+ Client.wurst.updater.getCurrentVersion() + "&class="
-						+ cause.getClass().getName() + "&action=" + action));
-					
-					Minecraft.getMinecraft().displayGuiScreen(null);
-					Client.wurst.analytics.trackEvent("error", "report");
-					Client.wurst.chat
-						.message("Server response: " + reportResponse);
-				}catch(Exception e)
-				{
-					e.printStackTrace();
-					Client.wurst.chat
-						.error("Something went wrong with that error report.");
-					Client.wurst.analytics.trackEvent("error", "report failed");
-				}
 			default:
 				break;
 		}
