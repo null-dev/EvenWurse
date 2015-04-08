@@ -164,8 +164,9 @@ public abstract class EventManager<E extends Event, L extends Listener>
 	public static final void handleException(final Exception e,
 		final Object cause, final String action, final String comment)
 	{
-		if(e.getMessage().equals(
-			"No OpenGL context found in the current thread."))
+		if(e.getMessage() != null
+			&& e.getMessage().equals(
+				"No OpenGL context found in the current thread."))
 			return;
 		update.addListener(new UpdateListener()
 		{
