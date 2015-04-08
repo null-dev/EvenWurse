@@ -12,9 +12,9 @@ import net.minecraft.item.ItemStack;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
 
-@Info(help = "Renames your current item with watever you want.",
+@Info(help = "Renames the item in your hand.",
 	name = "rename",
-	syntax = {"<Name>"})
+	syntax = {"<item>"})
 public class RenameCmd extends Cmd
 {
 	@Override
