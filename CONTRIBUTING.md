@@ -4,18 +4,17 @@
 1. [Code of Conduct](#code-of-conduct)
 2. [Issues](#issues)
 3. [Pull Requests](#pull-requests)
-4. [Credits](#credits)
+4. [Commits](#commits)
+5. [Credits](#credits)
 
 # Code of Conduct
 - **Think before you react.** If you disagree strongly, consider giving it a few minutes before responding.
 
-- **Ask questions, don't make demands.** ("What do you think about trying...?" rather than "Don’t do...!")
+- **Ask questions, don't make demands.** ("What do you think about trying...?" rather than "Don’t do...!!!")
 
 - **Don't insult.** Avoid using terms that could be seen as referring to personal traits. ("dumb", "stupid"). Assume everyone is attractive, intelligent, and well-meaning.
 
 - **Be explicit.** Remember people don't always understand your intentions online.
-
-- **Be humble.** ("I'm not sure - let's look it up.")
 
 - **Don't use hyperbole.** ("always", "never", "endlessly", "nothing")
 
@@ -41,22 +40,28 @@
 
 - If the title gets too long, remove words like `the` and `a`.
 
+- **Don't put a dot at the end.** It's a headline, not a sentence.
+
 #### Examples:
 
-- ".help 1" command throwing NullPointerException :white_check_mark: **good title**
+- "".help 1" command throwing NullPointerException" :white_check_mark: **good title**
 
-- WUrst bug FIX UP!!1 (╯°□°）╯︵ ┻━┻ :x: **bad title**
+- "WUrst bug FIX UP!!1 (╯°□°）╯︵ ┻━┻" :x: **bad title**
 
 ### The Body
 
 - #### Don't include opinions or judgements, only information.
+  - "I found a bug." :white_check_mark: **good**
+  - "I love/hate Wurst and found a bug." :x: **bad**
 
 - **Use proper grammar & Markdown.** If no one can read it, no one can help you.  
 If you have never used markdown before, you can [learn it in 3 minutes](https://guides.github.com/features/mastering-markdown/).
 
 - **Don't put multiple Issues into one issue.** That makes them impossible organize and will likely get your issue ignored or removed.
 
-- **Be clear** about problems: What was the expected outcome, what happened instead? Detail how someone else can recreate the problem.
+- **Be clear**
+ - **about problems:** What was the expected outcome, what happened instead? Detail how someone else can reproduce the problem;
+ - **about suggestions:** What will your feature do, how will it help, why is it useful?
 
 - **Include screenshots** if your Issue is about something visible. Embed the screenshots directly into your Issue, don't link to external images.
 
@@ -125,7 +130,7 @@ If it's too long to paste it into the Issue, paste it into a [Gist](https://gist
 - **Don't get angry** or needy if your Issue gets rejected. We are free to reject any Issue for any reason.
 
 # Pull Requests
-> **Note:** There haven't been many Pull Requests yet, so these guidelines are based on predictions rather than experience.
+> **Note:** There haven't been many Pull Requests yet, so these guidelines are mostly based on predictions rather than experience.
 
 - [**Read the tutorial**](https://guides.github.com/activities/forking/) if you have never forked a repository before.  
 [![](https://github-images.s3.amazonaws.com/help/bootcamp/Bootcamp-Fork.png)](https://guides.github.com/activities/forking/)
@@ -143,6 +148,28 @@ If it's too long to paste it into the Issue, paste it into a [Gist](https://gist
 - **Include screenshots** of the before and after if your changes include visible differences. Drag and drop the images into the body of your pull request.
 
 - **Keep the style** of the project to the best of your abilities. This may mean using indents, semi colons or comments differently than you would in your own repository, but makes it easier for the maintainer to merge, others to understand and maintain in the future.
+
+# Commits
+
+- Use present tense & imperative mood.
+  - "Add feature" :white_check_mark: **good**
+  - "Added feature" :x: **bad**
+  - "Adds feature" :x: **bad**
+- Consider starting the commit message with an applicable emoji:
+  - :bug: `:bug:` when fixing bugs
+  - :rocket: `:rocket:` when improving performance
+  - :gem: `:gem:` when cleaning up code
+  - :memo: `:memo:` when writing docs
+  - :bar_chart: `:bar_chart:` when dealing with Google Analytics
+  - :art: `:art:` when designing GUIs etc.
+  - :lock: `:lock:` when dealing with security
+- When fixing/implementing Issues, include the Issue number. That will close the Issues automatically.
+  - "Fix #272" (for bugs) :white_check_mark: **good**
+  - "Resolve #272" (for features) :white_check_mark: **good**
+  - "Fix error in .nuker that was reported in #272" :x: **bad**
+- When fixing [anonymous error reports](https://www.wurst-client.tk/error-reports) (Wurst v1.12 and higher), include the ID.
+  - "Fix error report mosz7w34tmagrh8qw3mngwwmn5ww" :white_check_mark: **good**
+  - "Fix an error I found on wurst-client.tk/error-reports" :x: **bad**
 
 # Credits
 [![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
