@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import tk.wurst_client.Client;
 import tk.wurst_client.commands.Cmd.Info;
 
-@Info(help = "Renames the item in your hand.",
+@Info(help = "Renames the item in your hand. Use $ for colors, use $$ for $.",
 	name = "rename",
 	syntax = {"<new_name>"})
 public class RenameCmd extends Cmd
@@ -24,11 +24,12 @@ public class RenameCmd extends Cmd
 			error("Creative mode only.");
 		if(args.length != 1)
 			syntaxError();
+		String newName = args[0].replace("$", "§").replace("§§", "$");
 		ItemStack item =
 			Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
 		if(item == null)
 			error("There is no item in your hand.");
-		item.setStackDisplayName(args[0]);
-		Client.wurst.chat.message("Renamed item to \"" + args[0] + "\".");
+		item.setStackDisplayName(newName);
+		Client.wurst.chat.message("Renamed item to \"" + newName + "§r\".");
 	}
 }
