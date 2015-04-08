@@ -87,7 +87,7 @@ public class GuiError extends GuiScreen
 				if(Client.wurst.updater.isOutdated()
 					|| Client.wurst.updater.getLatestVersion() == null)
 				{
-					Minecraft.getMinecraft().displayGuiScreen(null);
+					backToGame();
 					Client.wurst.chat
 						.error("Error reports can only be sent from the latest version.");
 					return;
@@ -125,8 +125,8 @@ public class GuiError extends GuiScreen
 							+ Client.wurst.updater.getCurrentVersion()
 							+ "&class=" + cause.getClass().getName()
 							+ "&action=" + action));
-					
-					Minecraft.getMinecraft().displayGuiScreen(null);
+
+					backToGame();
 					Client.wurst.analytics.trackEvent("error", "report");
 					Client.wurst.chat.message("Server response: "
 						+ reportResponse);
@@ -224,14 +224,19 @@ public class GuiError extends GuiScreen
 		super.confirmClicked(result, id);
 		if(result)
 		{
-			if(cause instanceof Mod)
-				Client.wurst.modManager.getModByClass(cause.getClass())
-					.setEnabled(false);
-			mc.displayGuiScreen(null);
+			backToGame();
 			Client.wurst.analytics.trackEvent("error", "back");
 		}else
 			mc.displayGuiScreen(this);
 		
+	}
+	
+	private void backToGame()
+	{
+		if(cause instanceof Mod)
+			Client.wurst.modManager.getModByClass(cause.getClass())
+				.setEnabled(false);
+		mc.displayGuiScreen(null);
 	}
 	
 	private String getReportDescription()
