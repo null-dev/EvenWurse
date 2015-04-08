@@ -22,18 +22,13 @@ public class RenameCmd extends Cmd
 	{
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 			error("Creative mode only.");
-		if(args.length > 0)
-		{
-			String name = args[0];
-			ItemStack currentItem =
-					Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-			if(currentItem == null)
-				error("There is no item in your hand.");
-			else
-				currentItem.setStackDisplayName(name);
-			Client.wurst.chat.message("Renamed your current item.");
-		}
-		else
-			syntaxError("Name required.");
+		if(args.length != 1)
+			syntaxError();
+		ItemStack item =
+			Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
+		if(item == null)
+			error("There is no item in your hand.");
+		item.setStackDisplayName(args[0]);
+		Client.wurst.chat.message("Renamed item to \"" + args[0] + "\".");
 	}
 }
