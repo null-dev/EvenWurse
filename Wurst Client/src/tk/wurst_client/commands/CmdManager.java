@@ -30,6 +30,43 @@ public class CmdManager implements ChatOutputListener
 			}
 		});
 	
+	public CmdManager()
+	{
+		addCommand(new AddAltCmd());
+		addCommand(new AnnoyCmd());
+		addCommand(new BindsCmd());
+		addCommand(new ClearCmd());
+		addCommand(new DropCmd());
+		addCommand(new EnchantCmd());
+		addCommand(new FastBreakCmd());
+		addCommand(new FeaturesCmd());
+		addCommand(new FollowCmd());
+		addCommand(new FriendsCmd());
+		addCommand(new GetPosCmd());
+		addCommand(new GmCmd());
+		addCommand(new GoToCmd());
+		addCommand(new HelpCmd());
+		addCommand(new InvseeCmd());
+		addCommand(new IpCmd());
+		addCommand(new JumpCmd());
+		addCommand(new NothingCmd());
+		addCommand(new NukerCmd());
+		addCommand(new PathCmd());
+		addCommand(new ProtectCmd());
+		addCommand(new RenameCmd());
+		addCommand(new RvCmd());
+		addCommand(new SayCmd());
+		addCommand(new SearchCmd());
+		addCommand(new SpammerCmd());
+		addCommand(new TacoCmd());
+		addCommand(new TCmd());
+		addCommand(new ThrowCmd());
+		addCommand(new TpCmd());
+		addCommand(new VClipCmd());
+		addCommand(new WmsCmd());
+		addCommand(new XRayCmd());
+	}
+	
 	@Override
 	public void onSentMessage(ChatOutputEvent event)
 	{
@@ -73,43 +110,7 @@ public class CmdManager implements ChatOutputListener
 					+ "\" is not a valid command.");
 		}
 	}
-	
-	public CmdManager()
-	{
-		addCommand(new AddAltCmd());
-		addCommand(new AnnoyCmd());
-		addCommand(new BindsCmd());
-		addCommand(new ClearCmd());
-		addCommand(new DropCmd());
-		addCommand(new EnchantCmd());
-		addCommand(new FastBreakCmd());
-		addCommand(new FeaturesCmd());
-		addCommand(new FollowCmd());
-		addCommand(new FriendsCmd());
-		addCommand(new GmCmd());
-		addCommand(new GoToCmd());
-		addCommand(new HelpCmd());
-		addCommand(new InvseeCmd());
-		addCommand(new IpCmd());
-		addCommand(new JumpCmd());
-		addCommand(new NothingCmd());
-		addCommand(new NukerCmd());
-		addCommand(new PathCmd());
-		addCommand(new ProtectCmd());
-		addCommand(new RenameCmd());
-		addCommand(new RvCmd());
-		addCommand(new SayCmd());
-		addCommand(new SearchCmd());
-		addCommand(new SpammerCmd());
-		addCommand(new TacoCmd());
-		addCommand(new TCmd());
-		addCommand(new ThrowCmd());
-		addCommand(new TpCmd());
-		addCommand(new VClipCmd());
-		addCommand(new WmsCmd());
-		addCommand(new XRayCmd());
-	}
-	
+
 	public Cmd getCommandByClass(Class<?> commandClass)
 	{
 		return cmds.get(commandClass.getAnnotation(Info.class).name());
