@@ -132,6 +132,22 @@ public class Main
 					{
 						e1.printStackTrace();
 					}
+					try
+					{
+						if(JOptionPane
+							.showConfirmDialog(null,
+								"Would you like to update manually?", "",
+								JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+							Desktop
+								.getDesktop()
+								.browse(
+									new URI(
+										"https://github.com/Wurst-Imperium/Wurst-Client/releases/latest"));
+					}catch(Exception e1)
+					{
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
