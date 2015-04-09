@@ -9,46 +9,32 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
-import tk.wurst_client.events.EventManager;
-import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
-	description = "Auto disconnects you if your health\n"
-		+ "gets below 4 hearts.\n"
-		+ "It can bypass combat logger.",
-	name = "AutoDisconnect")
-public class AutoDisconnect extends Mod implements UpdateListener
+	description = "Instantly disconnects you from the server.\n"
+		+ "Can be keybinded for panic disconnects.\n"
+		+ "It bypass combat logger. (only works on servers)",
+	name = "CBTDisconnect")
+public class CombatDisconnectMod extends Mod
 {
 	
 	@Override
 	public void onEnable()
 	{
-		EventManager.update.addListener(this);
-	}
-
-	@Override
-	public void onUpdate()
-	{
-
-		float health = Minecraft.getMinecraft().thePlayer.getHealth();
-		
-		if(health <= 8.0F && !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-				&& (!Minecraft.getMinecraft().isIntegratedServerRunning()
+		if((!Minecraft.getMinecraft().isIntegratedServerRunning()
 				|| Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfo().size() > 1))
 		{
 		Minecraft.getMinecraft().thePlayer.sendQueue
 		.addToSendQueue(new C01PacketChatMessage("§"));
 		setEnabled(false);
 		}
-		
-
+		setEnabled(false);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		EventManager.update.removeListener(this);
 	}
 }

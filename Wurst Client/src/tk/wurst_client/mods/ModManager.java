@@ -35,7 +35,7 @@ public class ModManager
 		addMod(new AntiSpamMod());
 		addMod(new ArenaBrawlMod());
 		addMod(new AutoArmorMod());
-		addMod(new AutoDisconnect());
+		addMod(new AutoDisconnectMod());
 		addMod(new AutoEatMod());
 		addMod(new AutoFishMod());
 		addMod(new AutoMineMod());
@@ -54,6 +54,7 @@ public class ModManager
 		addMod(new BunnyHopMod());
 		addMod(new ChestEspMod());
 		addMod(new ClickGuiMod());
+		addMod(new CombatDisconnectMod());
 		addMod(new CriticalsMod());
 		addMod(new DerpMod());
 		addMod(new DolphinMod());
