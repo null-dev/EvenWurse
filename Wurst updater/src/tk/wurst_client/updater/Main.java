@@ -76,7 +76,6 @@ public class Main
 						thread.start();
 						download(args[1]);
 						extract();
-						progress.dispose();
 						install();
 						System.exit(0);
 					}else
@@ -150,11 +149,10 @@ public class Main
 					}
 					try
 					{
-						if(JOptionPane
-							.showConfirmDialog(null,
-								"Would you like to update manually?", "",
-								JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+						if(JOptionPane.showConfirmDialog(null,
+							"Would you like to update manually?", "",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
 							Desktop
 								.getDesktop()
 								.browse(
@@ -190,10 +188,17 @@ public class Main
 		{
 			bytesDownloaded += length;
 			if(bytesDownloaded > 0)
-				System.out.println("Downloading Update: "
-					+ ((float)(short)((float)bytesDownloaded
-						/ (float)bytesTotal * 1000F) / 10F) + "% ("
-					+ bytesDownloaded + " / " + bytesTotal + ")");
+			{
+				String percent =
+					((float)(short)((float)bytesDownloaded / (float)bytesTotal * 1000F) / 10F)
+						+ "%";
+				String data = ((float)(int)((float)bytesDownloaded * 1000F / 1048576F) / 1000F) + " / "
+					+ ((float)(int)((float)bytesTotal * 1000F / 1048576F) / 1000F) + " Mb";
+				progress.updateProgress("Downloading Update: "
+					+ percent, data);
+				System.out.println("Downloading Update: " + percent + " ("
+					+ data + ")");
+			}
 			output.write(buffer, 0, length);
 		}
 		input.close();
@@ -202,6 +207,7 @@ public class Main
 	
 	private static void extract() throws Exception
 	{
+		progress.updateProgress("Extracting update...", "");
 		System.out.println("Extracting update...");
 		ZipInputStream input = new ZipInputStream(new FileInputStream(tmp));
 		byte[] buffer = new byte[8192];
@@ -229,9 +235,11 @@ public class Main
 	{
 		while(wurstJar.exists() && !wurstJar.canWrite())
 		{
+			progress.updateProgress("Update ready", "Close Minecraft to install it.");
 			System.out.println("Update ready - close Minecraft to install");
 			Thread.sleep(500);
 		}
+		progress.dispose();
 		System.out.println("Installing update...");
 		final PleaseWaitDialog pleaseWait = new PleaseWaitDialog();
 		Thread thread = new Thread(new Runnable()
