@@ -28,7 +28,10 @@ import com.google.gson.JsonParser;
 
 public class Main
 {
-	public static final File currentDirectory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+	public static final File currentDirectory = new File(
+		"C:\\Users\\Alexander\\AppData\\Roaming\\.minecraft\\versions\\Wurst");
+	// public static final File currentDirectory = new
+	// File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 	public static final File wurstJar = new File(currentDirectory, "Wurst.jar");
 	public static final File newWurstJar = new File(currentDirectory,
 		"Wurst-update.jar");
@@ -150,7 +153,7 @@ public class Main
 		{
 			bytesDownloaded += bufferSize;
 			if(bytesDownloaded > 0)
-				System.out.println("Progress: "
+				System.out.println("Downloading Update: "
 					+ ((float)(short)((float)bytesDownloaded
 						/ (float)bytesTotal * 1000F) / 10F) + "% ("
 					+ bytesDownloaded + " / " + bytesTotal + ")");
@@ -160,8 +163,14 @@ public class Main
 		output.close();
 	}
 	
-	private static void install()
+	private static void install() throws Exception
 	{	
-		
+		while(!wurstJar.canWrite())
+		{
+			System.out.println("Update ready - restart to install");
+			Thread.sleep(500);
+		}
+		wurstJar.delete();
+		newWurstJar.renameTo(wurstJar);
 	}
 }
