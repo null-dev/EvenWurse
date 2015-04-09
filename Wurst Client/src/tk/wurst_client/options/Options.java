@@ -23,6 +23,7 @@ public class Options
 	public boolean spamFont = false;
 	public boolean wurstNews = true;
 	
+	public int autoLeaveMode = 0;
 	public int modListMode = 0;
 	public int autobuildMode = 1;
 	public int targetMode = 0;

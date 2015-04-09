@@ -9,6 +9,7 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
+import tk.wurst_client.Client;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -20,6 +21,25 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "AutoLeave")
 public class AutoLeaveMod extends Mod implements UpdateListener
 {
+	@Override
+	public String getRenderName()
+	{
+		String name = getName() + "[";
+		switch(Client.wurst.options.autoLeaveMode)
+		{
+			case 0:
+				name += "Quit";
+				break;
+			case 1:
+				name += "Chars";
+				break;
+			default:
+				break;
+		}
+		name += "]";
+		return name;
+	}
+	
 	@Override
 	public void onEnable()
 	{
@@ -34,8 +54,19 @@ public class AutoLeaveMod extends Mod implements UpdateListener
 			&& (!Minecraft.getMinecraft().isIntegratedServerRunning() || Minecraft
 				.getMinecraft().thePlayer.sendQueue.getPlayerInfo().size() > 1))
 		{
-			Minecraft.getMinecraft().thePlayer.sendQueue
-				.addToSendQueue(new C01PacketChatMessage("§"));
+			switch(Client.wurst.options.autoLeaveMode)
+			{
+				case 0:
+					Minecraft.getMinecraft().theWorld
+						.sendQuittingDisconnectingPacket();
+					break;
+				case 1:
+					Minecraft.getMinecraft().thePlayer.sendQueue
+						.addToSendQueue(new C01PacketChatMessage("§"));
+					break;
+				default:
+					break;
+			}
 			setEnabled(false);
 		}
 	}
