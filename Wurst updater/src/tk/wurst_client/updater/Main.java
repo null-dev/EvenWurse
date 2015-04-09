@@ -240,8 +240,8 @@ public class Main
 		while(!(wurstJar.delete() || !wurstJar.exists()) || !newWurstJar.renameTo(wurstJar))
 		{
 			progress.updateProgress("Update ready",
-				"Close Minecraft to install it.");
-			System.out.println("Update ready - Close Minecraft to install it.");
+				"Restart Minecraft to install it.");
+			System.out.println("Update ready - Restart Minecraft to install it.");
 			Thread.sleep(500);
 		}
 		System.out.println("Done.");
