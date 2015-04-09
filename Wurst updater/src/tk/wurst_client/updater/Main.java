@@ -11,94 +11,153 @@ import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URI;
+import java.net.URL;
 import java.net.URLEncoder;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+
 public class Main
 {
-	public static final File CURRENT_DIRECTORY = new File(Main.class
+	public static final File currentDirectory = new File(Main.class
 		.getProtectionDomain().getCodeSource().getLocation().getPath());
+	public static final File wurstJar = new File(currentDirectory, "Wurst.jar");
+	public static final File newWurstJar = new File(currentDirectory,
+		"Wurst-update.jar");
 	
-	public static void main(String[] args)
+	public static void main(final String[] args)
 	{
-		try
+		Thread thread = new Thread(new Runnable()
 		{
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		try
-		{
-			if(args.length == 1 && args[0].equals("install"))
-				install();
-			else if(args.length == 2 && args[0].equals("download"))
-				download(args[1]);
-			else
-				System.err.println("Syntax error.\n"
-					+ "Syntax:\n"
-					+ "    install\n"
-					+ "    download <version>");
-		}catch(Exception e)
-		{
-			StringWriter stacktraceWriter = new StringWriter();
-			e.printStackTrace(new PrintWriter(stacktraceWriter));
-			String trace = stacktraceWriter.toString();
-			try
+			@Override
+			public void run()
 			{
-				switch(JOptionPane.showOptionDialog(null,
-					"An error occurred while updating Wurst.", "Error",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
-					null, new String[]{"Report on GitHub", "Report via e-mail",
-						"Copy stack trace", "Do nothing"}, 0))
+				try
 				{
-					case 0:
-						Desktop.getDesktop().browse(
-							new URI(
-								"https://github.com/Wurst-Imperium/Wurst-updater/issues/new?title="
-									+ URLEncoder.encode(
-										"Error report: " + e.getMessage(),
-										"UTF-8")
-									+ "&body="
-									+ URLEncoder.encode("# Description\n"
-										+ "Auto-generated error report.\n\n"
-										+ "# Stacktrace\n" + "```\n" + trace
-										+ "```", "UTF-8")));
-						break;
-					case 1:
-						Desktop.getDesktop().browse(
-							new URI(
-								"mailto:contact.wurstimperium@gmail.com?subject="
-									+ URLEncoder
-										.encode("Wurst updater - Error report",
-											"UTF-8")
-									+ "&body="
-									+ URLEncoder.encode("Description:\n"
-										+ "Auto-generated error report.\n\n"
-										+ "Stacktrace:\n" + trace, "UTF-8")));
-						break;
-					case 2:
-						Toolkit.getDefaultToolkit().getSystemClipboard()
-							.setContents(new StringSelection(trace), null);
-						break;
-					default:
-						break;
+					UIManager.setLookAndFeel(UIManager
+						.getSystemLookAndFeelClassName());
+				}catch(Exception e)
+				{
+					e.printStackTrace();
 				}
-			}catch(Exception e1)
-			{
-				e1.printStackTrace();
+				try
+				{
+					if(args.length == 1 && args[0].equals("install"))
+						install();
+					else if(args.length == 2 && args[0].equals("download"))
+						download(args[1]);
+					else
+						System.err.println("Syntax error.\n" + "Syntax:\n"
+							+ "    install\n" + "    download <release_id>");
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+					StringWriter stacktraceWriter = new StringWriter();
+					e.printStackTrace(new PrintWriter(stacktraceWriter));
+					String trace = stacktraceWriter.toString();
+					try
+					{
+						switch(JOptionPane.showOptionDialog(null,
+							"An error occurred while updating Wurst.", "Error",
+							JOptionPane.DEFAULT_OPTION,
+							JOptionPane.ERROR_MESSAGE, null, new String[]{
+								"Report on GitHub", "Report via e-mail",
+								"Copy stack trace", "Do nothing"}, 0))
+						{
+							case 0:
+								Desktop
+									.getDesktop()
+									.browse(
+										new URI(
+											"https://github.com/Wurst-Imperium/Wurst-Client/issues/new?title="
+												+ URLEncoder.encode(
+													"Wurst updater - Error report: "
+														+ e.getMessage(),
+													"UTF-8")
+												+ "&body="
+												+ URLEncoder
+													.encode(
+														"# Description\n"
+															+ "Auto-generated error report.\n\n"
+															+ "# Stacktrace\n"
+															+ "```\n" + trace
+															+ "```", "UTF-8")));
+								break;
+							case 1:
+								Desktop
+									.getDesktop()
+									.browse(
+										new URI(
+											"mailto:contact.wurstimperium@gmail.com?subject="
+												+ URLEncoder
+													.encode(
+														"Wurst updater - Error report",
+														"UTF-8")
+												+ "&body="
+												+ URLEncoder
+													.encode(
+														"Description:\n"
+															+ "Auto-generated error report.\n\n"
+															+ "Stacktrace:\n"
+															+ trace, "UTF-8")));
+								break;
+							case 2:
+								Toolkit
+									.getDefaultToolkit()
+									.getSystemClipboard()
+									.setContents(new StringSelection(trace),
+										null);
+								break;
+							default:
+								break;
+						}
+					}catch(Exception e1)
+					{
+						e1.printStackTrace();
+					}
+				}
 			}
-		}
+		});
+		thread.setPriority(Thread.MIN_PRIORITY);
+		thread.start();
 	}
 	
-	private static void download(String version)
-	{	
-		
+	private static void download(String id) throws Exception
+	{
+		JsonArray json =
+			new JsonParser().parse(
+				new InputStreamReader(new URL(
+					"https://api.github.com/repos/Wurst-Imperium/Wurst-Client/releases/"
+						+ id + "/assets").openStream())).getAsJsonArray();
+		URL downloadUrl =
+			new URL(json.get(0).getAsJsonObject().get("browser_download_url")
+				.getAsString());
+		long bytesTotal = downloadUrl.openConnection().getContentLengthLong();
+		InputStream input = downloadUrl.openStream();
+		FileOutputStream output = new FileOutputStream(newWurstJar);
+		byte[] buffer = new byte[8192];
+		long bytesDownloaded = 0;
+		for(int bufferSize; (bufferSize = input.read(buffer)) != -1;)
+		{
+			bytesDownloaded += bufferSize;
+			if(bytesDownloaded > 0)
+				System.out.println("Progress: "
+					+ ((float)(short)((float)bytesDownloaded
+						/ (float)bytesTotal * 1000F) / 10F) + "% ("
+					+ bytesDownloaded + " / " + bytesTotal + ")");
+			output.write(buffer, 0, bufferSize);
+		}
+		input.close();
+		output.close();
 	}
 	
 	private static void install()
