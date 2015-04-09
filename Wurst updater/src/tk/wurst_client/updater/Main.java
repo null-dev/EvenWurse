@@ -28,8 +28,7 @@ import com.google.gson.JsonParser;
 
 public class Main
 {
-	public static final File currentDirectory = new File(Main.class
-		.getProtectionDomain().getCodeSource().getLocation().getPath());
+	public static final File currentDirectory = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 	public static final File wurstJar = new File(currentDirectory, "Wurst.jar");
 	public static final File newWurstJar = new File(currentDirectory,
 		"Wurst-update.jar");
@@ -51,13 +50,14 @@ public class Main
 				}
 				try
 				{
-					if(args.length == 1 && args[0].equals("install"))
-						install();
-					else if(args.length == 2 && args[0].equals("download"))
+					if(args != null && args.length == 2
+						&& args[0].equals("update"))
+					{
 						download(args[1]);
-					else
+						install();
+					}else
 						System.err.println("Syntax error.\n" + "Syntax:\n"
-							+ "    install\n" + "    download <release_id>");
+							+ "    update <release_id>");
 				}catch(Exception e)
 				{
 					e.printStackTrace();
