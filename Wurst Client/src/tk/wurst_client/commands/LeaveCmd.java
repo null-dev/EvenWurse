@@ -31,7 +31,11 @@ public class LeaveCmd extends Cmd
 				disconnectWithMode(Client.wurst.options.autoLeaveMode);
 				break;
 			case 1:
-				disconnectWithMode(parseMode(args[0]));
+				if(args[0].equalsIgnoreCase("taco"))
+					for(int i = 0; i < 128; i++)
+						Minecraft.getMinecraft().thePlayer.sendAutomaticChatMessage("Taco!");
+				else
+					disconnectWithMode(parseMode(args[0]));
 				break;
 			case 2:
 				Client.wurst.options.autoLeaveMode = parseMode(args[1]);
