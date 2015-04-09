@@ -34,13 +34,10 @@ import com.google.gson.JsonParser;
 
 public class Main
 {
-	public static final File currentDirectory = new File(Main.class
-		.getProtectionDomain().getCodeSource().getLocation().getPath());
-	public static final File wurstJar = new File(currentDirectory, "Wurst.jar");
-	public static final File newWurstJar = new File(currentDirectory,
-		"Wurst-update.jar");
-	public static final File tmp = new File(currentDirectory,
-		"Wurst-update.tmp");
+	public static File currentDirectory;
+	public static File wurstJar;
+	public static File newWurstJar;
+	public static File tmp;
 	private static ProgressDialog progress;
 	
 	public static void main(final String[] args)
@@ -60,9 +57,15 @@ public class Main
 				}
 				try
 				{
-					if(args != null && args.length == 2
+					if(args != null && args.length == 3
 						&& args[0].equals("update"))
 					{
+						currentDirectory =
+							new File(args[2].replace("%20", " "));
+						wurstJar = new File(currentDirectory, "Wurst.jar");
+						newWurstJar = new File(currentDirectory,
+							"Wurst-update.jar");tmp = new File(currentDirectory,
+								"Wurst-update.tmp");
 						progress = new ProgressDialog();
 						Thread thread = new Thread(new Runnable()
 						{
@@ -80,7 +83,7 @@ public class Main
 						System.exit(0);
 					}else
 						System.err.println("Syntax error.\n" + "Syntax:\n"
-							+ "    update <release_id>");
+							+ "    update <release_id> <path>");
 				}catch(Exception e)
 				{
 					e.printStackTrace();
@@ -192,10 +195,12 @@ public class Main
 				String percent =
 					((float)(short)((float)bytesDownloaded / (float)bytesTotal * 1000F) / 10F)
 						+ "%";
-				String data = ((float)(int)((float)bytesDownloaded * 1000F / 1048576F) / 1000F) + " / "
-					+ ((float)(int)((float)bytesTotal * 1000F / 1048576F) / 1000F) + " Mb";
-				progress.updateProgress("Downloading Update: "
-					+ percent, data);
+				String data =
+					((float)(int)((float)bytesDownloaded * 1000F / 1048576F) / 1000F)
+						+ " / "
+						+ ((float)(int)((float)bytesTotal * 1000F / 1048576F) / 1000F)
+						+ " Mb";
+				progress.updateProgress("Downloading Update: " + percent, data);
 				System.out.println("Downloading Update: " + percent + " ("
 					+ data + ")");
 			}
@@ -235,7 +240,8 @@ public class Main
 	{
 		while(wurstJar.exists() && !wurstJar.canWrite())
 		{
-			progress.updateProgress("Update ready", "Close Minecraft to install it.");
+			progress.updateProgress("Update ready",
+				"Close Minecraft to install it.");
 			System.out.println("Update ready - close Minecraft to install");
 			Thread.sleep(500);
 		}
