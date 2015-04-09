@@ -35,6 +35,7 @@ public class ModManager
 		addMod(new AntiSpamMod());
 		addMod(new ArenaBrawlMod());
 		addMod(new AutoArmorMod());
+		addMod(new AutoDisconnect());
 		addMod(new AutoEatMod());
 		addMod(new AutoFishMod());
 		addMod(new AutoMineMod());
