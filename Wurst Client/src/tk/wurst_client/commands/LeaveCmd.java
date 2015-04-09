@@ -7,21 +7,67 @@
  */
 package tk.wurst_client.commands;
 
+import tk.wurst_client.Client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 
-@Cmd.Info(help = "Leaves the current server.", name = "leave", syntax = {})
+@Cmd.Info(help = "Leaves the current server or changes the mode of AutoLeave.",
+	name = "leave",
+	syntax = {"[chars|quit]", "mode chars|quit"})
 public class LeaveCmd extends Cmd
 {
 	@Override
 	public void execute(String[] args) throws Error
 	{
-		if(!Minecraft.getMinecraft().isIntegratedServerRunning()
-			|| Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfo()
+		if(args.length > 2)
+			syntaxError();
+		if(Minecraft.getMinecraft().isIntegratedServerRunning()
+			&& Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfo()
 				.size() > 1)
+			error("Cannot leave server when in singleplayer.");
+		switch(args.length)
 		{
-			Minecraft.getMinecraft().thePlayer.sendQueue
-				.addToSendQueue(new C01PacketChatMessage("§"));
+			case 0:
+				disconnectWithMode(Client.wurst.options.autoLeaveMode);
+				break;
+			case 1:
+				disconnectWithMode(parseMode(args[0]));
+				break;
+			case 2:
+				Client.wurst.options.autoLeaveMode = parseMode(args[1]);
+				Client.wurst.fileManager.saveOptions();
+				Client.wurst.chat.message("AutoLeave mode set to \"" + args[1]
+					+ "\".");
+				break;
+			default:
+				break;
 		}
+	}
+	
+	private void disconnectWithMode(int mode)
+	{
+		switch(mode)
+		{
+			case 0:
+				Minecraft.getMinecraft().theWorld
+					.sendQuittingDisconnectingPacket();
+				break;
+			case 1:
+				Minecraft.getMinecraft().thePlayer.sendQueue
+					.addToSendQueue(new C01PacketChatMessage("§"));
+				break;
+			default:
+				break;
+		}
+	}
+	
+	private int parseMode(String input) throws SyntaxError
+	{
+		if(input.equalsIgnoreCase("quit"))
+			return 0;
+		else if(input.equalsIgnoreCase("chars"))
+			return 1;
+		syntaxError("Invalid mode: " + input);
+		return 0;
 	}
 }
