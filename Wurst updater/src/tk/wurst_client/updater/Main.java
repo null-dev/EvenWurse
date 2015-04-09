@@ -26,8 +26,6 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-		if(args == null || args.length == 0)
-			return;
 		try
 		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -37,7 +35,15 @@ public class Main
 		}
 		try
 		{
-			
+			if(args.length == 1 && args[0].equals("install"))
+				install();
+			else if(args.length == 2 && args[0].equals("download"))
+				download(args[1]);
+			else
+				System.err.println("Syntax error.\n"
+					+ "Syntax:\n"
+					+ "    install\n"
+					+ "    download <version>");
 		}catch(Exception e)
 		{
 			StringWriter stacktraceWriter = new StringWriter();
@@ -68,16 +74,17 @@ public class Main
 						Desktop.getDesktop().browse(
 							new URI(
 								"mailto:contact.wurstimperium@gmail.com?subject="
-									+ URLEncoder.encode(
-										"Wurst updater - Error report",
-										"UTF-8")
+									+ URLEncoder
+										.encode("Wurst updater - Error report",
+											"UTF-8")
 									+ "&body="
 									+ URLEncoder.encode("Description:\n"
 										+ "Auto-generated error report.\n\n"
 										+ "Stacktrace:\n" + trace, "UTF-8")));
 						break;
 					case 2:
-						Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(trace), null);
+						Toolkit.getDefaultToolkit().getSystemClipboard()
+							.setContents(new StringSelection(trace), null);
 						break;
 					default:
 						break;
@@ -87,5 +94,15 @@ public class Main
 				e1.printStackTrace();
 			}
 		}
+	}
+	
+	private static void download(String version)
+	{	
+		
+	}
+	
+	private static void install()
+	{	
+		
 	}
 }
