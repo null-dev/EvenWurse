@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package tk.wurst_client.updater;
+package tk.wurst_client.updater.gui;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -55,7 +55,7 @@ public class PleaseWaitDialog extends JDialog
 		JLabel lblImage = new JLabel("");
 		lblImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImage.setIcon(new ImageIcon(PleaseWaitDialog.class.getResource("/tk/wurst_client/updater/wurst_253x64.png")));
+		lblImage.setIcon(new ImageIcon(PleaseWaitDialog.class.getResource("/tk/wurst_client/updater/resources/wurst_253x64.png")));
 		getContentPane().add(lblImage);
 		{
 			JLabel lblPleaseWait = new JLabel("<html>\r\n<center>\r\n<h1>Please Wait...</h1>\r\n<p>Wurst is installing an update.</p>\r\n<p>This should only take a couple of seconds.</p>");

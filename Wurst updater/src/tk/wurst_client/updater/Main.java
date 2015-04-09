@@ -26,6 +26,8 @@ import java.util.zip.ZipInputStream;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import tk.wurst_client.updater.gui.PleaseWaitDialog;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
