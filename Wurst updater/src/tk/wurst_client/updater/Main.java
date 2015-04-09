@@ -31,12 +31,8 @@ import com.google.gson.JsonParser;
 
 public class Main
 {
-	public static final File currentDirectory = new File(
-		"C:\\Users\\Alexander\\AppData\\Roaming\\.minecraft\\versions\\Wurst");
-	/*
-	 * public static final File currentDirectory = new File(Main.class
-	 * .getProtectionDomain().getCodeSource().getLocation().getPath());
-	 */
+	public static final File currentDirectory = new File(Main.class
+		.getProtectionDomain().getCodeSource().getLocation().getPath());
 	public static final File wurstJar = new File(currentDirectory, "Wurst.jar");
 	public static final File newWurstJar = new File(currentDirectory,
 		"Wurst-update.jar");
