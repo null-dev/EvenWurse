@@ -15,12 +15,11 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
-	description = "Auto disconnects you if your health\n"
-		+ "gets below 4 hearts.\n" + "It can bypass combat logger.",
+	description = "Automatically leaves the server when your health is low.\n"
+		+ "Can bypass CombatLogger.",
 	name = "AutoLeave")
 public class AutoLeaveMod extends Mod implements UpdateListener
 {
-	
 	@Override
 	public void onEnable()
 	{
@@ -30,10 +29,7 @@ public class AutoLeaveMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		
-		float health = Minecraft.getMinecraft().thePlayer.getHealth();
-		
-		if(health <= 8.0F
+		if(Minecraft.getMinecraft().thePlayer.getHealth() <= 8.0
 			&& !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& (!Minecraft.getMinecraft().isIntegratedServerRunning() || Minecraft
 				.getMinecraft().thePlayer.sendQueue.getPlayerInfo().size() > 1))
@@ -42,7 +38,6 @@ public class AutoLeaveMod extends Mod implements UpdateListener
 				.addToSendQueue(new C01PacketChatMessage("§"));
 			setEnabled(false);
 		}
-		
 	}
 	
 	@Override
