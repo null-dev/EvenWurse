@@ -179,53 +179,64 @@ public class Updater
 	
 	public void update()
 	{
-		try
+		new Thread(new Runnable()
 		{
-			if((char)getClass().getResourceAsStream("enabled").read() == "0"
-				.toCharArray()[0])
-				return;
-			File updater =
-				new File(Updater.class.getProtectionDomain().getCodeSource()
-					.getLocation().getPath());
-			if(!updater.isDirectory())
-				updater = updater.getParentFile();
-			updater = new File(updater, "Wurst-updater.jar");
-			updater = new File(updater.getAbsolutePath().replace("%20", " "));
-			InputStream input =
-				getClass().getClassLoader().getResourceAsStream(
-					"assets/minecraft/wurst/Wurst-updater.jar");
-			FileOutputStream output = new FileOutputStream(updater);
-			byte[] buffer = new byte[8192];
-			for(int length; (length = input.read(buffer)) != -1;)
-				output.write(buffer, 0, length);
-			input.close();
-			output.close();
-			String id;
-			if(currentPreRelease > 0)
-				id = json.get(0).getAsJsonObject().get("id").getAsString();
-			else
-				id =
-					new JsonParser()
-						.parse(
-							new InputStreamReader(
-								new URL(
-									"https://api.github.com/repos/Wurst-Imperium/Wurst-Client/releases/latest")
-									.openStream())).getAsJsonObject().get("id")
-						.getAsString();
-			ProcessBuilder pb =
-				new ProcessBuilder("cmd.exe", "/c", "java", "-jar",
-					updater.getAbsolutePath(), "update", id);
-			pb.redirectErrorStream(true);
-			Process p = pb.start();
-			BufferedReader pInput =
-				new BufferedReader(new InputStreamReader(p.getInputStream()));
-			for(String message; (message = pInput.readLine()) != null;)
-				System.out.println(message);
-			pInput.close();
-		}catch(Exception e)
-		{
-			logger.error("Could not open update link!", e);
-		}
+			@Override
+			public void run()
+			{
+				try
+				{
+					if((char)getClass().getResourceAsStream("enabled").read() == "0"
+						.toCharArray()[0])
+						return;
+					File updater =
+						new File(Updater.class.getProtectionDomain()
+							.getCodeSource().getLocation().getPath());
+					if(!updater.isDirectory())
+						updater = updater.getParentFile();
+					updater = new File(updater, "Wurst-updater.jar");
+					updater =
+						new File(updater.getAbsolutePath().replace("%20", " "));
+					InputStream input =
+						getClass().getClassLoader().getResourceAsStream(
+							"assets/minecraft/wurst/Wurst-updater.jar");
+					FileOutputStream output = new FileOutputStream(updater);
+					byte[] buffer = new byte[8192];
+					for(int length; (length = input.read(buffer)) != -1;)
+						output.write(buffer, 0, length);
+					input.close();
+					output.close();
+					String id;
+					if(currentPreRelease > 0)
+						id =
+							json.get(0).getAsJsonObject().get("id")
+								.getAsString();
+					else
+						id =
+							new JsonParser()
+								.parse(
+									new InputStreamReader(
+										new URL(
+											"https://api.github.com/repos/Wurst-Imperium/Wurst-Client/releases/latest")
+											.openStream())).getAsJsonObject()
+								.get("id").getAsString();
+					ProcessBuilder pb =
+						new ProcessBuilder("cmd.exe", "/c", "java", "-jar",
+							updater.getAbsolutePath(), "update", id);
+					pb.redirectErrorStream(true);
+					Process p = pb.start();
+					BufferedReader pInput =
+						new BufferedReader(new InputStreamReader(p
+							.getInputStream()));
+					for(String message; (message = pInput.readLine()) != null;)
+						System.out.println(message);
+					pInput.close();
+				}catch(Exception e)
+				{
+					logger.error("Could not update!", e);
+				}
+			}
+		}).start();
 	}
 	
 	public boolean isOutdated()
