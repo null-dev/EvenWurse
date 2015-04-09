@@ -31,8 +31,12 @@ import com.google.gson.JsonParser;
 
 public class Main
 {
-	public static final File currentDirectory = new File(Main.class
-		.getProtectionDomain().getCodeSource().getLocation().getPath());
+	public static final File currentDirectory = new File(
+		"C:\\Users\\Alexander\\AppData\\Roaming\\.minecraft\\versions\\Wurst");
+	/*
+	 * public static final File currentDirectory = new File(Main.class
+	 * .getProtectionDomain().getCodeSource().getLocation().getPath());
+	 */
 	public static final File wurstJar = new File(currentDirectory, "Wurst.jar");
 	public static final File newWurstJar = new File(currentDirectory,
 		"Wurst-update.jar");
@@ -62,6 +66,7 @@ public class Main
 						download(args[1]);
 						extract();
 						install();
+						System.exit(0);
 					}else
 						System.err.println("Syntax error.\n" + "Syntax:\n"
 							+ "    update <release_id>");
@@ -200,8 +205,23 @@ public class Main
 			Thread.sleep(500);
 		}
 		System.out.println("Installing update...");
+		final PleaseWaitDialog dialog = new PleaseWaitDialog();
+		Thread thread = new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				// Thread needed because setVisible() freezes
+				dialog.setVisible(true);
+			}
+		});
+		thread.start();
+		long start = System.currentTimeMillis();
 		wurstJar.delete();
 		newWurstJar.renameTo(wurstJar);
 		System.out.println("Done.");
+		while(System.currentTimeMillis() - start < 2000)
+			Thread.sleep(50);
+		dialog.dispose();
 	}
 }

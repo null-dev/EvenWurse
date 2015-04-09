@@ -28,7 +28,6 @@ public class PleaseWaitDialog extends JDialog
 		try
 		{
 			PleaseWaitDialog dialog = new PleaseWaitDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		}catch(Exception e)
 		{
