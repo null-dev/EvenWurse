@@ -25,7 +25,7 @@ import tk.wurst_client.update.Updater;
 
 public class Client
 {
-	public final String CLIENT_VERSION = "1.10";
+	public final String CLIENT_VERSION = "1.12";
 	public String currentServerIP = "127.0.0.1:25565";
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;

@@ -186,7 +186,7 @@ public class Updater
 			{
 				try
 				{
-					if((char)getClass().getClassLoader().getResourceAsStream("assets/minecraft/wurst/updater").read() == "0"
+					if((char)getClass().getResourceAsStream("enabled").read() == "0"
 						.toCharArray()[0])
 						return;
 					File updater =
