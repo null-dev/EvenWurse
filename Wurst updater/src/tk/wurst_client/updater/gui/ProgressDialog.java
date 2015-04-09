@@ -50,7 +50,8 @@ public class ProgressDialog extends JDialog
 		setResizable(false);
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(screen.width - 450, 0, 450, 200);
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		getContentPane().setLayout(
+			new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
 		Component glue = Box.createGlue();
 		getContentPane().add(glue);
@@ -58,10 +59,14 @@ public class ProgressDialog extends JDialog
 		JLabel lblImage = new JLabel("");
 		lblImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImage.setIcon(new ImageIcon(ProgressDialog.class.getResource("/tk/wurst_client/updater/resources/wurst_253x64.png")));
+		lblImage
+			.setIcon(new ImageIcon(
+				ProgressDialog.class
+					.getResource("/tk/wurst_client/updater/resources/wurst_253x64.png")));
 		getContentPane().add(lblImage);
 		{
-			lblProgress = new JLabel("<html>\r\n<center>\r\n<h1>Updating...</h1>");
+			lblProgress =
+				new JLabel("<html>\r\n<center>\r\n<h1>Updating...</h1>");
 			lblProgress.setAlignmentX(Component.CENTER_ALIGNMENT);
 			lblProgress.setFont(new Font("Verdana", Font.PLAIN, 16));
 			getContentPane().add(lblProgress);
@@ -72,8 +77,9 @@ public class ProgressDialog extends JDialog
 		getContentPane().add(glue_1);
 	}
 	
-	public void updateProgress(String progress)
+	public void updateProgress(String line1, String line2)
 	{
-		lblProgress.setText(progress);
+		lblProgress.setText("<html><center><h1>" + line1 + "</h1><p>" + line2
+			+ "</p>");
 	}
 }
