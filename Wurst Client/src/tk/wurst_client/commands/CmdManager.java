@@ -49,6 +49,7 @@ public class CmdManager implements ChatOutputListener
 		addCommand(new InvseeCmd());
 		addCommand(new IpCmd());
 		addCommand(new JumpCmd());
+		addCommand(new LeaveCmd());
 		addCommand(new NothingCmd());
 		addCommand(new NukerCmd());
 		addCommand(new PathCmd());
