@@ -26,7 +26,6 @@ import java.util.zip.ZipInputStream;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import tk.wurst_client.updater.gui.PleaseWaitDialog;
 import tk.wurst_client.updater.gui.ProgressDialog;
 
 import com.google.gson.JsonArray;
@@ -238,32 +237,14 @@ public class Main
 	
 	private static void install() throws Exception
 	{
-		while(wurstJar.exists() && !wurstJar.canWrite())
+		while(!(wurstJar.delete() || !wurstJar.exists()) || !newWurstJar.renameTo(wurstJar))
 		{
 			progress.updateProgress("Update ready",
 				"Close Minecraft to install it.");
-			System.out.println("Update ready - close Minecraft to install");
+			System.out.println("Update ready - Close Minecraft to install it.");
 			Thread.sleep(500);
 		}
-		progress.dispose();
-		System.out.println("Installing update...");
-		final PleaseWaitDialog pleaseWait = new PleaseWaitDialog();
-		Thread thread = new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				// Thread needed because setVisible() freezes
-				pleaseWait.setVisible(true);
-			}
-		});
-		thread.start();
-		long start = System.currentTimeMillis();
-		wurstJar.delete();
-		newWurstJar.renameTo(wurstJar);
 		System.out.println("Done.");
-		while(System.currentTimeMillis() - start < 2000)
-			Thread.sleep(50);
-		pleaseWait.dispose();
+		progress.dispose();
 	}
 }
