@@ -186,8 +186,9 @@ public class Updater
 			{
 				try
 				{
-					if((char)getClass().getClassLoader().getResourceAsStream("assets/minecraft/wurst/updater").read() == "0"
-						.toCharArray()[0])
+					if((char)getClass().getClassLoader()
+						.getResourceAsStream("assets/minecraft/wurst/updater")
+						.read() == "0".toCharArray()[0])
 						return;
 					File updater =
 						new File(Updater.class.getProtectionDomain()
@@ -222,7 +223,9 @@ public class Updater
 								.get("id").getAsString();
 					ProcessBuilder pb =
 						new ProcessBuilder("cmd.exe", "/c", "java", "-jar",
-							updater.getAbsolutePath(), "update", id);
+							updater.getAbsolutePath(), "update", id, updater
+								.getParentFile().getAbsolutePath()
+								.replace(" ", "%20"));
 					pb.redirectErrorStream(true);
 					Process p = pb.start();
 					BufferedReader pInput =
