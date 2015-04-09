@@ -23,18 +23,18 @@ public class CombatDisconnectMod extends Mod
 	@Override
 	public void onEnable()
 	{
-		if((!Minecraft.getMinecraft().isIntegratedServerRunning()
-				|| Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfo().size() > 1))
+		if(!Minecraft.getMinecraft().isIntegratedServerRunning()
+			|| Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfo()
+				.size() > 1)
 		{
-		Minecraft.getMinecraft().thePlayer.sendQueue
-		.addToSendQueue(new C01PacketChatMessage("§"));
-		setEnabled(false);
+			Minecraft.getMinecraft().thePlayer.sendQueue
+				.addToSendQueue(new C01PacketChatMessage("§"));
+			setEnabled(false);
 		}
 		setEnabled(false);
 	}
 	
 	@Override
 	public void onDisable()
-	{
-	}
+	{}
 }

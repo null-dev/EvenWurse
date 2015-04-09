@@ -16,8 +16,7 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
 	description = "Auto disconnects you if your health\n"
-		+ "gets below 4 hearts.\n"
-		+ "It can bypass combat logger.",
+		+ "gets below 4 hearts.\n" + "It can bypass combat logger.",
 	name = "AutoDisconnect")
 public class AutoDisconnectMod extends Mod implements UpdateListener
 {
@@ -27,23 +26,23 @@ public class AutoDisconnectMod extends Mod implements UpdateListener
 	{
 		EventManager.update.addListener(this);
 	}
-
+	
 	@Override
 	public void onUpdate()
 	{
-
+		
 		float health = Minecraft.getMinecraft().thePlayer.getHealth();
 		
-		if(health <= 8.0F && !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-				&& (!Minecraft.getMinecraft().isIntegratedServerRunning()
-				|| Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfo().size() > 1))
+		if(health <= 8.0F
+			&& !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+			&& (!Minecraft.getMinecraft().isIntegratedServerRunning() || Minecraft
+				.getMinecraft().thePlayer.sendQueue.getPlayerInfo().size() > 1))
 		{
-		Minecraft.getMinecraft().thePlayer.sendQueue
-		.addToSendQueue(new C01PacketChatMessage("§"));
-		setEnabled(false);
+			Minecraft.getMinecraft().thePlayer.sendQueue
+				.addToSendQueue(new C01PacketChatMessage("§"));
+			setEnabled(false);
 		}
 		
-
 	}
 	
 	@Override
