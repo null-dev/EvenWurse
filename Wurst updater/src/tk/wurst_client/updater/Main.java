@@ -27,6 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import tk.wurst_client.updater.gui.PleaseWaitDialog;
+import tk.wurst_client.updater.gui.ProgressDialog;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
@@ -40,6 +41,7 @@ public class Main
 		"Wurst-update.jar");
 	public static final File tmp = new File(currentDirectory,
 		"Wurst-update.tmp");
+	private static ProgressDialog progress;
 	
 	public static void main(final String[] args)
 	{
@@ -61,8 +63,20 @@ public class Main
 					if(args != null && args.length == 2
 						&& args[0].equals("update"))
 					{
+						progress = new ProgressDialog();
+						Thread thread = new Thread(new Runnable()
+						{
+							@Override
+							public void run()
+							{
+								// Thread needed because setVisible() freezes
+								progress.setVisible(true);
+							}
+						});
+						thread.start();
 						download(args[1]);
 						extract();
+						progress.dispose();
 						install();
 						System.exit(0);
 					}else
@@ -219,14 +233,14 @@ public class Main
 			Thread.sleep(500);
 		}
 		System.out.println("Installing update...");
-		final PleaseWaitDialog dialog = new PleaseWaitDialog();
+		final PleaseWaitDialog pleaseWait = new PleaseWaitDialog();
 		Thread thread = new Thread(new Runnable()
 		{
 			@Override
 			public void run()
 			{
 				// Thread needed because setVisible() freezes
-				dialog.setVisible(true);
+				pleaseWait.setVisible(true);
 			}
 		});
 		thread.start();
@@ -236,6 +250,6 @@ public class Main
 		System.out.println("Done.");
 		while(System.currentTimeMillis() - start < 2000)
 			Thread.sleep(50);
-		dialog.dispose();
+		pleaseWait.dispose();
 	}
 }
