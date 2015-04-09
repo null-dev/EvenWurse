@@ -17,8 +17,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.COMBAT,
 	description = "Auto disconnects you if your health\n"
 		+ "gets below 4 hearts.\n" + "It can bypass combat logger.",
-	name = "AutoDisconnect")
-public class AutoDisconnectMod extends Mod implements UpdateListener
+	name = "AutoLeave")
+public class AutoLeaveMod extends Mod implements UpdateListener
 {
 	
 	@Override
