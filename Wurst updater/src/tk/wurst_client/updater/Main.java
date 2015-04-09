@@ -11,6 +11,7 @@ import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,6 +20,8 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -28,13 +31,13 @@ import com.google.gson.JsonParser;
 
 public class Main
 {
-	public static final File currentDirectory = new File(
-		"C:\\Users\\Alexander\\AppData\\Roaming\\.minecraft\\versions\\Wurst");
-	// public static final File currentDirectory = new
-	// File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+	public static final File currentDirectory = new File(Main.class
+		.getProtectionDomain().getCodeSource().getLocation().getPath());
 	public static final File wurstJar = new File(currentDirectory, "Wurst.jar");
 	public static final File newWurstJar = new File(currentDirectory,
 		"Wurst-update.jar");
+	public static final File tmp = new File(currentDirectory,
+		"Wurst-update.tmp");
 	
 	public static void main(final String[] args)
 	{
@@ -57,6 +60,7 @@ public class Main
 						&& args[0].equals("update"))
 					{
 						download(args[1]);
+						extract();
 						install();
 					}else
 						System.err.println("Syntax error.\n" + "Syntax:\n"
@@ -146,31 +150,58 @@ public class Main
 				.getAsString());
 		long bytesTotal = downloadUrl.openConnection().getContentLengthLong();
 		InputStream input = downloadUrl.openStream();
-		FileOutputStream output = new FileOutputStream(newWurstJar);
+		FileOutputStream output = new FileOutputStream(tmp);
 		byte[] buffer = new byte[8192];
 		long bytesDownloaded = 0;
-		for(int bufferSize; (bufferSize = input.read(buffer)) != -1;)
+		for(int length; (length = input.read(buffer)) != -1;)
 		{
-			bytesDownloaded += bufferSize;
+			bytesDownloaded += length;
 			if(bytesDownloaded > 0)
 				System.out.println("Downloading Update: "
 					+ ((float)(short)((float)bytesDownloaded
 						/ (float)bytesTotal * 1000F) / 10F) + "% ("
 					+ bytesDownloaded + " / " + bytesTotal + ")");
-			output.write(buffer, 0, bufferSize);
+			output.write(buffer, 0, length);
 		}
 		input.close();
 		output.close();
 	}
 	
-	private static void install() throws Exception
-	{	
-		while(!wurstJar.canWrite())
+	private static void extract() throws Exception
+	{
+		System.out.println("Extracting update...");
+		ZipInputStream input = new ZipInputStream(new FileInputStream(tmp));
+		byte[] buffer = new byte[8192];
+		for(ZipEntry entry; (entry = input.getNextEntry()) != null;)
 		{
-			System.out.println("Update ready - restart to install");
+			if(entry.getName().equals("Wurst/")
+				|| entry.getName().equals("Wurst/Wurst.json"))
+				continue;
+			File file;
+			if(entry.getName().equals("Wurst/Wurst.jar"))
+				file = newWurstJar;
+			else
+				file = new File(currentDirectory, entry.getName());
+			FileOutputStream output = new FileOutputStream(file);
+			for(int length; (length = input.read(buffer)) != -1;)
+			{
+				output.write(buffer, 0, length);
+			}
+			output.close();
+		}
+		input.close();
+	}
+	
+	private static void install() throws Exception
+	{
+		while(wurstJar.exists() && !wurstJar.canWrite())
+		{
+			System.out.println("Update ready - close Minecraft to install");
 			Thread.sleep(500);
 		}
+		System.out.println("Installing update...");
 		wurstJar.delete();
 		newWurstJar.renameTo(wurstJar);
+		System.out.println("Done.");
 	}
 }
