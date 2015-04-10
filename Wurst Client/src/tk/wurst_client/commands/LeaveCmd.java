@@ -23,7 +23,7 @@ public class LeaveCmd extends Cmd
 			syntaxError();
 		if(Minecraft.getMinecraft().isIntegratedServerRunning()
 			&& Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfo()
-				.size() > 1)
+				.size() == 1)
 			error("Cannot leave server when in singleplayer.");
 		switch(args.length)
 		{
