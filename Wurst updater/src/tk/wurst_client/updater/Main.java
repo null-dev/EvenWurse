@@ -36,6 +36,8 @@ public class Main
 	public static File currentDirectory;
 	public static File wurstJar;
 	public static File newWurstJar;
+	public static File wurstJSON;
+	public static File newWurstJSON;
 	public static File tmp;
 	private static ProgressDialog progress;
 	
@@ -62,9 +64,12 @@ public class Main
 						currentDirectory =
 							new File(args[2].replace("%20", " "));
 						wurstJar = new File(currentDirectory, "Wurst.jar");
-						newWurstJar = new File(currentDirectory,
-							"Wurst-update.jar");tmp = new File(currentDirectory,
-								"Wurst-update.tmp");
+						newWurstJar =
+							new File(currentDirectory, "Wurst-update.jar");
+						wurstJSON = new File(currentDirectory, "Wurst.json");
+						newWurstJSON =
+							new File(currentDirectory, "Wurst-update.json");
+						tmp = new File(currentDirectory, "Wurst-update.tmp");
 						progress = new ProgressDialog();
 						Thread thread = new Thread(new Runnable()
 						{
@@ -217,12 +222,13 @@ public class Main
 		byte[] buffer = new byte[8192];
 		for(ZipEntry entry; (entry = input.getNextEntry()) != null;)
 		{
-			if(entry.getName().equals("Wurst/")
-				|| entry.getName().equals("Wurst/Wurst.json"))
+			if(entry.getName().equals("Wurst/"))
 				continue;
 			File file;
 			if(entry.getName().equals("Wurst/Wurst.jar"))
 				file = newWurstJar;
+			else if(entry.getName().equals("Wurst/Wurst.json"))
+				file = newWurstJSON;
 			else
 				file = new File(currentDirectory, entry.getName());
 			FileOutputStream output = new FileOutputStream(file);
@@ -237,11 +243,15 @@ public class Main
 	
 	private static void install() throws Exception
 	{
-		while(!(wurstJar.delete() || !wurstJar.exists()) || !newWurstJar.renameTo(wurstJar))
+		while(!(wurstJar.delete() || !wurstJar.exists())
+			|| !newWurstJar.renameTo(wurstJar)
+			|| !(wurstJSON.delete() || !wurstJSON.exists())
+			|| !newWurstJSON.renameTo(wurstJSON))
 		{
 			progress.updateProgress("Update ready",
 				"Restart Minecraft to install it.");
-			System.out.println("Update ready - Restart Minecraft to install it.");
+			System.out
+				.println("Update ready - Restart Minecraft to install it.");
 			Thread.sleep(500);
 		}
 		System.out.println("Done.");
