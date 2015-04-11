@@ -29,9 +29,9 @@ public class MultiAuraMod extends Mod implements UpdateListener
 		if(Client.wurst.modManager.getModByClass(KillauraMod.class).isEnabled())
 			Client.wurst.modManager.getModByClass(KillauraMod.class)
 				.setEnabled(false);
-		if(Client.wurst.modManager.getModByClass(KillauraLegit.class)
+		if(Client.wurst.modManager.getModByClass(KillauraLegitMod.class)
 			.isEnabled())
-			Client.wurst.modManager.getModByClass(KillauraLegit.class)
+			Client.wurst.modManager.getModByClass(KillauraLegitMod.class)
 				.setEnabled(false);
 		if(Client.wurst.modManager.getModByClass(TriggerBotMod.class)
 			.isEnabled())

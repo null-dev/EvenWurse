@@ -82,7 +82,7 @@ public class ModManager
 		addMod(new JetpackMod());
 		addMod(new KaboomMod());
 		addMod(new KillauraMod());
-		addMod(new KillauraLegit());
+		addMod(new KillauraLegitMod());
 		addMod(new LiquidsMod());
 		addMod(new LsdMod());
 		addMod(new MassTpaMod());

@@ -20,7 +20,7 @@ import tk.wurst_client.utils.EntityUtils;
 	description = "Slower Killaura that bypasses any cheat prevention\n"
 		+ "PlugIn. Not required on most NoCheat+ servers!",
 	name = "KillauraLegit")
-public class KillauraLegit extends Mod implements UpdateListener
+public class KillauraLegitMod extends Mod implements UpdateListener
 {
 	@Override
 	public void onEnable()

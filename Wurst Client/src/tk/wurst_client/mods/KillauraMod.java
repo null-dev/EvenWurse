@@ -53,9 +53,9 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(KillauraLegit.class)
+		if(Client.wurst.modManager.getModByClass(KillauraLegitMod.class)
 			.isEnabled())
-			Client.wurst.modManager.getModByClass(KillauraLegit.class)
+			Client.wurst.modManager.getModByClass(KillauraLegitMod.class)
 				.setEnabled(false);
 		if(Client.wurst.modManager.getModByClass(MultiAuraMod.class)
 			.isEnabled())
