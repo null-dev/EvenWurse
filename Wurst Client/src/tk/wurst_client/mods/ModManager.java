@@ -52,6 +52,7 @@ public class ModManager
 		addMod(new BowAimbotMod());
 		addMod(new BuildRandomMod());
 		addMod(new BunnyHopMod());
+		addMod(new CaveFinderMod());
 		addMod(new ChestEspMod());
 		addMod(new ClickGuiMod());
 		addMod(new CriticalsMod());

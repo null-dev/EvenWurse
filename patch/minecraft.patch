@@ -1,6 +1,6 @@
-From f277550758a02edf9218205f3cfde86101374a2d Mon Sep 17 00:00:00 2001
+From 1974aeee9b9bb0c6101583bbbba68d1ec1b10f33 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sun, 5 Apr 2015 11:16:34 +0200
+Date: Fri, 10 Apr 2015 15:57:16 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -37,7 +37,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiLanguage.java      |    3 +
  src/net/minecraft/client/gui/GuiListButton.java    |    1 +
  .../minecraft/client/gui/GuiLockIconButton.java    |    1 +
- src/net/minecraft/client/gui/GuiMainMenu.java      | 1349 ++--
+ src/net/minecraft/client/gui/GuiMainMenu.java      | 1334 ++--
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |    2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |    4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   | 1117 ++--
@@ -106,7 +106,7 @@ Subject: [PATCH] Wurst
  .../client/particle/EntityLargeExplodeFX.java      |    2 +-
  .../client/renderer/BlockFluidRenderer.java        |    6 +-
  .../client/renderer/BlockModelRenderer.java        |    1 +
- .../minecraft/client/renderer/EntityRenderer.java  | 4148 ++++++------
+ .../minecraft/client/renderer/EntityRenderer.java  | 4147 ++++++------
  .../client/renderer/InventoryEffectRenderer.java   |    4 +-
  .../minecraft/client/renderer/ItemRenderer.java    |    2 +-
  .../minecraft/client/renderer/RenderGlobal.java    |   32 +-
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 26724 insertions(+), 25085 deletions(-)
+ 203 files changed, 26708 insertions(+), 25085 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..f0f9ace 100644
@@ -20414,10 +20414,10 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..ec0f0b3 100644
+index 38033d9..dbf5df0 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
-@@ -1,567 +1,782 @@
+@@ -1,567 +1,767 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -20996,7 +20996,6 @@ index 38033d9..ec0f0b3 100644
 +import java.io.BufferedReader;
 +import java.io.IOException;
 +import java.io.InputStreamReader;
-+import java.io.StringWriter;
 +import java.net.URI;
 +import java.net.URL;
 +import java.util.ArrayList;
@@ -21008,7 +21007,6 @@ index 38033d9..ec0f0b3 100644
 +import javax.net.ssl.HttpsURLConnection;
 +
 +import net.minecraft.client.Minecraft;
-+import net.minecraft.client.gui.GuiButton;
 +import net.minecraft.client.renderer.GlStateManager;
 +import net.minecraft.client.renderer.OpenGlHelper;
 +import net.minecraft.client.renderer.Tessellator;
@@ -21035,7 +21033,6 @@ index 38033d9..ec0f0b3 100644
 +
 +import tk.wurst_client.Client;
 +import tk.wurst_client.gui.alts.GuiAlts;
-+import tk.wurst_client.gui.update.GuiUpdate;
 +import tk.wurst_client.utils.MiscUtils;
 +
 +import com.google.common.collect.Lists;
@@ -21205,7 +21202,7 @@ index 38033d9..ec0f0b3 100644
 +        {
 +            this.splashText = "Happy birthday, Alexander01998!";
 +        }
-+        if((GuiMainMenu.splashText.equals("§1C§2o§3l§4o§5r§6m§7a§8t§9i§ac") || GuiMainMenu.splashText.equals("Thousands of colors!")) && !(this.mc.currentScreen instanceof GuiUpdate || this.mc.currentScreen instanceof GuiYesNo))
++        if((GuiMainMenu.splashText.equals("§1C§2o§3l§4o§5r§6m§7a§8t§9i§ac") || GuiMainMenu.splashText.equals("Thousands of colors!")))
 +        	Tessellator.shouldRenderLSD = true;
 +        else
 +        	Tessellator.shouldRenderLSD = false;
@@ -21385,19 +21382,7 @@ index 38033d9..ec0f0b3 100644
 +            this.mc.displayGuiScreen(this);
 +        }
 +        //TODO: Client
-+        if(id == 0)
-+		{
-+			if(result)
-+			{
-+				this.mc.displayGuiScreen(new GuiUpdate());
-+				Client.wurst.analytics.trackEvent("updater", "get new version");
-+			}else
-+			{
-+				this.mc.displayGuiScreen(this);
-+				Client.wurst.analytics
-+					.trackEvent("updater", "keep old version");
-+			}
-+		}else if(id == 1)
++        if(id == 1)
 +		{
 +			if(result)
 +			{
@@ -21724,10 +21709,10 @@ index 38033d9..ec0f0b3 100644
 +		{
 +			if(Client.wurst.updater.isOutdated())
 +			{
-+				this.mc.displayGuiScreen(new GuiYesNo(this, "Wurst v"
-+					+ Client.wurst.updater.getLatestVersion()
-+					+ " is available.", "Would you like to update?", 0));
-+				Client.wurst.analytics.trackPageView("/update", "Update Found");
++				Client.wurst.analytics.trackEvent("updater", "update to v"
++					+ Client.wurst.updater.getLatestVersion(), "from "
++					+ Client.wurst.updater.getCurrentVersion());
++				Client.wurst.updater.update();
 +			}else if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
 +				&& Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24)
 +			{
@@ -28072,10 +28057,10 @@ index e9db01f..18cbc00 100644
  import net.minecraft.block.state.IBlockState;
  import net.minecraft.client.Minecraft;
 diff --git a/src/net/minecraft/client/renderer/EntityRenderer.java b/src/net/minecraft/client/renderer/EntityRenderer.java
-index e32c68b..cc24935 100644
+index e32c68b..8e301ff 100644
 --- a/src/net/minecraft/client/renderer/EntityRenderer.java
 +++ b/src/net/minecraft/client/renderer/EntityRenderer.java
-@@ -1,2052 +1,2096 @@
+@@ -1,2052 +1,2095 @@
 -package net.minecraft.client.renderer;
 -
 -import com.google.gson.JsonSyntaxException;
@@ -30130,8 +30115,6 @@ index e32c68b..cc24935 100644
 -}
 +package net.minecraft.client.renderer;
 +
-+import com.google.gson.JsonSyntaxException;
-+
 +import java.io.IOException;
 +import java.nio.FloatBuffer;
 +import java.util.List;
@@ -30172,17 +30155,7 @@ index e32c68b..cc24935 100644
 +import net.minecraft.inventory.IInventory;
 +import net.minecraft.item.ItemStack;
 +import net.minecraft.potion.Potion;
-+import net.minecraft.util.AxisAlignedBB;
-+import net.minecraft.util.BlockPos;
-+import net.minecraft.util.EnumFacing;
-+import net.minecraft.util.EnumParticleTypes;
-+import net.minecraft.util.EnumWorldBlockLayer;
-+import net.minecraft.util.MathHelper;
-+import net.minecraft.util.MouseFilter;
-+import net.minecraft.util.MovingObjectPosition;
-+import net.minecraft.util.ReportedException;
-+import net.minecraft.util.ResourceLocation;
-+import net.minecraft.util.Vec3;
++import net.minecraft.util.*;
 +import net.minecraft.world.WorldSettings;
 +import net.minecraft.world.biome.BiomeGenBase;
 +
@@ -30198,8 +30171,10 @@ index e32c68b..cc24935 100644
 +import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.RenderEvent;
 +import tk.wurst_client.mods.AntiBlindMod;
-+import tk.wurst_client.mods.Mod;
++import tk.wurst_client.mods.CaveFinderMod;
 +import tk.wurst_client.mods.TracersMod;
++
++import com.google.gson.JsonSyntaxException;
 +
 +public class EntityRenderer implements IResourceManagerReloadListener
 +{
@@ -30314,6 +30289,9 @@ index e32c68b..cc24935 100644
 +    private boolean field_175083_ad;
 +    private int field_175084_ae;
 +    private static final String __OBFID = "CL_00000947";
++    
++    //TODO: Client
++    private CaveFinderMod caveFinderMod;
 +
 +    public EntityRenderer(Minecraft mcIn, IResourceManager p_i45076_2_)
 +    {
@@ -31445,7 +31423,13 @@ index e32c68b..cc24935 100644
 +        }
 +
 +        this.getMouseOver(p_78471_1_);
-+        GlStateManager.enableDepth();
++        
++        //TODO: Client
++        if(caveFinderMod == null)
++			caveFinderMod = (CaveFinderMod)Client.wurst.modManager.getModByClass(CaveFinderMod.class);
++		if(!caveFinderMod.isEnabled())
++			GlStateManager.enableDepth();
++        
 +        GlStateManager.enableAlpha();
 +        GlStateManager.alphaFunc(516, 0.5F);
 +        this.mc.mcProfiler.startSection("center");
