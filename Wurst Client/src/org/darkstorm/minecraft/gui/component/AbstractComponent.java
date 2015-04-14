@@ -247,25 +247,16 @@ public abstract class AbstractComponent implements Component
 	
 	protected void addListener(ComponentListener listener)
 	{
-		synchronized(listeners)
-		{
-			listeners.add(listener);
-		}
+		listeners.add(listener);
 	}
 	
 	protected void removeListener(ComponentListener listener)
 	{
-		synchronized(listeners)
-		{
-			listeners.remove(listener);
-		}
+		listeners.remove(listener);
 	}
 	
 	protected ComponentListener[] getListeners()
 	{
-		synchronized(listeners)
-		{
-			return listeners.toArray(new ComponentListener[listeners.size()]);
-		}
+		return listeners.toArray(new ComponentListener[listeners.size()]);
 	}
 }
