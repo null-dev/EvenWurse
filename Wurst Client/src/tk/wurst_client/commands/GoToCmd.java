@@ -15,14 +15,12 @@ import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Walks or flies you to a specific location.",
 	name = "goto",
-	syntax = {"<x> <y> <z>"})
+	syntax = {"<x> <y> <z>", "<entity>"})
 public class GoToCmd extends Cmd
 {
 	@Override
 	public void execute(String[] args) throws Error
 	{
-		if(args.length != 3)
-			syntaxError();
 		int[] pos = argsToPos(args);
 		if(Math.abs(pos[0] - Minecraft.getMinecraft().thePlayer.posX) > 256
 			|| Math.abs(pos[2] - Minecraft.getMinecraft().thePlayer.posZ) > 256)

@@ -12,14 +12,12 @@ import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Teleports you up to 100 blocks away.\nOnly works on vanilla servers!",
 	name = "tp",
-	syntax = {"<x> <y> <z>"})
+	syntax = {"<x> <y> <z>", "<entity>"})
 public class TpCmd extends Cmd
 {
 	@Override
 	public void execute(String[] args) throws Error
 	{
-		if(args.length != 3)
-			syntaxError();
 		int[] pos = argsToPos(args);
 		Minecraft.getMinecraft().thePlayer.setPosition(pos[0], pos[1], pos[2]);
 	}

@@ -11,7 +11,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.BlockPos;
 import tk.wurst_client.Client;
+import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.MiscUtils;
 
 public abstract class Cmd
@@ -92,27 +94,34 @@ public abstract class Cmd
 	
 	protected final int[] argsToPos(String... args) throws SyntaxError
 	{
-		if(args.length < 3)
-			throw new IllegalArgumentException("Too few arguments. Only "
-				+ args.length + " instead of 3.");
 		int[] pos = new int[3];
-		int[] playerPos =
-			new int[]{(int)Minecraft.getMinecraft().thePlayer.posX,
-				(int)Minecraft.getMinecraft().thePlayer.posY,
-				(int)Minecraft.getMinecraft().thePlayer.posZ};
-		for(int i = 0; i < args.length; i++)
-			if(MiscUtils.isInteger(args[i]))
-				pos[i] = Integer.parseInt(args[i]);
-			else if(args[i].startsWith("~"))
-				if(args[i].equals("~"))
-					pos[i] = playerPos[i];
-				else if(MiscUtils.isInteger(args[i].substring(1)))
-					pos[i] =
-						playerPos[i] + Integer.parseInt(args[i].substring(1));
+		if(args.length == 3)
+		{
+			int[] playerPos =
+				new int[]{(int)Minecraft.getMinecraft().thePlayer.posX,
+					(int)Minecraft.getMinecraft().thePlayer.posY,
+					(int)Minecraft.getMinecraft().thePlayer.posZ};
+			for(int i = 0; i < args.length; i++)
+				if(MiscUtils.isInteger(args[i]))
+					pos[i] = Integer.parseInt(args[i]);
+				else if(args[i].startsWith("~"))
+					if(args[i].equals("~"))
+						pos[i] = playerPos[i];
+					else if(MiscUtils.isInteger(args[i].substring(1)))
+						pos[i] =
+							playerPos[i]
+								+ Integer.parseInt(args[i].substring(1));
+					else
+						syntaxError("Invalid coordinates.");
 				else
 					syntaxError("Invalid coordinates.");
-			else
-				syntaxError("Invalid coordinates.");
+		}else if(args.length == 1)
+		{
+			BlockPos blockPos =
+				new BlockPos(EntityUtils.searchEntityByNameRaw(args[0]));
+			pos = new int[]{blockPos.getX(), blockPos.getY(), blockPos.getZ()};
+		}else
+			syntaxError("Invalid coordinates.");
 		return pos;
 	}
 	
