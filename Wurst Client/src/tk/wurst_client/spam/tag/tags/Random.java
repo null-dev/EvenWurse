@@ -17,6 +17,8 @@ import tk.wurst_client.utils.MiscUtils;
 
 public class Random extends Tag
 {
+	private static final java.util.Random random = new java.util.Random();
+	
 	public Random()
 	{
 		super("random", "Generates random strings, numbers and junk.",
@@ -43,10 +45,10 @@ public class Random extends Tag
 			throw new InvalidArgumentException(
 				"Invalid number in <random> tag: \"" + tagData.getTagArgs()[1]
 					+ "\"", tagData.getTagLine(), this);
-		String random = "";
+		String result = "";
 		if(tagData.getTagArgs()[0].equals("number"))
 			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
-				random += new java.util.Random().nextInt(10);
+				result += random.nextInt(10);
 		else if(tagData.getTagArgs()[0].equals("string"))
 		{
 			String alphabet =
@@ -54,24 +56,23 @@ public class Random extends Tag
 			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
 			{
 				char nextChar =
-					alphabet.charAt(new java.util.Random().nextInt(alphabet
-						.length()));
-				random += new String(new char[]{nextChar});
+					alphabet.charAt(random.nextInt(alphabet.length()));
+				result += new String(new char[]{nextChar});
 			}
 		}else if(tagData.getTagArgs()[0].equals("junk"))
 			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]);)
 			{
 				byte[] nextChar = new byte[1];
-				new java.util.Random().nextBytes(nextChar);
+				random.nextBytes(nextChar);
 				if(ChatAllowedCharacters.isAllowedCharacter((char)nextChar[0]))
 				{
 					String nextString =
 						new String(nextChar).replace("<", "§_lt;").replace("§",
 							"");
-					random += nextString;
+					result += nextString;
 					i++;
 				}
 			}
-		return random + tagData.getTagContent();
+		return result + tagData.getTagContent();
 	}
 }
