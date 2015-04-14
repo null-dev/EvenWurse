@@ -11,6 +11,8 @@ import java.util.Random;
 
 public class NameGenerator
 {
+	private static final Random random = new Random();
+	
 	public static String generateName()
 	{
 		String name = "";
@@ -23,8 +25,7 @@ public class NameGenerator
 		for(int i = 0; i < nameLength; i++)
 		{
 			String nextLetter = lastLetter;
-			if((new Random().nextBoolean() || usedConsonants == 1)
-				&& usedVowels < 2)
+			if((random.nextBoolean() || usedConsonants == 1) && usedVowels < 2)
 			{
 				while(nextLetter.equals(lastLetter))
 				{
@@ -61,7 +62,7 @@ public class NameGenerator
 							+ (i == nameLength ? "" : name.substring(i + 1));
 		int numberLength = (int)Math.round(Math.random() * 3) + 1;
 		int numberMode = (int)Math.round(Math.random() * 3);
-		boolean number = new Random().nextBoolean();
+		boolean number = random.nextBoolean();
 		if(number)
 			if(numberLength == 1)
 			{
@@ -97,7 +98,7 @@ public class NameGenerator
 				}
 				name = name.concat(Integer.toString(nextNumber));
 			}
-		boolean leet = !number && new Random().nextBoolean();
+		boolean leet = !number && random.nextBoolean();
 		if(leet)
 		{
 			String oldName = name;
