@@ -66,7 +66,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	private EntityLivingBase entityTarget;
 	private int[] blockTarget;
 	private long lastAttack = 0L;
-	public static int level = 40;
+	public int level = 40;
 	
 	@Override
 	public String getRenderName()
