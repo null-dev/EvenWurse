@@ -102,7 +102,8 @@ public class FileManager
 			saveXRayBlocks();
 		}else
 			loadXRayBlocks();
-		if(autobuildDir.listFiles().length == 0)
+		File[] autobuildFiles = autobuildDir.listFiles();
+		if(autobuildFiles != null && autobuildFiles.length == 0)
 			createDefaultAutoBuildTemplates();
 		loadAutoBuildTemplates();
 	}
@@ -548,7 +549,10 @@ public class FileManager
 	{
 		try
 		{
-			for(File file : autobuildDir.listFiles())
+			File[] files = autobuildDir.listFiles();
+			if(files == null)
+				return;
+			for(File file : files)
 			{
 				BufferedReader load = new BufferedReader(new FileReader(file));
 				JsonObject json = (JsonObject)new JsonParser().parse(load);
