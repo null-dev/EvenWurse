@@ -10,7 +10,7 @@ package tk.wurst_client.alts.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.LoginManager;
 
@@ -57,7 +57,7 @@ public class GuiAltAdd extends AltEditorScreen
 		if(displayText.equals(""))
 		{
 			GuiAltList.sortAlts();
-			Client.wurst.fileManager.saveAlts();
+			WurstClient.INSTANCE.fileManager.saveAlts();
 			mc.displayGuiScreen(prevMenu);
 		}else
 			errorTimer = 8;

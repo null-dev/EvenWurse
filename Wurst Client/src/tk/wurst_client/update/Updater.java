@@ -19,7 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -49,7 +49,7 @@ public class Updater
 	{
 		try
 		{
-			currentVersion = Client.wurst.CLIENT_VERSION;
+			currentVersion = WurstClient.VERSION;
 			outdated = false;
 			try
 			{

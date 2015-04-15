@@ -13,7 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -53,17 +53,17 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(KillauraLegitMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraLegitMod.class)
 			.isEnabled())
-			Client.wurst.modManager.getModByClass(KillauraLegitMod.class)
+			WurstClient.INSTANCE.modManager.getModByClass(KillauraLegitMod.class)
 				.setEnabled(false);
-		if(Client.wurst.modManager.getModByClass(MultiAuraMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
 			.isEnabled())
-			Client.wurst.modManager.getModByClass(MultiAuraMod.class)
+			WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
 				.setEnabled(false);
-		if(Client.wurst.modManager.getModByClass(TriggerBotMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(TriggerBotMod.class)
 			.isEnabled())
-			Client.wurst.modManager.getModByClass(TriggerBotMod.class)
+			WurstClient.INSTANCE.modManager.getModByClass(TriggerBotMod.class)
 				.setEnabled(false);
 		EventManager.update.addListener(this);
 	}
@@ -71,7 +71,7 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			realSpeed = yesCheatSpeed;
 			realRange = yesCheatRange;
@@ -87,7 +87,7 @@ public class KillauraMod extends Mod implements UpdateListener
 			EntityLivingBase en = EntityUtils.getClosestEntity(true);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
 			{
-				if(Client.wurst.modManager.getModByClass(AutoSwordMod.class)
+				if(WurstClient.INSTANCE.modManager.getModByClass(AutoSwordMod.class)
 					.isEnabled())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();

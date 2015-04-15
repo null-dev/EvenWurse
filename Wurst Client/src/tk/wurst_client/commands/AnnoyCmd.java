@@ -8,7 +8,7 @@
 package tk.wurst_client.commands;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.events.ChatInputEvent;
 import tk.wurst_client.events.EventManager;
@@ -31,9 +31,9 @@ public class AnnoyCmd extends Cmd implements ChatInputListener
 			if(args.length == 1)
 			{
 				name = args[0];
-				Client.wurst.chat.message("Now annoying " + name + ".");
+				WurstClient.INSTANCE.chat.message("Now annoying " + name + ".");
 				if(name.equals(Minecraft.getMinecraft().thePlayer.getName()))
-					Client.wurst.chat
+					WurstClient.INSTANCE.chat
 						.warning("Annoying yourself is a bad idea!");
 				EventManager.chatInput.addListener(this);
 			}else
@@ -46,7 +46,7 @@ public class AnnoyCmd extends Cmd implements ChatInputListener
 			EventManager.chatInput.removeListener(this);
 			if(name != null)
 			{
-				Client.wurst.chat.message("No longer annoying " + name + ".");
+				WurstClient.INSTANCE.chat.message("No longer annoying " + name + ".");
 				name = null;
 			}
 		}

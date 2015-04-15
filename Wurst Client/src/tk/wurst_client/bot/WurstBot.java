@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import net.minecraft.client.main.Main;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.bot.commands.Command;
 import tk.wurst_client.bot.commands.CommandManager;
 
@@ -67,7 +67,7 @@ public class WurstBot
 		System.out
 			.println("           +++++++++++++++++++++++++++++++++++++++++++++++           ");
 		System.out.println();
-		System.out.println("Wurst-Bot v" + Client.wurst.CLIENT_VERSION);
+		System.out.println("Wurst-Bot v" + WurstClient.VERSION);
 		System.out.println("Type \"help\" for a list of commands.");
 		while(true)
 		{

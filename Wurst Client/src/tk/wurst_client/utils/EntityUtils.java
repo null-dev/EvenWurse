@@ -20,7 +20,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.MathHelper;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 
 public class EntityUtils
 {
@@ -119,21 +119,21 @@ public class EntityUtils
 	public static boolean isCorrectEntity(Object o, boolean ignoreFriends)
 	{
 		boolean condition;
-		if(Client.wurst.options.targetMode == 0)
+		if(WurstClient.INSTANCE.options.targetMode == 0)
 			condition = o instanceof EntityLivingBase;
-		else if(Client.wurst.options.targetMode == 1)
+		else if(WurstClient.INSTANCE.options.targetMode == 1)
 			condition = o instanceof EntityPlayer;
-		else if(Client.wurst.options.targetMode == 2)
+		else if(WurstClient.INSTANCE.options.targetMode == 2)
 			condition = o instanceof EntityLiving;
-		else if(Client.wurst.options.targetMode == 3)
+		else if(WurstClient.INSTANCE.options.targetMode == 3)
 			condition = o instanceof EntityAnimal;
-		else if(Client.wurst.options.targetMode == 4)
+		else if(WurstClient.INSTANCE.options.targetMode == 4)
 			condition = o instanceof EntityMob;
 		else
 			throw new IllegalArgumentException("Unknown target mode selected: "
-				+ Client.wurst.options.targetMode);
+				+ WurstClient.INSTANCE.options.targetMode);
 		if(ignoreFriends && o instanceof EntityPlayer)
-			if(Client.wurst.friends.contains(((EntityPlayer)o).getName()))
+			if(WurstClient.INSTANCE.friends.contains(((EntityPlayer)o).getName()))
 				condition = false;
 		return condition;
 	}

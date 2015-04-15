@@ -9,7 +9,7 @@ package tk.wurst_client.commands;
 
 import java.util.Iterator;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.utils.MiscUtils;
 
@@ -29,45 +29,45 @@ public class FriendsCmd extends Cmd
 				execute(new String[]{"list", "1"});
 				return;
 			}
-			int pages = (int)Math.ceil(Client.wurst.friends.size() / 8D);
+			int pages = (int)Math.ceil(WurstClient.INSTANCE.friends.size() / 8D);
 			if(MiscUtils.isInteger(args[1]))
 			{
 				int page = Integer.valueOf(args[1]);
 				if(page > pages || page < 1)
 					syntaxError();
-				Client.wurst.chat.message("Current friends: "
-					+ Client.wurst.friends.size());
-				Client.wurst.chat.message("Friends list (page " + page + "/"
+				WurstClient.INSTANCE.chat.message("Current friends: "
+					+ WurstClient.INSTANCE.friends.size());
+				WurstClient.INSTANCE.chat.message("Friends list (page " + page + "/"
 					+ pages + "):");
-				Iterator<String> itr = Client.wurst.friends.iterator();
+				Iterator<String> itr = WurstClient.INSTANCE.friends.iterator();
 				for(int i = 0; itr.hasNext(); i++)
 				{
 					String friend = itr.next();
 					if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
-						Client.wurst.chat.message(friend);
+						WurstClient.INSTANCE.chat.message(friend);
 				}
 			}else
 				syntaxError();
 		}else if(args[0].equalsIgnoreCase("add"))
 		{
-			if(Client.wurst.friends.contains(args[1]))
+			if(WurstClient.INSTANCE.friends.contains(args[1]))
 			{
-				Client.wurst.chat.error("\"" + args[1]
+				WurstClient.INSTANCE.chat.error("\"" + args[1]
 					+ "\" is already in your friends list.");
 				return;
 			}
-			Client.wurst.friends.add(args[1]);
-			Client.wurst.fileManager.saveFriends();
-			Client.wurst.chat.message("Added friend \"" + args[1] + "\".");
+			WurstClient.INSTANCE.friends.add(args[1]);
+			WurstClient.INSTANCE.fileManager.saveFriends();
+			WurstClient.INSTANCE.chat.message("Added friend \"" + args[1] + "\".");
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
-			if(Client.wurst.friends.remove(args[1]))
+			if(WurstClient.INSTANCE.friends.remove(args[1]))
 			{
-				Client.wurst.fileManager.saveFriends();
-				Client.wurst.chat
+				WurstClient.INSTANCE.fileManager.saveFriends();
+				WurstClient.INSTANCE.chat
 					.message("Removed friend \"" + args[1] + "\".");
 			}else
-				Client.wurst.chat.error("\"" + args[1]
+				WurstClient.INSTANCE.chat.error("\"" + args[1]
 					+ "\" is not in your friends list.");
 		}else
 			syntaxError();

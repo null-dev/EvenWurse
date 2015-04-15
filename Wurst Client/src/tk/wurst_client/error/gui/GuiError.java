@@ -32,7 +32,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.util.ResourceLocation;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.utils.MiscUtils;
@@ -68,7 +68,7 @@ public class GuiError extends GuiScreen
 			98, 20, "View Bug"));
 		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
 			20, "Back to Game"));
-		Client.wurst.analytics.trackPageView("/error", "Error");
+		WurstClient.INSTANCE.analytics.trackPageView("/error", "Error");
 	}
 	
 	@Override
@@ -84,11 +84,11 @@ public class GuiError extends GuiScreen
 		switch(button.id)
 		{
 			case 0:
-				if(Client.wurst.updater.isOutdated()
-					|| Client.wurst.updater.getLatestVersion() == null)
+				if(WurstClient.INSTANCE.updater.isOutdated()
+					|| WurstClient.INSTANCE.updater.getLatestVersion() == null)
 				{
 					backToGame();
-					Client.wurst.chat
+					WurstClient.INSTANCE.chat
 						.error("Error reports can only be sent from the latest version.");
 					return;
 				}
@@ -101,7 +101,7 @@ public class GuiError extends GuiScreen
 					JsonObject gistError = new JsonObject();
 					gistError.addProperty("content", report);
 					gistFiles.add(
-						"Wurst-Client-v" + Client.wurst.CLIENT_VERSION
+						"Wurst-Client-v" + WurstClient.VERSION
 							+ "-Error-Report" + ".md", gistError);
 					gist.add("files", gistFiles);
 					JsonObject gistResponse =
@@ -122,20 +122,20 @@ public class GuiError extends GuiScreen
 						MiscUtils.get(new URL(reportUrl + "?id="
 							+ gistResponse.get("id").getAsString()
 							+ "&version="
-							+ Client.wurst.updater.getCurrentVersion()
+							+ WurstClient.INSTANCE.updater.getCurrentVersion()
 							+ "&class=" + cause.getClass().getName()
 							+ "&action=" + action));
 
 					backToGame();
-					Client.wurst.analytics.trackEvent("error", "report");
-					Client.wurst.chat.message("Server response: "
+					WurstClient.INSTANCE.analytics.trackEvent("error", "report");
+					WurstClient.INSTANCE.chat.message("Server response: "
 						+ reportResponse);
 				}catch(Exception e)
 				{
 					e.printStackTrace();
-					Client.wurst.chat
+					WurstClient.INSTANCE.chat
 						.error("Something went wrong with that error report.");
-					Client.wurst.analytics.trackEvent("error", "report failed");
+					WurstClient.INSTANCE.analytics.trackEvent("error", "report failed");
 				}
 				break;
 			case 1:
@@ -205,7 +205,7 @@ public class GuiError extends GuiScreen
 						}
 					}
 				}).start();
-				Client.wurst.analytics.trackEvent("error", "view");
+				WurstClient.INSTANCE.analytics.trackEvent("error", "view");
 				break;
 			case 2:
 				mc.displayGuiScreen(new GuiYesNo(
@@ -225,7 +225,7 @@ public class GuiError extends GuiScreen
 		if(result)
 		{
 			backToGame();
-			Client.wurst.analytics.trackEvent("error", "back");
+			WurstClient.INSTANCE.analytics.trackEvent("error", "back");
 		}else
 			mc.displayGuiScreen(this);
 		
@@ -234,7 +234,7 @@ public class GuiError extends GuiScreen
 	private void backToGame()
 	{
 		if(cause instanceof Mod)
-			Client.wurst.modManager.getModByClass(cause.getClass())
+			WurstClient.INSTANCE.modManager.getModByClass(cause.getClass())
 				.setEnabled(false);
 		mc.displayGuiScreen(null);
 	}
@@ -245,7 +245,7 @@ public class GuiError extends GuiScreen
 		if(cause instanceof Mod)
 			title +=
 				"in `"
-					+ Client.wurst.modManager.getModByClass(cause.getClass())
+					+ WurstClient.INSTANCE.modManager.getModByClass(cause.getClass())
 						.getName() + "` ";
 		else if(cause instanceof Cmd)
 			title += "in `." + ((Cmd)cause).getName() + "` ";
@@ -277,8 +277,8 @@ public class GuiError extends GuiScreen
 					+ " (" + System.getProperty("java.vendor") + ")");
 			content =
 				content.replace("§wurst",
-					Client.wurst.updater.getCurrentVersion() + " (latest: "
-						+ Client.wurst.updater.getLatestVersion() + ")");
+					WurstClient.INSTANCE.updater.getCurrentVersion() + " (latest: "
+						+ WurstClient.INSTANCE.updater.getLatestVersion() + ")");
 			content =
 				content.replace("§desc",
 					getReportDescription()

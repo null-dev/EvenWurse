@@ -10,7 +10,7 @@ package tk.wurst_client.mods;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -31,14 +31,14 @@ public class PlayerEspMod extends Mod implements RenderListener
 	@Override
 	public void onRender()
 	{
-		if(Client.wurst.modManager.getModByClass(ArenaBrawlMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(ArenaBrawlMod.class)
 			.isEnabled())
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityPlayer
 				&& !((Entity)entity).getName().equals(
 					Minecraft.getMinecraft().getSession().getUsername()))
-				RenderUtils.entityESPBox((Entity)entity, Client.wurst.friends
+				RenderUtils.entityESPBox((Entity)entity, WurstClient.INSTANCE.friends
 					.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
 	}
 	

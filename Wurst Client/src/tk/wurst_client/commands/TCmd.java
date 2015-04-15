@@ -7,7 +7,7 @@
  */
 package tk.wurst_client.commands;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.mods.Mod;
 
@@ -26,7 +26,7 @@ public class TCmd extends Cmd
 			mode = 2;
 		else
 			syntaxError();
-		Mod mod = Client.wurst.modManager.getModByName(args[0]);
+		Mod mod = WurstClient.INSTANCE.modManager.getModByName(args[0]);
 		if(mod == null)
 			error("Could not find mod \"" + args[0] + "\".");
 		if(mode == 0)

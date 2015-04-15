@@ -17,7 +17,7 @@ import net.minecraft.client.gui.GuiTextField;
 
 import org.lwjgl.input.Keyboard;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 
 public class GuiBookHack extends GuiScreen
 {
@@ -43,7 +43,7 @@ public class GuiBookHack extends GuiScreen
 		commandBox.setMaxStringLength(100);
 		commandBox.setFocused(true);
 		commandBox.setText("/");
-		Client.wurst.analytics.trackPageView("/bookhack", "BookHack");
+		WurstClient.INSTANCE.analytics.trackPageView("/bookhack", "BookHack");
 	}
 	
 	@Override
@@ -55,11 +55,11 @@ public class GuiBookHack extends GuiScreen
 		{
 			case 0:
 				prevMenu.signWithCommand(commandBox.getText());
-				Client.wurst.analytics.trackEvent("bookhack", "sign");
+				WurstClient.INSTANCE.analytics.trackEvent("bookhack", "sign");
 				break;
 			case 1:
 				Minecraft.getMinecraft().displayGuiScreen(prevMenu);
-				Client.wurst.analytics.trackEvent("bookhack", "cancel");
+				WurstClient.INSTANCE.analytics.trackEvent("bookhack", "cancel");
 				break;
 			default:
 				break;

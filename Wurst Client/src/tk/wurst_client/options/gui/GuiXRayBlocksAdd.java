@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.XRayMod;
 
 public class GuiXRayBlocksAdd extends GuiScreen
@@ -82,9 +82,9 @@ public class GuiXRayBlocksAdd extends GuiScreen
 				Block block = Block.getBlockFromName(nameBox.getText());
 				XRayMod.xrayBlocks.add(block);
 				GuiXRayBlocksList.sortBlocks();
-				Client.wurst.fileManager.saveXRayBlocks();
+				WurstClient.INSTANCE.fileManager.saveXRayBlocks();
 				mc.displayGuiScreen(prevMenu);
-				Client.wurst.analytics.trackEvent("x-ray blocks", "add",
+				WurstClient.INSTANCE.analytics.trackEvent("x-ray blocks", "add",
 					Integer.toString(Block.getIdFromBlock(block)));
 			}else if(clickedButton.id == 1)
 				mc.displayGuiScreen(prevMenu);

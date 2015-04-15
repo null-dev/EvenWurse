@@ -8,7 +8,7 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -28,7 +28,7 @@ public class FullbrightMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(isEnabled()
-			|| Client.wurst.modManager.getModByClass(XRayMod.class).isEnabled())
+			|| WurstClient.INSTANCE.modManager.getModByClass(XRayMod.class).isEnabled())
 		{
 			if(Minecraft.getMinecraft().gameSettings.gammaSetting < 16F)
 				Minecraft.getMinecraft().gameSettings.gammaSetting += 0.5F;

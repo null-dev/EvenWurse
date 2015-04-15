@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.commands.Cmd.SyntaxError;
 import tk.wurst_client.events.ChatOutputEvent;
@@ -88,26 +88,26 @@ public class CmdManager implements ChatOutputListener
 				{
 					cmd.execute(args);
 					if(!event.isAutomatic())
-						Client.wurst.analytics.trackEvent("command",
+						WurstClient.INSTANCE.analytics.trackEvent("command",
 							commandName);
 				}catch(SyntaxError e)
 				{
 					if(e.getMessage() != null)
-						Client.wurst.chat.message("§4Syntax error:§r "
+						WurstClient.INSTANCE.chat.message("§4Syntax error:§r "
 							+ e.getMessage());
 					else
-						Client.wurst.chat.message("§4Syntax error!§r");
+						WurstClient.INSTANCE.chat.message("§4Syntax error!§r");
 					cmd.printSyntax();
 				}catch(Cmd.Error e)
 				{
-					Client.wurst.chat.error(e.getMessage());
+					WurstClient.INSTANCE.chat.error(e.getMessage());
 				}catch(Exception e)
 				{
 					EventManager.handleException(e, cmd, "executing",
 						"Exact input: `" + event.getMessage() + "`");
 				}
 			else
-				Client.wurst.chat.error("\"." + commandName
+				WurstClient.INSTANCE.chat.error("\"." + commandName
 					+ "\" is not a valid command.");
 		}
 	}

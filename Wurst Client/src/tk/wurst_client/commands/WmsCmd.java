@@ -7,7 +7,7 @@
  */
 package tk.wurst_client.commands;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Enables/disables Wurst messages or sends a message.",
@@ -21,13 +21,13 @@ public class WmsCmd extends Cmd
 		if(args.length == 0)
 			syntaxError();
 		if(args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off"))
-			Client.wurst.chat.setEnabled(args[0].equalsIgnoreCase("on"));
+			WurstClient.INSTANCE.chat.setEnabled(args[0].equalsIgnoreCase("on"));
 		else if(args[0].equalsIgnoreCase("echo"))
 		{
 			String message = args[1];
 			for(int i = 2; i < args.length; i++)
 				message += " " + args[i];
-			Client.wurst.chat.cmd(message);
+			WurstClient.INSTANCE.chat.cmd(message);
 		}else
 			syntaxError();
 	}

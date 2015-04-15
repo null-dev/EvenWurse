@@ -1,6 +1,6 @@
-From 3791f0aaf6845ec711cb5a903fc692fcba69a3fc Mon Sep 17 00:00:00 2001
+From 894f3d0368fb267bc224a60abd55de1f740dc39e Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 15 Apr 2015 21:56:28 +0200
+Date: Wed, 15 Apr 2015 23:09:50 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -58,9 +58,9 @@ Subject: [PATCH] Wurst
  .../client/gui/GuiScreenOptionsSounds.java         |    2 +
  .../minecraft/client/gui/GuiScreenRealmsProxy.java |    5 +-
  .../client/gui/GuiScreenResourcePacks.java         |    4 +
- .../minecraft/client/gui/GuiScreenServerList.java  |   11 +
+ .../minecraft/client/gui/GuiScreenServerList.java  |  225 +-
  src/net/minecraft/client/gui/GuiSelectWorld.java   |  660 +-
- src/net/minecraft/client/gui/GuiShareToLan.java    |    5 +
+ src/net/minecraft/client/gui/GuiShareToLan.java    |  231 +-
  .../gui/GuiSimpleScrolledSelectionListProxy.java   |    6 +-
  src/net/minecraft/client/gui/GuiSleepMP.java       |    2 +
  src/net/minecraft/client/gui/GuiSlider.java        |    1 +
@@ -149,7 +149,7 @@ Subject: [PATCH] Wurst
  .../client/stream/BroadcastController.java         |    4 +
  src/net/minecraft/command/IEntitySelector.java     |    2 +-
  .../command/server/CommandBlockLogic.java          |    2 +
- src/net/minecraft/crash/CrashReport.java           |   19 +-
+ src/net/minecraft/crash/CrashReport.java           |  839 +--
  src/net/minecraft/crash/CrashReportCategory.java   |    3 +
  src/net/minecraft/entity/DataWatcher.java          |   12 +-
  src/net/minecraft/entity/Entity.java               | 5550 ++++++++--------
@@ -207,10 +207,10 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 27549 insertions(+), 25856 deletions(-)
+ 203 files changed, 28179 insertions(+), 26486 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
-index 5c07aa4..f0f9ace 100644
+index 5c07aa4..bb15d0d 100644
 --- a/src/net/minecraft/block/Block.java
 +++ b/src/net/minecraft/block/Block.java
 @@ -1,1511 +1,1527 @@
@@ -1761,7 +1761,7 @@ index 5c07aa4..f0f9ace 100644
 +import net.minecraft.world.Explosion;
 +import net.minecraft.world.IBlockAccess;
 +import net.minecraft.world.World;
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.FreecamMod;
 +import tk.wurst_client.mods.XRayMod;
 +import tk.wurst_client.utils.XRayUtils;
@@ -2086,7 +2086,7 @@ index 5c07aa4..f0f9ace 100644
 +    public boolean isFullCube()
 +    {
 +    	//TODO: Client
-+        return !Client.wurst.modManager.getModByClass(XRayMod.class).isEnabled() && !Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled();
++        return !WurstClient.INSTANCE.modManager.getModByClass(XRayMod.class).isEnabled() && !WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class).isEnabled();
 +    }
 +
 +    public boolean isPassable(IBlockAccess blockAccess, BlockPos pos)
@@ -3253,7 +3253,7 @@ index 5c07aa4..f0f9ace 100644
 +    }
 +}
 diff --git a/src/net/minecraft/block/BlockLiquid.java b/src/net/minecraft/block/BlockLiquid.java
-index 4689151..7843cab 100644
+index 4689151..2cb91c5 100644
 --- a/src/net/minecraft/block/BlockLiquid.java
 +++ b/src/net/minecraft/block/BlockLiquid.java
 @@ -1,419 +1,427 @@
@@ -3698,7 +3698,7 @@ index 4689151..7843cab 100644
 +import net.minecraft.world.IBlockAccess;
 +import net.minecraft.world.World;
 +import net.minecraft.world.biome.BiomeColorHelper;
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.JesusMod;
 +import tk.wurst_client.mods.LiquidsMod;
 +import tk.wurst_client.mods.XRayMod;
@@ -3719,7 +3719,7 @@ index 4689151..7843cab 100644
 +    public boolean isPassable(IBlockAccess blockAccess, BlockPos pos)
 +    {
 +    	//TODO: Client
-+        return Client.wurst.modManager.getModByClass(XRayMod.class).isEnabled() ? true : this.blockMaterial != Material.lava;
++        return WurstClient.INSTANCE.modManager.getModByClass(XRayMod.class).isEnabled() ? true : this.blockMaterial != Material.lava;
 +    }
 +
 +    public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass)
@@ -3764,7 +3764,7 @@ index 4689151..7843cab 100644
 +    public boolean canCollideCheck(IBlockState state, boolean p_176209_2_)
 +    {
 +    	//TODO: Client
-+        return (p_176209_2_ && ((Integer)state.getValue(LEVEL)).intValue() == 0) || Client.wurst.modManager.getModByClass(LiquidsMod.class).isEnabled();
++        return (p_176209_2_ && ((Integer)state.getValue(LEVEL)).intValue() == 0) || WurstClient.INSTANCE.modManager.getModByClass(LiquidsMod.class).isEnabled();
 +    }
 +
 +    /**
@@ -3804,7 +3804,7 @@ index 4689151..7843cab 100644
 +    public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
 +    {
 +    	//TODO: Client
-+    	return Client.wurst.modManager.getModByClass(JesusMod.class).isEnabled() ? AxisAlignedBB.fromBounds(pos.getX() + minX, pos.getY() + minY, pos.getZ() + minZ, pos.getX() + maxX, pos.getY() + maxY, pos.getZ() + maxZ) : null;
++    	return WurstClient.INSTANCE.modManager.getModByClass(JesusMod.class).isEnabled() ? AxisAlignedBB.fromBounds(pos.getX() + minX, pos.getY() + minY, pos.getZ() + minZ, pos.getX() + maxX, pos.getY() + maxY, pos.getZ() + maxZ) : null;
 +    }
 +
 +    /**
@@ -4104,7 +4104,7 @@ index 4689151..7843cab 100644
 +    }
 +}
 diff --git a/src/net/minecraft/block/BlockSlab.java b/src/net/minecraft/block/BlockSlab.java
-index 0c52e06..283d6e7 100644
+index 0c52e06..2318f36 100644
 --- a/src/net/minecraft/block/BlockSlab.java
 +++ b/src/net/minecraft/block/BlockSlab.java
 @@ -1,186 +1,190 @@
@@ -4313,7 +4313,7 @@ index 0c52e06..283d6e7 100644
 +import net.minecraft.util.IStringSerializable;
 +import net.minecraft.world.IBlockAccess;
 +import net.minecraft.world.World;
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.FreecamMod;
 +
 +public abstract class BlockSlab extends Block
@@ -4414,7 +4414,7 @@ index 0c52e06..283d6e7 100644
 +    public boolean isFullCube()
 +    {
 +    	//TODO: Client
-+    	return Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled() ? false : this.isDouble();
++    	return WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class).isEnabled() ? false : this.isDouble();
 +    }
 +
 +    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
@@ -4485,7 +4485,7 @@ index 0c52e06..283d6e7 100644
 +    }
 +}
 diff --git a/src/net/minecraft/block/BlockSoulSand.java b/src/net/minecraft/block/BlockSoulSand.java
-index 6520f1d..e4e0aeb 100644
+index 6520f1d..9aa788d 100644
 --- a/src/net/minecraft/block/BlockSoulSand.java
 +++ b/src/net/minecraft/block/BlockSoulSand.java
 @@ -1,35 +1,39 @@
@@ -4526,7 +4526,7 @@ index 6520f1d..e4e0aeb 100644
 -}
 +package net.minecraft.block;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.NoSlowdownMod;
 +import net.minecraft.block.material.Material;
 +import net.minecraft.block.state.IBlockState;
@@ -4557,7 +4557,7 @@ index 6520f1d..e4e0aeb 100644
 +     */
 +    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 +    {
-+    	if(Client.wurst.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
++    	if(WurstClient.INSTANCE.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
 +    		return;
 +        entityIn.motionX *= 0.4D;
 +        entityIn.motionZ *= 0.4D;
@@ -4603,7 +4603,7 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..9bc22b0 100644
+index f503b64..1d58c65 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
 @@ -1,3306 +1,3548 @@
@@ -8042,7 +8042,7 @@ index f503b64..9bc22b0 100644
 +import org.lwjgl.opengl.*;
 +import org.lwjgl.util.glu.GLU;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.bot.WurstBot;
 +import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.LeftClickEvent;
@@ -8474,7 +8474,7 @@ index f503b64..9bc22b0 100644
 +        this.ingameGUI = new GuiIngame(this);
 +
 +        //TODO: Client
-+        Client.wurst.startClient();
++        WurstClient.INSTANCE.startClient();
 +        if(frame != null)
 +        	frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 +
@@ -10040,7 +10040,7 @@ index f503b64..9bc22b0 100644
 +                    	//TODO: Client
 +            			if(Keyboard.getEventKey() != 0)
 +            			{
-+            				String eventCommand = Client.wurst.keybinds.get(Keyboard.getKeyName(Keyboard.getEventKey()));
++            				String eventCommand = WurstClient.INSTANCE.keybinds.get(Keyboard.getKeyName(Keyboard.getEventKey()));
 +            				if(eventCommand != null)
 +            					thePlayer.sendAutomaticChatMessage(eventCommand);
 +            			}
@@ -10445,7 +10445,7 @@ index f503b64..9bc22b0 100644
 +        
 +        //TODO: Client
 +        SpamProcessor.runScript("joinworld", "Runs whenever you join a singleplayer world.");
-+		Client.wurst.analytics.trackPageView("/play/singleplayer", "Singleplayer");
++		WurstClient.INSTANCE.analytics.trackPageView("/play/singleplayer", "Singleplayer");
 +    }
 +
 +    /**
@@ -10650,19 +10650,19 @@ index f503b64..9bc22b0 100644
 +				if(this.objectMouseOver.entityHit != null
 +					&& this.objectMouseOver.entityHit instanceof EntityPlayer)
 +				{
-+					if(Client.wurst.options.middleClickFriends)
++					if(WurstClient.INSTANCE.options.middleClickFriends)
 +					{
-+						if(Client.wurst.friends
++						if(WurstClient.INSTANCE.friends
 +							.contains(objectMouseOver.entityHit.getName()))
 +						{
-+							Client.wurst.friends
++							WurstClient.INSTANCE.friends
 +								.remove(objectMouseOver.entityHit.getName());
 +						}else
 +						{
-+							Client.wurst.friends
++							WurstClient.INSTANCE.friends
 +								.add(this.objectMouseOver.entityHit.getName());
 +						}
-+						Client.wurst.fileManager.saveFriends();
++						WurstClient.INSTANCE.fileManager.saveFriends();
 +					}
 +				}
 +                
@@ -12655,7 +12655,7 @@ index 9397e9d..4bd9472 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/AbstractClientPlayer.java b/src/net/minecraft/client/entity/AbstractClientPlayer.java
-index de9ca57..4d6a95f 100644
+index de9ca57..3833cae 100644
 --- a/src/net/minecraft/client/entity/AbstractClientPlayer.java
 +++ b/src/net/minecraft/client/entity/AbstractClientPlayer.java
 @@ -1,131 +1,136 @@
@@ -12809,7 +12809,7 @@ index de9ca57..4d6a95f 100644
 +import net.minecraft.util.StringUtils;
 +import net.minecraft.world.World;
 +import net.minecraft.world.WorldSettings;
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.FreecamMod;
 +
 +import com.mojang.authlib.GameProfile;
@@ -12828,7 +12828,7 @@ index de9ca57..4d6a95f 100644
 +    {
 +        NetworkPlayerInfo var1 = Minecraft.getMinecraft().getNetHandler().func_175102_a(this.getGameProfile().getId());
 +        //TODO: Client
-+        return Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled() ? true : var1 != null && var1.getGameType() == WorldSettings.GameType.SPECTATOR;
++        return WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class).isEnabled() ? true : var1 != null && var1.getGameType() == WorldSettings.GameType.SPECTATOR;
 +    }
 +
 +    public boolean hasCape()
@@ -12927,7 +12927,7 @@ index de9ca57..4d6a95f 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..611e443 100644
+index eefe303..ac7cdf6 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
 @@ -1,863 +1,920 @@
@@ -13796,7 +13796,7 @@ index eefe303..611e443 100644
 -}
 +package net.minecraft.client.entity;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.commands.Cmd;
 +import tk.wurst_client.commands.CmdManager;
 +import tk.wurst_client.events.ChatOutputEvent;
@@ -13999,12 +13999,12 @@ index eefe303..611e443 100644
 +            //Stops motion updates
 +            if
 +            (
-+            	Client.wurst.modManager.getModByClass(RemoteViewMod.class).isEnabled()
-+            	|| Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled()
++            	WurstClient.INSTANCE.modManager.getModByClass(RemoteViewMod.class).isEnabled()
++            	|| WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class).isEnabled()
 +            )
 +            {
 +            	
-+            }else if (Client.wurst.modManager.getModByClass(BlinkMod.class).isEnabled())
++            }else if (WurstClient.INSTANCE.modManager.getModByClass(BlinkMod.class).isEnabled())
 +            {//Redirects motion updates to the Blink queue
 +            	if (var13 && var14)
 +                {
@@ -14086,7 +14086,7 @@ index eefe303..611e443 100644
 +    {
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_, false);
-+      	Client.wurst.cmdManager.onSentMessage(event);
++      	WurstClient.INSTANCE.cmdManager.onSentMessage(event);
 +      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;
@@ -14101,7 +14101,7 @@ index eefe303..611e443 100644
 +    {
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(message, true);
-+      	Client.wurst.cmdManager.onSentMessage(event);
++      	WurstClient.INSTANCE.cmdManager.onSentMessage(event);
 +      	EventManager.chatOutput.fireEvent(event);
 +      	if(event.isCancelled())
 +      		return;
@@ -14591,7 +14591,7 @@ index eefe303..611e443 100644
 +
 +        //TODO: Client
 +        if (this.isUsingItem() && !this.isRiding()
-+        	&& !Client.wurst.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
++        	&& !WurstClient.INSTANCE.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
 +        {
 +            this.movementInput.moveStrafe *= 0.2F;
 +            this.movementInput.moveForward *= 0.2F;
@@ -14715,7 +14715,7 @@ index eefe303..611e443 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/FontRenderer.java b/src/net/minecraft/client/gui/FontRenderer.java
-index 2d4215d..95f8b7e 100644
+index 2d4215d..35063da 100644
 --- a/src/net/minecraft/client/gui/FontRenderer.java
 +++ b/src/net/minecraft/client/gui/FontRenderer.java
 @@ -1,984 +1,1010 @@
@@ -15728,7 +15728,7 @@ index 2d4215d..95f8b7e 100644
 +import org.apache.commons.io.IOUtils;
 +import org.lwjgl.opengl.GL11;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.NameProtectMod;
 +
 +import com.ibm.icu.text.ArabicShaping;
@@ -16045,7 +16045,7 @@ index 2d4215d..95f8b7e 100644
 +    public int drawString(String p_175065_1_, float p_175065_2_, float p_175065_3_, int p_175065_4_, boolean p_175065_5_)
 +    {
 +    	//TODO: Client
-+    	if(Minecraft.getMinecraft().getNetHandler() != null && Client.wurst.modManager.getModByClass(NameProtectMod.class).isEnabled())
++    	if(Minecraft.getMinecraft().getNetHandler() != null && WurstClient.INSTANCE.modManager.getModByClass(NameProtectMod.class).isEnabled())
 +    	{
 +    		Iterator itr = Minecraft.getMinecraft().getNetHandler().getPlayerInfo().iterator();
 +    		int i = 0;
@@ -17205,7 +17205,7 @@ index 94b72e0..89e3d7f 100644
              var7.addVertexWithUV((double)(this.width / 2 + 90), 185.0D, 0.0D, 5.625D, 2.65625D);
              var7.addVertexWithUV((double)(this.width / 2 + 90), 100.0D, 0.0D, 5.625D, 0.0D);
 diff --git a/src/net/minecraft/client/gui/GuiDisconnected.java b/src/net/minecraft/client/gui/GuiDisconnected.java
-index 957deda..b33e28d 100644
+index 957deda..018e285 100644
 --- a/src/net/minecraft/client/gui/GuiDisconnected.java
 +++ b/src/net/minecraft/client/gui/GuiDisconnected.java
 @@ -1,70 +1,154 @@
@@ -17287,7 +17287,7 @@ index 957deda..b33e28d 100644
 +
 +import org.apache.logging.log4j.LogManager;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import net.minecraft.client.gui.GuiButton;
 +import net.minecraft.client.multiplayer.GuiConnecting;
 +import net.minecraft.client.resources.I18n;
@@ -17344,7 +17344,7 @@ index 957deda..b33e28d 100644
 +					.getSelectedServer() != -1)
 +				this.buttonList.add(new GuiButton(3, this.width / 2 - 100,
 +					this.height / 4 + 192 + 12, "§4Delete Server§r"));
-+		if(Client.wurst.options.autoReconnect)
++		if(WurstClient.INSTANCE.options.autoReconnect)
 +			this.autoReconnectTimer = 100;
 +    }
 +
@@ -17355,7 +17355,7 @@ index 957deda..b33e28d 100644
 +    public void updateScreen()
 +    {
 +        super.updateScreen();
-+        if(Client.wurst.options.autoReconnect)
++        if(WurstClient.INSTANCE.options.autoReconnect)
 +        {
 +        	((GuiButton)this.buttonList.get(2)).displayString = "AutoReconnect (" + ((this.autoReconnectTimer / 20) + 1) + ")";
 +        	if(this.autoReconnectTimer > 0)
@@ -17385,18 +17385,18 @@ index 957deda..b33e28d 100644
 +          //TODO: Client
 +        }else if (button.id == 1)
 +        {
-+        	if (Client.wurst.lastServer != null)
++        	if (WurstClient.INSTANCE.lastServer != null)
 +            {
-+        		Client.wurst.currentServerIP = Client.wurst.lastServer.getServerData().serverIP;
-+                if(!Client.wurst.currentServerIP.contains(":"))
-+                	Client.wurst.currentServerIP += ":25565";
-+                this.mc.displayGuiScreen(new GuiConnecting(this, this.mc, Client.wurst.lastServer.getServerData()));
++        		WurstClient.INSTANCE.currentServerIP = WurstClient.INSTANCE.lastServer.getServerData().serverIP;
++                if(!WurstClient.INSTANCE.currentServerIP.contains(":"))
++                	WurstClient.INSTANCE.currentServerIP += ":25565";
++                this.mc.displayGuiScreen(new GuiConnecting(this, this.mc, WurstClient.INSTANCE.lastServer.getServerData()));
 +            }
 +        }else if (button.id == 2)
 +        {
-+        	Client.wurst.options.autoReconnect = !Client.wurst.options.autoReconnect;
-+        	Client.wurst.fileManager.saveOptions();
-+        	if(Client.wurst.options.autoReconnect)
++        	WurstClient.INSTANCE.options.autoReconnect = !WurstClient.INSTANCE.options.autoReconnect;
++        	WurstClient.INSTANCE.fileManager.saveOptions();
++        	if(WurstClient.INSTANCE.options.autoReconnect)
 +        		this.autoReconnectTimer = 100;
 +        }else if(button.id == 3)
 +		{
@@ -17496,7 +17496,7 @@ index 47e1373..6361176 100644
              GlStateManager.disableRescaleNormal();
          }
 diff --git a/src/net/minecraft/client/gui/GuiGameOver.java b/src/net/minecraft/client/gui/GuiGameOver.java
-index c737e46..fc61ae9 100644
+index c737e46..15134c8 100644
 --- a/src/net/minecraft/client/gui/GuiGameOver.java
 +++ b/src/net/minecraft/client/gui/GuiGameOver.java
 @@ -1,137 +1,145 @@
@@ -17642,7 +17642,7 @@ index c737e46..fc61ae9 100644
 +import java.io.IOException;
 +import java.util.Iterator;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.events.DeathEvent;
 +import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.mods.Mod;
@@ -17783,7 +17783,7 @@ index c737e46..fc61ae9 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiIngame.java b/src/net/minecraft/client/gui/GuiIngame.java
-index 6dbd34d..03892e6 100644
+index 6dbd34d..99acd21 100644
 --- a/src/net/minecraft/client/gui/GuiIngame.java
 +++ b/src/net/minecraft/client/gui/GuiIngame.java
 @@ -1,1194 +1,1284 @@
@@ -19041,7 +19041,7 @@ index 6dbd34d..03892e6 100644
 +import org.darkstorm.minecraft.gui.util.RenderUtil;
 +import org.lwjgl.opengl.GL11;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.GUIRenderEvent;
 +import tk.wurst_client.font.Fonts;
@@ -19349,8 +19349,8 @@ index 6dbd34d..03892e6 100644
 +    		glBegin(GL_QUADS);
 +    		{
 +    			glVertex2d(0, 6);
-+    			glVertex2d(Fonts.segoe22.getStringWidth("v" + Client.wurst.CLIENT_VERSION) + 78, 6);
-+    			glVertex2d(Fonts.segoe22.getStringWidth("v" + Client.wurst.CLIENT_VERSION) + 78, 18);
++    			glVertex2d(Fonts.segoe22.getStringWidth("v" + WurstClient.INSTANCE.VERSION) + 78, 6);
++    			glVertex2d(Fonts.segoe22.getStringWidth("v" + WurstClient.INSTANCE.VERSION) + 78, 18);
 +    			glVertex2d(0, 18);
 +    		}
 +    		glEnd();
@@ -20569,7 +20569,7 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..546bcfb 100644
+index 38033d9..a379b52 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
 @@ -1,567 +1,767 @@
@@ -21186,7 +21186,7 @@ index 38033d9..546bcfb 100644
 +import org.newdawn.slick.util.xml.XMLElementList;
 +import org.newdawn.slick.util.xml.XMLParser;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.alts.gui.GuiAlts;
 +import tk.wurst_client.utils.MiscUtils;
 +
@@ -21298,7 +21298,7 @@ index 38033d9..546bcfb 100644
 +        }
 +        
 +        //TODO: Client
-+		Client.wurst.analytics.trackPageView("/", "Main Menu");
++		WurstClient.INSTANCE.analytics.trackPageView("/", "Main Menu");
 +    }
 +
 +    /**
@@ -21362,7 +21362,7 @@ index 38033d9..546bcfb 100644
 +        else
 +        	Tessellator.shouldRenderLSD = false;
 +
-+        Client.wurst.currentServerIP = "127.0.0.1:25565";
++        WurstClient.INSTANCE.currentServerIP = "127.0.0.1:25565";
 +
 +        boolean var2 = true;
 +        int var3 = this.height / 4 + 48;
@@ -21401,7 +21401,7 @@ index 38033d9..546bcfb 100644
 +				try
 +				{
 +					newsItems.clear();
-+					if(!Client.wurst.options.wurstNews)
++					if(!WurstClient.INSTANCE.options.wurstNews)
 +						return;
 +					HttpsURLConnection connection = (HttpsURLConnection)new URL("https://www.wurst-client.tk/news/feed.xml").openConnection();
 +					connection.connect();
@@ -21543,13 +21543,13 @@ index 38033d9..546bcfb 100644
 +			{
 +				MiscUtils
 +					.openLink("https://www.youtube.com/watch?v=_Gf8oaC9QKM");
-+				Client.wurst.analytics.trackEvent("christmas easter egg",
++				WurstClient.INSTANCE.analytics.trackEvent("christmas easter egg",
 +					"play christmas song");
 +				this.mc.shutdown();
 +			}else
 +			{
 +				this.mc.displayGuiScreen(this);
-+				Client.wurst.analytics.trackEvent("christmas easter egg",
++				WurstClient.INSTANCE.analytics.trackEvent("christmas easter egg",
 +					"grief on christmas");
 +			}
 +		}
@@ -21819,7 +21819,7 @@ index 38033d9..546bcfb 100644
 +        this.drawCenteredString(this.fontRendererObj, this.splashText, 0, 0, -256);
 +        GlStateManager.popMatrix();
 +        String var10 = "Minecraft 1.8";
-+        String wurst10 = "Wurst v" + Client.wurst.CLIENT_VERSION;
++        String wurst10 = "Wurst v" + WurstClient.INSTANCE.VERSION;
 +
 +        if (this.mc.isDemo())
 +        {
@@ -21860,24 +21860,24 @@ index 38033d9..546bcfb 100644
 +        super.drawScreen(mouseX, mouseY, partialTicks);
 +        
 +        //TODO: Client
-+        if(!Client.wurst.startupMessageDisabled)
++        if(!WurstClient.INSTANCE.startupMessageDisabled)
 +		{
-+			if(Client.wurst.updater.isOutdated())
++			if(WurstClient.INSTANCE.updater.isOutdated())
 +			{
-+				Client.wurst.analytics.trackEvent("updater", "update to v"
-+					+ Client.wurst.updater.getLatestVersion(), "from "
-+					+ Client.wurst.updater.getCurrentVersion());
-+				Client.wurst.updater.update();
++				WurstClient.INSTANCE.analytics.trackEvent("updater", "update to v"
++					+ WurstClient.INSTANCE.updater.getLatestVersion(), "from "
++					+ WurstClient.INSTANCE.updater.getCurrentVersion());
++				WurstClient.INSTANCE.updater.update();
 +			}else if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
 +				&& Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24)
 +			{
 +				this.mc.displayGuiScreen(new GuiYesNo(this,
 +					"Dude, it's Christmas!", "What do you want here?",
 +					"I want a Christmas song", "I want to grief", 1));
-+				Client.wurst.analytics.trackPageView("/easter-eggs/christmas",
++				WurstClient.INSTANCE.analytics.trackPageView("/easter-eggs/christmas",
 +					"Dude, it's Christmas!");
 +			}
-+			Client.wurst.startupMessageDisabled = true;
++			WurstClient.INSTANCE.startupMessageDisabled = true;
 +		}
 +    }
 +
@@ -21945,7 +21945,7 @@ index 518840e..8c0b1ea 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/gui/GuiMultiplayer.java b/src/net/minecraft/client/gui/GuiMultiplayer.java
-index da42542..07d60bf 100644
+index da42542..fb12fbc 100644
 --- a/src/net/minecraft/client/gui/GuiMultiplayer.java
 +++ b/src/net/minecraft/client/gui/GuiMultiplayer.java
 @@ -1,483 +1,634 @@
@@ -22461,7 +22461,7 @@ index da42542..07d60bf 100644
 +import org.apache.logging.log4j.Logger;
 +import org.lwjgl.input.Keyboard;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.servers.gui.GuiCleanUp;
 +import tk.wurst_client.servers.gui.GuiServerFinder;
 +import tk.wurst_client.spam.SpamProcessor;
@@ -22533,7 +22533,7 @@ index da42542..07d60bf 100644
 +        }
 +
 +        this.createButtons();
-+        Client.wurst.analytics.trackPageView("/multiplayer", "Select Server");
++        WurstClient.INSTANCE.analytics.trackPageView("/multiplayer", "Select Server");
 +    }
 +
 +    /**
@@ -22579,7 +22579,7 @@ index da42542..07d60bf 100644
 +
 +        this.oldServerPinger.pingPendingNetworks();
 +        //TODO: Client
-+        ((GuiButton)this.buttonList.get(7)).enabled = Client.wurst.lastServer != null; //ID: 5
++        ((GuiButton)this.buttonList.get(7)).enabled = WurstClient.INSTANCE.lastServer != null; //ID: 5
 +    }
 +
 +    /**
@@ -22651,12 +22651,12 @@ index da42542..07d60bf 100644
 +                //TODO: Client
 +            }else if(button.id == 5)
 +            {//Last Server
-+            	if(Client.wurst.lastServer != null)
++            	if(WurstClient.INSTANCE.lastServer != null)
 +                {
-+            		Client.wurst.currentServerIP = Client.wurst.lastServer.getServerData().serverIP;
-+                    if(!Client.wurst.currentServerIP.contains(":"))
-+                    	Client.wurst.currentServerIP += ":25565";
-+                    this.connectToServer(Client.wurst.lastServer.getServerData());
++            		WurstClient.INSTANCE.currentServerIP = WurstClient.INSTANCE.lastServer.getServerData().serverIP;
++                    if(!WurstClient.INSTANCE.currentServerIP.contains(":"))
++                    	WurstClient.INSTANCE.currentServerIP += ":25565";
++                    this.connectToServer(WurstClient.INSTANCE.lastServer.getServerData());
 +                }
 +            }else if(button.id == 10)
 +            {//Import
@@ -22665,7 +22665,7 @@ index da42542..07d60bf 100644
 +            		@Override
 +            		public void run()
 +            		{
-+            			JFileChooser fileChooser = new JFileChooser(Client.wurst.fileManager.serverlistsDir)
++            			JFileChooser fileChooser = new JFileChooser(WurstClient.INSTANCE.fileManager.serverlistsDir)
 +            			{
 +            				protected JDialog createDialog(Component parent) throws HeadlessException
 +            				{
@@ -22710,7 +22710,7 @@ index da42542..07d60bf 100644
 +					@Override
 +					public void run()
 +					{
-+						JFileChooser fileChooser = new JFileChooser(Client.wurst.fileManager.serverlistsDir)
++						JFileChooser fileChooser = new JFileChooser(WurstClient.INSTANCE.fileManager.serverlistsDir)
 +						{
 +							protected JDialog createDialog(Component parent) throws HeadlessException
 +							{
@@ -22948,14 +22948,14 @@ index da42542..07d60bf 100644
 +        //TODO: Client
 +        if(var1 instanceof ServerListEntryNormal)
 +        {
-+        	Client.wurst.currentServerIP = ((ServerListEntryNormal) var1).getServerData().serverIP;
-+        	if(!Client.wurst.currentServerIP.contains(":"))
-+        		Client.wurst.currentServerIP += ":25565";
-+        	Client.wurst.lastServer = (ServerListEntryNormal) (this.serverListSelector.getSelectedServer() < 0 ? null : this.serverListSelector.getListEntry(this.serverListSelector.getSelectedServer()));
++        	WurstClient.INSTANCE.currentServerIP = ((ServerListEntryNormal) var1).getServerData().serverIP;
++        	if(!WurstClient.INSTANCE.currentServerIP.contains(":"))
++        		WurstClient.INSTANCE.currentServerIP += ":25565";
++        	WurstClient.INSTANCE.lastServer = (ServerListEntryNormal) (this.serverListSelector.getSelectedServer() < 0 ? null : this.serverListSelector.getListEntry(this.serverListSelector.getSelectedServer()));
 +        }else if(var1 instanceof ServerListEntryLanDetected)
 +        {
-+        	Client.wurst.currentServerIP = ((ServerListEntryLanDetected) var1).getLanServer().getServerIpPort();
-+            Client.wurst.lastServer = new ServerListEntryNormal(this, new ServerData("LAN-Server", Client.wurst.currentServerIP));
++        	WurstClient.INSTANCE.currentServerIP = ((ServerListEntryLanDetected) var1).getLanServer().getServerIpPort();
++            WurstClient.INSTANCE.lastServer = new ServerListEntryNormal(this, new ServerData("LAN-Server", WurstClient.INSTANCE.currentServerIP));
 +        }
 +        if (var1 instanceof ServerListEntryNormal)
 +        {
@@ -22974,7 +22974,7 @@ index da42542..07d60bf 100644
 +        
 +        //TODO: Client
 +        SpamProcessor.runScript("joinserver", "Runs whenever you join a server.");
-+		Client.wurst.analytics.trackPageView("/play/multiplayer", "Multiplayer");
++		WurstClient.INSTANCE.analytics.trackPageView("/play/multiplayer", "Multiplayer");
 +    }
 +
 +    public void selectServer(int index)
@@ -23067,7 +23067,7 @@ index da42542..07d60bf 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..3a9f708 100644
+index 1614678..a49e7c9 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
 @@ -1,386 +1,402 @@
@@ -23474,7 +23474,7 @@ index 1614678..3a9f708 100644
 +import org.apache.logging.log4j.LogManager;
 +import org.apache.logging.log4j.Logger;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.events.ChatInputEvent;
 +import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.mods.AntiSpamMod;
@@ -25726,40 +25726,237 @@ index 543f122..779af2f 100644
  import org.apache.logging.log4j.Logger;
  import org.lwjgl.Sys;
 diff --git a/src/net/minecraft/client/gui/GuiScreenServerList.java b/src/net/minecraft/client/gui/GuiScreenServerList.java
-index 6a95e45..73c7882 100644
+index 6a95e45..bd08adc 100644
 --- a/src/net/minecraft/client/gui/GuiScreenServerList.java
 +++ b/src/net/minecraft/client/gui/GuiScreenServerList.java
-@@ -1,10 +1,15 @@
- package net.minecraft.client.gui;
- 
- import java.io.IOException;
+@@ -1,107 +1,118 @@
+-package net.minecraft.client.gui;
+-
+-import java.io.IOException;
+-import net.minecraft.client.multiplayer.ServerData;
+-import net.minecraft.client.resources.I18n;
+-import org.lwjgl.input.Keyboard;
+-
+-public class GuiScreenServerList extends GuiScreen
+-{
+-    private final GuiScreen field_146303_a;
+-    private final ServerData field_146301_f;
+-    private GuiTextField field_146302_g;
+-    private static final String __OBFID = "CL_00000692";
+-
+-    public GuiScreenServerList(GuiScreen p_i1031_1_, ServerData p_i1031_2_)
+-    {
+-        this.field_146303_a = p_i1031_1_;
+-        this.field_146301_f = p_i1031_2_;
+-    }
+-
+-    /**
+-     * Called from the main game loop to update the screen.
+-     */
+-    public void updateScreen()
+-    {
+-        this.field_146302_g.updateCursorCounter();
+-    }
+-
+-    /**
+-     * Adds the buttons (and other controls) to the screen in question.
+-     */
+-    public void initGui()
+-    {
+-        Keyboard.enableRepeatEvents(true);
+-        this.buttonList.clear();
+-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, I18n.format("selectServer.select", new Object[0])));
+-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, I18n.format("gui.cancel", new Object[0])));
+-        this.field_146302_g = new GuiTextField(2, this.fontRendererObj, this.width / 2 - 100, 116, 200, 20);
+-        this.field_146302_g.setMaxStringLength(128);
+-        this.field_146302_g.setFocused(true);
+-        this.field_146302_g.setText(this.mc.gameSettings.lastServer);
+-        ((GuiButton)this.buttonList.get(0)).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
+-    }
+-
+-    /**
+-     * Called when the screen is unloaded. Used to disable keyboard repeat events
+-     */
+-    public void onGuiClosed()
+-    {
+-        Keyboard.enableRepeatEvents(false);
+-        this.mc.gameSettings.lastServer = this.field_146302_g.getText();
+-        this.mc.gameSettings.saveOptions();
+-    }
+-
+-    protected void actionPerformed(GuiButton button) throws IOException
+-    {
+-        if (button.enabled)
+-        {
+-            if (button.id == 1)
+-            {
+-                this.field_146303_a.confirmClicked(false, 0);
+-            }
+-            else if (button.id == 0)
+-            {
+-                this.field_146301_f.serverIP = this.field_146302_g.getText();
+-                this.field_146303_a.confirmClicked(true, 0);
+-            }
+-        }
+-    }
+-
+-    /**
+-     * Fired when a key is typed (except F11 who toggle full screen). This is the equivalent of
+-     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
+-     */
+-    protected void keyTyped(char typedChar, int keyCode) throws IOException
+-    {
+-        if (this.field_146302_g.textboxKeyTyped(typedChar, keyCode))
+-        {
+-            ((GuiButton)this.buttonList.get(0)).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
+-        }
+-        else if (keyCode == 28 || keyCode == 156)
+-        {
+-            this.actionPerformed((GuiButton)this.buttonList.get(0));
+-        }
+-    }
+-
+-    /**
+-     * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
+-     */
+-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+-    {
+-        super.mouseClicked(mouseX, mouseY, mouseButton);
+-        this.field_146302_g.mouseClicked(mouseX, mouseY, mouseButton);
+-    }
+-
+-    /**
+-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
+-     */
+-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+-    {
+-        this.drawDefaultBackground();
+-        this.drawCenteredString(this.fontRendererObj, I18n.format("selectServer.direct", new Object[0]), this.width / 2, 20, 16777215);
+-        this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp", new Object[0]), this.width / 2 - 100, 100, 10526880);
+-        this.field_146302_g.drawTextBox();
+-        super.drawScreen(mouseX, mouseY, partialTicks);
+-    }
+-}
++package net.minecraft.client.gui;
++
++import java.io.IOException;
 +
 +import net.minecraft.client.gui.GuiButton;
- import net.minecraft.client.multiplayer.ServerData;
- import net.minecraft.client.resources.I18n;
++import net.minecraft.client.multiplayer.ServerData;
++import net.minecraft.client.resources.I18n;
 +
- import org.lwjgl.input.Keyboard;
- 
-+import tk.wurst_client.Client;
++import org.lwjgl.input.Keyboard;
 +
- public class GuiScreenServerList extends GuiScreen
- {
-     private final GuiScreen field_146303_a;
-@@ -63,6 +68,12 @@ public class GuiScreenServerList extends GuiScreen
-             else if (button.id == 0)
-             {
-                 this.field_146301_f.serverIP = this.field_146302_g.getText();
++import tk.wurst_client.WurstClient;
++
++public class GuiScreenServerList extends GuiScreen
++{
++    private final GuiScreen field_146303_a;
++    private final ServerData field_146301_f;
++    private GuiTextField field_146302_g;
++    private static final String __OBFID = "CL_00000692";
++
++    public GuiScreenServerList(GuiScreen p_i1031_1_, ServerData p_i1031_2_)
++    {
++        this.field_146303_a = p_i1031_1_;
++        this.field_146301_f = p_i1031_2_;
++    }
++
++    /**
++     * Called from the main game loop to update the screen.
++     */
++    public void updateScreen()
++    {
++        this.field_146302_g.updateCursorCounter();
++    }
++
++    /**
++     * Adds the buttons (and other controls) to the screen in question.
++     */
++    public void initGui()
++    {
++        Keyboard.enableRepeatEvents(true);
++        this.buttonList.clear();
++        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, I18n.format("selectServer.select", new Object[0])));
++        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, I18n.format("gui.cancel", new Object[0])));
++        this.field_146302_g = new GuiTextField(2, this.fontRendererObj, this.width / 2 - 100, 116, 200, 20);
++        this.field_146302_g.setMaxStringLength(128);
++        this.field_146302_g.setFocused(true);
++        this.field_146302_g.setText(this.mc.gameSettings.lastServer);
++        ((GuiButton)this.buttonList.get(0)).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
++    }
++
++    /**
++     * Called when the screen is unloaded. Used to disable keyboard repeat events
++     */
++    public void onGuiClosed()
++    {
++        Keyboard.enableRepeatEvents(false);
++        this.mc.gameSettings.lastServer = this.field_146302_g.getText();
++        this.mc.gameSettings.saveOptions();
++    }
++
++    protected void actionPerformed(GuiButton button) throws IOException
++    {
++        if (button.enabled)
++        {
++            if (button.id == 1)
++            {
++                this.field_146303_a.confirmClicked(false, 0);
++            }
++            else if (button.id == 0)
++            {
++                this.field_146301_f.serverIP = this.field_146302_g.getText();
 +                //TODO: Client
-+                Client.wurst.lastServer = null;
-+                Client.wurst.lastServer = new ServerListEntryNormal((GuiMultiplayer) this.field_146303_a, this.field_146301_f);
-+                Client.wurst.currentServerIP = this.field_146302_g.getText();
-+                if(!Client.wurst.currentServerIP.contains(":"))
-+                	Client.wurst.currentServerIP += ":25565";
-                 this.field_146303_a.confirmClicked(true, 0);
-             }
-         }
++                WurstClient.INSTANCE.lastServer = null;
++                WurstClient.INSTANCE.lastServer = new ServerListEntryNormal((GuiMultiplayer) this.field_146303_a, this.field_146301_f);
++                WurstClient.INSTANCE.currentServerIP = this.field_146302_g.getText();
++                if(!WurstClient.INSTANCE.currentServerIP.contains(":"))
++                	WurstClient.INSTANCE.currentServerIP += ":25565";
++                this.field_146303_a.confirmClicked(true, 0);
++            }
++        }
++    }
++
++    /**
++     * Fired when a key is typed (except F11 who toggle full screen). This is the equivalent of
++     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
++     */
++    protected void keyTyped(char typedChar, int keyCode) throws IOException
++    {
++        if (this.field_146302_g.textboxKeyTyped(typedChar, keyCode))
++        {
++            ((GuiButton)this.buttonList.get(0)).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
++        }
++        else if (keyCode == 28 || keyCode == 156)
++        {
++            this.actionPerformed((GuiButton)this.buttonList.get(0));
++        }
++    }
++
++    /**
++     * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
++     */
++    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
++    {
++        super.mouseClicked(mouseX, mouseY, mouseButton);
++        this.field_146302_g.mouseClicked(mouseX, mouseY, mouseButton);
++    }
++
++    /**
++     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
++     */
++    public void drawScreen(int mouseX, int mouseY, float partialTicks)
++    {
++        this.drawDefaultBackground();
++        this.drawCenteredString(this.fontRendererObj, I18n.format("selectServer.direct", new Object[0]), this.width / 2, 20, 16777215);
++        this.drawString(this.fontRendererObj, I18n.format("addServer.enterIp", new Object[0]), this.width / 2 - 100, 100, 10526880);
++        this.field_146302_g.drawTextBox();
++        super.drawScreen(mouseX, mouseY, partialTicks);
++    }
++}
 diff --git a/src/net/minecraft/client/gui/GuiSelectWorld.java b/src/net/minecraft/client/gui/GuiSelectWorld.java
-index 8fa79c9..d49200b 100644
+index 8fa79c9..d2f3b69 100644
 --- a/src/net/minecraft/client/gui/GuiSelectWorld.java
 +++ b/src/net/minecraft/client/gui/GuiSelectWorld.java
 @@ -1,327 +1,333 @@
@@ -26113,7 +26310,7 @@ index 8fa79c9..d49200b 100644
 +import org.apache.logging.log4j.LogManager;
 +import org.apache.logging.log4j.Logger;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +
 +public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
 +{
@@ -26167,7 +26364,7 @@ index 8fa79c9..d49200b 100644
 +        this.field_146638_t = new GuiSelectWorld.List(this.mc);
 +        this.field_146638_t.registerScrollButtons(4, 5);
 +        this.func_146618_g();
-+        Client.wurst.analytics.trackPageView("/singleplayer", "Select World");
++        WurstClient.INSTANCE.analytics.trackPageView("/singleplayer", "Select World");
 +    }
 +
 +    /**
@@ -26424,28 +26621,241 @@ index 8fa79c9..d49200b 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiShareToLan.java b/src/net/minecraft/client/gui/GuiShareToLan.java
-index 9e7abdc..a45fc92 100644
+index 9e7abdc..13a0ef5 100644
 --- a/src/net/minecraft/client/gui/GuiShareToLan.java
 +++ b/src/net/minecraft/client/gui/GuiShareToLan.java
-@@ -1,6 +1,9 @@
- package net.minecraft.client.gui;
- 
- import java.io.IOException;
+@@ -1,113 +1,118 @@
+-package net.minecraft.client.gui;
+-
+-import java.io.IOException;
+-import net.minecraft.client.resources.I18n;
+-import net.minecraft.util.ChatComponentText;
+-import net.minecraft.util.ChatComponentTranslation;
+-import net.minecraft.util.IChatComponent;
+-import net.minecraft.world.WorldSettings;
+-
+-public class GuiShareToLan extends GuiScreen
+-{
+-    private final GuiScreen field_146598_a;
+-    private GuiButton field_146596_f;
+-    private GuiButton field_146597_g;
+-    private String field_146599_h = "survival";
+-    private boolean field_146600_i;
+-    private static final String __OBFID = "CL_00000713";
+-
+-    public GuiShareToLan(GuiScreen p_i1055_1_)
+-    {
+-        this.field_146598_a = p_i1055_1_;
+-    }
+-
+-    /**
+-     * Adds the buttons (and other controls) to the screen in question.
+-     */
+-    public void initGui()
+-    {
+-        this.buttonList.clear();
+-        this.buttonList.add(new GuiButton(101, this.width / 2 - 155, this.height - 28, 150, 20, I18n.format("lanServer.start", new Object[0])));
+-        this.buttonList.add(new GuiButton(102, this.width / 2 + 5, this.height - 28, 150, 20, I18n.format("gui.cancel", new Object[0])));
+-        this.buttonList.add(this.field_146597_g = new GuiButton(104, this.width / 2 - 155, 100, 150, 20, I18n.format("selectWorld.gameMode", new Object[0])));
+-        this.buttonList.add(this.field_146596_f = new GuiButton(103, this.width / 2 + 5, 100, 150, 20, I18n.format("selectWorld.allowCommands", new Object[0])));
+-        this.func_146595_g();
+-    }
+-
+-    private void func_146595_g()
+-    {
+-        this.field_146597_g.displayString = I18n.format("selectWorld.gameMode", new Object[0]) + " " + I18n.format("selectWorld.gameMode." + this.field_146599_h, new Object[0]);
+-        this.field_146596_f.displayString = I18n.format("selectWorld.allowCommands", new Object[0]) + " ";
+-
+-        if (this.field_146600_i)
+-        {
+-            this.field_146596_f.displayString = this.field_146596_f.displayString + I18n.format("options.on", new Object[0]);
+-        }
+-        else
+-        {
+-            this.field_146596_f.displayString = this.field_146596_f.displayString + I18n.format("options.off", new Object[0]);
+-        }
+-    }
+-
+-    protected void actionPerformed(GuiButton button) throws IOException
+-    {
+-        if (button.id == 102)
+-        {
+-            this.mc.displayGuiScreen(this.field_146598_a);
+-        }
+-        else if (button.id == 104)
+-        {
+-            if (this.field_146599_h.equals("spectator"))
+-            {
+-                this.field_146599_h = "creative";
+-            }
+-            else if (this.field_146599_h.equals("creative"))
+-            {
+-                this.field_146599_h = "adventure";
+-            }
+-            else if (this.field_146599_h.equals("adventure"))
+-            {
+-                this.field_146599_h = "survival";
+-            }
+-            else
+-            {
+-                this.field_146599_h = "spectator";
+-            }
+-
+-            this.func_146595_g();
+-        }
+-        else if (button.id == 103)
+-        {
+-            this.field_146600_i = !this.field_146600_i;
+-            this.func_146595_g();
+-        }
+-        else if (button.id == 101)
+-        {
+-            this.mc.displayGuiScreen((GuiScreen)null);
+-            String var2 = this.mc.getIntegratedServer().shareToLAN(WorldSettings.GameType.getByName(this.field_146599_h), this.field_146600_i);
+-            Object var3;
+-
+-            if (var2 != null)
+-            {
+-                var3 = new ChatComponentTranslation("commands.publish.started", new Object[] {var2});
+-            }
+-            else
+-            {
+-                var3 = new ChatComponentText("commands.publish.failed");
+-            }
+-
+-            this.mc.ingameGUI.getChatGUI().printChatMessage((IChatComponent)var3);
+-        }
+-    }
+-
+-    /**
+-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
+-     */
+-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+-    {
+-        this.drawDefaultBackground();
+-        this.drawCenteredString(this.fontRendererObj, I18n.format("lanServer.title", new Object[0]), this.width / 2, 50, 16777215);
+-        this.drawCenteredString(this.fontRendererObj, I18n.format("lanServer.otherPlayers", new Object[0]), this.width / 2, 82, 16777215);
+-        super.drawScreen(mouseX, mouseY, partialTicks);
+-    }
+-}
++package net.minecraft.client.gui;
 +
-+import tk.wurst_client.Client;
++import java.io.IOException;
++
++import tk.wurst_client.WurstClient;
 +import net.minecraft.client.gui.GuiButton;
- import net.minecraft.client.resources.I18n;
- import net.minecraft.util.ChatComponentText;
- import net.minecraft.util.ChatComponentTranslation;
-@@ -90,6 +93,8 @@ public class GuiShareToLan extends GuiScreen
-             if (var2 != null)
-             {
-                 var3 = new ChatComponentTranslation("commands.publish.started", new Object[] {var2});
++import net.minecraft.client.resources.I18n;
++import net.minecraft.util.ChatComponentText;
++import net.minecraft.util.ChatComponentTranslation;
++import net.minecraft.util.IChatComponent;
++import net.minecraft.world.WorldSettings;
++
++public class GuiShareToLan extends GuiScreen
++{
++    private final GuiScreen field_146598_a;
++    private GuiButton field_146596_f;
++    private GuiButton field_146597_g;
++    private String field_146599_h = "survival";
++    private boolean field_146600_i;
++    private static final String __OBFID = "CL_00000713";
++
++    public GuiShareToLan(GuiScreen p_i1055_1_)
++    {
++        this.field_146598_a = p_i1055_1_;
++    }
++
++    /**
++     * Adds the buttons (and other controls) to the screen in question.
++     */
++    public void initGui()
++    {
++        this.buttonList.clear();
++        this.buttonList.add(new GuiButton(101, this.width / 2 - 155, this.height - 28, 150, 20, I18n.format("lanServer.start", new Object[0])));
++        this.buttonList.add(new GuiButton(102, this.width / 2 + 5, this.height - 28, 150, 20, I18n.format("gui.cancel", new Object[0])));
++        this.buttonList.add(this.field_146597_g = new GuiButton(104, this.width / 2 - 155, 100, 150, 20, I18n.format("selectWorld.gameMode", new Object[0])));
++        this.buttonList.add(this.field_146596_f = new GuiButton(103, this.width / 2 + 5, 100, 150, 20, I18n.format("selectWorld.allowCommands", new Object[0])));
++        this.func_146595_g();
++    }
++
++    private void func_146595_g()
++    {
++        this.field_146597_g.displayString = I18n.format("selectWorld.gameMode", new Object[0]) + " " + I18n.format("selectWorld.gameMode." + this.field_146599_h, new Object[0]);
++        this.field_146596_f.displayString = I18n.format("selectWorld.allowCommands", new Object[0]) + " ";
++
++        if (this.field_146600_i)
++        {
++            this.field_146596_f.displayString = this.field_146596_f.displayString + I18n.format("options.on", new Object[0]);
++        }
++        else
++        {
++            this.field_146596_f.displayString = this.field_146596_f.displayString + I18n.format("options.off", new Object[0]);
++        }
++    }
++
++    protected void actionPerformed(GuiButton button) throws IOException
++    {
++        if (button.id == 102)
++        {
++            this.mc.displayGuiScreen(this.field_146598_a);
++        }
++        else if (button.id == 104)
++        {
++            if (this.field_146599_h.equals("spectator"))
++            {
++                this.field_146599_h = "creative";
++            }
++            else if (this.field_146599_h.equals("creative"))
++            {
++                this.field_146599_h = "adventure";
++            }
++            else if (this.field_146599_h.equals("adventure"))
++            {
++                this.field_146599_h = "survival";
++            }
++            else
++            {
++                this.field_146599_h = "spectator";
++            }
++
++            this.func_146595_g();
++        }
++        else if (button.id == 103)
++        {
++            this.field_146600_i = !this.field_146600_i;
++            this.func_146595_g();
++        }
++        else if (button.id == 101)
++        {
++            this.mc.displayGuiScreen((GuiScreen)null);
++            String var2 = this.mc.getIntegratedServer().shareToLAN(WorldSettings.GameType.getByName(this.field_146599_h), this.field_146600_i);
++            Object var3;
++
++            if (var2 != null)
++            {
++                var3 = new ChatComponentTranslation("commands.publish.started", new Object[] {var2});
 +                //TODO: Client
-+                Client.wurst.currentServerIP = Client.wurst.currentServerIP.split(":")[0].concat(":" + var2);
-             }
-             else
-             {
++                WurstClient.INSTANCE.currentServerIP = WurstClient.INSTANCE.currentServerIP.split(":")[0].concat(":" + var2);
++            }
++            else
++            {
++                var3 = new ChatComponentText("commands.publish.failed");
++            }
++
++            this.mc.ingameGUI.getChatGUI().printChatMessage((IChatComponent)var3);
++        }
++    }
++
++    /**
++     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
++     */
++    public void drawScreen(int mouseX, int mouseY, float partialTicks)
++    {
++        this.drawDefaultBackground();
++        this.drawCenteredString(this.fontRendererObj, I18n.format("lanServer.title", new Object[0]), this.width / 2, 50, 16777215);
++        this.drawCenteredString(this.fontRendererObj, I18n.format("lanServer.otherPlayers", new Object[0]), this.width / 2, 82, 16777215);
++        super.drawScreen(mouseX, mouseY, partialTicks);
++    }
++}
 diff --git a/src/net/minecraft/client/gui/GuiSimpleScrolledSelectionListProxy.java b/src/net/minecraft/client/gui/GuiSimpleScrolledSelectionListProxy.java
 index 4566817..6798a27 100644
 --- a/src/net/minecraft/client/gui/GuiSimpleScrolledSelectionListProxy.java
@@ -26929,7 +27339,7 @@ index ba125d8..4c3f8fd 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/gui/inventory/GuiChest.java b/src/net/minecraft/client/gui/inventory/GuiChest.java
-index 93156ec..ebb1d12 100644
+index 93156ec..217e755 100644
 --- a/src/net/minecraft/client/gui/inventory/GuiChest.java
 +++ b/src/net/minecraft/client/gui/inventory/GuiChest.java
 @@ -1,54 +1,138 @@
@@ -26997,7 +27407,7 @@ index 93156ec..ebb1d12 100644
 +import net.minecraft.inventory.IInventory;
 +import net.minecraft.inventory.Slot;
 +import net.minecraft.util.ResourceLocation;
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.AutoStealMod;
 +import tk.wurst_client.mods.YesCheatMod;
 +
@@ -27033,7 +27443,7 @@ index 93156ec..ebb1d12 100644
 +		super.initGui();
 +		buttonList.add(new GuiButton(0, guiLeft + xSize - 108, guiTop + 4, 50, 12, "Steal"));
 +		buttonList.add(new GuiButton(1, guiLeft + xSize - 56, guiTop + 4, 50, 12, "Store"));
-+		if(Client.wurst.modManager.getModByClass(AutoStealMod.class).isEnabled())
++		if(WurstClient.INSTANCE.modManager.getModByClass(AutoStealMod.class).isEnabled())
 +			actionPerformed((GuiButton)buttonList.get(0));
 +	}
 +
@@ -27061,7 +27471,7 @@ index 93156ec..ebb1d12 100644
 +							Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
 +							if(slot.getStack() == null)
 +								continue;
-+							if(Client.wurst.modManager
++							if(WurstClient.INSTANCE.modManager
 +								.getModByClass(YesCheatMod.class).isEnabled())
 +								Thread.sleep(250);
 +							handleMouseClick(slot, slot.slotNumber, 0, 1);
@@ -27086,7 +27496,7 @@ index 93156ec..ebb1d12 100644
 +							Slot slot = (Slot)inventorySlots.inventorySlots.get(i);
 +							if(slot.getStack() == null)
 +								continue;
-+							if(Client.wurst.modManager
++							if(WurstClient.INSTANCE.modManager
 +								.getModByClass(YesCheatMod.class).isEnabled())
 +								Thread.sleep(250);
 +							handleMouseClick(slot, slot.slotNumber, 0, 1);
@@ -27264,7 +27674,7 @@ index 3ba9565..30138df 100644
  
          public ItemStack decrStackSize(int p_75209_1_)
 diff --git a/src/net/minecraft/client/gui/inventory/GuiEditSign.java b/src/net/minecraft/client/gui/inventory/GuiEditSign.java
-index 21ea6e9..61f3715 100644
+index 21ea6e9..4c43215 100644
 --- a/src/net/minecraft/client/gui/inventory/GuiEditSign.java
 +++ b/src/net/minecraft/client/gui/inventory/GuiEditSign.java
 @@ -1,176 +1,192 @@
@@ -27463,7 +27873,7 @@ index 21ea6e9..61f3715 100644
 +
 +import org.lwjgl.input.Keyboard;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.AutoSignMod;
 +
 +public class GuiEditSign extends GuiScreen
@@ -27492,7 +27902,7 @@ index 21ea6e9..61f3715 100644
 +    public void initGui()
 +    {
 +    	//TODO: Client
-+    	if(Client.wurst.modManager.getModByClass(AutoSignMod.class).isEnabled() && AutoSignMod.signText != null)
++    	if(WurstClient.INSTANCE.modManager.getModByClass(AutoSignMod.class).isEnabled() && AutoSignMod.signText != null)
 +    	{
 +    		this.tileSign.signText = AutoSignMod.signText;
 +    		mc.displayGuiScreen(null);
@@ -27534,7 +27944,7 @@ index 21ea6e9..61f3715 100644
 +            if (button.id == 0)
 +            {
 +            	//TODO: Client
-+            	if(Client.wurst.modManager.getModByClass(AutoSignMod.class).isEnabled() && AutoSignMod.signText == null)
++            	if(WurstClient.INSTANCE.modManager.getModByClass(AutoSignMod.class).isEnabled() && AutoSignMod.signText == null)
 +            	{
 +            		AutoSignMod.signText = this.tileSign.signText;
 +            	}
@@ -27843,7 +28253,7 @@ index ee9ae67..6130e68 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/multiplayer/PlayerControllerMP.java b/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
-index 1c4d5a3..319e23f 100644
+index 1c4d5a3..fc4c7e6 100644
 --- a/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
 +++ b/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
 @@ -1,616 +1,629 @@
@@ -28465,7 +28875,7 @@ index 1c4d5a3..319e23f 100644
 -}
 +package net.minecraft.client.multiplayer;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.FastBreakMod;
 +import net.minecraft.block.Block;
 +import net.minecraft.block.material.Material;
@@ -28697,7 +29107,7 @@ index 1c4d5a3..319e23f 100644
 +                this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK, p_180511_1_, p_180511_2_));
 +                clickBlockCreative(this.mc, this, p_180511_1_, p_180511_2_);
 +                //TODO: Client
-+                this.blockHitDelay = Client.wurst.modManager.getModByClass(FastBreakMod.class).isEnabled() ? 0 : 5;
++                this.blockHitDelay = WurstClient.INSTANCE.modManager.getModByClass(FastBreakMod.class).isEnabled() ? 0 : 5;
 +            }
 +            else if (!this.isHittingBlock || !this.sameToolAndBlock(p_180511_1_))
 +            {
@@ -28763,7 +29173,7 @@ index 1c4d5a3..319e23f 100644
 +        else if (this.currentGameType.isCreative() && this.mc.theWorld.getWorldBorder().contains(p_180512_1_))
 +        {
 +        	//TODO: Client
-+            this.blockHitDelay = Client.wurst.modManager.getModByClass(FastBreakMod.class).isEnabled() ? 0 : 5;
++            this.blockHitDelay = WurstClient.INSTANCE.modManager.getModByClass(FastBreakMod.class).isEnabled() ? 0 : 5;
 +            this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.START_DESTROY_BLOCK, p_180512_1_, p_180512_2_));
 +            clickBlockCreative(this.mc, this, p_180512_1_, p_180512_2_);
 +            return true;
@@ -28780,7 +29190,7 @@ index 1c4d5a3..319e23f 100644
 +            else
 +            {
 +                //TODO: Client
-+                this.curBlockDamageMP += var3.getPlayerRelativeBlockHardness(this.mc.thePlayer, this.mc.thePlayer.worldObj, p_180512_1_) * (!this.currentGameType.isCreative() && Client.wurst.modManager.getModByClass(FastBreakMod.class).isEnabled() && Client.wurst.options.fastbreakMode == 0 ? FastBreakMod.speed : 1);
++                this.curBlockDamageMP += var3.getPlayerRelativeBlockHardness(this.mc.thePlayer, this.mc.thePlayer.worldObj, p_180512_1_) * (!this.currentGameType.isCreative() && WurstClient.INSTANCE.modManager.getModByClass(FastBreakMod.class).isEnabled() && WurstClient.INSTANCE.options.fastbreakMode == 0 ? FastBreakMod.speed : 1);
 +
 +                if (this.stepSoundTickCounter % 4.0F == 0.0F)
 +                {
@@ -28798,7 +29208,7 @@ index 1c4d5a3..319e23f 100644
 +                    this.stepSoundTickCounter = 0.0F;
 +                    this.blockHitDelay = 5;
 +                    //TODO: Client
-+                }else if(!this.currentGameType.isCreative() && Client.wurst.modManager.getModByClass(FastBreakMod.class).isEnabled() && Client.wurst.options.fastbreakMode == 1)
++                }else if(!this.currentGameType.isCreative() && WurstClient.INSTANCE.modManager.getModByClass(FastBreakMod.class).isEnabled() && WurstClient.INSTANCE.options.fastbreakMode == 1)
 +                {
 +                    this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, p_180512_1_, p_180512_2_));
 +                }
@@ -29616,7 +30026,7 @@ index e9db01f..18cbc00 100644
  import net.minecraft.block.state.IBlockState;
  import net.minecraft.client.Minecraft;
 diff --git a/src/net/minecraft/client/renderer/EntityRenderer.java b/src/net/minecraft/client/renderer/EntityRenderer.java
-index e32c68b..8e301ff 100644
+index e32c68b..1838ea8 100644
 --- a/src/net/minecraft/client/renderer/EntityRenderer.java
 +++ b/src/net/minecraft/client/renderer/EntityRenderer.java
 @@ -1,2052 +1,2095 @@
@@ -31726,7 +32136,7 @@ index e32c68b..8e301ff 100644
 +import org.lwjgl.opengl.GLContext;
 +import org.lwjgl.util.glu.Project;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.RenderEvent;
 +import tk.wurst_client.mods.AntiBlindMod;
@@ -32454,7 +32864,7 @@ index e32c68b..8e301ff 100644
 +        this.hurtCameraEffect(p_78479_1_);
 +
 +        //TODO: Client
-+        if (this.mc.gameSettings.viewBobbing && !Client.wurst.modManager.getModByClass(TracersMod.class).isEnabled())
++        if (this.mc.gameSettings.viewBobbing && !WurstClient.INSTANCE.modManager.getModByClass(TracersMod.class).isEnabled())
 +        {
 +            this.setupViewBobbing(p_78479_1_);
 +        }
@@ -32462,7 +32872,7 @@ index e32c68b..8e301ff 100644
 +        float var4 = this.mc.thePlayer.prevTimeInPortal + (this.mc.thePlayer.timeInPortal - this.mc.thePlayer.prevTimeInPortal) * p_78479_1_;
 +
 +        //TODO: Client
-+        if (var4 > 0.0F && !Client.wurst.modManager.getModByClass(AntiBlindMod.class).isEnabled())
++        if (var4 > 0.0F && !WurstClient.INSTANCE.modManager.getModByClass(AntiBlindMod.class).isEnabled())
 +        {
 +            byte var5 = 20;
 +
@@ -32985,7 +33395,7 @@ index e32c68b..8e301ff 100644
 +        
 +        //TODO: Client
 +        if(caveFinderMod == null)
-+			caveFinderMod = (CaveFinderMod)Client.wurst.modManager.getModByClass(CaveFinderMod.class);
++			caveFinderMod = (CaveFinderMod)WurstClient.INSTANCE.modManager.getModByClass(CaveFinderMod.class);
 +		if(!caveFinderMod.isEnabled())
 +			GlStateManager.enableDepth();
 +        
@@ -33574,7 +33984,7 @@ index e32c68b..8e301ff 100644
 +        double var23 = (var3.lastTickPosY + (var3.posY - var3.lastTickPosY) * (double)p_78466_1_) * var2.provider.getVoidFogYFactor();
 +
 +        //TODO: Client
-+        if (var3 instanceof EntityLivingBase && ((EntityLivingBase)var3).isPotionActive(Potion.blindness) && !Client.wurst.modManager.getModByClass(AntiBlindMod.class).isEnabled())
++        if (var3 instanceof EntityLivingBase && ((EntityLivingBase)var3).isPotionActive(Potion.blindness) && !WurstClient.INSTANCE.modManager.getModByClass(AntiBlindMod.class).isEnabled())
 +        {
 +            int var16 = ((EntityLivingBase)var3).getActivePotionEffect(Potion.blindness).getDuration();
 +
@@ -33667,7 +34077,7 @@ index e32c68b..8e301ff 100644
 +        float var6;
 +
 +        //TODO: Client
-+        if (var3 instanceof EntityLivingBase && ((EntityLivingBase)var3).isPotionActive(Potion.blindness) && !Client.wurst.modManager.getModByClass(AntiBlindMod.class).isEnabled())
++        if (var3 instanceof EntityLivingBase && ((EntityLivingBase)var3).isPotionActive(Potion.blindness) && !WurstClient.INSTANCE.modManager.getModByClass(AntiBlindMod.class).isEnabled())
 +        {
 +            var6 = 5.0F;
 +            int var7 = ((EntityLivingBase)var3).getActivePotionEffect(Potion.blindness).getDuration();
@@ -35287,7 +35697,7 @@ index c1aa703..f240c63 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/renderer/entity/Render.java b/src/net/minecraft/client/renderer/entity/Render.java
-index a00ffea..8e93c6b 100644
+index a00ffea..1570620 100644
 --- a/src/net/minecraft/client/renderer/entity/Render.java
 +++ b/src/net/minecraft/client/renderer/entity/Render.java
 @@ -1,392 +1,418 @@
@@ -35708,7 +36118,7 @@ index a00ffea..8e93c6b 100644
 +
 +import org.lwjgl.opengl.GL11;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.HealthTagsMod;
 +import tk.wurst_client.mods.NameTagsMod;
 +
@@ -36036,8 +36446,8 @@ index a00ffea..8e93c6b 100644
 +            FontRenderer var12 = this.getFontRendererFromRenderManager();
 +            float var13 = 1.6F;
 +            //TODO: Client
-+            float var14 = 0.016666668F * var13 * (p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) > 10 && Client.wurst.modManager.getModByClass(NameTagsMod.class).isEnabled() ? p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) / 10 : 1);
-+            var14 *= (Client.wurst.modManager.getModByClass(NameTagsMod.class).isEnabled() ? (p_147906_1_.boundingBox.getAverageEdgeLength() > - 50 ? 1 : p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) / 300) : 1);
++            float var14 = 0.016666668F * var13 * (p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) > 10 && WurstClient.INSTANCE.modManager.getModByClass(NameTagsMod.class).isEnabled() ? p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) / 10 : 1);
++            var14 *= (WurstClient.INSTANCE.modManager.getModByClass(NameTagsMod.class).isEnabled() ? (p_147906_1_.boundingBox.getAverageEdgeLength() > - 50 ? 1 : p_147906_1_.getDistanceToEntity(this.renderManager.livingPlayer) / 300) : 1);
 +            GlStateManager.pushMatrix();
 +            GlStateManager.translate((float)p_147906_3_ + 0.0F, (float)p_147906_5_ + p_147906_1_.height + 0.5F, (float)p_147906_7_);
 +            GL11.glNormal3f(0.0F, 1.0F, 0.0F);
@@ -36059,9 +36469,9 @@ index a00ffea..8e93c6b 100644
 +            }
 +
 +            //TODO: Client
-+            if(Client.wurst.friends.contains(p_147906_1_.getName()))
++            if(WurstClient.INSTANCE.friends.contains(p_147906_1_.getName()))
 +            	p_147906_2_ = "§2" + (p_147906_2_.startsWith("§") ? p_147906_2_.substring(2) : p_147906_2_);
-+            if(p_147906_1_ instanceof EntityLivingBase && Client.wurst.modManager.getModByClass(HealthTagsMod.class).isEnabled())
++            if(p_147906_1_ instanceof EntityLivingBase && WurstClient.INSTANCE.modManager.getModByClass(HealthTagsMod.class).isEnabled())
 +            {
 +            	p_147906_2_ += " ";
 +            	int health = (int)((EntityLivingBase) p_147906_1_).getHealth();
@@ -36118,7 +36528,7 @@ index 63a12a1..03a9cce 100644
          }
  
 diff --git a/src/net/minecraft/client/renderer/entity/RenderFallingBlock.java b/src/net/minecraft/client/renderer/entity/RenderFallingBlock.java
-index 6936e51..0756a90 100644
+index 6936e51..31257a7 100644
 --- a/src/net/minecraft/client/renderer/entity/RenderFallingBlock.java
 +++ b/src/net/minecraft/client/renderer/entity/RenderFallingBlock.java
 @@ -1,93 +1,96 @@
@@ -36217,7 +36627,7 @@ index 6936e51..0756a90 100644
 -}
 +package net.minecraft.client.renderer.entity;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.ProphuntEspMod;
 +import net.minecraft.block.Block;
 +import net.minecraft.block.state.IBlockState;
@@ -36248,7 +36658,7 @@ index 6936e51..0756a90 100644
 +    public void doRender(EntityFallingBlock p_180557_1_, double p_180557_2_, double p_180557_4_, double p_180557_6_, float p_180557_8_, float p_180557_9_)
 +    {
 +    	//TODO: Client
-+        if (p_180557_1_.getBlock() != null && !Client.wurst.modManager.getModByClass(ProphuntEspMod.class).isEnabled())
++        if (p_180557_1_.getBlock() != null && !WurstClient.INSTANCE.modManager.getModByClass(ProphuntEspMod.class).isEnabled())
 +        {
 +            this.bindTexture(TextureMap.locationBlocksTexture);
 +            IBlockState var10 = p_180557_1_.getBlock();
@@ -36590,7 +37000,7 @@ index 7fdac31..12df2a4 100644
          var14.addVertex(p_85094_2_ + var15.xCoord * 2.0D, p_85094_4_ + (double)p_85094_1_.getEyeHeight() + var15.yCoord * 2.0D, p_85094_6_ + var15.zCoord * 2.0D);
          var16.draw();
 diff --git a/src/net/minecraft/client/renderer/entity/RenderPlayer.java b/src/net/minecraft/client/renderer/entity/RenderPlayer.java
-index bc2dd09..6bda3d8 100644
+index bc2dd09..d27f6c2 100644
 --- a/src/net/minecraft/client/renderer/entity/RenderPlayer.java
 +++ b/src/net/minecraft/client/renderer/entity/RenderPlayer.java
 @@ -1,268 +1,271 @@
@@ -36864,7 +37274,7 @@ index bc2dd09..6bda3d8 100644
 -}
 +package net.minecraft.client.renderer.entity;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.FreecamMod;
 +import net.minecraft.client.entity.AbstractClientPlayer;
 +import net.minecraft.client.entity.EntityPlayerSP;
@@ -36935,7 +37345,7 @@ index bc2dd09..6bda3d8 100644
 +        ModelPlayer var2 = this.func_177136_g();
 +
 +        //TODO: Client
-+        if (p_177137_1_.isSpectator() && !Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled())
++        if (p_177137_1_.isSpectator() && !WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class).isEnabled())
 +        {
 +            var2.func_178719_a(false);
 +            var2.bipedHead.showModel = true;
@@ -37147,7 +37557,7 @@ index 7bcac52..fb3ac3e 100644
          var26.addVertexWithUV((double)(0.0F - var16), (double)(0.0F - var17), 0.0D, (double)var11, (double)var14);
          var26.addVertexWithUV((double)(var15 - var16), (double)(0.0F - var17), 0.0D, (double)var12, (double)var14);
 diff --git a/src/net/minecraft/client/renderer/entity/RendererLivingEntity.java b/src/net/minecraft/client/renderer/entity/RendererLivingEntity.java
-index 8703f17..15d3e40 100644
+index 8703f17..072ab7f 100644
 --- a/src/net/minecraft/client/renderer/entity/RendererLivingEntity.java
 +++ b/src/net/minecraft/client/renderer/entity/RendererLivingEntity.java
 @@ -1,678 +1,685 @@
@@ -37861,7 +38271,7 @@ index 8703f17..15d3e40 100644
 +import org.apache.logging.log4j.Logger;
 +import org.lwjgl.opengl.GL11;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.TrueSightMod;
 +
 +public abstract class RendererLivingEntity extends Render
@@ -38089,7 +38499,7 @@ index 8703f17..15d3e40 100644
 +    {
 +        boolean var8 = !p_77036_1_.isInvisible();
 +        //TODO: Client
-+        boolean var9 = !var8 && (!p_77036_1_.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || Client.wurst.modManager.getModByClass(TrueSightMod.class).isEnabled());
++        boolean var9 = !var8 && (!p_77036_1_.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer) || WurstClient.INSTANCE.modManager.getModByClass(TrueSightMod.class).isEnabled());
 +
 +        if (var8 || var9)
 +        {
@@ -39642,70 +40052,849 @@ index 5f4e0f3..84eb71b 100644
  import net.minecraft.command.ICommandManager;
  import net.minecraft.command.ICommandSender;
 diff --git a/src/net/minecraft/crash/CrashReport.java b/src/net/minecraft/crash/CrashReport.java
-index 66f1ffd..1576801 100644
+index 66f1ffd..892f197 100644
 --- a/src/net/minecraft/crash/CrashReport.java
 +++ b/src/net/minecraft/crash/CrashReport.java
-@@ -1,6 +1,7 @@
- package net.minecraft.crash;
- 
- import com.google.common.collect.Lists;
+@@ -1,412 +1,427 @@
+-package net.minecraft.crash;
+-
+-import com.google.common.collect.Lists;
+-import java.io.File;
+-import java.io.FileWriter;
+-import java.io.PrintWriter;
+-import java.io.StringWriter;
+-import java.lang.management.ManagementFactory;
+-import java.lang.management.RuntimeMXBean;
+-import java.text.SimpleDateFormat;
+-import java.util.Date;
+-import java.util.Iterator;
+-import java.util.List;
+-import java.util.concurrent.Callable;
+-import net.minecraft.util.ReportedException;
+-import net.minecraft.world.gen.layer.IntCache;
+-import org.apache.commons.io.IOUtils;
+-import org.apache.commons.lang3.ArrayUtils;
+-import org.apache.logging.log4j.LogManager;
+-import org.apache.logging.log4j.Logger;
+-
+-public class CrashReport
+-{
+-    private static final Logger logger = LogManager.getLogger();
+-
+-    /** Description of the crash report. */
+-    private final String description;
+-
+-    /** The Throwable that is the "cause" for this crash and Crash Report. */
+-    private final Throwable cause;
+-
+-    /** Category of crash */
+-    private final CrashReportCategory theReportCategory = new CrashReportCategory(this, "System Details");
+-
+-    /** Holds the keys and values of all crash report sections. */
+-    private final List crashReportSections = Lists.newArrayList();
+-
+-    /** File of crash report. */
+-    private File crashReportFile;
+-    private boolean field_85059_f = true;
+-    private StackTraceElement[] stacktrace = new StackTraceElement[0];
+-    private static final String __OBFID = "CL_00000990";
+-
+-    public CrashReport(String descriptionIn, Throwable causeThrowable)
+-    {
+-        this.description = descriptionIn;
+-        this.cause = causeThrowable;
+-        this.populateEnvironment();
+-    }
+-
+-    /**
+-     * Populates this crash report with initial information about the running server and operating system / java
+-     * environment
+-     */
+-    private void populateEnvironment()
+-    {
+-        this.theReportCategory.addCrashSectionCallable("Minecraft Version", new Callable()
+-        {
+-            private static final String __OBFID = "CL_00001197";
+-            public String call()
+-            {
+-                return "1.8";
+-            }
+-        });
+-        this.theReportCategory.addCrashSectionCallable("Operating System", new Callable()
+-        {
+-            private static final String __OBFID = "CL_00001222";
+-            public String call()
+-            {
+-                return System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version");
+-            }
+-        });
+-        this.theReportCategory.addCrashSectionCallable("Java Version", new Callable()
+-        {
+-            private static final String __OBFID = "CL_00001248";
+-            public String call()
+-            {
+-                return System.getProperty("java.version") + ", " + System.getProperty("java.vendor");
+-            }
+-        });
+-        this.theReportCategory.addCrashSectionCallable("Java VM Version", new Callable()
+-        {
+-            private static final String __OBFID = "CL_00001275";
+-            public String call()
+-            {
+-                return System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor");
+-            }
+-        });
+-        this.theReportCategory.addCrashSectionCallable("Memory", new Callable()
+-        {
+-            private static final String __OBFID = "CL_00001302";
+-            public String call()
+-            {
+-                Runtime var1 = Runtime.getRuntime();
+-                long var2 = var1.maxMemory();
+-                long var4 = var1.totalMemory();
+-                long var6 = var1.freeMemory();
+-                long var8 = var2 / 1024L / 1024L;
+-                long var10 = var4 / 1024L / 1024L;
+-                long var12 = var6 / 1024L / 1024L;
+-                return var6 + " bytes (" + var12 + " MB) / " + var4 + " bytes (" + var10 + " MB) up to " + var2 + " bytes (" + var8 + " MB)";
+-            }
+-        });
+-        this.theReportCategory.addCrashSectionCallable("JVM Flags", new Callable()
+-        {
+-            private static final String __OBFID = "CL_00001329";
+-            public String call()
+-            {
+-                RuntimeMXBean var1 = ManagementFactory.getRuntimeMXBean();
+-                List var2 = var1.getInputArguments();
+-                int var3 = 0;
+-                StringBuilder var4 = new StringBuilder();
+-                Iterator var5 = var2.iterator();
+-
+-                while (var5.hasNext())
+-                {
+-                    String var6 = (String)var5.next();
+-
+-                    if (var6.startsWith("-X"))
+-                    {
+-                        if (var3++ > 0)
+-                        {
+-                            var4.append(" ");
+-                        }
+-
+-                        var4.append(var6);
+-                    }
+-                }
+-
+-                return String.format("%d total; %s", new Object[] {Integer.valueOf(var3), var4.toString()});
+-            }
+-        });
+-        this.theReportCategory.addCrashSectionCallable("IntCache", new Callable()
+-        {
+-            private static final String __OBFID = "CL_00001355";
+-            public String call()
+-            {
+-                return IntCache.getCacheSizes();
+-            }
+-        });
+-    }
+-
+-    /**
+-     * Returns the description of the Crash Report.
+-     */
+-    public String getDescription()
+-    {
+-        return this.description;
+-    }
+-
+-    /**
+-     * Returns the Throwable object that is the cause for the crash and Crash Report.
+-     */
+-    public Throwable getCrashCause()
+-    {
+-        return this.cause;
+-    }
+-
+-    /**
+-     * Gets the various sections of the crash report into the given StringBuilder
+-     */
+-    public void getSectionsInStringBuilder(StringBuilder p_71506_1_)
+-    {
+-        if ((this.stacktrace == null || this.stacktrace.length <= 0) && this.crashReportSections.size() > 0)
+-        {
+-            this.stacktrace = (StackTraceElement[])ArrayUtils.subarray(((CrashReportCategory)this.crashReportSections.get(0)).getStackTrace(), 0, 1);
+-        }
+-
+-        if (this.stacktrace != null && this.stacktrace.length > 0)
+-        {
+-            p_71506_1_.append("-- Head --\n");
+-            p_71506_1_.append("Stacktrace:\n");
+-            StackTraceElement[] var2 = this.stacktrace;
+-            int var3 = var2.length;
+-
+-            for (int var4 = 0; var4 < var3; ++var4)
+-            {
+-                StackTraceElement var5 = var2[var4];
+-                p_71506_1_.append("\t").append("at ").append(var5.toString());
+-                p_71506_1_.append("\n");
+-            }
+-
+-            p_71506_1_.append("\n");
+-        }
+-
+-        Iterator var6 = this.crashReportSections.iterator();
+-
+-        while (var6.hasNext())
+-        {
+-            CrashReportCategory var7 = (CrashReportCategory)var6.next();
+-            var7.appendToStringBuilder(p_71506_1_);
+-            p_71506_1_.append("\n\n");
+-        }
+-
+-        this.theReportCategory.appendToStringBuilder(p_71506_1_);
+-    }
+-
+-    /**
+-     * Gets the stack trace of the Throwable that caused this crash report, or if that fails, the cause .toString().
+-     */
+-    public String getCauseStackTraceOrString()
+-    {
+-        StringWriter var1 = null;
+-        PrintWriter var2 = null;
+-        Object var3 = this.cause;
+-
+-        if (((Throwable)var3).getMessage() == null)
+-        {
+-            if (var3 instanceof NullPointerException)
+-            {
+-                var3 = new NullPointerException(this.description);
+-            }
+-            else if (var3 instanceof StackOverflowError)
+-            {
+-                var3 = new StackOverflowError(this.description);
+-            }
+-            else if (var3 instanceof OutOfMemoryError)
+-            {
+-                var3 = new OutOfMemoryError(this.description);
+-            }
+-
+-            ((Throwable)var3).setStackTrace(this.cause.getStackTrace());
+-        }
+-
+-        String var4 = ((Throwable)var3).toString();
+-
+-        try
+-        {
+-            var1 = new StringWriter();
+-            var2 = new PrintWriter(var1);
+-            ((Throwable)var3).printStackTrace(var2);
+-            var4 = var1.toString();
+-        }
+-        finally
+-        {
+-            IOUtils.closeQuietly(var1);
+-            IOUtils.closeQuietly(var2);
+-        }
+-
+-        return var4;
+-    }
+-
+-    /**
+-     * Gets the complete report with headers, stack trace, and different sections as a string.
+-     */
+-    public String getCompleteReport()
+-    {
+-        StringBuilder var1 = new StringBuilder();
+-        var1.append("---- Minecraft Crash Report ----\n");
+-        var1.append("// ");
+-        var1.append(getWittyComment());
+-        var1.append("\n\n");
+-        var1.append("Time: ");
+-        var1.append((new SimpleDateFormat()).format(new Date()));
+-        var1.append("\n");
+-        var1.append("Description: ");
+-        var1.append(this.description);
+-        var1.append("\n\n");
+-        var1.append(this.getCauseStackTraceOrString());
+-        var1.append("\n\nA detailed walkthrough of the error, its code path and all known details is as follows:\n");
+-
+-        for (int var2 = 0; var2 < 87; ++var2)
+-        {
+-            var1.append("-");
+-        }
+-
+-        var1.append("\n\n");
+-        this.getSectionsInStringBuilder(var1);
+-        return var1.toString();
+-    }
+-
+-    /**
+-     * Gets the file this crash report is saved into.
+-     */
+-    public File getFile()
+-    {
+-        return this.crashReportFile;
+-    }
+-
+-    /**
+-     * Saves this CrashReport to the given file and returns a value indicating whether we were successful at doing so.
+-     */
+-    public boolean saveToFile(File p_147149_1_)
+-    {
+-        if (this.crashReportFile != null)
+-        {
+-            return false;
+-        }
+-        else
+-        {
+-            if (p_147149_1_.getParentFile() != null)
+-            {
+-                p_147149_1_.getParentFile().mkdirs();
+-            }
+-
+-            try
+-            {
+-                FileWriter var2 = new FileWriter(p_147149_1_);
+-                var2.write(this.getCompleteReport());
+-                var2.close();
+-                this.crashReportFile = p_147149_1_;
+-                return true;
+-            }
+-            catch (Throwable var3)
+-            {
+-                logger.error("Could not save crash report to " + p_147149_1_, var3);
+-                return false;
+-            }
+-        }
+-    }
+-
+-    public CrashReportCategory getCategory()
+-    {
+-        return this.theReportCategory;
+-    }
+-
+-    /**
+-     * Creates a CrashReportCategory
+-     */
+-    public CrashReportCategory makeCategory(String p_85058_1_)
+-    {
+-        return this.makeCategoryDepth(p_85058_1_, 1);
+-    }
+-
+-    /**
+-     * Creates a CrashReportCategory for the given stack trace depth
+-     */
+-    public CrashReportCategory makeCategoryDepth(String categoryName, int stacktraceLength)
+-    {
+-        CrashReportCategory var3 = new CrashReportCategory(this, categoryName);
+-
+-        if (this.field_85059_f)
+-        {
+-            int var4 = var3.getPrunedStackTrace(stacktraceLength);
+-            StackTraceElement[] var5 = this.cause.getStackTrace();
+-            StackTraceElement var6 = null;
+-            StackTraceElement var7 = null;
+-            int var8 = var5.length - var4;
+-
+-            if (var8 < 0)
+-            {
+-                System.out.println("Negative index in crash report handler (" + var5.length + "/" + var4 + ")");
+-            }
+-
+-            if (var5 != null && 0 <= var8 && var8 < var5.length)
+-            {
+-                var6 = var5[var8];
+-
+-                if (var5.length + 1 - var4 < var5.length)
+-                {
+-                    var7 = var5[var5.length + 1 - var4];
+-                }
+-            }
+-
+-            this.field_85059_f = var3.firstTwoElementsOfStackTraceMatch(var6, var7);
+-
+-            if (var4 > 0 && !this.crashReportSections.isEmpty())
+-            {
+-                CrashReportCategory var9 = (CrashReportCategory)this.crashReportSections.get(this.crashReportSections.size() - 1);
+-                var9.trimStackTraceEntriesFromBottom(var4);
+-            }
+-            else if (var5 != null && var5.length >= var4 && 0 <= var8 && var8 < var5.length)
+-            {
+-                this.stacktrace = new StackTraceElement[var8];
+-                System.arraycopy(var5, 0, this.stacktrace, 0, this.stacktrace.length);
+-            }
+-            else
+-            {
+-                this.field_85059_f = false;
+-            }
+-        }
+-
+-        this.crashReportSections.add(var3);
+-        return var3;
+-    }
+-
+-    /**
+-     * Gets a random witty comment for inclusion in this CrashReport
+-     */
+-    private static String getWittyComment()
+-    {
+-        String[] var0 = new String[] {"Who set us up the TNT?", "Everything\'s going to plan. No, really, that was supposed to happen.", "Uh... Did I do that?", "Oops.", "Why did you do that?", "I feel sad now :(", "My bad.", "I\'m sorry, Dave.", "I let you down. Sorry :(", "On the bright side, I bought you a teddy bear!", "Daisy, daisy...", "Oh - I know what I did wrong!", "Hey, that tickles! Hehehe!", "I blame Dinnerbone.", "You should try our sister game, Minceraft!", "Don\'t be sad. I\'ll do better next time, I promise!", "Don\'t be sad, have a hug! <3", "I just don\'t know what went wrong :(", "Shall we play a game?", "Quite honestly, I wouldn\'t worry myself about that.", "I bet Cylons wouldn\'t have this problem.", "Sorry :(", "Surprise! Haha. Well, this is awkward.", "Would you like a cupcake?", "Hi. I\'m Minecraft, and I\'m a crashaholic.", "Ooh. Shiny.", "This doesn\'t make any sense!", "Why is it breaking :(", "Don\'t do that.", "Ouch. That hurt :(", "You\'re mean.", "This is a token for 1 free hug. Redeem at your nearest Mojangsta: [~~HUG~~]", "There are four lights!", "But it works on my machine."};
+-
+-        try
+-        {
+-            return var0[(int)(System.nanoTime() % (long)var0.length)];
+-        }
+-        catch (Throwable var2)
+-        {
+-            return "Witty comment unavailable :(";
+-        }
+-    }
+-
+-    /**
+-     * Creates a crash report for the exception
+-     */
+-    public static CrashReport makeCrashReport(Throwable causeIn, String descriptionIn)
+-    {
+-        CrashReport var2;
+-
+-        if (causeIn instanceof ReportedException)
+-        {
+-            var2 = ((ReportedException)causeIn).getCrashReport();
+-        }
+-        else
+-        {
+-            var2 = new CrashReport(descriptionIn, causeIn);
+-        }
+-
+-        return var2;
+-    }
+-}
++package net.minecraft.crash;
 +
- import java.io.File;
- import java.io.FileWriter;
- import java.io.PrintWriter;
-@@ -12,13 +13,18 @@ import java.util.Date;
- import java.util.Iterator;
- import java.util.List;
- import java.util.concurrent.Callable;
++import com.google.common.collect.Lists;
 +
- import net.minecraft.util.ReportedException;
- import net.minecraft.world.gen.layer.IntCache;
++import java.io.File;
++import java.io.FileWriter;
++import java.io.PrintWriter;
++import java.io.StringWriter;
++import java.lang.management.ManagementFactory;
++import java.lang.management.RuntimeMXBean;
++import java.text.SimpleDateFormat;
++import java.util.Date;
++import java.util.Iterator;
++import java.util.List;
++import java.util.concurrent.Callable;
 +
- import org.apache.commons.io.IOUtils;
- import org.apache.commons.lang3.ArrayUtils;
- import org.apache.logging.log4j.LogManager;
- import org.apache.logging.log4j.Logger;
- 
-+import tk.wurst_client.Client;
++import net.minecraft.util.ReportedException;
++import net.minecraft.world.gen.layer.IntCache;
++
++import org.apache.commons.io.IOUtils;
++import org.apache.commons.lang3.ArrayUtils;
++import org.apache.logging.log4j.LogManager;
++import org.apache.logging.log4j.Logger;
++
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.crash.CrashSectionWurstVersion;
 +
- public class CrashReport
- {
-     private static final Logger logger = LogManager.getLogger();
-@@ -62,6 +68,10 @@ public class CrashReport
-                 return "1.8";
-             }
-         });
++public class CrashReport
++{
++    private static final Logger logger = LogManager.getLogger();
++
++    /** Description of the crash report. */
++    private final String description;
++
++    /** The Throwable that is the "cause" for this crash and Crash Report. */
++    private final Throwable cause;
++
++    /** Category of crash */
++    private final CrashReportCategory theReportCategory = new CrashReportCategory(this, "System Details");
++
++    /** Holds the keys and values of all crash report sections. */
++    private final List crashReportSections = Lists.newArrayList();
++
++    /** File of crash report. */
++    private File crashReportFile;
++    private boolean field_85059_f = true;
++    private StackTraceElement[] stacktrace = new StackTraceElement[0];
++    private static final String __OBFID = "CL_00000990";
++
++    public CrashReport(String descriptionIn, Throwable causeThrowable)
++    {
++        this.description = descriptionIn;
++        this.cause = causeThrowable;
++        this.populateEnvironment();
++    }
++
++    /**
++     * Populates this crash report with initial information about the running server and operating system / java
++     * environment
++     */
++    private void populateEnvironment()
++    {
++        this.theReportCategory.addCrashSectionCallable("Minecraft Version", new Callable()
++        {
++            private static final String __OBFID = "CL_00001197";
++            public String call()
++            {
++                return "1.8";
++            }
++        });
 +        
 +        //TODO: Client
 +        this.theReportCategory.addCrashSectionCallable("Wurst Client Version", new CrashSectionWurstVersion());
 +        
-         this.theReportCategory.addCrashSectionCallable("Operating System", new Callable()
-         {
-             private static final String __OBFID = "CL_00001222";
-@@ -246,7 +256,10 @@ public class CrashReport
-     public String getCompleteReport()
-     {
-         StringBuilder var1 = new StringBuilder();
--        var1.append("---- Minecraft Crash Report ----\n");
++        this.theReportCategory.addCrashSectionCallable("Operating System", new Callable()
++        {
++            private static final String __OBFID = "CL_00001222";
++            public String call()
++            {
++                return System.getProperty("os.name") + " (" + System.getProperty("os.arch") + ") version " + System.getProperty("os.version");
++            }
++        });
++        this.theReportCategory.addCrashSectionCallable("Java Version", new Callable()
++        {
++            private static final String __OBFID = "CL_00001248";
++            public String call()
++            {
++                return System.getProperty("java.version") + ", " + System.getProperty("java.vendor");
++            }
++        });
++        this.theReportCategory.addCrashSectionCallable("Java VM Version", new Callable()
++        {
++            private static final String __OBFID = "CL_00001275";
++            public String call()
++            {
++                return System.getProperty("java.vm.name") + " (" + System.getProperty("java.vm.info") + "), " + System.getProperty("java.vm.vendor");
++            }
++        });
++        this.theReportCategory.addCrashSectionCallable("Memory", new Callable()
++        {
++            private static final String __OBFID = "CL_00001302";
++            public String call()
++            {
++                Runtime var1 = Runtime.getRuntime();
++                long var2 = var1.maxMemory();
++                long var4 = var1.totalMemory();
++                long var6 = var1.freeMemory();
++                long var8 = var2 / 1024L / 1024L;
++                long var10 = var4 / 1024L / 1024L;
++                long var12 = var6 / 1024L / 1024L;
++                return var6 + " bytes (" + var12 + " MB) / " + var4 + " bytes (" + var10 + " MB) up to " + var2 + " bytes (" + var8 + " MB)";
++            }
++        });
++        this.theReportCategory.addCrashSectionCallable("JVM Flags", new Callable()
++        {
++            private static final String __OBFID = "CL_00001329";
++            public String call()
++            {
++                RuntimeMXBean var1 = ManagementFactory.getRuntimeMXBean();
++                List var2 = var1.getInputArguments();
++                int var3 = 0;
++                StringBuilder var4 = new StringBuilder();
++                Iterator var5 = var2.iterator();
++
++                while (var5.hasNext())
++                {
++                    String var6 = (String)var5.next();
++
++                    if (var6.startsWith("-X"))
++                    {
++                        if (var3++ > 0)
++                        {
++                            var4.append(" ");
++                        }
++
++                        var4.append(var6);
++                    }
++                }
++
++                return String.format("%d total; %s", new Object[] {Integer.valueOf(var3), var4.toString()});
++            }
++        });
++        this.theReportCategory.addCrashSectionCallable("IntCache", new Callable()
++        {
++            private static final String __OBFID = "CL_00001355";
++            public String call()
++            {
++                return IntCache.getCacheSizes();
++            }
++        });
++    }
++
++    /**
++     * Returns the description of the Crash Report.
++     */
++    public String getDescription()
++    {
++        return this.description;
++    }
++
++    /**
++     * Returns the Throwable object that is the cause for the crash and Crash Report.
++     */
++    public Throwable getCrashCause()
++    {
++        return this.cause;
++    }
++
++    /**
++     * Gets the various sections of the crash report into the given StringBuilder
++     */
++    public void getSectionsInStringBuilder(StringBuilder p_71506_1_)
++    {
++        if ((this.stacktrace == null || this.stacktrace.length <= 0) && this.crashReportSections.size() > 0)
++        {
++            this.stacktrace = (StackTraceElement[])ArrayUtils.subarray(((CrashReportCategory)this.crashReportSections.get(0)).getStackTrace(), 0, 1);
++        }
++
++        if (this.stacktrace != null && this.stacktrace.length > 0)
++        {
++            p_71506_1_.append("-- Head --\n");
++            p_71506_1_.append("Stacktrace:\n");
++            StackTraceElement[] var2 = this.stacktrace;
++            int var3 = var2.length;
++
++            for (int var4 = 0; var4 < var3; ++var4)
++            {
++                StackTraceElement var5 = var2[var4];
++                p_71506_1_.append("\t").append("at ").append(var5.toString());
++                p_71506_1_.append("\n");
++            }
++
++            p_71506_1_.append("\n");
++        }
++
++        Iterator var6 = this.crashReportSections.iterator();
++
++        while (var6.hasNext())
++        {
++            CrashReportCategory var7 = (CrashReportCategory)var6.next();
++            var7.appendToStringBuilder(p_71506_1_);
++            p_71506_1_.append("\n\n");
++        }
++
++        this.theReportCategory.appendToStringBuilder(p_71506_1_);
++    }
++
++    /**
++     * Gets the stack trace of the Throwable that caused this crash report, or if that fails, the cause .toString().
++     */
++    public String getCauseStackTraceOrString()
++    {
++        StringWriter var1 = null;
++        PrintWriter var2 = null;
++        Object var3 = this.cause;
++
++        if (((Throwable)var3).getMessage() == null)
++        {
++            if (var3 instanceof NullPointerException)
++            {
++                var3 = new NullPointerException(this.description);
++            }
++            else if (var3 instanceof StackOverflowError)
++            {
++                var3 = new StackOverflowError(this.description);
++            }
++            else if (var3 instanceof OutOfMemoryError)
++            {
++                var3 = new OutOfMemoryError(this.description);
++            }
++
++            ((Throwable)var3).setStackTrace(this.cause.getStackTrace());
++        }
++
++        String var4 = ((Throwable)var3).toString();
++
++        try
++        {
++            var1 = new StringWriter();
++            var2 = new PrintWriter(var1);
++            ((Throwable)var3).printStackTrace(var2);
++            var4 = var1.toString();
++        }
++        finally
++        {
++            IOUtils.closeQuietly(var1);
++            IOUtils.closeQuietly(var2);
++        }
++
++        return var4;
++    }
++
++    /**
++     * Gets the complete report with headers, stack trace, and different sections as a string.
++     */
++    public String getCompleteReport()
++    {
++        StringBuilder var1 = new StringBuilder();
 +        //TODO: Client
 +        var1.append("---------------- Wurst Client Crash Report ----------------\n");
 +        var1.append("---- Please report this crash at: wurst-client.tk/bugs ----\n");
 +        
-         var1.append("// ");
-         var1.append(getWittyComment());
-         var1.append("\n\n");
-@@ -379,7 +392,9 @@ public class CrashReport
-      */
-     private static String getWittyComment()
-     {
--        String[] var0 = new String[] {"Who set us up the TNT?", "Everything\'s going to plan. No, really, that was supposed to happen.", "Uh... Did I do that?", "Oops.", "Why did you do that?", "I feel sad now :(", "My bad.", "I\'m sorry, Dave.", "I let you down. Sorry :(", "On the bright side, I bought you a teddy bear!", "Daisy, daisy...", "Oh - I know what I did wrong!", "Hey, that tickles! Hehehe!", "I blame Dinnerbone.", "You should try our sister game, Minceraft!", "Don\'t be sad. I\'ll do better next time, I promise!", "Don\'t be sad, have a hug! <3", "I just don\'t know what went wrong :(", "Shall we play a game?", "Quite honestly, I wouldn\'t worry myself about that.", "I bet Cylons wouldn\'t have this problem.", "Sorry :(", "Surprise! Haha. Well, this is awkward.", "Would you like a cupcake?", "Hi. I\'m Minecraft, and I\'m a crashaholic.", "Ooh. Shiny.", "This doesn\'t make any sense!", "Why is it breaking :(", "Don\'t do that.", "Ouch. That hurt :(", "You\'re mean.", "This is a token for 1 free hug. Redeem at your nearest Mojangsta: [~~HUG~~]", "There are four lights!", "But it works on my machine."};
++        var1.append("// ");
++        var1.append(getWittyComment());
++        var1.append("\n\n");
++        var1.append("Time: ");
++        var1.append((new SimpleDateFormat()).format(new Date()));
++        var1.append("\n");
++        var1.append("Description: ");
++        var1.append(this.description);
++        var1.append("\n\n");
++        var1.append(this.getCauseStackTraceOrString());
++        var1.append("\n\nA detailed walkthrough of the error, its code path and all known details is as follows:\n");
++
++        for (int var2 = 0; var2 < 87; ++var2)
++        {
++            var1.append("-");
++        }
++
++        var1.append("\n\n");
++        this.getSectionsInStringBuilder(var1);
++        return var1.toString();
++    }
++
++    /**
++     * Gets the file this crash report is saved into.
++     */
++    public File getFile()
++    {
++        return this.crashReportFile;
++    }
++
++    /**
++     * Saves this CrashReport to the given file and returns a value indicating whether we were successful at doing so.
++     */
++    public boolean saveToFile(File p_147149_1_)
++    {
++        if (this.crashReportFile != null)
++        {
++            return false;
++        }
++        else
++        {
++            if (p_147149_1_.getParentFile() != null)
++            {
++                p_147149_1_.getParentFile().mkdirs();
++            }
++
++            try
++            {
++                FileWriter var2 = new FileWriter(p_147149_1_);
++                var2.write(this.getCompleteReport());
++                var2.close();
++                this.crashReportFile = p_147149_1_;
++                return true;
++            }
++            catch (Throwable var3)
++            {
++                logger.error("Could not save crash report to " + p_147149_1_, var3);
++                return false;
++            }
++        }
++    }
++
++    public CrashReportCategory getCategory()
++    {
++        return this.theReportCategory;
++    }
++
++    /**
++     * Creates a CrashReportCategory
++     */
++    public CrashReportCategory makeCategory(String p_85058_1_)
++    {
++        return this.makeCategoryDepth(p_85058_1_, 1);
++    }
++
++    /**
++     * Creates a CrashReportCategory for the given stack trace depth
++     */
++    public CrashReportCategory makeCategoryDepth(String categoryName, int stacktraceLength)
++    {
++        CrashReportCategory var3 = new CrashReportCategory(this, categoryName);
++
++        if (this.field_85059_f)
++        {
++            int var4 = var3.getPrunedStackTrace(stacktraceLength);
++            StackTraceElement[] var5 = this.cause.getStackTrace();
++            StackTraceElement var6 = null;
++            StackTraceElement var7 = null;
++            int var8 = var5.length - var4;
++
++            if (var8 < 0)
++            {
++                System.out.println("Negative index in crash report handler (" + var5.length + "/" + var4 + ")");
++            }
++
++            if (var5 != null && 0 <= var8 && var8 < var5.length)
++            {
++                var6 = var5[var8];
++
++                if (var5.length + 1 - var4 < var5.length)
++                {
++                    var7 = var5[var5.length + 1 - var4];
++                }
++            }
++
++            this.field_85059_f = var3.firstTwoElementsOfStackTraceMatch(var6, var7);
++
++            if (var4 > 0 && !this.crashReportSections.isEmpty())
++            {
++                CrashReportCategory var9 = (CrashReportCategory)this.crashReportSections.get(this.crashReportSections.size() - 1);
++                var9.trimStackTraceEntriesFromBottom(var4);
++            }
++            else if (var5 != null && var5.length >= var4 && 0 <= var8 && var8 < var5.length)
++            {
++                this.stacktrace = new StackTraceElement[var8];
++                System.arraycopy(var5, 0, this.stacktrace, 0, this.stacktrace.length);
++            }
++            else
++            {
++                this.field_85059_f = false;
++            }
++        }
++
++        this.crashReportSections.add(var3);
++        return var3;
++    }
++
++    /**
++     * Gets a random witty comment for inclusion in this CrashReport
++     */
++    private static String getWittyComment()
++    {
 +    	//TODO: Client
 +    	//Added some extra comments
 +        String[] var0 = new String[] {"Who set us up the TNT?", "Everything\'s going to plan. No, really, that was supposed to happen.", "Uh... Did I do that?", "Oops.", "Why did you do that?", "I feel sad now :(", "My bad.", "I\'m sorry, Dave.", "I let you down. Sorry :(", "On the bright side, I bought you a teddy bear!", "Daisy, daisy...", "Oh - I know what I did wrong!", "Hey, that tickles! Hehehe!", "I blame Dinnerbone.", "I blame Apple.", "You should try our sister game, Minceraft!", "Don\'t be sad. I\'ll do better next time, I promise!", "Don\'t be sad, have a hug! <3", "I just don\'t know what went wrong :(", "Shall we play a game?", "Quite honestly, I wouldn\'t worry myself about that.", "I bet Cylons wouldn\'t have this problem.", "Sorry :(", "Surprise! Haha. Well, this is awkward.", "Would you like a cupcake?", "Hi. I\'m Minecraft, and I\'m a crashaholic.", "Ooh. Shiny.", "This doesn\'t make any sense!", "Why is it breaking :(", "Don\'t do that.", "Ouch. That hurt :(", "You\'re mean.", "This is a token for 1 free hug. Redeem at your nearest Mojangsta: [~~HUG~~]", "There are four lights!", "But it works on my machine.", "At least you tried it!", "At least you got a nice looking crash report!", "Immer weiter gehen, nicht stehen bleiben!"};
- 
-         try
-         {
++
++        try
++        {
++            return var0[(int)(System.nanoTime() % (long)var0.length)];
++        }
++        catch (Throwable var2)
++        {
++            return "Witty comment unavailable :(";
++        }
++    }
++
++    /**
++     * Creates a crash report for the exception
++     */
++    public static CrashReport makeCrashReport(Throwable causeIn, String descriptionIn)
++    {
++        CrashReport var2;
++
++        if (causeIn instanceof ReportedException)
++        {
++            var2 = ((ReportedException)causeIn).getCrashReport();
++        }
++        else
++        {
++            var2 = new CrashReport(descriptionIn, causeIn);
++        }
++
++        return var2;
++    }
++}
 diff --git a/src/net/minecraft/crash/CrashReportCategory.java b/src/net/minecraft/crash/CrashReportCategory.java
 index c55aa0c..1c9553f 100644
 --- a/src/net/minecraft/crash/CrashReportCategory.java
@@ -39775,7 +40964,7 @@ index 6b59121..b819849 100644
  
      /**
 diff --git a/src/net/minecraft/entity/Entity.java b/src/net/minecraft/entity/Entity.java
-index 7397345..091bdfb 100644
+index 7397345..807f0c4 100644
 --- a/src/net/minecraft/entity/Entity.java
 +++ b/src/net/minecraft/entity/Entity.java
 @@ -1,2763 +1,2787 @@
@@ -42592,7 +43781,7 @@ index 7397345..091bdfb 100644
 +import net.minecraft.world.Explosion;
 +import net.minecraft.world.World;
 +import net.minecraft.world.WorldServer;
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.AntiKnockbackMod;
 +import tk.wurst_client.mods.FreecamMod;
 +import tk.wurst_client.mods.PhaseMod;
@@ -43134,13 +44323,13 @@ index 7397345..091bdfb 100644
 +        if
 +        (
 +        	this.noClip
-+        	|| Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled()
-+        	|| Client.wurst.modManager.getModByClass(PhaseMod.class).isEnabled()
++        	|| WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class).isEnabled()
++        	|| WurstClient.INSTANCE.modManager.getModByClass(PhaseMod.class).isEnabled()
 +        )
 +        {
 +        	//TODO: Client
 +        	//Fixes Freecam flight speed
-+        	if(this == Minecraft.getMinecraft().thePlayer && Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled())
++        	if(this == Minecraft.getMinecraft().thePlayer && WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class).isEnabled())
 +        	{
 +        		this.func_174826_a(this.getEntityBoundingBox().offset(x * 10, y, z * 10));
 +        	}else
@@ -44648,7 +45837,7 @@ index 7397345..091bdfb 100644
 +    public void setVelocity(double x, double y, double z)
 +    {
 +    	//TODO: Client
-+    	if(!Client.wurst.modManager.getModByClass(AntiKnockbackMod.class).isEnabled())
++    	if(!WurstClient.INSTANCE.modManager.getModByClass(AntiKnockbackMod.class).isEnabled())
 +    	{
 +    		this.motionX = x;
 +        	this.motionY = y;
@@ -45330,7 +46519,7 @@ index 7397345..091bdfb 100644
 +    }
 +}
 diff --git a/src/net/minecraft/entity/EntityLivingBase.java b/src/net/minecraft/entity/EntityLivingBase.java
-index c6f8843..cfef287 100644
+index c6f8843..267fb41 100644
 --- a/src/net/minecraft/entity/EntityLivingBase.java
 +++ b/src/net/minecraft/entity/EntityLivingBase.java
 @@ -1,2273 +1,2281 @@
@@ -47618,7 +48807,7 @@ index c6f8843..cfef287 100644
 +import java.util.Random;
 +import java.util.UUID;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.mods.HighJumpMod;
 +import tk.wurst_client.mods.NoSlowdownMod;
 +import net.minecraft.block.Block;
@@ -49170,7 +50359,7 @@ index c6f8843..cfef287 100644
 +    protected void jump()
 +    {
 +    	//TODO: Client
-+        this.motionY = Client.wurst.modManager.getModByClass(HighJumpMod.class).isEnabled() ? (double)this.func_175134_bD() * HighJumpMod.jumpHeight : (double)this.func_175134_bD();
++        this.motionY = WurstClient.INSTANCE.modManager.getModByClass(HighJumpMod.class).isEnabled() ? (double)this.func_175134_bD() * HighJumpMod.jumpHeight : (double)this.func_175134_bD();
 +
 +        if (this.isPotionActive(Potion.jump))
 +        {
@@ -49215,7 +50404,7 @@ index c6f8843..cfef287 100644
 +
 +            //TODO: Client
 +            if (this.isInWater() && (!(this instanceof EntityPlayer) || !((EntityPlayer)this).capabilities.isFlying)
-+            	&& !Client.wurst.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
++            	&& !WurstClient.INSTANCE.modManager.getModByClass(NoSlowdownMod.class).isEnabled())
 +            {
 +                var8 = this.posY;
 +                var5 = 0.8F;
@@ -49953,7 +51142,7 @@ index 9f8f79c..eab2d65 100644
              this.closestPlayer = null;
          }
 diff --git a/src/net/minecraft/entity/player/EntityPlayer.java b/src/net/minecraft/entity/player/EntityPlayer.java
-index 8a0a656..7454b1b 100644
+index 8a0a656..6e6abe6 100644
 --- a/src/net/minecraft/entity/player/EntityPlayer.java
 +++ b/src/net/minecraft/entity/player/EntityPlayer.java
 @@ -1,2534 +1,2545 @@
@@ -52498,7 +53687,7 @@ index 8a0a656..7454b1b 100644
 +import java.util.List;
 +import java.util.UUID;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.bot.WurstBot;
 +import tk.wurst_client.mods.AntiKnockbackMod;
 +import net.minecraft.block.Block;
@@ -54773,7 +55962,7 @@ index 8a0a656..7454b1b 100644
 +    public boolean isPushedByWater()
 +    {
 +    	//TODO: Client
-+        return !Client.wurst.modManager.getModByClass(AntiKnockbackMod.class).isEnabled() && !this.capabilities.isFlying;
++        return !WurstClient.INSTANCE.modManager.getModByClass(AntiKnockbackMod.class).isEnabled() && !this.capabilities.isFlying;
 +    }
 +
 +    public Scoreboard getWorldScoreboard()
@@ -55437,7 +56626,7 @@ index 38b9ecd..f64dc7e 100644
              this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);
          }
 diff --git a/src/net/minecraft/network/NetworkManager.java b/src/net/minecraft/network/NetworkManager.java
-index f05dadf..bd2f0e9 100644
+index f05dadf..6c4a4c1 100644
 --- a/src/net/minecraft/network/NetworkManager.java
 +++ b/src/net/minecraft/network/NetworkManager.java
 @@ -1,479 +1,464 @@
@@ -55949,7 +57138,7 @@ index f05dadf..bd2f0e9 100644
 +import org.apache.logging.log4j.Marker;
 +import org.apache.logging.log4j.MarkerManager;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.PacketInputEvent;
 +import tk.wurst_client.mods.Mod;
@@ -57035,7 +58224,7 @@ index a682077..381c34c 100644
  
      public static enum MovingObjectType
 diff --git a/src/net/minecraft/util/Timer.java b/src/net/minecraft/util/Timer.java
-index 7d59775..f5b019c 100644
+index 7d59775..2a5c9aa 100644
 --- a/src/net/minecraft/util/Timer.java
 +++ b/src/net/minecraft/util/Timer.java
 @@ -1,109 +1,115 @@
@@ -57150,7 +58339,7 @@ index 7d59775..f5b019c 100644
 -}
 +package net.minecraft.util;
 +
-+import tk.wurst_client.Client;
++import tk.wurst_client.WurstClient;
 +import net.minecraft.client.Minecraft;
 +
 +public class Timer
@@ -57215,7 +58404,7 @@ index 7d59775..f5b019c 100644
 +    public void updateTimer()
 +    {
 +    	//TODO: Client
-+    	if(Client.wurst.modManager.getModByClass(tk.wurst_client.mods.TimerMod.class).isEnabled())
++    	if(WurstClient.INSTANCE.modManager.getModByClass(tk.wurst_client.mods.TimerMod.class).isEnabled())
 +    		timerSpeed = tk.wurst_client.mods.TimerMod.speed;
 +    	else
 +    		timerSpeed = 1.0F;

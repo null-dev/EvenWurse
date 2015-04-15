@@ -18,7 +18,7 @@ import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.NameGenerator;
 import tk.wurst_client.alts.SkinStealer;
@@ -105,7 +105,7 @@ public abstract class AltEditorScreen extends GuiScreen
 			new GuiPasswordField(fontRendererObj, width / 2 - 100, 100, 200, 20);
 		passwordBox.setFocused(false);
 		passwordBox.setText(getPasswordBoxText());
-		Client.wurst.analytics.trackPageView(getUrl(), getTitle());
+		WurstClient.INSTANCE.analytics.trackPageView(getUrl(), getTitle());
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public abstract class AltEditorScreen extends GuiScreen
 			else if(button.id == 4)
 				displayText = SkinStealer.stealSkin(getName());
 			else if(button.id == 5)
-				MiscUtils.openFile(Client.wurst.fileManager.skinDir);
+				MiscUtils.openFile(WurstClient.INSTANCE.fileManager.skinDir);
 	}
 	
 	/**

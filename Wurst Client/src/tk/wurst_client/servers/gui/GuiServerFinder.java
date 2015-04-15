@@ -19,7 +19,7 @@ import net.minecraft.client.multiplayer.ServerData;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.input.Keyboard;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.servers.ServerPinger;
 import tk.wurst_client.utils.MiscUtils;
 
@@ -89,10 +89,10 @@ public class GuiServerFinder extends GuiScreen
 		maxThreadsBox.setMaxStringLength(3);
 		maxThreadsBox.setFocused(false);
 		maxThreadsBox.setText(Integer
-			.toString(Client.wurst.options.serverFinderThreads));
+			.toString(WurstClient.INSTANCE.options.serverFinderThreads));
 		running = false;
 		terminated = false;
-		Client.wurst.analytics.trackPageView("/multiplayer/server-finder",
+		WurstClient.INSTANCE.analytics.trackPageView("/multiplayer/server-finder",
 			"Server Finder");
 	}
 	
@@ -105,9 +105,9 @@ public class GuiServerFinder extends GuiScreen
 		terminated = true;
 		if(MiscUtils.isInteger(maxThreadsBox.getText()))
 		{
-			Client.wurst.options.serverFinderThreads =
+			WurstClient.INSTANCE.options.serverFinderThreads =
 				Integer.valueOf(maxThreadsBox.getText());
-			Client.wurst.fileManager.saveOptions();
+			WurstClient.INSTANCE.fileManager.saveOptions();
 		}
 		Keyboard.enableRepeatEvents(false);
 	}
@@ -120,9 +120,9 @@ public class GuiServerFinder extends GuiScreen
 			{// Search
 				if(MiscUtils.isInteger(maxThreadsBox.getText()))
 				{
-					Client.wurst.options.serverFinderThreads =
+					WurstClient.INSTANCE.options.serverFinderThreads =
 						Integer.valueOf(maxThreadsBox.getText());
-					Client.wurst.fileManager.saveOptions();
+					WurstClient.INSTANCE.fileManager.saveOptions();
 				}
 				running = true;
 				new Thread("Server Finder")
@@ -151,16 +151,16 @@ public class GuiServerFinder extends GuiScreen
 								ServerPinger pinger = new ServerPinger();
 								pinger.ping(ip);
 								pingers.add(pinger);
-								while(pingers.size() >= Client.wurst.options.serverFinderThreads)
+								while(pingers.size() >= WurstClient.INSTANCE.options.serverFinderThreads)
 									pingers = updatePingers(pingers);
 							}
 						while(pingers.size() > 0)
 							pingers = updatePingers(pingers);
-						Client.wurst.analytics.trackEvent("server finder",
+						WurstClient.INSTANCE.analytics.trackEvent("server finder",
 							"complete", "complete", working);
 					}
 				}.start();
-				Client.wurst.analytics.trackEvent("server finder", "start");
+				WurstClient.INSTANCE.analytics.trackEvent("server finder", "start");
 			}else if(clickedButton.id == 1)
 				mc.displayGuiScreen(prevMenu);
 	}

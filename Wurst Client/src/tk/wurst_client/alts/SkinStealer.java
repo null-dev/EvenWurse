@@ -14,7 +14,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 
 public class SkinStealer
 {
@@ -30,7 +30,7 @@ public class SkinStealer
 			BufferedInputStream skinputStream =
 				new BufferedInputStream(skinCon.getInputStream());
 			File skin =
-				new File(Client.wurst.fileManager.skinDir, name + ".png");
+				new File(WurstClient.INSTANCE.fileManager.skinDir, name + ".png");
 			FileOutputStream outputStream = new FileOutputStream(skin);
 			int i;
 			while((i = skinputStream.read()) != -1)

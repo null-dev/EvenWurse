@@ -10,7 +10,7 @@ package tk.wurst_client.commands;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.inventory.GuiInventory;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.RenderListener;
@@ -29,7 +29,7 @@ public class InvseeCmd extends Cmd implements RenderListener
 			syntaxError();
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
-			Client.wurst.chat.error("Survival mode only.");
+			WurstClient.INSTANCE.chat.error("Survival mode only.");
 			return;
 		}
 		playerName = args[0];
@@ -46,7 +46,7 @@ public class InvseeCmd extends Cmd implements RenderListener
 				EntityOtherPlayerMP player = (EntityOtherPlayerMP)entity;
 				if(player.getName().equals(playerName))
 				{
-					Client.wurst.chat.message("Showing inventory of "
+					WurstClient.INSTANCE.chat.message("Showing inventory of "
 						+ player.getName() + ".");
 					Minecraft.getMinecraft().displayGuiScreen(
 						new GuiInventory(player));
@@ -54,7 +54,7 @@ public class InvseeCmd extends Cmd implements RenderListener
 				}
 			}
 		if(!found)
-			Client.wurst.chat.error("Player not found.");
+			WurstClient.INSTANCE.chat.error("Player not found.");
 		playerName = null;
 		EventManager.render.removeListener(this);
 	}

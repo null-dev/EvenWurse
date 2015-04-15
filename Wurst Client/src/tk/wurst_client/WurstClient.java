@@ -23,9 +23,11 @@ import tk.wurst_client.options.Keybinds;
 import tk.wurst_client.options.Options;
 import tk.wurst_client.update.Updater;
 
-public class Client
+public enum WurstClient
 {
-	public final String CLIENT_VERSION = "1.13";
+	INSTANCE;
+	
+	public static final String VERSION = "1.13";
 	public String currentServerIP = "127.0.0.1:25565";
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
@@ -40,8 +42,6 @@ public class Client
 	public Options options;
 	public Updater updater;
 	public Analytics analytics;
-	
-	public static final Client wurst = new Client();
 	
 	public void startClient()
 	{

@@ -31,13 +31,13 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.utils.MiscUtils;
 
 public class Encryption
 {
 	private static SecretKey aesKey;
-	private static File aesFile = new File(Client.wurst.fileManager.wurstDir,
+	private static File aesFile = new File(WurstClient.INSTANCE.fileManager.wurstDir,
 		"key");
 	
 	private static KeyPair keypair;

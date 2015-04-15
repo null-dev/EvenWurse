@@ -10,7 +10,7 @@ package tk.wurst_client.commands;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Shows the IP of the server you are currently playing on or copies it to the clipboard.",
@@ -22,15 +22,15 @@ public class IpCmd extends Cmd
 	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
-			Client.wurst.chat.message("IP: " + Client.wurst.currentServerIP);
+			WurstClient.INSTANCE.chat.message("IP: " + WurstClient.INSTANCE.currentServerIP);
 		else if(args[0].toLowerCase().equals("copy"))
 		{
 			Toolkit
 				.getDefaultToolkit()
 				.getSystemClipboard()
-				.setContents(new StringSelection(Client.wurst.currentServerIP),
+				.setContents(new StringSelection(WurstClient.INSTANCE.currentServerIP),
 					null);
-			Client.wurst.chat.message("IP copied to clipboard.");
+			WurstClient.INSTANCE.chat.message("IP copied to clipboard.");
 		}else
 			syntaxError();
 	}

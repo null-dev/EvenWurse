@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.gui.GuiWurstSlot;
 import tk.wurst_client.mods.Mod;
 
@@ -45,7 +45,7 @@ public class GuiKeybindList extends GuiWurstSlot
 	@Override
 	protected int getSize()
 	{
-		return Client.wurst.keybinds.size();
+		return WurstClient.INSTANCE.keybinds.size();
 	}
 	
 	@Override
@@ -62,8 +62,8 @@ public class GuiKeybindList extends GuiWurstSlot
 	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
 	{
 		Entry entry =
-			Client.wurst.keybinds.entrySet().toArray(
-				new Map.Entry[Client.wurst.keybinds.size()])[id];
+			WurstClient.INSTANCE.keybinds.entrySet().toArray(
+				new Map.Entry[WurstClient.INSTANCE.keybinds.size()])[id];
 		mc.fontRendererObj.drawString("Key: " + entry.getKey(), x + 3, y + 3,
 			10526880);
 		mc.fontRendererObj.drawString("Command: " + entry.getValue(), x + 3,

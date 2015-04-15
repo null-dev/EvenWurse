@@ -8,7 +8,7 @@
 package tk.wurst_client.commands;
 
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.ai.PathPoint;
 import tk.wurst_client.commands.Cmd.Info;
@@ -51,7 +51,7 @@ public class PathCmd extends Cmd implements RenderListener
 					enabled = true;
 					EventManager.render.addListener(PathCmd.this);
 				}else
-					Client.wurst.chat.error("Could not find a path.");
+					WurstClient.INSTANCE.chat.error("Could not find a path.");
 				System.out.println("Done after "
 					+ (System.nanoTime() - startTime) / 1e6 + "ms");
 			}

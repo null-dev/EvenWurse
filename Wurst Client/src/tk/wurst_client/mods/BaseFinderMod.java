@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
@@ -89,9 +89,9 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 			}
 			if(matchingBlocks.size() >= maxBlocks && shouldInform)
 			{
-				Client.wurst.chat.warning(getName()
+				WurstClient.INSTANCE.chat.warning(getName()
 					+ " found §lA LOT§r of blocks.");
-				Client.wurst.chat
+				WurstClient.INSTANCE.chat
 					.message("To prevent lag, it will only show the first "
 						+ maxBlocks + " blocks.");
 				shouldInform = false;

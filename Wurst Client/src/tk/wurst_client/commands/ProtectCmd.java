@@ -8,7 +8,7 @@
 package tk.wurst_client.commands;
 
 import net.minecraft.entity.EntityLivingBase;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.ProtectMod;
 import tk.wurst_client.utils.EntityUtils;
 
@@ -23,7 +23,7 @@ public class ProtectCmd extends Cmd
 		if(args.length > 1)
 			syntaxError();
 		ProtectMod protectMod =
-			(ProtectMod)Client.wurst.modManager.getModByClass(ProtectMod.class);
+			(ProtectMod)WurstClient.INSTANCE.modManager.getModByClass(ProtectMod.class);
 		if(args.length == 0)
 			protectMod.toggle();
 		else

@@ -9,16 +9,16 @@ package tk.wurst_client.crash;
 
 import java.util.concurrent.Callable;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 
 public class CrashSectionWurstVersion implements Callable
 {
 	@Override
 	public String call()
 	{
-		return Client.wurst.CLIENT_VERSION
+		return WurstClient.VERSION
 			+ " (latest: "
-			+ (Client.wurst.updater.getLatestVersion() == null ? "unknown"
-				: Client.wurst.updater.getLatestVersion()) + ")";
+			+ (WurstClient.INSTANCE.updater.getLatestVersion() == null ? "unknown"
+				: WurstClient.INSTANCE.updater.getLatestVersion()) + ")";
 	}
 }

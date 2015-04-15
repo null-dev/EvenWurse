@@ -13,7 +13,7 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -36,14 +36,14 @@ public class BuildRandomMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Client.wurst.modManager.getModByClass(FreecamMod.class).isEnabled()
-			|| Client.wurst.modManager.getModByClass(RemoteViewMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class).isEnabled()
+			|| WurstClient.INSTANCE.modManager.getModByClass(RemoteViewMod.class)
 				.isEnabled()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		if(Minecraft.getMinecraft().rightClickDelayTimer > 0
-			&& !Client.wurst.modManager.getModByClass(FastPlaceMod.class)
+			&& !WurstClient.INSTANCE.modManager.getModByClass(FastPlaceMod.class)
 				.isEnabled())
 			return;
 		float xDiff = 0;

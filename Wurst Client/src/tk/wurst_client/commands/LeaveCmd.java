@@ -7,7 +7,7 @@
  */
 package tk.wurst_client.commands;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
 
@@ -28,7 +28,7 @@ public class LeaveCmd extends Cmd
 		switch(args.length)
 		{
 			case 0:
-				disconnectWithMode(Client.wurst.options.autoLeaveMode);
+				disconnectWithMode(WurstClient.INSTANCE.options.autoLeaveMode);
 				break;
 			case 1:
 				if(args[0].equalsIgnoreCase("taco"))
@@ -38,9 +38,9 @@ public class LeaveCmd extends Cmd
 					disconnectWithMode(parseMode(args[0]));
 				break;
 			case 2:
-				Client.wurst.options.autoLeaveMode = parseMode(args[1]);
-				Client.wurst.fileManager.saveOptions();
-				Client.wurst.chat.message("AutoLeave mode set to \"" + args[1]
+				WurstClient.INSTANCE.options.autoLeaveMode = parseMode(args[1]);
+				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.chat.message("AutoLeave mode set to \"" + args[1]
 					+ "\".");
 				break;
 			default:

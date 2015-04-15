@@ -10,7 +10,7 @@ package tk.wurst_client.mods;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -25,16 +25,16 @@ public class TriggerBotMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(KillauraMod.class).isEnabled())
-			Client.wurst.modManager.getModByClass(KillauraMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class).isEnabled())
+			WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
 				.setEnabled(false);
-		if(Client.wurst.modManager.getModByClass(KillauraLegitMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraLegitMod.class)
 			.isEnabled())
-			Client.wurst.modManager.getModByClass(KillauraLegitMod.class)
+			WurstClient.INSTANCE.modManager.getModByClass(KillauraLegitMod.class)
 				.setEnabled(false);
-		if(Client.wurst.modManager.getModByClass(MultiAuraMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
 			.isEnabled())
-			Client.wurst.modManager.getModByClass(MultiAuraMod.class)
+			WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
 				.setEnabled(false);
 		EventManager.update.addListener(this);
 	}
@@ -48,7 +48,7 @@ public class TriggerBotMod extends Mod implements UpdateListener
 		{
 			updateMS();
 			boolean yesCheatMode =
-				Client.wurst.modManager.getModByClass(YesCheatMod.class)
+				WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
 					.isEnabled();
 			if(yesCheatMode && hasTimePassedS(KillauraMod.yesCheatSpeed)
 				|| !yesCheatMode && hasTimePassedS(KillauraMod.normalSpeed))
@@ -62,7 +62,7 @@ public class TriggerBotMod extends Mod implements UpdateListener
 						.getDistanceToEntity(en) <= KillauraMod.normalRange)
 					&& EntityUtils.isCorrectEntity(en, true))
 				{
-					if(Client.wurst.modManager
+					if(WurstClient.INSTANCE.modManager
 						.getModByClass(AutoSwordMod.class).isEnabled())
 						AutoSwordMod.setSlot();
 					CriticalsMod.doCritical();

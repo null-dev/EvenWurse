@@ -12,7 +12,7 @@ import java.util.Iterator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.StringUtils;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.gui.GuiAltList;
 import tk.wurst_client.commands.Cmd.Info;
@@ -47,18 +47,18 @@ public class AddAltCmd extends Cmd
 				alts++;
 			}
 			if(alts == 1)
-				Client.wurst.chat.message("Added 1 alt to the alt list.");
+				WurstClient.INSTANCE.chat.message("Added 1 alt to the alt list.");
 			else
-				Client.wurst.chat.message("Added " + alts
+				WurstClient.INSTANCE.chat.message("Added " + alts
 					+ " alts to the alt list.");
 			GuiAltList.sortAlts();
-			Client.wurst.fileManager.saveAlts();
+			WurstClient.INSTANCE.fileManager.saveAlts();
 		}else if(!args[0].equals("Alexander01998"))
 		{
 			GuiAltList.alts.add(new Alt(args[0]));
 			GuiAltList.sortAlts();
-			Client.wurst.fileManager.saveAlts();
-			Client.wurst.chat.message("Added \"" + args[0]
+			WurstClient.INSTANCE.fileManager.saveAlts();
+			WurstClient.INSTANCE.chat.message("Added \"" + args[0]
 				+ "\" to the alt list.");
 		}
 	}

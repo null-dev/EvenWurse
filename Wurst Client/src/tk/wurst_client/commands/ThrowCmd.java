@@ -7,7 +7,7 @@
  */
 package tk.wurst_client.commands;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.mods.ThrowMod;
 import tk.wurst_client.utils.MiscUtils;
@@ -22,21 +22,21 @@ public class ThrowCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			Client.wurst.modManager.getModByClass(ThrowMod.class).toggle();
-			Client.wurst.chat.message("Throw turned "
-				+ (Client.wurst.modManager.getModByClass(ThrowMod.class)
+			WurstClient.INSTANCE.modManager.getModByClass(ThrowMod.class).toggle();
+			WurstClient.INSTANCE.chat.message("Throw turned "
+				+ (WurstClient.INSTANCE.modManager.getModByClass(ThrowMod.class)
 					.isEnabled() == true ? "on" : "off") + ".");
 		}else if(args.length == 2 && args[0].equalsIgnoreCase("amount")
 			&& MiscUtils.isInteger(args[1]))
 		{
 			if(Integer.valueOf(args[1]) < 1)
 			{
-				Client.wurst.chat.error("Throw amount must be at least 1.");
+				WurstClient.INSTANCE.chat.error("Throw amount must be at least 1.");
 				return;
 			}
-			Client.wurst.options.throwAmount = Integer.valueOf(args[1]);
-			Client.wurst.fileManager.saveOptions();
-			Client.wurst.chat.message("Throw amount set to " + args[1] + ".");
+			WurstClient.INSTANCE.options.throwAmount = Integer.valueOf(args[1]);
+			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.chat.message("Throw amount set to " + args[1] + ".");
 		}else
 			syntaxError();
 	}

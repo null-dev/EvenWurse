@@ -9,7 +9,7 @@ package tk.wurst_client.commands;
 
 import java.util.Iterator;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.utils.MiscUtils;
 
@@ -27,30 +27,30 @@ public class HelpCmd extends Cmd
 			return;
 		}
 		int pages =
-			(int)Math.ceil(Client.wurst.cmdManager.countCommands() / 8D);
+			(int)Math.ceil(WurstClient.INSTANCE.cmdManager.countCommands() / 8D);
 		if(MiscUtils.isInteger(args[0]))
 		{
 			int page = Integer.valueOf(args[0]);
 			if(page > pages || page < 1)
 				syntaxError("Invalid page: " + page);
-			Client.wurst.chat.message("Available commands: "
-				+ Client.wurst.cmdManager.countCommands());
-			Client.wurst.chat.message("Command list (page " + page + "/"
+			WurstClient.INSTANCE.chat.message("Available commands: "
+				+ WurstClient.INSTANCE.cmdManager.countCommands());
+			WurstClient.INSTANCE.chat.message("Command list (page " + page + "/"
 				+ pages + "):");
 			Iterator<Cmd> itr =
-				Client.wurst.cmdManager.getAllCommands().iterator();
+				WurstClient.INSTANCE.cmdManager.getAllCommands().iterator();
 			for(int i = 0; itr.hasNext(); i++)
 			{
 				Cmd cmd = itr.next();
 				if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
-					Client.wurst.chat.message(cmd.getName());
+					WurstClient.INSTANCE.chat.message(cmd.getName());
 			}
 		}else
 		{
-			Cmd cmd = Client.wurst.cmdManager.getCommandByName(args[0]);
+			Cmd cmd = WurstClient.INSTANCE.cmdManager.getCommandByName(args[0]);
 			if(cmd != null)
 			{
-				Client.wurst.chat.message("Available help for ." + args[0]
+				WurstClient.INSTANCE.chat.message("Available help for ." + args[0]
 					+ ":");
 				cmd.printHelp();
 				cmd.printSyntax();

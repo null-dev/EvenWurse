@@ -8,7 +8,7 @@
 package tk.wurst_client.commands;
 
 import net.minecraft.block.Block;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.mods.SearchMod;
 import tk.wurst_client.utils.MiscUtils;
@@ -23,28 +23,28 @@ public class SearchCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			Client.wurst.modManager.getModByClass(SearchMod.class).toggle();
-			Client.wurst.chat.message("Search turned "
-				+ (Client.wurst.modManager.getModByClass(SearchMod.class)
+			WurstClient.INSTANCE.modManager.getModByClass(SearchMod.class).toggle();
+			WurstClient.INSTANCE.chat.message("Search turned "
+				+ (WurstClient.INSTANCE.modManager.getModByClass(SearchMod.class)
 					.isEnabled() == true ? "on" : "off") + ".");
 		}else if(args[0].toLowerCase().equals("id"))
 		{
 			if(MiscUtils.isInteger(args[1]))
-				Client.wurst.options.searchID = Integer.valueOf(args[1]);
+				WurstClient.INSTANCE.options.searchID = Integer.valueOf(args[1]);
 			else
 				syntaxError("ID must be a number.");
-			Client.wurst.fileManager.saveOptions();
+			WurstClient.INSTANCE.fileManager.saveOptions();
 			SearchMod.shouldInform = true;
-			Client.wurst.chat.message("Search ID set to " + args[1] + ".");
+			WurstClient.INSTANCE.chat.message("Search ID set to " + args[1] + ".");
 		}else if(args[0].equalsIgnoreCase("name"))
 		{
 			int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
 			if(newID == -1)
 				error("Block \"" + args[1] + "\" could not be found.");
-			Client.wurst.options.searchID = Integer.valueOf(newID);
-			Client.wurst.fileManager.saveOptions();
+			WurstClient.INSTANCE.options.searchID = Integer.valueOf(newID);
+			WurstClient.INSTANCE.fileManager.saveOptions();
 			SearchMod.shouldInform = true;
-			Client.wurst.chat.message("Search ID set to " + newID + " ("
+			WurstClient.INSTANCE.chat.message("Search ID set to " + newID + " ("
 				+ args[1] + ").");
 		}else
 			syntaxError();

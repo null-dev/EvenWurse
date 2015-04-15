@@ -23,7 +23,7 @@ import net.minecraft.client.Minecraft;
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.Encryption;
 import tk.wurst_client.alts.gui.GuiAltList;
@@ -167,7 +167,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Mod mod : Client.wurst.modManager.getAllMods())
+			for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
 			{
 				JsonObject jsonMod = new JsonObject();
 				jsonMod.addProperty("enabled", mod.isEnabled());
@@ -203,7 +203,7 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Mod mod = Client.wurst.modManager.getModByName(entry.getKey());
+				Mod mod = WurstClient.INSTANCE.modManager.getModByName(entry.getKey());
 				if(mod != null
 					&& mod.getCategory() != Category.HIDDEN
 					&& !Arrays.asList(moduleBlacklist).contains(
@@ -227,7 +227,7 @@ public class FileManager
 		{
 			JsonObject json = new JsonObject();
 			Iterator<Entry<String, String>> itr =
-				Client.wurst.keybinds.entrySet().iterator();
+				WurstClient.INSTANCE.keybinds.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, String> entry = itr.next();
@@ -249,13 +249,13 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(keybinds));
 			JsonObject json = (JsonObject)new JsonParser().parse(load);
 			load.close();
-			Client.wurst.keybinds.clear();
+			WurstClient.INSTANCE.keybinds.clear();
 			Iterator<Entry<String, JsonElement>> itr =
 				json.entrySet().iterator();
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Client.wurst.keybinds.put(entry.getKey(), entry.getValue()
+				WurstClient.INSTANCE.keybinds.put(entry.getKey(), entry.getValue()
 					.getAsString());
 			}
 		}catch(Exception e)
@@ -269,7 +269,7 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(options));
-			save.println(gson.toJson(Client.wurst.options));
+			save.println(gson.toJson(WurstClient.INSTANCE.options));
 			save.close();
 		}catch(Exception e)
 		{
@@ -282,7 +282,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(options));
-			Client.wurst.options = gson.fromJson(load, Options.class);
+			WurstClient.INSTANCE.options = gson.fromJson(load, Options.class);
 			load.close();
 		}catch(Exception e)
 		{
@@ -329,7 +329,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Mod mod : Client.wurst.modManager.getAllMods())
+			for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
 			{
 				if(mod.getSliders().isEmpty())
 					continue;
@@ -362,7 +362,7 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Mod mod = Client.wurst.modManager.getModByName(entry.getKey());
+				Mod mod = WurstClient.INSTANCE.modManager.getModByName(entry.getKey());
 				if(mod != null)
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
@@ -451,7 +451,7 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(friends));
-			save.println(gson.toJson(Client.wurst.friends));
+			save.println(gson.toJson(WurstClient.INSTANCE.friends));
 			save.close();
 		}catch(Exception e)
 		{
@@ -464,7 +464,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(friends));
-			Client.wurst.friends = gson.fromJson(load, Friends.class);
+			WurstClient.INSTANCE.friends = gson.fromJson(load, Friends.class);
 			load.close();
 		}catch(Exception e)
 		{

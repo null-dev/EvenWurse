@@ -18,7 +18,7 @@ import net.minecraft.util.EnumChatFormatting;
 
 import org.lwjgl.input.Keyboard;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 
 import com.google.common.collect.Lists;
 
@@ -73,20 +73,20 @@ public class GuiCleanUp extends GuiScreen
 			"Clean Up"));
 		buttonList.add(new GuiButton(2, width / 2 - 100, height / 4 - 24 + 12,
 			"Unknown Hosts: "
-				+ removeOrKeep(Client.wurst.options.cleanupUnknown)));
+				+ removeOrKeep(WurstClient.INSTANCE.options.cleanupUnknown)));
 		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 0 + 12,
 			"Outdated Servers: "
-				+ removeOrKeep(Client.wurst.options.cleanupOutdated)));
+				+ removeOrKeep(WurstClient.INSTANCE.options.cleanupOutdated)));
 		buttonList
 			.add(new GuiButton(4, width / 2 - 100, height / 4 + 24 + 12,
 				"Failed Ping: "
-					+ removeOrKeep(Client.wurst.options.cleanupFailed)));
+					+ removeOrKeep(WurstClient.INSTANCE.options.cleanupFailed)));
 		buttonList.add(new GuiButton(5, width / 2 - 100, height / 4 + 48 + 12,
 			"§cRemove all Servers: " + yesOrNo(removeAll)));
 		buttonList.add(new GuiButton(6, width / 2 - 100, height / 4 + 72 + 12,
 			"Rename all Servers: "
-				+ yesOrNo(Client.wurst.options.cleanupRename)));
-		Client.wurst.analytics.trackPageView("/multiplayer/clean-up",
+				+ yesOrNo(WurstClient.INSTANCE.options.cleanupRename)));
+		WurstClient.INSTANCE.analytics.trackPageView("/multiplayer/clean-up",
 			"Clean Up");
 	}
 	
@@ -117,7 +117,7 @@ public class GuiCleanUp extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			else if(clickedButton.id == 1)
 			{// Clean Up
-				Client.wurst.analytics.trackEvent("clean up", "start");
+				WurstClient.INSTANCE.analytics.trackEvent("clean up", "start");
 				if(removeAll)
 				{
 					prevMenu.savedServerList.clearServerList();
@@ -132,12 +132,12 @@ public class GuiCleanUp extends GuiScreen
 				{
 					ServerData server =
 						prevMenu.savedServerList.getServerData(i);
-					if(Client.wurst.options.cleanupUnknown
+					if(WurstClient.INSTANCE.options.cleanupUnknown
 						&& server.serverMOTD.equals(EnumChatFormatting.DARK_RED
 							+ "Can\'t resolve hostname")
-						|| Client.wurst.options.cleanupOutdated
+						|| WurstClient.INSTANCE.options.cleanupOutdated
 						&& server.version != 47
-						|| Client.wurst.options.cleanupFailed
+						|| WurstClient.INSTANCE.options.cleanupFailed
 						&& server.pingToServer != -2L
 						&& server.pingToServer < 0L)
 					{
@@ -148,7 +148,7 @@ public class GuiCleanUp extends GuiScreen
 							.func_148195_a(prevMenu.savedServerList);
 					}
 				}
-				if(Client.wurst.options.cleanupRename)
+				if(WurstClient.INSTANCE.options.cleanupRename)
 					for(int i = 0; i < prevMenu.savedServerList.countServers(); i++)
 					{
 						ServerData server =
@@ -162,52 +162,52 @@ public class GuiCleanUp extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			}else if(clickedButton.id == 2)
 			{// Unknown host
-				Client.wurst.options.cleanupUnknown =
-					!Client.wurst.options.cleanupUnknown;
+				WurstClient.INSTANCE.options.cleanupUnknown =
+					!WurstClient.INSTANCE.options.cleanupUnknown;
 				clickedButton.displayString =
 					"Unknown Hosts: "
-						+ removeOrKeep(Client.wurst.options.cleanupUnknown);
-				Client.wurst.fileManager.saveOptions();
-				Client.wurst.analytics.trackEvent("clean up", "unknown host",
-					removeOrKeep(Client.wurst.options.cleanupUnknown));
+						+ removeOrKeep(WurstClient.INSTANCE.options.cleanupUnknown);
+				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.analytics.trackEvent("clean up", "unknown host",
+					removeOrKeep(WurstClient.INSTANCE.options.cleanupUnknown));
 			}else if(clickedButton.id == 3)
 			{// Outdated
-				Client.wurst.options.cleanupOutdated =
-					!Client.wurst.options.cleanupOutdated;
+				WurstClient.INSTANCE.options.cleanupOutdated =
+					!WurstClient.INSTANCE.options.cleanupOutdated;
 				clickedButton.displayString =
 					"Outdated Servers: "
-						+ removeOrKeep(Client.wurst.options.cleanupOutdated);
-				Client.wurst.fileManager.saveOptions();
-				Client.wurst.analytics.trackEvent("clean up",
+						+ removeOrKeep(WurstClient.INSTANCE.options.cleanupOutdated);
+				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.analytics.trackEvent("clean up",
 					"outdated servers",
-					removeOrKeep(Client.wurst.options.cleanupOutdated));
+					removeOrKeep(WurstClient.INSTANCE.options.cleanupOutdated));
 			}else if(clickedButton.id == 4)
 			{// Failed ping
-				Client.wurst.options.cleanupFailed =
-					!Client.wurst.options.cleanupFailed;
+				WurstClient.INSTANCE.options.cleanupFailed =
+					!WurstClient.INSTANCE.options.cleanupFailed;
 				clickedButton.displayString =
 					"Failed Ping: "
-						+ removeOrKeep(Client.wurst.options.cleanupFailed);
-				Client.wurst.fileManager.saveOptions();
-				Client.wurst.analytics.trackEvent("clean up", "failed ping",
-					removeOrKeep(Client.wurst.options.cleanupFailed));
+						+ removeOrKeep(WurstClient.INSTANCE.options.cleanupFailed);
+				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.analytics.trackEvent("clean up", "failed ping",
+					removeOrKeep(WurstClient.INSTANCE.options.cleanupFailed));
 			}else if(clickedButton.id == 5)
 			{// Remove
 				removeAll = !removeAll;
 				clickedButton.displayString =
 					"§cRemove all Servers: " + yesOrNo(removeAll);
-				Client.wurst.analytics.trackEvent("clean up",
+				WurstClient.INSTANCE.analytics.trackEvent("clean up",
 					"remove all servers", yesOrNo(removeAll));
 			}else if(clickedButton.id == 6)
 			{// Rename
-				Client.wurst.options.cleanupRename =
-					!Client.wurst.options.cleanupRename;
+				WurstClient.INSTANCE.options.cleanupRename =
+					!WurstClient.INSTANCE.options.cleanupRename;
 				clickedButton.displayString =
 					"Rename all Servers: "
-						+ yesOrNo(Client.wurst.options.cleanupRename);
-				Client.wurst.fileManager.saveOptions();
-				Client.wurst.analytics.trackEvent("clean up", "rename servers",
-					yesOrNo(Client.wurst.options.cleanupRename));
+						+ yesOrNo(WurstClient.INSTANCE.options.cleanupRename);
+				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.analytics.trackEvent("clean up", "rename servers",
+					yesOrNo(WurstClient.INSTANCE.options.cleanupRename));
 			}
 	}
 	

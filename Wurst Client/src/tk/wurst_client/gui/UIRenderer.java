@@ -15,7 +15,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.mods.ClickGuiMod;
 import tk.wurst_client.mods.Mod;
@@ -24,10 +24,10 @@ public class UIRenderer
 {
 	private static void renderModList()
 	{
-		if(Client.wurst.options.modListMode == 2)
+		if(WurstClient.INSTANCE.options.modListMode == 2)
 			return;
 		LinkedList<String> modList = new LinkedList<String>();
-		for(Mod mod : Client.wurst.modManager.getAllMods())
+		for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
 		{
 			if(mod instanceof ClickGuiMod)
 				continue;
@@ -40,7 +40,7 @@ public class UIRenderer
 				Minecraft.getMinecraft().displayHeight);
 		int yCount = 19;
 		if(yCount + modList.size() * 9 > sr.getScaledHeight()
-			|| Client.wurst.options.modListMode == 1)
+			|| WurstClient.INSTANCE.options.modListMode == 1)
 		{
 			String tooManyMods = "";
 			if(modList.isEmpty())
@@ -62,14 +62,14 @@ public class UIRenderer
 	
 	public static void renderUI()
 	{
-		Fonts.segoe22.drawString("v" + Client.wurst.CLIENT_VERSION, 74, 4,
+		Fonts.segoe22.drawString("v" + WurstClient.VERSION, 74, 4,
 			0xFF000000);
 		renderModList();
 	}
 	
 	public static void renderPinnedFrames()
 	{
-		for(Frame moduleFrame : Client.wurst.guiManager.getFrames())
+		for(Frame moduleFrame : WurstClient.INSTANCE.guiManager.getFrames())
 			if(moduleFrame.isPinned()
 				&& !(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
 				moduleFrame.render();

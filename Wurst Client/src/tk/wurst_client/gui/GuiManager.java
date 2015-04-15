@@ -64,7 +64,7 @@ import org.darkstorm.minecraft.gui.listener.ComboBoxListener;
 import org.darkstorm.minecraft.gui.listener.SliderListener;
 import org.darkstorm.minecraft.gui.theme.Theme;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.AutoBuildMod;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.mods.Mod.Category;
@@ -116,14 +116,14 @@ public final class GuiManager extends AbstractGuiManager
 		settings.setPinnable(true);
 		addFrame(settings);
 		categoryFrames.put(Category.SETTINGS, settings);
-		for(final Mod mod : Client.wurst.modManager.getAllMods())
+		for(final Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
 		{
 			ModuleFrame frame = categoryFrames.get(mod.getCategory());
 			if(frame == null)
 			{
 				String name = mod.getCategory().name().toLowerCase();
-				if(Client.wurst.fileManager.options.exists())
-					Client.wurst.fileManager.loadOptions();
+				if(WurstClient.INSTANCE.fileManager.options.exists())
+					WurstClient.INSTANCE.fileManager.loadOptions();
 				if(name.equalsIgnoreCase("HIDDEN"))
 					continue;
 				name =
@@ -180,7 +180,7 @@ public final class GuiManager extends AbstractGuiManager
 							{
 								int id = moduleSliders.indexOf(slider);
 								moduleSliders.set(id, (BasicSlider)slider);
-								Client.wurst.fileManager.saveSliders();
+								WurstClient.INSTANCE.fileManager.saveSliders();
 							}
 							mod.setSliders(moduleSliders);
 							mod.updateSettings();
@@ -200,12 +200,12 @@ public final class GuiManager extends AbstractGuiManager
 			@Override
 			public void onComboBoxSelectionChanged(ComboBox comboBox)
 			{
-				Client.wurst.options.autobuildMode =
+				WurstClient.INSTANCE.options.autobuildMode =
 					comboBox.getSelectedIndex();
-				Client.wurst.fileManager.saveOptions();
+				WurstClient.INSTANCE.fileManager.saveOptions();
 			}
 		});
-		autoBuildBox.setSelectedIndex(Client.wurst.options.autobuildMode);
+		autoBuildBox.setSelectedIndex(WurstClient.INSTANCE.options.autobuildMode);
 		autobuild.add(autoBuildBox, HorizontalGridConstraint.CENTER);
 		
 		// Target
@@ -219,17 +219,17 @@ public final class GuiManager extends AbstractGuiManager
 			@Override
 			public void onComboBoxSelectionChanged(ComboBox comboBox)
 			{
-				Client.wurst.options.targetMode = comboBox.getSelectedIndex();
-				Client.wurst.fileManager.saveOptions();
+				WurstClient.INSTANCE.options.targetMode = comboBox.getSelectedIndex();
+				WurstClient.INSTANCE.fileManager.saveOptions();
 			}
 		});
-		targetBox.setSelectedIndex(Client.wurst.options.targetMode);
+		targetBox.setSelectedIndex(WurstClient.INSTANCE.options.targetMode);
 		combatFrame.add(targetBox, HorizontalGridConstraint.CENTER);
 		
-		if(!Client.wurst.fileManager.sliders.exists())
-			Client.wurst.fileManager.saveSliders();
+		if(!WurstClient.INSTANCE.fileManager.sliders.exists())
+			WurstClient.INSTANCE.fileManager.saveSliders();
 		else
-			Client.wurst.fileManager.loadSliders();
+			WurstClient.INSTANCE.fileManager.loadSliders();
 		resizeComponents();
 		Minecraft minecraft = Minecraft.getMinecraft();
 		Dimension maxSize = recalculateSizes();
@@ -254,8 +254,8 @@ public final class GuiManager extends AbstractGuiManager
 				offsetY += maxSize.height + 5;
 			}
 		}
-		if(Client.wurst.fileManager.gui.exists())
-			Client.wurst.fileManager.loadGUI(getFrames());
+		if(WurstClient.INSTANCE.fileManager.gui.exists())
+			WurstClient.INSTANCE.fileManager.loadGUI(getFrames());
 	}
 	
 	@Override

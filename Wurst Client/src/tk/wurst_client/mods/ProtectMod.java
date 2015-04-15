@@ -9,7 +9,7 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -92,7 +92,7 @@ public class ProtectMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
 			speed = KillauraMod.yesCheatSpeed;
 		else
 			speed = KillauraMod.normalSpeed;
@@ -102,7 +102,7 @@ public class ProtectMod extends Mod implements UpdateListener
 			enemy = EntityUtils.getClosestEnemy(friend);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= range)
 			{
-				if(Client.wurst.modManager.getModByClass(AutoSwordMod.class)
+				if(WurstClient.INSTANCE.modManager.getModByClass(AutoSwordMod.class)
 					.isEnabled())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();

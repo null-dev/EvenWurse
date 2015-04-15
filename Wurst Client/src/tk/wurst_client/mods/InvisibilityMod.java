@@ -10,7 +10,7 @@ package tk.wurst_client.mods;
 import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -35,7 +35,7 @@ public class InvisibilityMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(isEnabled()
-			&& Client.wurst.modManager.getModByClass(YesCheatMod.class)
+			&& WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
 				.isEnabled())
 		{
 			noCheatMessage();

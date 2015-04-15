@@ -8,7 +8,7 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -25,7 +25,7 @@ public class ThrowMod extends Mod implements UpdateListener
 	@Override
 	public String getRenderName()
 	{
-		return getName() + " [" + Client.wurst.options.throwAmount + "]";
+		return getName() + " [" + WurstClient.INSTANCE.options.throwAmount + "]";
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public class ThrowMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || Client.wurst.modManager
+		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.modManager
 			.getModByClass(FastPlaceMod.class).isEnabled())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 		{
@@ -45,7 +45,7 @@ public class ThrowMod extends Mod implements UpdateListener
 				|| Minecraft.getMinecraft().thePlayer.inventory
 					.getCurrentItem() == null)
 				return;
-			for(int i = 0; i < Client.wurst.options.throwAmount - 1; i++)
+			for(int i = 0; i < WurstClient.INSTANCE.options.throwAmount - 1; i++)
 				Minecraft.getMinecraft().rightClickMouse();
 		}
 	}

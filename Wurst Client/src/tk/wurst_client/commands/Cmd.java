@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.MiscUtils;
 
@@ -76,7 +76,7 @@ public abstract class Cmd
 	public void printHelp()
 	{
 		for(String line : help.split("\n"))
-			Client.wurst.chat.message(line);
+			WurstClient.INSTANCE.chat.message(line);
 	}
 	
 	public void printSyntax()
@@ -89,7 +89,7 @@ public abstract class Cmd
 				output += "\n    " + syntax[i];
 		}
 		for(String line : output.split("\n"))
-			Client.wurst.chat.message(line);
+			WurstClient.INSTANCE.chat.message(line);
 	}
 	
 	protected final int[] argsToPos(String... args) throws SyntaxError

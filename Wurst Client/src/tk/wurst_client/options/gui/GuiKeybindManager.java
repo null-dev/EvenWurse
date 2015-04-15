@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 
 public class GuiKeybindManager extends GuiScreen
 {
@@ -40,7 +40,7 @@ public class GuiKeybindManager extends GuiScreen
 			"Remove"));
 		buttonList.add(new GuiButton(3, width / 2 + 2, height - 28, 100, 20,
 			"Back"));
-		Client.wurst.analytics.trackPageView("/options/keybind-manager",
+		WurstClient.INSTANCE.analytics.trackPageView("/options/keybind-manager",
 			"Keybind Manager");
 	}
 	
@@ -66,19 +66,19 @@ public class GuiKeybindManager extends GuiScreen
 			else if(clickedButton.id == 1)
 			{
 				Entry<String, String> entry =
-					Client.wurst.keybinds.entrySet().toArray(
-						new Entry[Client.wurst.keybinds.size()])[bindList
+					WurstClient.INSTANCE.keybinds.entrySet().toArray(
+						new Entry[WurstClient.INSTANCE.keybinds.size()])[bindList
 						.getSelectedSlot()];
 				mc.displayGuiScreen(new GuiKeybindChange(this, entry));
 			}else if(clickedButton.id == 2)
 			{
 				Entry<String, String> entry =
-					Client.wurst.keybinds.entrySet().toArray(
-						new Entry[Client.wurst.keybinds.size()])[bindList
+					WurstClient.INSTANCE.keybinds.entrySet().toArray(
+						new Entry[WurstClient.INSTANCE.keybinds.size()])[bindList
 						.getSelectedSlot()];
-				Client.wurst.keybinds.remove(entry.getKey());
-				Client.wurst.fileManager.saveKeybinds();
-				Client.wurst.analytics.trackEvent("keybinds", "remove",
+				WurstClient.INSTANCE.keybinds.remove(entry.getKey());
+				WurstClient.INSTANCE.fileManager.saveKeybinds();
+				WurstClient.INSTANCE.analytics.trackEvent("keybinds", "remove",
 					entry.getKey());
 			}else if(clickedButton.id == 3)
 				mc.displayGuiScreen(prevMenu);
@@ -121,7 +121,7 @@ public class GuiKeybindManager extends GuiScreen
 		drawCenteredString(fontRendererObj, "Keybind Manager", width / 2, 8,
 			16777215);
 		drawCenteredString(fontRendererObj, "Keybinds: "
-			+ Client.wurst.keybinds.size(), width / 2, 20, 16777215);
+			+ WurstClient.INSTANCE.keybinds.size(), width / 2, 20, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }

@@ -11,7 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
@@ -54,12 +54,12 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 	@Override
 	public void onEnable()
 	{
-		if(Client.wurst.modManager.getModByClass(FastPlaceMod.class)
+		if(WurstClient.INSTANCE.modManager.getModByClass(FastPlaceMod.class)
 			.isEnabled())
 			speed = 1000000000;
 		else
 			speed = 5;
-		if(Client.wurst.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
 		{
 			i = 0;
 			shouldBuild = true;
@@ -231,7 +231,7 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 		updateMS();
 		if(shouldBuild)
 		{
-			if((hasTimePassedS(speed) || Client.wurst.modManager.getModByClass(
+			if((hasTimePassedS(speed) || WurstClient.INSTANCE.modManager.getModByClass(
 				FastPlaceMod.class).isEnabled())
 				&& i < building.length)
 			{

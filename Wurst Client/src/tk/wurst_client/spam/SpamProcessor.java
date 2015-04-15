@@ -13,7 +13,7 @@ import java.io.*;
 import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.SpammerMod;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
@@ -36,7 +36,7 @@ public class SpamProcessor
 			public void run()
 			{
 				File file =
-					new File(Client.wurst.fileManager.scriptsDir, filename
+					new File(WurstClient.INSTANCE.fileManager.scriptsDir, filename
 						+ ".wspam");
 				try
 				{
@@ -81,7 +81,7 @@ public class SpamProcessor
 	public static boolean runSpam(final String filename)
 	{
 		final File file =
-			new File(Client.wurst.fileManager.spamDir, filename + ".wspam");
+			new File(WurstClient.INSTANCE.fileManager.spamDir, filename + ".wspam");
 		if(!file.exists())
 			return false;
 		new Thread(new Runnable()
@@ -136,7 +136,7 @@ public class SpamProcessor
 		{
 			Minecraft.getMinecraft().thePlayer.sendAutomaticChatMessage(spam
 				.split("\n")[i]);
-			Thread.sleep(Client.wurst.options.spamDelay);
+			Thread.sleep(WurstClient.INSTANCE.options.spamDelay);
 		}
 	}
 	

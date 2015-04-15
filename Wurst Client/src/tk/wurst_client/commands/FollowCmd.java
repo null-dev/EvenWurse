@@ -8,7 +8,7 @@
 package tk.wurst_client.commands;
 
 import net.minecraft.entity.EntityLivingBase;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.FollowMod;
 import tk.wurst_client.utils.EntityUtils;
 
@@ -23,7 +23,7 @@ public class FollowCmd extends Cmd
 		if(args.length > 1)
 			syntaxError();
 		FollowMod followMod =
-			(FollowMod)Client.wurst.modManager.getModByClass(FollowMod.class);
+			(FollowMod)WurstClient.INSTANCE.modManager.getModByClass(FollowMod.class);
 		if(args.length == 0)
 			followMod.toggle();
 		else

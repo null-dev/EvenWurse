@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -39,7 +39,7 @@ public class RemoteViewMod extends Mod implements UpdateListener
 	{
 		if(EntityUtils.getClosestEntityRaw(false) == null)
 		{
-			Client.wurst.chat.message("There is no nearby entity.");
+			WurstClient.INSTANCE.chat.message("There is no nearby entity.");
 			setEnabled(false);
 			return;
 		}
@@ -60,7 +60,7 @@ public class RemoteViewMod extends Mod implements UpdateListener
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		Client.wurst.chat.message("Now viewing " + otherView.getName() + ".");
+		WurstClient.INSTANCE.chat.message("Now viewing " + otherView.getName() + ".");
 		EventManager.update.addListener(this);
 	}
 	
@@ -71,10 +71,10 @@ public class RemoteViewMod extends Mod implements UpdateListener
 			if(otherID == null && !viewName.equals(""))
 				otherID =
 					EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
-			Client.wurst.modManager.getModByClass(RemoteViewMod.class).toggle();
+			WurstClient.INSTANCE.modManager.getModByClass(RemoteViewMod.class).toggle();
 		}catch(NullPointerException e)
 		{
-			Client.wurst.chat.error("Entity not found.");
+			WurstClient.INSTANCE.chat.error("Entity not found.");
 		}
 	}
 	
@@ -102,7 +102,7 @@ public class RemoteViewMod extends Mod implements UpdateListener
 		EventManager.update.removeListener(this);
 		if(otherView != null)
 		{
-			Client.wurst.chat.message("No longer viewing "
+			WurstClient.INSTANCE.chat.message("No longer viewing "
 				+ otherView.getName() + ".");
 			otherView.setInvisible(wasInvisible);
 			Minecraft.getMinecraft().thePlayer.noClip = false;

@@ -10,7 +10,7 @@ package tk.wurst_client.commands;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Enchants items with everything.",
@@ -62,9 +62,9 @@ public class EnchantCmd extends Cmd
 					}
 			}
 			if(items == 1)
-				Client.wurst.chat.message("Enchanted 1 item.");
+				WurstClient.INSTANCE.chat.message("Enchanted 1 item.");
 			else
-				Client.wurst.chat.message("Enchanted " + items + " items.");
+				WurstClient.INSTANCE.chat.message("Enchanted " + items + " items.");
 		}else
 			syntaxError();
 	}

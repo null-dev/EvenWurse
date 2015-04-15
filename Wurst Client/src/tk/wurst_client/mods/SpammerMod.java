@@ -29,7 +29,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.BadLocationException;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.spam.SpamProcessor;
@@ -67,7 +67,7 @@ public class SpammerMod extends Mod
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						Client.wurst.modManager.getModByClass(SpammerMod.class)
+						WurstClient.INSTANCE.modManager.getModByClass(SpammerMod.class)
 							.setEnabled(false);
 					}
 				});
@@ -84,7 +84,7 @@ public class SpammerMod extends Mod
 					public void actionPerformed(ActionEvent e)
 					{
 						JFileChooser fileChooser =
-							new JFileChooser(Client.wurst.fileManager.spamDir)
+							new JFileChooser(WurstClient.INSTANCE.fileManager.spamDir)
 							{
 								@Override
 								protected JDialog createDialog(Component parent)
@@ -136,7 +136,7 @@ public class SpammerMod extends Mod
 					public void actionPerformed(ActionEvent e)
 					{
 						JFileChooser fileChooser =
-							new JFileChooser(Client.wurst.fileManager.spamDir)
+							new JFileChooser(WurstClient.INSTANCE.fileManager.spamDir)
 							{
 								@Override
 								protected JDialog createDialog(Component parent)
@@ -182,7 +182,7 @@ public class SpammerMod extends Mod
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						MiscUtils.openFile(Client.wurst.fileManager.spamDir);
+						MiscUtils.openFile(WurstClient.INSTANCE.fileManager.spamDir);
 					}
 				});
 				fileMenu.add(fileOpenFolder);
@@ -257,15 +257,15 @@ public class SpammerMod extends Mod
 				JMenu viewMenu = new JMenu("View");
 				JCheckBoxMenuItem viewFont =
 					new JCheckBoxMenuItem("Simulate ingame font",
-						Client.wurst.options.spamFont);
+						WurstClient.INSTANCE.options.spamFont);
 				viewFont.addActionListener(new ActionListener()
 				{
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						Client.wurst.options.spamFont =
-							!Client.wurst.options.spamFont;
-						Client.wurst.fileManager.saveOptions();
+						WurstClient.INSTANCE.options.spamFont =
+							!WurstClient.INSTANCE.options.spamFont;
+						WurstClient.INSTANCE.fileManager.saveOptions();
 						updateFont();
 					}
 				});
@@ -372,15 +372,15 @@ public class SpammerMod extends Mod
 				delayPanel.add(delayLabel);
 				delaySpinner =
 					new JSpinner(new SpinnerNumberModel(
-						Client.wurst.options.spamDelay, 0, 3600000, 50));
+						WurstClient.INSTANCE.options.spamDelay, 0, 3600000, 50));
 				delaySpinner.addChangeListener(new ChangeListener()
 				{
 					@Override
 					public void stateChanged(ChangeEvent e)
 					{
-						Client.wurst.options.spamDelay =
+						WurstClient.INSTANCE.options.spamDelay =
 							(Integer)delaySpinner.getValue();
-						Client.wurst.fileManager.saveOptions();
+						WurstClient.INSTANCE.fileManager.saveOptions();
 					}
 				});
 				delaySpinner.setEditor(new JSpinner.NumberEditor(delaySpinner,
@@ -445,7 +445,7 @@ public class SpammerMod extends Mod
 										Minecraft.getMinecraft().thePlayer
 											.sendAutomaticChatMessage(message);
 										Thread
-											.sleep(Client.wurst.options.spamDelay);
+											.sleep(WurstClient.INSTANCE.options.spamDelay);
 									}
 								}catch(Exception e)
 								{
@@ -509,7 +509,7 @@ public class SpammerMod extends Mod
 						.getResourceAsStream("assets/minecraft/font/mcfont.ttf"));
 			mcfont = mcfont.deriveFont(12F);
 			Font defaultFont = new Font("Monospaced", Font.PLAIN, 14);
-			spamArea.setFont(Client.wurst.options.spamFont ? mcfont
+			spamArea.setFont(WurstClient.INSTANCE.options.spamFont ? mcfont
 				: defaultFont);
 		}catch(Exception e1)
 		{
@@ -520,7 +520,7 @@ public class SpammerMod extends Mod
 	public static void updateDelaySpinner()
 	{
 		if(delaySpinner != null)
-			delaySpinner.setValue(Client.wurst.options.spamDelay);
+			delaySpinner.setValue(WurstClient.INSTANCE.options.spamDelay);
 	}
 	
 	public JDialog getDialog()

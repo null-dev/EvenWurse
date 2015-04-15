@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.mods.Mod.Category;
@@ -26,23 +26,23 @@ public class FeaturesCmd extends Cmd
 	{
 		if(args.length != 0)
 			syntaxError();
-		Client.wurst.chat.message("Features in this release of Wurst:");
-		int mods = Client.wurst.modManager.countMods();
+		WurstClient.INSTANCE.chat.message("Features in this release of Wurst:");
+		int mods = WurstClient.INSTANCE.modManager.countMods();
 		int hiddenMods = 0;
-		for(Mod mod : Client.wurst.modManager.getAllMods())
+		for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
 			if(mod.getCategory() == Category.HIDDEN)
 				hiddenMods++;
-		Client.wurst.chat.message(">" + (mods - hiddenMods) + " mods (+"
+		WurstClient.INSTANCE.chat.message(">" + (mods - hiddenMods) + " mods (+"
 			+ hiddenMods + " hidden mods)");
-		int commands = Client.wurst.cmdManager.countCommands();
-		Client.wurst.chat.message(">" + commands + " commands");
-		Client.wurst.chat.message(">" + Client.wurst.keybinds.size()
+		int commands = WurstClient.INSTANCE.cmdManager.countCommands();
+		WurstClient.INSTANCE.chat.message(">" + commands + " commands");
+		WurstClient.INSTANCE.chat.message(">" + WurstClient.INSTANCE.keybinds.size()
 			+ " keybinds in your current configuration");
 		ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
-		for(Mod mod : Client.wurst.modManager.getAllMods())
+		for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
 			for(BasicSlider slider : mod.getSliders())
 				sliders.add(slider);
-		Client.wurst.chat.message(">" + sliders.size()
+		WurstClient.INSTANCE.chat.message(">" + sliders.size()
 			+ " sliders in the Settings frame");
 	}
 }

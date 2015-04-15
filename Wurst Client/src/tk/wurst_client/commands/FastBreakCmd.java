@@ -7,7 +7,7 @@
  */
 package tk.wurst_client.commands;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Changes the settings of FastBreak.",
@@ -23,13 +23,13 @@ public class FastBreakCmd extends Cmd
 		if(args[0].toLowerCase().equals("mode"))
 		{// 0=normal, 1=instant
 			if(args[1].toLowerCase().equals("normal"))
-				Client.wurst.options.fastbreakMode = 0;
+				WurstClient.INSTANCE.options.fastbreakMode = 0;
 			else if(args[1].toLowerCase().equals("instant"))
-				Client.wurst.options.fastbreakMode = 1;
+				WurstClient.INSTANCE.options.fastbreakMode = 1;
 			else
 				syntaxError();
-			Client.wurst.fileManager.saveOptions();
-			Client.wurst.chat.message("FastBreak mode set to \"" + args[1]
+			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.chat.message("FastBreak mode set to \"" + args[1]
 				+ "\".");
 		}else
 			syntaxError();

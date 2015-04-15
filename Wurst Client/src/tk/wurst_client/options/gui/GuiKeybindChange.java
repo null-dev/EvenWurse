@@ -16,7 +16,7 @@ import net.minecraft.client.gui.GuiTextField;
 
 import org.lwjgl.input.Keyboard;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 
 public class GuiKeybindChange extends GuiScreen
 {
@@ -82,11 +82,11 @@ public class GuiKeybindChange extends GuiScreen
 			else if(clickedButton.id == 1)
 			{
 				if(entry != null)
-					Client.wurst.keybinds.remove(entry.getKey());
-				Client.wurst.keybinds.put(key, commandBox.getText());
-				Client.wurst.fileManager.saveKeybinds();
+					WurstClient.INSTANCE.keybinds.remove(entry.getKey());
+				WurstClient.INSTANCE.keybinds.put(key, commandBox.getText());
+				WurstClient.INSTANCE.fileManager.saveKeybinds();
 				mc.displayGuiScreen(prevMenu);
-				Client.wurst.analytics.trackEvent("keybinds", "set", key);
+				WurstClient.INSTANCE.analytics.trackEvent("keybinds", "set", key);
 			}else if(clickedButton.id == 2)
 				mc.displayGuiScreen(prevMenu);
 	}

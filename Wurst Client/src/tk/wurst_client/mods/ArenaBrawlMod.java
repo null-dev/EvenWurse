@@ -30,7 +30,7 @@ import org.darkstorm.minecraft.gui.layout.GridLayoutManager;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager.HorizontalGridConstraint;
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.ChatInputEvent;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.ChatInputListener;
@@ -183,7 +183,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 		if(scoreboard != null
 			&& (scoreboard.size() == 13 || scoreboard.size() == 11))
 		{// If you are in the lobby:
-			Client.wurst.chat.message("You need to be in a 2v2 arena.");
+			WurstClient.INSTANCE.chat.message("You need to be in a 2v2 arena.");
 			setEnabled(false);
 			return;
 		}
@@ -277,7 +277,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 		EventManager.update.removeListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
-			Client.wurst.chat.message("No longer playing ArenaBrawl with "
+			WurstClient.INSTANCE.chat.message("No longer playing ArenaBrawl with "
 				+ friendsName + ".");
 		reset();
 	}
@@ -290,7 +290,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 			&& message.endsWith(" has won the game!"))
 		{
 			event.cancel();
-			Client.wurst.chat.message(message.substring(9));
+			WurstClient.INSTANCE.chat.message(message.substring(9));
 			setEnabled(false);
 		}
 	}
@@ -300,14 +300,14 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	{
 		Minecraft.getMinecraft().thePlayer.respawnPlayer();
 		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
-		Client.wurst.chat.message("You died.");
+		WurstClient.INSTANCE.chat.message("You died.");
 		setEnabled(false);
 	}
 	
 	private void setupFrame()
 	{
 		friendsName = formatSBName(0);
-		Client.wurst.chat.message("Now playing ArenaBrawl with " + friendsName
+		WurstClient.INSTANCE.chat.message("Now playing ArenaBrawl with " + friendsName
 			+ ".");
 		frame = new BasicFrame("ArenaBrawl");
 		frame.setTheme(new WurstTheme());
@@ -338,7 +338,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 		frame.setHeight(frame.getTheme().getUIForComponent(frame)
 			.getDefaultSize(frame).height);
 		frame.layoutChildren();
-		Client.wurst.guiManager.addFrame(frame);
+		WurstClient.INSTANCE.guiManager.addFrame(frame);
 		frame.setBackgroundColor(new Color(64, 64, 64, 224));
 		((Label)frame.getChildren()[0]).setForegroundColor(Color.CYAN);
 		((Label)frame.getChildren()[1]).setForegroundColor(Color.CYAN);
@@ -653,7 +653,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 		matchingBlocks.clear();
 		enemyTotems.clear();
 		friendTotems.clear();
-		Client.wurst.guiManager.removeFrame(frame);
+		WurstClient.INSTANCE.guiManager.removeFrame(frame);
 		frame = null;
 		friend = null;
 		entityTarget = null;

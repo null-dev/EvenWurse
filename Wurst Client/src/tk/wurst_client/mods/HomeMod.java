@@ -8,7 +8,7 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.ChatInputEvent;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.ChatInputListener;
@@ -58,7 +58,7 @@ public class HomeMod extends Mod implements UpdateListener, ChatInputListener
 			|| message.toLowerCase().contains("permission"))
 		{
 			event.cancel();
-			Client.wurst.chat.error("This server doesn't have /home.");
+			WurstClient.INSTANCE.chat.error("This server doesn't have /home.");
 		}
 	}
 }

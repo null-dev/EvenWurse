@@ -28,7 +28,7 @@ import net.minecraft.client.gui.GuiYesNo;
 
 import org.lwjgl.opengl.GL11;
 
-import tk.wurst_client.Client;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.alts.NameGenerator;
@@ -72,7 +72,7 @@ public class GuiAlts extends GuiScreen
 		buttonList.add(new GuiButton(6, width / 2 + 80, height - 28, 75, 20,
 			"Cancel"));
 		buttonList.add(new GuiButton(7, 8, 8, 75, 20, "Import Alts"));
-		Client.wurst.analytics.trackPageView("/alt-manager/", "Alt Manager");
+		WurstClient.INSTANCE.analytics.trackPageView("/alt-manager/", "Alt Manager");
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class GuiAlts extends GuiScreen
 						{
 							GuiAltList.alts.remove(altList.getSelectedSlot());
 							GuiAltList.sortAlts();
-							Client.wurst.fileManager.saveAlts();
+							WurstClient.INSTANCE.fileManager.saveAlts();
 						}
 					}
 				}
@@ -128,7 +128,7 @@ public class GuiAlts extends GuiScreen
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
 				alt.setStarred(!alt.isStarred());
 				GuiAltList.sortAlts();
-				Client.wurst.fileManager.saveAlts();
+				WurstClient.INSTANCE.fileManager.saveAlts();
 			}else if(clickedButton.id == 4)
 			{
 				Alt alt = GuiAltList.alts.get(altList.getSelectedSlot());
@@ -152,7 +152,7 @@ public class GuiAlts extends GuiScreen
 					public void run()
 					{
 						JFileChooser fileChooser =
-							new JFileChooser(Client.wurst.fileManager.wurstDir)
+							new JFileChooser(WurstClient.INSTANCE.fileManager.wurstDir)
 							{
 								@Override
 								protected JDialog createDialog(Component parent)
@@ -188,7 +188,7 @@ public class GuiAlts extends GuiScreen
 								}
 								load.close();
 								GuiAltList.sortAlts();
-								Client.wurst.fileManager.saveAlts();
+								WurstClient.INSTANCE.fileManager.saveAlts();
 							}catch(IOException e)
 							{
 								e.printStackTrace();
@@ -208,7 +208,7 @@ public class GuiAlts extends GuiScreen
 				for(int i = 0; i < 8; i++)
 					GuiAltList.alts.add(new Alt(NameGenerator.generateName()));
 				GuiAltList.sortAlts();
-				Client.wurst.fileManager.saveAlts();
+				WurstClient.INSTANCE.fileManager.saveAlts();
 			}
 			shouldAsk = false;
 		}else if(par2 == 1)
@@ -216,7 +216,7 @@ public class GuiAlts extends GuiScreen
 			{
 				GuiAltList.alts.remove(altList.getSelectedSlot());
 				GuiAltList.sortAlts();
-				Client.wurst.fileManager.saveAlts();
+				WurstClient.INSTANCE.fileManager.saveAlts();
 			}
 		mc.displayGuiScreen(this);
 	}
