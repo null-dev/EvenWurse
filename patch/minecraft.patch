@@ -1,6 +1,6 @@
-From c2d4ae3425d328575bb6b2e005a44ca3b963f7d2 Mon Sep 17 00:00:00 2001
+From fb0f64cbe75f04b16399e26f3388aa2c52c26aca Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 15 Apr 2015 02:10:16 +0200
+Date: Wed, 15 Apr 2015 17:35:23 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -52,7 +52,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiRenameWorld.java   |    3 +
  src/net/minecraft/client/gui/GuiScreen.java        |   12 +-
  .../minecraft/client/gui/GuiScreenAddServer.java   |    3 +
- src/net/minecraft/client/gui/GuiScreenBook.java    | 1411 ++--
+ src/net/minecraft/client/gui/GuiScreenBook.java    | 1427 ++--
  .../client/gui/GuiScreenCustomizePresets.java      |    4 +
  src/net/minecraft/client/gui/GuiScreenDemo.java    |    3 +
  .../client/gui/GuiScreenOptionsSounds.java         |    2 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 27438 insertions(+), 25761 deletions(-)
+ 203 files changed, 27454 insertions(+), 25761 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..f0f9ace 100644
@@ -24025,10 +24025,10 @@ index 098969d..05f4d73 100644
  
  public class GuiScreenAddServer extends GuiScreen
 diff --git a/src/net/minecraft/client/gui/GuiScreenBook.java b/src/net/minecraft/client/gui/GuiScreenBook.java
-index 914a882..8372db2 100644
+index 914a882..49add9e 100644
 --- a/src/net/minecraft/client/gui/GuiScreenBook.java
 +++ b/src/net/minecraft/client/gui/GuiScreenBook.java
-@@ -1,676 +1,735 @@
+@@ -1,676 +1,751 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -24744,6 +24744,7 @@ index 914a882..8372db2 100644
 +import org.apache.logging.log4j.Logger;
 +import org.lwjgl.input.Keyboard;
 +
++import tk.wurst_client.bookhack.gui.GuiBookHack;
 +import tk.wurst_client.events.EventManager;
 +
 +public class GuiScreenBook extends GuiScreen
@@ -24784,8 +24785,11 @@ index 914a882..8372db2 100644
 +    private GuiButton buttonSign;
 +    private GuiButton buttonFinalize;
 +    private GuiButton buttonCancel;
-+	private boolean commandLink;
 +    private static final String __OBFID = "CL_00000744";
++    
++    //TODO: Client
++    private boolean hasCommand;
++    private String command;
 +
 +    public GuiScreenBook(EntityPlayer p_i1080_1_, ItemStack p_i1080_2_, boolean p_i1080_3_)
 +    {
@@ -24936,7 +24940,7 @@ index 914a882..8372db2 100644
 +                    this.bookObj.setItem(Items.written_book);
 +                    
 +                    // TODO: Client
-+                    if(commandLink)
++                    if(hasCommand)
 +                    	try
 +						{
 +							NBTTagList pages =
@@ -24952,8 +24956,7 @@ index 914a882..8372db2 100644
 +									.getChatStyle()
 +									.setChatClickEvent(
 +										new ClickEvent(
-+											ClickEvent.Action.RUN_COMMAND,
-+											"/kill"));
++											ClickEvent.Action.RUN_COMMAND, command));
 +								text =
 +									IChatComponent.Serializer
 +										.componentToJson(component);
@@ -25021,13 +25024,26 @@ index 914a882..8372db2 100644
 +                //TODO: Client
 +            }else if(button.id == 6)
 +			{
-+				commandLink = true;
-+				sendBookToServer(true);
-+                this.mc.displayGuiScreen((GuiScreen)null);
++            	mc.displayGuiScreen(new GuiBookHack(this));
 +			}
 +
 +            this.updateButtons();
 +        }
++    }
++    
++    //TODO: Client
++    public void signWithCommand(String command)
++    {
++		try
++		{
++			this.command = command;
++			hasCommand = true;
++			sendBookToServer(true);
++			this.mc.displayGuiScreen((GuiScreen)null);
++		}catch(Exception e)
++		{
++			e.printStackTrace();
++		}
 +    }
 +
 +    private void addNewPage()
