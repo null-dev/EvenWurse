@@ -22,7 +22,7 @@ import tk.wurst_client.mods.Mod.Info;
 	+ "This is one of the oldest hacks in Minecraft.", name = "Flight")
 public class FlightMod extends Mod implements UpdateListener
 {
-	public static float speed = 1F;
+	public float speed = 1F;
 	
 	@Override
 	public void initSliders()

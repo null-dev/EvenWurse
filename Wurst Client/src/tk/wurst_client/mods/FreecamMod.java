@@ -9,6 +9,7 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -49,12 +50,15 @@ public class FreecamMod extends Mod implements UpdateListener
 		Minecraft.getMinecraft().thePlayer.motionX = 0;
 		Minecraft.getMinecraft().thePlayer.motionY = 0;
 		Minecraft.getMinecraft().thePlayer.motionZ = 0;
+		float flightSpeed =
+			((FlightMod)WurstClient.INSTANCE.modManager
+				.getModByClass(FlightMod.class)).speed;
 		Minecraft.getMinecraft().thePlayer.jumpMovementFactor =
-			FlightMod.speed / 10;
+			flightSpeed / 10;
 		if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
-			Minecraft.getMinecraft().thePlayer.motionY += FlightMod.speed;
+			Minecraft.getMinecraft().thePlayer.motionY += flightSpeed;
 		if(Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
-			Minecraft.getMinecraft().thePlayer.motionY -= FlightMod.speed;
+			Minecraft.getMinecraft().thePlayer.motionY -= flightSpeed;
 	}
 	
 	@Override
