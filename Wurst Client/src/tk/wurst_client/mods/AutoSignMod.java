@@ -18,7 +18,7 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "AutoSign")
 public class AutoSignMod extends Mod
 {
-	public static IChatComponent[] signText;
+	public IChatComponent[] signText;
 	
 	@Override
 	public void onEnable()

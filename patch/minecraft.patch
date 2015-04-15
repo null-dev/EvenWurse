@@ -1,6 +1,6 @@
-From 66c7ea1ccefca8545d44f18e0e7b67e19bee3b37 Mon Sep 17 00:00:00 2001
+From 890ed8e315a633dff7ccb6a093e882e121d7f19c Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 16 Apr 2015 00:29:01 +0200
+Date: Thu, 16 Apr 2015 00:39:44 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -79,7 +79,7 @@ Subject: [PATCH] Wurst
  .../minecraft/client/gui/inventory/GuiChest.java   |  192 +-
  .../client/gui/inventory/GuiContainer.java         |   40 +-
  .../client/gui/inventory/GuiContainerCreative.java |    9 +-
- .../client/gui/inventory/GuiEditSign.java          |  368 +-
+ .../client/gui/inventory/GuiEditSign.java          |  376 +-
  .../client/gui/inventory/GuiInventory.java         |    1 +
  .../gui/spectator/categories/TeleportToPlayer.java |    6 +-
  .../gui/spectator/categories/TeleportToTeam.java   |    4 +-
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28175 insertions(+), 26486 deletions(-)
+ 203 files changed, 28183 insertions(+), 26486 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -27667,10 +27667,10 @@ index 3ba9565..30138df 100644
  
          public ItemStack decrStackSize(int p_75209_1_)
 diff --git a/src/net/minecraft/client/gui/inventory/GuiEditSign.java b/src/net/minecraft/client/gui/inventory/GuiEditSign.java
-index 21ea6e9..4c43215 100644
+index 21ea6e9..929f5b6 100644
 --- a/src/net/minecraft/client/gui/inventory/GuiEditSign.java
 +++ b/src/net/minecraft/client/gui/inventory/GuiEditSign.java
-@@ -1,176 +1,192 @@
+@@ -1,176 +1,200 @@
 -package net.minecraft.client.gui.inventory;
 -
 -import java.io.IOException;
@@ -27883,10 +27883,15 @@ index 21ea6e9..4c43215 100644
 +    /** "Done" button for the GUI. */
 +    private GuiButton doneBtn;
 +    private static final String __OBFID = "CL_00000764";
++    
++    //TODO: Client
++    private static AutoSignMod autoSign;
 +
 +    public GuiEditSign(TileEntitySign p_i1097_1_)
 +    {
 +        this.tileSign = p_i1097_1_;
++        if(autoSign == null)
++        	autoSign = (AutoSignMod)WurstClient.INSTANCE.modManager.getModByClass(AutoSignMod.class);
 +    }
 +
 +    /**
@@ -27894,12 +27899,14 @@ index 21ea6e9..4c43215 100644
 +     */
 +    public void initGui()
 +    {
-+    	//TODO: Client
-+    	if(WurstClient.INSTANCE.modManager.getModByClass(AutoSignMod.class).isEnabled() && AutoSignMod.signText != null)
-+    	{
-+    		this.tileSign.signText = AutoSignMod.signText;
-+    		mc.displayGuiScreen(null);
-+    	}
++		// TODO: Client
++		if(WurstClient.INSTANCE.modManager.getModByClass(AutoSignMod.class)
++			.isEnabled() && autoSign.signText != null)
++		{
++			this.tileSign.signText = autoSign.signText;
++			mc.displayGuiScreen(null);
++		}
++    	
 +        this.buttonList.clear();
 +        Keyboard.enableRepeatEvents(true);
 +        this.buttonList.add(this.doneBtn = new GuiButton(0, this.width / 2 - 100, this.height / 4 + 120, I18n.format("gui.done", new Object[0])));
@@ -27936,11 +27943,12 @@ index 21ea6e9..4c43215 100644
 +        {
 +            if (button.id == 0)
 +            {
-+            	//TODO: Client
-+            	if(WurstClient.INSTANCE.modManager.getModByClass(AutoSignMod.class).isEnabled() && AutoSignMod.signText == null)
-+            	{
-+            		AutoSignMod.signText = this.tileSign.signText;
-+            	}
++				// TODO: Client
++				if(WurstClient.INSTANCE.modManager.getModByClass(
++					AutoSignMod.class).isEnabled()
++					&& autoSign.signText == null)
++					autoSign.signText = this.tileSign.signText;
++            	
 +                this.tileSign.markDirty();
 +                this.mc.displayGuiScreen((GuiScreen)null);
 +            }
