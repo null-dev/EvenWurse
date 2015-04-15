@@ -1,6 +1,6 @@
-From 890ed8e315a633dff7ccb6a093e882e121d7f19c Mon Sep 17 00:00:00 2001
+From 8c09e41e509cb5d162831ce203988d30fb507659 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 16 Apr 2015 00:39:44 +0200
+Date: Thu, 16 Apr 2015 00:51:40 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -89,7 +89,7 @@ Subject: [PATCH] Wurst
  .../client/gui/stream/GuiTwitchUserMode.java       |    2 +
  src/net/minecraft/client/main/Main.java            |   19 +-
  .../client/multiplayer/GuiConnecting.java          |    2 +
- .../client/multiplayer/PlayerControllerMP.java     | 1245 ++--
+ .../client/multiplayer/PlayerControllerMP.java     | 1256 ++--
  .../minecraft/client/multiplayer/ServerList.java   |   16 +-
  .../minecraft/client/multiplayer/WorldClient.java  |    2 +
  .../client/network/NetHandlerLoginClient.java      |    5 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28183 insertions(+), 26486 deletions(-)
+ 203 files changed, 28194 insertions(+), 26486 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -28254,10 +28254,10 @@ index ee9ae67..6130e68 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/multiplayer/PlayerControllerMP.java b/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
-index 1c4d5a3..fc4c7e6 100644
+index 1c4d5a3..8651342 100644
 --- a/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
 +++ b/src/net/minecraft/client/multiplayer/PlayerControllerMP.java
-@@ -1,616 +1,629 @@
+@@ -1,616 +1,640 @@
 -package net.minecraft.client.multiplayer;
 -
 -import net.minecraft.block.Block;
@@ -28876,8 +28876,6 @@ index 1c4d5a3..fc4c7e6 100644
 -}
 +package net.minecraft.client.multiplayer;
 +
-+import tk.wurst_client.WurstClient;
-+import tk.wurst_client.mods.FastBreakMod;
 +import net.minecraft.block.Block;
 +import net.minecraft.block.material.Material;
 +import net.minecraft.block.state.IBlockState;
@@ -28906,6 +28904,8 @@ index 1c4d5a3..fc4c7e6 100644
 +import net.minecraft.util.Vec3;
 +import net.minecraft.world.World;
 +import net.minecraft.world.WorldSettings;
++import tk.wurst_client.WurstClient;
++import tk.wurst_client.mods.FastBreakMod;
 +
 +public class PlayerControllerMP
 +{
@@ -28939,6 +28939,7 @@ index 1c4d5a3..fc4c7e6 100644
 +
 +    /** Index of the current item held by the player in the inventory hotbar */
 +    private int currentPlayerItem;
++	private FastBreakMod fastBreak;
 +    private static final String __OBFID = "CL_00000881";
 +
 +    public PlayerControllerMP(Minecraft mcIn, NetHandlerPlayClient p_i45062_2_)
@@ -29191,7 +29192,17 @@ index 1c4d5a3..fc4c7e6 100644
 +            else
 +            {
 +                //TODO: Client
-+                this.curBlockDamageMP += var3.getPlayerRelativeBlockHardness(this.mc.thePlayer, this.mc.thePlayer.worldObj, p_180512_1_) * (!this.currentGameType.isCreative() && WurstClient.INSTANCE.modManager.getModByClass(FastBreakMod.class).isEnabled() && WurstClient.INSTANCE.options.fastbreakMode == 0 ? FastBreakMod.speed : 1);
++				if(fastBreak == null)
++					fastBreak =
++						(FastBreakMod)WurstClient.INSTANCE.modManager
++							.getModByClass(FastBreakMod.class);
++				this.curBlockDamageMP +=
++					var3.getPlayerRelativeBlockHardness(this.mc.thePlayer,
++						this.mc.thePlayer.worldObj, p_180512_1_)
++						* (!this.currentGameType.isCreative()
++							&& fastBreak.isEnabled()
++							&& WurstClient.INSTANCE.options.fastbreakMode == 0
++							? fastBreak.speed : 1);
 +
 +                if (this.stepSoundTickCounter % 4.0F == 0.0F)
 +                {

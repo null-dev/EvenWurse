@@ -19,7 +19,7 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "FastBreak")
 public class FastBreakMod extends Mod
 {
-	public static float speed = 2;
+	public float speed = 2;
 	
 	@Override
 	public void initSliders()
