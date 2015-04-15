@@ -106,7 +106,8 @@ public class JGoogleAnalyticsTracker
 	private static long asyncThreadsRunning = 0;
 	private static Proxy proxy = Proxy.NO_PROXY;
 	private static LinkedList<String> fifo = new LinkedList<String>();
-	private static Thread backgroundThread = null; // the thread used in
+	private static volatile Thread backgroundThread = null; // the thread used
+															// in
 	// 'queued' mode.
 	private static boolean backgroundThreadMayRun = false;
 	
@@ -650,13 +651,10 @@ public class JGoogleAnalyticsTracker
 	 * @param timeoutMillis
 	 *            If nonzero, wait for thread completion before returning.
 	 */
-	public static void stopBackgroundThread(long timeoutMillis)
+	public synchronized static void stopBackgroundThread(long timeoutMillis)
 	{
 		backgroundThreadMayRun = false;
-		synchronized(fifo)
-		{
-			fifo.notify();
-		}
+		fifo.notify();
 		if(backgroundThread != null && timeoutMillis > 0)
 		{
 			try
