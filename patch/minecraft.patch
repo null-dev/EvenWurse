@@ -1,6 +1,6 @@
-From fb0f64cbe75f04b16399e26f3388aa2c52c26aca Mon Sep 17 00:00:00 2001
+From 3791f0aaf6845ec711cb5a903fc692fcba69a3fc Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 15 Apr 2015 17:35:23 +0200
+Date: Wed, 15 Apr 2015 21:56:28 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -32,7 +32,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiFlatPresets.java   |    6 +-
  src/net/minecraft/client/gui/GuiGameOver.java      |  282 +-
  src/net/minecraft/client/gui/GuiIngame.java        | 2478 +++----
- src/net/minecraft/client/gui/GuiIngameMenu.java    |   47 +
+ src/net/minecraft/client/gui/GuiIngameMenu.java    |  237 +-
  .../minecraft/client/gui/GuiKeyBindingList.java    |    3 +
  src/net/minecraft/client/gui/GuiLanguage.java      |    3 +
  src/net/minecraft/client/gui/GuiListButton.java    |    1 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 27454 insertions(+), 25761 deletions(-)
+ 203 files changed, 27549 insertions(+), 25856 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..f0f9ace 100644
@@ -20266,66 +20266,221 @@ index 6dbd34d..03892e6 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiIngameMenu.java b/src/net/minecraft/client/gui/GuiIngameMenu.java
-index d8f9c4b..4a9d49a 100644
+index d8f9c4b..73906b4 100644
 --- a/src/net/minecraft/client/gui/GuiIngameMenu.java
 +++ b/src/net/minecraft/client/gui/GuiIngameMenu.java
-@@ -1,15 +1,31 @@
- package net.minecraft.client.gui;
- 
+@@ -1,95 +1,142 @@
+-package net.minecraft.client.gui;
+-
+-import java.io.IOException;
+-import net.minecraft.client.gui.achievement.GuiAchievements;
+-import net.minecraft.client.gui.achievement.GuiStats;
+-import net.minecraft.client.multiplayer.WorldClient;
+-import net.minecraft.client.resources.I18n;
+-
+-public class GuiIngameMenu extends GuiScreen
+-{
+-    private int field_146445_a;
+-    private int field_146444_f;
+-    private static final String __OBFID = "CL_00000703";
+-
+-    /**
+-     * Adds the buttons (and other controls) to the screen in question.
+-     */
+-    public void initGui()
+-    {
+-        this.field_146445_a = 0;
+-        this.buttonList.clear();
+-        byte var1 = -16;
+-        boolean var2 = true;
+-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + var1, I18n.format("menu.returnToMenu", new Object[0])));
+-
+-        if (!this.mc.isIntegratedServerRunning())
+-        {
+-            ((GuiButton)this.buttonList.get(0)).displayString = I18n.format("menu.disconnect", new Object[0]);
+-        }
+-
+-        this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + var1, I18n.format("menu.returnToGame", new Object[0])));
+-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + var1, 98, 20, I18n.format("menu.options", new Object[0])));
+-        GuiButton var3;
+-        this.buttonList.add(var3 = new GuiButton(7, this.width / 2 + 2, this.height / 4 + 96 + var1, 98, 20, I18n.format("menu.shareToLan", new Object[0])));
+-        this.buttonList.add(new GuiButton(5, this.width / 2 - 100, this.height / 4 + 48 + var1, 98, 20, I18n.format("gui.achievements", new Object[0])));
+-        this.buttonList.add(new GuiButton(6, this.width / 2 + 2, this.height / 4 + 48 + var1, 98, 20, I18n.format("gui.stats", new Object[0])));
+-        var3.enabled = this.mc.isSingleplayer() && !this.mc.getIntegratedServer().getPublic();
+-    }
+-
+-    protected void actionPerformed(GuiButton button) throws IOException
+-    {
+-        switch (button.id)
+-        {
+-            case 0:
+-                this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
+-                break;
+-
+-            case 1:
+-                button.enabled = false;
+-                this.mc.theWorld.sendQuittingDisconnectingPacket();
+-                this.mc.loadWorld((WorldClient)null);
+-                this.mc.displayGuiScreen(new GuiMainMenu());
+-
+-            case 2:
+-            case 3:
+-            default:
+-                break;
+-
+-            case 4:
+-                this.mc.displayGuiScreen((GuiScreen)null);
+-                this.mc.setIngameFocus();
+-                break;
+-
+-            case 5:
+-                this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.thePlayer.getStatFileWriter()));
+-                break;
+-
+-            case 6:
+-                this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
+-                break;
+-
+-            case 7:
+-                this.mc.displayGuiScreen(new GuiShareToLan(this));
+-        }
+-    }
+-
+-    /**
+-     * Called from the main game loop to update the screen.
+-     */
+-    public void updateScreen()
+-    {
+-        super.updateScreen();
+-        ++this.field_146444_f;
+-    }
+-
+-    /**
+-     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
+-     */
+-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+-    {
+-        this.drawDefaultBackground();
+-        this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game", new Object[0]), this.width / 2, 40, 16777215);
+-        super.drawScreen(mouseX, mouseY, partialTicks);
+-    }
+-}
++package net.minecraft.client.gui;
++
 +import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
 +import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 +import static org.lwjgl.opengl.GL11.glEnable;
 +
- import java.io.IOException;
++import java.io.IOException;
 +
 +import net.minecraft.client.gui.GuiButton;
- import net.minecraft.client.gui.achievement.GuiAchievements;
- import net.minecraft.client.gui.achievement.GuiStats;
- import net.minecraft.client.multiplayer.WorldClient;
++import net.minecraft.client.gui.achievement.GuiAchievements;
++import net.minecraft.client.gui.achievement.GuiStats;
++import net.minecraft.client.multiplayer.WorldClient;
 +import net.minecraft.client.renderer.OpenGlHelper;
 +import net.minecraft.client.renderer.Tessellator;
 +import net.minecraft.client.renderer.WorldRenderer;
- import net.minecraft.client.resources.I18n;
++import net.minecraft.client.resources.I18n;
 +import net.minecraft.util.ResourceLocation;
 +
 +import org.lwjgl.opengl.GL11;
 +
-+import tk.wurst_client.gui.options.GuiWurstOptions;
- 
- public class GuiIngameMenu extends GuiScreen
- {
-     private int field_146445_a;
-     private int field_146444_f;
++import tk.wurst_client.options.gui.GuiWurstOptions;
++
++public class GuiIngameMenu extends GuiScreen
++{
++    private int field_146445_a;
++    private int field_146444_f;
 +    //TODO: Client
 +    private static final ResourceLocation wurstTextures = new ResourceLocation("wurst/wurst_128.png");
-     private static final String __OBFID = "CL_00000703";
- 
-     /**
-@@ -30,6 +46,8 @@ public class GuiIngameMenu extends GuiScreen
- 
-         this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + var1, I18n.format("menu.returnToGame", new Object[0])));
-         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + var1, 98, 20, I18n.format("menu.options", new Object[0])));
++    private static final String __OBFID = "CL_00000703";
++
++    /**
++     * Adds the buttons (and other controls) to the screen in question.
++     */
++    public void initGui()
++    {
++        this.field_146445_a = 0;
++        this.buttonList.clear();
++        byte var1 = -16;
++        boolean var2 = true;
++        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + var1, I18n.format("menu.returnToMenu", new Object[0])));
++
++        if (!this.mc.isIntegratedServerRunning())
++        {
++            ((GuiButton)this.buttonList.get(0)).displayString = I18n.format("menu.disconnect", new Object[0]);
++        }
++
++        this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + var1, I18n.format("menu.returnToGame", new Object[0])));
++        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + var1, 98, 20, I18n.format("menu.options", new Object[0])));
 +        //TODO: Client
 +        this.buttonList.add(new GuiButton(8, this.width / 2 - 100, this.height / 4 + 72 + var1, "            Options"));
-         GuiButton var3;
-         this.buttonList.add(var3 = new GuiButton(7, this.width / 2 + 2, this.height / 4 + 96 + var1, 98, 20, I18n.format("menu.shareToLan", new Object[0])));
-         this.buttonList.add(new GuiButton(5, this.width / 2 - 100, this.height / 4 + 48 + var1, 98, 20, I18n.format("gui.achievements", new Object[0])));
-@@ -71,6 +89,11 @@ public class GuiIngameMenu extends GuiScreen
- 
-             case 7:
-                 this.mc.displayGuiScreen(new GuiShareToLan(this));
++        GuiButton var3;
++        this.buttonList.add(var3 = new GuiButton(7, this.width / 2 + 2, this.height / 4 + 96 + var1, 98, 20, I18n.format("menu.shareToLan", new Object[0])));
++        this.buttonList.add(new GuiButton(5, this.width / 2 - 100, this.height / 4 + 48 + var1, 98, 20, I18n.format("gui.achievements", new Object[0])));
++        this.buttonList.add(new GuiButton(6, this.width / 2 + 2, this.height / 4 + 48 + var1, 98, 20, I18n.format("gui.stats", new Object[0])));
++        var3.enabled = this.mc.isSingleplayer() && !this.mc.getIntegratedServer().getPublic();
++    }
++
++    protected void actionPerformed(GuiButton button) throws IOException
++    {
++        switch (button.id)
++        {
++            case 0:
++                this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
++                break;
++
++            case 1:
++                button.enabled = false;
++                this.mc.theWorld.sendQuittingDisconnectingPacket();
++                this.mc.loadWorld((WorldClient)null);
++                this.mc.displayGuiScreen(new GuiMainMenu());
++
++            case 2:
++            case 3:
++            default:
++                break;
++
++            case 4:
++                this.mc.displayGuiScreen((GuiScreen)null);
++                this.mc.setIngameFocus();
++                break;
++
++            case 5:
++                this.mc.displayGuiScreen(new GuiAchievements(this, this.mc.thePlayer.getStatFileWriter()));
++                break;
++
++            case 6:
++                this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
++                break;
++
++            case 7:
++                this.mc.displayGuiScreen(new GuiShareToLan(this));
 +                break;
 +
 +                //TODO: Client
 +            case 8:
 +                this.mc.displayGuiScreen(new GuiWurstOptions(this));
-         }
-     }
- 
-@@ -91,5 +114,29 @@ public class GuiIngameMenu extends GuiScreen
-         this.drawDefaultBackground();
-         this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game", new Object[0]), this.width / 2, 40, 16777215);
-         super.drawScreen(mouseX, mouseY, partialTicks);
++        }
++    }
++
++    /**
++     * Called from the main game loop to update the screen.
++     */
++    public void updateScreen()
++    {
++        super.updateScreen();
++        ++this.field_146444_f;
++    }
++
++    /**
++     * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
++     */
++    public void drawScreen(int mouseX, int mouseY, float partialTicks)
++    {
++        this.drawDefaultBackground();
++        this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game", new Object[0]), this.width / 2, 40, 16777215);
++        super.drawScreen(mouseX, mouseY, partialTicks);
 +        //TODO: Client
 +		glEnable(GL_TEXTURE_2D);
 +		glEnable(GL_CULL_FACE);
@@ -20350,8 +20505,8 @@ index d8f9c4b..4a9d49a 100644
 +        var4.addVertexWithUV((double)x + w, (double)y + 0, (double)this.zLevel, (double)((float)(u1 + fw) * 0.00390625F), (double)((float)(v1 + 0) * 0.00390625F));
 +        var4.addVertexWithUV((double)x + 0, (double)y + 0, (double)this.zLevel, (double)((float)(u1 + 0) * 0.00390625F), (double)((float)(v1 + 0) * 0.00390625F));
 +        var3.draw();
-     }
- }
++    }
++}
 diff --git a/src/net/minecraft/client/gui/GuiKeyBindingList.java b/src/net/minecraft/client/gui/GuiKeyBindingList.java
 index 63ce2aa..8f79f96 100644
 --- a/src/net/minecraft/client/gui/GuiKeyBindingList.java
@@ -20414,7 +20569,7 @@ index f86264c..b73a813 100644
  
  public class GuiLockIconButton extends GuiButton
 diff --git a/src/net/minecraft/client/gui/GuiMainMenu.java b/src/net/minecraft/client/gui/GuiMainMenu.java
-index 38033d9..dbf5df0 100644
+index 38033d9..546bcfb 100644
 --- a/src/net/minecraft/client/gui/GuiMainMenu.java
 +++ b/src/net/minecraft/client/gui/GuiMainMenu.java
 @@ -1,567 +1,767 @@
@@ -21032,7 +21187,7 @@ index 38033d9..dbf5df0 100644
 +import org.newdawn.slick.util.xml.XMLParser;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.gui.alts.GuiAlts;
++import tk.wurst_client.alts.gui.GuiAlts;
 +import tk.wurst_client.utils.MiscUtils;
 +
 +import com.google.common.collect.Lists;
@@ -21790,7 +21945,7 @@ index 518840e..8c0b1ea 100644
  import org.apache.logging.log4j.Logger;
  
 diff --git a/src/net/minecraft/client/gui/GuiMultiplayer.java b/src/net/minecraft/client/gui/GuiMultiplayer.java
-index da42542..1b72646 100644
+index da42542..07d60bf 100644
 --- a/src/net/minecraft/client/gui/GuiMultiplayer.java
 +++ b/src/net/minecraft/client/gui/GuiMultiplayer.java
 @@ -1,483 +1,634 @@
@@ -22307,8 +22462,8 @@ index da42542..1b72646 100644
 +import org.lwjgl.input.Keyboard;
 +
 +import tk.wurst_client.Client;
-+import tk.wurst_client.gui.servers.GuiCleanUp;
-+import tk.wurst_client.gui.servers.GuiServerFinder;
++import tk.wurst_client.servers.gui.GuiCleanUp;
++import tk.wurst_client.servers.gui.GuiServerFinder;
 +import tk.wurst_client.spam.SpamProcessor;
 +import tk.wurst_client.utils.MiscUtils;
 +
