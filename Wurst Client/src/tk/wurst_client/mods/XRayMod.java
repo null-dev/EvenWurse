@@ -28,16 +28,8 @@ public class XRayMod extends Mod
 	}
 	
 	@Override
-	public void onEnable()
+	public void onToggle()
 	{
-		Block.isXRayEnabled = true;
-		Minecraft.getMinecraft().renderGlobal.loadRenderers();
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		Block.isXRayEnabled = false;
 		Minecraft.getMinecraft().renderGlobal.loadRenderers();
 	}
 }

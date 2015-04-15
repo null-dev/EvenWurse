@@ -1,10 +1,10 @@
-From a18b4f3a098530047d340edbe424e417ab6df422 Mon Sep 17 00:00:00 2001
+From 66c7ea1ccefca8545d44f18e0e7b67e19bee3b37 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 15 Apr 2015 23:27:00 +0200
+Date: Thu, 16 Apr 2015 00:29:01 +0200
 Subject: [PATCH] Wurst
 
 ---
- src/net/minecraft/block/Block.java                 | 3038 ++++-----
+ src/net/minecraft/block/Block.java                 | 3031 ++++-----
  src/net/minecraft/block/BlockLiquid.java           |  846 +--
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
@@ -207,13 +207,13 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28182 insertions(+), 26486 deletions(-)
+ 203 files changed, 28175 insertions(+), 26486 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
-index 5c07aa4..bb15d0d 100644
+index 5c07aa4..2655c9c 100644
 --- a/src/net/minecraft/block/Block.java
 +++ b/src/net/minecraft/block/Block.java
-@@ -1,1511 +1,1527 @@
+@@ -1,1511 +1,1520 @@
 -package net.minecraft.block;
 -
 -import java.util.Iterator;
@@ -1748,16 +1748,7 @@ index 5c07aa4..bb15d0d 100644
 +import net.minecraft.item.ItemStack;
 +import net.minecraft.stats.StatList;
 +import net.minecraft.tileentity.TileEntity;
-+import net.minecraft.util.AxisAlignedBB;
-+import net.minecraft.util.BlockPos;
-+import net.minecraft.util.EnumFacing;
-+import net.minecraft.util.EnumWorldBlockLayer;
-+import net.minecraft.util.MovingObjectPosition;
-+import net.minecraft.util.ObjectIntIdentityMap;
-+import net.minecraft.util.RegistryNamespacedDefaultedByKey;
-+import net.minecraft.util.ResourceLocation;
-+import net.minecraft.util.StatCollector;
-+import net.minecraft.util.Vec3;
++import net.minecraft.util.*;
 +import net.minecraft.world.Explosion;
 +import net.minecraft.world.IBlockAccess;
 +import net.minecraft.world.World;
@@ -1881,7 +1872,7 @@ index 5c07aa4..bb15d0d 100644
 +    private IBlockState defaultBlockState;
 +    private String unlocalizedName;
 +    //TODO: Client
-+	public static boolean isXRayEnabled = false;
++    private XRayMod xray;
 +    private static final String __OBFID = "CL_00000199";
 +
 +    public static int getIdFromBlock(Block blockIn)
@@ -2189,7 +2180,9 @@ index 5c07aa4..bb15d0d 100644
 +    public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
 +    {
 +    	//TODO: Client
-+    	if(isXRayEnabled)
++    	if(xray == null)
++			xray = (XRayMod)WurstClient.INSTANCE.modManager.getModByClass(XRayMod.class);
++    	if(xray.isEnabled())
 +    	{
 +    		if(XRayUtils.isXRayBlock(this))
 +    			return true;
