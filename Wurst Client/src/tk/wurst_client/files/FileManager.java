@@ -26,7 +26,7 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import tk.wurst_client.Client;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.Encryption;
-import tk.wurst_client.gui.alts.GuiAltList;
+import tk.wurst_client.alts.gui.GuiAltList;
 import tk.wurst_client.mods.*;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.options.Friends;

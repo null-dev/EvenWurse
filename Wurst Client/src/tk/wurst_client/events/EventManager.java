@@ -15,8 +15,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import net.minecraft.client.Minecraft;
+import tk.wurst_client.error.gui.GuiError;
 import tk.wurst_client.events.listeners.*;
-import tk.wurst_client.gui.error.GuiError;
 
 public abstract class EventManager<E extends Event, L extends Listener>
 {
