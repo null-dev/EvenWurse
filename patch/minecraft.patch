@@ -1,6 +1,6 @@
-From 9b4335930dd876d7c3f068a2e3e4e2a1c88cd520 Mon Sep 17 00:00:00 2001
+From c2d4ae3425d328575bb6b2e005a44ca3b963f7d2 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Tue, 14 Apr 2015 23:06:02 +0200
+Date: Wed, 15 Apr 2015 02:10:16 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -52,7 +52,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiRenameWorld.java   |    3 +
  src/net/minecraft/client/gui/GuiScreen.java        |   12 +-
  .../minecraft/client/gui/GuiScreenAddServer.java   |    3 +
- src/net/minecraft/client/gui/GuiScreenBook.java    | 1393 ++--
+ src/net/minecraft/client/gui/GuiScreenBook.java    | 1411 ++--
  .../client/gui/GuiScreenCustomizePresets.java      |    4 +
  src/net/minecraft/client/gui/GuiScreenDemo.java    |    3 +
  .../client/gui/GuiScreenOptionsSounds.java         |    2 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 27420 insertions(+), 25761 deletions(-)
+ 203 files changed, 27438 insertions(+), 25761 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..f0f9ace 100644
@@ -24025,10 +24025,10 @@ index 098969d..05f4d73 100644
  
  public class GuiScreenAddServer extends GuiScreen
 diff --git a/src/net/minecraft/client/gui/GuiScreenBook.java b/src/net/minecraft/client/gui/GuiScreenBook.java
-index 914a882..7d0c1e0 100644
+index 914a882..8372db2 100644
 --- a/src/net/minecraft/client/gui/GuiScreenBook.java
 +++ b/src/net/minecraft/client/gui/GuiScreenBook.java
-@@ -1,676 +1,717 @@
+@@ -1,676 +1,735 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -24735,6 +24735,7 @@ index 914a882..7d0c1e0 100644
 +import net.minecraft.network.play.client.C17PacketCustomPayload;
 +import net.minecraft.util.ChatAllowedCharacters;
 +import net.minecraft.util.ChatComponentText;
++import net.minecraft.util.ChatStyle;
 +import net.minecraft.util.EnumChatFormatting;
 +import net.minecraft.util.IChatComponent;
 +import net.minecraft.util.ResourceLocation;
@@ -24918,19 +24919,6 @@ index 914a882..7d0c1e0 100644
 +
 +                var2 = "MC|BEdit";
 +
-+				// TODO: Client
-+				if(commandLink)
-+					try
-+					{
-+						bookObj
-+							.setTagCompound(JsonToNBT
-+								.func_180713_a("{pages:[\"{text:'',extra:[{text:'Click here',clickEvent:{action:run_command,value:'/me hacked the server'}}]}\"]}"));
-+						System.out.println(bookObj.getTagCompound());
-+					}catch(Exception e)
-+					{
-+						e.printStackTrace();
-+					}
-+                
 +                if (p_146462_1_)
 +                {
 +                    var2 = "MC|BSign";
@@ -24946,6 +24934,36 @@ index 914a882..7d0c1e0 100644
 +                    }
 +
 +                    this.bookObj.setItem(Items.written_book);
++                    
++                    // TODO: Client
++                    if(commandLink)
++                    	try
++						{
++							NBTTagList pages =
++								bookObj.getTagCompound().getTagList("pages", 8);
++							for(int page = 0; page < pages.tagCount(); page++)
++							{
++								String text = pages.getStringTagAt(page);
++								text = text.substring(1, text.length() - 1);
++								ChatComponentText component =
++									new ChatComponentText(text);
++								component
++									.setChatStyle(new ChatStyle())
++									.getChatStyle()
++									.setChatClickEvent(
++										new ClickEvent(
++											ClickEvent.Action.RUN_COMMAND,
++											"/kill"));
++								text =
++									IChatComponent.Serializer
++										.componentToJson(component);
++								pages.set(page, new NBTTagString(text));
++							}
++							System.out.println(bookObj.getTagCompound());
++						}catch(Exception e)
++                    {
++                    	e.printStackTrace();
++                    }
 +                }
 +
 +                PacketBuffer var7 = new PacketBuffer(Unpooled.buffer());
