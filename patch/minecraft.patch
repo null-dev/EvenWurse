@@ -1,6 +1,6 @@
-From 894f3d0368fb267bc224a60abd55de1f740dc39e Mon Sep 17 00:00:00 2001
+From a18b4f3a098530047d340edbe424e417ab6df422 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 15 Apr 2015 23:09:50 +0200
+Date: Wed, 15 Apr 2015 23:27:00 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -196,7 +196,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/util/MessageDeserializer2.java   |    6 +-
  src/net/minecraft/util/MessageSerializer.java      |    6 +-
  src/net/minecraft/util/MovingObjectPosition.java   |   20 +-
- src/net/minecraft/util/Timer.java                  |  224 +-
+ src/net/minecraft/util/Timer.java                  |  227 +-
  src/net/minecraft/village/VillageSiege.java        |    2 +-
  src/net/minecraft/world/SpawnerAnimals.java        |   31 +-
  src/net/minecraft/world/World.java                 |    2 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28179 insertions(+), 26486 deletions(-)
+ 203 files changed, 28182 insertions(+), 26486 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..bb15d0d 100644
@@ -58224,10 +58224,10 @@ index a682077..381c34c 100644
  
      public static enum MovingObjectType
 diff --git a/src/net/minecraft/util/Timer.java b/src/net/minecraft/util/Timer.java
-index 7d59775..2a5c9aa 100644
+index 7d59775..f013b5d 100644
 --- a/src/net/minecraft/util/Timer.java
 +++ b/src/net/minecraft/util/Timer.java
-@@ -1,109 +1,115 @@
+@@ -1,109 +1,118 @@
 -package net.minecraft.util;
 -
 -import net.minecraft.client.Minecraft;
@@ -58339,8 +58339,9 @@ index 7d59775..2a5c9aa 100644
 -}
 +package net.minecraft.util;
 +
-+import tk.wurst_client.WurstClient;
 +import net.minecraft.client.Minecraft;
++import tk.wurst_client.WurstClient;
++import tk.wurst_client.mods.TimerMod;
 +
 +public class Timer
 +{
@@ -58404,10 +58405,12 @@ index 7d59775..2a5c9aa 100644
 +    public void updateTimer()
 +    {
 +    	//TODO: Client
-+    	if(WurstClient.INSTANCE.modManager.getModByClass(tk.wurst_client.mods.TimerMod.class).isEnabled())
-+    		timerSpeed = tk.wurst_client.mods.TimerMod.speed;
++    	TimerMod timerMod = (TimerMod)WurstClient.INSTANCE.modManager.getModByClass(TimerMod.class);
++    	if(timerMod.isEnabled())
++    		timerSpeed = timerMod.speed;
 +    	else
 +    		timerSpeed = 1.0F;
++    	
 +        long var1 = Minecraft.getSystemTime();
 +        long var3 = var1 - this.lastSyncSysClock;
 +        long var5 = System.nanoTime() / 1000000L;

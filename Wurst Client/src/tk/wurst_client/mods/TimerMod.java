@@ -20,7 +20,7 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "Timer")
 public class TimerMod extends Mod
 {
-	public static float speed = 2.0F;// Minimum: 0.1F, maximum: 10.0F
+	public float speed = 2.0F;// Minimum: 0.1F, maximum: 10.0F
 	
 	@Override
 	public void initSliders()
