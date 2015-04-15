@@ -9,13 +9,14 @@ package tk.wurst_client.bookhack.gui;
 
 import java.io.IOException;
 
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.GuiTextField;
+
+import org.lwjgl.input.Keyboard;
+
 import tk.wurst_client.Client;
 
 public class GuiBookHack extends GuiScreen
@@ -91,6 +92,19 @@ public class GuiBookHack extends GuiScreen
 	public void onGuiClosed()
 	{
 		Keyboard.enableRepeatEvents(false);
+	}
+	
+	/**
+	 * Called when the mouse is clicked.
+	 *
+	 * @throws IOException
+	 */
+	@Override
+	protected void mouseClicked(int par1, int par2, int par3)
+		throws IOException
+	{
+		super.mouseClicked(par1, par2, par3);
+		commandBox.mouseClicked(par1, par2, par3);
 	}
 	
 	@Override
