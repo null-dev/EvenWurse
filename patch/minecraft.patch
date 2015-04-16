@@ -1,6 +1,6 @@
-From dc4751775773c319c06e9830b47112946c332d61 Mon Sep 17 00:00:00 2001
+From b77b8a74412c0188c60a971d5de57c8a87e8d449 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 16 Apr 2015 01:22:40 +0200
+Date: Thu, 16 Apr 2015 20:29:42 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -30,7 +30,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiEnchantment.java   |    2 +-
  src/net/minecraft/client/gui/GuiErrorScreen.java   |    2 +
  src/net/minecraft/client/gui/GuiFlatPresets.java   |    6 +-
- src/net/minecraft/client/gui/GuiGameOver.java      |  282 +-
+ src/net/minecraft/client/gui/GuiGameOver.java      |  285 +-
  src/net/minecraft/client/gui/GuiIngame.java        | 2478 +++----
  src/net/minecraft/client/gui/GuiIngameMenu.java    |  237 +-
  .../minecraft/client/gui/GuiKeyBindingList.java    |    3 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28217 insertions(+), 26509 deletions(-)
+ 203 files changed, 28220 insertions(+), 26509 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -17512,10 +17512,10 @@ index 47e1373..6361176 100644
              GlStateManager.disableRescaleNormal();
          }
 diff --git a/src/net/minecraft/client/gui/GuiGameOver.java b/src/net/minecraft/client/gui/GuiGameOver.java
-index c737e46..15134c8 100644
+index c737e46..d21f125 100644
 --- a/src/net/minecraft/client/gui/GuiGameOver.java
 +++ b/src/net/minecraft/client/gui/GuiGameOver.java
-@@ -1,137 +1,145 @@
+@@ -1,137 +1,148 @@
 -package net.minecraft.client.gui;
 -
 -import java.io.IOException;
@@ -17662,6 +17662,7 @@ index c737e46..15134c8 100644
 +import tk.wurst_client.events.DeathEvent;
 +import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.mods.Mod;
++import tk.wurst_client.spam.SpamProcessor;
 +import net.minecraft.client.gui.GuiButton;
 +import net.minecraft.client.multiplayer.WorldClient;
 +import net.minecraft.client.renderer.GlStateManager;
@@ -17792,9 +17793,11 @@ index c737e46..15134c8 100644
 +            for (Iterator var1 = this.buttonList.iterator(); var1.hasNext(); var2.enabled = true)
 +            {
 +                var2 = (GuiButton)var1.next();
-+                //TODO: Client
-+                EventManager.death.fireEvent(new DeathEvent());
 +            }
++            
++            //TODO: Client
++            EventManager.death.fireEvent(new DeathEvent());
++            SpamProcessor.runScript("death", "Runs whenever you die.");
 +        }
 +    }
 +}
