@@ -35,8 +35,8 @@ import tk.wurst_client.utils.RenderUtils;
 public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	UpdateListener
 {
-	public static float normalRange = 5F;
-	public static float yesCheatRange = 4.25F;
+	public float normalRange = 5F;
+	public float yesCheatRange = 4.25F;
 	private float realRange;
 	private static Block currentBlock;
 	private float currentDamage;

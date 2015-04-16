@@ -57,9 +57,10 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(NukerMod.class).isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(NukerMod.class).setEnabled(
-				false);
+		if(WurstClient.INSTANCE.modManager.getModByClass(NukerMod.class)
+			.isEnabled())
+			WurstClient.INSTANCE.modManager.getModByClass(NukerMod.class)
+				.setEnabled(false);
 		if(WurstClient.INSTANCE.modManager.getModByClass(SpeedNukerMod.class)
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(SpeedNukerMod.class)
@@ -131,7 +132,8 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 				return;
 			}
 		}
-		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
+			.isEnabled())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());
@@ -196,11 +198,14 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	private BlockPos find()
 	{
 		BlockPos closest = null;
-		float closestDistance = NukerMod.yesCheatRange + 1;
-		for(int y = (int)NukerMod.yesCheatRange; y >= (WurstClient.INSTANCE.options.nukerMode == 2
-			? 0 : -NukerMod.yesCheatRange); y--)
-			for(int x = (int)NukerMod.yesCheatRange; x >= -NukerMod.yesCheatRange - 1; x--)
-				for(int z = (int)NukerMod.yesCheatRange; z >= -NukerMod.yesCheatRange; z--)
+		NukerMod nuker =
+			(NukerMod)WurstClient.INSTANCE.modManager
+				.getModByClass(NukerMod.class);
+		float closestDistance = nuker.yesCheatRange + 1;
+		for(int y = (int)nuker.yesCheatRange; y >= (WurstClient.INSTANCE.options.nukerMode == 2
+			? 0 : -nuker.yesCheatRange); y--)
+			for(int x = (int)nuker.yesCheatRange; x >= -nuker.yesCheatRange - 1; x--)
+				for(int z = (int)nuker.yesCheatRange; z >= -nuker.yesCheatRange; z--)
 				{
 					if(Minecraft.getMinecraft().thePlayer == null)
 						continue;
@@ -231,7 +236,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 						continue;
 					fakeObjectMouseOver.setBlockPos(blockPos);
 					if(Block.getIdFromBlock(block) != 0 && posY >= 0
-						&& currentDistance <= NukerMod.yesCheatRange)
+						&& currentDistance <= nuker.yesCheatRange)
 					{
 						if(WurstClient.INSTANCE.options.nukerMode == 1
 							&& Block.getIdFromBlock(block) != NukerMod.id)
