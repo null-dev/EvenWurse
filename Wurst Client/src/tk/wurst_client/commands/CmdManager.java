@@ -35,6 +35,7 @@ public class CmdManager implements ChatOutputListener
 		addCommand(new AddAltCmd());
 		addCommand(new AnnoyCmd());
 		addCommand(new BindsCmd());
+		addCommand(new BlinkCmd());
 		addCommand(new ClearCmd());
 		addCommand(new DropCmd());
 		addCommand(new EnchantCmd());

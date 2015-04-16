@@ -23,10 +23,16 @@ public class BlinkMod extends Mod
 {
 	private static ArrayList<Packet> packets = new ArrayList<Packet>();
 	private EntityOtherPlayerMP fakePlayer = null;
+	private double oldX;
+	private double oldY;
+	private double oldZ;
 	
 	@Override
 	public void onEnable()
 	{
+		oldX = Minecraft.getMinecraft().thePlayer.posX;
+		oldY = Minecraft.getMinecraft().thePlayer.posY;
+		oldZ = Minecraft.getMinecraft().thePlayer.posZ;
 		fakePlayer =
 			new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld,
 				Minecraft.getMinecraft().thePlayer.getGameProfile());
@@ -51,5 +57,14 @@ public class BlinkMod extends Mod
 	public static void addToBlinkQueue(Packet packet)
 	{
 		packets.add(packet);
+	}
+
+	public void cancel()
+	{
+		packets.clear();
+		Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY,
+			oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
+			Minecraft.getMinecraft().thePlayer.rotationPitch);
+		setEnabled(false);
 	}
 }
