@@ -50,16 +50,17 @@ public class TriggerBotMod extends Mod implements UpdateListener
 			boolean yesCheatMode =
 				WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
 					.isEnabled();
-			if(yesCheatMode && hasTimePassedS(KillauraMod.yesCheatSpeed)
-				|| !yesCheatMode && hasTimePassedS(KillauraMod.normalSpeed))
+			KillauraMod killaura = (KillauraMod)WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class);
+			if(yesCheatMode && hasTimePassedS(killaura.yesCheatSpeed)
+				|| !yesCheatMode && hasTimePassedS(killaura.normalSpeed))
 			{
 				EntityLivingBase en =
 					(EntityLivingBase)Minecraft.getMinecraft().objectMouseOver.entityHit;
 				if((yesCheatMode
 					&& Minecraft.getMinecraft().thePlayer
-						.getDistanceToEntity(en) <= KillauraMod.yesCheatRange || !yesCheatMode
+						.getDistanceToEntity(en) <= killaura.yesCheatRange || !yesCheatMode
 					&& Minecraft.getMinecraft().thePlayer
-						.getDistanceToEntity(en) <= KillauraMod.normalRange)
+						.getDistanceToEntity(en) <= killaura.normalRange)
 					&& EntityUtils.isCorrectEntity(en, true))
 				{
 					if(WurstClient.INSTANCE.modManager

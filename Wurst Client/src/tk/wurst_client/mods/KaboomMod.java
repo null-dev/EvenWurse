@@ -36,7 +36,7 @@ import tk.wurst_client.utils.BlockUtils;
 public class KaboomMod extends Mod implements UpdateListener
 {
 	private int range = 6;
-	public static int power = 128;
+	public int power = 128;
 	
 	@Override
 	public void initSliders()

@@ -25,12 +25,12 @@ import tk.wurst_client.utils.EntityUtils;
 	name = "Killaura")
 public class KillauraMod extends Mod implements UpdateListener
 {
-	public static float normalSpeed = 20F;
-	public static float normalRange = 5F;
-	public static float yesCheatSpeed = 12F;
-	public static float yesCheatRange = 4.25F;
-	public static float realSpeed;
-	public static float realRange;
+	public float normalSpeed = 20F;
+	public float normalRange = 5F;
+	public float yesCheatSpeed = 12F;
+	public float yesCheatRange = 4.25F;
+	public float realSpeed;
+	public float realRange;
 	
 	@Override
 	public void initSliders()

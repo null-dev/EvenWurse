@@ -92,10 +92,11 @@ public class ProtectMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
+		KillauraMod killaura = (KillauraMod)WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class);
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
-			speed = KillauraMod.yesCheatSpeed;
+			speed = killaura.yesCheatSpeed;
 		else
-			speed = KillauraMod.normalSpeed;
+			speed = killaura.normalSpeed;
 		updateMS();
 		if(hasTimePassedS(speed) && EntityUtils.getClosestEnemy(friend) != null)
 		{
