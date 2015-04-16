@@ -30,7 +30,7 @@ public class SearchMod extends Mod implements UpdateListener, RenderListener
 	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
 	private int range = 50;
 	private int maxBlocks = 1000;
-	public static boolean shouldInform = true;
+	public boolean notify = true;
 	
 	@Override
 	public String getRenderName()
@@ -41,7 +41,7 @@ public class SearchMod extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onEnable()
 	{
-		shouldInform = true;
+		notify = true;
 		EventManager.update.addListener(this);
 		EventManager.render.addListener(this);
 	}
@@ -86,16 +86,16 @@ public class SearchMod extends Mod implements UpdateListener, RenderListener
 				if(matchingBlocks.size() >= maxBlocks)
 					break;
 			}
-			if(matchingBlocks.size() >= maxBlocks && shouldInform)
+			if(matchingBlocks.size() >= maxBlocks && notify)
 			{
 				WurstClient.INSTANCE.chat.warning(getName()
 					+ " found §lA LOT§r of blocks.");
 				WurstClient.INSTANCE.chat
 					.message("To prevent lag, it will only show the first "
 						+ maxBlocks + " blocks.");
-				shouldInform = false;
+				notify = false;
 			}else if(matchingBlocks.size() < maxBlocks)
-				shouldInform = true;
+				notify = true;
 			updateLastMS();
 		}
 	}

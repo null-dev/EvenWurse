@@ -23,30 +23,40 @@ public class SearchCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			WurstClient.INSTANCE.modManager.getModByClass(SearchMod.class).toggle();
+			WurstClient.INSTANCE.modManager.getModByClass(SearchMod.class)
+				.toggle();
 			WurstClient.INSTANCE.chat.message("Search turned "
-				+ (WurstClient.INSTANCE.modManager.getModByClass(SearchMod.class)
-					.isEnabled() == true ? "on" : "off") + ".");
-		}else if(args[0].toLowerCase().equals("id"))
-		{
-			if(MiscUtils.isInteger(args[1]))
-				WurstClient.INSTANCE.options.searchID = Integer.valueOf(args[1]);
-			else
-				syntaxError("ID must be a number.");
-			WurstClient.INSTANCE.fileManager.saveOptions();
-			SearchMod.shouldInform = true;
-			WurstClient.INSTANCE.chat.message("Search ID set to " + args[1] + ".");
-		}else if(args[0].equalsIgnoreCase("name"))
-		{
-			int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
-			if(newID == -1)
-				error("Block \"" + args[1] + "\" could not be found.");
-			WurstClient.INSTANCE.options.searchID = Integer.valueOf(newID);
-			WurstClient.INSTANCE.fileManager.saveOptions();
-			SearchMod.shouldInform = true;
-			WurstClient.INSTANCE.chat.message("Search ID set to " + newID + " ("
-				+ args[1] + ").");
+				+ (WurstClient.INSTANCE.modManager.getModByClass(
+					SearchMod.class).isEnabled() == true ? "on" : "off") + ".");
 		}else
-			syntaxError();
+		{
+			SearchMod search =
+				(SearchMod)WurstClient.INSTANCE.modManager
+					.getModByClass(SearchMod.class);
+			if(args[0].toLowerCase().equals("id"))
+			{
+				if(MiscUtils.isInteger(args[1]))
+					WurstClient.INSTANCE.options.searchID =
+						Integer.valueOf(args[1]);
+				else
+					syntaxError("ID must be a number.");
+				WurstClient.INSTANCE.fileManager.saveOptions();
+				search.notify = true;
+				WurstClient.INSTANCE.chat.message("Search ID set to " + args[1]
+					+ ".");
+			}else if(args[0].equalsIgnoreCase("name"))
+			{
+				int newID =
+					Block.getIdFromBlock(Block.getBlockFromName(args[1]));
+				if(newID == -1)
+					error("Block \"" + args[1] + "\" could not be found.");
+				WurstClient.INSTANCE.options.searchID = Integer.valueOf(newID);
+				WurstClient.INSTANCE.fileManager.saveOptions();
+				search.notify = true;
+				WurstClient.INSTANCE.chat.message("Search ID set to " + newID
+					+ " (" + args[1] + ").");
+			}else
+				syntaxError();
+		}
 	}
 }
