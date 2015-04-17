@@ -157,16 +157,6 @@ public abstract class EventManager<E extends Event, L extends Listener>
 		{
 			locked = false;
 		}
-		if(eventQueue.size() >= 512)
-		{
-			String comment = "Queued events:\n";
-			for(Runnable task; (task = eventQueue.poll()) != null;)
-				comment += "- " + task.getClass().getName() + "\n";
-			handleException(new Exception("Too many queued events."), this,
-				"processing event queue", comment);
-			eventQueue.clear();
-			return;
-		}
 		for(Runnable task; (task = eventQueue.poll()) != null;)
 			task.run();
 	}
