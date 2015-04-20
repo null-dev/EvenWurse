@@ -10,7 +10,7 @@ package tk.wurst_client.commands;
 import net.minecraft.client.*;
 import net.minecraft.network.play.client.*;
 
-@Cmd.Info(help = "Damages you with given ammount.", name = "damage", syntax = {"[ammount]"})
+@Cmd.Info(help = "Damages you with given amount.", name = "damage", syntax = {"[amount]"})
 public class DamageCmd extends Cmd
 {
 	@Override
@@ -19,7 +19,7 @@ public class DamageCmd extends Cmd
         if (args.length == 0)
         	syntaxError();	
         if (!isNumeric((args[0])))
-        	syntaxError("Ammount must be a number.");
+        	syntaxError("Amount must be a number.");
 		final Minecraft mc = Minecraft.getMinecraft();
         final double dmg = Double.parseDouble(args[0]);
         final double x = mc.thePlayer.posX;
@@ -40,6 +40,6 @@ public class DamageCmd extends Cmd
         mc.getNetHandler().addToSendQueue(GroundTrue);
         }
 		else
-			syntaxError("Ammount is too low or too high.");
+			syntaxError("Amount is too low or too high.");
 	}
 }
