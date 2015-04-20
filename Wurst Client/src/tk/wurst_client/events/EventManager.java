@@ -120,14 +120,20 @@ public abstract class EventManager<E extends Event, L extends Listener>
 	{
 		if(locked)
 		{
-			eventQueue.add(new Runnable()
-			{
-				@Override
-				public void run()
+			if(eventQueue.size() <= 256)
+				eventQueue.add(new Runnable()
 				{
-					fireEvent(event);
-				}
-			});
+					@Override
+					public void run()
+					{
+						fireEvent(event);
+					}
+				});
+			else
+			{
+				System.err.println("EventQueue overflow!");
+				eventQueue.clear();
+			}
 			return;
 		}
 		locked = true;

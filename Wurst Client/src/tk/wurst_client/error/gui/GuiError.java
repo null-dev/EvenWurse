@@ -258,8 +258,8 @@ public class GuiError extends GuiScreen
 		try
 		{
 			BufferedReader input =
-				new BufferedReader(new InputStreamReader(getClass()
-					.getResourceAsStream("report.md")));
+				new BufferedReader(new InputStreamReader(getClass().getClassLoader()
+					.getResourceAsStream("assets/minecraft/wurst/error-report.md")));
 			StringWriter writer = new StringWriter();
 			PrintWriter output = new PrintWriter(writer);
 			for(String line; (line = input.readLine()) != null;)
@@ -290,7 +290,7 @@ public class GuiError extends GuiScreen
 			StringWriter stacktraceWriter = new StringWriter();
 			e.printStackTrace(new PrintWriter(stacktraceWriter));
 			String eString = stacktraceWriter.toString();
-			return "Could not generate error report. Stack trace:\n" + eString;
+			return "Could not generate error report. Stack trace:\n```\n" + eString + "\n```";
 		}
 	}
 	

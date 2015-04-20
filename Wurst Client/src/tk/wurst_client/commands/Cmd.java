@@ -11,6 +11,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.utils.EntityUtils;
@@ -92,7 +93,7 @@ public abstract class Cmd
 			WurstClient.INSTANCE.chat.message(line);
 	}
 	
-	protected final int[] argsToPos(String... args) throws SyntaxError
+	protected final int[] argsToPos(String... args) throws Cmd.Error
 	{
 		int[] pos = new int[3];
 		if(args.length == 3)
@@ -117,8 +118,11 @@ public abstract class Cmd
 					syntaxError("Invalid coordinates.");
 		}else if(args.length == 1)
 		{
-			BlockPos blockPos =
-				new BlockPos(EntityUtils.searchEntityByNameRaw(args[0]));
+			EntityLivingBase entity =
+				EntityUtils.searchEntityByNameRaw(args[0]);
+			if(entity == null)
+				error("Entity \"" + args[0] + "\" could not be found.");
+			BlockPos blockPos = new BlockPos(entity);
 			pos = new int[]{blockPos.getX(), blockPos.getY(), blockPos.getZ()};
 		}else
 			syntaxError("Invalid coordinates.");
