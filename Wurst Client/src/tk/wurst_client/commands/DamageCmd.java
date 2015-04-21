@@ -38,9 +38,9 @@ public class DamageCmd extends Cmd
 			error("Amount must be at least 1.");
 		if(dmg > 40)
 			error("Amount must be at most 40.");
-		final double x = Minecraft.getMinecraft().thePlayer.posX;
-		final double y = Minecraft.getMinecraft().thePlayer.posY;
-		final double z = Minecraft.getMinecraft().thePlayer.posZ;
+		double x = Minecraft.getMinecraft().thePlayer.posX;
+		double y = Minecraft.getMinecraft().thePlayer.posY;
+		double z = Minecraft.getMinecraft().thePlayer.posZ;
 		Minecraft
 			.getMinecraft()
 			.getNetHandler()
