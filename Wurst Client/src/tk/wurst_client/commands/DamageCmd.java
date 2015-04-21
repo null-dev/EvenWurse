@@ -23,37 +23,40 @@ public class DamageCmd extends Cmd
 			syntaxError();
 		if(!MiscUtils.isInteger(args[0]))
 			syntaxError("Amount must be a number.");
-		final double dmg = Double.parseDouble(args[0]);
-		final double x = Minecraft.getMinecraft().thePlayer.posX;
-		final double y = Minecraft.getMinecraft().thePlayer.posY;
-		final double z = Minecraft.getMinecraft().thePlayer.posZ;
 		if(Minecraft.getMinecraft().isIntegratedServerRunning()
 			&& Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfo()
 				.size() == 1)
-			error("Cannot damage when in singleplayer.");
-		else if(dmg >= 0 && dmg < 40)
-		{
-			if(!Minecraft.getMinecraft().thePlayer.isOnLadder()
-				&& Minecraft.getMinecraft().thePlayer.onGround
-				&& !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
-				Minecraft
-					.getMinecraft()
-					.getNetHandler()
-					.addToSendQueue(
-						new C03PacketPlayer.C04PacketPlayerPosition(x, y + 0.3,
-							z, false));
-			Minecraft
-				.getMinecraft()
-				.getNetHandler()
-				.addToSendQueue(
-					new C03PacketPlayer.C04PacketPlayerPosition(x, y - 3.1
-						- dmg, z, false));
-			Minecraft
-				.getMinecraft()
-				.getNetHandler()
-				.addToSendQueue(
-					new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, true));
-		}else
-			syntaxError("Amount is too low or too high.");
+			error("Cannot damage in singleplayer.");
+		if(Minecraft.getMinecraft().thePlayer.isOnLadder())
+			error("Cannot damage while climbing ladders.");
+		if(!Minecraft.getMinecraft().thePlayer.onGround)
+			error("Cannot damage in mid-air.");
+		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+			error("Cannot damage in creative mode.");
+		final double dmg = Double.parseDouble(args[0]);
+		if(dmg < 1)
+			error("Amount must be at least 1.");
+		if(dmg > 40)
+			error("Amount must be at most 40.");
+		final double x = Minecraft.getMinecraft().thePlayer.posX;
+		final double y = Minecraft.getMinecraft().thePlayer.posY;
+		final double z = Minecraft.getMinecraft().thePlayer.posZ;
+		Minecraft
+			.getMinecraft()
+			.getNetHandler()
+			.addToSendQueue(
+				new C03PacketPlayer.C04PacketPlayerPosition(x, y + 0.3, z,
+					false));
+		Minecraft
+			.getMinecraft()
+			.getNetHandler()
+			.addToSendQueue(
+				new C03PacketPlayer.C04PacketPlayerPosition(x, y - 3.1 - dmg,
+					z, false));
+		Minecraft
+			.getMinecraft()
+			.getNetHandler()
+			.addToSendQueue(
+				new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, true));
 	}
 }
