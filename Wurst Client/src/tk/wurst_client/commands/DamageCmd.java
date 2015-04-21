@@ -12,7 +12,7 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 
 @Cmd.Info(help = "Damages you with given amount.",
 	name = "damage",
-	syntax = {"[amount]"})
+	syntax = {"<amount>"})
 public class DamageCmd extends Cmd
 {
 	@Override
