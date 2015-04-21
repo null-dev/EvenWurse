@@ -33,7 +33,7 @@ public class DamageCmd extends Cmd
 			error("Cannot damage in mid-air.");
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 			error("Cannot damage in creative mode.");
-		final double dmg = Double.parseDouble(args[0]);
+		int dmg = Integer.parseInt(args[0]);
 		if(dmg < 1)
 			error("Amount must be at least 1.");
 		if(dmg > 40)
