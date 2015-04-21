@@ -23,11 +23,10 @@ public class DamageCmd extends Cmd
 			syntaxError();
 		if(!MiscUtils.isInteger(args[0]))
 			syntaxError("Amount must be a number.");
-		final Minecraft mc = Minecraft.getMinecraft();
 		final double dmg = Double.parseDouble(args[0]);
-		final double x = mc.thePlayer.posX;
-		final double y = mc.thePlayer.posY;
-		final double z = mc.thePlayer.posZ;
+		final double x = Minecraft.getMinecraft().thePlayer.posX;
+		final double y = Minecraft.getMinecraft().thePlayer.posY;
+		final double z = Minecraft.getMinecraft().thePlayer.posZ;
 		final C03PacketPlayer.C04PacketPlayerPosition GroundFalse =
 			new C03PacketPlayer.C04PacketPlayerPosition(x, y + 0.3, z, false);
 		final C03PacketPlayer.C04PacketPlayerPosition setDamage =
@@ -40,13 +39,14 @@ public class DamageCmd extends Cmd
 				.size() == 1)
 			error("Cannot damage when in singleplayer.");
 		else if(dmg >= 0 && dmg < 40)
-		
 		{
-			if(!mc.thePlayer.isOnLadder() && mc.thePlayer.onGround
-				&& !mc.thePlayer.capabilities.isCreativeMode)
-				mc.getNetHandler().addToSendQueue(GroundFalse);
-			mc.getNetHandler().addToSendQueue(setDamage);
-			mc.getNetHandler().addToSendQueue(GroundTrue);
+			if(!Minecraft.getMinecraft().thePlayer.isOnLadder()
+				&& Minecraft.getMinecraft().thePlayer.onGround
+				&& !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+				Minecraft.getMinecraft().getNetHandler()
+					.addToSendQueue(GroundFalse);
+			Minecraft.getMinecraft().getNetHandler().addToSendQueue(setDamage);
+			Minecraft.getMinecraft().getNetHandler().addToSendQueue(GroundTrue);
 		}else
 			syntaxError("Amount is too low or too high.");
 	}
