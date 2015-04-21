@@ -22,11 +22,8 @@ public abstract class EventManager<E extends Event, L extends Listener>
 {
 	private final Set<L> listeners = Collections
 		.synchronizedSet(new HashSet<L>());
-	private static final Queue<Runnable> eventQueue =
-		new ConcurrentLinkedQueue<Runnable>();
 	private static final Queue<Runnable> listenerQueue =
 		new ConcurrentLinkedQueue<Runnable>();
-	private static boolean locked;
 	
 	public static final EventManager<ChatInputEvent, ChatInputListener> chatInput =
 		new EventManager<ChatInputEvent, ChatInputListener>()
@@ -118,19 +115,6 @@ public abstract class EventManager<E extends Event, L extends Listener>
 	
 	public synchronized final void fireEvent(final E event)
 	{
-		if(locked)
-		{
-			eventQueue.add(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					fireEvent(event);
-				}
-			});
-			return;
-		}
-		locked = true;
 		try
 		{
 			Iterator<L> itr = listeners.iterator();
@@ -152,13 +136,7 @@ public abstract class EventManager<E extends Event, L extends Listener>
 		{
 			handleException(e, this, "processing events", "Event type: "
 				+ event.getClass().getSimpleName());
-			eventQueue.clear();
-		}finally
-		{
-			locked = false;
 		}
-		for(Runnable task; (task = eventQueue.poll()) != null;)
-			task.run();
 	}
 	
 	public static final void handleException(final Exception e,
