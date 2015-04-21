@@ -7,6 +7,7 @@
  */
 package tk.wurst_client.commands;
 
+import tk.wurst_client.utils.MiscUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
 
@@ -20,7 +21,7 @@ public class DamageCmd extends Cmd
 	{
 		if(args.length == 0)
 			syntaxError();
-		if(!isNumeric(args[0]))
+		if(!MiscUtils.isInteger(args[0]))
 			syntaxError("Amount must be a number.");
 		final Minecraft mc = Minecraft.getMinecraft();
 		final double dmg = Double.parseDouble(args[0]);
