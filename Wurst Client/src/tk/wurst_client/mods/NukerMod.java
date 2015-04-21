@@ -85,6 +85,10 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(SpeedNukerMod.class)
 				.setEnabled(false);
+		if(WurstClient.INSTANCE.modManager.getModByClass(TunnellerMod.class)
+			.isEnabled())
+			WurstClient.INSTANCE.modManager.getModByClass(TunnellerMod.class)
+				.setEnabled(false);
 		EventManager.leftClick.addListener(this);
 		EventManager.update.addListener(this);
 		EventManager.render.addListener(this);

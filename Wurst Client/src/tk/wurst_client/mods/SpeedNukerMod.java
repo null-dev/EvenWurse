@@ -57,6 +57,10 @@ public class SpeedNukerMod extends Mod implements LeftClickListener,
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(NukerLegitMod.class)
 				.setEnabled(false);
+		if(WurstClient.INSTANCE.modManager.getModByClass(TunnellerMod.class)
+			.isEnabled())
+			WurstClient.INSTANCE.modManager.getModByClass(TunnellerMod.class)
+				.setEnabled(false);
 		EventManager.leftClick.addListener(this);
 		EventManager.update.addListener(this);
 	}

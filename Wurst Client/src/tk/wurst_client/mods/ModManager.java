@@ -117,6 +117,7 @@ public class ModManager
 		addMod(new TracersMod());
 		addMod(new TriggerBotMod());
 		addMod(new TrueSightMod());
+		addMod(new TunnellerMod());
 		addMod(new XRayMod());
 		addMod(new YesCheatMod());
 		addMod(new AutoBuildMod());
