@@ -8,12 +8,14 @@
 package tk.wurst_client.commands;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.ai.PathUtils;
 import tk.wurst_client.mods.YesCheatMod;
 import tk.wurst_client.utils.MiscUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.util.BlockPos;
 
-@Cmd.Info(help = "Damages you with given amount.",
+@Cmd.Info(help = "Applies the given amount of damage.",
 	name = "damage",
 	syntax = {"<amount>"})
 public class DamageCmd extends Cmd
@@ -61,6 +63,20 @@ public class DamageCmd extends Cmd
 					new C03PacketPlayer.C04PacketPlayerPosition(x, y, z, true));
 		}else
 		{
+			for(int i = 1; i < dmg + 5; i++)
+			{
+				if(PathUtils.isSolid(new BlockPos(x, y + i, z)))
+				{
+					if(i < 6)
+						error("Not enough space. Cannot apply any damage.");
+					else
+					{
+						WurstClient.INSTANCE.chat.warning("Not enough space. Can only apply " + (i - 5) + " of " + dmg + " damage.");
+						dmg = i - 6;
+						break;
+					}
+				}
+			}
 			for(int i = 1; i < dmg + 5; i++)
 			{
 				Minecraft
