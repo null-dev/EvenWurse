@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.error.gui.GuiError;
@@ -21,8 +22,9 @@ public abstract class EventManager<E extends Event, L extends Listener>
 {
 	private final Set<L> listeners = Collections
 		.synchronizedSet(new HashSet<L>());
-	private final Queue<Runnable> listenerQueue =
+	private final Queue<Runnable> queue =
 		new ConcurrentLinkedQueue<Runnable>();
+	private final AtomicBoolean busy = new AtomicBoolean();
 	
 	public static final EventManager<ChatInputEvent, ChatInputListener> chatInput =
 		new EventManager<ChatInputEvent, ChatInputListener>()
@@ -114,6 +116,7 @@ public abstract class EventManager<E extends Event, L extends Listener>
 	
 	public synchronized final void fireEvent(final E event)
 	{
+		busy.set(true);
 		try
 		{
 			for(L listener : listeners)
@@ -127,12 +130,15 @@ public abstract class EventManager<E extends Event, L extends Listener>
 						event.getComment());
 				}
 			}
-			for(Runnable task; (task = listenerQueue.poll()) != null;)
+			for(Runnable task; (task = queue.poll()) != null;)
 				task.run();
 		}catch(Exception e)
 		{
 			handleException(e, this, "processing events", "Event type: "
 				+ event.getClass().getSimpleName());
+		}finally
+		{
+			busy.set(false);
 		}
 	}
 	
@@ -157,27 +163,33 @@ public abstract class EventManager<E extends Event, L extends Listener>
 	
 	protected abstract void listen(L listener, E event) throws Exception;
 	
-	public final void addListener(final L listener)
+	public synchronized final void addListener(final L listener)
 	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
+		if(busy.get())
+			queue.add(new Runnable()
 			{
-				listeners.add(listener);
-			}
-		});
+				@Override
+				public void run()
+				{
+					listeners.add(listener);
+				}
+			});
+		else
+			listeners.add(listener);
 	}
 	
-	public final void removeListener(final L listener)
+	public synchronized final void removeListener(final L listener)
 	{
-		listenerQueue.add(new Runnable()
-		{
-			@Override
-			public void run()
+		if(busy.get())
+			queue.add(new Runnable()
 			{
-				listeners.remove(listener);
-			}
-		});
+				@Override
+				public void run()
+				{
+					listeners.remove(listener);
+				}
+			});
+		else
+			listeners.remove(listener);
 	}
 }
