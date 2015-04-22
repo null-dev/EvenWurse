@@ -9,7 +9,6 @@ package tk.wurst_client.events;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -117,10 +116,8 @@ public abstract class EventManager<E extends Event, L extends Listener>
 	{
 		try
 		{
-			Iterator<L> itr = listeners.iterator();
-			while(itr.hasNext())
+			for(L listener : listeners)
 			{
-				L listener = itr.next();
 				try
 				{
 					listen(listener, event);
