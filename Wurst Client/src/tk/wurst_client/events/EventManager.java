@@ -21,7 +21,7 @@ public abstract class EventManager<E extends Event, L extends Listener>
 {
 	private final Set<L> listeners = Collections
 		.synchronizedSet(new HashSet<L>());
-	private static final Queue<Runnable> listenerQueue =
+	private final Queue<Runnable> listenerQueue =
 		new ConcurrentLinkedQueue<Runnable>();
 	
 	public static final EventManager<ChatInputEvent, ChatInputListener> chatInput =
@@ -153,12 +153,6 @@ public abstract class EventManager<E extends Event, L extends Listener>
 				EventManager.update.removeListener(this);
 			}
 		});
-	}
-	
-	public static final void init()
-	{
-		for(Runnable task; (task = listenerQueue.poll()) != null;)
-			task.run();
 	}
 	
 	protected abstract void listen(L listener, E event) throws Exception;

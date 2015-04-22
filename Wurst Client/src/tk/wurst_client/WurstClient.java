@@ -14,7 +14,6 @@ import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 import tk.wurst_client.analytics.Analytics;
 import tk.wurst_client.chat.ChatMessenger;
 import tk.wurst_client.commands.CmdManager;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.files.FileManager;
 import tk.wurst_client.gui.GuiManager;
 import tk.wurst_client.mods.ModManager;
@@ -59,7 +58,6 @@ public enum WurstClient
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();
 		updater.checkForUpdate();
-		EventManager.init();
 		analytics = new Analytics("UA-52838431-5", "client.wurst-client.tk");
 	}
 }
