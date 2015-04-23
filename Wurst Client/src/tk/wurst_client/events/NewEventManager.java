@@ -25,7 +25,7 @@ public final class NewEventManager
 		try
 		{
 			// TODO: A more efficient way to process the type
-			if(type == ChatInputListener.class)
+			if(type == ChatInputEvent.class)
 				fireChatInput((ChatInputEvent)event);
 			else if(type == ChatOutputEvent.class)
 				fireChatOutput((ChatOutputEvent)event);
