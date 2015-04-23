@@ -46,6 +46,7 @@ public enum WurstClient
 	
 	public void startClient()
 	{
+		eventManager = new NewEventManager();
 		modManager = new ModManager();
 		guiManager = new GuiManager();
 		cmdManager = new CmdManager();
@@ -55,7 +56,6 @@ public enum WurstClient
 		keybinds = new Keybinds();
 		options = new Options();
 		friends = new Friends();
-		eventManager = new NewEventManager();
 		
 		fileManager.init();
 		guiManager.setTheme(new WurstTheme());
