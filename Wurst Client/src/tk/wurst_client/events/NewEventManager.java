@@ -25,22 +25,22 @@ public final class NewEventManager
 		try
 		{
 			// TODO: A more efficient way to process the type
-			if(type == ChatInputEvent.class)
+			if(type == GUIRenderEvent.class)
+				fireGuiRender();
+			else if(type == RenderEvent.class)
+				fireRender();
+			else if(type == PacketInputEvent.class)
+				firePacketInput((PacketInputEvent)event);
+			else if(type == UpdateEvent.class)
+				fireUpdate();
+			else if(type == ChatInputEvent.class)
 				fireChatInput((ChatInputEvent)event);
 			else if(type == ChatOutputEvent.class)
 				fireChatOutput((ChatOutputEvent)event);
-			else if(type == DeathEvent.class)
-				fireDeath();
-			else if(type == GUIRenderEvent.class)
-				fireGuiRender();
 			else if(type == LeftClickEvent.class)
 				fireLeftClick();
-			else if(type == PacketInputEvent.class)
-				firePacketInput((PacketInputEvent)event);
-			else if(type == RenderEvent.class)
-				fireRender();
-			else if(type == UpdateEvent.class)
-				fireUpdate();
+			else if(type == DeathEvent.class)
+				fireDeath();
 			else
 				throw new IllegalArgumentException("Invalid event type: "
 					+ type.getName());
