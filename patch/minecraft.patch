@@ -1,6 +1,6 @@
-From 3bda92b9f3f297a6a47a6721295d118e2fd3c905 Mon Sep 17 00:00:00 2001
+From 3c27e690313c81c1cc3a9a395c8142dc64b55620 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 23 Apr 2015 20:24:50 +0200
+Date: Thu, 23 Apr 2015 21:20:13 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -30,8 +30,8 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiEnchantment.java   |    2 +-
  src/net/minecraft/client/gui/GuiErrorScreen.java   |    2 +
  src/net/minecraft/client/gui/GuiFlatPresets.java   |    6 +-
- src/net/minecraft/client/gui/GuiGameOver.java      |  285 +-
- src/net/minecraft/client/gui/GuiIngame.java        | 2478 +++----
+ src/net/minecraft/client/gui/GuiGameOver.java      |  284 +-
+ src/net/minecraft/client/gui/GuiIngame.java        | 2477 +++----
  src/net/minecraft/client/gui/GuiIngameMenu.java    |  237 +-
  .../minecraft/client/gui/GuiKeyBindingList.java    |    3 +
  src/net/minecraft/client/gui/GuiLanguage.java      |    3 +
@@ -52,7 +52,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiRenameWorld.java   |    3 +
  src/net/minecraft/client/gui/GuiScreen.java        |   12 +-
  .../minecraft/client/gui/GuiScreenAddServer.java   |    3 +
- src/net/minecraft/client/gui/GuiScreenBook.java    | 1427 ++--
+ src/net/minecraft/client/gui/GuiScreenBook.java    | 1426 ++--
  .../client/gui/GuiScreenCustomizePresets.java      |    4 +
  src/net/minecraft/client/gui/GuiScreenDemo.java    |    3 +
  .../client/gui/GuiScreenOptionsSounds.java         |    2 +
@@ -106,7 +106,7 @@ Subject: [PATCH] Wurst
  .../client/particle/EntityLargeExplodeFX.java      |    2 +-
  .../client/renderer/BlockFluidRenderer.java        |    6 +-
  .../client/renderer/BlockModelRenderer.java        |    1 +
- .../minecraft/client/renderer/EntityRenderer.java  | 4147 ++++++------
+ .../minecraft/client/renderer/EntityRenderer.java  | 4146 ++++++------
  .../client/renderer/InventoryEffectRenderer.java   |    4 +-
  .../minecraft/client/renderer/ItemRenderer.java    |    2 +-
  .../minecraft/client/renderer/RenderGlobal.java    |   32 +-
@@ -175,7 +175,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/nbt/CompressedStreamTools.java   |    1 +
  src/net/minecraft/nbt/NBTTagCompound.java          |    3 +
  .../minecraft/network/NetHandlerPlayServer.java    |   17 +-
- src/net/minecraft/network/NetworkManager.java      |  943 ++-
+ src/net/minecraft/network/NetworkManager.java      |  942 ++-
  src/net/minecraft/network/NetworkSystem.java       |    5 +
  src/net/minecraft/network/PacketBuffer.java        |    6 +-
  src/net/minecraft/realms/RealmsConnect.java        |    2 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28203 insertions(+), 26509 deletions(-)
+ 203 files changed, 28198 insertions(+), 26509 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -17498,10 +17498,10 @@ index 47e1373..6361176 100644
              GlStateManager.disableRescaleNormal();
          }
 diff --git a/src/net/minecraft/client/gui/GuiGameOver.java b/src/net/minecraft/client/gui/GuiGameOver.java
-index c737e46..3df0b8b 100644
+index c737e46..bc4e5ec 100644
 --- a/src/net/minecraft/client/gui/GuiGameOver.java
 +++ b/src/net/minecraft/client/gui/GuiGameOver.java
-@@ -1,137 +1,148 @@
+@@ -1,137 +1,147 @@
 -package net.minecraft.client.gui;
 -
 -import java.io.IOException;
@@ -17646,7 +17646,6 @@ index c737e46..3df0b8b 100644
 +
 +import tk.wurst_client.WurstClient;
 +import tk.wurst_client.events.DeathEvent;
-+import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.mods.Mod;
 +import tk.wurst_client.spam.SpamProcessor;
 +import net.minecraft.client.gui.GuiButton;
@@ -17788,10 +17787,10 @@ index c737e46..3df0b8b 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiIngame.java b/src/net/minecraft/client/gui/GuiIngame.java
-index 6dbd34d..1af6fd3 100644
+index 6dbd34d..e8baf12 100644
 --- a/src/net/minecraft/client/gui/GuiIngame.java
 +++ b/src/net/minecraft/client/gui/GuiIngame.java
-@@ -1,1194 +1,1284 @@
+@@ -1,1194 +1,1283 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.base.Predicate;
@@ -19047,7 +19046,6 @@ index 6dbd34d..1af6fd3 100644
 +import org.lwjgl.opengl.GL11;
 +
 +import tk.wurst_client.WurstClient;
-+import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.GUIRenderEvent;
 +import tk.wurst_client.font.Fonts;
 +import tk.wurst_client.gui.UIRenderer;
@@ -24182,10 +24180,10 @@ index 098969d..05f4d73 100644
  
  public class GuiScreenAddServer extends GuiScreen
 diff --git a/src/net/minecraft/client/gui/GuiScreenBook.java b/src/net/minecraft/client/gui/GuiScreenBook.java
-index 914a882..49add9e 100644
+index 914a882..0d4b25d 100644
 --- a/src/net/minecraft/client/gui/GuiScreenBook.java
 +++ b/src/net/minecraft/client/gui/GuiScreenBook.java
-@@ -1,676 +1,751 @@
+@@ -1,676 +1,750 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -24902,7 +24900,6 @@ index 914a882..49add9e 100644
 +import org.lwjgl.input.Keyboard;
 +
 +import tk.wurst_client.bookhack.gui.GuiBookHack;
-+import tk.wurst_client.events.EventManager;
 +
 +public class GuiScreenBook extends GuiScreen
 +{
@@ -30047,10 +30044,10 @@ index e9db01f..18cbc00 100644
  import net.minecraft.block.state.IBlockState;
  import net.minecraft.client.Minecraft;
 diff --git a/src/net/minecraft/client/renderer/EntityRenderer.java b/src/net/minecraft/client/renderer/EntityRenderer.java
-index e32c68b..654ae1c 100644
+index e32c68b..5437373 100644
 --- a/src/net/minecraft/client/renderer/EntityRenderer.java
 +++ b/src/net/minecraft/client/renderer/EntityRenderer.java
-@@ -1,2052 +1,2095 @@
+@@ -1,2052 +1,2094 @@
 -package net.minecraft.client.renderer;
 -
 -import com.google.gson.JsonSyntaxException;
@@ -32158,7 +32155,6 @@ index e32c68b..654ae1c 100644
 +import org.lwjgl.util.glu.Project;
 +
 +import tk.wurst_client.WurstClient;
-+import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.RenderEvent;
 +import tk.wurst_client.mods.AntiBlindMod;
 +import tk.wurst_client.mods.CaveFinderMod;
@@ -56647,10 +56643,10 @@ index 38b9ecd..f64dc7e 100644
              this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);
          }
 diff --git a/src/net/minecraft/network/NetworkManager.java b/src/net/minecraft/network/NetworkManager.java
-index f05dadf..3fedcdd 100644
+index f05dadf..82b6118 100644
 --- a/src/net/minecraft/network/NetworkManager.java
 +++ b/src/net/minecraft/network/NetworkManager.java
-@@ -1,479 +1,464 @@
+@@ -1,479 +1,463 @@
 -package net.minecraft.network;
 -
 -import com.google.common.collect.Queues;
@@ -57160,7 +57156,6 @@ index f05dadf..3fedcdd 100644
 +import org.apache.logging.log4j.MarkerManager;
 +
 +import tk.wurst_client.WurstClient;
-+import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.PacketInputEvent;
 +import tk.wurst_client.mods.Mod;
 +
