@@ -14,7 +14,7 @@ import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 import tk.wurst_client.analytics.Analytics;
 import tk.wurst_client.chat.ChatMessenger;
 import tk.wurst_client.commands.CmdManager;
-import tk.wurst_client.events.NewEventManager;
+import tk.wurst_client.events.EventManager;
 import tk.wurst_client.files.FileManager;
 import tk.wurst_client.gui.GuiManager;
 import tk.wurst_client.mods.ModManager;
@@ -34,7 +34,7 @@ public enum WurstClient
 	
 	public ChatMessenger chat;
 	public CmdManager cmdManager;
-	public NewEventManager eventManager;
+	public EventManager eventManager;
 	public FileManager fileManager;
 	public Friends friends;
 	public GuiManager guiManager;
@@ -46,7 +46,7 @@ public enum WurstClient
 	
 	public void startClient()
 	{
-		eventManager = new NewEventManager();
+		eventManager = new EventManager();
 		modManager = new ModManager();
 		guiManager = new GuiManager();
 		cmdManager = new CmdManager();

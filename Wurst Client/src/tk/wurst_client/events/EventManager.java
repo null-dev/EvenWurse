@@ -15,7 +15,7 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.error.gui.GuiError;
 import tk.wurst_client.events.listeners.*;
 
-public final class NewEventManager
+public final class EventManager
 {
 	private static final EventListenerList listenerList =
 		new EventListenerList();
