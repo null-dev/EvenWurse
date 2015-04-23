@@ -15,7 +15,7 @@ import net.minecraft.network.play.server.S28PacketEffect;
 import net.minecraft.network.play.server.S29PacketSoundEffect;
 import net.minecraft.network.play.server.S2CPacketSpawnGlobalEntity;
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.events.EventManager;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.PacketInputEvent;
 import tk.wurst_client.events.listeners.PacketInputListener;
 import tk.wurst_client.events.listeners.RenderListener;
@@ -36,8 +36,8 @@ public class PlayerFinderMod extends Mod implements PacketInputListener,
 	public void onEnable()
 	{
 		blockPos = null;
-		EventManager.packetInput.addListener(this);
-		EventManager.render.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(PacketInputListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -65,8 +65,9 @@ public class PlayerFinderMod extends Mod implements PacketInputListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.packetInput.removeListener(this);
-		EventManager.render.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(PacketInputListener.class,
+			this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
 	}
 	
 	@Override

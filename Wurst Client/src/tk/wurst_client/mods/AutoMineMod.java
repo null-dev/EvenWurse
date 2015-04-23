@@ -9,7 +9,7 @@ package tk.wurst_client.mods;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.events.EventManager;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
@@ -23,7 +23,7 @@ public class AutoMineMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
-		EventManager.update.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ public class AutoMineMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.update.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
 	}
 }

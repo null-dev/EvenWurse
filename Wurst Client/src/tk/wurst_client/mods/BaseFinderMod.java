@@ -14,7 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -43,8 +42,8 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 	public void onEnable()
 	{
 		shouldInform = true;
-		EventManager.update.addListener(this);
-		EventManager.render.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -104,8 +103,8 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.update.removeListener(this);
-		EventManager.render.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
 	}
 	
 	private void initBlocks()

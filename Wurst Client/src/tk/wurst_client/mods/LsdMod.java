@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import tk.wurst_client.events.EventManager;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
@@ -41,7 +41,7 @@ public class LsdMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		Minecraft.getMinecraft().entityRenderer.activateLSD();
-		EventManager.update.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -57,7 +57,7 @@ public class LsdMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.update.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().thePlayer.removePotionEffect(Potion.confusion
 			.getId());
 		if(Minecraft.getMinecraft().entityRenderer.theShaderGroup != null)

@@ -10,8 +10,8 @@ package tk.wurst_client.mods;
 import java.util.List;
 
 import net.minecraft.client.gui.ChatLine;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.ChatInputEvent;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.ChatInputListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
@@ -24,7 +24,7 @@ public class AntiSpamMod extends Mod implements ChatInputListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.chatInput.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(ChatInputListener.class, this);
 	}
 	
 	@Override
@@ -97,6 +97,6 @@ public class AntiSpamMod extends Mod implements ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.chatInput.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(ChatInputListener.class, this);
 	}
 }
