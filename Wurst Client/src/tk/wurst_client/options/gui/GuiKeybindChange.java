@@ -86,7 +86,8 @@ public class GuiKeybindChange extends GuiScreen
 				WurstClient.INSTANCE.keybinds.put(key, commandBox.getText());
 				WurstClient.INSTANCE.fileManager.saveKeybinds();
 				mc.displayGuiScreen(prevMenu);
-				WurstClient.INSTANCE.analytics.trackEvent("keybinds", "set", key);
+				WurstClient.INSTANCE.analytics.trackEvent("keybinds", "set",
+					key);
 			}else if(clickedButton.id == 2)
 				mc.displayGuiScreen(prevMenu);
 	}

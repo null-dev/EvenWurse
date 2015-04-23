@@ -58,7 +58,7 @@ public class BlinkMod extends Mod
 	{
 		packets.add(packet);
 	}
-
+	
 	public void cancel()
 	{
 		packets.clear();

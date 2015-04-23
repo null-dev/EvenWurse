@@ -100,9 +100,8 @@ public class GuiError extends GuiScreen
 					JsonObject gistFiles = new JsonObject();
 					JsonObject gistError = new JsonObject();
 					gistError.addProperty("content", report);
-					gistFiles.add(
-						"Wurst-Client-v" + WurstClient.VERSION
-							+ "-Error-Report" + ".md", gistError);
+					gistFiles.add("Wurst-Client-v" + WurstClient.VERSION
+						+ "-Error-Report" + ".md", gistError);
 					gist.add("files", gistFiles);
 					JsonObject gistResponse =
 						new JsonParser().parse(
@@ -125,9 +124,10 @@ public class GuiError extends GuiScreen
 							+ WurstClient.INSTANCE.updater.getCurrentVersion()
 							+ "&class=" + cause.getClass().getName()
 							+ "&action=" + action));
-
+					
 					backToGame();
-					WurstClient.INSTANCE.analytics.trackEvent("error", "report");
+					WurstClient.INSTANCE.analytics
+						.trackEvent("error", "report");
 					WurstClient.INSTANCE.chat.message("Server response: "
 						+ reportResponse);
 				}catch(Exception e)
@@ -135,7 +135,8 @@ public class GuiError extends GuiScreen
 					e.printStackTrace();
 					WurstClient.INSTANCE.chat
 						.error("Something went wrong with that error report.");
-					WurstClient.INSTANCE.analytics.trackEvent("error", "report failed");
+					WurstClient.INSTANCE.analytics.trackEvent("error",
+						"report failed");
 				}
 				break;
 			case 1:
@@ -245,8 +246,8 @@ public class GuiError extends GuiScreen
 		if(cause instanceof Mod)
 			title +=
 				"in `"
-					+ WurstClient.INSTANCE.modManager.getModByClass(cause.getClass())
-						.getName() + "` ";
+					+ WurstClient.INSTANCE.modManager.getModByClass(
+						cause.getClass()).getName() + "` ";
 		else if(cause instanceof Cmd)
 			title += "in `." + ((Cmd)cause).getName() + "` ";
 		title += "while " + action + ".";
@@ -258,8 +259,9 @@ public class GuiError extends GuiScreen
 		try
 		{
 			BufferedReader input =
-				new BufferedReader(new InputStreamReader(getClass().getClassLoader()
-					.getResourceAsStream("assets/minecraft/wurst/error-report.md")));
+				new BufferedReader(new InputStreamReader(getClass()
+					.getClassLoader().getResourceAsStream(
+						"assets/minecraft/wurst/error-report.md")));
 			StringWriter writer = new StringWriter();
 			PrintWriter output = new PrintWriter(writer);
 			for(String line; (line = input.readLine()) != null;)
@@ -276,9 +278,13 @@ public class GuiError extends GuiScreen
 				content.replace("§java", System.getProperty("java.version")
 					+ " (" + System.getProperty("java.vendor") + ")");
 			content =
-				content.replace("§wurst",
-					WurstClient.INSTANCE.updater.getCurrentVersion() + " (latest: "
-						+ WurstClient.INSTANCE.updater.getLatestVersion() + ")");
+				content
+					.replace(
+						"§wurst",
+						WurstClient.INSTANCE.updater.getCurrentVersion()
+							+ " (latest: "
+							+ WurstClient.INSTANCE.updater.getLatestVersion()
+							+ ")");
 			content =
 				content.replace("§desc",
 					getReportDescription()
@@ -290,7 +296,8 @@ public class GuiError extends GuiScreen
 			StringWriter stacktraceWriter = new StringWriter();
 			e.printStackTrace(new PrintWriter(stacktraceWriter));
 			String eString = stacktraceWriter.toString();
-			return "Could not generate error report. Stack trace:\n```\n" + eString + "\n```";
+			return "Could not generate error report. Stack trace:\n```\n"
+				+ eString + "\n```";
 		}
 	}
 	

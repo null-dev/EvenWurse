@@ -29,7 +29,8 @@ public class FriendsCmd extends Cmd
 				execute(new String[]{"list", "1"});
 				return;
 			}
-			int pages = (int)Math.ceil(WurstClient.INSTANCE.friends.size() / 8D);
+			int pages =
+				(int)Math.ceil(WurstClient.INSTANCE.friends.size() / 8D);
 			if(MiscUtils.isInteger(args[1]))
 			{
 				int page = Integer.valueOf(args[1]);
@@ -37,8 +38,8 @@ public class FriendsCmd extends Cmd
 					syntaxError();
 				WurstClient.INSTANCE.chat.message("Current friends: "
 					+ WurstClient.INSTANCE.friends.size());
-				WurstClient.INSTANCE.chat.message("Friends list (page " + page + "/"
-					+ pages + "):");
+				WurstClient.INSTANCE.chat.message("Friends list (page " + page
+					+ "/" + pages + "):");
 				Iterator<String> itr = WurstClient.INSTANCE.friends.iterator();
 				for(int i = 0; itr.hasNext(); i++)
 				{
@@ -58,14 +59,15 @@ public class FriendsCmd extends Cmd
 			}
 			WurstClient.INSTANCE.friends.add(args[1]);
 			WurstClient.INSTANCE.fileManager.saveFriends();
-			WurstClient.INSTANCE.chat.message("Added friend \"" + args[1] + "\".");
+			WurstClient.INSTANCE.chat.message("Added friend \"" + args[1]
+				+ "\".");
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
 			if(WurstClient.INSTANCE.friends.remove(args[1]))
 			{
 				WurstClient.INSTANCE.fileManager.saveFriends();
-				WurstClient.INSTANCE.chat
-					.message("Removed friend \"" + args[1] + "\".");
+				WurstClient.INSTANCE.chat.message("Removed friend \"" + args[1]
+					+ "\".");
 			}else
 				WurstClient.INSTANCE.chat.error("\"" + args[1]
 					+ "\" is not in your friends list.");

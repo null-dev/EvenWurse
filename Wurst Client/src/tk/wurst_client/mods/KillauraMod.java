@@ -52,10 +52,10 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraLegitMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(KillauraLegitMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.modManager
+			.getModByClass(KillauraLegitMod.class).isEnabled())
+			WurstClient.INSTANCE.modManager.getModByClass(
+				KillauraLegitMod.class).setEnabled(false);
 		if(WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
@@ -70,7 +70,8 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
 		{
 			realSpeed = yesCheatSpeed;
 			realRange = yesCheatRange;
@@ -86,8 +87,8 @@ public class KillauraMod extends Mod implements UpdateListener
 			EntityLivingBase en = EntityUtils.getClosestEntity(true);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
 			{
-				if(WurstClient.INSTANCE.modManager.getModByClass(AutoSwordMod.class)
-					.isEnabled())
+				if(WurstClient.INSTANCE.modManager.getModByClass(
+					AutoSwordMod.class).isEnabled())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				EntityUtils.faceEntityPacket(en);

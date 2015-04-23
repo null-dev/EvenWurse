@@ -29,7 +29,8 @@ public class RegenMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);

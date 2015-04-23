@@ -64,37 +64,31 @@ public class DamageCmd extends Cmd
 		}else
 		{
 			for(int i = 1; i < dmg + 5; i++)
-			{
 				if(PathUtils.isSolid(new BlockPos(x, y + i, z)))
-				{
 					if(i < 6)
 						error("Not enough space. Cannot apply any damage.");
 					else
 					{
-						WurstClient.INSTANCE.chat.warning("Not enough space. Can only apply " + (i - 5) + " of " + dmg + " damage.");
+						WurstClient.INSTANCE.chat
+							.warning("Not enough space. Can only apply "
+								+ (i - 5) + " of " + dmg + " damage.");
 						dmg = i - 6;
 						break;
 					}
-				}
-			}
 			for(int i = 1; i < dmg + 5; i++)
-			{
 				Minecraft
 					.getMinecraft()
 					.getNetHandler()
 					.addToSendQueue(
 						new C03PacketPlayer.C04PacketPlayerPosition(x, y + i,
 							z, false));
-			}
 			for(int i = dmg + 4; i > 0; i--)
-			{
 				Minecraft
 					.getMinecraft()
 					.getNetHandler()
 					.addToSendQueue(
 						new C03PacketPlayer.C04PacketPlayerPosition(x, y + i,
 							z, false));
-			}
 			Minecraft
 				.getMinecraft()
 				.getNetHandler()

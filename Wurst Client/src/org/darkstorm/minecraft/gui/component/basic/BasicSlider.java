@@ -111,8 +111,8 @@ public class BasicSlider extends AbstractComponent implements Slider
 	{
 		double oldValue = this.value;
 		this.value =
-			(double)(Math.round(Math.max(minimum, Math.min(maximum, value))
-				/ increment) * 1e6 * (long)(increment * 1e6)) / 1e12;
+			Math.round(Math.max(minimum, Math.min(maximum, value)) / increment)
+				* 1e6 * (long)(increment * 1e6) / 1e12;
 		if(!changing && Math.abs(oldValue - this.value) > 1e-6)
 			fireChange();
 	}

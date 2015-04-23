@@ -37,8 +37,9 @@ public class TracersMod extends Mod implements RenderListener
 			if(entity instanceof EntityPlayer
 				&& !((Entity)entity).getName().equals(
 					Minecraft.getMinecraft().getSession().getUsername()))
-				RenderUtils.tracerLine((Entity)entity, WurstClient.INSTANCE.friends
-					.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
+				RenderUtils.tracerLine((Entity)entity,
+					WurstClient.INSTANCE.friends
+						.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
 	}
 	
 	@Override

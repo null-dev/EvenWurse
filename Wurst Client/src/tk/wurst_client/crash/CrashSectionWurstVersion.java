@@ -18,7 +18,8 @@ public class CrashSectionWurstVersion implements Callable
 	{
 		return WurstClient.VERSION
 			+ " (latest: "
-			+ (WurstClient.INSTANCE.updater.getLatestVersion() == null ? "unknown"
-				: WurstClient.INSTANCE.updater.getLatestVersion()) + ")";
+			+ (WurstClient.INSTANCE.updater.getLatestVersion() == null
+				? "unknown" : WurstClient.INSTANCE.updater.getLatestVersion())
+			+ ")";
 	}
 }

@@ -62,9 +62,10 @@ public class GuiXRayBlocksManager extends GuiScreen
 				mc.displayGuiScreen(new GuiXRayBlocksAdd(this));
 			else if(clickedButton.id == 1)
 			{// Remove
-				WurstClient.INSTANCE.analytics.trackEvent("x-ray blocks", "remove",
-					Integer.toString(Block.getIdFromBlock(XRayMod.xrayBlocks
-						.get(blockList.getSelectedSlot()))));
+				WurstClient.INSTANCE.analytics.trackEvent("x-ray blocks",
+					"remove", Integer.toString(Block
+						.getIdFromBlock(XRayMod.xrayBlocks.get(blockList
+							.getSelectedSlot()))));
 				XRayMod.xrayBlocks.remove(blockList.getSelectedSlot());
 				GuiXRayBlocksList.sortBlocks();
 				WurstClient.INSTANCE.fileManager.saveXRayBlocks();

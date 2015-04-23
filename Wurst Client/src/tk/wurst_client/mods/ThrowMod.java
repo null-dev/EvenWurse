@@ -24,7 +24,8 @@ public class ThrowMod extends Mod implements UpdateListener
 	@Override
 	public String getRenderName()
 	{
-		return getName() + " [" + WurstClient.INSTANCE.options.throwAmount + "]";
+		return getName() + " [" + WurstClient.INSTANCE.options.throwAmount
+			+ "]";
 	}
 	
 	@Override

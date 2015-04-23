@@ -23,7 +23,8 @@ public class ProtectCmd extends Cmd
 		if(args.length > 1)
 			syntaxError();
 		ProtectMod protectMod =
-			(ProtectMod)WurstClient.INSTANCE.modManager.getModByClass(ProtectMod.class);
+			(ProtectMod)WurstClient.INSTANCE.modManager
+				.getModByClass(ProtectMod.class);
 		if(args.length == 0)
 			protectMod.toggle();
 		else

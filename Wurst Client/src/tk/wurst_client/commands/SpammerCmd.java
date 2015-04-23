@@ -29,8 +29,8 @@ public class SpammerCmd extends Cmd
 				newDelay = newDelay - newDelay % 50;
 			WurstClient.INSTANCE.options.spamDelay = newDelay;
 			SpammerMod.updateDelaySpinner();
-			WurstClient.INSTANCE.chat.message("Spammer delay set to " + newDelay
-				+ "ms.");
+			WurstClient.INSTANCE.chat.message("Spammer delay set to "
+				+ newDelay + "ms.");
 		}else if(args[0].equalsIgnoreCase("spam"))
 			if(!SpamProcessor.runSpam(args[1]))
 				WurstClient.INSTANCE.chat.error("File does not exist.");

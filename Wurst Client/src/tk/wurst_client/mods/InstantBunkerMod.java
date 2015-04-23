@@ -58,7 +58,8 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 			speed = 1000000000;
 		else
 			speed = 5;
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
 		{
 			i = 0;
 			shouldBuild = true;
@@ -230,8 +231,8 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 		updateMS();
 		if(shouldBuild)
 		{
-			if((hasTimePassedS(speed) || WurstClient.INSTANCE.modManager.getModByClass(
-				FastPlaceMod.class).isEnabled())
+			if((hasTimePassedS(speed) || WurstClient.INSTANCE.modManager
+				.getModByClass(FastPlaceMod.class).isEnabled())
 				&& i < building.length)
 			{
 				BuildUtils.advancedInstantBuildNext(building, MouseOver,

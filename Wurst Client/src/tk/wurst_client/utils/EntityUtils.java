@@ -133,7 +133,8 @@ public class EntityUtils
 			throw new IllegalArgumentException("Unknown target mode selected: "
 				+ WurstClient.INSTANCE.options.targetMode);
 		if(ignoreFriends && o instanceof EntityPlayer)
-			if(WurstClient.INSTANCE.friends.contains(((EntityPlayer)o).getName()))
+			if(WurstClient.INSTANCE.friends.contains(((EntityPlayer)o)
+				.getName()))
 				condition = false;
 		return condition;
 	}

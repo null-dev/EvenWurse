@@ -29,8 +29,8 @@ public class FastBreakCmd extends Cmd
 			else
 				syntaxError();
 			WurstClient.INSTANCE.fileManager.saveOptions();
-			WurstClient.INSTANCE.chat.message("FastBreak mode set to \"" + args[1]
-				+ "\".");
+			WurstClient.INSTANCE.chat.message("FastBreak mode set to \""
+				+ args[1] + "\".");
 		}else
 			syntaxError();
 	}

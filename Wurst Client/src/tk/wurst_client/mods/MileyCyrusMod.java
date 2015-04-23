@@ -33,7 +33,8 @@ public class MileyCyrusMod extends Mod implements UpdateListener
 		timer++;
 		if(timer >= 6)
 		{
-			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = !Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed;
+			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed =
+				!Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed;
 			timer = 0;
 		}
 	}

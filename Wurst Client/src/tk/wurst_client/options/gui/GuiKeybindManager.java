@@ -40,8 +40,8 @@ public class GuiKeybindManager extends GuiScreen
 			"Remove"));
 		buttonList.add(new GuiButton(3, width / 2 + 2, height - 28, 100, 20,
 			"Back"));
-		WurstClient.INSTANCE.analytics.trackPageView("/options/keybind-manager",
-			"Keybind Manager");
+		WurstClient.INSTANCE.analytics.trackPageView(
+			"/options/keybind-manager", "Keybind Manager");
 	}
 	
 	/**

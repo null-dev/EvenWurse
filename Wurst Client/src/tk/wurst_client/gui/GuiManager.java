@@ -205,7 +205,8 @@ public final class GuiManager extends AbstractGuiManager
 				WurstClient.INSTANCE.fileManager.saveOptions();
 			}
 		});
-		autoBuildBox.setSelectedIndex(WurstClient.INSTANCE.options.autobuildMode);
+		autoBuildBox
+			.setSelectedIndex(WurstClient.INSTANCE.options.autobuildMode);
 		autobuild.add(autoBuildBox, HorizontalGridConstraint.CENTER);
 		
 		// Target
@@ -219,7 +220,8 @@ public final class GuiManager extends AbstractGuiManager
 			@Override
 			public void onComboBoxSelectionChanged(ComboBox comboBox)
 			{
-				WurstClient.INSTANCE.options.targetMode = comboBox.getSelectedIndex();
+				WurstClient.INSTANCE.options.targetMode =
+					comboBox.getSelectedIndex();
 				WurstClient.INSTANCE.fileManager.saveOptions();
 			}
 		});

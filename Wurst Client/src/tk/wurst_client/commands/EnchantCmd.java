@@ -64,7 +64,8 @@ public class EnchantCmd extends Cmd
 			if(items == 1)
 				WurstClient.INSTANCE.chat.message("Enchanted 1 item.");
 			else
-				WurstClient.INSTANCE.chat.message("Enchanted " + items + " items.");
+				WurstClient.INSTANCE.chat.message("Enchanted " + items
+					+ " items.");
 		}else
 			syntaxError();
 	}

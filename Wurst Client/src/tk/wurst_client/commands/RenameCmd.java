@@ -33,6 +33,7 @@ public class RenameCmd extends Cmd
 		if(item == null)
 			error("There is no item in your hand.");
 		item.setStackDisplayName(message);
-		WurstClient.INSTANCE.chat.message("Renamed item to \"" + message + "§r\".");
+		WurstClient.INSTANCE.chat.message("Renamed item to \"" + message
+			+ "§r\".");
 	}
 }

@@ -67,8 +67,8 @@ public class SpammerMod extends Mod
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						WurstClient.INSTANCE.modManager.getModByClass(SpammerMod.class)
-							.setEnabled(false);
+						WurstClient.INSTANCE.modManager.getModByClass(
+							SpammerMod.class).setEnabled(false);
 					}
 				});
 				JPanel panel = new JPanel();
@@ -84,7 +84,8 @@ public class SpammerMod extends Mod
 					public void actionPerformed(ActionEvent e)
 					{
 						JFileChooser fileChooser =
-							new JFileChooser(WurstClient.INSTANCE.fileManager.spamDir)
+							new JFileChooser(
+								WurstClient.INSTANCE.fileManager.spamDir)
 							{
 								@Override
 								protected JDialog createDialog(Component parent)
@@ -136,7 +137,8 @@ public class SpammerMod extends Mod
 					public void actionPerformed(ActionEvent e)
 					{
 						JFileChooser fileChooser =
-							new JFileChooser(WurstClient.INSTANCE.fileManager.spamDir)
+							new JFileChooser(
+								WurstClient.INSTANCE.fileManager.spamDir)
 							{
 								@Override
 								protected JDialog createDialog(Component parent)
@@ -182,7 +184,8 @@ public class SpammerMod extends Mod
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						MiscUtils.openFile(WurstClient.INSTANCE.fileManager.spamDir);
+						MiscUtils
+							.openFile(WurstClient.INSTANCE.fileManager.spamDir);
 					}
 				});
 				fileMenu.add(fileOpenFolder);

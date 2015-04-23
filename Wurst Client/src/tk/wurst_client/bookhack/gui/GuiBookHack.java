@@ -113,9 +113,12 @@ public class GuiBookHack extends GuiScreen
 		drawDefaultBackground();
 		drawCenteredString(fontRendererObj, "BookHack", width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Command", width / 2 - 100, 47, 10526880);
-		drawCenteredString(fontRendererObj, "The command you type in here will be", width / 2, 100, 10526880);
-		drawCenteredString(fontRendererObj, "executed by anyone who clicks the text", width / 2, 110, 10526880);
-		drawCenteredString(fontRendererObj, "in your book.", width / 2, 120, 10526880);
+		drawCenteredString(fontRendererObj,
+			"The command you type in here will be", width / 2, 100, 10526880);
+		drawCenteredString(fontRendererObj,
+			"executed by anyone who clicks the text", width / 2, 110, 10526880);
+		drawCenteredString(fontRendererObj, "in your book.", width / 2, 120,
+			10526880);
 		commandBox.drawTextBox();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}

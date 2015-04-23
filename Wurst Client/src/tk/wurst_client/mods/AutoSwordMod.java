@@ -31,7 +31,8 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);
@@ -62,7 +63,8 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	@Override
 	public void onLeftClick()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);
@@ -75,8 +77,8 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	
 	public static void setSlot()
 	{
-		if(((AutoEatMod)WurstClient.INSTANCE.modManager.getModByClass(AutoEatMod.class))
-			.isActive())
+		if(((AutoEatMod)WurstClient.INSTANCE.modManager
+			.getModByClass(AutoEatMod.class)).isActive())
 			return;
 		float bestSpeed = 1F;
 		int bestSlot = -1;
@@ -109,7 +111,8 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 				Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = bestSlot;
 			instance.timer = 4;
-			WurstClient.INSTANCE.eventManager.add(UpdateListener.class, instance);
+			WurstClient.INSTANCE.eventManager.add(UpdateListener.class,
+				instance);
 		}
 	}
 }

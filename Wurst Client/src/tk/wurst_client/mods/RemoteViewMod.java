@@ -59,7 +59,8 @@ public class RemoteViewMod extends Mod implements UpdateListener
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		WurstClient.INSTANCE.chat.message("Now viewing " + otherView.getName() + ".");
+		WurstClient.INSTANCE.chat.message("Now viewing " + otherView.getName()
+			+ ".");
 		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
@@ -70,7 +71,8 @@ public class RemoteViewMod extends Mod implements UpdateListener
 			if(otherID == null && !viewName.equals(""))
 				otherID =
 					EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
-			WurstClient.INSTANCE.modManager.getModByClass(RemoteViewMod.class).toggle();
+			WurstClient.INSTANCE.modManager.getModByClass(RemoteViewMod.class)
+				.toggle();
 		}catch(NullPointerException e)
 		{
 			WurstClient.INSTANCE.chat.error("Entity not found.");

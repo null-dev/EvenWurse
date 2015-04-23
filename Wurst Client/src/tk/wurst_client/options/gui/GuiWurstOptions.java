@@ -59,7 +59,8 @@ public class GuiWurstOptions extends GuiScreen
 			200, 20, "Back"));
 		buttonList.add(new GuiButton(1, width / 2 - 154, height / 4 + 24 - 16,
 			100, 20, "Click Friends: "
-				+ (WurstClient.INSTANCE.options.middleClickFriends ? "ON" : "OFF")));
+				+ (WurstClient.INSTANCE.options.middleClickFriends ? "ON"
+					: "OFF")));
 		buttonList.add(new GuiButton(2, width / 2 - 154, height / 4 + 48 - 16,
 			100, 20, "Mod List: "
 				+ modListModes[WurstClient.INSTANCE.options.modListMode]));
@@ -68,11 +69,10 @@ public class GuiWurstOptions extends GuiScreen
 		buttonList.add(new GuiButton(4, width / 2 - 154, height / 4 + 96 - 16,
 			100, 20, "Wurst news: "
 				+ (WurstClient.INSTANCE.options.wurstNews ? "ON" : "OFF")));
-		buttonList
-			.add(new GuiButton(5, width / 2 - 154, height / 4 + 120 - 16, 100,
-				20, "Analytics: "
-					+ (WurstClient.INSTANCE.options.google_analytics.enabled ? "ON"
-						: "OFF")));
+		buttonList.add(new GuiButton(5, width / 2 - 154, height / 4 + 120 - 16,
+			100, 20, "Analytics: "
+				+ (WurstClient.INSTANCE.options.google_analytics.enabled ? "ON"
+					: "OFF")));
 		buttonList.add(new GuiButton(6, width / 2 - 50, height / 4 + 24 - 16,
 			100, 20, "Keybinds"));
 		buttonList.add(new GuiButton(7, width / 2 - 50, height / 4 + 48 - 16,
@@ -108,11 +108,13 @@ public class GuiWurstOptions extends GuiScreen
 					!WurstClient.INSTANCE.options.middleClickFriends;
 				clickedButton.displayString =
 					"Click Friends: "
-						+ (WurstClient.INSTANCE.options.middleClickFriends ? "ON"
-							: "OFF");
+						+ (WurstClient.INSTANCE.options.middleClickFriends
+							? "ON" : "OFF");
 				WurstClient.INSTANCE.fileManager.saveOptions();
-				WurstClient.INSTANCE.analytics.trackEvent("options", "click friends",
-					WurstClient.INSTANCE.options.middleClickFriends ? "ON" : "OFF");
+				WurstClient.INSTANCE.analytics.trackEvent("options",
+					"click friends",
+					WurstClient.INSTANCE.options.middleClickFriends ? "ON"
+						: "OFF");
 			}else if(clickedButton.id == 2)
 			{// Mod List
 				WurstClient.INSTANCE.options.modListMode++;
@@ -122,7 +124,8 @@ public class GuiWurstOptions extends GuiScreen
 					"Mod List: "
 						+ modListModes[WurstClient.INSTANCE.options.modListMode];
 				WurstClient.INSTANCE.fileManager.saveOptions();
-				WurstClient.INSTANCE.analytics.trackEvent("options", "mod list",
+				WurstClient.INSTANCE.analytics.trackEvent("options",
+					"mod list",
 					modListModes[WurstClient.INSTANCE.options.modListMode]);
 			}else if(clickedButton.id == 3)
 			{// AutoMaximize
@@ -130,29 +133,31 @@ public class GuiWurstOptions extends GuiScreen
 				clickedButton.displayString =
 					"AutoMaximize: " + (autoMaximize ? "ON" : "OFF");
 				WurstClient.INSTANCE.fileManager.saveAutoMaximize(autoMaximize);
-				WurstClient.INSTANCE.analytics.trackEvent("options", "automaximize",
-					autoMaximize ? "ON" : "OFF");
+				WurstClient.INSTANCE.analytics.trackEvent("options",
+					"automaximize", autoMaximize ? "ON" : "OFF");
 			}else if(clickedButton.id == 4)
 			{// Wurst News
 				WurstClient.INSTANCE.options.wurstNews =
 					!WurstClient.INSTANCE.options.wurstNews;
 				clickedButton.displayString =
 					"Wurst news: "
-						+ (WurstClient.INSTANCE.options.wurstNews ? "ON" : "OFF");
+						+ (WurstClient.INSTANCE.options.wurstNews ? "ON"
+							: "OFF");
 				WurstClient.INSTANCE.fileManager.saveOptions();
-				WurstClient.INSTANCE.analytics.trackEvent("options", "wurst news",
-					WurstClient.INSTANCE.options.wurstNews ? "ON" : "OFF");
+				WurstClient.INSTANCE.analytics.trackEvent("options",
+					"wurst news", WurstClient.INSTANCE.options.wurstNews ? "ON"
+						: "OFF");
 			}else if(clickedButton.id == 5)
 			{// Analytics
 				GoogleAnalytics analytics =
 					WurstClient.INSTANCE.options.google_analytics;
 				if(analytics.enabled)
-					WurstClient.INSTANCE.analytics.trackEvent("options", "analytics",
-						"disable");
+					WurstClient.INSTANCE.analytics.trackEvent("options",
+						"analytics", "disable");
 				analytics.enabled = !analytics.enabled;
 				if(analytics.enabled)
-					WurstClient.INSTANCE.analytics.trackEvent("options", "analytics",
-						"enable");
+					WurstClient.INSTANCE.analytics.trackEvent("options",
+						"analytics", "enable");
 				clickedButton.displayString =
 					"Analytics: " + (analytics.enabled ? "ON" : "OFF");
 				WurstClient.INSTANCE.fileManager.saveOptions();
@@ -181,11 +186,13 @@ public class GuiWurstOptions extends GuiScreen
 			}else if(clickedButton.id == 13)
 			{
 				MiscUtils.openLink("http://www.wurst-client.tk/bugs");
-				WurstClient.INSTANCE.analytics.trackEvent("options", "bug report");
+				WurstClient.INSTANCE.analytics.trackEvent("options",
+					"bug report");
 			}else if(clickedButton.id == 14)
 			{
 				MiscUtils.openLink("http://www.wurst-client.tk/ideas");
-				WurstClient.INSTANCE.analytics.trackEvent("options", "suggestion");
+				WurstClient.INSTANCE.analytics.trackEvent("options",
+					"suggestion");
 			}else if(clickedButton.id == 15)
 			{	
 				

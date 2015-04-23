@@ -79,8 +79,8 @@ public class ChestEspMod extends Mod implements UpdateListener, RenderListener
 		}
 		if(i >= maxChests && shouldInform)
 		{
-			WurstClient.INSTANCE.chat
-				.warning(getName() + " found §lA LOT§r of chests.");
+			WurstClient.INSTANCE.chat.warning(getName()
+				+ " found §lA LOT§r of chests.");
 			WurstClient.INSTANCE.chat
 				.message("To prevent lag, it will only show the first "
 					+ maxChests + " chests.");

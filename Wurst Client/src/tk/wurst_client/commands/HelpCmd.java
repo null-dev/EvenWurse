@@ -27,7 +27,8 @@ public class HelpCmd extends Cmd
 			return;
 		}
 		int pages =
-			(int)Math.ceil(WurstClient.INSTANCE.cmdManager.countCommands() / 8D);
+			(int)Math
+				.ceil(WurstClient.INSTANCE.cmdManager.countCommands() / 8D);
 		if(MiscUtils.isInteger(args[0]))
 		{
 			int page = Integer.valueOf(args[0]);
@@ -35,8 +36,8 @@ public class HelpCmd extends Cmd
 				syntaxError("Invalid page: " + page);
 			WurstClient.INSTANCE.chat.message("Available commands: "
 				+ WurstClient.INSTANCE.cmdManager.countCommands());
-			WurstClient.INSTANCE.chat.message("Command list (page " + page + "/"
-				+ pages + "):");
+			WurstClient.INSTANCE.chat.message("Command list (page " + page
+				+ "/" + pages + "):");
 			Iterator<Cmd> itr =
 				WurstClient.INSTANCE.cmdManager.getAllCommands().iterator();
 			for(int i = 0; itr.hasNext(); i++)
@@ -50,8 +51,8 @@ public class HelpCmd extends Cmd
 			Cmd cmd = WurstClient.INSTANCE.cmdManager.getCommandByName(args[0]);
 			if(cmd != null)
 			{
-				WurstClient.INSTANCE.chat.message("Available help for ." + args[0]
-					+ ":");
+				WurstClient.INSTANCE.chat.message("Available help for ."
+					+ args[0] + ":");
 				cmd.printHelp();
 				cmd.printSyntax();
 			}else

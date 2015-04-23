@@ -276,8 +276,9 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
-			WurstClient.INSTANCE.chat.message("No longer playing ArenaBrawl with "
-				+ friendsName + ".");
+			WurstClient.INSTANCE.chat
+				.message("No longer playing ArenaBrawl with " + friendsName
+					+ ".");
 		reset();
 	}
 	
@@ -306,8 +307,8 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	private void setupFrame()
 	{
 		friendsName = formatSBName(0);
-		WurstClient.INSTANCE.chat.message("Now playing ArenaBrawl with " + friendsName
-			+ ".");
+		WurstClient.INSTANCE.chat.message("Now playing ArenaBrawl with "
+			+ friendsName + ".");
 		frame = new BasicFrame("ArenaBrawl");
 		frame.setTheme(new WurstTheme());
 		frame.setLayoutManager(new GridLayoutManager(2, 0));

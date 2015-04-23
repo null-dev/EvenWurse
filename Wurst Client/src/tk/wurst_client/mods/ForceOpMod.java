@@ -103,8 +103,8 @@ public class ForceOpMod extends Mod implements ChatInputListener
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						WurstClient.INSTANCE.modManager.getModByClass(ForceOpMod.class)
-							.setEnabled(false);
+						WurstClient.INSTANCE.modManager.getModByClass(
+							ForceOpMod.class).setEnabled(false);
 					}
 				});
 				
@@ -114,10 +114,10 @@ public class ForceOpMod extends Mod implements ChatInputListener
 				dialog.add(lPWList);
 				
 				rbDefaultList =
-					new JRadioButton(
-						"default",
+					new JRadioButton("default",
 						WurstClient.INSTANCE.options.forceOPList
-							.equals(WurstClient.INSTANCE.fileManager.wurstDir.getPath()));
+							.equals(WurstClient.INSTANCE.fileManager.wurstDir
+								.getPath()));
 				rbDefaultList.setLocation(4, 24);
 				rbDefaultList.setSize(rbDefaultList.getPreferredSize());
 				dialog.add(rbDefaultList);
@@ -136,7 +136,8 @@ public class ForceOpMod extends Mod implements ChatInputListener
 						if(!rbTXTList.isSelected())
 						{
 							WurstClient.INSTANCE.options.forceOPList =
-								WurstClient.INSTANCE.fileManager.wurstDir.getPath();
+								WurstClient.INSTANCE.fileManager.wurstDir
+									.getPath();
 							WurstClient.INSTANCE.fileManager.saveOptions();
 						}
 						loadPWList();
@@ -342,8 +343,9 @@ public class ForceOpMod extends Mod implements ChatInputListener
 								update();
 								for(int i = 0; i < passwords.length; i++)
 								{
-									if(!WurstClient.INSTANCE.modManager.getModByClass(
-										ForceOpMod.class).isEnabled())
+									if(!WurstClient.INSTANCE.modManager
+										.getModByClass(ForceOpMod.class)
+										.isEnabled())
 										return;
 									if(!cbDontWait.isSelected())
 										gotWrongPWMSG = false;
@@ -423,7 +425,8 @@ public class ForceOpMod extends Mod implements ChatInputListener
 				.equals(WurstClient.INSTANCE.fileManager.wurstDir.getPath()))
 			try
 			{
-				File pwList = new File(WurstClient.INSTANCE.options.forceOPList);
+				File pwList =
+					new File(WurstClient.INSTANCE.options.forceOPList);
 				BufferedReader load =
 					new BufferedReader(new FileReader(pwList));
 				ArrayList<String> loadedPWs = new ArrayList<String>();

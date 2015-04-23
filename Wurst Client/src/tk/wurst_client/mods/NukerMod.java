@@ -109,7 +109,8 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
 			realRange = yesCheatRange;
 		else
 			realRange = normalRange;
@@ -152,8 +153,8 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			{
 				currentDamage = 0;
 				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-					&& !WurstClient.INSTANCE.modManager
-						.getModByClass(YesCheatMod.class).isEnabled())
+					&& !WurstClient.INSTANCE.modManager.getModByClass(
+						YesCheatMod.class).isEnabled())
 					nukeAll();
 				else
 				{
@@ -165,7 +166,8 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 				return;
 			}
 		}
-		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
+			.isEnabled())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());
@@ -175,9 +177,11 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos)
-				* (WurstClient.INSTANCE.modManager.getModByClass(FastBreakMod.class)
-					.isEnabled() && WurstClient.INSTANCE.options.fastbreakMode == 0
-					? ((FastBreakMod)WurstClient.INSTANCE.modManager.getModByClass(FastBreakMod.class)).speed : 1);
+				* (WurstClient.INSTANCE.modManager.getModByClass(
+					FastBreakMod.class).isEnabled()
+					&& WurstClient.INSTANCE.options.fastbreakMode == 0
+					? ((FastBreakMod)WurstClient.INSTANCE.modManager
+						.getModByClass(FastBreakMod.class)).speed : 1);
 		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(
 			Minecraft.getMinecraft().thePlayer.getEntityId(), pos,
 			(int)(currentDamage * 10.0F) - 1);
@@ -190,8 +194,9 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 				side);
 			blockHitDelay = (byte)4;
 			currentDamage = 0;
-		}else if(WurstClient.INSTANCE.modManager.getModByClass(FastBreakMod.class)
-			.isEnabled() && WurstClient.INSTANCE.options.fastbreakMode == 1)
+		}else if(WurstClient.INSTANCE.modManager.getModByClass(
+			FastBreakMod.class).isEnabled()
+			&& WurstClient.INSTANCE.options.fastbreakMode == 1)
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.STOP_DESTROY_BLOCK, pos, side));

@@ -29,7 +29,8 @@ public class PathCmd extends Cmd implements RenderListener
 		path = null;
 		if(enabled)
 		{
-			WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+			WurstClient.INSTANCE.eventManager
+				.remove(RenderListener.class, this);
 			enabled = false;
 			return;
 		}
@@ -48,7 +49,8 @@ public class PathCmd extends Cmd implements RenderListener
 				{
 					path = pathFinder.getRawPath();
 					enabled = true;
-					WurstClient.INSTANCE.eventManager.add(RenderListener.class, PathCmd.this);
+					WurstClient.INSTANCE.eventManager.add(RenderListener.class,
+						PathCmd.this);
 				}else
 					WurstClient.INSTANCE.chat.error("Could not find a path.");
 				System.out.println("Done after "

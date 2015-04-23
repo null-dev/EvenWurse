@@ -203,7 +203,9 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Mod mod = WurstClient.INSTANCE.modManager.getModByName(entry.getKey());
+				Mod mod =
+					WurstClient.INSTANCE.modManager
+						.getModByName(entry.getKey());
 				if(mod != null
 					&& mod.getCategory() != Category.HIDDEN
 					&& !Arrays.asList(moduleBlacklist).contains(
@@ -255,8 +257,8 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				WurstClient.INSTANCE.keybinds.put(entry.getKey(), entry.getValue()
-					.getAsString());
+				WurstClient.INSTANCE.keybinds.put(entry.getKey(), entry
+					.getValue().getAsString());
 			}
 		}catch(Exception e)
 		{
@@ -362,7 +364,9 @@ public class FileManager
 			while(itr.hasNext())
 			{
 				Entry<String, JsonElement> entry = itr.next();
-				Mod mod = WurstClient.INSTANCE.modManager.getModByName(entry.getKey());
+				Mod mod =
+					WurstClient.INSTANCE.modManager
+						.getModByName(entry.getKey());
 				if(mod != null)
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();

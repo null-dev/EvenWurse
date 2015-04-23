@@ -57,7 +57,8 @@ public class DropCmd extends Cmd implements UpdateListener
 					new ItemStack(item, 64)));
 			return;
 		}
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
 		{
 			timer++;
 			if(timer >= 5)
@@ -67,14 +68,16 @@ public class DropCmd extends Cmd implements UpdateListener
 				counter++;
 				timer = 0;
 				if(counter >= 45)
-					WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+					WurstClient.INSTANCE.eventManager.remove(
+						UpdateListener.class, this);
 			}
 		}else
 		{
 			for(int i = 9; i < 45; i++)
 				Minecraft.getMinecraft().playerController.windowClick(0, i, 1,
 					4, Minecraft.getMinecraft().thePlayer);
-			WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+			WurstClient.INSTANCE.eventManager
+				.remove(UpdateListener.class, this);
 		}
 	}
 }

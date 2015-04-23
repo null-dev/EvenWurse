@@ -104,15 +104,16 @@ public class CmdManager implements ChatOutputListener
 					WurstClient.INSTANCE.chat.error(e.getMessage());
 				}catch(Exception e)
 				{
-					WurstClient.INSTANCE.eventManager.handleException(e, cmd, "executing",
-						"Exact input: `" + event.getMessage() + "`");
+					WurstClient.INSTANCE.eventManager.handleException(e, cmd,
+						"executing", "Exact input: `" + event.getMessage()
+							+ "`");
 				}
 			else
 				WurstClient.INSTANCE.chat.error("\"." + commandName
 					+ "\" is not a valid command.");
 		}
 	}
-
+	
 	public Cmd getCommandByClass(Class<?> commandClass)
 	{
 		return cmds.get(commandClass.getAnnotation(Info.class).name());

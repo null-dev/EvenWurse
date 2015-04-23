@@ -36,8 +36,8 @@ public class SpamProcessor
 			public void run()
 			{
 				File file =
-					new File(WurstClient.INSTANCE.fileManager.scriptsDir, filename
-						+ ".wspam");
+					new File(WurstClient.INSTANCE.fileManager.scriptsDir,
+						filename + ".wspam");
 				try
 				{
 					long startTime = System.currentTimeMillis();
@@ -81,7 +81,8 @@ public class SpamProcessor
 	public static boolean runSpam(final String filename)
 	{
 		final File file =
-			new File(WurstClient.INSTANCE.fileManager.spamDir, filename + ".wspam");
+			new File(WurstClient.INSTANCE.fileManager.spamDir, filename
+				+ ".wspam");
 		if(!file.exists())
 			return false;
 		new Thread(new Runnable()

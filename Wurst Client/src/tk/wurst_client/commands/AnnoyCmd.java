@@ -34,7 +34,8 @@ public class AnnoyCmd extends Cmd implements ChatInputListener
 				if(name.equals(Minecraft.getMinecraft().thePlayer.getName()))
 					WurstClient.INSTANCE.chat
 						.warning("Annoying yourself is a bad idea!");
-				WurstClient.INSTANCE.eventManager.add(ChatInputListener.class, this);
+				WurstClient.INSTANCE.eventManager.add(ChatInputListener.class,
+					this);
 			}else
 			{
 				toggled = false;
@@ -42,10 +43,12 @@ public class AnnoyCmd extends Cmd implements ChatInputListener
 			}
 		}else
 		{
-			WurstClient.INSTANCE.eventManager.remove(ChatInputListener.class, this);
+			WurstClient.INSTANCE.eventManager.remove(ChatInputListener.class,
+				this);
 			if(name != null)
 			{
-				WurstClient.INSTANCE.chat.message("No longer annoying " + name + ".");
+				WurstClient.INSTANCE.chat.message("No longer annoying " + name
+					+ ".");
 				name = null;
 			}
 		}

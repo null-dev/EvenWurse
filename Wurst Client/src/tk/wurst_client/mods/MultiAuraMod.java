@@ -25,13 +25,14 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
+			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
 				.setEnabled(false);
-		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraLegitMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(KillauraLegitMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.modManager
+			.getModByClass(KillauraLegitMod.class).isEnabled())
+			WurstClient.INSTANCE.modManager.getModByClass(
+				KillauraLegitMod.class).setEnabled(false);
 		if(WurstClient.INSTANCE.modManager.getModByClass(TriggerBotMod.class)
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(TriggerBotMod.class)
@@ -42,13 +43,14 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class).isEnabled())
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
 		{
 			noCheatMessage();
 			setEnabled(false);
 			WurstClient.INSTANCE.chat.message("Switching to "
-				+ WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
-					.getName() + ".");
+				+ WurstClient.INSTANCE.modManager.getModByClass(
+					KillauraMod.class).getName() + ".");
 			WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
 				.setEnabled(true);
 			return;
@@ -61,8 +63,8 @@ public class MultiAuraMod extends Mod implements UpdateListener
 			{
 				EntityLivingBase en =
 					EntityUtils.getCloseEntities(true, range).get(i);
-				if(WurstClient.INSTANCE.modManager.getModByClass(AutoSwordMod.class)
-					.isEnabled())
+				if(WurstClient.INSTANCE.modManager.getModByClass(
+					AutoSwordMod.class).isEnabled())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				EntityUtils.faceEntityPacket(en);

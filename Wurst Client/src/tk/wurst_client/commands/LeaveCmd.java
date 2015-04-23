@@ -33,15 +33,16 @@ public class LeaveCmd extends Cmd
 			case 1:
 				if(args[0].equalsIgnoreCase("taco"))
 					for(int i = 0; i < 128; i++)
-						Minecraft.getMinecraft().thePlayer.sendAutomaticChatMessage("Taco!");
+						Minecraft.getMinecraft().thePlayer
+							.sendAutomaticChatMessage("Taco!");
 				else
 					disconnectWithMode(parseMode(args[0]));
 				break;
 			case 2:
 				WurstClient.INSTANCE.options.autoLeaveMode = parseMode(args[1]);
 				WurstClient.INSTANCE.fileManager.saveOptions();
-				WurstClient.INSTANCE.chat.message("AutoLeave mode set to \"" + args[1]
-					+ "\".");
+				WurstClient.INSTANCE.chat.message("AutoLeave mode set to \""
+					+ args[1] + "\".");
 				break;
 			default:
 				break;

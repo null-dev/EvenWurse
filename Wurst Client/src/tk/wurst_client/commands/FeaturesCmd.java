@@ -32,11 +32,12 @@ public class FeaturesCmd extends Cmd
 		for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
 			if(mod.getCategory() == Category.HIDDEN)
 				hiddenMods++;
-		WurstClient.INSTANCE.chat.message(">" + (mods - hiddenMods) + " mods (+"
-			+ hiddenMods + " hidden mods)");
+		WurstClient.INSTANCE.chat.message(">" + (mods - hiddenMods)
+			+ " mods (+" + hiddenMods + " hidden mods)");
 		int commands = WurstClient.INSTANCE.cmdManager.countCommands();
 		WurstClient.INSTANCE.chat.message(">" + commands + " commands");
-		WurstClient.INSTANCE.chat.message(">" + WurstClient.INSTANCE.keybinds.size()
+		WurstClient.INSTANCE.chat.message(">"
+			+ WurstClient.INSTANCE.keybinds.size()
 			+ " keybinds in your current configuration");
 		ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 		for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())

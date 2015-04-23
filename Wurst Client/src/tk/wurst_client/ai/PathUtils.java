@@ -46,7 +46,8 @@ public class PathUtils
 	public static boolean isSolid(BlockPos pos)
 	{
 		if(jesusMod == null)
-			jesusMod = WurstClient.INSTANCE.modManager.getModByClass(JesusMod.class);
+			jesusMod =
+				WurstClient.INSTANCE.modManager.getModByClass(JesusMod.class);
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
 			|| getMaterial(pos) == Material.water && jesusMod.isEnabled();
@@ -63,7 +64,8 @@ public class PathUtils
 	public static boolean isClimbable(BlockPos pos)
 	{
 		if(spiderMod == null)
-			spiderMod = WurstClient.INSTANCE.modManager.getModByClass(SpiderMod.class);
+			spiderMod =
+				WurstClient.INSTANCE.modManager.getModByClass(SpiderMod.class);
 		if(isSolid(pos.add(0, -1, 0)) || spiderMod.isEnabled()
 			|| getID(pos) == 65 || isFlyable(pos))
 			if(isSolid(pos.add(0, 0, -1)) || isSolid(pos.add(0, 0, 1))
@@ -75,7 +77,8 @@ public class PathUtils
 	public static boolean isNoFall()
 	{
 		if(noFallMod == null)
-			noFallMod = WurstClient.INSTANCE.modManager.getModByClass(NoFallMod.class);
+			noFallMod =
+				WurstClient.INSTANCE.modManager.getModByClass(NoFallMod.class);
 		return noFallMod.isEnabled() || isCreative();
 	}
 	
@@ -89,10 +92,12 @@ public class PathUtils
 	public static boolean isFlyable(BlockPos pos)
 	{
 		if(flightMod == null)
-			flightMod = WurstClient.INSTANCE.modManager.getModByClass(FlightMod.class);
+			flightMod =
+				WurstClient.INSTANCE.modManager.getModByClass(FlightMod.class);
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				WurstClient.INSTANCE.modManager.getModByClass(NoSlowdownMod.class);
+				WurstClient.INSTANCE.modManager
+					.getModByClass(NoSlowdownMod.class);
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
 		return flightMod.isEnabled() || playerCaps.isFlying
@@ -103,10 +108,12 @@ public class PathUtils
 	{
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				WurstClient.INSTANCE.modManager.getModByClass(NoSlowdownMod.class);
+				WurstClient.INSTANCE.modManager
+					.getModByClass(NoSlowdownMod.class);
 		if(antiKnockbackMod == null)
 			antiKnockbackMod =
-				WurstClient.INSTANCE.modManager.getModByClass(AntiKnockbackMod.class);
+				WurstClient.INSTANCE.modManager
+					.getModByClass(AntiKnockbackMod.class);
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)
 			if(noSlowdownMod.isEnabled())

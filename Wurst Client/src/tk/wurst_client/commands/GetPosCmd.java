@@ -25,7 +25,8 @@ public class GetPosCmd extends Cmd
 		if(args.length > 1)
 			syntaxError();
 		BlockPos blockpos = new BlockPos(Minecraft.getMinecraft().thePlayer);
-		String pos = blockpos.getX() + " " + blockpos.getY() + " " + blockpos.getZ();
+		String pos =
+			blockpos.getX() + " " + blockpos.getY() + " " + blockpos.getZ();
 		if(args.length == 0)
 			WurstClient.INSTANCE.chat.message("Position: " + pos);
 		else if(args.length == 1 && args[0].equalsIgnoreCase("copy"))

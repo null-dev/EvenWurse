@@ -36,8 +36,8 @@ public class BindsCmd extends Cmd
 			}
 			WurstClient.INSTANCE.chat.message("Current keybinds: "
 				+ Integer.toString(WurstClient.INSTANCE.keybinds.size()));
-			WurstClient.INSTANCE.chat.message("Keybind list (page " + page + "/"
-				+ pages + "):");
+			WurstClient.INSTANCE.chat.message("Keybind list (page " + page
+				+ "/" + pages + "):");
 			Iterator<Entry<String, String>> itr =
 				WurstClient.INSTANCE.keybinds.entrySet().iterator();
 			for(int i = 0; itr.hasNext(); i++)

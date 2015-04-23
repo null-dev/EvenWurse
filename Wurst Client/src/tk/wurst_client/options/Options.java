@@ -35,7 +35,8 @@ public class Options
 	public int spamDelay = 1000;
 	public int throwAmount = 16;
 	
-	public String forceOPList = WurstClient.INSTANCE.fileManager.wurstDir.getPath();
+	public String forceOPList = WurstClient.INSTANCE.fileManager.wurstDir
+		.getPath();
 	
 	public Options.GoogleAnalytics google_analytics =
 		new Options.GoogleAnalytics();

@@ -72,7 +72,8 @@ public class GuiAlts extends GuiScreen
 		buttonList.add(new GuiButton(6, width / 2 + 80, height - 28, 75, 20,
 			"Cancel"));
 		buttonList.add(new GuiButton(7, 8, 8, 75, 20, "Import Alts"));
-		WurstClient.INSTANCE.analytics.trackPageView("/alt-manager/", "Alt Manager");
+		WurstClient.INSTANCE.analytics.trackPageView("/alt-manager/",
+			"Alt Manager");
 	}
 	
 	/**
@@ -152,7 +153,8 @@ public class GuiAlts extends GuiScreen
 					public void run()
 					{
 						JFileChooser fileChooser =
-							new JFileChooser(WurstClient.INSTANCE.fileManager.wurstDir)
+							new JFileChooser(
+								WurstClient.INSTANCE.fileManager.wurstDir)
 							{
 								@Override
 								protected JDialog createDialog(Component parent)

@@ -47,7 +47,8 @@ public class AddAltCmd extends Cmd
 				alts++;
 			}
 			if(alts == 1)
-				WurstClient.INSTANCE.chat.message("Added 1 alt to the alt list.");
+				WurstClient.INSTANCE.chat
+					.message("Added 1 alt to the alt list.");
 			else
 				WurstClient.INSTANCE.chat.message("Added " + alts
 					+ " alts to the alt list.");

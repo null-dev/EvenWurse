@@ -22,13 +22,15 @@ public class IpCmd extends Cmd
 	public void execute(String[] args) throws Error
 	{
 		if(args.length == 0)
-			WurstClient.INSTANCE.chat.message("IP: " + WurstClient.INSTANCE.currentServerIP);
+			WurstClient.INSTANCE.chat.message("IP: "
+				+ WurstClient.INSTANCE.currentServerIP);
 		else if(args[0].toLowerCase().equals("copy"))
 		{
 			Toolkit
 				.getDefaultToolkit()
 				.getSystemClipboard()
-				.setContents(new StringSelection(WurstClient.INSTANCE.currentServerIP),
+				.setContents(
+					new StringSelection(WurstClient.INSTANCE.currentServerIP),
 					null);
 			WurstClient.INSTANCE.chat.message("IP copied to clipboard.");
 		}else

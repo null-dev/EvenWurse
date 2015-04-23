@@ -107,7 +107,7 @@ public class JGoogleAnalyticsTracker
 	private static Proxy proxy = Proxy.NO_PROXY;
 	private static LinkedList<String> fifo = new LinkedList<String>();
 	private static volatile Thread backgroundThread = null; // the thread used
-															// in
+	// in
 	// 'queued' mode.
 	private static boolean backgroundThreadMayRun = false;
 	

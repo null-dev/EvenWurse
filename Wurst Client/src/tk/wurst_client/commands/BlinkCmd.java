@@ -17,10 +17,12 @@ public class BlinkCmd extends Cmd
 {
 	@Override
 	public void execute(String[] args) throws Error
-	{	
+	{
 		if(args.length > 1)
 			syntaxError();
-		BlinkMod blink = (BlinkMod)WurstClient.INSTANCE.modManager.getModByClass(BlinkMod.class);
+		BlinkMod blink =
+			(BlinkMod)WurstClient.INSTANCE.modManager
+				.getModByClass(BlinkMod.class);
 		if(args.length == 0)
 			blink.toggle();
 		else if(args[0].equalsIgnoreCase("on"))
