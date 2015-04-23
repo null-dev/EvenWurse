@@ -16,7 +16,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.utils.BlockUtils;
@@ -50,8 +49,8 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(SpeedNukerMod.class)
 				.setEnabled(false);
-		EventManager.update.addListener(this);
-		EventManager.render.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -161,8 +160,8 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.update.removeListener(this);
-		EventManager.render.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

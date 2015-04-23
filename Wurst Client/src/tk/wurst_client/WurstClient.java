@@ -34,6 +34,7 @@ public enum WurstClient
 	
 	public ChatMessenger chat;
 	public CmdManager cmdManager;
+	public EventManager eventManager;
 	public FileManager fileManager;
 	public Friends friends;
 	public GuiManager guiManager;
@@ -45,6 +46,7 @@ public enum WurstClient
 	
 	public void startClient()
 	{
+		eventManager = new EventManager();
 		modManager = new ModManager();
 		guiManager = new GuiManager();
 		cmdManager = new CmdManager();
@@ -59,7 +61,6 @@ public enum WurstClient
 		guiManager.setTheme(new WurstTheme());
 		guiManager.setup();
 		updater.checkForUpdate();
-		EventManager.init();
 		analytics = new Analytics("UA-52838431-5", "client.wurst-client.tk");
 	}
 }

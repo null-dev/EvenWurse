@@ -21,7 +21,6 @@ import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.GUIRenderListener;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
@@ -43,9 +42,9 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 	@Override
 	public void onEnable()
 	{
-		EventManager.guiRender.addListener(this);
-		EventManager.render.addListener(this);
-		EventManager.update.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(GUIRenderListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -124,9 +123,9 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.guiRender.removeListener(this);
-		EventManager.render.removeListener(this);
-		EventManager.update.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(GUIRenderListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 	}
 	
 	private void aimAtTarget()

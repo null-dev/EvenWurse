@@ -16,8 +16,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.GUIRenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 
@@ -47,12 +47,12 @@ public class TacoCmd extends Cmd implements GUIRenderListener, UpdateListener
 		toggled = !toggled;
 		if(toggled)
 		{
-			EventManager.guiRender.addListener(this);
-			EventManager.update.addListener(this);
+			WurstClient.INSTANCE.eventManager.add(GUIRenderListener.class, this);
+			WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 		}else
 		{
-			EventManager.guiRender.removeListener(this);
-			EventManager.update.removeListener(this);
+			WurstClient.INSTANCE.eventManager.remove(GUIRenderListener.class, this);
+			WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		}
 	}
 	

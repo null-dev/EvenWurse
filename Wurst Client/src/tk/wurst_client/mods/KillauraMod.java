@@ -14,7 +14,6 @@ import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
@@ -65,7 +64,7 @@ public class KillauraMod extends Mod implements UpdateListener
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(TriggerBotMod.class)
 				.setEnabled(false);
-		EventManager.update.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -103,6 +102,6 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.update.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 	}
 }

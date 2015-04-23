@@ -12,7 +12,6 @@ import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.RenderListener;
 
 @Info(help = "Allows you to see parts of another player's inventory.",
@@ -33,7 +32,7 @@ public class InvseeCmd extends Cmd implements RenderListener
 			return;
 		}
 		playerName = args[0];
-		EventManager.render.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -56,6 +55,6 @@ public class InvseeCmd extends Cmd implements RenderListener
 		if(!found)
 			WurstClient.INSTANCE.chat.error("Player not found.");
 		playerName = null;
-		EventManager.render.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
 	}
 }

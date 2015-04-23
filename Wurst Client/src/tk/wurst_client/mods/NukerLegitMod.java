@@ -17,7 +17,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.LeftClickListener;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
@@ -69,9 +68,9 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(TunnellerMod.class)
 				.setEnabled(false);
-		EventManager.leftClick.addListener(this);
-		EventManager.update.addListener(this);
-		EventManager.render.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(LeftClickListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -164,9 +163,9 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.leftClick.removeListener(this);
-		EventManager.update.removeListener(this);
-		EventManager.render.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(LeftClickListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

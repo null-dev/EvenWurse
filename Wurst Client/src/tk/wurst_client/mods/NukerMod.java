@@ -21,7 +21,6 @@ import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.LeftClickListener;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
@@ -89,9 +88,9 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			.isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(TunnellerMod.class)
 				.setEnabled(false);
-		EventManager.leftClick.addListener(this);
-		EventManager.update.addListener(this);
-		EventManager.render.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(LeftClickListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -201,9 +200,9 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.leftClick.removeListener(this);
-		EventManager.update.removeListener(this);
-		EventManager.render.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(LeftClickListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

@@ -7,9 +7,9 @@
  */
 package tk.wurst_client.commands;
 
-import tk.wurst_client.WurstClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C01PacketChatMessage;
+import tk.wurst_client.WurstClient;
 
 @Cmd.Info(help = "Leaves the current server or changes the mode of AutoLeave.",
 	name = "leave",

@@ -10,7 +10,6 @@ package tk.wurst_client.mods;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.ChatInputEvent;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.ChatInputListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -27,8 +26,8 @@ public class HomeMod extends Mod implements UpdateListener, ChatInputListener
 	public void onEnable()
 	{
 		disableTimer = 0;
-		EventManager.chatInput.addListener(this);
-		EventManager.update.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(ChatInputListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -44,8 +43,8 @@ public class HomeMod extends Mod implements UpdateListener, ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.chatInput.removeListener(this);
-		EventManager.update.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(ChatInputListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 	}
 	
 	@Override

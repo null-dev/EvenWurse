@@ -12,7 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import tk.wurst_client.events.EventManager;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
@@ -26,7 +26,7 @@ public class OverlayMod extends Mod implements RenderListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.render.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -47,6 +47,6 @@ public class OverlayMod extends Mod implements RenderListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.render.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
 	}
 }

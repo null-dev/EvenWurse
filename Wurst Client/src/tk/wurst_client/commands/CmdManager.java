@@ -15,7 +15,6 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.commands.Cmd.SyntaxError;
 import tk.wurst_client.events.ChatOutputEvent;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.ChatOutputListener;
 
 public class CmdManager implements ChatOutputListener
@@ -105,7 +104,7 @@ public class CmdManager implements ChatOutputListener
 					WurstClient.INSTANCE.chat.error(e.getMessage());
 				}catch(Exception e)
 				{
-					EventManager.handleException(e, cmd, "executing",
+					WurstClient.INSTANCE.eventManager.handleException(e, cmd, "executing",
 						"Exact input: `" + event.getMessage() + "`");
 				}
 			else

@@ -32,7 +32,6 @@ import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.ChatInputEvent;
-import tk.wurst_client.events.EventManager;
 import tk.wurst_client.events.listeners.ChatInputListener;
 import tk.wurst_client.events.listeners.DeathListener;
 import tk.wurst_client.events.listeners.RenderListener;
@@ -94,10 +93,10 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	public void onEnable()
 	{
 		reset();
-		EventManager.chatInput.addListener(this);
-		EventManager.death.addListener(this);
-		EventManager.render.addListener(this);
-		EventManager.update.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(ChatInputListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(DeathListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -271,10 +270,10 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.chatInput.removeListener(this);
-		EventManager.death.removeListener(this);
-		EventManager.render.removeListener(this);
-		EventManager.update.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(ChatInputListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(DeathListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
 			WurstClient.INSTANCE.chat.message("No longer playing ArenaBrawl with "

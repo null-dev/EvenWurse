@@ -12,7 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.events.EventManager;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.LeftClickListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -31,8 +31,8 @@ public class AutoToolMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		EventManager.leftClick.addListener(this);
-		EventManager.update.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(LeftClickListener.class, this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -56,8 +56,8 @@ public class AutoToolMod extends Mod implements LeftClickListener,
 	@Override
 	public void onDisable()
 	{
-		EventManager.leftClick.removeListener(this);
-		EventManager.update.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(LeftClickListener.class, this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		isActive = false;
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
 	}

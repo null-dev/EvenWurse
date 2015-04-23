@@ -9,7 +9,7 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import tk.wurst_client.events.EventManager;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
@@ -42,7 +42,7 @@ public class FollowMod extends Mod implements UpdateListener
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
 				entity = en;
 		}
-		EventManager.update.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class FollowMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.update.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		if(entity != null)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;

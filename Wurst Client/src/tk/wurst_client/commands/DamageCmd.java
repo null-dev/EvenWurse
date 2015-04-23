@@ -7,13 +7,13 @@
  */
 package tk.wurst_client.commands;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.ai.PathUtils;
 import tk.wurst_client.mods.YesCheatMod;
 import tk.wurst_client.utils.MiscUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.util.BlockPos;
 
 @Cmd.Info(help = "Applies the given amount of damage.",
 	name = "damage",

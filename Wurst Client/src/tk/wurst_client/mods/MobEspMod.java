@@ -10,7 +10,7 @@ package tk.wurst_client.mods;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import tk.wurst_client.events.EventManager;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
@@ -24,7 +24,7 @@ public class MobEspMod extends Mod implements RenderListener
 	@Override
 	public void onEnable()
 	{
-		EventManager.render.addListener(this);
+		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -38,6 +38,6 @@ public class MobEspMod extends Mod implements RenderListener
 	@Override
 	public void onDisable()
 	{
-		EventManager.render.removeListener(this);
+		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
 	}
 }
