@@ -1,6 +1,6 @@
-From b77b8a74412c0188c60a971d5de57c8a87e8d449 Mon Sep 17 00:00:00 2001
+From 3bda92b9f3f297a6a47a6721295d118e2fd3c905 Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 16 Apr 2015 20:29:42 +0200
+Date: Thu, 23 Apr 2015 20:24:50 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6854 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6852 ++++++++++----------
  src/net/minecraft/client/audio/SoundManager.java   | 1188 ++--
  .../client/entity/AbstractClientPlayer.java        |  267 +-
- .../minecraft/client/entity/EntityPlayerSP.java    | 1783 ++---
+ .../minecraft/client/entity/EntityPlayerSP.java    | 1771 ++---
  src/net/minecraft/client/gui/FontRenderer.java     | 1994 +++---
  src/net/minecraft/client/gui/Gui.java              |    8 +-
  src/net/minecraft/client/gui/GuiButton.java        |  298 +-
@@ -41,7 +41,7 @@ Subject: [PATCH] Wurst
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |    2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |    4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   | 1117 ++--
- src/net/minecraft/client/gui/GuiNewChat.java       |  788 +--
+ src/net/minecraft/client/gui/GuiNewChat.java       |  785 +--
  src/net/minecraft/client/gui/GuiOptionButton.java  |    1 +
  src/net/minecraft/client/gui/GuiOptionSlider.java  |    1 +
  src/net/minecraft/client/gui/GuiOptions.java       |    2 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28220 insertions(+), 26509 deletions(-)
+ 203 files changed, 28203 insertions(+), 26509 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -4596,10 +4596,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..1d58c65 100644
+index f503b64..3794d1b 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3548 @@
+@@ -1,3306 +1,3546 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -7942,7 +7942,6 @@ index f503b64..1d58c65 100644
 +
 +import javax.imageio.ImageIO;
 +import javax.swing.*;
-+import javax.tools.Tool;
 +
 +import net.minecraft.block.Block;
 +import net.minecraft.block.material.Material;
@@ -8037,7 +8036,6 @@ index f503b64..1d58c65 100644
 +
 +import tk.wurst_client.WurstClient;
 +import tk.wurst_client.bot.WurstBot;
-+import tk.wurst_client.events.EventManager;
 +import tk.wurst_client.events.LeftClickEvent;
 +import tk.wurst_client.font.Fonts;
 +import tk.wurst_client.spam.SpamProcessor;
@@ -9615,7 +9613,7 @@ index f503b64..1d58c65 100644
 +        if (this.leftClickCounter <= 0)
 +        {
 +            //TODO: Client
-+            EventManager.leftClick.fireEvent(new LeftClickEvent());
++        	WurstClient.INSTANCE.eventManager.fireEvent(LeftClickEvent.class, new LeftClickEvent());
 +            this.thePlayer.swingItem();
 +
 +            if (this.objectMouseOver == null)
@@ -12920,10 +12918,10 @@ index de9ca57..3833cae 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/entity/EntityPlayerSP.java b/src/net/minecraft/client/entity/EntityPlayerSP.java
-index eefe303..ac7cdf6 100644
+index eefe303..9432d55 100644
 --- a/src/net/minecraft/client/entity/EntityPlayerSP.java
 +++ b/src/net/minecraft/client/entity/EntityPlayerSP.java
-@@ -1,863 +1,920 @@
+@@ -1,863 +1,908 @@
 -package net.minecraft.client.entity;
 -
 -import net.minecraft.client.Minecraft;
@@ -13789,17 +13787,6 @@ index eefe303..ac7cdf6 100644
 -}
 +package net.minecraft.client.entity;
 +
-+import tk.wurst_client.WurstClient;
-+import tk.wurst_client.commands.Cmd;
-+import tk.wurst_client.commands.CmdManager;
-+import tk.wurst_client.events.ChatOutputEvent;
-+import tk.wurst_client.events.EventManager;
-+import tk.wurst_client.events.UpdateEvent;
-+import tk.wurst_client.mods.BlinkMod;
-+import tk.wurst_client.mods.FreecamMod;
-+import tk.wurst_client.mods.Mod;
-+import tk.wurst_client.mods.NoSlowdownMod;
-+import tk.wurst_client.mods.RemoteViewMod;
 +import net.minecraft.client.Minecraft;
 +import net.minecraft.client.audio.MovingSoundMinecartRiding;
 +import net.minecraft.client.audio.PositionedSoundRecord;
@@ -13822,15 +13809,7 @@ index eefe303..ac7cdf6 100644
 +import net.minecraft.inventory.IInventory;
 +import net.minecraft.item.Item;
 +import net.minecraft.item.ItemStack;
-+import net.minecraft.network.play.client.C01PacketChatMessage;
-+import net.minecraft.network.play.client.C03PacketPlayer;
-+import net.minecraft.network.play.client.C07PacketPlayerDigging;
-+import net.minecraft.network.play.client.C0APacketAnimation;
-+import net.minecraft.network.play.client.C0BPacketEntityAction;
-+import net.minecraft.network.play.client.C0CPacketInput;
-+import net.minecraft.network.play.client.C0DPacketCloseWindow;
-+import net.minecraft.network.play.client.C13PacketPlayerAbilities;
-+import net.minecraft.network.play.client.C16PacketClientStatus;
++import net.minecraft.network.play.client.*;
 +import net.minecraft.potion.Potion;
 +import net.minecraft.stats.StatBase;
 +import net.minecraft.stats.StatFileWriter;
@@ -13844,6 +13823,13 @@ index eefe303..ac7cdf6 100644
 +import net.minecraft.util.ResourceLocation;
 +import net.minecraft.world.IInteractionObject;
 +import net.minecraft.world.World;
++import tk.wurst_client.WurstClient;
++import tk.wurst_client.events.ChatOutputEvent;
++import tk.wurst_client.events.UpdateEvent;
++import tk.wurst_client.mods.BlinkMod;
++import tk.wurst_client.mods.FreecamMod;
++import tk.wurst_client.mods.NoSlowdownMod;
++import tk.wurst_client.mods.RemoteViewMod;
 +
 +public class EntityPlayerSP extends AbstractClientPlayer
 +{
@@ -13928,7 +13914,7 @@ index eefe303..ac7cdf6 100644
 +        if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
 +        {
 +        	//TODO: Client
-+        	EventManager.update.fireEvent(new UpdateEvent());
++        	WurstClient.INSTANCE.eventManager.fireEvent(UpdateEvent.class, new UpdateEvent());
 +        	
 +            super.onUpdate();
 +
@@ -14080,7 +14066,7 @@ index eefe303..ac7cdf6 100644
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(p_71165_1_, false);
 +      	WurstClient.INSTANCE.cmdManager.onSentMessage(event);
-+      	EventManager.chatOutput.fireEvent(event);
++      	WurstClient.INSTANCE.eventManager.fireEvent(ChatOutputEvent.class, event);
 +      	if(event.isCancelled())
 +      		return;
 +      	
@@ -14095,7 +14081,7 @@ index eefe303..ac7cdf6 100644
 +        //TODO: Client
 +      	ChatOutputEvent event = new ChatOutputEvent(message, true);
 +      	WurstClient.INSTANCE.cmdManager.onSentMessage(event);
-+      	EventManager.chatOutput.fireEvent(event);
++      	WurstClient.INSTANCE.eventManager.fireEvent(ChatOutputEvent.class, event);
 +      	if(event.isCancelled())
 +      		return;
 +      	
@@ -17512,7 +17498,7 @@ index 47e1373..6361176 100644
              GlStateManager.disableRescaleNormal();
          }
 diff --git a/src/net/minecraft/client/gui/GuiGameOver.java b/src/net/minecraft/client/gui/GuiGameOver.java
-index c737e46..d21f125 100644
+index c737e46..3df0b8b 100644
 --- a/src/net/minecraft/client/gui/GuiGameOver.java
 +++ b/src/net/minecraft/client/gui/GuiGameOver.java
 @@ -1,137 +1,148 @@
@@ -17796,13 +17782,13 @@ index c737e46..d21f125 100644
 +            }
 +            
 +            //TODO: Client
-+            EventManager.death.fireEvent(new DeathEvent());
++            WurstClient.INSTANCE.eventManager.fireEvent(DeathEvent.class, new DeathEvent());
 +            SpamProcessor.runScript("death", "Runs whenever you die.");
 +        }
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiIngame.java b/src/net/minecraft/client/gui/GuiIngame.java
-index 6dbd34d..99acd21 100644
+index 6dbd34d..1af6fd3 100644
 --- a/src/net/minecraft/client/gui/GuiIngame.java
 +++ b/src/net/minecraft/client/gui/GuiIngame.java
 @@ -1,1194 +1,1284 @@
@@ -19398,7 +19384,7 @@ index 6dbd34d..99acd21 100644
 +            wr.addVertexWithUV((double)x + w, (double)y + 0, (double)this.zLevel, (double)((float)(u1 + fw) * 0.00390625F), (double)((float)(v1 + 0) * 0.00390625F));
 +            wr.addVertexWithUV((double)x + 0, (double)y + 0, (double)this.zLevel, (double)((float)(u1 + 0) * 0.00390625F), (double)((float)(v1 + 0) * 0.00390625F));
 +            ts.draw();
-+            EventManager.guiRender.fireEvent(new GUIRenderEvent());
++            WurstClient.INSTANCE.eventManager.fireEvent(GUIRenderEvent.class, new GUIRenderEvent());
 +            GL11.glDepthMask(true);
 +            GL11.glEnable(GL11.GL_DEPTH_TEST);
 +            GL11.glEnable(GL11.GL_ALPHA_TEST);
@@ -23086,10 +23072,10 @@ index da42542..fb12fbc 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..a49e7c9 100644
+index 1614678..5332ac5 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
-@@ -1,386 +1,402 @@
+@@ -1,386 +1,399 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -23478,8 +23464,6 @@ index 1614678..a49e7c9 100644
 -}
 +package net.minecraft.client.gui;
 +
-+import com.google.common.collect.Lists;
-+
 +import java.util.Iterator;
 +import java.util.List;
 +
@@ -23495,9 +23479,8 @@ index 1614678..a49e7c9 100644
 +
 +import tk.wurst_client.WurstClient;
 +import tk.wurst_client.events.ChatInputEvent;
-+import tk.wurst_client.events.EventManager;
-+import tk.wurst_client.mods.AntiSpamMod;
-+import tk.wurst_client.mods.Mod;
++
++import com.google.common.collect.Lists;
 +
 +public class GuiNewChat extends Gui
 +{
@@ -23630,7 +23613,7 @@ index 1614678..a49e7c9 100644
 +    {
 +    	//TODO: Client
 +    	ChatInputEvent event = new ChatInputEvent(p_146234_1_, field_146253_i);
-+    	EventManager.chatInput.fireEvent(event);
++    	WurstClient.INSTANCE.eventManager.fireEvent(ChatInputEvent.class, event);
 +    	if(event.isCancelled())
 +    		return;
 +    	p_146234_1_ = event.getComponent();
@@ -30064,7 +30047,7 @@ index e9db01f..18cbc00 100644
  import net.minecraft.block.state.IBlockState;
  import net.minecraft.client.Minecraft;
 diff --git a/src/net/minecraft/client/renderer/EntityRenderer.java b/src/net/minecraft/client/renderer/EntityRenderer.java
-index e32c68b..1838ea8 100644
+index e32c68b..654ae1c 100644
 --- a/src/net/minecraft/client/renderer/EntityRenderer.java
 +++ b/src/net/minecraft/client/renderer/EntityRenderer.java
 @@ -1,2052 +1,2095 @@
@@ -33631,7 +33614,7 @@ index e32c68b..1838ea8 100644
 +        this.mc.mcProfiler.endStartSection("hand");
 +
 +        //TODO: Client
-+        EventManager.render.fireEvent(new RenderEvent());
++        WurstClient.INSTANCE.eventManager.fireEvent(RenderEvent.class, new RenderEvent());
 +        
 +        if (this.field_175074_C)
 +        {
@@ -56664,7 +56647,7 @@ index 38b9ecd..f64dc7e 100644
              this.playerEntity.openContainer.setCanCraft(this.playerEntity, true);
          }
 diff --git a/src/net/minecraft/network/NetworkManager.java b/src/net/minecraft/network/NetworkManager.java
-index f05dadf..6c4a4c1 100644
+index f05dadf..3fedcdd 100644
 --- a/src/net/minecraft/network/NetworkManager.java
 +++ b/src/net/minecraft/network/NetworkManager.java
 @@ -1,479 +1,464 @@
@@ -57293,7 +57276,7 @@ index f05dadf..6c4a4c1 100644
 +		{
 +			//TODO: Client
 +			PacketInputEvent event = new PacketInputEvent(p_channelRead0_2_);
-+			EventManager.packetInput.fireEvent(event);
++			WurstClient.INSTANCE.eventManager.fireEvent(PacketInputEvent.class, event);
 +			if(event.isCancelled())
 +				return;
 +			
