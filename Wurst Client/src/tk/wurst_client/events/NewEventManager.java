@@ -39,7 +39,7 @@ public final class NewEventManager
 				firePacketInput((PacketInputEvent)event);
 			else if(type == RenderEvent.class)
 				fireRender();
-			else if(type == UpdateListener.class)
+			else if(type == UpdateEvent.class)
 				fireUpdate();
 			else
 				throw new IllegalArgumentException("Invalid event type: "
