@@ -68,7 +68,7 @@ public final class EventManager
 		Object[] listeners = listenerList.getListenerList();
 		for(int i = listeners.length - 2; i >= 0; i -= 2)
 		{
-			if(listeners[i] == ChatInputListener.class)
+			if(listeners[i] == ChatOutputListener.class)
 				((ChatOutputListener)listeners[i + 1]).onSentMessage(event);
 			if(event.isCancelled())
 				break;
