@@ -7,7 +7,9 @@
  */
 package tk.wurst_client.events.listeners;
 
-public interface Listener
+import java.util.EventListener;
+
+public interface Listener extends EventListener
 {	
 	
 }
