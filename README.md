@@ -2,12 +2,10 @@
 ![Wurst Client logo](https://cloud.githubusercontent.com/assets/10100202/6868084/c764a252-d488-11e4-94cf-1daa5e398c35.png)
 
 [![downloads](https://drive.google.com/uc?id=0B2YeSS9tm5zLMF9NWjNZYnNqSTA)](https://github.com/Wurst-Imperium/Wurst-Client/releases/latest)
-[![latest release](https://img.shields.io/github/release/Wurst-Imperium/Wurst-Client.svg?label=latest%20release)](https://github.com/Wurst-Imperium/Wurst-Client/releases/latest)
-
+[![latest release](https://img.shields.io/github/release/Wurst-Imperium/Wurst-Client.svg?label=latest%20release)](https://github.com/Wurst-Imperium/Wurst-Client/releases/latest)  
 [![mods](https://img.shields.io/badge/mods-90+-brightgreen.svg)](#)
 [![commands](https://img.shields.io/badge/commands-35+-brightgreen.svg)](#)
-[![hot, fresh & sexy](https://img.shields.io/badge/hot,%20fresh%20&%20sexy-100%-ff69e3.svg)](http://wizardhax.com/wurst)
-
+[![hot, fresh & sexy](https://img.shields.io/badge/hot,%20fresh%20&%20sexy-100%-ff69e3.svg)](http://wizardhax.com/wurst)  
 [![](https://img.shields.io/github/license/Wurst-Imperium/Wurst-Client.svg)](https://github.com/Wurst-Imperium/Wurst-Client/blob/master/LICENSE)
 [![analytics](https://img.shields.io/badge/analytics-GA-blue.svg)](https://github.com/igrigorik/ga-beacon)
 
