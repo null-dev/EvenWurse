@@ -1,6 +1,6 @@
-From 3c27e690313c81c1cc3a9a395c8142dc64b55620 Mon Sep 17 00:00:00 2001
+From c2728a9d18c1dee7d1f1708aef530c0fd7148fcc Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Thu, 23 Apr 2015 21:20:13 +0200
+Date: Wed, 27 May 2015 00:38:14 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -41,7 +41,7 @@ Subject: [PATCH] Wurst
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |    2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |    4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   | 1117 ++--
- src/net/minecraft/client/gui/GuiNewChat.java       |  785 +--
+ src/net/minecraft/client/gui/GuiNewChat.java       |  792 +--
  src/net/minecraft/client/gui/GuiOptionButton.java  |    1 +
  src/net/minecraft/client/gui/GuiOptionSlider.java  |    1 +
  src/net/minecraft/client/gui/GuiOptions.java       |    2 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28198 insertions(+), 26509 deletions(-)
+ 203 files changed, 28205 insertions(+), 26509 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -23070,10 +23070,10 @@ index da42542..fb12fbc 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..5332ac5 100644
+index 1614678..ff65464 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
-@@ -1,386 +1,399 @@
+@@ -1,386 +1,406 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -23645,7 +23645,14 @@ index 1614678..5332ac5 100644
 +
 +        while (this.field_146253_i.size() > 100)
 +        {
-+            this.field_146253_i.remove(this.field_146253_i.size() - 1);
++            try
++			{
++				this.field_146253_i.remove(this.field_146253_i.size() - 1);
++			}catch(IndexOutOfBoundsException e)
++			{
++				// Rarely gets thrown for no reason
++				// Might be a concurrent modification issue in vanilla MC
++			}
 +        }
 +
 +        if (!p_146237_4_)
@@ -58742,5 +58749,5 @@ index 89e46e6..7c964ae 100644
  import net.minecraft.crash.CrashReportCategory;
  import net.minecraft.nbt.NBTBase;
 -- 
-1.9.5.github.0
+2.0.0
 
