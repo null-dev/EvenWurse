@@ -23,7 +23,7 @@ public class WmsCmd extends Cmd
 		if(args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off"))
 			WurstClient.INSTANCE.chat
 				.setEnabled(args[0].equalsIgnoreCase("on"));
-		else if(args[0].equalsIgnoreCase("echo"))
+		else if(args[0].equalsIgnoreCase("echo") && args.length == 2)
 		{
 			String message = args[1];
 			for(int i = 2; i < args.length; i++)
