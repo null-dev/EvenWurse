@@ -1,6 +1,6 @@
-From c2728a9d18c1dee7d1f1708aef530c0fd7148fcc Mon Sep 17 00:00:00 2001
+From 0b9c0021f331a12fd53548f0be1ae29b3546c68f Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 27 May 2015 00:38:14 +0200
+Date: Wed, 27 May 2015 00:46:30 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -41,7 +41,7 @@ Subject: [PATCH] Wurst
  .../minecraft/client/gui/GuiMemoryErrorScreen.java |    2 +
  src/net/minecraft/client/gui/GuiMerchant.java      |    4 +
  src/net/minecraft/client/gui/GuiMultiplayer.java   | 1117 ++--
- src/net/minecraft/client/gui/GuiNewChat.java       |  792 +--
+ src/net/minecraft/client/gui/GuiNewChat.java       |  798 +--
  src/net/minecraft/client/gui/GuiOptionButton.java  |    1 +
  src/net/minecraft/client/gui/GuiOptionSlider.java  |    1 +
  src/net/minecraft/client/gui/GuiOptions.java       |    2 +
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28205 insertions(+), 26509 deletions(-)
+ 203 files changed, 28211 insertions(+), 26509 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -23070,10 +23070,10 @@ index da42542..fb12fbc 100644
 +    }
 +}
 diff --git a/src/net/minecraft/client/gui/GuiNewChat.java b/src/net/minecraft/client/gui/GuiNewChat.java
-index 1614678..ff65464 100644
+index 1614678..03e25bd 100644
 --- a/src/net/minecraft/client/gui/GuiNewChat.java
 +++ b/src/net/minecraft/client/gui/GuiNewChat.java
-@@ -1,386 +1,406 @@
+@@ -1,386 +1,412 @@
 -package net.minecraft.client.gui;
 -
 -import com.google.common.collect.Lists;
@@ -23622,48 +23622,54 @@ index 1614678..ff65464 100644
 +
 +    private void setChatLine(IChatComponent p_146237_1_, int p_146237_2_, int p_146237_3_, boolean p_146237_4_)
 +    {
-+        if (p_146237_2_ != 0)
-+        {
-+            this.deleteChatLine(p_146237_2_);
-+        }
-+
-+        int var5 = MathHelper.floor_float((float)this.getChatWidth() / this.getChatScale());
-+        List var6 = GuiUtilRenderComponents.func_178908_a(p_146237_1_, var5, this.mc.fontRendererObj, false, false);
-+        boolean var7 = this.getChatOpen();
-+        IChatComponent var9;
-+
-+        for (Iterator var8 = var6.iterator(); var8.hasNext(); this.field_146253_i.add(0, new ChatLine(p_146237_3_, var9, p_146237_2_)))
-+        {
-+            var9 = (IChatComponent)var8.next();
-+
-+            if (var7 && this.scrollPos > 0)
-+            {
-+                this.isScrolled = true;
-+                this.scroll(1);
-+            }
-+        }
-+
-+        while (this.field_146253_i.size() > 100)
-+        {
-+            try
++    	try
++		{
++			if(p_146237_2_ != 0)
++			{
++				this.deleteChatLine(p_146237_2_);
++			}
++			
++			int var5 =
++				MathHelper.floor_float((float)this.getChatWidth()
++					/ this.getChatScale());
++			List var6 =
++				GuiUtilRenderComponents.func_178908_a(p_146237_1_, var5,
++					this.mc.fontRendererObj, false, false);
++			boolean var7 = this.getChatOpen();
++			IChatComponent var9;
++			
++			for(Iterator var8 = var6.iterator(); var8.hasNext(); this.field_146253_i
++				.add(0, new ChatLine(p_146237_3_, var9, p_146237_2_)))
++			{
++				var9 = (IChatComponent)var8.next();
++				
++				if(var7 && this.scrollPos > 0)
++				{
++					this.isScrolled = true;
++					this.scroll(1);
++				}
++			}
++			
++			while(this.field_146253_i.size() > 100)
 +			{
 +				this.field_146253_i.remove(this.field_146253_i.size() - 1);
-+			}catch(IndexOutOfBoundsException e)
-+			{
-+				// Rarely gets thrown for no reason
-+				// Might be a concurrent modification issue in vanilla MC
 +			}
-+        }
-+
-+        if (!p_146237_4_)
-+        {
-+            this.chatLines.add(0, new ChatLine(p_146237_3_, p_146237_1_, p_146237_2_));
-+
-+            while (this.chatLines.size() > 100)
-+            {
-+                this.chatLines.remove(this.chatLines.size() - 1);
-+            }
-+        }
++			
++			if(!p_146237_4_)
++			{
++				this.chatLines.add(0, new ChatLine(p_146237_3_, p_146237_1_,
++					p_146237_2_));
++				
++				while(this.chatLines.size() > 100)
++				{
++					this.chatLines.remove(this.chatLines.size() - 1);
++				}
++			}
++		}catch(IndexOutOfBoundsException e)
++    	{
++    		// Rarely gets thrown for no reason
++    		// Might be a concurrent modification issue
++    	}
 +    }
 +
 +    public void refreshChat()
