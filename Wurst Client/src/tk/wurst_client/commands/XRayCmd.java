@@ -55,6 +55,9 @@ public class XRayCmd extends Cmd
 				}
 			}else
 				syntaxError();
+		}else if(args.length < 2)
+		{
+			syntaxError();
 		}else if(args[0].equalsIgnoreCase("add"))
 		{
 			if(args[1].equalsIgnoreCase("id") && MiscUtils.isInteger(args[2]))
