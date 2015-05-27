@@ -67,6 +67,7 @@ public class LsdMod extends Mod implements UpdateListener
 			Minecraft.getMinecraft().entityRenderer.theShaderGroup = null;
 		}
 		Tessellator.shouldRenderLSD = false;
+		Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 	}
 	
 	public static Color randomColor()
