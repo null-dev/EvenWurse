@@ -35,7 +35,8 @@ public class StepMod extends Mod implements UpdateListener
 				&& Minecraft.getMinecraft().thePlayer.onGround)
 				Minecraft.getMinecraft().thePlayer.jump();
 		}else
-			Minecraft.getMinecraft().thePlayer.stepHeight = 1.0F;
+			Minecraft.getMinecraft().thePlayer.stepHeight =
+				isEnabled() ? 1.0F : 0.5F;
 	}
 	
 	@Override
