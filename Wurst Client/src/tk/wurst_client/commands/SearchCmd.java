@@ -28,7 +28,7 @@ public class SearchCmd extends Cmd
 			WurstClient.INSTANCE.chat.message("Search turned "
 				+ (WurstClient.INSTANCE.modManager.getModByClass(
 					SearchMod.class).isEnabled() == true ? "on" : "off") + ".");
-		}else
+		}else if(args.length == 2)
 		{
 			SearchMod search =
 				(SearchMod)WurstClient.INSTANCE.modManager
@@ -55,8 +55,8 @@ public class SearchCmd extends Cmd
 				search.notify = true;
 				WurstClient.INSTANCE.chat.message("Search ID set to " + newID
 					+ " (" + args[1] + ").");
-			}else
-				syntaxError();
-		}
+			}
+		}else
+			syntaxError();
 	}
 }
