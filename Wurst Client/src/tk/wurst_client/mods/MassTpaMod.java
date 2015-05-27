@@ -8,7 +8,7 @@
 package tk.wurst_client.mods;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -32,6 +32,7 @@ public class MassTpaMod extends Mod implements UpdateListener,
 	private float speed = 1F;
 	private int i;
 	private ArrayList<String> players;
+	Random random = new Random();
 	
 	@Override
 	public void onEnable()
@@ -43,16 +44,7 @@ public class MassTpaMod extends Mod implements UpdateListener,
 		while(itr.hasNext())
 			players.add(StringUtils.stripControlCodes(((NetworkPlayerInfo)itr
 				.next()).getPlayerNameForReal()));
-		players.sort(new Comparator<String>()
-		{
-			Random random = new Random();
-			
-			@Override
-			public int compare(String o1, String o2)
-			{
-				return random.nextInt();
-			}
-		});
+		Collections.shuffle(players, random);
 		WurstClient.INSTANCE.eventManager.add(ChatInputListener.class, this);
 		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
