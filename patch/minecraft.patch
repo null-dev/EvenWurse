@@ -1,6 +1,6 @@
-From 0b9c0021f331a12fd53548f0be1ae29b3546c68f Mon Sep 17 00:00:00 2001
+From 4c3542fd329cb5eb344cdcc53d50930a6ff481df Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 27 May 2015 00:46:30 +0200
+Date: Wed, 27 May 2015 23:55:32 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -26,7 +26,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/client/gui/GuiCreateWorld.java   |    3 +
  src/net/minecraft/client/gui/GuiCustomizeSkin.java |    2 +
  .../client/gui/GuiCustomizeWorldScreen.java        |    5 +-
- src/net/minecraft/client/gui/GuiDisconnected.java  |  224 +-
+ src/net/minecraft/client/gui/GuiDisconnected.java  |  227 +-
  src/net/minecraft/client/gui/GuiEnchantment.java   |    2 +-
  src/net/minecraft/client/gui/GuiErrorScreen.java   |    2 +
  src/net/minecraft/client/gui/GuiFlatPresets.java   |    6 +-
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28211 insertions(+), 26509 deletions(-)
+ 203 files changed, 28214 insertions(+), 26509 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -17207,10 +17207,10 @@ index 94b72e0..89e3d7f 100644
              var7.addVertexWithUV((double)(this.width / 2 + 90), 185.0D, 0.0D, 5.625D, 2.65625D);
              var7.addVertexWithUV((double)(this.width / 2 + 90), 100.0D, 0.0D, 5.625D, 0.0D);
 diff --git a/src/net/minecraft/client/gui/GuiDisconnected.java b/src/net/minecraft/client/gui/GuiDisconnected.java
-index 957deda..018e285 100644
+index 957deda..370dbcd 100644
 --- a/src/net/minecraft/client/gui/GuiDisconnected.java
 +++ b/src/net/minecraft/client/gui/GuiDisconnected.java
-@@ -1,70 +1,154 @@
+@@ -1,70 +1,157 @@
 -package net.minecraft.client.gui;
 -
 -import java.io.IOException;
@@ -17358,21 +17358,24 @@ index 957deda..018e285 100644
 +    {
 +        super.updateScreen();
 +        if(WurstClient.INSTANCE.options.autoReconnect)
-+        {
-+        	((GuiButton)this.buttonList.get(2)).displayString = "AutoReconnect (" + ((this.autoReconnectTimer / 20) + 1) + ")";
-+        	if(this.autoReconnectTimer > 0)
-+        		this.autoReconnectTimer--;
-+        	else
-+        	{
-+        		try
++		{
++			if(buttonList.size() < 2)
++				return;
++			((GuiButton)this.buttonList.get(2)).displayString =
++				"AutoReconnect (" + ((this.autoReconnectTimer / 20) + 1) + ")";
++			if(this.autoReconnectTimer > 0)
++				this.autoReconnectTimer--;
++			else
++			{
++				try
 +				{
 +					this.actionPerformed((GuiButton)this.buttonList.get(1));
 +				}catch(IOException e)
 +				{
 +					e.printStackTrace();
 +				}
-+        	}
-+        }
++			}
++		}
 +        else
 +        {
 +        	((GuiButton)this.buttonList.get(2)).displayString = "AutoReconnect";
