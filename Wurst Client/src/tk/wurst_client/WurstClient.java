@@ -27,7 +27,7 @@ public enum WurstClient
 {
 	INSTANCE;
 	
-	public static final String VERSION = "1.14";
+	public static final String VERSION = "1.14.1";
 	public String currentServerIP = "127.0.0.1:25565";
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
