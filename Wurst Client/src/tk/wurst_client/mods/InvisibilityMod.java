@@ -8,8 +8,6 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -23,9 +21,8 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "Invisibility")
 public class InvisibilityMod extends Mod implements UpdateListener
 {
-	private boolean isInvisible;
-	
-	public InvisibilityMod()
+	@Override
+	public void onEnable()
 	{
 		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
@@ -46,21 +43,14 @@ public class InvisibilityMod extends Mod implements UpdateListener
 			{
 				// Respawning too early for server-side invisibility
 				Minecraft.getMinecraft().thePlayer.respawnPlayer();
-				isInvisible = true;
+				WurstClient.INSTANCE.chat
+					.message("You should now be invisible.");
 			}else
-				isInvisible = false;
-		if(isInvisible)
-		{
-			// Potion effect for client-side invisibility
-			Minecraft.getMinecraft().thePlayer.setInvisible(true);
-			Minecraft.getMinecraft().thePlayer
-				.addPotionEffect(new PotionEffect(Potion.invisibility.getId(),
-					10801220));
-		}else
-		{
-			Minecraft.getMinecraft().thePlayer.setInvisible(false);
-			Minecraft.getMinecraft().thePlayer
-				.removePotionEffect(Potion.invisibility.getId());
-		}
+			{
+				WurstClient.INSTANCE.chat
+					.message("You are no longer invisible.");
+				WurstClient.INSTANCE.eventManager.remove(UpdateListener.class,
+					this);
+			}
 	}
 }
