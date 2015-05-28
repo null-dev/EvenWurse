@@ -1,6 +1,6 @@
-From 4c3542fd329cb5eb344cdcc53d50930a6ff481df Mon Sep 17 00:00:00 2001
+From 1c0931904ebc39603f00bf00e14d0970ef1fe97a Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Wed, 27 May 2015 23:55:32 +0200
+Date: Thu, 28 May 2015 21:40:37 +0200
 Subject: [PATCH] Wurst
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] Wurst
  src/net/minecraft/block/BlockSlab.java             |  376 +-
  src/net/minecraft/block/BlockSoulSand.java         |   74 +-
  .../minecraft/client/LoadingScreenRenderer.java    |   10 +-
- src/net/minecraft/client/Minecraft.java            | 6852 ++++++++++----------
+ src/net/minecraft/client/Minecraft.java            | 6853 ++++++++++----------
  src/net/minecraft/client/audio/SoundManager.java   | 1188 ++--
  .../client/entity/AbstractClientPlayer.java        |  267 +-
  .../minecraft/client/entity/EntityPlayerSP.java    | 1771 ++---
@@ -207,7 +207,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |    3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |    1 +
  .../world/gen/structure/MapGenStructure.java       |    2 +
- 203 files changed, 28214 insertions(+), 26509 deletions(-)
+ 203 files changed, 28215 insertions(+), 26509 deletions(-)
 
 diff --git a/src/net/minecraft/block/Block.java b/src/net/minecraft/block/Block.java
 index 5c07aa4..2655c9c 100644
@@ -4596,10 +4596,10 @@ index 555f15e..0f81893 100644
  
                  if (OpenGlHelper.isFramebufferEnabled())
 diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
-index f503b64..3794d1b 100644
+index f503b64..2f339db 100644
 --- a/src/net/minecraft/client/Minecraft.java
 +++ b/src/net/minecraft/client/Minecraft.java
-@@ -1,3306 +1,3546 @@
+@@ -1,3306 +1,3547 @@
 -package net.minecraft.client;
 -
 -import com.google.common.collect.Iterables;
@@ -9304,7 +9304,8 @@ index f503b64..3794d1b 100644
 +    public void func_175601_h()
 +    {
 +        this.mcProfiler.startSection("display_update");
-+        Display.update();
++        if(!WurstBot.isEnabled())
++        	Display.update();
 +        this.mcProfiler.endSection();
 +        this.func_175604_i();
 +    }
