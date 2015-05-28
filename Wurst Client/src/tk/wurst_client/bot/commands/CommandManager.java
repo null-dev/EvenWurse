@@ -28,7 +28,6 @@ public class CommandManager
 	public CommandManager()
 	{
 		addCommand(new ChatCmd());
-		addCommand(new DebugCmd());
 		addCommand(new FixmeCmd());
 		addCommand(new HelpCmd());
 		addCommand(new JoinCmd());
