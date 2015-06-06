@@ -7,6 +7,9 @@
  */
 package tk.wurst_client.mods;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -15,7 +18,6 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging.Action;
 import net.minecraft.network.play.client.C0APacketAnimation;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.LeftClickListener;
 import tk.wurst_client.events.listeners.RenderListener;
@@ -200,67 +202,58 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	
 	private BlockPos find()
 	{
-		BlockPos closest = null;
 		NukerMod nuker =
 			(NukerMod)WurstClient.INSTANCE.modManager
 				.getModByClass(NukerMod.class);
-		float closestDistance = nuker.yesCheatRange + 1;
-		for(int y = (int)nuker.yesCheatRange; y >= (WurstClient.INSTANCE.options.nukerMode == 2
-			? 0 : -nuker.yesCheatRange); y--)
-			for(int x = (int)nuker.yesCheatRange; x >= -nuker.yesCheatRange - 1; x--)
-				for(int z = (int)nuker.yesCheatRange; z >= -nuker.yesCheatRange; z--)
+		LinkedList<BlockPos> queue = new LinkedList<BlockPos>();
+		HashSet<BlockPos> alreadyProcessed = new HashSet<BlockPos>();
+		queue.add(new BlockPos(Minecraft.getMinecraft().thePlayer));
+		while(!queue.isEmpty())
+		{
+			BlockPos currentPos = queue.poll();
+			if(alreadyProcessed.contains(currentPos))
+				continue;
+			alreadyProcessed.add(currentPos);
+			if(BlockUtils.getPlayerBlockDistance(currentPos) > nuker.yesCheatRange)
+				continue;
+			int currentID =
+				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+					.getBlockState(currentPos).getBlock());
+			if(currentID != 0)
+				switch(WurstClient.INSTANCE.options.nukerMode)
 				{
-					if(Minecraft.getMinecraft().thePlayer == null)
-						continue;
-					int posX =
-						(int)(Math
-							.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
-					int posY =
-						(int)(Math
-							.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
-					int posZ =
-						(int)(Math
-							.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
-					BlockPos blockPos = new BlockPos(posX, posY, posZ);
-					Block block =
-						Minecraft.getMinecraft().theWorld.getBlockState(
-							blockPos).getBlock();
-					float xDiff =
-						(float)(Minecraft.getMinecraft().thePlayer.posX - posX);
-					float yDiff =
-						(float)(Minecraft.getMinecraft().thePlayer.posY - posY);
-					float zDiff =
-						(float)(Minecraft.getMinecraft().thePlayer.posZ - posZ);
-					float currentDistance =
-						BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
-					MovingObjectPosition fakeObjectMouseOver =
-						Minecraft.getMinecraft().objectMouseOver;
-					if(fakeObjectMouseOver == null)
-						continue;
-					fakeObjectMouseOver.setBlockPos(blockPos);
-					if(Block.getIdFromBlock(block) != 0 && posY >= 0
-						&& currentDistance <= nuker.yesCheatRange)
-					{
-						if(WurstClient.INSTANCE.options.nukerMode == 1
-							&& Block.getIdFromBlock(block) != NukerMod.id)
-							continue;
-						if(WurstClient.INSTANCE.options.nukerMode == 3
-							&& block.getPlayerRelativeBlockHardness(
+					case 1:
+						if(currentID == NukerMod.id)
+							return currentPos;
+						break;
+					case 2:
+						if(currentPos.getY() >= Minecraft.getMinecraft().thePlayer.posY)
+							return currentPos;
+						break;
+					case 3:
+						if(Minecraft.getMinecraft().theWorld
+							.getBlockState(currentPos)
+							.getBlock()
+							.getPlayerRelativeBlockHardness(
 								Minecraft.getMinecraft().thePlayer,
-								Minecraft.getMinecraft().theWorld, blockPos) < 1)
-							continue;
-						side = fakeObjectMouseOver.sideHit;
-						if(closest == null)
-						{
-							closest = blockPos;
-							closestDistance = currentDistance;
-						}else if(currentDistance < closestDistance)
-						{
-							closest = blockPos;
-							closestDistance = currentDistance;
-						}
-					}
+								Minecraft.getMinecraft().theWorld, currentPos) >= 1)
+							return currentPos;
+						break;
+					default:
+						return currentPos;
 				}
-		return closest;
+			if(!Minecraft.getMinecraft().theWorld.getBlockState(currentPos)
+				.getBlock().getMaterial().blocksMovement())
+			{
+				queue.add(currentPos.add(0, 0, -1));// north
+				queue.add(currentPos.add(0, 0, 1));// south
+				queue.add(currentPos.add(-1, 0, 0));// west
+				queue.add(currentPos.add(1, 0, 0));// east
+				queue.add(currentPos.add(0, -1, 0));// down
+				queue.add(currentPos.add(0, 1, 0));// up
+			}
+		}
+		return null;
+		
 	}
 }
