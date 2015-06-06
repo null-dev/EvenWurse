@@ -245,11 +245,9 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	
 	private BlockPos find()
 	{
-		BlockPos closest = null;
 		LinkedList<BlockPos> queue = new LinkedList<BlockPos>();
 		HashSet<BlockPos> alreadyProcessed = new HashSet<BlockPos>();
 		queue.add(new BlockPos(Minecraft.getMinecraft().thePlayer));
-		
 		while(!queue.isEmpty())
 		{
 			BlockPos currentPos = queue.poll();
@@ -297,8 +295,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 				queue.add(currentPos.add(0, 1, 0));// up
 			}
 		}
-		
-		return closest;
+		return null;
 	}
 	
 	private void nukeAll()
