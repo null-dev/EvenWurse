@@ -29,6 +29,8 @@ public class RemoteViewMod extends Mod implements UpdateListener
 	private double oldX;
 	private double oldY;
 	private double oldZ;
+	private float oldYaw;
+	private float oldPitch;
 	private EntityLivingBase otherView = null;
 	private static UUID otherID = null;
 	private boolean wasInvisible;
@@ -45,6 +47,8 @@ public class RemoteViewMod extends Mod implements UpdateListener
 		oldX = Minecraft.getMinecraft().thePlayer.posX;
 		oldY = Minecraft.getMinecraft().thePlayer.posY;
 		oldZ = Minecraft.getMinecraft().thePlayer.posZ;
+		oldYaw = Minecraft.getMinecraft().thePlayer.rotationYaw;
+		oldPitch = Minecraft.getMinecraft().thePlayer.rotationPitch;
 		Minecraft.getMinecraft().thePlayer.noClip = true;
 		if(otherID == null)
 			otherID = EntityUtils.getClosestEntityRaw(false).getUniqueID();
@@ -107,9 +111,7 @@ public class RemoteViewMod extends Mod implements UpdateListener
 				+ otherView.getName() + ".");
 			otherView.setInvisible(wasInvisible);
 			Minecraft.getMinecraft().thePlayer.noClip = false;
-			Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX,
-				oldY, oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
-				Minecraft.getMinecraft().thePlayer.rotationPitch);
+			Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY, oldZ, oldYaw, oldPitch);
 			Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
 		}
 		newView = null;
