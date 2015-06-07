@@ -34,7 +34,7 @@ public class AutoWalkMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 	}
 }
