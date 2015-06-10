@@ -10344,7 +10344,7 @@ index f503b64..2f339db 100644
 +
 +            this.mcProfiler.endStartSection("animateTick");
 +
-+            if (!this.isGamePaused && this.theWorld != null)
++            if (!this.isGamePaused && this.theWorld != null && !WurstClient.INSTANCE.modManager.getModByName("Freecam").isEnabled())
 +            {
 +                this.theWorld.doVoidFogParticles(MathHelper.floor_double(this.thePlayer.posX), MathHelper.floor_double(this.thePlayer.posY), MathHelper.floor_double(this.thePlayer.posZ));
 +            }
