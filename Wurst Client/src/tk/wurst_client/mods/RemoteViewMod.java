@@ -59,7 +59,8 @@ public class RemoteViewMod extends Mod implements UpdateListener
 			new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld,
 				Minecraft.getMinecraft().thePlayer.getGameProfile());
 		fakePlayer.clonePlayer(Minecraft.getMinecraft().thePlayer, true);
-		fakePlayer.posY -= 1.62;
+		fakePlayer
+		.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
