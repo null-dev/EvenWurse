@@ -63,25 +63,33 @@ public class GuiKeybindManager extends GuiScreen
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
 				mc.displayGuiScreen(new GuiKeybindChange(this, null));
-			else if(clickedButton.id == 1)
-			{
-				Entry<String, String> entry =
-					WurstClient.INSTANCE.keybinds.entrySet().toArray(
-						new Entry[WurstClient.INSTANCE.keybinds.size()])[bindList
-						.getSelectedSlot()];
-				mc.displayGuiScreen(new GuiKeybindChange(this, entry));
-			}else if(clickedButton.id == 2)
-			{
-				Entry<String, String> entry =
-					WurstClient.INSTANCE.keybinds.entrySet().toArray(
-						new Entry[WurstClient.INSTANCE.keybinds.size()])[bindList
-						.getSelectedSlot()];
-				WurstClient.INSTANCE.keybinds.remove(entry.getKey());
-				WurstClient.INSTANCE.fileManager.saveKeybinds();
-				WurstClient.INSTANCE.analytics.trackEvent("keybinds", "remove",
-					entry.getKey());
-			}else if(clickedButton.id == 3)
+			else if(clickedButton.id == 3)
 				mc.displayGuiScreen(prevMenu);
+			else
+			{
+				if(bindList.getSelectedSlot() > WurstClient.INSTANCE.keybinds
+					.size())
+					bindList.elementClicked(
+						WurstClient.INSTANCE.keybinds.size(), false, 0, 0);
+				if(clickedButton.id == 1)
+				{
+					Entry<String, String> entry =
+						WurstClient.INSTANCE.keybinds.entrySet().toArray(
+							new Entry[WurstClient.INSTANCE.keybinds.size()])[bindList
+							.getSelectedSlot()];
+					mc.displayGuiScreen(new GuiKeybindChange(this, entry));
+				}else if(clickedButton.id == 2)
+				{
+					Entry<String, String> entry =
+						WurstClient.INSTANCE.keybinds.entrySet().toArray(
+							new Entry[WurstClient.INSTANCE.keybinds.size()])[bindList
+							.getSelectedSlot()];
+					WurstClient.INSTANCE.keybinds.remove(entry.getKey());
+					WurstClient.INSTANCE.fileManager.saveKeybinds();
+					WurstClient.INSTANCE.analytics.trackEvent("keybinds",
+						"remove", entry.getKey());
+				}
+			}
 	}
 	
 	/**
