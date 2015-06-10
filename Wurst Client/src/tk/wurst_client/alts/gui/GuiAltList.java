@@ -86,6 +86,8 @@ public class GuiAltList extends GuiWurstSlot
 	
 	protected int getSelectedSlot()
 	{
+		if(selectedSlot > alts.size())
+			selectedSlot = alts.size();
 		return selectedSlot;
 	}
 	
