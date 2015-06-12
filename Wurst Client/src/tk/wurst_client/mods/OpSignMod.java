@@ -29,6 +29,14 @@ public class OpSignMod extends Mod
 	@Override
 	public void onEnable()
 	{
+		if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(0) != null
+			|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+		{
+			WurstClient.INSTANCE.chat
+				.error("Please clear the first slot in your hotbar.");
+			setEnabled(false);
+			return;
+		}
 		ItemStack stack =
 			new ItemStack(Item.getByNameOrId("minecraft:sign"), 1);
 		NBTBase nbtTest = null;
@@ -44,13 +52,6 @@ public class OpSignMod extends Mod
 			throw new IllegalStateException("Failed to create NBT data.", e);
 		}
 		stack.setTagCompound((NBTTagCompound)nbtTest);
-		if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(0) != null)
-		{
-			WurstClient.INSTANCE.chat
-				.error("Please clear the first slot in your hotbar.");
-			setEnabled(false);
-			return;
-		}
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C10PacketCreativeInventoryAction(36, stack));
 		WurstClient.INSTANCE.chat
