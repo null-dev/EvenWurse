@@ -30,7 +30,7 @@ public class OpSignMod extends Mod
 	public void onEnable()
 	{
 		if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(0) != null
-			|| !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+			|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
 			WurstClient.INSTANCE.chat
 				.error("Please clear the first slot in your hotbar.");
@@ -44,9 +44,9 @@ public class OpSignMod extends Mod
 		{
 			nbtTest =
 				JsonToNBT
-					.func_180713_a("{BlockEntityTag:{Text1:\"{text:\\\"\\\",clickEvent:{action:run_command,value:\\\"/title "
-						//+ Minecraft.getMinecraft().session.getUsername()
-						+ "@a title www.Wurst-Client.tk\\\"}}\",},}");
+					.func_180713_a("{BlockEntityTag:{Text1:\"{text:\\\"\\\",clickEvent:{action:run_command,value:\\\"/op "
+						+ Minecraft.getMinecraft().session.getUsername()
+						+ "\\\"}}\",},}");
 		}catch(NBTException e)
 		{
 			throw new IllegalStateException("Failed to create NBT data.", e);
