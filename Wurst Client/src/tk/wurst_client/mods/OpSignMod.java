@@ -30,7 +30,7 @@ public class OpSignMod extends Mod
 	public void onEnable()
 	{
 		if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(0) != null
-			|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+			|| !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
 			WurstClient.INSTANCE.chat
 				.error("Please clear the first slot in your hotbar.");
