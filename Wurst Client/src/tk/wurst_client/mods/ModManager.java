@@ -97,6 +97,7 @@ public class ModManager
 		addMod(new NoWebMod());
 		addMod(new NukerMod());
 		addMod(new NukerLegitMod());
+		addMod(new OpSignMod());
 		addMod(new OverlayMod());
 		addMod(new PanicMod());
 		addMod(new PhaseMod());
