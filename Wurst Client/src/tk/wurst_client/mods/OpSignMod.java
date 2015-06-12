@@ -29,11 +29,15 @@ public class OpSignMod extends Mod
 	@Override
 	public void onEnable()
 	{
-		if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(0) != null
-			|| !Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+		if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(0) != null)
 		{
 			WurstClient.INSTANCE.chat
 				.error("Please clear the first slot in your hotbar.");
+			setEnabled(false);
+			return;
+		}else if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+		{
+			WurstClient.INSTANCE.chat.error("Creative mode only.");
 			setEnabled(false);
 			return;
 		}
