@@ -49,7 +49,6 @@ public class CmdBlockMod extends Mod
 		nbtTagCompound.setTag("Command", new NBTTagString(cmd));
 		stack.writeToNBT(nbtTagCompound);
 		stack.setTagInfo("BlockEntityTag", nbtTagCompound);
-		System.out.println(stack.getTagCompound());
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C10PacketCreativeInventoryAction(36, stack));
 		WurstClient.INSTANCE.chat.message("Command Block created.");
