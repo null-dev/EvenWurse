@@ -120,6 +120,7 @@ public class ModManager
 		addMod(new TimerMod());
 		addMod(new TracersMod());
 		addMod(new TriggerBotMod());
+		addMod(new TrollPotionMod());
 		addMod(new TrueSightMod());
 		addMod(new TunnellerMod());
 		addMod(new XRayMod());
