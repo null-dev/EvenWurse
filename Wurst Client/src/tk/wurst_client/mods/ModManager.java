@@ -57,6 +57,7 @@ public class ModManager
 		addMod(new ClickGuiMod());
 		addMod(new CmdBlockMod());
 		addMod(new CrashChestMod());
+		addMod(new CrashItemMod());
 		addMod(new CriticalsMod());
 		addMod(new DerpMod());
 		addMod(new DolphinMod());
