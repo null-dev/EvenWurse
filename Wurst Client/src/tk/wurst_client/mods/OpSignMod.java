@@ -25,7 +25,7 @@ import tk.wurst_client.opsign.gui.GuiOpSign;
 		+ "Can also be used to run any other command.\n"
 		+ "Patched in Minecraft 1.8.6! Only works on servers running 1.8.5 and\n"
 		+ "older versions.",
-	name = "OP Sign")
+	name = "OP-Sign")
 public class OpSignMod extends Mod
 {
 	@Override
