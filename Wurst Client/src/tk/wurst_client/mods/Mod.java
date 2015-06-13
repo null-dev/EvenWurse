@@ -36,6 +36,7 @@ public class Mod
 		BLOCKS,
 		CHAT,
 		COMBAT,
+		EXPLOITS,
 		FUN,
 		HIDDEN,
 		RENDER,

@@ -20,7 +20,7 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.opsign.gui.GuiOpSign;
 
-@Info(category = Category.MISC,
+@Info(category = Category.EXPLOITS,
 	description = "Gives you a ForceOP Sign. Place & click it to get OP.\n"
 		+ "Can also be used to run any other command.\n"
 		+ "Patched in Minecraft 1.8.6! Only works on servers running 1.8.5 and\n"
