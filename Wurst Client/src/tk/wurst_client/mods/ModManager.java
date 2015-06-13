@@ -55,6 +55,7 @@ public class ModManager
 		addMod(new CaveFinderMod());
 		addMod(new ChestEspMod());
 		addMod(new ClickGuiMod());
+		addMod(new CrashChestMod());
 		addMod(new CriticalsMod());
 		addMod(new DerpMod());
 		addMod(new DolphinMod());
