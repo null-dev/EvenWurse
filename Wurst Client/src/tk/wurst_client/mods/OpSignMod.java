@@ -18,9 +18,11 @@ import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.opsign.gui.GuiOpSign;
 
 @Info(category = Category.MISC,
 	description = "Gives you a ForceOP Sign. Place & click it to get OP.\n"
+		+ "Can also be used to run any other command.\n"
 		+ "Patched in Minecraft 1.8.6! Only works on servers running 1.8.5 and\n"
 		+ "older versions.",
 	name = "OP Sign")
@@ -41,6 +43,14 @@ public class OpSignMod extends Mod
 			setEnabled(false);
 			return;
 		}
+		Minecraft.getMinecraft().displayGuiScreen(
+			new GuiOpSign(this, Minecraft.getMinecraft().currentScreen));
+		setEnabled(false);
+	}
+	
+	public void createSign(String cmd)
+	{
+
 		ItemStack stack =
 			new ItemStack(Item.getByNameOrId("minecraft:sign"), 1);
 		NBTBase nbtTest = null;
@@ -48,8 +58,8 @@ public class OpSignMod extends Mod
 		{
 			nbtTest =
 				JsonToNBT
-					.func_180713_a("{BlockEntityTag:{Text1:\"{text:\\\"\\\",clickEvent:{action:run_command,value:\\\"/op "
-						+ Minecraft.getMinecraft().session.getUsername()
+					.func_180713_a("{BlockEntityTag:{Text1:\"{text:\\\"\\\",clickEvent:{action:run_command,value:\\\""
+						+ cmd.replace("\"", "\\\\\"")
 						+ "\\\"}}\",},}");
 		}catch(NBTException e)
 		{
@@ -60,6 +70,5 @@ public class OpSignMod extends Mod
 			.addToSendQueue(new C10PacketCreativeInventoryAction(36, stack));
 		WurstClient.INSTANCE.chat
 			.message("OP Sign created. Place & click it to get OP.");
-		setEnabled(false);
 	}
 }
