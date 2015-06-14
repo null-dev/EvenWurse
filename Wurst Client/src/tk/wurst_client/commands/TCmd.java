@@ -31,9 +31,9 @@ public class TCmd extends Cmd
 			error("Could not find mod \"" + args[0] + "\".");
 		if(mode == 0)
 			mod.toggle();
-		else if(mode == 1 && !WurstClient.INSTANCE.modManager.getModByName(mod).isEnabled())
+		else if(mode == 1 && !mod.isEnabled())
 			mod.setEnabled(true);
-		else if(mode == 2 && WurstClient.INSTANCE.modManager.getModByName(mod).isEnabled())
+		else if(mode == 2 && mod.isEnabled())
 			mod.setEnabled(false);
 	}
 }
