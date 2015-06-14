@@ -1,6 +1,5 @@
-# Wurst Client![](https://ga-beacon.appspot.com/UA-52838431-1/GitHub/README.md?pixel)
 ![Wurst Client logo](https://cloud.githubusercontent.com/assets/10100202/6868084/c764a252-d488-11e4-94cf-1daa5e398c35.png)
-
+![](https://ga-beacon.appspot.com/UA-52838431-1/GitHub/README.md?pixel)
 [![downloads](https://drive.google.com/uc?id=0B2YeSS9tm5zLMF9NWjNZYnNqSTA)](https://github.com/Wurst-Imperium/Wurst-Client/releases/latest)
 [![latest release](https://img.shields.io/github/release/Wurst-Imperium/Wurst-Client.svg?label=latest%20release)](https://github.com/Wurst-Imperium/Wurst-Client/releases/latest)  
 [![mods](https://img.shields.io/badge/mods-90+-brightgreen.svg)](#)
