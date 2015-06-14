@@ -8,6 +8,7 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.play.client.C03PacketPlayer;
 
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
@@ -17,8 +18,8 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
-@Info(category = Category.MOVEMENT, description = "Makes you fly.\n"
-	+ "This is one of the oldest hacks in Minecraft.", name = "Flight")
+@Info(category = Category.MOVEMENT, description = "Allows you to you fly.\n"
+	+ "Bypasses NoCheat+ if YesCheat+ is enabled.", name = "Flight")
 public class FlightMod extends Mod implements UpdateListener
 {
 	public float speed = 1F;
@@ -39,6 +40,23 @@ public class FlightMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
+		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			.isEnabled())
+		{
+			double posX = Minecraft.getMinecraft().thePlayer.posX;
+			double posY = Minecraft.getMinecraft().thePlayer.posY;
+			double posZ = Minecraft.getMinecraft().thePlayer.posZ;
+			for(int i = 0; i < 4; i++)
+			{
+				Minecraft.getMinecraft().thePlayer.sendQueue
+					.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(
+						posX, posY + 1.01, posZ, false));
+				Minecraft.getMinecraft().thePlayer.sendQueue
+					.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(
+						posX, posY, posZ, false));
+			}
+			Minecraft.getMinecraft().thePlayer.jump();
+		}
 		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
@@ -48,8 +66,8 @@ public class FlightMod extends Mod implements UpdateListener
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
 			.isEnabled())
 		{
-			noCheatMessage();
-			setEnabled(false);
+			if(!Minecraft.getMinecraft().thePlayer.onGround)
+				Minecraft.getMinecraft().thePlayer.motionY = -0.02;
 		}else
 		{
 			Minecraft.getMinecraft().thePlayer.capabilities.isFlying = false;
