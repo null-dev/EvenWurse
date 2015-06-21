@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * Copyright Â© 2014 - 2015 | Alexander01998 | All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -40,6 +40,10 @@ public class FlightMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
+		if(WurstClient.INSTANCE.modManager
+			.getModByClass(JesusMod.class).isEnabled())
+			WurstClient.INSTANCE.modManager.getModByClass(
+				JesusMod.class).setEnabled(false);
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
 			.isEnabled())
 		{
