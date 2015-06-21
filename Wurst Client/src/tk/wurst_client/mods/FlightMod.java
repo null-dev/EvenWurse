@@ -41,9 +41,9 @@ public class FlightMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		if(WurstClient.INSTANCE.modManager
-			.getModByClass(JesusMod.class).isEnabled())
+			.getModByClass(JetpackMod.class).isEnabled())
 			WurstClient.INSTANCE.modManager.getModByClass(
-				JesusMod.class).setEnabled(false);
+				JetpackMod.class).setEnabled(false);
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
 			.isEnabled())
 		{
