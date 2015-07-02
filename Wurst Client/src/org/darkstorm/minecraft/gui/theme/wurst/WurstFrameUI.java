@@ -50,10 +50,10 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
-		// Draw frame background
 		if(component.isMinimized())
 			area.height = fontHeight + 4;
+		
+		// title bar background
 		RenderUtil.setColor(titleBarBG);
 		glBegin(GL_QUADS);
 		{
@@ -63,7 +63,9 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			glVertex2d(0, fontHeight + 4);
 		}
 		glEnd();
-		RenderUtil.setColor(component.getBackgroundColor());
+		
+		// frame background
+		RenderUtil.setColor(background);
 		glBegin(GL_QUADS);
 		{
 			glVertex2d(0, fontHeight + 4);
@@ -531,20 +533,25 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			glEnd();
 			offset -= fontHeight + 2;
 		}
+		
+		// title bar
 		if(!component.isMinimized())
 		{
-			glColor4f(0f, 0f, 0f, 1f);
-			glLineWidth(1f);
-			glBegin(GL_LINES);
+			glBegin(GL_POLYGON);
 			{
-				glVertex2d(0, theme.getFontRenderer().FONT_HEIGHT + 4);
-				glVertex2d(area.width, theme.getFontRenderer().FONT_HEIGHT + 4);
+				RenderUtil.setColor(shadow1);
+				glVertex2d(0, fontHeight + 4);
+				glVertex2d(area.width, fontHeight + 4);
+				RenderUtil.setColor(shadow2);
+				glVertex2d(area.width, fontHeight + 5);
+				glVertex2d(0, fontHeight + 5);
 			}
 			glEnd();
 		}
 		glEnable(GL_TEXTURE_2D);
 		theme.getFontRenderer().drawStringWithShadow(component.getTitle(), 2,
 			2, RenderUtil.toRGBA(component.getForegroundColor()));
+		
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
 		translateComponent(component, true);
