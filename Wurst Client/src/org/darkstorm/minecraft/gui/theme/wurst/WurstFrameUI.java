@@ -71,6 +71,41 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		}
 		glEnd();
 		
+		// frame shadow
+		Color shadow1 = new Color(0.125f, 0.125f, 0.125f, 0.75f);
+		Color shadow2 = new Color(0.125f, 0.125f, 0.125f, 0f);
+		glShadeModel(GL_SMOOTH);
+		
+		// top left
+		glBegin(GL_POLYGON);
+		{
+			RenderUtil.setColor(shadow1);
+			glVertex2d(0, 0);
+			glVertex2d(area.width, 0);
+			RenderUtil.setColor(shadow2);
+			glVertex2d(area.width + 1, -1);
+			glVertex2d(-1, -1);
+			glVertex2d(-1, area.height + 1);
+			RenderUtil.setColor(shadow1);
+			glVertex2d(0, area.height);
+		}
+		glEnd();
+		
+		// bottom right
+		glBegin(GL_POLYGON);
+		{
+			RenderUtil.setColor(shadow1);
+			glVertex2d(area.width, area.height);
+			glVertex2d(area.width, 0);
+			RenderUtil.setColor(shadow2);
+			glVertex2d(area.width + 1, -1);
+			glVertex2d(area.width + 1, area.height + 1);
+			glVertex2d(-1, area.height + 1);
+			RenderUtil.setColor(shadow1);
+			glVertex2d(0, area.height);
+		}
+		glEnd();
+		
 		// Draw controls
 		int offset = component.getWidth() - 2;
 		Point mouse = RenderUtil.calculateMouseLocation();
