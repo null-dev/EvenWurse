@@ -27,6 +27,9 @@ import org.lwjgl.input.Mouse;
 public class WurstFrameUI extends AbstractComponentUI<Frame>
 {
 	private final WurstTheme theme;
+	private Color shadow1 = new Color(0.125f, 0.125f, 0.125f, 0.75f);
+	private Color shadow2 = new Color(0.125f, 0.125f, 0.125f, 0f);
+	private Color titleBarBG = new Color(8, 8, 8, 128);
 	
 	WurstFrameUI(WurstTheme theme)
 	{
@@ -51,8 +54,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		// Draw frame background
 		if(component.isMinimized())
 			area.height = fontHeight + 4;
-		RenderUtil.setColor(new Color(8, 8, 8, component.getBackgroundColor()
-			.getAlpha()));
+		RenderUtil.setColor(titleBarBG);
 		glBegin(GL_QUADS);
 		{
 			glVertex2d(0, 0);
@@ -72,8 +74,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		glEnd();
 		
 		// frame shadow
-		Color shadow1 = new Color(0.125f, 0.125f, 0.125f, 0.75f);
-		Color shadow2 = new Color(0.125f, 0.125f, 0.125f, 0f);
 		glShadeModel(GL_SMOOTH);
 		
 		// top left
@@ -137,8 +137,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			glEnd();
 			if(i == 1 && overlays[i])// UI for the pin button:
 			{// If it is not pinned:
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				glLineWidth(1f);
+				glColor4f(0f, 0f, 0f, 1f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3, 2);
@@ -147,8 +147,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 2);
 				}
 				glEnd();
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				glLineWidth(1f);
+				glColor4f(0f, 0f, 0f, 1f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 1,
@@ -160,8 +160,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 + 2);
 				}
 				glEnd();
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				glLineWidth(1f);
+				glColor4f(0f, 0f, 0f, 1f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 4);
@@ -170,7 +170,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight + 1.5, fontHeight + 0.5);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(0, 255, 0, 64));
+				glColor4f(0f, 1f, 0f, 0.25f);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3, 2);
@@ -179,7 +179,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 2);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(0, 255, 0, 64));
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 1,
@@ -191,7 +190,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 + 2);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(192, 192, 192, 192));
+				glColor4f(0.75f, 0.75f, 0.75f, 0.75f);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 4);
@@ -206,8 +205,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					&& mouse.y <= fontHeight + 2
 					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(0, 255, 0, Mouse
-						.isButtonDown(0) ? 96 : 64));
+					glColor4f(0f, 1f, 0f, Mouse.isButtonDown(0) ? 0.375f
+						: 0.25f);
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight / 3, 2);
@@ -218,8 +217,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 							fontHeight / 3 + 2);
 					}
 					glEnd();
-					RenderUtil.setColor(new Color(0, 255, 0, Mouse
-						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight / 3 * 2 - 1,
@@ -232,8 +229,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 							fontHeight / 3 + 2);
 					}
 					glEnd();
-					RenderUtil.setColor(new Color(255, 255, 255, Mouse
-						.isButtonDown(0) ? 96 : 64));
+					glColor4f(1f, 1f, 1f, Mouse.isButtonDown(0) ? 0.375f
+						: 0.25f);
 					glBegin(GL_TRIANGLES);
 					{
 						glVertex2d(offset - fontHeight / 3 * 2,
@@ -246,8 +243,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				}
 			}else if(i == 1)
 			{// If it is pinned:
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				glLineWidth(1f);
+				glColor4f(0f, 0f, 0f, 1f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
@@ -260,8 +257,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 * 2 + 4);
 				}
 				glEnd();
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
@@ -274,8 +269,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 * 2 + 5);
 				}
 				glEnd();
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2,
@@ -288,7 +281,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight + 2);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(255, 0, 0, 64));
+				glColor4f(1f, 0f, 0f, 0.25f);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
@@ -301,7 +294,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 * 2 + 4);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(255, 0, 0, 64));
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
@@ -314,7 +306,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 * 2 + 5);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(192, 192, 192, 192));
+				glColor4f(0.75f, 0.75f, 0.75f, 0.75f);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2,
@@ -333,8 +325,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					&& mouse.y <= fontHeight + 2
 					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(255, 0, 0, Mouse
-						.isButtonDown(0) ? 96 : 64));
+					glColor4f(1f, 0f, 0f, Mouse.isButtonDown(0) ? 0.375f
+						: 0.25f);
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
@@ -347,8 +339,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 							fontHeight / 3 * 2 + 4);
 					}
 					glEnd();
-					RenderUtil.setColor(new Color(255, 0, 0, Mouse
-						.isButtonDown(0) ? 96 : 64));
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight / 3 * 2 - 2.5,
@@ -361,8 +351,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 							fontHeight / 3 * 2 + 5);
 					}
 					glEnd();
-					RenderUtil.setColor(new Color(255, 255, 255, Mouse
-						.isButtonDown(0) ? 96 : 64));
+					glColor4f(1f, 1f, 1f, Mouse.isButtonDown(0) ? 0.375f
+						: 0.25f);
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight / 3 * 2,
@@ -379,8 +369,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			}
 			if(i == 2 && overlays[i])// UI for the minimize button:
 			{// If it is minimized:
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				glLineWidth(1f);
+				glColor4f(0f, 0f, 0f, 1f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight + 1, 4.5);
@@ -388,7 +378,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight / 2, fontHeight - 0.5);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(0, 255, 0, 64));
+				glColor4f(0f, 1f, 0f, 0.25f);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight + 1, 4.5);
@@ -402,8 +392,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					&& mouse.y <= fontHeight + 2
 					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(0, 255, 0, Mouse
-						.isButtonDown(0) ? 96 : 64));
+					glColor4f(0f, 1f, 0f, Mouse.isButtonDown(0) ? 0.375f
+						: 0.25f);
 					glBegin(GL_TRIANGLES);
 					{
 						glVertex2d(offset - fontHeight + 1, 4.5);
@@ -414,8 +404,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				}
 			}else if(i == 2)
 			{// If it is not minimized:
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				glLineWidth(1f);
+				glColor4f(0f, 0f, 0f, 1f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -423,7 +413,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight / 2, 4);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(255, 0, 0, 64));
+				glColor4f(1f, 0f, 0f, 0.25f);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -437,8 +427,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					&& mouse.y <= fontHeight + 2
 					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(255, 0, 0, Mouse
-						.isButtonDown(0) ? 96 : 64));
+					glColor4f(1f, 0f, 0f, Mouse.isButtonDown(0) ? 0.375f
+						: 0.25f);
 					glBegin(GL_TRIANGLES);
 					{
 						glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -450,8 +440,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			}
 			if(i == 0)// UI for the close button:
 			{
-				glLineWidth(1.0f);
-				glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+				glLineWidth(1f);
+				glColor4f(0f, 0f, 0f, 1f);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight, 4);
@@ -468,7 +458,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight / 2 - 2, fontHeight / 2 + 2);
 				}
 				glEnd();
-				RenderUtil.setColor(new Color(255, 0, 0, 64));
+				glColor4f(1f, 0f, 0f, 0.25f);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight, 4);
@@ -499,8 +489,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					&& mouse.y <= fontHeight + 2
 					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 				{
-					RenderUtil.setColor(new Color(255, 0, 0, Mouse
-						.isButtonDown(0) ? 96 : 64));
+					glColor4f(1f, 0f, 0f, Mouse.isButtonDown(0) ? 0.375f
+						: 0.25f);
 					glBegin(GL_QUADS);
 					{
 						glVertex2d(offset - fontHeight, 4);
@@ -529,8 +519,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glEnd();
 				}
 			}
-			glLineWidth(1.0f);
-			glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+			glLineWidth(1f);
+			glColor4f(0f, 0f, 0f, 1f);
 			glBegin(GL_LINE_LOOP);
 			{
 				glVertex2d(offset - fontHeight, 2);
@@ -544,7 +534,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		if(!component.isMinimized())
 		{
 			glColor4f(0f, 0f, 0f, 1f);
-			glLineWidth(1.0f);
+			glLineWidth(1f);
 			glBegin(GL_LINES);
 			{
 				glVertex2d(0, theme.getFontRenderer().FONT_HEIGHT + 4);
