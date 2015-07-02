@@ -27,8 +27,6 @@ import org.lwjgl.input.Mouse;
 public class WurstFrameUI extends AbstractComponentUI<Frame>
 {
 	private final WurstTheme theme;
-	private Color shadow1 = new Color(0.125f, 0.125f, 0.125f, 0.75f);
-	private Color shadow2 = new Color(0.125f, 0.125f, 0.125f, 0f);
 	private Color titleBarBG = new Color(8, 8, 8, 128);
 	
 	WurstFrameUI(WurstTheme theme)
@@ -77,36 +75,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		
 		// frame shadow
 		glShadeModel(GL_SMOOTH);
-		
-		// top left
-		glBegin(GL_POLYGON);
-		{
-			RenderUtil.setColor(shadow1);
-			glVertex2d(0, 0);
-			glVertex2d(area.width, 0);
-			RenderUtil.setColor(shadow2);
-			glVertex2d(area.width + 1, -1);
-			glVertex2d(-1, -1);
-			glVertex2d(-1, area.height + 1);
-			RenderUtil.setColor(shadow1);
-			glVertex2d(0, area.height);
-		}
-		glEnd();
-		
-		// bottom right
-		glBegin(GL_POLYGON);
-		{
-			RenderUtil.setColor(shadow1);
-			glVertex2d(area.width, area.height);
-			glVertex2d(area.width, 0);
-			RenderUtil.setColor(shadow2);
-			glVertex2d(area.width + 1, -1);
-			glVertex2d(area.width + 1, area.height + 1);
-			glVertex2d(-1, area.height + 1);
-			RenderUtil.setColor(shadow1);
-			glVertex2d(0, area.height);
-		}
-		glEnd();
+		RenderUtil.boxShadow(0, 0, area.width, area.height);
 		
 		// Draw controls
 		int offset = component.getWidth() - 2;
@@ -536,18 +505,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		
 		// title bar
 		if(!component.isMinimized())
-		{
-			glBegin(GL_POLYGON);
-			{
-				RenderUtil.setColor(shadow1);
-				glVertex2d(0, fontHeight + 4);
-				glVertex2d(area.width, fontHeight + 4);
-				RenderUtil.setColor(shadow2);
-				glVertex2d(area.width, fontHeight + 5);
-				glVertex2d(0, fontHeight + 5);
-			}
-			glEnd();
-		}
+			RenderUtil
+				.downShadow(0, fontHeight + 4, area.width, fontHeight + 5);
 		glEnable(GL_TEXTURE_2D);
 		theme.getFontRenderer().drawStringWithShadow(component.getTitle(), 2,
 			2, RenderUtil.toRGBA(component.getForegroundColor()));

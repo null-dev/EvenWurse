@@ -16,6 +16,8 @@ import org.lwjgl.input.Mouse;
 
 public class RenderUtil
 {
+	private static Color shadow1 = new Color(0.125f, 0.125f, 0.125f, 0.75f);
+	private static Color shadow2 = new Color(0.125f, 0.125f, 0.125f, 0f);
 	
 	public static void scissorBox(int x, int y, int xend, int yend)
 	{
@@ -177,4 +179,50 @@ public class RenderUtil
 			/ scaleFactor - Mouse.getY() / scaleFactor - 1);
 	}
 	
+	public static void boxShadow(int x1, int y1, int x2, int y2)
+	{
+		// top left
+		glBegin(GL_POLYGON);
+		{
+			RenderUtil.setColor(shadow1);
+			glVertex2d(x1, y1);
+			glVertex2d(x2, y1);
+			RenderUtil.setColor(shadow2);
+			glVertex2d(x2 + 1, y1 - 1);
+			glVertex2d(x1 - 1, y1 - 1);
+			glVertex2d(x1 - 1, y2 + 1);
+			RenderUtil.setColor(shadow1);
+			glVertex2d(x1, y2);
+		}
+		glEnd();
+		
+		// bottom right
+		glBegin(GL_POLYGON);
+		{
+			RenderUtil.setColor(shadow1);
+			glVertex2d(x2, y2);
+			glVertex2d(x2, y1);
+			RenderUtil.setColor(shadow2);
+			glVertex2d(x2 + 1, y1 - 1);
+			glVertex2d(x2 + 1, y2 + 1);
+			glVertex2d(x1 - 1, y2 + 1);
+			RenderUtil.setColor(shadow1);
+			glVertex2d(x1, y2);
+		}
+		glEnd();
+	}
+	
+	public static void downShadow(int x1, int y1, int x2, int y2)
+	{
+		glBegin(GL_POLYGON);
+		{
+			RenderUtil.setColor(shadow1);
+			glVertex2d(x1, y1);
+			glVertex2d(x2, y1);
+			RenderUtil.setColor(shadow2);
+			glVertex2d(x2, y2);
+			glVertex2d(x1, y2);
+		}
+		glEnd();
+	}
 }
