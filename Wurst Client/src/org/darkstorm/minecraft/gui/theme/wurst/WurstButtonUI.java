@@ -48,11 +48,18 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 	protected void renderComponent(Button button)
 	{
 		translateComponent(button, false);
+		
+		// area
 		Rectangle area = button.getArea();
 		area.width = button.getParent().getWidth() - 4;
+		
+		// GL settings
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
+		glShadeModel(GL_SMOOTH);
+		
+		// background
 		RenderUtil.setColor(button.getBackgroundColor());
 		glBegin(GL_QUADS);
 		{
@@ -62,6 +69,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			glVertex2d(0, area.height);
 		}
 		glEnd();
+		
+		// border
 		RenderUtil.setColor(new Color(0, 0, 0, 255));
 		glLineWidth(1.5F);
 		glBegin(GL_LINE_LOOP);
@@ -72,9 +81,9 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			glVertex2d(0, area.height);
 		}
 		glEnd();
+		
+		// mouse location
 		Point mouse = RenderUtil.calculateMouseLocation();
-		Point rawMouse = RenderUtil.calculateMouseLocation();
-		theme.getFontRenderer();
 		Component parent = button.getParent();
 		while(parent != null)
 		{
@@ -82,6 +91,9 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			mouse.y -= parent.getY();
 			parent = parent.getParent();
 		}
+		Point rawMouse = RenderUtil.calculateMouseLocation();
+		
+		// hover overlay
 		if(area.contains(mouse)
 			&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 		{
@@ -95,12 +107,18 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			}
 			glEnd();
 		}
+		
+		// text
 		String text = button.getText();
 		theme.getFontRenderer().drawString(text,
 			area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
 			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
 			RenderUtil.toRGBA(button.getForegroundColor()));
+		
 		translateComponent(button, true);
+		
+		// tooltip
+		// TODO: clean up
 		if(area.contains(mouse) && describedButton != button)
 		{
 			lastMS = 0L;
