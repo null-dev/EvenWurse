@@ -39,16 +39,30 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 	@Override
 	protected void renderComponent(Frame component)
 	{
-		Rectangle area = new Rectangle(component.getArea());
-		int fontHeight = theme.getFontRenderer().FONT_HEIGHT;
 		translateComponent(component, false);
+		
+		// area & font height
+		int fontHeight = theme.getFontRenderer().FONT_HEIGHT;
+		Rectangle area = new Rectangle(component.getArea());
+		if(component.isMinimized())
+			area.height = fontHeight + 4;
+		
+		// mouse location
+		Point mouse = RenderUtil.calculateMouseLocation();
+		Component parent = component;
+		while(parent != null)
+		{
+			mouse.x -= parent.getX();
+			mouse.y -= parent.getY();
+			parent = parent.getParent();
+		}
+		
+		// GL settings
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glShadeModel(GL_SMOOTH);
-		if(component.isMinimized())
-			area.height = fontHeight + 4;
 		
 		// title bar background
 		glColor4f(0.03125f, 0.03125f, 0.03125f, 0.5f);
@@ -75,14 +89,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		
 		// title bar icons
 		int offset = component.getWidth() - 2;
-		Point mouse = RenderUtil.calculateMouseLocation();
-		Component parent = component;
-		while(parent != null)
-		{
-			mouse.x -= parent.getX();
-			mouse.y -= parent.getY();
-			parent = parent.getParent();
-		}
 		boolean[] checks =
 			new boolean[]{component.isClosable(), component.isPinnable(),
 				component.isMinimizable()};
@@ -222,8 +228,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 * 2 + 4.5);
 					glVertex2d(offset - fontHeight / 3 * 2 + 1.5,
 						fontHeight + 2);
-					glVertex2d(offset - fontHeight / 3 * 2,
-						fontHeight + 2);
+					glVertex2d(offset - fontHeight / 3 * 2, fontHeight + 2);
 				}
 				glEnd();
 				
@@ -262,8 +267,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 * 2 + 4.5);
 					glVertex2d(offset - fontHeight / 3 * 2 + 1.5,
 						fontHeight + 2);
-					glVertex2d(offset - fontHeight / 3 * 2,
-						fontHeight + 2);
+					glVertex2d(offset - fontHeight / 3 * 2, fontHeight + 2);
 				}
 				glEnd();
 			}
@@ -348,8 +352,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight + 3, fontHeight);
 				}
 				glEnd();
-
-				//shadow
+				
+				// shadow
 				glLineWidth(1f);
 				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
 				glBegin(GL_LINE_LOOP);
