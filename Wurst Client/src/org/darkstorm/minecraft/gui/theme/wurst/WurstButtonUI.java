@@ -80,18 +80,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			glVertex2d(0, area.height - 1);
 		}
 		glEnd();
-		
-		// border
-		RenderUtil.setColor(new Color(0, 0, 0, 255));
-		glLineWidth(1.5F);
-		glBegin(GL_LINE_LOOP);
-		{
-			glVertex2d(0, 1);
-			glVertex2d(area.width, 1);
-			glVertex2d(area.width, area.height - 1);
-			glVertex2d(0, area.height - 1);
-		}
-		glEnd();
+		RenderUtil.boxShadow(0, 1, area.width, area.height - 1);
 		
 		// hover overlay
 		if(area.contains(mouse)
