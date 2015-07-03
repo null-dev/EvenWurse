@@ -101,7 +101,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		String text = button.getText();
 		theme.getFontRenderer().drawString(text,
 			area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
-			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
+			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2 - 1,
 			RenderUtil.toRGBA(button.getForegroundColor()));
 		
 		translateComponent(button, true);
