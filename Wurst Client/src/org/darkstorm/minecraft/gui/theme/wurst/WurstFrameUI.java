@@ -22,7 +22,6 @@ import org.darkstorm.minecraft.gui.layout.Constraint;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
-import org.lwjgl.input.Mouse;
 
 public class WurstFrameUI extends AbstractComponentUI<Frame>
 {
@@ -319,87 +318,58 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				}
 				glEnd();
 			}
-			if(i == 0)// UI for the close button:
+			
+			// close button
+			if(i == 0)
 			{
+				// cross
+				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+				glBegin(GL_QUADS);
+				{
+					glVertex2d(offset - fontHeight + 2, 5);
+					glVertex2d(offset - fontHeight + 3, 4);
+					glVertex2d(offset - 2, fontHeight - 1);
+					glVertex2d(offset - 3, fontHeight);
+				}
+				glEnd();
+				glBegin(GL_QUADS);
+				{
+					glVertex2d(offset - 2, 5);
+					glVertex2d(offset - 3, 4);
+					glVertex2d(offset - fontHeight / 2, fontHeight / 2 + 1);
+					glVertex2d(offset - fontHeight / 2 + 1, fontHeight / 2 + 2);
+				}
+				glEnd();
+				glBegin(GL_QUADS);
+				{
+					glVertex2d(offset - fontHeight / 2, fontHeight / 2 + 3);
+					glVertex2d(offset - fontHeight / 2 - 1, fontHeight / 2 + 2);
+					glVertex2d(offset - fontHeight + 2, fontHeight - 1);
+					glVertex2d(offset - fontHeight + 3, fontHeight);
+				}
+				glEnd();
+
+				//shadow
 				glLineWidth(1f);
-				glColor4f(0f, 0f, 0f, 1f);
+				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
 				glBegin(GL_LINE_LOOP);
 				{
-					glVertex2d(offset - fontHeight, 4);
-					glVertex2d(offset - fontHeight + 2, 2);
-					glVertex2d(offset - fontHeight / 2, fontHeight / 2);
-					glVertex2d(offset - 2, 2);
-					glVertex2d(offset, 4);
-					glVertex2d(offset - fontHeight / 2 + 2, fontHeight / 2 + 2);
-					glVertex2d(offset, fontHeight);
-					glVertex2d(offset - 2, fontHeight + 2);
-					glVertex2d(offset - fontHeight / 2, fontHeight / 2 + 4);
-					glVertex2d(offset - fontHeight + 2, fontHeight + 2);
-					glVertex2d(offset - fontHeight, fontHeight);
-					glVertex2d(offset - fontHeight / 2 - 2, fontHeight / 2 + 2);
+					glVertex2d(offset - fontHeight + 2, 5);
+					glVertex2d(offset - fontHeight + 3, 4);
+					glVertex2d(offset - fontHeight / 2, fontHeight / 2 + 1);
+					glVertex2d(offset - 3, 4);
+					glVertex2d(offset - 2, 5);
+					glVertex2d(offset - fontHeight / 2 + 1, fontHeight / 2 + 2);
+					glVertex2d(offset - 2, fontHeight - 1);
+					glVertex2d(offset - 3, fontHeight);
+					glVertex2d(offset - fontHeight / 2, fontHeight / 2 + 3);
+					glVertex2d(offset - fontHeight + 3, fontHeight);
+					glVertex2d(offset - fontHeight + 2, fontHeight - 1);
+					glVertex2d(offset - fontHeight / 2 - 1, fontHeight / 2 + 2);
 				}
 				glEnd();
-				glColor4f(1f, 0f, 0f, 0.25f);
-				glBegin(GL_QUADS);
-				{
-					glVertex2d(offset - fontHeight, 4);
-					glVertex2d(offset - fontHeight + 2, 2);
-					glVertex2d(offset, fontHeight);
-					glVertex2d(offset - 2, fontHeight + 2);
-				}
-				glEnd();
-				glBegin(GL_QUADS);
-				{
-					glVertex2d(offset, 4);
-					glVertex2d(offset - 2, 2);
-					glVertex2d(offset - fontHeight / 2, fontHeight / 2);
-					glVertex2d(offset - fontHeight / 2 + 2, fontHeight / 2 + 2);
-				}
-				glEnd();
-				glBegin(GL_QUADS);
-				{
-					glVertex2d(offset - fontHeight / 2, fontHeight / 2 + 4);
-					glVertex2d(offset - fontHeight / 2 - 2, fontHeight / 2 + 2);
-					glVertex2d(offset - fontHeight, fontHeight);
-					glVertex2d(offset - fontHeight + 2, fontHeight + 2);
-				}
-				glEnd();
-				if(mouse.x >= offset - fontHeight
-					&& mouse.x <= offset
-					&& mouse.y >= 2
-					&& mouse.y <= fontHeight + 2
-					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
-				{
-					glColor4f(1f, 0f, 0f, Mouse.isButtonDown(0) ? 0.375f
-						: 0.25f);
-					glBegin(GL_QUADS);
-					{
-						glVertex2d(offset - fontHeight, 4);
-						glVertex2d(offset - fontHeight + 2, 2);
-						glVertex2d(offset, fontHeight);
-						glVertex2d(offset - 2, fontHeight + 2);
-					}
-					glEnd();
-					glBegin(GL_QUADS);
-					{
-						glVertex2d(offset, 4);
-						glVertex2d(offset - 2, 2);
-						glVertex2d(offset - fontHeight / 2, fontHeight / 2);
-						glVertex2d(offset - fontHeight / 2 + 2,
-							fontHeight / 2 + 2);
-					}
-					glEnd();
-					glBegin(GL_QUADS);
-					{
-						glVertex2d(offset - fontHeight / 2, fontHeight / 2 + 4);
-						glVertex2d(offset - fontHeight / 2 - 2,
-							fontHeight / 2 + 2);
-						glVertex2d(offset - fontHeight, fontHeight);
-						glVertex2d(offset - fontHeight + 2, fontHeight + 2);
-					}
-					glEnd();
-				}
 			}
+			
 			offset -= fontHeight + 2;
 		}
 		
