@@ -91,8 +91,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			{
 				glVertex2d(0, 1);
 				glVertex2d(area.width, 1);
-				glVertex2d(area.width, area.height);
-				glVertex2d(0, area.height);
+				glVertex2d(area.width, area.height - 1);
+				glVertex2d(0, area.height - 1);
 			}
 			glEnd();
 		}
