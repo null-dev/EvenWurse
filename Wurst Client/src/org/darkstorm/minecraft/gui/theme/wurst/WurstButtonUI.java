@@ -53,35 +53,6 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		Rectangle area = button.getArea();
 		area.width = button.getParent().getWidth() - 4;
 		
-		// GL settings
-		glEnable(GL_BLEND);
-		glDisable(GL_CULL_FACE);
-		glDisable(GL_TEXTURE_2D);
-		glShadeModel(GL_SMOOTH);
-		
-		// background
-		RenderUtil.setColor(button.getBackgroundColor());
-		glBegin(GL_QUADS);
-		{
-			glVertex2d(0, 0);
-			glVertex2d(area.width, 0);
-			glVertex2d(area.width, area.height);
-			glVertex2d(0, area.height);
-		}
-		glEnd();
-		
-		// border
-		RenderUtil.setColor(new Color(0, 0, 0, 255));
-		glLineWidth(1.5F);
-		glBegin(GL_LINE_LOOP);
-		{
-			glVertex2d(0, 0);
-			glVertex2d(area.width, 0);
-			glVertex2d(area.width, area.height);
-			glVertex2d(0, area.height);
-		}
-		glEnd();
-		
 		// mouse location
 		Point mouse = RenderUtil.calculateMouseLocation();
 		Component parent = button.getParent();
@@ -93,6 +64,35 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		}
 		Point rawMouse = RenderUtil.calculateMouseLocation();
 		
+		// GL settings
+		glEnable(GL_BLEND);
+		glDisable(GL_CULL_FACE);
+		glDisable(GL_TEXTURE_2D);
+		glShadeModel(GL_SMOOTH);
+		
+		// background
+		RenderUtil.setColor(button.getBackgroundColor());
+		glBegin(GL_QUADS);
+		{
+			glVertex2d(0, 1);
+			glVertex2d(area.width, 1);
+			glVertex2d(area.width, area.height - 1);
+			glVertex2d(0, area.height - 1);
+		}
+		glEnd();
+		
+		// border
+		RenderUtil.setColor(new Color(0, 0, 0, 255));
+		glLineWidth(1.5F);
+		glBegin(GL_LINE_LOOP);
+		{
+			glVertex2d(0, 1);
+			glVertex2d(area.width, 1);
+			glVertex2d(area.width, area.height - 1);
+			glVertex2d(0, area.height - 1);
+		}
+		glEnd();
+		
 		// hover overlay
 		if(area.contains(mouse)
 			&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
@@ -100,8 +100,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			glColor4f(0.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.3f : 0.2f);
 			glBegin(GL_QUADS);
 			{
-				glVertex2d(0, 0);
-				glVertex2d(area.width, 0);
+				glVertex2d(0, 1);
+				glVertex2d(area.width, 1);
 				glVertex2d(area.width, area.height);
 				glVertex2d(0, area.height);
 			}
