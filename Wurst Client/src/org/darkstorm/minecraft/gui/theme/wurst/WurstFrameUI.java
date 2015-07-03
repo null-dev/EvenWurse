@@ -77,7 +77,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		glShadeModel(GL_SMOOTH);
 		RenderUtil.boxShadow(0, 0, area.width, area.height);
 		
-		// Draw controls
+		// title bar icons
 		int offset = component.getWidth() - 2;
 		Point mouse = RenderUtil.calculateMouseLocation();
 		Component parent = component;
@@ -97,7 +97,9 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		{
 			if(!checks[i])
 				continue;
-			RenderUtil.setColor(component.getBackgroundColor());
+			
+			// icon background & shadow
+			glColor4f(0f, 0f, 0f, 0.25f);
 			glBegin(GL_QUADS);
 			{
 				glVertex2d(offset - fontHeight, 2);
@@ -106,8 +108,12 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				glVertex2d(offset - fontHeight, fontHeight + 2);
 			}
 			glEnd();
-			if(i == 1 && overlays[i])// UI for the pin button:
-			{// If it is not pinned:
+			RenderUtil.boxShadow(offset - fontHeight, 2, offset, fontHeight + 2);
+			
+			// pin button
+			if(i == 1 && overlays[i])
+			{
+				// if not pinned
 				glLineWidth(1f);
 				glColor4f(0f, 0f, 0f, 1f);
 				glBegin(GL_LINE_LOOP);
@@ -490,16 +496,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glEnd();
 				}
 			}
-			glLineWidth(1f);
-			glColor4f(0f, 0f, 0f, 1f);
-			glBegin(GL_LINE_LOOP);
-			{
-				glVertex2d(offset - fontHeight, 2);
-				glVertex2d(offset, 2);
-				glVertex2d(offset, fontHeight + 2);
-				glVertex2d(offset - fontHeight, fontHeight + 2);
-			}
-			glEnd();
 			offset -= fontHeight + 2;
 		}
 		
