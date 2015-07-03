@@ -295,17 +295,11 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				}
 				glEnd();
 			}else if(i == 2)
-			{// If it is not minimized:
-				glLineWidth(1f);
-				glColor4f(0f, 0f, 0f, 1f);
-				glBegin(GL_LINE_LOOP);
-				{
-					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
-					glVertex2d(offset - 1, fontHeight - 1);
-					glVertex2d(offset - fontHeight / 2, 4);
-				}
-				glEnd();
-				glColor4f(1f, 0f, 0f, 0.25f);
+			{
+				// if not minimized
+				
+				// arrow
+				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -313,22 +307,17 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight / 2, 4);
 				}
 				glEnd();
-				if(mouse.x >= offset - fontHeight
-					&& mouse.x <= offset
-					&& mouse.y >= 2
-					&& mouse.y <= fontHeight + 2
-					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
+				
+				// shadow
+				glLineWidth(1f);
+				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				glBegin(GL_LINE_LOOP);
 				{
-					glColor4f(1f, 0f, 0f, Mouse.isButtonDown(0) ? 0.375f
-						: 0.25f);
-					glBegin(GL_TRIANGLES);
-					{
-						glVertex2d(offset - fontHeight + 1, fontHeight - 1);
-						glVertex2d(offset - 1, fontHeight - 1);
-						glVertex2d(offset - fontHeight / 2, 4);
-					}
-					glEnd();
+					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
+					glVertex2d(offset - 1, fontHeight - 1);
+					glVertex2d(offset - fontHeight / 2, 4);
 				}
+				glEnd();
 			}
 			if(i == 0)// UI for the close button:
 			{
