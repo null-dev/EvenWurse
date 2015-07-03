@@ -106,6 +106,13 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					&& mouse.y <= fontHeight + 2
 					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen;
 			
+			// colors
+			Color green = new Color(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
+			Color red = new Color(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+			Color silver = new Color(1f, 1f, 1f, hovering ? 0.5f : 0.375f);
+			Color shadow =
+				new Color(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+			
 			// icon background
 			glColor4f(0f, 0f, 0f, 0.25f);
 			glBegin(GL_QUADS);
@@ -125,7 +132,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				// if not pinned
 				
 				// knob
-				glColor4f(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(green);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3, 2);
@@ -147,7 +154,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				glEnd();
 				
 				// needle
-				glColor4f(1f, 1f, 1f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(silver);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 4);
@@ -159,7 +166,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3, 2);
@@ -192,7 +199,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				// if pinned
 				
 				// knob
-				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(red);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
@@ -219,7 +226,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				glEnd();
 				
 				// needle
-				glColor4f(1f, 1f, 1f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(silver);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2,
@@ -234,7 +241,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
@@ -278,7 +285,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				// if minimized
 				
 				// arrow
-				glColor4f(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(green);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight + 1, 4.5);
@@ -289,7 +296,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight + 1, 4.5);
@@ -302,7 +309,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				// if not minimized
 				
 				// arrow
-				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(red);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -313,7 +320,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -327,7 +334,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			if(i == 0)
 			{
 				// cross
-				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(red);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight + 2, 5);
@@ -355,7 +362,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight + 2, 5);
