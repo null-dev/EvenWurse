@@ -27,7 +27,6 @@ import org.lwjgl.input.Mouse;
 public class WurstFrameUI extends AbstractComponentUI<Frame>
 {
 	private final WurstTheme theme;
-	private Color titleBarBG = new Color(8, 8, 8, 128);
 	
 	WurstFrameUI(WurstTheme theme)
 	{
@@ -48,11 +47,12 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glShadeModel(GL_SMOOTH);
 		if(component.isMinimized())
 			area.height = fontHeight + 4;
 		
 		// title bar background
-		RenderUtil.setColor(titleBarBG);
+		glColor4f(0.03125f, 0.03125f, 0.03125f, 0.5f);
 		glBegin(GL_QUADS);
 		{
 			glVertex2d(0, 0);
@@ -72,9 +72,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			glVertex2d(0, area.height);
 		}
 		glEnd();
-		
-		// frame shadow
-		glShadeModel(GL_SMOOTH);
 		RenderUtil.boxShadow(0, 0, area.width, area.height);
 		
 		// title bar icons
@@ -98,7 +95,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			if(!checks[i])
 				continue;
 			
-			// icon background & shadow
+			// icon background
 			glColor4f(0f, 0f, 0f, 0.25f);
 			glBegin(GL_QUADS);
 			{
