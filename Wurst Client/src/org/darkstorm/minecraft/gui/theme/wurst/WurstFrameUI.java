@@ -390,7 +390,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				.downShadow(0, fontHeight + 4, area.width, fontHeight + 5);
 		glEnable(GL_TEXTURE_2D);
 		theme.getFontRenderer().drawStringWithShadow(component.getTitle(), 2,
-			2, RenderUtil.toRGBA(component.getForegroundColor()));
+			1, RenderUtil.toRGBA(component.getForegroundColor()));
 		
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
