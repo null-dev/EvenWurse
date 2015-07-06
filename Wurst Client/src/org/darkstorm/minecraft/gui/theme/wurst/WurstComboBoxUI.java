@@ -84,7 +84,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		
-		// outline
+		// shadow
 		RenderUtil.boxShadow(0, 1, area.width, area.height - 1);
 		
 		// background
