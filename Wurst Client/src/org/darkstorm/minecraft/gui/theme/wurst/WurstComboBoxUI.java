@@ -190,7 +190,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		}
 		glEnd();
 		
-		// shadow
+		// arrow shadow
 		glLineWidth(1f);
 		glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
 		glBegin(GL_LINE_LOOP);
