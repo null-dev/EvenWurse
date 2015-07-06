@@ -160,7 +160,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			glEnable(GL_BLEND);
 			glDisable(GL_CULL_FACE);
 			glDisable(GL_TEXTURE_2D);
-			RenderUtil.setColor(new Color(64, 64, 64, 192));
+			glColor4f(0.125f, 0.125f, 0.125f, 0.5f);
 			glBegin(GL_QUADS);
 			{
 				glVertex2d(rawMouse.x + 6, rawMouse.y - 5);
@@ -170,17 +170,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 				glVertex2d(rawMouse.x + 6, rawMouse.y - 5 + textHeight);
 			}
 			glEnd();
-			glLineWidth(1.0F);
-			RenderUtil.setColor(new Color(0, 0, 0, 255));
-			glBegin(GL_LINE_LOOP);
-			{
-				glVertex2d(rawMouse.x + 6, rawMouse.y - 5);
-				glVertex2d(rawMouse.x + textWidth + 11, rawMouse.y - 5);
-				glVertex2d(rawMouse.x + textWidth + 11, rawMouse.y - 5
-					+ textHeight);
-				glVertex2d(rawMouse.x + 6, rawMouse.y - 5 + textHeight);
-			}
-			glEnd();
+			RenderUtil.boxShadow(rawMouse.x + 6, rawMouse.y - 5, rawMouse.x + textWidth + 11, rawMouse.y - 5 + textHeight);
 			for(int i = 0; i < lines.length; i++)
 				theme.getFontRenderer().drawString(
 					lines[i],
