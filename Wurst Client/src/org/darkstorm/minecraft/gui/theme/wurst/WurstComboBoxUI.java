@@ -150,7 +150,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		// item separator
 		if(component.isSelected())
 		{
-			glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+			glColor4f(0.125f, 0.125f, 0.125f, 0.5f);
 			int offset2 = component.getHeight();
 			String[] elements = component.getElements();
 			for(int i = 0; i < elements.length; i++)
