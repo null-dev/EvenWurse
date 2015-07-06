@@ -177,15 +177,15 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			if(component.isSelected())
 			{
 				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
-				glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
-				glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, 2d * height / 3d);
+				glVertex2d(maxWidth + 5 + height / 2d, height / 3d);
+				glVertex2d(maxWidth + 3.5 + height / 3d, 2d * height / 3d);
+				glVertex2d(maxWidth + 6.5 + 2d * height / 3d, 2d * height / 3d);
 			}else
 			{
 				glColor4f(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
-				glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
-				glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
+				glVertex2d(maxWidth + 3.5 + height / 3d, height / 3d);
+				glVertex2d(maxWidth + 6.5 + 2d * height / 3d, height / 3d);
+				glVertex2d(maxWidth + 5 + height / 2d, 2d * height / 3d);
 			}
 		}
 		glEnd();
@@ -197,25 +197,25 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		{
 			if(component.isSelected())
 			{
-				glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
-				glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, 2d * height / 3d);
+				glVertex2d(maxWidth + 5 + height / 2d, height / 3d);
+				glVertex2d(maxWidth + 3.5 + height / 3d, 2d * height / 3d);
+				glVertex2d(maxWidth + 6.5 + 2d * height / 3d, 2d * height / 3d);
 			}else
 			{
-				glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
-				glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
+				glVertex2d(maxWidth + 3.5 + height / 3d, height / 3d);
+				glVertex2d(maxWidth + 6.5 + 2d * height / 3d, height / 3d);
+				glVertex2d(maxWidth + 5 + height / 2d, 2d * height / 3d);
 			}
 		}
 		glEnd();
 		
 		// arrow separator
 		glLineWidth(1.0f);
-		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+		glColor4f(0.125f, 0.125f, 0.125f, 0.25f);
 		glBegin(GL_LINES);
 		{
-			glVertex2d(maxWidth + 4, 2);
-			glVertex2d(maxWidth + 4, area.height - 2);
+			glVertex2d(maxWidth + 6, 2);
+			glVertex2d(maxWidth + 6, area.height - 2);
 		}
 		glEnd();
 		
