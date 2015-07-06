@@ -14,9 +14,12 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import net.minecraft.client.Minecraft;
+
 import org.darkstorm.minecraft.gui.component.ComboBox;
 import org.darkstorm.minecraft.gui.component.Component;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
+import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
 
@@ -68,6 +71,14 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			parent = parent.getParent();
 		}
 		
+		// hovering
+		boolean hovering =
+			mouse.x >= area.x
+				&& mouse.x <= area.x + area.width
+				&& mouse.y >= area.y + 1
+				&& mouse.y <= area.y + area.height - 1
+				&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen;
+		
 		// GL settings
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
@@ -97,29 +108,6 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 				glVertex2d(area.width, 1);
 				glVertex2d(area.width, area.height - 1);
 				glVertex2d(0, area.height - 1);
-			}
-			glEnd();
-			
-			// arrow glow
-			int height = theme.getFontRenderer().FONT_HEIGHT + 4;
-			glBegin(GL_TRIANGLES);
-			{
-				if(component.isSelected())
-				{
-					glColor4f(1.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f
-						: 0.3f);
-					glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
-					glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
-					glVertex2d(maxWidth + 5.5 + 2d * height / 3d,
-						2d * height / 3d);
-				}else
-				{
-					glColor4f(0.0f, 1.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f
-						: 0.3f);
-					glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
-					glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
-					glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
-				}
 			}
 			glEnd();
 		}else if(component.isSelected() && mouse.x >= area.x
@@ -188,13 +176,32 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		{
 			if(component.isSelected())
 			{
-				glColor4f(1.0f, 0.0f, 0.0f, 0.3f);
+				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
 				glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
 				glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
 				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, 2d * height / 3d);
 			}else
 			{
-				glColor4f(0.0f, 1.0f, 0.0f, 0.3f);
+				glColor4f(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
+				glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
+				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
+				glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
+			}
+		}
+		glEnd();
+		
+		// shadow
+		glLineWidth(1f);
+		glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+		glBegin(GL_LINE_LOOP);
+		{
+			if(component.isSelected())
+			{
+				glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
+				glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
+				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, 2d * height / 3d);
+			}else
+			{
 				glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
 				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
 				glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
@@ -209,24 +216,6 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		{
 			glVertex2d(maxWidth + 4, 2);
 			glVertex2d(maxWidth + 4, area.height - 2);
-		}
-		glEnd();
-		
-		// arrow outline
-		glLineWidth(1.0f);
-		glBegin(GL_LINE_LOOP);
-		{
-			if(component.isSelected())
-			{
-				glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
-				glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, 2d * height / 3d);
-			}else
-			{
-				glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
-				glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
-			}
 		}
 		glEnd();
 		
