@@ -39,16 +39,30 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 	@Override
 	protected void renderComponent(Frame component)
 	{
-		Rectangle area = new Rectangle(component.getArea());
-		int fontHeight = theme.getFontRenderer().FONT_HEIGHT;
 		translateComponent(component, false);
+		
+		// area & font height
+		int fontHeight = theme.getFontRenderer().FONT_HEIGHT;
+		Rectangle area = new Rectangle(component.getArea());
+		if(component.isMinimized())
+			area.height = fontHeight + 4;
+		
+		// mouse location
+		Point mouse = RenderUtil.calculateMouseLocation();
+		Component parent = component;
+		while(parent != null)
+		{
+			mouse.x -= parent.getX();
+			mouse.y -= parent.getY();
+			parent = parent.getParent();
+		}
+		
+		// GL settings
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glShadeModel(GL_SMOOTH);
-		if(component.isMinimized())
-			area.height = fontHeight + 4;
 		
 		// title bar background
 		glColor4f(0.03125f, 0.03125f, 0.03125f, 0.5f);
@@ -75,14 +89,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 		
 		// title bar icons
 		int offset = component.getWidth() - 2;
-		Point mouse = RenderUtil.calculateMouseLocation();
-		Component parent = component;
-		while(parent != null)
-		{
-			mouse.x -= parent.getX();
-			mouse.y -= parent.getY();
-			parent = parent.getParent();
-		}
 		boolean[] checks =
 			new boolean[]{component.isClosable(), component.isPinnable(),
 				component.isMinimizable()};
@@ -99,6 +105,13 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					&& mouse.y >= 2
 					&& mouse.y <= fontHeight + 2
 					&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen;
+			
+			// colors
+			Color green = new Color(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
+			Color red = new Color(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+			Color silver = new Color(1f, 1f, 1f, hovering ? 0.5f : 0.375f);
+			Color shadow =
+				new Color(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
 			
 			// icon background
 			glColor4f(0f, 0f, 0f, 0.25f);
@@ -119,7 +132,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				// if not pinned
 				
 				// knob
-				glColor4f(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(green);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3, 2);
@@ -141,7 +154,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				glEnd();
 				
 				// needle
-				glColor4f(1f, 1f, 1f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(silver);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2, fontHeight / 3 + 4);
@@ -153,7 +166,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3, 2);
@@ -186,7 +199,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				// if pinned
 				
 				// knob
-				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(red);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
@@ -213,7 +226,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				glEnd();
 				
 				// needle
-				glColor4f(1f, 1f, 1f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(silver);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2,
@@ -222,14 +235,13 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 * 2 + 4.5);
 					glVertex2d(offset - fontHeight / 3 * 2 + 1.5,
 						fontHeight + 2);
-					glVertex2d(offset - fontHeight / 3 * 2,
-						fontHeight + 2);
+					glVertex2d(offset - fontHeight / 3 * 2, fontHeight + 2);
 				}
 				glEnd();
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight / 3 * 2 - 1.5,
@@ -262,8 +274,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 						fontHeight / 3 * 2 + 4.5);
 					glVertex2d(offset - fontHeight / 3 * 2 + 1.5,
 						fontHeight + 2);
-					glVertex2d(offset - fontHeight / 3 * 2,
-						fontHeight + 2);
+					glVertex2d(offset - fontHeight / 3 * 2, fontHeight + 2);
 				}
 				glEnd();
 			}
@@ -274,7 +285,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				// if minimized
 				
 				// arrow
-				glColor4f(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(green);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight + 1, 4.5);
@@ -285,7 +296,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight + 1, 4.5);
@@ -298,7 +309,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				// if not minimized
 				
 				// arrow
-				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(red);
 				glBegin(GL_TRIANGLES);
 				{
 					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -309,7 +320,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				
 				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight + 1, fontHeight - 1);
@@ -323,7 +334,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			if(i == 0)
 			{
 				// cross
-				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+				RenderUtil.setColor(red);
 				glBegin(GL_QUADS);
 				{
 					glVertex2d(offset - fontHeight + 2, 5);
@@ -348,10 +359,10 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 					glVertex2d(offset - fontHeight + 3, fontHeight);
 				}
 				glEnd();
-
-				//shadow
+				
+				// shadow
 				glLineWidth(1f);
-				glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
+				RenderUtil.setColor(shadow);
 				glBegin(GL_LINE_LOOP);
 				{
 					glVertex2d(offset - fontHeight + 2, 5);
@@ -379,7 +390,7 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				.downShadow(0, fontHeight + 4, area.width, fontHeight + 5);
 		glEnable(GL_TEXTURE_2D);
 		theme.getFontRenderer().drawStringWithShadow(component.getTitle(), 2,
-			2, RenderUtil.toRGBA(component.getForegroundColor()));
+			1, RenderUtil.toRGBA(component.getForegroundColor()));
 		
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);

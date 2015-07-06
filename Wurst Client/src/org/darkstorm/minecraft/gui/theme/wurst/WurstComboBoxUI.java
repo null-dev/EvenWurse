@@ -14,9 +14,12 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import net.minecraft.client.Minecraft;
+
 import org.darkstorm.minecraft.gui.component.ComboBox;
 import org.darkstorm.minecraft.gui.component.Component;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
+import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
 
@@ -37,16 +40,18 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 	protected void renderComponent(ComboBox component)
 	{
 		translateComponent(component, false);
-		Rectangle area = component.getArea();
-		glEnable(GL_BLEND);
-		glDisable(GL_CULL_FACE);
 		
-		glDisable(GL_TEXTURE_2D);
+		// area
+		Rectangle area = component.getArea();
+		
+		// max width
 		int maxWidth = 0;
 		for(String element : component.getElements())
 			maxWidth =
 				Math.max(maxWidth,
 					theme.getFontRenderer().getStringWidth(element));
+		
+		// extended height
 		int extendedHeight = 0;
 		if(component.isSelected())
 		{
@@ -55,16 +60,34 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 				extendedHeight += theme.getFontRenderer().FONT_HEIGHT + 2;
 			extendedHeight += 2;
 		}
-		glLineWidth(1.5F);
-		RenderUtil.setColor(Color.BLACK);
-		glBegin(GL_LINE_LOOP);
+		
+		// mouse location
+		Point mouse = RenderUtil.calculateMouseLocation();
+		Component parent = component.getParent();
+		while(parent != null)
 		{
-			glVertex2d(0, 0);
-			glVertex2d(area.width, 0);
-			glVertex2d(area.width, area.height);
-			glVertex2d(0, area.height);
+			mouse.x -= parent.getX();
+			mouse.y -= parent.getY();
+			parent = parent.getParent();
 		}
-		glEnd();
+		
+		// hovering
+		boolean hovering =
+			mouse.x >= area.x
+				&& mouse.x <= area.x + area.width
+				&& mouse.y >= area.y + 1
+				&& mouse.y <= area.y + area.height - 1
+				&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen;
+		
+		// GL settings
+		glEnable(GL_BLEND);
+		glDisable(GL_CULL_FACE);
+		glDisable(GL_TEXTURE_2D);
+		
+		// shadow
+		RenderUtil.boxShadow(0, 1, area.width, area.height - 1);
+		
+		// background
 		RenderUtil.setColor(component.getBackgroundColor());
 		glBegin(GL_QUADS);
 		{
@@ -74,49 +97,28 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			glVertex2d(0, area.height + extendedHeight);
 		}
 		glEnd();
-		Point mouse = RenderUtil.calculateMouseLocation();
-		Component parent = component.getParent();
-		while(parent != null)
-		{
-			mouse.x -= parent.getX();
-			mouse.y -= parent.getY();
-			parent = parent.getParent();
-		}
+		
+		// extension shadow
+		if(extendedHeight > 0)
+			RenderUtil.boxShadow(0, area.height, area.width, area.height
+				+ extendedHeight);
+		
 		glColor4f(0.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f : 0.3f);
 		if(area.contains(mouse))
 		{
+			// hover overlay
 			glBegin(GL_QUADS);
 			{
-				glVertex2d(0, 0);
-				glVertex2d(area.width, 0);
-				glVertex2d(area.width, area.height);
-				glVertex2d(0, area.height);
-			}
-			glEnd();
-			int height = theme.getFontRenderer().FONT_HEIGHT + 4;
-			glBegin(GL_TRIANGLES);
-			{
-				if(component.isSelected())
-				{
-					glColor4f(1.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f
-						: 0.3f);
-					glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
-					glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
-					glVertex2d(maxWidth + 5.5 + 2d * height / 3d,
-						2d * height / 3d);
-				}else
-				{
-					glColor4f(0.0f, 1.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f
-						: 0.3f);
-					glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
-					glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
-					glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
-				}
+				glVertex2d(0, 1);
+				glVertex2d(area.width, 1);
+				glVertex2d(area.width, area.height - 1);
+				glVertex2d(0, area.height - 1);
 			}
 			glEnd();
 		}else if(component.isSelected() && mouse.x >= area.x
 			&& mouse.x <= area.x + area.width)
 		{
+			// item hover overlay
 			int offset = component.getHeight();
 			String[] elements = component.getElements();
 			for(int i = 0; i < elements.length; i++)
@@ -144,9 +146,11 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 				offset += height;
 			}
 		}
+		
+		// item separator
 		if(component.isSelected())
 		{
-			RenderUtil.setColor(Color.BLACK);
+			glColor4f(0.125f, 0.125f, 0.125f, 0.5f);
 			int offset2 = component.getHeight();
 			String[] elements = component.getElements();
 			for(int i = 0; i < elements.length; i++)
@@ -158,76 +162,80 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 					|| (component.getSelectedIndex() == elements.length - 1
 						? i == elements.length - 2 : i == elements.length - 1))
 					height++;
-				glBegin(GL_LINE_LOOP);
+				if(i != 0)
 				{
-					glVertex2d(0, offset2);
-					glVertex2d(0, offset2 + height);
-					glVertex2d(area.width, offset2 + height);
-					glVertex2d(area.width, offset2);
+					glBegin(GL_LINES);
+					{
+						glVertex2d(0, offset2);
+						glVertex2d(area.width, offset2);
+					}
+					glEnd();
 				}
-				glEnd();
 				offset2 += height;
 			}
 		}
+		
 		int height = theme.getFontRenderer().FONT_HEIGHT + 4;
+		
+		// arrow
 		glBegin(GL_TRIANGLES);
 		{
 			if(component.isSelected())
 			{
-				glColor4f(1.0f, 0.0f, 0.0f, 0.3f);
-				glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
-				glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, 2d * height / 3d);
+				glColor4f(1f, 0f, 0f, hovering ? 0.5f : 0.375f);
+				glVertex2d(maxWidth + 5 + height / 2d, height / 3d);
+				glVertex2d(maxWidth + 3.5 + height / 3d, 2d * height / 3d);
+				glVertex2d(maxWidth + 6.5 + 2d * height / 3d, 2d * height / 3d);
 			}else
 			{
-				glColor4f(0.0f, 1.0f, 0.0f, 0.3f);
-				glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
-				glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
+				glColor4f(0f, 1f, 0f, hovering ? 0.5f : 0.375f);
+				glVertex2d(maxWidth + 3.5 + height / 3d, height / 3d);
+				glVertex2d(maxWidth + 6.5 + 2d * height / 3d, height / 3d);
+				glVertex2d(maxWidth + 5 + height / 2d, 2d * height / 3d);
 			}
 		}
 		glEnd();
-		glLineWidth(1.0f);
-		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-		// glBegin(GL_LINE_LOOP);
-		// {
-		// glVertex2d(0, 0);
-		// glVertex2d(area.width, 0);
-		// glVertex2d(area.width, area.height + extendedHeight);
-		// glVertex2d(-0.5, area.height + extendedHeight);
-		// }
-		// glEnd();
-		glBegin(GL_LINES);
-		{
-			glVertex2d(maxWidth + 4, 2);
-			glVertex2d(maxWidth + 4, area.height - 2);
-		}
-		glEnd();
-		glLineWidth(1.0f);
+		
+		// arrow shadow
+		glLineWidth(1f);
+		glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
 		glBegin(GL_LINE_LOOP);
 		{
 			if(component.isSelected())
 			{
-				glVertex2d(maxWidth + 4 + height / 2d, height / 3d);
-				glVertex2d(maxWidth + 2.5 + height / 3d, 2d * height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, 2d * height / 3d);
+				glVertex2d(maxWidth + 5 + height / 2d, height / 3d);
+				glVertex2d(maxWidth + 3.5 + height / 3d, 2d * height / 3d);
+				glVertex2d(maxWidth + 6.5 + 2d * height / 3d, 2d * height / 3d);
 			}else
 			{
-				glVertex2d(maxWidth + 2.5 + height / 3d, height / 3d);
-				glVertex2d(maxWidth + 5.5 + 2d * height / 3d, height / 3d);
-				glVertex2d(maxWidth + 4 + height / 2d, 2d * height / 3d);
+				glVertex2d(maxWidth + 3.5 + height / 3d, height / 3d);
+				glVertex2d(maxWidth + 6.5 + 2d * height / 3d, height / 3d);
+				glVertex2d(maxWidth + 5 + height / 2d, 2d * height / 3d);
 			}
 		}
 		glEnd();
-		glEnable(GL_TEXTURE_2D);
 		
+		// arrow separator
+		glLineWidth(1.0f);
+		glColor4f(0.125f, 0.125f, 0.125f, 0.25f);
+		glBegin(GL_LINES);
+		{
+			glVertex2d(maxWidth + 6, 2);
+			glVertex2d(maxWidth + 6, area.height - 2);
+		}
+		glEnd();
+		
+		// text
+		glEnable(GL_TEXTURE_2D);
 		String text = component.getSelectedElement();
 		theme.getFontRenderer().drawString(text, 2,
-			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
+			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2 - 1,
 			RenderUtil.toRGBA(component.getForegroundColor()));
+		
+		// item text
 		if(component.isSelected())
 		{
-			int offset = area.height + 2;
+			int offset = area.height + 1;
 			String[] elements = component.getElements();
 			for(int i = 0; i < elements.length; i++)
 			{
@@ -242,9 +250,11 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			}
 		}
 		
+		// GL resets
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
+		
 		translateComponent(component, true);
 	}
 	

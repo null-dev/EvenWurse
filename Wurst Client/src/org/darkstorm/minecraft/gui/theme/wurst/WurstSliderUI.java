@@ -30,8 +30,8 @@ public class WurstSliderUI extends AbstractComponentUI<Slider>
 	{
 		super(Slider.class);
 		this.theme = theme;
-		
-		foreground = Color.LIGHT_GRAY;
+
+		foreground = Color.WHITE;
 		background = new Color(128, 128, 128, 128 + 128 / 2);
 	}
 	
@@ -39,13 +39,21 @@ public class WurstSliderUI extends AbstractComponentUI<Slider>
 	protected void renderComponent(Slider component)
 	{
 		translateComponent(component, false);
+		
+		// GL settings
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
+		
+		// area & font
 		Rectangle area = component.getArea();
 		int fontSize = theme.getFontRenderer().FONT_HEIGHT;
 		FontRenderer fontRenderer = theme.getFontRenderer();
+		
+		// text
 		fontRenderer.drawString(component.getText(), 0, 0,
 			RenderUtil.toRGBA(component.getForegroundColor()));
+		
+		// value
 		String content = null;
 		switch(component.getValueDisplay())
 		{
@@ -81,28 +89,34 @@ public class WurstSliderUI extends AbstractComponentUI<Slider>
 		}
 		glDisable(GL_TEXTURE_2D);
 		
-		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-		glLineWidth(1.0f);
-		glBegin(GL_LINE_LOOP);
-		{
-			glVertex2d(0, fontSize + 3.5);
-			glVertex2d(area.width, fontSize + 3.5);
-			glVertex2d(area.width, area.height - 1.5);
-			glVertex2d(0, area.height - 1.5);
-		}
-		glEnd();
-		RenderUtil.setColor(new Color(0, 0, 0, 96));
+		// line
+		glColor4f(0.03125f, 0.03125f, 0.03125f, 0.25f);
 		glBegin(GL_QUADS);
 		{
-			glVertex2d(0, fontSize + 3.5);
-			glVertex2d(area.width, fontSize + 3.5);
-			glVertex2d(area.width, area.height - 1.5);
-			glVertex2d(0, area.height - 1.5);
+			glVertex2d(1, fontSize + 4);
+			glVertex2d(area.width - 1, fontSize + 4);
+			glVertex2d(area.width - 1, area.height - 2);
+			glVertex2d(1, area.height - 2);
 		}
 		glEnd();
+		
+		// line shadow
+		glLineWidth(1.0f);
+		glColor4f(0.125f, 0.125f, 0.125f, 0.5f);
+		glBegin(GL_LINE_LOOP);
+		{
+			glVertex2d(1, fontSize + 4);
+			glVertex2d(area.width - 1, fontSize + 4);
+			glVertex2d(area.width - 1, area.height - 2);
+			glVertex2d(1, area.height - 2);
+		}
+		glEnd();
+		
 		double sliderPercentage =
 			(component.getValue() - component.getMinimumValue())
 				/ (component.getMaximumValue() - component.getMinimumValue());
+		
+		// slider
 		glColor4f(0.0f + (float)sliderPercentage,
 			1.0f - (float)sliderPercentage, 0.0f, 0.5f);
 		glBegin(GL_QUADS);
@@ -113,19 +127,17 @@ public class WurstSliderUI extends AbstractComponentUI<Slider>
 			glVertex2d((area.width - 6) * sliderPercentage - 1, area.height + 1);
 		}
 		glEnd();
-		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-		glLineWidth(1.0f);
-		glBegin(GL_LINE_LOOP);
-		{
-			glVertex2d((area.width - 6) * sliderPercentage - 1, fontSize + 0.9);
-			glVertex2d((area.width - 6) * sliderPercentage + 7, fontSize + 0.9);
-			glVertex2d((area.width - 6) * sliderPercentage + 7, area.height + 1);
-			glVertex2d((area.width - 6) * sliderPercentage - 1, area.height + 1);
-		}
-		glEnd();
+		
+		// slider shadow
+		RenderUtil.boxShadow((area.width - 6) * sliderPercentage - 1,
+			fontSize + 1, (area.width - 6) * sliderPercentage + 7,
+			area.height + 1);
+		
+		// GL resets
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
+		
 		translateComponent(component, true);
 	}
 	
