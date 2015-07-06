@@ -100,7 +100,8 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		
 		// extension shadow
 		if(extendedHeight > 0)
-			RenderUtil.boxShadow(0, area.height, area.width, area.height + extendedHeight);
+			RenderUtil.boxShadow(0, area.height, area.width, area.height
+				+ extendedHeight);
 		
 		glColor4f(0.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f : 0.3f);
 		if(area.contains(mouse))
@@ -146,10 +147,10 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			}
 		}
 		
-		// item outline
+		// item separator
 		if(component.isSelected())
 		{
-			RenderUtil.setColor(Color.BLACK);
+			glColor4f(0.125f, 0.125f, 0.125f, hovering ? 0.75f : 0.5f);
 			int offset2 = component.getHeight();
 			String[] elements = component.getElements();
 			for(int i = 0; i < elements.length; i++)
@@ -161,14 +162,15 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 					|| (component.getSelectedIndex() == elements.length - 1
 						? i == elements.length - 2 : i == elements.length - 1))
 					height++;
-				glBegin(GL_LINE_LOOP);
+				if(i != 0)
 				{
-					glVertex2d(0, offset2);
-					glVertex2d(0, offset2 + height);
-					glVertex2d(area.width, offset2 + height);
-					glVertex2d(area.width, offset2);
+					glBegin(GL_LINES);
+					{
+						glVertex2d(0, offset2);
+						glVertex2d(area.width, offset2);
+					}
+					glEnd();
 				}
-				glEnd();
 				offset2 += height;
 			}
 		}
