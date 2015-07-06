@@ -234,7 +234,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		glEnable(GL_TEXTURE_2D);
 		String text = component.getSelectedElement();
 		theme.getFontRenderer().drawString(text, 2,
-			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
+			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2 - 1,
 			RenderUtil.toRGBA(component.getForegroundColor()));
 		
 		// item text
