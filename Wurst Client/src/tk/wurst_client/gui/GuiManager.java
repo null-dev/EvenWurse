@@ -154,7 +154,7 @@ public final class GuiManager extends AbstractGuiManager
 					setForegroundColor(updateModule.isEnabled() ? Color.BLACK
 						: Color.WHITE);
 					setBackgroundColor(updateModule.isEnabled() ? new Color(0,
-						255, 0, 128) : new Color(0, 0, 0, 0));
+						255, 0, 96) : new Color(0, 0, 0, 0));
 				}
 			};
 			button.addButtonListener(new ButtonListener()
