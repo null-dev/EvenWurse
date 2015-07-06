@@ -93,10 +93,10 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			// hover overlay
 			glBegin(GL_QUADS);
 			{
-				glVertex2d(0, 0);
-				glVertex2d(area.width, 0);
-				glVertex2d(area.width, area.height);
-				glVertex2d(0, area.height);
+				glVertex2d(0, 1);
+				glVertex2d(area.width, 1);
+				glVertex2d(area.width, area.height - 1);
+				glVertex2d(0, area.height - 1);
 			}
 			glEnd();
 			
