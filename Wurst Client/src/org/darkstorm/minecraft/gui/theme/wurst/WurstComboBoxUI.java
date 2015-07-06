@@ -37,16 +37,18 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 	protected void renderComponent(ComboBox component)
 	{
 		translateComponent(component, false);
-		Rectangle area = component.getArea();
-		glEnable(GL_BLEND);
-		glDisable(GL_CULL_FACE);
 		
-		glDisable(GL_TEXTURE_2D);
+		// area
+		Rectangle area = component.getArea();
+		
+		// max width
 		int maxWidth = 0;
 		for(String element : component.getElements())
 			maxWidth =
 				Math.max(maxWidth,
 					theme.getFontRenderer().getStringWidth(element));
+		
+		// extended height
 		int extendedHeight = 0;
 		if(component.isSelected())
 		{
@@ -55,6 +57,23 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 				extendedHeight += theme.getFontRenderer().FONT_HEIGHT + 2;
 			extendedHeight += 2;
 		}
+		
+		// mouse location
+		Point mouse = RenderUtil.calculateMouseLocation();
+		Component parent = component.getParent();
+		while(parent != null)
+		{
+			mouse.x -= parent.getX();
+			mouse.y -= parent.getY();
+			parent = parent.getParent();
+		}
+		
+		// GL settings
+		glEnable(GL_BLEND);
+		glDisable(GL_CULL_FACE);
+		glDisable(GL_TEXTURE_2D);
+		
+		// outline
 		glLineWidth(1.5F);
 		RenderUtil.setColor(Color.BLACK);
 		glBegin(GL_LINE_LOOP);
@@ -65,6 +84,8 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			glVertex2d(0, area.height);
 		}
 		glEnd();
+		
+		// background
 		RenderUtil.setColor(component.getBackgroundColor());
 		glBegin(GL_QUADS);
 		{
@@ -74,17 +95,11 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			glVertex2d(0, area.height + extendedHeight);
 		}
 		glEnd();
-		Point mouse = RenderUtil.calculateMouseLocation();
-		Component parent = component.getParent();
-		while(parent != null)
-		{
-			mouse.x -= parent.getX();
-			mouse.y -= parent.getY();
-			parent = parent.getParent();
-		}
+		
 		glColor4f(0.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f : 0.3f);
 		if(area.contains(mouse))
 		{
+			// hover overlay
 			glBegin(GL_QUADS);
 			{
 				glVertex2d(0, 0);
@@ -93,6 +108,8 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 				glVertex2d(0, area.height);
 			}
 			glEnd();
+			
+			// ???
 			int height = theme.getFontRenderer().FONT_HEIGHT + 4;
 			glBegin(GL_TRIANGLES);
 			{
@@ -117,6 +134,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		}else if(component.isSelected() && mouse.x >= area.x
 			&& mouse.x <= area.x + area.width)
 		{
+			// item hover overlay
 			int offset = component.getHeight();
 			String[] elements = component.getElements();
 			for(int i = 0; i < elements.length; i++)
@@ -144,6 +162,8 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 				offset += height;
 			}
 		}
+		
+		// item outline
 		if(component.isSelected())
 		{
 			RenderUtil.setColor(Color.BLACK);
@@ -169,7 +189,10 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 				offset2 += height;
 			}
 		}
+		
 		int height = theme.getFontRenderer().FONT_HEIGHT + 4;
+		
+		// arrow
 		glBegin(GL_TRIANGLES);
 		{
 			if(component.isSelected())
@@ -187,22 +210,18 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			}
 		}
 		glEnd();
+		
+		// arrow separator
 		glLineWidth(1.0f);
 		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-		// glBegin(GL_LINE_LOOP);
-		// {
-		// glVertex2d(0, 0);
-		// glVertex2d(area.width, 0);
-		// glVertex2d(area.width, area.height + extendedHeight);
-		// glVertex2d(-0.5, area.height + extendedHeight);
-		// }
-		// glEnd();
 		glBegin(GL_LINES);
 		{
 			glVertex2d(maxWidth + 4, 2);
 			glVertex2d(maxWidth + 4, area.height - 2);
 		}
 		glEnd();
+		
+		// arrow outline
 		glLineWidth(1.0f);
 		glBegin(GL_LINE_LOOP);
 		{
@@ -219,12 +238,15 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			}
 		}
 		glEnd();
-		glEnable(GL_TEXTURE_2D);
 		
+		// text
+		glEnable(GL_TEXTURE_2D);
 		String text = component.getSelectedElement();
 		theme.getFontRenderer().drawString(text, 2,
 			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
 			RenderUtil.toRGBA(component.getForegroundColor()));
+		
+		// item text
 		if(component.isSelected())
 		{
 			int offset = area.height + 2;
@@ -242,9 +264,11 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			}
 		}
 		
+		// GL resets
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
+		
 		translateComponent(component, true);
 	}
 	
