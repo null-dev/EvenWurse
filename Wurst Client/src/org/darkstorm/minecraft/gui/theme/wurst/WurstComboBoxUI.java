@@ -98,6 +98,10 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		}
 		glEnd();
 		
+		// extension shadow
+		if(extendedHeight > 0)
+			RenderUtil.boxShadow(0, area.height, area.width, area.height + extendedHeight);
+		
 		glColor4f(0.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f : 0.3f);
 		if(area.contains(mouse))
 		{
