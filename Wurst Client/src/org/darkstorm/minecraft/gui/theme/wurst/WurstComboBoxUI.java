@@ -74,16 +74,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		glDisable(GL_TEXTURE_2D);
 		
 		// outline
-		glLineWidth(1.5F);
-		RenderUtil.setColor(Color.BLACK);
-		glBegin(GL_LINE_LOOP);
-		{
-			glVertex2d(0, 0);
-			glVertex2d(area.width, 0);
-			glVertex2d(area.width, area.height);
-			glVertex2d(0, area.height);
-		}
-		glEnd();
+		RenderUtil.boxShadow(0, 1, area.width, area.height - 1);
 		
 		// background
 		RenderUtil.setColor(component.getBackgroundColor());
