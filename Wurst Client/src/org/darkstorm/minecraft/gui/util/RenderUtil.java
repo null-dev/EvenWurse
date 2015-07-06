@@ -179,7 +179,7 @@ public class RenderUtil
 			/ scaleFactor - Mouse.getY() / scaleFactor - 1);
 	}
 	
-	public static void boxShadow(int x1, int y1, int x2, int y2)
+	public static void boxShadow(double x1, double y1, double x2, double y2)
 	{
 		// top left
 		glBegin(GL_POLYGON);
@@ -188,9 +188,9 @@ public class RenderUtil
 			glVertex2d(x1, y1);
 			glVertex2d(x2, y1);
 			RenderUtil.setColor(shadow2);
-			glVertex2d(x2 + 1, y1 - 1);
-			glVertex2d(x1 - 1, y1 - 1);
-			glVertex2d(x1 - 1, y2 + 1);
+			glVertex2d(x2 + 1d, y1 - 1d);
+			glVertex2d(x1 - 1d, y1 - 1d);
+			glVertex2d(x1 - 1d, y2 + 1d);
 			RenderUtil.setColor(shadow1);
 			glVertex2d(x1, y2);
 		}
@@ -203,9 +203,9 @@ public class RenderUtil
 			glVertex2d(x2, y2);
 			glVertex2d(x2, y1);
 			RenderUtil.setColor(shadow2);
-			glVertex2d(x2 + 1, y1 - 1);
-			glVertex2d(x2 + 1, y2 + 1);
-			glVertex2d(x1 - 1, y2 + 1);
+			glVertex2d(x2 + 1d, y1 - 1d);
+			glVertex2d(x2 + 1d, y2 + 1d);
+			glVertex2d(x1 - 1d, y2 + 1d);
 			RenderUtil.setColor(shadow1);
 			glVertex2d(x1, y2);
 		}
