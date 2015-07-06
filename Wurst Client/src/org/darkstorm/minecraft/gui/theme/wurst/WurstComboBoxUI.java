@@ -100,7 +100,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 			}
 			glEnd();
 			
-			// ???
+			// arrow glow
 			int height = theme.getFontRenderer().FONT_HEIGHT + 4;
 			glBegin(GL_TRIANGLES);
 			{
