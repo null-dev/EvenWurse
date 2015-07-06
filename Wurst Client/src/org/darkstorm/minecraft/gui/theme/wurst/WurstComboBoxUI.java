@@ -229,7 +229,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 		// item text
 		if(component.isSelected())
 		{
-			int offset = area.height + 2;
+			int offset = area.height + 1;
 			String[] elements = component.getElements();
 			for(int i = 0; i < elements.length; i++)
 			{
