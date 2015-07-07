@@ -29,6 +29,7 @@ public class Options
 	public int targetMode = 0;
 	public int fastbreakMode = 0;
 	public int forceOPDelay = 1000;
+	public int ghostHandID = 54;
 	public int nukerMode = 0;
 	public int searchID = 116;
 	public int serverFinderThreads = 64;
