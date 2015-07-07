@@ -22,10 +22,10 @@ public class JetpackMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager
-			.getModByClass(FlightMod.class).isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(
-				FlightMod.class).setEnabled(false);
+		if(WurstClient.INSTANCE.modManager.getModByClass(FlightMod.class)
+			.isEnabled())
+			WurstClient.INSTANCE.modManager.getModByClass(FlightMod.class)
+				.setEnabled(false);
 		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	
