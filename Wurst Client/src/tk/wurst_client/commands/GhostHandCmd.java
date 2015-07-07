@@ -46,8 +46,7 @@ public class GhostHandCmd extends Cmd
 						+ "\" could not be found.");
 					return;
 				}
-				WurstClient.INSTANCE.options.ghostHandID =
-					Integer.valueOf(args[1]);
+				WurstClient.INSTANCE.options.ghostHandID = newID;
 				WurstClient.INSTANCE.fileManager.saveOptions();
 				WurstClient.INSTANCE.chat.message("GhostHand ID set to "
 					+ newID + " (" + args[1] + ").");
