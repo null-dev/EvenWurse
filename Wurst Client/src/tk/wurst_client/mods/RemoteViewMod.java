@@ -60,7 +60,7 @@ public class RemoteViewMod extends Mod implements UpdateListener
 				Minecraft.getMinecraft().thePlayer.getGameProfile());
 		fakePlayer.clonePlayer(Minecraft.getMinecraft().thePlayer, true);
 		fakePlayer
-		.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
+			.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
@@ -112,7 +112,8 @@ public class RemoteViewMod extends Mod implements UpdateListener
 				+ otherView.getName() + ".");
 			otherView.setInvisible(wasInvisible);
 			Minecraft.getMinecraft().thePlayer.noClip = false;
-			Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY, oldZ, oldYaw, oldPitch);
+			Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX,
+				oldY, oldZ, oldYaw, oldPitch);
 			Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
 		}
 		newView = null;

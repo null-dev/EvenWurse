@@ -7,12 +7,12 @@
  */
 package tk.wurst_client.mods;
 
-import tk.wurst_client.WurstClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import tk.wurst_client.WurstClient;
 
 @Mod.Info(category = Mod.Category.EXPLOITS,
 	description = "Generates a CrashChest. Give a lot of these to another\n"
@@ -44,9 +44,7 @@ public class CrashChestMod extends Mod
 		NBTTagCompound nbtTagCompound = new NBTTagCompound();
 		NBTTagList nbtList = new NBTTagList();
 		for(int i = 0; i < 40000; i++)
-		{
 			nbtList.appendTag(new NBTTagList());
-		}
 		nbtTagCompound.setTag("www.wurst-client.tk", nbtList);
 		stack.setTagInfo("www.wurst-client.tk", nbtTagCompound);
 		Minecraft.getMinecraft().thePlayer.getInventory()[0] = stack;

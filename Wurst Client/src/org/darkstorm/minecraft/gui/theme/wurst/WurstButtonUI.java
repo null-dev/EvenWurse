@@ -170,7 +170,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 				glVertex2d(rawMouse.x + 6, rawMouse.y - 5 + textHeight);
 			}
 			glEnd();
-			RenderUtil.boxShadow(rawMouse.x + 6, rawMouse.y - 5, rawMouse.x + textWidth + 11, rawMouse.y - 5 + textHeight);
+			RenderUtil.boxShadow(rawMouse.x + 6, rawMouse.y - 5, rawMouse.x
+				+ textWidth + 11, rawMouse.y - 5 + textHeight);
 			for(int i = 0; i < lines.length; i++)
 				theme.getFontRenderer().drawString(
 					lines[i],

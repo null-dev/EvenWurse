@@ -50,7 +50,7 @@ public class OpSignMod extends Mod
 	
 	public void createSign(String cmd)
 	{
-
+		
 		ItemStack stack =
 			new ItemStack(Item.getByNameOrId("minecraft:sign"), 1);
 		NBTBase nbtTest = null;
@@ -59,8 +59,7 @@ public class OpSignMod extends Mod
 			nbtTest =
 				JsonToNBT
 					.func_180713_a("{BlockEntityTag:{Text1:\"{text:\\\"\\\",clickEvent:{action:run_command,value:\\\""
-						+ cmd.replace("\"", "\\\\\"")
-						+ "\\\"}}\",},}");
+						+ cmd.replace("\"", "\\\\\"") + "\\\"}}\",},}");
 		}catch(NBTException e)
 		{
 			throw new IllegalStateException("Failed to create NBT data.", e);

@@ -30,7 +30,7 @@ public class WurstSliderUI extends AbstractComponentUI<Slider>
 	{
 		super(Slider.class);
 		this.theme = theme;
-
+		
 		foreground = Color.WHITE;
 		background = new Color(128, 128, 128, 128 + 128 / 2);
 	}

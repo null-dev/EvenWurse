@@ -39,7 +39,7 @@ public class CrashItemMod extends Mod
 		String stackName = "";
 		for(int i = 0; i < 3000; i++)
 		{
-			StringBuilder builder = (new StringBuilder()).append(stackName);
+			StringBuilder builder = new StringBuilder().append(stackName);
 			stackName = builder.append("############").toString();
 		}
 		Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem()

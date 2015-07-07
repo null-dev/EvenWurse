@@ -114,13 +114,13 @@ public class GuiCmdBlock extends GuiScreen
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
 		drawDefaultBackground();
-		drawCenteredString(fontRendererObj, "CMD-Block", width / 2, 20, 16777215);
+		drawCenteredString(fontRendererObj, "CMD-Block", width / 2, 20,
+			16777215);
 		drawString(fontRendererObj, "Command", width / 2 - 100, 47, 10526880);
 		drawCenteredString(fontRendererObj,
 			"The command you type in here will be", width / 2, 100, 10526880);
-		drawCenteredString(fontRendererObj,
-			"executed by the Command Block.", width / 2, 110,
-			10526880);
+		drawCenteredString(fontRendererObj, "executed by the Command Block.",
+			width / 2, 110, 10526880);
 		commandBox.drawTextBox();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}

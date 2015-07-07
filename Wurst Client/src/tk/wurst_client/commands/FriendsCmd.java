@@ -50,9 +50,8 @@ public class FriendsCmd extends Cmd
 			}else
 				syntaxError();
 		}else if(args.length < 2)
-		{
 			syntaxError();
-		}else if(args[0].equalsIgnoreCase("add"))
+		else if(args[0].equalsIgnoreCase("add"))
 		{
 			if(WurstClient.INSTANCE.friends.contains(args[1]))
 			{
