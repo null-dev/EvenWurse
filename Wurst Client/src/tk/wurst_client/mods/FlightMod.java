@@ -23,6 +23,7 @@ import tk.wurst_client.mods.Mod.Info;
 public class FlightMod extends Mod implements UpdateListener
 {
 	public float speed = 1F;
+	private double startY;
 	
 	@Override
 	public void initSliders()
@@ -48,17 +49,17 @@ public class FlightMod extends Mod implements UpdateListener
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
 			.isEnabled())
 		{
-			double posX = Minecraft.getMinecraft().thePlayer.posX;
-			double posY = Minecraft.getMinecraft().thePlayer.posY;
-			double posZ = Minecraft.getMinecraft().thePlayer.posZ;
+			double startX = Minecraft.getMinecraft().thePlayer.posX;
+			startY = Minecraft.getMinecraft().thePlayer.posY;
+			double startZ = Minecraft.getMinecraft().thePlayer.posZ;
 			for(int i = 0; i < 4; i++)
 			{
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(
-						posX, posY + 1.01, posZ, false));
+						startX, startY + 1.01, startZ, false));
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(
-						posX, posY, posZ, false));
+						startX, startY, startZ, false));
 			}
 			Minecraft.getMinecraft().thePlayer.jump();
 		}
@@ -72,7 +73,11 @@ public class FlightMod extends Mod implements UpdateListener
 			.isEnabled())
 		{
 			if(!Minecraft.getMinecraft().thePlayer.onGround)
-				Minecraft.getMinecraft().thePlayer.motionY = -0.02;
+				if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed
+					&& Minecraft.getMinecraft().thePlayer.posY < startY)
+					Minecraft.getMinecraft().thePlayer.motionY = 0.2;
+				else
+					Minecraft.getMinecraft().thePlayer.motionY = -0.02;
 		}else
 		{
 			Minecraft.getMinecraft().thePlayer.capabilities.isFlying = false;
