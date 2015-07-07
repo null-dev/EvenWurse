@@ -1,6 +1,6 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -11,8 +11,9 @@ import java.awt.Color;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import tk.wurst_client.WurstClient;
@@ -21,39 +22,54 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.FUN,
-	description = "Thousands of colors!",
-	name = "LSD")
+description = "Thousands of colors!",
+name = "LSD")
 public class LsdMod extends Mod implements UpdateListener
 {
 	private static float speed = 2;
 	private static long currentMS = 0L;
 	private static long lastMS = -1L;
 	private static Color color = Color.WHITE;
-	
+
 	@Override
 	public void onToggle()
 	{
 		if(!OpenGlHelper.shadersSupported)
 			Minecraft.getMinecraft().renderGlobal.loadRenderers();
 	}
-	
+
 	@Override
 	public void onEnable()
 	{
-		Minecraft.getMinecraft().entityRenderer.activateLSD();
+		if(OpenGlHelper.shadersSupported)
+			if(Minecraft.getMinecraft().func_175606_aa() instanceof EntityPlayer)
+			{
+				if(Minecraft.getMinecraft().entityRenderer.theShaderGroup != null)
+					Minecraft.getMinecraft().entityRenderer.theShaderGroup
+					.deleteShaderGroup();
+
+				Minecraft.getMinecraft().entityRenderer.shaderIndex = 19;
+
+				if(Minecraft.getMinecraft().entityRenderer.shaderIndex != EntityRenderer.shaderCount)
+					Minecraft.getMinecraft().entityRenderer
+					.func_175069_a(EntityRenderer.shaderResourceLocations[19]);
+				else
+					Minecraft.getMinecraft().entityRenderer.theShaderGroup =
+					null;
+			}
 		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
-	
+
 	@Override
 	public void onUpdate()
 	{
 		if(!OpenGlHelper.shadersSupported)
 			Minecraft.getMinecraft().thePlayer
-				.addPotionEffect(new PotionEffect(Potion.confusion.getId(),
-					10801220));
+			.addPotionEffect(new PotionEffect(Potion.confusion.getId(),
+				10801220));
 		Minecraft.getMinecraft().gameSettings.smoothCamera = isEnabled();
 	}
-	
+
 	@Override
 	public void onDisable()
 	{
@@ -63,13 +79,12 @@ public class LsdMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().entityRenderer.theShaderGroup != null)
 		{
 			Minecraft.getMinecraft().entityRenderer.theShaderGroup
-				.deleteShaderGroup();
+			.deleteShaderGroup();
 			Minecraft.getMinecraft().entityRenderer.theShaderGroup = null;
 		}
-		Tessellator.shouldRenderLSD = false;
 		Minecraft.getMinecraft().gameSettings.smoothCamera = false;
 	}
-	
+
 	public static Color randomColor()
 	{
 		currentMS = System.currentTimeMillis();
@@ -80,8 +95,8 @@ public class LsdMod extends Mod implements UpdateListener
 		}
 		while(color == Color.WHITE)
 			color =
-				new Color(new Random().nextInt(256), new Random().nextInt(256),
-					new Random().nextInt(256), new Random().nextInt(256));
+			new Color(new Random().nextInt(256), new Random().nextInt(256),
+				new Random().nextInt(256), new Random().nextInt(256));
 		return color;
 	}
 }
