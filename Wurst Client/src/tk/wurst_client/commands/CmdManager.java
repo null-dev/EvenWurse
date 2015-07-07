@@ -44,6 +44,7 @@ public class CmdManager implements ChatOutputListener
 		addCommand(new FollowCmd());
 		addCommand(new FriendsCmd());
 		addCommand(new GetPosCmd());
+		addCommand(new GhostHandCmd());
 		addCommand(new GmCmd());
 		addCommand(new GoToCmd());
 		addCommand(new HelpCmd());
