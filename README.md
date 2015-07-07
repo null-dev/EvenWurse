@@ -20,7 +20,7 @@ Wurst comes packed with a full featured Alt Manager that supports both premium a
 Wurst is the only client containing an AutoBuild mod that is fully customizable. You can create your very own templates using the popular JSON language or download some samples from the Wurst Client website. It also comes with 7 templates pre-installed, so you can instantly start using it.
 
 ### Wurst-Bot :floppy_disk:
-Wurst-Bot allows you to automate everything! It can grief for you, fight for you, or just spam stuff the chat. You can either run it from the command-line or make yourself a custom Wurst-Bot launcher in nearly any language. Since DarkBot is discontinued, this is yet another Wurst feature that you won't find in any other client.
+Wurst-Bot allows you to automate everything! It can grief for you, fight for you, or just spam stuff in the chat. You can either run it from the command-line or make yourself a custom Wurst-Bot launcher in nearly any language. Since DarkBot is discontinued, this is yet another Wurst feature that you won't find in any other client.
 
 ### Made with Love! :heart:
 Wurst is one of the few clients out there that is **not** made for the money - I actually care about this client. It is my goal to create a client that is absolutely perfect - and I work day & night to achieve this goal.
