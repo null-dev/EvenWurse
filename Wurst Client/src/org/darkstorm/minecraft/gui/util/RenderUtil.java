@@ -16,6 +16,7 @@ import org.lwjgl.input.Mouse;
 
 public class RenderUtil
 {
+	private static Color outline = new Color(0f, 0f, 0f, 0.5f);
 	private static Color shadow1 = new Color(0.125f, 0.125f, 0.125f, 0.75f);
 	private static Color shadow2 = new Color(0.125f, 0.125f, 0.125f, 0f);
 	
@@ -181,6 +182,18 @@ public class RenderUtil
 	
 	public static void boxShadow(double x1, double y1, double x2, double y2)
 	{
+		// outline
+		RenderUtil.setColor(outline);
+		glLineWidth(1f);
+		glBegin(GL_LINE_LOOP);
+		{
+			glVertex2d(x1 - 0.1, y1 - 0.1);
+			glVertex2d(x2 + 0.1, y1 - 0.1);
+			glVertex2d(x2 + 0.1, y2 + 0.1);
+			glVertex2d(x1 - 0.1, y2 + 0.1);
+		}
+		glEnd();
+		
 		// top left
 		glBegin(GL_POLYGON);
 		{
@@ -214,6 +227,16 @@ public class RenderUtil
 	
 	public static void downShadow(int x1, int y1, int x2, int y2)
 	{
+		// outline
+		RenderUtil.setColor(outline);
+		glLineWidth(1f);
+		glBegin(GL_LINES);
+		{
+			glVertex2d(x1, y1 + 0.1);
+			glVertex2d(x2, y1 + 0.1);
+		}
+		glEnd();
+		
 		glBegin(GL_POLYGON);
 		{
 			RenderUtil.setColor(shadow1);
