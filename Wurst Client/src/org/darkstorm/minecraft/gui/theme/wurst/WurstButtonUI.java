@@ -160,7 +160,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			glEnable(GL_BLEND);
 			glDisable(GL_CULL_FACE);
 			glDisable(GL_TEXTURE_2D);
-			glColor4f(0.125f, 0.125f, 0.125f, 0.5f);
+			glColor4f(0.1875f, 0.1875f, 0.1875f, 0.75f);
 			glBegin(GL_QUADS);
 			{
 				glVertex2d(rawMouse.x + 6, rawMouse.y - 5);
