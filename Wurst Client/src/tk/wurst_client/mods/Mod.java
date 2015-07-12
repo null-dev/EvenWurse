@@ -54,7 +54,7 @@ public class Mod
 		
 		Category category();
 		
-		boolean noCheatCompatible();
+		boolean noCheatCompatible() default true;
 	}
 	
 	public final String getName()
