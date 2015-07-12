@@ -15,7 +15,8 @@ import tk.wurst_client.mods.Mod.Info;
 	description = "Instantly writes whatever text you want on every sign\n"
 		+ "you place. Once activated, you can write normally on\n"
 		+ "one sign to specify the text for all other signs.",
-	name = "AutoSign")
+	name = "AutoSign",
+	noCheatCompatible = false)
 public class AutoSignMod extends Mod
 {
 	public IChatComponent[] signText;
