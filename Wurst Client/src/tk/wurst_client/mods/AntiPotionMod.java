@@ -17,7 +17,8 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
 	description = "Blocks bad potion effects.",
-	name = "AntiPotion")
+	name = "AntiPotion",
+	noCheatCompatible = false)
 public class AntiPotionMod extends Mod implements UpdateListener
 {
 	@Override
@@ -29,13 +30,6 @@ public class AntiPotionMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Minecraft.getMinecraft().thePlayer.onGround
 			&& !Minecraft.getMinecraft().thePlayer.getActivePotionEffects()
