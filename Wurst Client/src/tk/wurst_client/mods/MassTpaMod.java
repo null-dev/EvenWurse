@@ -25,14 +25,15 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.CHAT,
 	description = "Sends a TPA requests to all players.\n"
 		+ "Stops if someone accepts.",
-	name = "MassTPA")
+	name = "MassTPA",
+	noCheatCompatible = true)
 public class MassTpaMod extends Mod implements UpdateListener,
 	ChatInputListener
 {
 	private float speed = 1F;
 	private int i;
 	private ArrayList<String> players;
-	Random random = new Random();
+	private Random random = new Random();
 	
 	@Override
 	public void onEnable()
