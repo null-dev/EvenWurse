@@ -16,7 +16,8 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
 	description = "Makes you fall like if you had a hang glider.",
-	name = "Glide")
+	name = "Glide",
+	noCheatCompatible = false)
 public class GlideMod extends Mod implements UpdateListener
 {
 	@Override
@@ -28,12 +29,7 @@ public class GlideMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-		}else if(Minecraft.getMinecraft().thePlayer.motionY < 0
+		if(Minecraft.getMinecraft().thePlayer.motionY < 0
 			&& Minecraft.getMinecraft().thePlayer.isAirBorne
 			&& !Minecraft.getMinecraft().thePlayer.isInWater()
 			&& !Minecraft.getMinecraft().thePlayer.isOnLadder()
