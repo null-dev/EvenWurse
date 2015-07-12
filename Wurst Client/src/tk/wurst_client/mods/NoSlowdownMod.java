@@ -16,7 +16,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.MOVEMENT,
 	description = "Cancels slowness effects caused by water, soul sand and\n"
 		+ "using items.",
-	name = "NoSlowdown")
+	name = "NoSlowdown",
+	noCheatCompatible = false)
 public class NoSlowdownMod extends Mod implements UpdateListener
 {
 	@Override
@@ -28,13 +29,6 @@ public class NoSlowdownMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		if(Minecraft.getMinecraft().thePlayer.onGround
 			&& Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
