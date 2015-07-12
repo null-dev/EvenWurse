@@ -31,7 +31,8 @@ import tk.wurst_client.utils.BlockUtils;
 		+ "This can be a lot faster than Nuker if the server\n"
 		+ "doesn't have NoCheat+. It works best with fast tools\n"
 		+ "and weak blocks.\n" + "Note that this is not an actual explosion.",
-	name = "Kaboom")
+	name = "Kaboom",
+	noCheatCompatible = false)
 public class KaboomMod extends Mod implements UpdateListener
 {
 	private int range = 6;
@@ -59,13 +60,6 @@ public class KaboomMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 		{
 			WurstClient.INSTANCE.chat.error("Surivival mode only.");
