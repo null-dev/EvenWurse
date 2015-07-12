@@ -48,7 +48,8 @@ import tk.wurst_client.utils.RenderUtils;
 		+ "This is a collection of mods that have been optimized\n"
 		+ "for ArenaBrawl. It will bypass everything that Hypixel\n"
 		+ "has to offer.",
-	name = "ArenaBrawl")
+	name = "ArenaBrawl",
+	noCheatCompatible = true)
 public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	DeathListener, RenderListener, UpdateListener
 {
