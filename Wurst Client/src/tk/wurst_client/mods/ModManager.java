@@ -119,6 +119,7 @@ public class ModManager
 		addMod(new StepMod());
 		addMod(new ThrowMod());
 		addMod(new TimerMod());
+		addMod(new TiredMod());
 		addMod(new TracersMod());
 		addMod(new TriggerBotMod());
 		addMod(new TrollPotionMod());
