@@ -26,7 +26,8 @@ import tk.wurst_client.utils.RenderUtils;
 @Info(category = Category.RENDER,
 	description = "Allows you to see chests through walls.\n"
 		+ "Tip: This works with the piston crates on HiveMC.",
-	name = "ChestESP")
+	name = "ChestESP",
+	noCheatCompatible = true)
 public class ChestEspMod extends Mod implements UpdateListener, RenderListener
 {
 	private int range = 50;
