@@ -13,7 +13,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.RENDER,
 	description = "Hides all player names.\n"
 		+ "Some YouTubers like to censor out all names in their\n" + "videos.",
-	name = "NameProtect")
+	name = "NameProtect",
+	noCheatCompatible = true)
 public class NameProtectMod extends Mod
 {	
 	
