@@ -108,6 +108,7 @@ public class ModManager
 		addMod(new PhaseMod());
 		addMod(new PlayerEspMod());
 		addMod(new PlayerFinderMod());
+		addMod(new PotionSaverMod());
 		addMod(new ProphuntEspMod());
 		addMod(new ProtectMod());
 		addMod(new RegenMod());
