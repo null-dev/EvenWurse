@@ -17,7 +17,8 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
 	description = "Changes all your hits to critical hits.",
-	name = "Criticals")
+	name = "Criticals",
+	noCheatCompatible = true)
 public class CriticalsMod extends Mod implements LeftClickListener
 {
 	@Override
