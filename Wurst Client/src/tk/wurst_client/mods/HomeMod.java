@@ -17,7 +17,8 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.CHAT,
 	description = "Types \"/home\" instantly.",
-	name = "/home")
+	name = "/home",
+	noCheatCompatible = true)
 public class HomeMod extends Mod implements UpdateListener, ChatInputListener
 {
 	private int disableTimer;
