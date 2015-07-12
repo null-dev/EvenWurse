@@ -18,7 +18,8 @@ import tk.wurst_client.WurstClient;
 	description = "Generates a CrashChest. Give a lot of these to another\n"
 		+ "player to make them crash. They will not be able to join the server\n"
 		+ "ever again!",
-	name = "CrashChest")
+	name = "CrashChest",
+	noCheatCompatible = true)
 public class CrashChestMod extends Mod
 {
 	@Override
