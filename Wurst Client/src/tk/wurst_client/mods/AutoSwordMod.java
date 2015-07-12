@@ -72,7 +72,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	public static void setSlot()
 	{
 		if(((AutoEatMod)WurstClient.INSTANCE.modManager
-			.getModByClass(AutoEatMod.class)).isActive())
+			.getModByClass(AutoEatMod.class)).isEating())
 			return;
 		float bestSpeed = 1F;
 		int bestSlot = -1;

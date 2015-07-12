@@ -108,7 +108,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 	}
 	
-	public boolean isActive()
+	public boolean isEating()
 	{
 		return oldSlot != -1;
 	}
