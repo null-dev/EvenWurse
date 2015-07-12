@@ -53,6 +53,8 @@ public class Mod
 		String description();
 		
 		Category category();
+		
+		boolean noCheatCompatible();
 	}
 	
 	public final String getName()
