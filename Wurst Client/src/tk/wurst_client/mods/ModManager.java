@@ -76,6 +76,7 @@ public class ModManager
 		addMod(new GlideMod());
 		addMod(new GoToCmdMod());
 		addMod(new HeadlessMod());
+		addMod(new HeadRollMod());
 		addMod(new HealthTagsMod());
 		addMod(new HighJumpMod());
 		addMod(new HomeMod());
