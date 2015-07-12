@@ -91,6 +91,8 @@ public class Mod
 	public final void setEnabled(boolean enabled)
 	{
 		this.enabled = enabled;
+		if(blocked && enabled)
+			return;
 		try
 		{
 			onToggle();
@@ -181,7 +183,6 @@ public class Mod
 					new GuiError(e, this, blocked ? "disabling" : "enabling",
 						""));
 			}
-			WurstClient.INSTANCE.fileManager.saveMods();
 		}
 	}
 	
