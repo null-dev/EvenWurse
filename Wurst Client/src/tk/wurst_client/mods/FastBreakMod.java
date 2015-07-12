@@ -16,7 +16,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.BLOCKS,
 	description = "Allows you to break blocks faster.\n"
 		+ "Tip: This works with Nuker.",
-	name = "FastBreak")
+	name = "FastBreak",
+	noCheatCompatible = true)
 public class FastBreakMod extends Mod
 {
 	public float speed = 2;
