@@ -67,7 +67,7 @@ public class FightBotMod extends Mod implements UpdateListener
 			(KillauraMod)WurstClient.INSTANCE.modManager
 				.getModByClass(KillauraMod.class);
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+			.isActive())
 			speed = killaura.yesCheatSpeed;
 		else
 			speed = killaura.normalSpeed;
@@ -76,7 +76,7 @@ public class FightBotMod extends Mod implements UpdateListener
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) <= range)
 			{
 				if(WurstClient.INSTANCE.modManager.getModByClass(
-					AutoSwordMod.class).isEnabled())
+					AutoSwordMod.class).isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				if(EntityUtils.getDistanceFromMouse(entity) > 55)

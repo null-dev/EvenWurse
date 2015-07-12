@@ -98,7 +98,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
 			if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
-				.isEnabled() && oldSlot == -1)
+				.isActive() && oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
@@ -109,7 +109,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 				currentDamage = 0;
 				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 					&& !WurstClient.INSTANCE.modManager.getModByClass(
-						YesCheatMod.class).isEnabled())
+						YesCheatMod.class).isActive())
 					nukeAll();
 				else
 				{
@@ -122,7 +122,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			}
 		}
 		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
-			.isEnabled())
+			.isActive())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());
@@ -133,7 +133,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos)
 				* (WurstClient.INSTANCE.modManager.getModByClass(
-					FastBreakMod.class).isEnabled()
+					FastBreakMod.class).isActive()
 					&& WurstClient.INSTANCE.options.fastbreakMode == 0
 					? ((FastBreakMod)WurstClient.INSTANCE.modManager
 						.getModByClass(FastBreakMod.class)).speed : 1);
@@ -150,7 +150,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			blockHitDelay = (byte)4;
 			currentDamage = 0;
 		}else if(WurstClient.INSTANCE.modManager.getModByClass(
-			FastBreakMod.class).isEnabled()
+			FastBreakMod.class).isActive()
 			&& WurstClient.INSTANCE.options.fastbreakMode == 1)
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(

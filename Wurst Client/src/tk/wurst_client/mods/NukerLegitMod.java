@@ -120,7 +120,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
 			if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
-				.isEnabled() && oldSlot == -1)
+				.isActive() && oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
@@ -138,7 +138,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 			}
 		}
 		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
-			.isEnabled())
+			.isActive())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());

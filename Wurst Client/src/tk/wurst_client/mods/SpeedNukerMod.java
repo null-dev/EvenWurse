@@ -68,7 +68,7 @@ public class SpeedNukerMod extends Mod implements LeftClickListener,
 	public void onUpdate()
 	{
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+			.isActive())
 		{
 			noCheatMessage();
 			setEnabled(false);
@@ -106,11 +106,11 @@ public class SpeedNukerMod extends Mod implements LeftClickListener,
 		currentBlock =
 			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
 		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
-			.isEnabled() && oldSlot == -1)
+			.isActive() && oldSlot == -1)
 			oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
-				.isEnabled()
+				.isActive()
 			&& currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos) < 1)

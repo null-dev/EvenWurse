@@ -137,7 +137,7 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 		velocity = bowCharge / 20;
 		velocity = (velocity * velocity + velocity * 2) / 3;
 		if(WurstClient.INSTANCE.modManager.getModByClass(FastBowMod.class)
-			.isEnabled())
+			.isActive())
 			velocity = 1;
 		if(velocity < 0.1)
 		{

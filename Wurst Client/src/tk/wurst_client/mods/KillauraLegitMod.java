@@ -53,7 +53,7 @@ public class KillauraLegitMod extends Mod implements UpdateListener
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= killaura.yesCheatRange)
 			{
 				if(WurstClient.INSTANCE.modManager.getModByClass(
-					CriticalsMod.class).isEnabled()
+					CriticalsMod.class).isActive()
 					&& Minecraft.getMinecraft().thePlayer.onGround)
 					Minecraft.getMinecraft().thePlayer.jump();
 				if(EntityUtils.getDistanceFromMouse(en) > 55)

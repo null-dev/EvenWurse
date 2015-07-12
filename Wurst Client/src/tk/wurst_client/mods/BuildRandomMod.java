@@ -36,15 +36,15 @@ public class BuildRandomMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(WurstClient.INSTANCE.modManager.getModByClass(FreecamMod.class)
-			.isEnabled()
+			.isActive()
 			|| WurstClient.INSTANCE.modManager.getModByClass(
-				RemoteViewMod.class).isEnabled()
+				RemoteViewMod.class).isActive()
 			|| Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
 			return;
 		if(Minecraft.getMinecraft().rightClickDelayTimer > 0
 			&& !WurstClient.INSTANCE.modManager.getModByClass(
-				FastPlaceMod.class).isEnabled())
+				FastPlaceMod.class).isActive())
 			return;
 		float xDiff = 0;
 		float yDiff = 0;

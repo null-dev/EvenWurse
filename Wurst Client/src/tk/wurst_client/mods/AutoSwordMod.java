@@ -58,7 +58,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	public void onLeftClick()
 	{
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+			.isActive())
 		{
 			noCheatMessage();
 			setEnabled(false);

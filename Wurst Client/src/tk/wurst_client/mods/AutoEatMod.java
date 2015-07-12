@@ -64,7 +64,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 				@Override
 				public void onUpdate()
 				{
-					if(!AutoEatMod.this.isEnabled()
+					if(!AutoEatMod.this.isActive()
 						|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 						|| Minecraft.getMinecraft().thePlayer.getFoodStats()
 							.getFoodLevel() >= 20)
