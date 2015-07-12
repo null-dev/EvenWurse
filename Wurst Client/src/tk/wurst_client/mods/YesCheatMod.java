@@ -7,6 +7,9 @@
  */
 package tk.wurst_client.mods;
 
+import java.util.HashSet;
+
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
@@ -15,6 +18,28 @@ import tk.wurst_client.mods.Mod.Info;
 		+ "they can't.",
 	name = "YesCheat+")
 public class YesCheatMod extends Mod
-{	
+{
+	private HashSet<Mod> blockedMods;
 	
+	@Override
+	public void onEnable()
+	{
+		if(blockedMods == null)
+		{
+			blockedMods = new HashSet<>();
+			for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
+				if(!mod.getClass().getAnnotation(Mod.Info.class)
+					.noCheatCompatible())
+					blockedMods.add(mod);
+		}
+		for(Mod mod : blockedMods)
+			mod.setBlocked(true);
+	}
+	
+	@Override
+	public void onDisable()
+	{
+		for(Mod mod : blockedMods)
+			mod.setBlocked(false);
+	}
 }
