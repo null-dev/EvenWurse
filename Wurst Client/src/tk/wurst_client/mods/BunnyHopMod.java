@@ -16,7 +16,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.MOVEMENT,
 	description = "Automatically jumps whenever you walk.\n"
 		+ "Tip: Jumping while sprinting is a faster way to move.",
-	name = "BunnyHop")
+	name = "BunnyHop",
+	noCheatCompatible = true)
 public class BunnyHopMod extends Mod implements UpdateListener
 {
 	@Override
