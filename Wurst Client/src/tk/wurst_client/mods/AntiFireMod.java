@@ -18,7 +18,8 @@ import tk.wurst_client.mods.Mod.Info;
 	description = "Blocks damage from catching on fire.\n"
 		+ "Does NOT block damage from standing inside of fire.\n"
 		+ "Requires a full hunger bar.",
-	name = "AntiFire")
+	name = "AntiFire",
+	noCheatCompatible = false)
 public class AntiFireMod extends Mod implements UpdateListener
 {
 	@Override
@@ -30,13 +31,6 @@ public class AntiFireMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Minecraft.getMinecraft().thePlayer.onGround
 			&& Minecraft.getMinecraft().thePlayer.isBurning())

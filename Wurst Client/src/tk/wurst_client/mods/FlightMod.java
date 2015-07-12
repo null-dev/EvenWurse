@@ -47,7 +47,7 @@ public class FlightMod extends Mod implements UpdateListener
 				.setEnabled(false);
 		
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+			.isActive())
 		{
 			double startX = Minecraft.getMinecraft().thePlayer.posX;
 			startY = Minecraft.getMinecraft().thePlayer.posY;
@@ -70,7 +70,7 @@ public class FlightMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+			.isActive())
 		{
 			if(!Minecraft.getMinecraft().thePlayer.onGround)
 				if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed

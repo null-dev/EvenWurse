@@ -30,7 +30,7 @@ public class SneakMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+			.isActive())
 			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = true;
 		else
 			Minecraft.getMinecraft().thePlayer.sendQueue

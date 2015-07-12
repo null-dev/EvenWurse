@@ -49,7 +49,7 @@ public class TriggerBotMod extends Mod implements UpdateListener
 			updateMS();
 			boolean yesCheatMode =
 				WurstClient.INSTANCE.modManager
-					.getModByClass(YesCheatMod.class).isEnabled();
+					.getModByClass(YesCheatMod.class).isActive();
 			KillauraMod killaura =
 				(KillauraMod)WurstClient.INSTANCE.modManager
 					.getModByClass(KillauraMod.class);
@@ -66,7 +66,7 @@ public class TriggerBotMod extends Mod implements UpdateListener
 					&& EntityUtils.isCorrectEntity(en, true))
 				{
 					if(WurstClient.INSTANCE.modManager.getModByClass(
-						AutoSwordMod.class).isEnabled())
+						AutoSwordMod.class).isActive())
 						AutoSwordMod.setSlot();
 					CriticalsMod.doCritical();
 					Minecraft.getMinecraft().thePlayer.swingItem();

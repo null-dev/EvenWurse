@@ -16,7 +16,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.MOVEMENT,
 	description = "Allows you to jump in mid-air.\n"
 		+ "Looks as if you had a jetpack.",
-	name = "Jetpack")
+	name = "Jetpack",
+	noCheatCompatible = false)
 public class JetpackMod extends Mod implements UpdateListener
 {
 	@Override
@@ -32,12 +33,7 @@ public class JetpackMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-		}else if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
+		if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
 			Minecraft.getMinecraft().thePlayer.jump();
 	}
 	

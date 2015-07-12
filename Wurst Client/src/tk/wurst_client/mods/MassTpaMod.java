@@ -32,7 +32,7 @@ public class MassTpaMod extends Mod implements UpdateListener,
 	private float speed = 1F;
 	private int i;
 	private ArrayList<String> players;
-	Random random = new Random();
+	private Random random = new Random();
 	
 	@Override
 	public void onEnable()

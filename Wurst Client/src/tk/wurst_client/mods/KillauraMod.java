@@ -71,7 +71,7 @@ public class KillauraMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+			.isActive())
 		{
 			realSpeed = yesCheatSpeed;
 			realRange = yesCheatRange;
@@ -88,7 +88,7 @@ public class KillauraMod extends Mod implements UpdateListener
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
 			{
 				if(WurstClient.INSTANCE.modManager.getModByClass(
-					AutoSwordMod.class).isEnabled())
+					AutoSwordMod.class).isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				EntityUtils.faceEntityPacket(en);

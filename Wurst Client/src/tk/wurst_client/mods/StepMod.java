@@ -28,7 +28,7 @@ public class StepMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+			.isActive())
 		{
 			Minecraft.getMinecraft().thePlayer.stepHeight = 0.5F;
 			if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally

@@ -15,7 +15,8 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
 	description = "Allows you to climb up walls like a spider.",
-	name = "Spider")
+	name = "Spider",
+	noCheatCompatible = false)
 public class SpiderMod extends Mod implements UpdateListener
 {
 	@Override
@@ -27,12 +28,7 @@ public class SpiderMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-		}else if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally)
+		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally)
 			Minecraft.getMinecraft().thePlayer.motionY = 0.2;
 	}
 	

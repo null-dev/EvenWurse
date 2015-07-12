@@ -26,6 +26,7 @@ public class Mod
 	private final Category category = getClass().getAnnotation(Info.class)
 		.category();
 	private boolean enabled;
+	private boolean blocked;
 	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
@@ -53,6 +54,8 @@ public class Mod
 		String description();
 		
 		Category category();
+		
+		boolean noCheatCompatible() default true;
 	}
 	
 	public final String getName()
@@ -80,9 +83,16 @@ public class Mod
 		return enabled;
 	}
 	
+	public final boolean isActive()
+	{
+		return enabled && !blocked;
+	}
+	
 	public final void setEnabled(boolean enabled)
 	{
 		this.enabled = enabled;
+		if(blocked && enabled)
+			return;
 		try
 		{
 			onToggle();
@@ -140,6 +150,40 @@ public class Mod
 	public final void toggle()
 	{
 		setEnabled(!isEnabled());
+	}
+	
+	public boolean isBlocked()
+	{
+		return blocked;
+	}
+	
+	public void setBlocked(boolean blocked)
+	{
+		this.blocked = blocked;
+		if(enabled)
+		{
+			try
+			{
+				onToggle();
+			}catch(Exception e)
+			{
+				Minecraft.getMinecraft().displayGuiScreen(
+					new GuiError(e, this, "toggling", "Mod was toggled "
+						+ (blocked ? "off" : "on") + "."));
+			}
+			try
+			{
+				if(blocked)
+					onDisable();
+				else
+					onEnable();
+			}catch(Exception e)
+			{
+				Minecraft.getMinecraft().displayGuiScreen(
+					new GuiError(e, this, blocked ? "disabling" : "enabling",
+						""));
+			}
+		}
 	}
 	
 	public final ArrayList<BasicSlider> getSliders()

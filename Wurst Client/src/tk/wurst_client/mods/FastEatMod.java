@@ -17,7 +17,8 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
 	description = "Allows you to eat food much faster.\n" + "OM! NOM! NOM!",
-	name = "FastEat")
+	name = "FastEat",
+	noCheatCompatible = false)
 public class FastEatMod extends Mod implements UpdateListener
 {
 	@Override
@@ -29,13 +30,6 @@ public class FastEatMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		if(Minecraft.getMinecraft().thePlayer.getHealth() > 0
 			&& Minecraft.getMinecraft().thePlayer.onGround
 			&& Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() != null

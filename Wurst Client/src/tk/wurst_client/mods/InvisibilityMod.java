@@ -18,7 +18,8 @@ import tk.wurst_client.mods.Mod.Info;
 		+ "If you die and respawn near a certain player while\n"
 		+ "this mod is enabled, that player will be unable to see\n"
 		+ "you. Only works on vanilla servers!",
-	name = "Invisibility")
+	name = "Invisibility",
+	noCheatCompatible = false)
 public class InvisibilityMod extends Mod implements UpdateListener
 {
 	@Override
@@ -30,14 +31,6 @@ public class InvisibilityMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(isEnabled()
-			&& WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-				.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		if(Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
 			if(isEnabled())
 			{

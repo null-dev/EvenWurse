@@ -22,7 +22,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.COMBAT,
 	description = "Turns your bow into a machine gun.\n"
 		+ "Tip: This works with BowAimbot.",
-	name = "FastBow")
+	name = "FastBow",
+	noCheatCompatible = false)
 public class FastBowMod extends Mod implements UpdateListener
 {
 	@Override
@@ -34,13 +35,6 @@ public class FastBowMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		if(Minecraft.getMinecraft().thePlayer.getHealth() > 0
 			&& (Minecraft.getMinecraft().thePlayer.onGround || Minecraft
 				.getMinecraft().thePlayer.capabilities.isCreativeMode)

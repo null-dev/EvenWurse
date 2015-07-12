@@ -345,7 +345,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 								{
 									if(!WurstClient.INSTANCE.modManager
 										.getModByClass(ForceOpMod.class)
-										.isEnabled())
+										.isActive())
 										return;
 									if(!cbDontWait.isSelected())
 										gotWrongPWMSG = false;
@@ -355,7 +355,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 									{
 										if(!WurstClient.INSTANCE.modManager
 											.getModByClass(ForceOpMod.class)
-											.isEnabled())
+											.isActive())
 											return;
 										try
 										{

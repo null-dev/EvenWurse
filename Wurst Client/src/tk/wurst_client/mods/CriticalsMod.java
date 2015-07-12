@@ -43,7 +43,7 @@ public class CriticalsMod extends Mod implements LeftClickListener
 	public static void doCritical()
 	{
 		if(!WurstClient.INSTANCE.modManager.getModByClass(CriticalsMod.class)
-			.isEnabled())
+			.isActive())
 			return;
 		if(!Minecraft.getMinecraft().thePlayer.isInWater()
 			&& !Minecraft.getMinecraft().thePlayer
