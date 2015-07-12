@@ -16,7 +16,8 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
 	description = "Automatically catches fish.",
-	name = "AutoFish")
+	name = "AutoFish",
+	noCheatCompatible = true)
 public class AutoFishMod extends Mod implements UpdateListener
 {
 	private boolean catching = false;
