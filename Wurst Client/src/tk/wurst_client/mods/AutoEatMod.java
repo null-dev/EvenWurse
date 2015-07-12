@@ -17,7 +17,8 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
 	description = "Automatically eats food when necessary.",
-	name = "AutoEat")
+	name = "AutoEat",
+	noCheatCompatible = true)
 public class AutoEatMod extends Mod implements UpdateListener
 {
 	private int oldSlot;
