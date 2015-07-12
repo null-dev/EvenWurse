@@ -21,7 +21,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.COMBAT,
 	description = "Automatically uses the best weapon in your hotbar to attack\n"
 		+ "entities. Tip: This works with Killaura.",
-	name = "AutoSword")
+	name = "AutoSword",
+	noCheatCompatible = false)
 public class AutoSwordMod extends Mod implements LeftClickListener,
 	UpdateListener
 {
@@ -31,13 +32,6 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		oldSlot = -1;
 		WurstClient.INSTANCE.eventManager.add(LeftClickListener.class, this);
 	}
