@@ -21,7 +21,8 @@ import tk.wurst_client.utils.RenderUtils;
 
 @Info(category = Category.BLOCKS,
 	description = "Instantly builds a small bunker around you.",
-	name = "InstantBunker")
+	name = "InstantBunker",
+	noCheatCompatible = true)
 public class InstantBunkerMod extends Mod implements UpdateListener,
 	RenderListener
 {
