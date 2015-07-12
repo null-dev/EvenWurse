@@ -17,7 +17,8 @@ import tk.wurst_client.utils.EntityUtils;
 
 @Info(category = Category.COMBAT,
 	description = "Faster Killaura that attacks multiple entities at once.",
-	name = "MultiAura")
+	name = "MultiAura",
+	noCheatCompatible = false)
 public class MultiAuraMod extends Mod implements UpdateListener
 {
 	private float range = 6F;
@@ -43,18 +44,6 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			WurstClient.INSTANCE.chat.message("Switching to "
-				+ WurstClient.INSTANCE.modManager.getModByClass(
-					KillauraMod.class).getName() + ".");
-			WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
-				.setEnabled(true);
-			return;
-		}
 		updateMS();
 		if(EntityUtils.getClosestEntity(true) != null)
 		{
