@@ -13,7 +13,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.MISC,
 	description = "Automatically steals everything from all chests you\n"
 		+ "open.",
-	name = "AutoSteal")
+	name = "AutoSteal",
+	noCheatCompatible = true)
 public class AutoStealMod extends Mod
 {	
 	
