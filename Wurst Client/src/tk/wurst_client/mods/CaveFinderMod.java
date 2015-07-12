@@ -9,7 +9,8 @@ package tk.wurst_client.mods;
 
 @Mod.Info(category = Mod.Category.RENDER,
 	description = "Allows you to see caves through walls.",
-	name = "CaveFinder")
+	name = "CaveFinder",
+	noCheatCompatible = true)
 public class CaveFinderMod extends Mod
 {	
 	
