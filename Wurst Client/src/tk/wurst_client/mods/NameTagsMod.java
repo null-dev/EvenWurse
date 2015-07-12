@@ -13,7 +13,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.RENDER,
 	description = "Changes the scale of the nametags so you can always\n"
 		+ "read them.",
-	name = "NameTags")
+	name = "NameTags",
+	noCheatCompatible = true)
 public class NameTagsMod extends Mod
 {	
 	
