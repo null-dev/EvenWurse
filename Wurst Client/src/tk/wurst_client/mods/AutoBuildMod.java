@@ -27,7 +27,8 @@ import tk.wurst_client.utils.RenderUtils;
 		+ "you place a block. Use the combo box below to select\n"
 		+ "a template.\n" + "This mod can bypass NoCheat+ while YesCheat+ is\n"
 		+ "enabled.",
-	name = "AutoBuild")
+	name = "AutoBuild",
+	noCheatCompatible = true)
 public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 {
 	public static ArrayList<String> names = new ArrayList<String>();
