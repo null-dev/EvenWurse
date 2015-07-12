@@ -41,7 +41,8 @@ import tk.wurst_client.mods.Mod.Info;
 		+ "\"How to use\" button. That will open an online\n"
 		+ "tutorial explaining exactly how to use it.\n"
 		+ "Don't message me on this!",
-	name = "ForceOP")
+	name = "ForceOP",
+	noCheatCompatible = true)
 public class ForceOpMod extends Mod implements ChatInputListener
 {
 	private String[] defaultList = {"password", "passwort", "password1",
