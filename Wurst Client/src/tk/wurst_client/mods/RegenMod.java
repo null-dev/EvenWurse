@@ -17,7 +17,8 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.COMBAT,
 	description = "Regenerates your health 100 times faster.\n"
 		+ "Can cause unwanted \"Flying is not enabled!\" kicks.",
-	name = "Regen")
+	name = "Regen",
+	noCheatCompatible = false)
 public class RegenMod extends Mod implements UpdateListener
 {
 	@Override
@@ -29,13 +30,6 @@ public class RegenMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& Minecraft.getMinecraft().thePlayer.getFoodStats().getFoodLevel() > 17
 			&& Minecraft.getMinecraft().thePlayer.getHealth() < 20
