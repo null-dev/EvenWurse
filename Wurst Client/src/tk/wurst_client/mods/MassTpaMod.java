@@ -25,8 +25,7 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.CHAT,
 	description = "Sends a TPA requests to all players.\n"
 		+ "Stops if someone accepts.",
-	name = "MassTPA",
-	noCheatCompatible = true)
+	name = "MassTPA")
 public class MassTpaMod extends Mod implements UpdateListener,
 	ChatInputListener
 {

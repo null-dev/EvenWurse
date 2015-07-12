@@ -16,8 +16,7 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
 	description = "Automatically respawns you whenever you die.",
-	name = "AutoRespawn",
-	noCheatCompatible = true)
+	name = "AutoRespawn")
 public class AutoRespawnMod extends Mod implements DeathListener
 {
 	@Override

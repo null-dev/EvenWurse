@@ -12,8 +12,7 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.RENDER,
 	description = "Disables the annoying effect when you get hurt.",
-	name = "NoHurtcam",
-	noCheatCompatible = true)
+	name = "NoHurtcam")
 public class NoHurtcamMod extends Mod
 {	
 	

@@ -21,8 +21,7 @@ import tk.wurst_client.utils.BlockUtils;
 
 @Info(category = Category.BLOCKS,
 	description = "Places random blocks around you.",
-	name = "BuildRandom",
-	noCheatCompatible = true)
+	name = "BuildRandom")
 public class BuildRandomMod extends Mod implements UpdateListener
 {
 	private float range = 6;

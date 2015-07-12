@@ -17,8 +17,7 @@ import tk.wurst_client.mods.Mod.Info;
 	description = "Switches the item in your hand all the time.\n"
 		+ "Tip: Use this in combination with BuildRandom while\n"
 		+ "having a lot of different colored wool blocks in your\n" + "hotbar.",
-	name = "AutoSwitch",
-	noCheatCompatible = true)
+	name = "AutoSwitch")
 public class AutoSwitchMod extends Mod implements UpdateListener
 {
 	@Override

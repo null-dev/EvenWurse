@@ -13,8 +13,7 @@ import tk.wurst_client.WurstClient;
 	description = "Allows you to reach specific blocks through walls.\n"
 		+ "Use .ghosthand id <block id> or .ghosthand name <block name>\n"
 		+ "to specify it.",
-	name = "GhostHand",
-	noCheatCompatible = true)
+	name = "GhostHand")
 public class GhostHandMod extends Mod
 {
 	@Override

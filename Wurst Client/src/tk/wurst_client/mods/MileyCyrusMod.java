@@ -15,8 +15,7 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.FUN,
 	description = "Makes you twerk like Miley Cyrus!",
-	name = "Miley Cyrus",
-	noCheatCompatible = true)
+	name = "Miley Cyrus")
 public class MileyCyrusMod extends Mod implements UpdateListener
 {
 	private int timer;

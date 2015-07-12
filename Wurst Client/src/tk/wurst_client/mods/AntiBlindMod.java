@@ -12,8 +12,7 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.RENDER,
 	description = "Blocks blindness and nausea.",
-	name = "AntiBlind",
-	noCheatCompatible = true)
+	name = "AntiBlind")
 public class AntiBlindMod extends Mod
 {	
 	

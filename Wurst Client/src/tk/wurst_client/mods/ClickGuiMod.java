@@ -18,8 +18,7 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.HIDDEN,
 	description = "",
-	name = "ClickGUI",
-	noCheatCompatible = true)
+	name = "ClickGUI")
 public class ClickGuiMod extends Mod implements UpdateListener
 {
 	public ClickGuiMod()

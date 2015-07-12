@@ -19,8 +19,7 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT, description = "Allows you to you fly.\n"
-	+ "Bypasses NoCheat+ if YesCheat+ is enabled.", name = "Flight",
-	noCheatCompatible = true)
+	+ "Bypasses NoCheat+ if YesCheat+ is enabled.", name = "Flight")
 public class FlightMod extends Mod implements UpdateListener
 {
 	public float speed = 1F;

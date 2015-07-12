@@ -17,8 +17,7 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.COMBAT,
 	description = "Automatically leaves the server when your health is low.\n"
 		+ "Type `.leave mode chars` to make it bypass CombatLogger.",
-	name = "AutoLeave",
-	noCheatCompatible = true)
+	name = "AutoLeave")
 public class AutoLeaveMod extends Mod implements UpdateListener
 {
 	@Override

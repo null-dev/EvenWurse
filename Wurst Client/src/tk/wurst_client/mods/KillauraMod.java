@@ -21,8 +21,7 @@ import tk.wurst_client.utils.EntityUtils;
 
 @Info(category = Category.COMBAT,
 	description = "Automatically attacks everything in your range.",
-	name = "Killaura",
-	noCheatCompatible = true)
+	name = "Killaura")
 public class KillauraMod extends Mod implements UpdateListener
 {
 	public float normalSpeed = 20F;

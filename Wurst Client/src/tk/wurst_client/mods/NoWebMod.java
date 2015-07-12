@@ -16,8 +16,7 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.MOVEMENT,
 	description = "Prevents you from getting slowed down in webs.\n"
 		+ "Note: This has nothing to do with websites.",
-	name = "NoWeb",
-	noCheatCompatible = true)
+	name = "NoWeb")
 public class NoWebMod extends Mod implements UpdateListener
 {
 	@Override

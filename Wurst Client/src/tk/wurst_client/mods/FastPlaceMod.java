@@ -16,8 +16,7 @@ import tk.wurst_client.mods.Mod.Info;
 @Info(category = Category.BLOCKS,
 	description = "Allows you to place blocks 5 times faster.\n"
 		+ "Tip: This can speed up AutoBuild.",
-	name = "FastPlace",
-	noCheatCompatible = true)
+	name = "FastPlace")
 public class FastPlaceMod extends Mod implements UpdateListener
 {
 	@Override

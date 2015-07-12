@@ -15,8 +15,7 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.RENDER,
 	description = "Allows you to see in the dark.",
-	name = "Fullbright",
-	noCheatCompatible = true)
+	name = "Fullbright")
 public class FullbrightMod extends Mod implements UpdateListener
 {
 	public FullbrightMod()

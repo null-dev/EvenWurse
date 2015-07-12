@@ -20,8 +20,7 @@ import tk.wurst_client.utils.BlockUtils;
 
 @Info(category = Category.HIDDEN,
 	description = "",
-	name = "GoTo",
-	noCheatCompatible = true)
+	name = "GoTo")
 public class GoToCmdMod extends Mod implements UpdateListener
 {
 	private static ArrayList<BlockPos> path;

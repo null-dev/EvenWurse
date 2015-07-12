@@ -15,8 +15,7 @@ import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
 	description = "Allows you to climb up ladders twice as fast.",
-	name = "FastLadder",
-	noCheatCompatible = true)
+	name = "FastLadder")
 public class FastLadderMod extends Mod implements UpdateListener
 {
 	@Override

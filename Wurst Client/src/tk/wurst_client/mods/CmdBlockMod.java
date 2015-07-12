@@ -19,8 +19,7 @@ import tk.wurst_client.cmdblock.gui.GuiCmdBlock;
 @Mod.Info(category = Mod.Category.EXPLOITS,
 	description = "Allows you to make a Command Block without having OP.\n"
 		+ "Appears to be patched on Spigot.",
-	name = "CMD-Block",
-	noCheatCompatible = true)
+	name = "CMD-Block")
 public class CmdBlockMod extends Mod
 {
 	@Override
