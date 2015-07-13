@@ -33,6 +33,6 @@ If you found a bug or you have a suggestion, use the GitHub Issue tracker. Keep 
 ## Contributing :computer:
 Want to help with the development? Awesome! Just click the[`fork`](https://github.com/Wurst-Imperium/Wurst-Client/fork) button, make your changes and create a Pull Request. Again, keep the [contributing guidelines](/CONTRIBUTING.md) in mind.
 
-Need inspiration on what to implement? Check out the [list of suggestions](https://github.com/Wurst-Imperium/Wurst-Client/issues?q=is%3Aopen+label%3Aconfirmed+label%3Aenhancement).
+Need inspiration on what to implement? Check out the [list of suggestions](https://github.com/Wurst-Imperium/Wurst-Client/issues?q=is%3Aopen+label%3Aaccepted+label%3Aenhancement).
 
 If you have trouble setting it up in Eclipse, read the wiki page ["How to Debug Wurst in Eclipse"](https://www.wurst-client.tk/wiki/How-to-Debug-Wurst-In-Eclipse/).
