@@ -114,6 +114,7 @@ public class ModManager
 		addMod(new RegenMod());
 		addMod(new RemoteViewMod());
 		addMod(new SearchMod());
+		addMod(new SkinBlinkerMod());
 		addMod(new SneakMod());
 		addMod(new SpammerMod());
 		addMod(new SpeedNukerMod());
