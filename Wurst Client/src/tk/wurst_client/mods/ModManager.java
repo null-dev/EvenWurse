@@ -86,8 +86,9 @@ public class ModManager
 		addMod(new JesusMod());
 		addMod(new JetpackMod());
 		addMod(new KaboomMod());
-		addMod(new KillauraMod());
 		addMod(new KillauraLegitMod());
+		addMod(new KillauraMod());
+		addMod(new KillerPotionMod());
 		addMod(new LiquidsMod());
 		addMod(new LsdMod());
 		addMod(new MassTpaMod());
