@@ -74,7 +74,7 @@ public class FlightMod extends Mod implements UpdateListener
 		{
 			if(!Minecraft.getMinecraft().thePlayer.onGround)
 				if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed
-					&& Minecraft.getMinecraft().thePlayer.posY < startY)
+					&& Minecraft.getMinecraft().thePlayer.posY < startY - 1)
 					Minecraft.getMinecraft().thePlayer.motionY = 0.2;
 				else
 					Minecraft.getMinecraft().thePlayer.motionY = -0.02;
