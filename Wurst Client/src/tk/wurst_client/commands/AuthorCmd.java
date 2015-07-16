@@ -20,13 +20,20 @@ public class AuthorCmd extends Cmd {
 	Item currentItemAsItem;
 	final int writtenBookId = 387;
     
-    if(args.length != 1) {
+    if(args.length == 0) {
     	error("Syntax Error.");
     }
     else {
                
     	author = args[0];
-                
+    	
+    	//Allows the use of spaces in the book's author.
+    	if(args.length > 1) {
+    		for(int x = 1; x < args.length; x++) {
+    			author = author + " " + args[x];
+    		}
+    	}
+        
     	//Makes sure that player is in Creative mode.
         if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode) {
         	error("Creative mode only.");
