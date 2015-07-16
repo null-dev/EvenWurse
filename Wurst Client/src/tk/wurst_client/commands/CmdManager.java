@@ -33,6 +33,7 @@ public class CmdManager implements ChatOutputListener
 	{
 		addCommand(new AddAltCmd());
 		addCommand(new AnnoyCmd());
+		addCommand(new AuthorCmd());
 		addCommand(new BindsCmd());
 		addCommand(new BlinkCmd());
 		addCommand(new ClearCmd());
@@ -95,10 +96,11 @@ public class CmdManager implements ChatOutputListener
 				}catch(SyntaxError e)
 				{
 					if(e.getMessage() != null)
-						WurstClient.INSTANCE.chat.message("§4Syntax error:§r "
-							+ e.getMessage());
+						WurstClient.INSTANCE.chat
+							.message("§4Syntax error:§r " + e.getMessage());
 					else
-						WurstClient.INSTANCE.chat.message("§4Syntax error!§r");
+						WurstClient.INSTANCE.chat
+							.message("§4Syntax error!§r");
 					cmd.printSyntax();
 				}catch(Cmd.Error e)
 				{
