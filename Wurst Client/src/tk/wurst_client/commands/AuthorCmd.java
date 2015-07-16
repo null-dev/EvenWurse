@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.commands;
 
 import net.minecraft.client.Minecraft;
@@ -6,62 +13,25 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagString;
 import tk.wurst_client.commands.Cmd.Info;
 
-@Info (help="Sets the held written book's author to specified word.",
-name="author",
-syntax = {"<author>"})
-
-public class AuthorCmd extends Cmd {
-
+@Info(help = "Changes the held book's author.",
+	name = "author",
+	syntax = {"<author>"})
+public class AuthorCmd extends Cmd
+{
 	@Override
-	public void execute(String[] args) throws Cmd.Error {
-	
-	String author = "";
-	ItemStack currentItem;
-	Item currentItemAsItem;
-	final int writtenBookId = 387;
-    
-    if(args.length == 0) {
-    	error("Syntax Error.");
-    }
-    else {
-               
-    	author = args[0];
-    	
-    	//Allows the use of spaces in the book's author.
-    	if(args.length > 1) {
-    		for(int x = 1; x < args.length; x++) {
-    			author = author + " " + args[x];
-    		}
-    	}
-        
-    	//Makes sure that player is in Creative mode.
-        if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode) {
-        	error("Creative mode only.");
-        }
-        else {
-       	         
-        	//Makes sure that player is holding an item.
-     	    if (Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() == null) {
-     	        error("Please execute this command while holding a written book.");
-            }
-            else {
-         		//Gets current item in player's hand.
-         	    currentItem = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-        	        	
-         	    //Gets the Item from currentItem.
-         	    currentItemAsItem = currentItem.getItem();
-       	             	
-        	    //Ensures that held item is a book.
-                if(Item.getIdFromItem(currentItemAsItem) != writtenBookId) {
-                	error("Please execute this command while holding a written book.");
-                }
-                else {
-                	//Sets book's author to String author.
-                    currentItem.setTagInfo("author", new NBTTagString(author));
-            	}
-            }
-    	}
-    }
- 	
-    }
+	public void execute(String[] args) throws Cmd.Error
+	{
+		if(args.length == 0)
+			syntaxError();
+		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+			error("Creative mode only.");
+		ItemStack item =
+			Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
+		if(item == null || Item.getIdFromItem(item.getItem()) != 387)
+			error("You are not holding a written book in your hand.");
+		String author = args[0];
+		for(int i = 1; i < args.length; i++)
+			author += " " + args[i];
+		item.setTagInfo("author", new NBTTagString(author));
+	}
 }
