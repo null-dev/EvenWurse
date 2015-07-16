@@ -29,6 +29,7 @@ public class ModManager
 	{
 		addMod(new AntiAfkMod());
 		addMod(new AntiBlindMod());
+		addMod(new AntiCactusMod());
 		addMod(new AntiFireMod());
 		addMod(new AntiKnockbackMod());
 		addMod(new AntiPotionMod());
