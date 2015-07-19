@@ -38,7 +38,7 @@ public class PotionCmd extends Cmd {
 			NBTTagCompound effect = new NBTTagCompound();
 			effect.setInteger("Id",id);
 			effect.setInteger("Amplifier",amplifier);
-			effect.setInteger("Duration",duration);
+			effect.setInteger("Duration",duration*20);
 			effectList.appendTag(effect);
 		}
 		currentItem.setTagInfo("CustomPotionEffects", effectList);
