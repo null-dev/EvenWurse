@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * Copyright Â© 2014 - 2015 | Alexander01998 | All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -56,6 +56,7 @@ public class CmdManager implements ChatOutputListener
 		addCommand(new NothingCmd());
 		addCommand(new NukerCmd());
 		addCommand(new PathCmd());
+		addCommand(new PotionCmd());
 		addCommand(new ProtectCmd());
 		addCommand(new RenameCmd());
 		addCommand(new RvCmd());
@@ -97,10 +98,10 @@ public class CmdManager implements ChatOutputListener
 				{
 					if(e.getMessage() != null)
 						WurstClient.INSTANCE.chat
-							.message("§4Syntax error:§r " + e.getMessage());
+							.message("Â§4Syntax error:Â§r " + e.getMessage());
 					else
 						WurstClient.INSTANCE.chat
-							.message("§4Syntax error!§r");
+							.message("Â§4Syntax error!Â§r");
 					cmd.printSyntax();
 				}catch(Cmd.Error e)
 				{
