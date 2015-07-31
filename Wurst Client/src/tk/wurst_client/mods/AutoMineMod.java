@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * Copyright Â© 2014 - 2015 | Alexander01998 | All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -39,8 +39,7 @@ public class AutoMineMod extends Mod implements UpdateListener
 			Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = true;
 		else
 			Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
-		System.out
-			.println(Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed);
+		
 	}
 	
 	@Override
