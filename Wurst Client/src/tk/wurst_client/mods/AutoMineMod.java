@@ -39,8 +39,7 @@ public class AutoMineMod extends Mod implements UpdateListener
 			Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = true;
 		else
 			Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
-		System.out
-			.println(Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed);
+		
 	}
 	
 	@Override
