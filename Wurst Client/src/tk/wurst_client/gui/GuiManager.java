@@ -1,5 +1,5 @@
 /*
- * Copyright Â© 2014 - 2015 | Alexander01998 | All rights reserved.
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
  * 
  * Modifications made by Alexander01998 in this Source Code Form are subject
  * to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL
