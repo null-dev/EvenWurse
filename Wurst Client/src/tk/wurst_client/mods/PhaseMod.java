@@ -13,7 +13,7 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
-@Info(category = Category.MOVEMENT,
+@Info(category = Category.EXPLOITS,
 	description = "Exploits a bug in NoCheat+ that allows you to glitch\n"
 		+ "through blocks.",
 	name = "Phase")
