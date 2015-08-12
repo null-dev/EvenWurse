@@ -8,6 +8,8 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import tk.wurst_client.WurstClient;
@@ -31,7 +33,9 @@ public class AutoArmorMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
+		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+			|| (Minecraft.getMinecraft().currentScreen instanceof GuiContainer && !(Minecraft
+				.getMinecraft().currentScreen instanceof GuiInventory)))
 			return;
 		updateMS();
 		if(hasTimePassedM(3000))
