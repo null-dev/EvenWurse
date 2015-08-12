@@ -46,6 +46,6 @@ public class SkinBlinkerMod extends Mod implements UpdateListener
 	{
 		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
 		for(EnumPlayerModelParts part : EnumPlayerModelParts.values())
-			Minecraft.getMinecraft().gameSettings.func_178878_a(part, false);
+			Minecraft.getMinecraft().gameSettings.func_178878_a(part, true);
 	}
 }
