@@ -9,26 +9,38 @@ package tk.wurst_client.font;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
 
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.opengl.TextureImpl;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 
 public class UnicodeFontRenderer extends FontRenderer
 {
-	private final TrueTypeFont font;
+	private final UnicodeFont font;
 	
+	@SuppressWarnings("unchecked")
 	public UnicodeFontRenderer(Font awtFont)
 	{
 		super(Minecraft.getMinecraft().gameSettings, new ResourceLocation(
 			"textures/font/ascii.png"), Minecraft.getMinecraft()
 			.getTextureManager(), false);
 		
-		font = new TrueTypeFont(awtFont, false);
+		font = new UnicodeFont(awtFont);
+		font.addAsciiGlyphs();
+		font.getEffects().add(new ColorEffect(Color.WHITE));
+		try
+		{
+			font.loadGlyphs();
+		}catch(SlickException exception)
+		{
+			throw new RuntimeException(exception);
+		}
 		String alphabet =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 		FONT_HEIGHT = font.getHeight(alphabet) / 2;
@@ -49,16 +61,15 @@ public class UnicodeFontRenderer extends FontRenderer
 			glEnable(GL_BLEND);
 		if(lighting)
 			glDisable(GL_LIGHTING);
-		if(!texture)
-			glEnable(GL_TEXTURE_2D);
-		TextureImpl.bindNone();
+		if(texture)
+			glDisable(GL_TEXTURE_2D);
 		x *= 2;
 		y *= 2;
 		
 		font.drawString(x, y, string, new org.newdawn.slick.Color(color));
 		
-		if(!texture)
-			glDisable(GL_TEXTURE_2D);
+		if(texture)
+			glEnable(GL_TEXTURE_2D);
 		if(lighting)
 			glEnable(GL_LIGHTING);
 		if(!blend)

@@ -7,13 +7,11 @@
  */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
-import java.awt.Font;
-
 import net.minecraft.client.gui.FontRenderer;
 
 import org.darkstorm.minecraft.gui.theme.AbstractTheme;
 
-import tk.wurst_client.font.UnicodeFontRenderer;
+import tk.wurst_client.font.Fonts;
 
 public class WurstTheme extends AbstractTheme
 {
@@ -21,8 +19,7 @@ public class WurstTheme extends AbstractTheme
 	
 	public WurstTheme()
 	{
-		fontRenderer =
-			new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 15));
+		fontRenderer = Fonts.segoe15;
 		
 		installUI(new WurstFrameUI(this));
 		installUI(new WurstPanelUI(this));
