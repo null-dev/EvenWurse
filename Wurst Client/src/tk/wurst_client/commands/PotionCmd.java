@@ -40,7 +40,9 @@ public class PotionCmd extends Cmd
 			|| Item.getIdFromItem(currentItem.getItem()) != 373)
 			error("You are not holding a potion in your hand.");
 		
-		NBTTagList effectList = new NBTTagList();
+		NBTTagList newEffects = new NBTTagList();
+		
+		// remove
 		if(args.length == 2)
 		{
 			if(!args[0].equalsIgnoreCase("Remove"))
@@ -57,13 +59,15 @@ public class PotionCmd extends Cmd
 					effect.setInteger("Id", temp.getPotionID());
 					effect.setInteger("Amplifier", temp.getAmplifier());
 					effect.setInteger("Duration", temp.getDuration());
-					effectList.appendTag(effect);
+					newEffects.appendTag(effect);
 				}
 			}
-			currentItem.setTagInfo("CustomPotionEffects", effectList);
+			currentItem.setTagInfo("CustomPotionEffects", newEffects);
 			return;
 		}else if((args.length - 1) % 3 != 0)
 			syntaxError();
+		
+		// add
 		if(args[0].equalsIgnoreCase("add"))
 		{
 			List oldEffects = new ItemPotion().getEffects(currentItem);
@@ -74,16 +78,18 @@ public class PotionCmd extends Cmd
 				effect.setInteger("Id", temp.getPotionID());
 				effect.setInteger("Amplifier", temp.getAmplifier());
 				effect.setInteger("Duration", temp.getDuration());
-				effectList.appendTag(effect);
+				newEffects.appendTag(effect);
 			}
 		}else if(!args[0].equalsIgnoreCase("set"))
 			syntaxError();
-		int id = 0;
-		int amplifier = 0;
-		int duration = 0;
+		
+		// add & set
 		for(int i = 0; i < (args.length - 1) / 3; i++)
 		{
-			id = parsePotionEffectId(args[1 + i * 3]);
+			int id = parsePotionEffectId(args[1 + i * 3]);
+			int amplifier = 0;
+			int duration = 0;
+			
 			if(MiscUtils.isInteger(args[2 + i * 3])
 				&& MiscUtils.isInteger(args[3 + i * 3]))
 			{
@@ -91,13 +97,14 @@ public class PotionCmd extends Cmd
 				duration = Integer.parseInt(args[3 + i * 3]);
 			}else
 				syntaxError();
+			
 			NBTTagCompound effect = new NBTTagCompound();
 			effect.setInteger("Id", id);
 			effect.setInteger("Amplifier", amplifier);
 			effect.setInteger("Duration", duration * 20);
-			effectList.appendTag(effect);
+			newEffects.appendTag(effect);
 		}
-		currentItem.setTagInfo("CustomPotionEffects", effectList);
+		currentItem.setTagInfo("CustomPotionEffects", newEffects);
 	}
 	
 	public int parsePotionEffectId(String input) throws SyntaxError
