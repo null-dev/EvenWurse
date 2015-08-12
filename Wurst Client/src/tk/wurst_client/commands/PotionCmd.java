@@ -21,8 +21,8 @@ import tk.wurst_client.utils.MiscUtils;
 @Info(help = "Add to/sets the efects of the held potion. Can also remove potion effects from the held potion. "
 	+ "Accepts arguments in groups of 3 for add and set modes.",
 	name = "potion",
-	syntax = {"[add] <id> <amplifier> <duration>",
-		"[set] <id> <amplifier> <duration>", "[remove] <id>"})
+	syntax = {"add <id> <amplifier> <duration>",
+		"set <id> <amplifier> <duration>", "remove <id>"})
 public class PotionCmd extends Cmd
 {
 	@Override
