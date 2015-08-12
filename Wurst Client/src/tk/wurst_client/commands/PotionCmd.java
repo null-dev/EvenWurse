@@ -50,18 +50,19 @@ public class PotionCmd extends Cmd
 			int id = 0;
 			id = parsePotionEffectId(args[1]);
 			List oldEffects = new ItemPotion().getEffects(currentItem);
-			for(int i = 0; i < oldEffects.size(); i++)
-			{
-				PotionEffect temp = (PotionEffect)oldEffects.get(i);
-				if(temp.getPotionID() != id)
+			if(oldEffects != null)
+				for(int i = 0; i < oldEffects.size(); i++)
 				{
-					NBTTagCompound effect = new NBTTagCompound();
-					effect.setInteger("Id", temp.getPotionID());
-					effect.setInteger("Amplifier", temp.getAmplifier());
-					effect.setInteger("Duration", temp.getDuration());
-					newEffects.appendTag(effect);
+					PotionEffect temp = (PotionEffect)oldEffects.get(i);
+					if(temp.getPotionID() != id)
+					{
+						NBTTagCompound effect = new NBTTagCompound();
+						effect.setInteger("Id", temp.getPotionID());
+						effect.setInteger("Amplifier", temp.getAmplifier());
+						effect.setInteger("Duration", temp.getDuration());
+						newEffects.appendTag(effect);
+					}
 				}
-			}
 			currentItem.setTagInfo("CustomPotionEffects", newEffects);
 			return;
 		}else if((args.length - 1) % 3 != 0)
@@ -71,15 +72,16 @@ public class PotionCmd extends Cmd
 		if(args[0].equalsIgnoreCase("add"))
 		{
 			List oldEffects = new ItemPotion().getEffects(currentItem);
-			for(int i = 0; i < oldEffects.size(); i++)
-			{
-				PotionEffect temp = (PotionEffect)oldEffects.get(i);
-				NBTTagCompound effect = new NBTTagCompound();
-				effect.setInteger("Id", temp.getPotionID());
-				effect.setInteger("Amplifier", temp.getAmplifier());
-				effect.setInteger("Duration", temp.getDuration());
-				newEffects.appendTag(effect);
-			}
+			if(oldEffects != null)
+				for(int i = 0; i < oldEffects.size(); i++)
+				{
+					PotionEffect temp = (PotionEffect)oldEffects.get(i);
+					NBTTagCompound effect = new NBTTagCompound();
+					effect.setInteger("Id", temp.getPotionID());
+					effect.setInteger("Amplifier", temp.getAmplifier());
+					effect.setInteger("Duration", temp.getDuration());
+					newEffects.appendTag(effect);
+				}
 		}else if(!args[0].equalsIgnoreCase("set"))
 			syntaxError();
 		
