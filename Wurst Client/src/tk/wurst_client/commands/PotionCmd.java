@@ -93,7 +93,7 @@ public class PotionCmd extends Cmd
 			if(MiscUtils.isInteger(args[2 + i * 3])
 				&& MiscUtils.isInteger(args[3 + i * 3]))
 			{
-				amplifier = Integer.parseInt(args[2 + i * 3]);
+				amplifier = Integer.parseInt(args[2 + i * 3]) - 1;
 				duration = Integer.parseInt(args[3 + i * 3]);
 			}else
 				syntaxError();
