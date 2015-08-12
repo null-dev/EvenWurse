@@ -32,11 +32,13 @@ public class PotionCmd extends Cmd
 			syntaxError();
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 			error("Creative mode only.");
+		
 		ItemStack currentItem =
 			Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
 		if(currentItem == null
 			|| Item.getIdFromItem(currentItem.getItem()) != 373)
-			error("Please execute this command while holding a potion.");
+			error("You are not holding a potion in your hand.");
+		
 		NBTTagList effectList = new NBTTagList();
 		if(args.length == 2)
 		{
