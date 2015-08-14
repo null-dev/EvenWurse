@@ -22,6 +22,12 @@ public class GiveCmd extends Cmd {
 
 	@Override
 	public void execute(String[] args) throws Error {
+		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+		if (!player.capabilities.isCreativeMode) {
+			WurstClient.INSTANCE.chat.error("Creative mode only.");
+			return;
+		}
+		
 		if (args.length < 1)
 			syntaxError();
 	
@@ -52,8 +58,6 @@ public class GiveCmd extends Cmd {
 					return;
 				}
 			}
-			
-			EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
 			
 			for (int i = 0; i<9; i++) {
 				if (player.inventory.getStackInSlot(i) == null) {
