@@ -34,7 +34,7 @@ public class GiveCmd extends Cmd {
 		}
 	}
 	
-	private ItemTemplate[] templates = new ItemTemplate[] {
+	private static ItemTemplate[] templates = new ItemTemplate[] {
 		new ItemTemplate("Knockback Stick", Items.stick, 0,
 				"{ench: [{id:19, lvl:6}], display: {Name: §6Knockback Stick}, HideFlags: 63}"),
 		new ItemTemplate("One Hit Sword", Items.diamond_sword, 0,
@@ -49,15 +49,15 @@ public class GiveCmd extends Cmd {
 	
 	private int parseAmount(Item item, String amount) throws Error {
 		if (!MiscUtils.isInteger(amount))
-			syntaxError();
+			syntaxError("Amount has to be an integer.");
 		
 		int out = Integer.valueOf(amount);
 		
 		if (out < 1)
-			throw new Error("Amount has to be at least 1.");
+			error("Amount has to be at least 1.");
 		
 		if (out > item.getItemStackLimit()) {
-			throw new Error("Amount is larger than the maximum stack size.");
+			error("Amount is larger than the maximum stack size.");
 		}
 		
 		return out;
@@ -67,7 +67,7 @@ public class GiveCmd extends Cmd {
 	public void execute(String[] args) throws Error {
 		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
 		if (!player.capabilities.isCreativeMode) {
-			throw new Error("Creative mode only.");
+			error("Creative mode only.");
 		}
 		
 		Item item = null;
@@ -90,7 +90,7 @@ public class GiveCmd extends Cmd {
 				syntaxError();
 			
 			if (!MiscUtils.isInteger(args[1]))
-				syntaxError();
+				syntaxError("Template index has to be an integer.");
 			
 			int index = Integer.valueOf(args[1]);
 			
@@ -111,7 +111,7 @@ public class GiveCmd extends Cmd {
 			item = (Item)Item.itemRegistry.getObject(loc);
 			
 			if (item == null)
-				throw new Error("This item does not exist.");		
+				error("This item does not exist.");		
 			
 			amount = item.getItemStackLimit();
 			if (args.length >= 2) {
@@ -120,7 +120,7 @@ public class GiveCmd extends Cmd {
 			
 			if (args.length >= 3) {
 				if (!MiscUtils.isInteger(args[2]))
-					syntaxError();
+					syntaxError("Metadata has to be an integer.");
 				
 				metadata = Integer.valueOf(args[2]);
 			}
@@ -130,7 +130,7 @@ public class GiveCmd extends Cmd {
 					nbt = CommandBase.getChatComponentFromNthArg(null, args, 3).getUnformattedText();
 				} catch (CommandException e) {
 					e.printStackTrace();
-					throw new Error("An error occurred while parsing NBT data.");
+					error("An error occurred while parsing NBT data.");
 				}
 			}
 		}
@@ -142,7 +142,7 @@ public class GiveCmd extends Cmd {
 				out.setTagCompound(JsonToNBT.func_180713_a(nbt));
 			} catch (NBTException e) {
 				e.printStackTrace();
-				throw new Error("An error occurred while parsing NBT data.");
+				error("An error occurred while parsing NBT data.");
 			}
 		}
 		
@@ -155,7 +155,7 @@ public class GiveCmd extends Cmd {
 			}
 		}
 		
-		WurstClient.INSTANCE.chat.error("Please clear a slot of your hotbar to use this command.");
+		error("Please clear a slot of your hotbar to use this command.");
 	}
 
 }
