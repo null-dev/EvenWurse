@@ -17,7 +17,7 @@ import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Gives you an item with custom NBT data in creative.",
 name = "give",
-syntax = {"<item name> <metadata> <NBT data>"})
+syntax = {"<item name> <amount> <metadata> <NBT data>"})
 public class GiveCmd extends Cmd {
 
 	@Override
@@ -37,20 +37,37 @@ public class GiveCmd extends Cmd {
 		if (item == null)
 			WurstClient.INSTANCE.chat.error("This item does not exist.");
 		else {
+			int amount = item.getItemStackLimit();
 			int metadata = 0;
 			
 			if (args.length >= 2) {
 				if (!MiscUtils.isInteger(args[1]))
 					syntaxError();
 				
-				metadata = Integer.valueOf(args[1]);
+				amount = Integer.valueOf(args[1]);
+				
+				if (amount < 1) {
+					WurstClient.INSTANCE.chat.error("Amount has to be at least 1.");
+					return;
+				}
+				if (amount > item.getItemStackLimit()) {
+					WurstClient.INSTANCE.chat.error("Amount is larger than the maximum stack size.");
+					return;
+				}
 			}
 			
-			ItemStack out = new ItemStack(item, 1, metadata);
-			
 			if (args.length >= 3) {
+				if (!MiscUtils.isInteger(args[2]))
+					syntaxError();
+				
+				metadata = Integer.valueOf(args[2]);
+			}
+			
+			ItemStack out = new ItemStack(item, amount, metadata);
+			
+			if (args.length >= 4) {
 				try {
-					String nbt = CommandBase.getChatComponentFromNthArg(null, args, 2).getUnformattedText();
+					String nbt = CommandBase.getChatComponentFromNthArg(null, args, 3).getUnformattedText();
 					out.setTagCompound(JsonToNBT.func_180713_a(nbt));
 				} catch (CommandException | NBTException e) {
 					WurstClient.INSTANCE.chat.error("An error occurred while parsing NBT data.");
