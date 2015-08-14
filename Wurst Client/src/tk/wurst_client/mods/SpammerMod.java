@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * Copyright Â© 2014 - 2015 | Alexander01998 | All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -197,7 +197,7 @@ public class SpammerMod extends Mod
 					public void actionPerformed(ActionEvent e)
 					{
 						MiscUtils
-							.openLink("http://www.wurst-client.tk/download/wurst-client/spam");
+							.openLink("https://www.wurst-client.tk/downloads/wspam/");
 					}
 				});
 				fileMenu.add(fileOpenLink);
@@ -342,7 +342,7 @@ public class SpammerMod extends Mod
 						for(int i = 0; itr.hasNext(); i++)
 						{
 							Map.Entry var = (Map.Entry)itr.next();
-							rowData[i][0] = "§_" + var.getKey() + ";";
+							rowData[i][0] = "Â§_" + var.getKey() + ";";
 							rowData[i][1] = "\"" + var.getValue() + "\"";
 							if(var.getValue().equals(" "))
 								rowData[i][1] = "\" \" (space)";
