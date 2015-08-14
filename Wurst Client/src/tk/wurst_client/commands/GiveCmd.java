@@ -38,7 +38,13 @@ public class GiveCmd extends Cmd {
 		new ItemTemplate("Knockback Stick", Items.stick, 0,
 				"{ench: [{id:19, lvl:6}], display: {Name: §6Knockback Stick}, HideFlags: 63}"),
 		new ItemTemplate("One Hit Sword", Items.diamond_sword, 0,
-				"{ench: [{id:16, lvl:32767}], display: {Name: §6One Hitter}, HideFlags: 63}")
+				"{ench: [{id:16, lvl:32767}], display: {Name: §6One Hitter}, HideFlags: 63, Unbreakable: 1}"),
+		new ItemTemplate("Super Thorns Chestplate", Items.diamond_chestplate, 0,
+				"{ench: [{id:7, lvl:32767}, {id: 0, lvl:32767}], display: "
+				+ "{Name: §6Super Thorns Chestplate}, HideFlags: 63, Unbreakable: 1}"),
+		new ItemTemplate("Invincibility Potion", Items.potionitem, 0,
+				"{CustomPotionEffects: [{Id:11, Amplifier: 127, Duration: 2147483647}], display: "
+				+ "{Name: §6Invincibility Potion}, HideFlags: 63}")
 	};
 	
 	private int parseAmount(Item item, String amount) throws Error {
