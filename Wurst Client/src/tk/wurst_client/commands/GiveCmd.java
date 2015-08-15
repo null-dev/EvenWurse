@@ -75,6 +75,15 @@ public class GiveCmd extends Cmd {
 		return out;
 	}
 	
+	private Item getItemById(int id) throws Error {
+		Item out = Item.getItemById(id);
+		
+		if (out == null)
+			error("There is no such item with that id.");
+		
+		return out;
+	}
+	
 	@Override
 	public void execute(String[] args) throws Error {
 		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
@@ -122,8 +131,11 @@ public class GiveCmd extends Cmd {
 			ResourceLocation loc = new ResourceLocation(args[0]);
 			item = (Item)Item.itemRegistry.getObject(loc);
 			
+			if (item == null && MiscUtils.isInteger(args[0]))
+				item = getItemById(Integer.parseInt(args[0]));
+				
 			if (item == null)
-				error("This item does not exist.");		
+				error("This item does not exist.");
 			
 			amount = item.getItemStackLimit();
 			if (args.length >= 2) {
