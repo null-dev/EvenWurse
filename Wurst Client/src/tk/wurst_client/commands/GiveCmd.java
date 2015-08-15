@@ -35,7 +35,7 @@ public class GiveCmd extends Cmd {
 	
 	private static ItemTemplate[] templates = new ItemTemplate[] {
 		new ItemTemplate("Knockback Stick", Items.stick, 0,
-				"{ench: [{id:19, lvl:6}], display: {Name: §6Knockback Stick}, HideFlags: 63}"),
+				"{ench: [{id:19, lvl:12}], display: {Name: §6Knockback Stick}, HideFlags: 63}"),
 		new ItemTemplate("One Hit Sword", Items.diamond_sword, 0,
 				"{AttributeModifiers:[{AttributeName:generic.attackDamage,Name:"
 				+ "generic.attackDamage,Amount:2147483647,Operation:0,UUIDMost:246216,UUIDLeast:24636}], "
