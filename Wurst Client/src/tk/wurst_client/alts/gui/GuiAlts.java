@@ -201,7 +201,7 @@ public class GuiAlts extends GuiScreen
 							}
 					}
 				}).start();
-			else if (clickedButton.id == 8)
+			else if(clickedButton.id == 8)
 				mc.displayGuiScreen(new SessionStealerScreen(this));
 	}
 	
