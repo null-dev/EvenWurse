@@ -57,11 +57,11 @@ public class GuiAlts extends GuiScreen
 			mc.displayGuiScreen(new GuiYesNo(this, "Your alt list is empty.",
 				"Would you like some random alts to get started?", 0));
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 154, height - 52, 100, 20,
+		buttonList.add(new GuiButton(0, width / 2 - 154, height - 52, 75, 20,
 			"Use"));
-		buttonList.add(new GuiButton(1, width / 2 - 50, height - 52, 100, 20,
+		buttonList.add(new GuiButton(1, width / 2 - 76, height - 52, 74, 20,
 			"Direct Login"));
-		buttonList.add(new GuiButton(2, width / 2 + 54, height - 52, 100, 20,
+		buttonList.add(new GuiButton(2, width / 2 + 80, height - 52, 75, 20,
 			"Add"));
 		buttonList.add(new GuiButton(3, width / 2 - 154, height - 28, 75, 20,
 			"Star"));
@@ -71,6 +71,9 @@ public class GuiAlts extends GuiScreen
 			"Delete"));
 		buttonList.add(new GuiButton(6, width / 2 + 80, height - 28, 75, 20,
 			"Cancel"));
+		buttonList.add(new GuiButton(8, width / 2 + 2, height - 52, 74, 20,
+			"Steal Session"));
+		
 		buttonList.add(new GuiButton(7, 8, 8, 75, 20, "Import Alts"));
 		WurstClient.INSTANCE.analytics.trackPageView("/alt-manager/",
 			"Alt Manager");
@@ -198,6 +201,8 @@ public class GuiAlts extends GuiScreen
 							}
 					}
 				}).start();
+			else if (clickedButton.id == 8)
+				mc.displayGuiScreen(new SessionStealerScreen(this));
 	}
 	
 	@Override
