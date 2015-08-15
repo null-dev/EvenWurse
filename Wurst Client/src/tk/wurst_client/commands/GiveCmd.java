@@ -40,6 +40,9 @@ public class GiveCmd extends Cmd {
 				"{AttributeModifiers:[{AttributeName:generic.attackDamage,Name:"
 				+ "generic.attackDamage,Amount:2147483647,Operation:0,UUIDMost:246216,UUIDLeast:24636}], "
 				+ "display: {Name: §6One Hitter}, Unbreakable: 1, HideFlags: 63}"),
+		new ItemTemplate("Super Bow", Items.bow, 0,
+				"{ench: [{id:48, lvl:32767}, {id:49, lvl:5}, {id:50, lvl:1}, {id:51, lvl:1}],"
+				+ "display: {Name: §6Super Bow}, HideFlags: 63}"),
 		new ItemTemplate("Super Thorns Chestplate", Items.diamond_chestplate, 0,
 				"{ench: [{id:7, lvl:32767}, {id: 0, lvl:32767}], AttributeModifiers:"
 				+ "[{AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:200,Operation:0,"
