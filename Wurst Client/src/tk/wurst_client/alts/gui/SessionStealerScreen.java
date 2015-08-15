@@ -117,7 +117,7 @@ public class SessionStealerScreen extends GuiScreen
 					mc.displayGuiScreen(prevMenu);
 				}
 			} else if(button.id == 2)
-				MiscUtils.openLink("https://www.google.com/search?q=%22session+id+is+token%22+site:pastebin.com&tbs=qdr:m");
+				MiscUtils.openLink("https://www.google.com/search?q=%22session+id+is+token%22&tbs=qdr:m");
 	}
 	
 	/**
