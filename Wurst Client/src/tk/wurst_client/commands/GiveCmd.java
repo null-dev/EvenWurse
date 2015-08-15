@@ -102,7 +102,7 @@ public class GiveCmd extends Cmd {
 		if (args[0].equalsIgnoreCase("templates")) {
 			for (int i = 0; i < templates.length; i++) {
 				ItemTemplate template = templates[i];
-				WurstClient.INSTANCE.chat.message(String.format("§l§c%d§6: %s", i+1, template.name));
+				WurstClient.INSTANCE.chat.message(String.format("§c§l%d§c: §6%s", i+1, template.name));
 			}
 			
 			return;
