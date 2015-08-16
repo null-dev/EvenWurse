@@ -1,5 +1,6 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors | All rights reserved.
+ * Copyright © 2014 - 2015 | Alexander01998 and contributors | All rights
+ * reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,13 +24,11 @@ import org.lwjgl.input.Keyboard;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class SessionStealerScreen extends GuiScreen
 {
 	protected GuiScreen prevMenu;
-	protected GuiTextField usernameBox;
 	protected GuiTextField tokenBox;
 	
 	protected String displayText = "";
@@ -45,7 +44,6 @@ public class SessionStealerScreen extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		usernameBox.updateCursorCounter();
 		tokenBox.updateCursorCounter();
 	}
 	
@@ -64,14 +62,14 @@ public class SessionStealerScreen extends GuiScreen
 			"Search for tokens on Google"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12,
 			"Cancel"));
-		usernameBox =
-			new GuiTextField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
-		usernameBox.setText(mc.session.getUsername());
-		usernameBox.setFocused(true);
 		tokenBox =
-			new GuiTextField(1, fontRendererObj, width / 2 - 100, 100, 200, 20);
+			new GuiTextField(1, fontRendererObj, width / 2 - 100, 60, 200, 20);
+		tokenBox.setMaxStringLength(65);
+		tokenBox.setFocused(true);
+		
+		// TODO: Remove
 		if(mc.session.getToken() != null)
-			tokenBox.setText(mc.session.getToken());
+			tokenBox.setText(mc.session.getSessionID().substring(6));
 	}
 	
 	/**
@@ -91,57 +89,42 @@ public class SessionStealerScreen extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			else if(button.id == 0)
 			{
-				String username = null, uuid = null;
-				if(usernameBox.getText().length() <= 16)
+				// TODO: Clean up
+				
+				if(tokenBox.getText().length() != 65
+					|| !tokenBox.getText().contains(":"))
 				{
-					username = usernameBox.getText();
-					
-					try
-					{
-						URLConnection connection =
-							new URL(
-								"https://api.mojang.com/users/profiles/minecraft/"
-									+ username).openConnection();
-						InputStream response = connection.getInputStream();
-						JsonParser parser = new JsonParser();
-						JsonElement root =
-							parser.parse(new InputStreamReader(response));
-						uuid = root.getAsJsonObject().get("id").getAsString();
-					}catch(IOException | IllegalStateException e)
-					{
-						e.printStackTrace();
-						displayText = "An error occurred while fetching UUID.";
-					}
-				}else
+					displayText = "That is not a session token!";
+					return;
+				}
+				
+				String uuid = tokenBox.getText().split(":")[1];
+				
+				String username = null;
+				try
 				{
-					uuid = usernameBox.getText();
-					
-					try
-					{
-						URLConnection connection =
-							new URL("https://api.mojang.com/user/profiles/"
-								+ uuid + "/names").openConnection();
-						InputStream response = connection.getInputStream();
-						JsonParser parser = new JsonParser();
-						JsonArray root =
-							parser.parse(new InputStreamReader(response))
-								.getAsJsonArray();
-						username =
-							root.get(root.size() - 1).getAsJsonObject()
-								.get("name").getAsString();
-					}catch(IOException | IllegalStateException e)
-					{
-						e.printStackTrace();
-						displayText =
-							"An error occurred while fetching username.";
-					}
+					URLConnection connection =
+						new URL("https://api.mojang.com/user/profiles/" + uuid
+							+ "/names").openConnection();
+					InputStream response = connection.getInputStream();
+					JsonParser parser = new JsonParser();
+					JsonArray root =
+						parser.parse(new InputStreamReader(response))
+							.getAsJsonArray();
+					username =
+						root.get(root.size() - 1).getAsJsonObject().get("name")
+							.getAsString();
+				}catch(IOException | IllegalStateException e)
+				{
+					e.printStackTrace();
+					displayText = "An error occurred while fetching username.";
 				}
 				
 				if(username != null && uuid != null)
 				{
 					mc.session =
-						new Session(username, uuid, tokenBox.getText(),
-							"mojang");
+						new Session(username, uuid, tokenBox.getText().split(
+							":")[0], "mojang");
 					mc.displayGuiScreen(prevMenu);
 				}
 			}else if(button.id == 2)
@@ -156,7 +139,6 @@ public class SessionStealerScreen extends GuiScreen
 	@Override
 	protected void keyTyped(char par1, int par2)
 	{
-		usernameBox.textboxKeyTyped(par1, par2);
 		tokenBox.textboxKeyTyped(par1, par2);
 		
 		if(par2 == 28 || par2 == 156)
@@ -173,9 +155,8 @@ public class SessionStealerScreen extends GuiScreen
 		throws IOException
 	{
 		super.mouseClicked(par1, par2, par3);
-		usernameBox.mouseClicked(par1, par2, par3);
 		tokenBox.mouseClicked(par1, par2, par3);
-		if(usernameBox.isFocused() || tokenBox.isFocused())
+		if(tokenBox.isFocused())
 			displayText = "";
 	}
 	
@@ -189,14 +170,11 @@ public class SessionStealerScreen extends GuiScreen
 		
 		drawCenteredString(fontRendererObj, "Session Stealer", width / 2, 20,
 			16777215);
-		drawString(fontRendererObj, "Username or UUID", width / 2 - 100, 47,
-			10526880);
-		drawString(fontRendererObj, "Session Token", width / 2 - 100, 87,
-			10526880);
+		drawString(fontRendererObj, "Session ID is token:", width / 2 - 100,
+			47, 10526880);
 		drawCenteredString(fontRendererObj, displayText, width / 2, 142,
 			16777215);
 		
-		usernameBox.drawTextBox();
 		tokenBox.drawTextBox();
 		
 		super.drawScreen(par1, par2, par3);
