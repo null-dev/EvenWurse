@@ -8,13 +8,17 @@
  */
 package tk.wurst_client.alts.gui;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Session;
 
 import org.lwjgl.input.Keyboard;
@@ -139,11 +143,53 @@ public class SessionStealerScreen extends GuiScreen
 					json.get(json.size() - 1).getAsJsonObject().get("name")
 						.getAsString();
 				
-				// login
+				// validate session
+				try
+				{
+					Proxy proxy =
+						MinecraftServer.getServer() == null ? null
+							: MinecraftServer.getServer().getServerProxy();
+					if(proxy == null)
+						proxy = Proxy.NO_PROXY;
+					
+					HttpURLConnection connection =
+						(HttpURLConnection)new URL(
+							"https://authserver.mojang.com/validate")
+							.openConnection(proxy);
+					
+					connection.setRequestMethod("POST");
+					connection.setRequestProperty("Content-Type",
+						"application/json");
+					
+					String content =
+						"{\"accessToken\":\"" + input.split(":")[0] + "\"}";
+					
+					connection.setRequestProperty("Content-Length", ""
+						+ content.getBytes().length);
+					connection.setRequestProperty("Content-Language", "en-US");
+					connection.setUseCaches(false);
+					connection.setDoInput(true);
+					connection.setDoOutput(true);
+					
+					DataOutputStream output =
+						new DataOutputStream(connection.getOutputStream());
+					output.writeBytes(content);
+					output.flush();
+					output.close();
+					
+					if(connection.getResponseCode() != 204)
+						throw new IOException();
+				}catch(IOException e)
+				{
+					errorText = "Invalid Session";
+					helpText = "This token doesn't work anymore. Try a different one.";
+					return;
+				}
+				
+				// use session
 				mc.session =
 					new Session(name, uuid, input.split(":")[0], "mojang");
 				mc.displayGuiScreen(prevMenu);
-				
 			}else if(button.id == 2)
 				MiscUtils
 					.openLink("https://www.google.com/search?q=%22session+id+is+token%22&tbs=qdr:m");
