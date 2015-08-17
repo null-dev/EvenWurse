@@ -63,7 +63,7 @@ public class SessionStealerScreen extends GuiScreen
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 72 + 12,
-			"Login to session"));
+			"Steal Session"));
 		buttonList.add(new GuiButton(2, width / 2 - 100, height / 4 + 96 + 12,
 			"Search for tokens on Google"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12,
