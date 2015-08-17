@@ -92,7 +92,8 @@ public class SessionStealerScreen extends GuiScreen
 				// TODO: Clean up
 				
 				if(tokenBox.getText().length() != 65
-					|| !tokenBox.getText().substring(32, 33).equals(":"))
+					|| !tokenBox.getText().substring(32, 33).equals(":")
+					|| tokenBox.getText().split(":").length != 2)
 				{
 					displayText = "That is not a session token!";
 					return;
