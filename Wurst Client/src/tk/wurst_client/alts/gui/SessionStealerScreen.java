@@ -32,7 +32,8 @@ public class SessionStealerScreen extends GuiScreen
 	protected GuiScreen prevMenu;
 	protected GuiTextField tokenBox;
 	
-	protected String displayText = "";
+	protected String errorText = "";
+	protected String helpText = "";
 	
 	public SessionStealerScreen(GuiScreen par1GuiScreen)
 	{
@@ -95,7 +96,7 @@ public class SessionStealerScreen extends GuiScreen
 				if(input.length() != 65 || !input.substring(32, 33).equals(":")
 					|| input.split(":").length != 2)
 				{
-					displayText = "That is not a session token!";
+					errorText = "That is not a session token!";
 					return;
 				}
 				
@@ -112,15 +113,17 @@ public class SessionStealerScreen extends GuiScreen
 				}catch(JsonIOException | JsonSyntaxException | IOException e)
 				{
 					e.printStackTrace();
-					displayText =
-						"An error occurred. Mojang servers might be down.";
+					errorText = "An error occurred";
+					helpText = "Mojang servers might be down.";
 					return;
 				}
 				
 				// validate UUID
 				if(!rawJson.isJsonArray())
 				{
-					displayText = "Invalid UUID";
+					errorText = "Invalid UUID";
+					helpText =
+						"This account is immune to session stealing (or fake).";
 					return;
 				}
 				
@@ -165,7 +168,10 @@ public class SessionStealerScreen extends GuiScreen
 		super.mouseClicked(par1, par2, par3);
 		tokenBox.mouseClicked(par1, par2, par3);
 		if(tokenBox.isFocused())
-			displayText = "";
+		{
+			errorText = "";
+			helpText = "";
+		}
 	}
 	
 	/**
@@ -180,8 +186,10 @@ public class SessionStealerScreen extends GuiScreen
 			16777215);
 		drawString(fontRendererObj, "Session ID is token:", width / 2 - 100,
 			47, 10526880);
-		drawCenteredString(fontRendererObj, displayText, width / 2, 142,
-			16777215);
+		drawCenteredString(fontRendererObj, "§c" + errorText, width / 2, 96,
+			0xFFFFFF);
+		drawCenteredString(fontRendererObj, "§7" + helpText, width / 2, 112,
+			0xFFFFFF);
 		
 		tokenBox.drawTextBox();
 		
