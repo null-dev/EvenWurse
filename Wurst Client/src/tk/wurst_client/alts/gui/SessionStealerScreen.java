@@ -65,7 +65,7 @@ public class SessionStealerScreen extends GuiScreen
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 72 + 12,
 			"Steal Session"));
 		buttonList.add(new GuiButton(2, width / 2 - 100, height / 4 + 96 + 12,
-			"Search for tokens on Google"));
+			"How to Use"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 120 + 12,
 			"Cancel"));
 		tokenBox =
@@ -102,7 +102,8 @@ public class SessionStealerScreen extends GuiScreen
 					|| input.split(":").length != 2)
 				{
 					errorText = "That is not a session token!";
-					// TODO: Help text
+					helpText =
+						"If you're lost, click the \"How to Use\" button.";
 					return;
 				}
 				String uuid = input.split(":")[1];
@@ -182,7 +183,8 @@ public class SessionStealerScreen extends GuiScreen
 				}catch(IOException e)
 				{
 					errorText = "Invalid Session";
-					helpText = "This token doesn't work anymore. Try a different one.";
+					helpText =
+						"This token doesn't work anymore. Try a different one.";
 					return;
 				}
 				
@@ -192,7 +194,7 @@ public class SessionStealerScreen extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			}else if(button.id == 2)
 				MiscUtils
-					.openLink("https://www.google.com/search?q=%22session+id+is+token%22&tbs=qdr:m");
+					.openLink("https://www.wurst-client.tk/wiki/tutorials/SessionStealer");
 	}
 	
 	/**
