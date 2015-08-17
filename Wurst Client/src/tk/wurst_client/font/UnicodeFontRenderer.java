@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors | All rights reserved.
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -43,7 +43,7 @@ public class UnicodeFontRenderer extends FontRenderer
 		}
 		String alphabet =
 			"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
-		FONT_HEIGHT = font.getHeight(alphabet) / 2;
+		FONT_HEIGHT = font.getHeight(alphabet) / 4;
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class UnicodeFontRenderer extends FontRenderer
 		if(string == null)
 			return 0;
 		glPushMatrix();
-		glScaled(0.5, 0.5, 0.5);
+		glScaled(0.25, 0.25, 0.25);
 		
 		boolean blend = glIsEnabled(GL_BLEND);
 		boolean lighting = glIsEnabled(GL_LIGHTING);
@@ -63,8 +63,8 @@ public class UnicodeFontRenderer extends FontRenderer
 			glDisable(GL_LIGHTING);
 		if(texture)
 			glDisable(GL_TEXTURE_2D);
-		x *= 2;
-		y *= 2;
+		x *= 4;
+		y *= 4;
 		
 		font.drawString(x, y, string, new org.newdawn.slick.Color(color));
 		
@@ -93,11 +93,11 @@ public class UnicodeFontRenderer extends FontRenderer
 	@Override
 	public int getStringWidth(String string)
 	{
-		return font.getWidth(string) / 2;
+		return font.getWidth(string) / 4;
 	}
 	
 	public int getStringHeight(String string)
 	{
-		return font.getHeight(string) / 2;
+		return font.getHeight(string) / 4;
 	}
 }

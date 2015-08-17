@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors | All rights reserved.
+ * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,8 +17,8 @@ public class Fonts
 	
 	public static void loadFonts()
 	{
-		segoe22 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 22));
-		segoe18 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 18));
-		segoe15 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 15));
+		segoe22 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 44));
+		segoe18 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 36));
+		segoe15 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 30));
 	}
 }
