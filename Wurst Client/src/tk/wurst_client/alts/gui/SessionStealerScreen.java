@@ -9,10 +9,8 @@
 package tk.wurst_client.alts.gui;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -89,45 +87,44 @@ public class SessionStealerScreen extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			else if(button.id == 0)
 			{
-				// TODO: Clean up
-				
-				if(tokenBox.getText().length() != 65
-					|| !tokenBox.getText().substring(32, 33).equals(":")
-					|| tokenBox.getText().split(":").length != 2)
+				// validate input
+				String input = tokenBox.getText();
+				if(input.length() != 65 || !input.substring(32, 33).equals(":")
+					|| input.split(":").length != 2)
 				{
 					displayText = "That is not a session token!";
 					return;
 				}
 				
-				String uuid = tokenBox.getText().split(":")[1];
+				String uuid = input.split(":")[1];
 				
-				String username = null;
 				try
 				{
-					URLConnection connection =
-						new URL("https://api.mojang.com/user/profiles/" + uuid
-							+ "/names").openConnection();
-					InputStream response = connection.getInputStream();
-					JsonParser parser = new JsonParser();
+					// fetch name history
 					JsonArray root =
-						parser.parse(new InputStreamReader(response))
-							.getAsJsonArray();
-					username =
+						new JsonParser().parse(
+							new InputStreamReader(new URL(
+								"https://api.mojang.com/user/profiles/" + uuid
+									+ "/names").openConnection()
+								.getInputStream())).getAsJsonArray();
+					
+					// get latest name
+					String name =
 						root.get(root.size() - 1).getAsJsonObject().get("name")
 							.getAsString();
+					if(name == null)
+						throw new IllegalStateException();
+					
+					// login
+					mc.session =
+						new Session(name, uuid, input.split(":")[0], "mojang");
+					mc.displayGuiScreen(prevMenu);
 				}catch(IOException | IllegalStateException e)
 				{
 					e.printStackTrace();
-					displayText = "An error occurred while fetching username.";
+					displayText = "An error occurred.";
 				}
 				
-				if(username != null && uuid != null)
-				{
-					mc.session =
-						new Session(username, uuid, tokenBox.getText().split(
-							":")[0], "mojang");
-					mc.displayGuiScreen(prevMenu);
-				}
 			}else if(button.id == 2)
 				MiscUtils
 					.openLink("https://www.google.com/search?q=%22session+id+is+token%22&tbs=qdr:m");
