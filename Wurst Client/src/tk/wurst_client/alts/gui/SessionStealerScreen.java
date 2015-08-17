@@ -194,7 +194,7 @@ public class SessionStealerScreen extends GuiScreen
 				mc.displayGuiScreen(prevMenu);
 			}else if(button.id == 2)
 				MiscUtils
-					.openLink("https://www.wurst-client.tk/wiki/tutorials/SessionStealer");
+					.openLink("https://www.wurst-client.tk/wiki/tutorials/Session_Stealer");
 	}
 	
 	/**
