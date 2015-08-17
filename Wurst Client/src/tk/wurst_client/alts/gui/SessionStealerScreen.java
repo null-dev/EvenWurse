@@ -71,7 +71,8 @@ public class SessionStealerScreen extends GuiScreen
 		
 		// TODO: Remove
 		if(mc.session.getToken() != null)
-			tokenBox.setText(mc.session.getSessionID().substring(6));
+			tokenBox.setText(mc.session.getSessionID().substring(6)
+				.replace("-", ""));
 	}
 	
 	/**
@@ -97,10 +98,16 @@ public class SessionStealerScreen extends GuiScreen
 					|| input.split(":").length != 2)
 				{
 					errorText = "That is not a session token!";
+					// TODO: Help text
 					return;
 				}
-				
 				String uuid = input.split(":")[1];
+				if(uuid.contains("-"))
+				{
+					errorText = "That is not a session token!";
+					helpText = "Try without the dashes (-).";
+					return;
+				}
 				
 				// fetch name history
 				JsonElement rawJson;
@@ -122,8 +129,7 @@ public class SessionStealerScreen extends GuiScreen
 				if(!rawJson.isJsonArray())
 				{
 					errorText = "Invalid UUID";
-					helpText =
-						"This account is immune to session stealing (or fake).";
+					helpText = "This session is fake. Try a different one.";
 					return;
 				}
 				
