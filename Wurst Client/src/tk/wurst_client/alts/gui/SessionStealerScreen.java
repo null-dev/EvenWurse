@@ -23,7 +23,9 @@ import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 public class SessionStealerScreen extends GuiScreen
 {
@@ -99,38 +101,39 @@ public class SessionStealerScreen extends GuiScreen
 				
 				String uuid = input.split(":")[1];
 				
+				// fetch name history
+				JsonElement rawJson;
 				try
 				{
-					// fetch name history
-					JsonElement rawJson =
+					rawJson =
 						new JsonParser().parse(new InputStreamReader(new URL(
 							"https://api.mojang.com/user/profiles/" + uuid
 								+ "/names").openConnection().getInputStream()));
-					
-					// validate UUID
-					if(!rawJson.isJsonArray())
-					{
-						displayText = "Invalid UUID";
-						return;
-					}
-					
-					// get latest name
-					JsonArray json = rawJson.getAsJsonArray();
-					String name =
-						json.get(json.size() - 1).getAsJsonObject().get("name")
-							.getAsString();
-					if(name == null)
-						throw new IllegalStateException();
-					
-					// login
-					mc.session =
-						new Session(name, uuid, input.split(":")[0], "mojang");
-					mc.displayGuiScreen(prevMenu);
-				}catch(IOException | IllegalStateException e)
+				}catch(JsonIOException | JsonSyntaxException | IOException e)
 				{
 					e.printStackTrace();
-					displayText = "An error occurred.";
+					displayText =
+						"An error occurred. Mojang servers might be down.";
+					return;
 				}
+				
+				// validate UUID
+				if(!rawJson.isJsonArray())
+				{
+					displayText = "Invalid UUID";
+					return;
+				}
+				
+				// get latest name
+				JsonArray json = rawJson.getAsJsonArray();
+				String name =
+					json.get(json.size() - 1).getAsJsonObject().get("name")
+						.getAsString();
+				
+				// login
+				mc.session =
+					new Session(name, uuid, input.split(":")[0], "mojang");
+				mc.displayGuiScreen(prevMenu);
 				
 			}else if(button.id == 2)
 				MiscUtils
