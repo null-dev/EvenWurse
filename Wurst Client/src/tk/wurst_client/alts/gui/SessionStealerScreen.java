@@ -72,11 +72,6 @@ public class SessionStealerScreen extends GuiScreen
 			new GuiTextField(1, fontRendererObj, width / 2 - 100, 60, 200, 20);
 		tokenBox.setMaxStringLength(65);
 		tokenBox.setFocused(true);
-		
-		// TODO: Remove
-		if(mc.session.getToken() != null)
-			tokenBox.setText(mc.session.getSessionID().substring(6)
-				.replace("-", ""));
 	}
 	
 	/**
