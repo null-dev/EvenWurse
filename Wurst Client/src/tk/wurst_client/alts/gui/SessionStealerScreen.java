@@ -22,6 +22,7 @@ import org.lwjgl.input.Keyboard;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class SessionStealerScreen extends GuiScreen
@@ -101,16 +102,22 @@ public class SessionStealerScreen extends GuiScreen
 				try
 				{
 					// fetch name history
-					JsonArray root =
-						new JsonParser().parse(
-							new InputStreamReader(new URL(
-								"https://api.mojang.com/user/profiles/" + uuid
-									+ "/names").openConnection()
-								.getInputStream())).getAsJsonArray();
+					JsonElement rawJson =
+						new JsonParser().parse(new InputStreamReader(new URL(
+							"https://api.mojang.com/user/profiles/" + uuid
+								+ "/names").openConnection().getInputStream()));
+					
+					// validate UUID
+					if(!rawJson.isJsonArray())
+					{
+						displayText = "Invalid UUID";
+						return;
+					}
 					
 					// get latest name
+					JsonArray json = rawJson.getAsJsonArray();
 					String name =
-						root.get(root.size() - 1).getAsJsonObject().get("name")
+						json.get(json.size() - 1).getAsJsonObject().get("name")
 							.getAsString();
 					if(name == null)
 						throw new IllegalStateException();
