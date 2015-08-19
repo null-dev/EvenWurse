@@ -35,4 +35,4 @@ Want to help with the development? Awesome! Just click the[`fork`](https://githu
 
 Need inspiration on what to implement? Check out the [list of suggestions](https://github.com/Wurst-Imperium/Wurst-Client/issues?q=is%3Aopen+label%3Aaccepted+label%3Aenhancement).
 
-If you have trouble setting it up in Eclipse, read the wiki page ["How to Debug Wurst in Eclipse"](https://www.wurst-client.tk/wiki/How-to-Debug-Wurst-In-Eclipse/).
+If you have trouble setting it up in Eclipse, read the wiki page ["How to Debug Wurst in Eclipse"](https://www.wurst-client.tk/wiki/Tutorials/How-to-Debug-Wurst-In-Eclipse/).
