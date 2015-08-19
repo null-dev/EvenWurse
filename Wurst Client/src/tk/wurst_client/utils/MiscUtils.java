@@ -159,6 +159,12 @@ public class MiscUtils
 	
 	public static String post(URL url, String content) throws IOException
 	{
+		return post(url, content, "application/x-www-form-urlencoded");
+	}
+	
+	public static String post(URL url, String content, String contentType)
+		throws IOException
+	{
 		Proxy proxy =
 			MinecraftServer.getServer() == null ? null : MinecraftServer
 				.getServer().getServerProxy();
@@ -168,8 +174,7 @@ public class MiscUtils
 		HttpURLConnection connection =
 			(HttpURLConnection)url.openConnection(proxy);
 		connection.setRequestMethod("POST");
-		connection.setRequestProperty("Content-Type",
-			"application/x-www-form-urlencoded");
+		connection.setRequestProperty("Content-Type", contentType);
 		connection.setRequestProperty("Content-Length", ""
 			+ content.getBytes().length);
 		connection.setRequestProperty("Content-Language", "en-US");
