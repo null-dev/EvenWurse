@@ -110,6 +110,7 @@ public class GiveCmd extends Cmd
 		// list all templates
 		if(args[0].equalsIgnoreCase("templates"))
 		{
+			WurstClient.INSTANCE.chat.message("§cItem templates:");
 			for(int i = 0; i < templates.length; i++)
 			{
 				ItemTemplate template = templates[i];
