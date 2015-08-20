@@ -13,7 +13,9 @@ import java.util.Map.Entry;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiYesNo;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.options.Keybinds;
 
 public class GuiKeybindManager extends GuiScreen
 {
@@ -41,6 +43,7 @@ public class GuiKeybindManager extends GuiScreen
 			"Remove"));
 		buttonList.add(new GuiButton(3, width / 2 + 2, height - 28, 100, 20,
 			"Back"));
+		buttonList.add(new GuiButton(4, 8, 8, 100, 20, "Reset Keybinds"));
 		WurstClient.INSTANCE.analytics.trackPageView(
 			"/options/keybind-manager", "Keybind Manager");
 	}
@@ -66,6 +69,10 @@ public class GuiKeybindManager extends GuiScreen
 				mc.displayGuiScreen(new GuiKeybindChange(this, null));
 			else if(clickedButton.id == 3)
 				mc.displayGuiScreen(prevMenu);
+			else if(clickedButton.id == 4)
+				mc.displayGuiScreen(new GuiYesNo(this,
+					"Are you sure you want to reset your keybinds?",
+					"This cannot be undone!", 0));
 			else
 			{
 				if(bindList.getSelectedSlot() > WurstClient.INSTANCE.keybinds
@@ -91,6 +98,18 @@ public class GuiKeybindManager extends GuiScreen
 						"remove", entry.getKey());
 				}
 			}
+	}
+	
+	@Override
+	public void confirmClicked(boolean par1, int par2)
+	{
+		if(par1)
+		{
+			WurstClient.INSTANCE.keybinds = new Keybinds();
+			WurstClient.INSTANCE.fileManager.saveKeybinds();
+			WurstClient.INSTANCE.analytics.trackEvent("keybinds", "reset");
+		}
+		mc.displayGuiScreen(this);
 	}
 	
 	/**
