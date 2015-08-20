@@ -120,7 +120,7 @@ public class GiveCmd extends Cmd
 		}
 		
 		Item item = null;
-		int amount = -1;
+		int amount = 1;
 		int metadata = 0;
 		String nbt = null;
 		
@@ -142,8 +142,6 @@ public class GiveCmd extends Cmd
 			nbt = template.tag;
 			if(args.length == 3)
 				amount = parseAmount(item, args[2]);
-			else
-				amount = item.getItemStackLimit();
 		}else
 		{
 			// custom item
@@ -158,7 +156,6 @@ public class GiveCmd extends Cmd
 				error("Item \"" + args[0] + "\" could not be found.");
 			
 			// amount
-			amount = item.getItemStackLimit();
 			if(args.length >= 2)
 				amount = parseAmount(item, args[1]);
 			
