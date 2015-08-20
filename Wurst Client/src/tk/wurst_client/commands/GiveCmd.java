@@ -23,13 +23,12 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.utils.MiscUtils;
 
-@Info(help = "Gives you an item with custom NBT data in creative.",
+@Info(help = "Gives you an item with custom NBT data. Requires creative mode.",
 	name = "give",
-	syntax = {"<item name> <amount> <metadata> <NBT data>",
-		"template <template number> <amount>", "templates"})
+	syntax = {"(<item_name>|<item_id>) [<amount>] [<metadata>] [<nbt>]",
+		"template <template_id> [<amount>]", "templates"})
 public class GiveCmd extends Cmd
 {
-	
 	private static class ItemTemplate
 	{
 		public Item item;
