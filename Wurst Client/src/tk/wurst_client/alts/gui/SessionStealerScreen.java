@@ -23,6 +23,7 @@ import net.minecraft.util.Session;
 
 import org.lwjgl.input.Keyboard;
 
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonArray;
@@ -72,6 +73,9 @@ public class SessionStealerScreen extends GuiScreen
 			new GuiTextField(1, fontRendererObj, width / 2 - 100, 60, 200, 20);
 		tokenBox.setMaxStringLength(65);
 		tokenBox.setFocused(true);
+		
+		WurstClient.INSTANCE.analytics.trackPageView("/session-stealer",
+			"Session Stealer");
 	}
 	
 	/**
@@ -99,6 +103,8 @@ public class SessionStealerScreen extends GuiScreen
 					errorText = "That is not a session token!";
 					helpText =
 						"If you're lost, click the \"How to Use\" button.";
+					WurstClient.INSTANCE.analytics.trackEvent(
+						"session stealer", "invalid input");
 					return;
 				}
 				String uuid = input.split(":")[1];
@@ -106,6 +112,8 @@ public class SessionStealerScreen extends GuiScreen
 				{
 					errorText = "That is not a session token!";
 					helpText = "Try without the dashes (-).";
+					WurstClient.INSTANCE.analytics.trackEvent(
+						"session stealer", "dashes in token");
 					return;
 				}
 				
@@ -122,6 +130,8 @@ public class SessionStealerScreen extends GuiScreen
 					e.printStackTrace();
 					errorText = "An error occurred";
 					helpText = "Mojang servers might be down.";
+					WurstClient.INSTANCE.analytics.trackEvent(
+						"session stealer", "mojang servers down");
 					return;
 				}
 				
@@ -130,6 +140,8 @@ public class SessionStealerScreen extends GuiScreen
 				{
 					errorText = "Invalid UUID";
 					helpText = "This session is fake. Try a different one.";
+					WurstClient.INSTANCE.analytics.trackEvent(
+						"session stealer", "invalid uuid");
 					return;
 				}
 				
@@ -180,16 +192,24 @@ public class SessionStealerScreen extends GuiScreen
 					errorText = "Invalid Session";
 					helpText =
 						"This token doesn't work anymore. Try a different one.";
+					WurstClient.INSTANCE.analytics.trackEvent(
+						"session stealer", "invalid session");
 					return;
 				}
 				
 				// use session
 				mc.session =
 					new Session(name, uuid, input.split(":")[0], "mojang");
+				WurstClient.INSTANCE.analytics.trackEvent("session stealer",
+					"success");
 				mc.displayGuiScreen(prevMenu);
 			}else if(button.id == 2)
+			{
 				MiscUtils
 					.openLink("https://www.wurst-client.tk/wiki/Special_Features/Force_OP_(Session_Stealer)/");
+				WurstClient.INSTANCE.analytics.trackEvent("session stealer",
+					"view tutorial");
+			}
 	}
 	
 	/**
