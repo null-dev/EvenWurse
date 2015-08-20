@@ -92,12 +92,12 @@ public class GiveCmd extends Cmd
 	private int parseAmount(Item item, String amount) throws Error
 	{
 		if(!MiscUtils.isInteger(amount))
-			syntaxError("Amount has to be an integer.");
+			syntaxError("Amount must be a number.");
 		
 		int out = Integer.valueOf(amount);
 		
 		if(out < 1)
-			error("Amount has to be at least 1.");
+			error("Amount must be 1 or more.");
 		
 		if(out > item.getItemStackLimit())
 			error("Amount is larger than the maximum stack size.");
@@ -110,7 +110,7 @@ public class GiveCmd extends Cmd
 		Item out = Item.getItemById(id);
 		
 		if(out == null)
-			error("There is no such item with that id.");
+			error("Item " + id + " could not be found.");
 		
 		return out;
 	}
@@ -146,15 +146,12 @@ public class GiveCmd extends Cmd
 				syntaxError();
 			
 			if(!MiscUtils.isInteger(args[1]))
-				syntaxError("Template index has to be an integer.");
+				syntaxError("Template ID must be a number.");
 			
 			int index = Integer.valueOf(args[1]);
 			
 			if(index < 1 || index > templates.length)
-			{
-				WurstClient.INSTANCE.chat.error("Template index out of range.");
-				return;
-			}
+				error("Template ID is out of range.");
 			
 			ItemTemplate template = templates[index - 1];
 			item = template.item;
@@ -181,7 +178,7 @@ public class GiveCmd extends Cmd
 			if(args.length >= 3)
 			{
 				if(!MiscUtils.isInteger(args[2]))
-					syntaxError("Metadata has to be an integer.");
+					syntaxError("Metadata must be a number.");
 				
 				metadata = Integer.valueOf(args[2]);
 			}
@@ -207,8 +204,7 @@ public class GiveCmd extends Cmd
 				out.setTagCompound(JsonToNBT.func_180713_a(nbt));
 			}catch(NBTException e)
 			{
-				e.printStackTrace();
-				error("An error occurred while parsing NBT data.");
+				syntaxError("NBT data is invalid.");
 			}
 		
 		for(int i = 0; i < 9; i++)
@@ -217,12 +213,12 @@ public class GiveCmd extends Cmd
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C10PacketCreativeInventoryAction(
 						36 + i, out));
-				WurstClient.INSTANCE.chat
-					.info("Your specified item has been placed into your hotbar.");
+				WurstClient.INSTANCE.chat.message("Item"
+					+ (amount > 1 ? "s" : "") + " created.");
 				return;
 			}
 		
-		error("Please clear a slot of your hotbar to use this command.");
+		error("Please clear a slot of your hotbar.");
 	}
 	
 }
