@@ -9,9 +9,6 @@
 package tk.wurst_client.commands;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,7 +39,7 @@ public class GiveCmd extends Cmd
 		}
 	}
 	
-	private static ItemTemplate[] templates =
+	private ItemTemplate[] templates =
 		new ItemTemplate[]{
 			new ItemTemplate("Knockback Stick", Items.stick,
 				"{ench:[{id:19, lvl:12}], display:{Name:§6Knockback Stick},"
@@ -89,92 +86,83 @@ public class GiveCmd extends Cmd
 					+ "{Id:3, Amplifier:127, Duration:2147483647}"
 					+ "], display:{Name:§6Griefer Potion}, HideFlags:63}")};
 	
-	private int parseAmount(Item item, String amount) throws Error
+	private int parseAmount(Item item, String input) throws Error
 	{
-		if(!MiscUtils.isInteger(amount))
+		if(!MiscUtils.isInteger(input))
 			syntaxError("Amount must be a number.");
-		
-		int out = Integer.valueOf(amount);
-		
-		if(out < 1)
+		int amount = Integer.valueOf(input);
+		if(amount < 1)
 			error("Amount must be 1 or more.");
-		
-		if(out > item.getItemStackLimit())
+		if(amount > item.getItemStackLimit())
 			error("Amount is larger than the maximum stack size.");
-		
-		return out;
-	}
-	
-	private Item getItemById(int id) throws Error
-	{
-		Item out = Item.getItemById(id);
-		
-		if(out == null)
-			error("Item " + id + " could not be found.");
-		
-		return out;
+		return amount;
 	}
 	
 	@Override
 	public void execute(String[] args) throws Error
 	{
-		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-		if(!player.capabilities.isCreativeMode)
+		// validate input
+		if(args.length < 1)
+			syntaxError();
+		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
 			error("Creative mode only.");
+		
+		// list all templates
+		if(args[0].equalsIgnoreCase("templates"))
+		{
+			for(int i = 0; i < templates.length; i++)
+			{
+				ItemTemplate template = templates[i];
+				WurstClient.INSTANCE.chat.message("§c" + (i + 1) + "§c: §6"
+					+ template.name);
+			}
+			return;
+		}
 		
 		Item item = null;
 		int amount = -1;
 		int metadata = 0;
 		String nbt = null;
 		
-		if(args.length < 1)
-			syntaxError();
-		
-		if(args[0].equalsIgnoreCase("templates"))
+		// prepare item
+		if(args[0].equalsIgnoreCase("template"))
 		{
-			for(int i = 0; i < templates.length; i++)
-			{
-				ItemTemplate template = templates[i];
-				WurstClient.INSTANCE.chat.message(String.format(
-					"§c§l%d§c: §6%s", i + 1, template.name));
-			}
+			// item from template
 			
-			return;
-		}else if(args[0].equalsIgnoreCase("template"))
-		{
 			if(args.length < 2 || args.length > 3)
 				syntaxError();
-			
 			if(!MiscUtils.isInteger(args[1]))
 				syntaxError("Template ID must be a number.");
-			
-			int index = Integer.valueOf(args[1]);
-			
-			if(index < 1 || index > templates.length)
+			int id = Integer.valueOf(args[1]);
+			if(id < 1 || id > templates.length)
 				error("Template ID is out of range.");
 			
-			ItemTemplate template = templates[index - 1];
+			ItemTemplate template = templates[id - 1];
 			item = template.item;
-			amount = item.getItemStackLimit();
 			nbt = template.tag;
-			
 			if(args.length == 3)
 				amount = parseAmount(item, args[2]);
+			else
+				amount = item.getItemStackLimit();
 		}else
 		{
-			ResourceLocation loc = new ResourceLocation(args[0]);
-			item = (Item)Item.itemRegistry.getObject(loc);
+			// custom item
 			
+			// id/name
+			item =
+				(Item)Item.itemRegistry
+					.getObject(new ResourceLocation(args[0]));
 			if(item == null && MiscUtils.isInteger(args[0]))
-				item = getItemById(Integer.parseInt(args[0]));
-			
+				item = Item.getItemById(Integer.parseInt(args[0]));
 			if(item == null)
-				error("This item does not exist.");
+				error("Item \"" + args[0] + "\" could not be found.");
 			
+			// amount
 			amount = item.getItemStackLimit();
 			if(args.length >= 2)
 				amount = parseAmount(item, args[1]);
 			
+			// metadata
 			if(args.length >= 3)
 			{
 				if(!MiscUtils.isInteger(args[2]))
@@ -183,41 +171,37 @@ public class GiveCmd extends Cmd
 				metadata = Integer.valueOf(args[2]);
 			}
 			
+			// nbt data
 			if(args.length >= 4)
-				try
-				{
-					nbt =
-						CommandBase.getChatComponentFromNthArg(null, args, 3)
-							.getUnformattedText();
-				}catch(CommandException e)
-				{
-					e.printStackTrace();
-					error("An error occurred while parsing NBT data.");
-				}
+			{
+				nbt = args[3];
+				for(int i = 4; i < args.length; i++)
+					nbt += " " + args[i];
+			}
 		}
 		
-		ItemStack out = new ItemStack(item, amount, metadata);
-		
+		// generate item
+		ItemStack stack = new ItemStack(item, amount, metadata);
 		if(nbt != null)
 			try
 			{
-				out.setTagCompound(JsonToNBT.func_180713_a(nbt));
+				stack.setTagCompound(JsonToNBT.func_180713_a(nbt));
 			}catch(NBTException e)
 			{
 				syntaxError("NBT data is invalid.");
 			}
 		
+		// give item
 		for(int i = 0; i < 9; i++)
-			if(player.inventory.getStackInSlot(i) == null)
+			if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i) == null)
 			{
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C10PacketCreativeInventoryAction(
-						36 + i, out));
+						36 + i, stack));
 				WurstClient.INSTANCE.chat.message("Item"
 					+ (amount > 1 ? "s" : "") + " created.");
 				return;
 			}
-		
 		error("Please clear a slot of your hotbar.");
 	}
 	
