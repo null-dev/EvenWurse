@@ -198,7 +198,7 @@ public class SpammerMod extends Mod
 					public void actionPerformed(ActionEvent e)
 					{
 						MiscUtils
-							.openLink("http://www.wurst-client.tk/download/wurst-client/spam");
+							.openLink("https://www.wurst-client.tk/downloads/wspam/");
 					}
 				});
 				fileMenu.add(fileOpenLink);
