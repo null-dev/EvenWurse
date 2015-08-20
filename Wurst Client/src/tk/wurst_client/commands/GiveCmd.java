@@ -35,7 +35,7 @@ public class GiveCmd extends Cmd
 		public Item item;
 		public String name, tag;
 		
-		public ItemTemplate(String name, Item item, int metadata, String tag)
+		public ItemTemplate(String name, Item item, String tag)
 		{
 			this.name = name;
 			this.item = item;
@@ -45,22 +45,20 @@ public class GiveCmd extends Cmd
 	
 	private static ItemTemplate[] templates =
 		new ItemTemplate[]{
-			new ItemTemplate("Knockback Stick", Items.stick, 0,
+			new ItemTemplate("Knockback Stick", Items.stick,
 				"{ench: [{id:19, lvl:12}], display: {Name: §6Knockback Stick}, HideFlags: 63}"),
 			new ItemTemplate(
 				"One Hit Sword",
 				Items.diamond_sword,
-				0,
 				"{AttributeModifiers:[{AttributeName:generic.attackDamage,Name:"
 					+ "generic.attackDamage,Amount:2147483647,Operation:0,UUIDMost:246216,UUIDLeast:24636}], "
 					+ "display: {Name: §6One Hitter}, Unbreakable: 1, HideFlags: 63}"),
-			new ItemTemplate("Super Bow", Items.bow, 0,
+			new ItemTemplate("Super Bow", Items.bow,
 				"{ench: [{id:48, lvl:32767}, {id:49, lvl:5}, {id:50, lvl:1}, {id:51, lvl:1}],"
 					+ "display: {Name: §6Super Bow}, HideFlags: 63}"),
 			new ItemTemplate(
 				"Super Thorns Chestplate",
 				Items.diamond_chestplate,
-				0,
 				"{ench: [{id:7, lvl:32767}, {id: 0, lvl:32767}], AttributeModifiers:"
 					+ "[{AttributeName:generic.maxHealth,Name:generic.maxHealth,Amount:200,Operation:0,"
 					+ "UUIDMost:43631,UUIDLeast:2641}], display: "
@@ -68,7 +66,6 @@ public class GiveCmd extends Cmd
 			new ItemTemplate(
 				"Super Potion",
 				Items.potionitem,
-				0,
 				"{CustomPotionEffects: [{Id:11, Amplifier: 127, Duration: 2147483647}, "
 					+ "{Id:10, Amplifier: 127, Duration: 2147483647},"
 					+ "{Id:23, Amplifier: 127, Duration: 2147483647},"
@@ -77,7 +74,7 @@ public class GiveCmd extends Cmd
 					+ "{Id:1, Amplifier: 5, Duration: 2147483647},"
 					+ "{Id:5, Amplifier: 127, Duration: 2147483647}], display: "
 					+ "{Name: §6Super Potion}, HideFlags: 63}"),
-			new ItemTemplate("Griefer Potion", Items.potionitem, 0,
+			new ItemTemplate("Griefer Potion", Items.potionitem,
 				"{CustomPotionEffects: [{Id:3, Amplifier: 127, Duration: 2147483647}],"
 					+ "display: {Name: §6Griefer Potion}, HideFlags: 63}")};
 	
