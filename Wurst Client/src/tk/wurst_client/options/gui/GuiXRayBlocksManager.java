@@ -52,7 +52,7 @@ public class GuiXRayBlocksManager extends GuiScreen
 	public void updateScreen()
 	{
 		((GuiButton)buttonList.get(1)).enabled =
-			blockList.getSelectedSlot() != -1;
+			blockList.getSelectedSlot() != -1 && !XRayMod.xrayBlocks.isEmpty();
 	}
 	
 	@Override
