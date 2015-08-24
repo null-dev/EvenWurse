@@ -19,12 +19,15 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.MathHelper;
 import tk.wurst_client.WurstClient;
 
 public class EntityUtils
 {
+	public static boolean lookChanged;
+	public static float yaw;
+	public static float pitch;
+	
 	public synchronized static void faceEntityClient(EntityLivingBase entity)
 	{
 		float[] rotations = getRotationsNeeded(entity);
@@ -44,11 +47,15 @@ public class EntityUtils
 		float[] rotations = getRotationsNeeded(entity);
 		if(rotations != null)
 		{
-			float yaw = rotations[0];
-			float pitch = rotations[1];
-			Minecraft.getMinecraft().thePlayer.sendQueue
+			yaw = 
+				limitAngleChange(
+					Minecraft.getMinecraft().thePlayer.prevRotationYaw,
+					rotations[0], 55);// NoCheat+
+			pitch = rotations[1];
+			lookChanged = true;
+			/*Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(yaw,
-					pitch, Minecraft.getMinecraft().thePlayer.onGround));
+					pitch, Minecraft.getMinecraft().thePlayer.onGround));*/
 		}
 	}
 	
