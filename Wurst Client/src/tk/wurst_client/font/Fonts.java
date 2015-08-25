@@ -18,8 +18,8 @@ public class Fonts
 	
 	public static void loadFonts()
 	{
-		segoe22 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 88));
-		segoe18 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 72));
-		segoe15 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 60));
+		segoe22 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 44));
+		segoe18 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 36));
+		segoe15 = new UnicodeFontRenderer(new Font("Segoe UI", Font.PLAIN, 30));
 	}
 }
