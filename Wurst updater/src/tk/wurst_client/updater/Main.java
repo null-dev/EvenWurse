@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 | All rights reserved.
+ * Copyright Â© 2014 - 2015 | Alexander01998 | All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -203,7 +203,7 @@ public class Main
 					((float)(int)((float)bytesDownloaded * 1000F / 1048576F) / 1000F)
 						+ " / "
 						+ ((float)(int)((float)bytesTotal * 1000F / 1048576F) / 1000F)
-						+ " Mb";
+						+ " MB";
 				progress.updateProgress("Downloading Update: " + percent, data);
 				System.out.println("Downloading Update: " + percent + " ("
 					+ data + ")");
