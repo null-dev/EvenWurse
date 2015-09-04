@@ -28,7 +28,9 @@ Wurst is one of the few clients out there that is **not** made for the money - I
 So what are you waiting for? Grab a [download](https://github.com/Wurst-Imperium/Wurst-Client/releases/latest), have a play and enjoy the smooth and relaxing gameplay.
 
 ## Issues :worried:
-If you found a bug or you have a suggestion, use the GitHub Issue tracker. Keep the [contributing guidelines](/CONTRIBUTING.md) in mind - Issues that violate them will be removed with no mercy.
+**Update:** We now have our own feedback system and are planning to use that instead of GitHub's Issue Tracker. It is not completely finished yet, but testing it is much appreciated. https://feedback.wurst-client.tk/
+
+~~If you found a bug or you have a suggestion, use the GitHub Issue tracker. Keep the [contributing guidelines](/CONTRIBUTING.md) in mind - Issues that violate them will be removed with no mercy.~~
 
 ## Contributing :computer:
 Want to help with the development? Awesome! Just click the[`fork`](https://github.com/Wurst-Imperium/Wurst-Client/fork) button, make your changes and create a Pull Request. Again, keep the [contributing guidelines](/CONTRIBUTING.md) in mind.
