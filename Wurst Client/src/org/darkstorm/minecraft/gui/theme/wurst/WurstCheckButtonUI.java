@@ -38,11 +38,16 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton>
 	protected void renderComponent(CheckButton button)
 	{
 		translateComponent(button, false);
+		
+		// area
 		Rectangle area = button.getArea();
+		
+		// GL settings
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
-		
 		glDisable(GL_TEXTURE_2D);
+		
+		// background
 		RenderUtil.setColor(button.getBackgroundColor());
 		int size = area.height - 4;
 		glBegin(GL_QUADS);
@@ -53,6 +58,8 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton>
 			glVertex2d(2, size + 2);
 		}
 		glEnd();
+		
+		// check
 		if(button.isSelected())
 		{
 			glColor4f(0.0f, 0.0f, 0.0f, 0.5f);
@@ -65,6 +72,8 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton>
 			}
 			glEnd();
 		}
+		
+		// border
 		glLineWidth(1.0f);
 		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 		glBegin(GL_LINE_LOOP);
@@ -75,6 +84,8 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton>
 			glVertex2d(2 - 0.5, size + 2);
 		}
 		glEnd();
+		
+		// mouse location
 		Point mouse = RenderUtil.calculateMouseLocation();
 		Component parent = button.getParent();
 		while(parent != null)
@@ -83,6 +94,8 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton>
 			mouse.y -= parent.getY();
 			parent = parent.getParent();
 		}
+		
+		// overlay
 		if(area.contains(mouse))
 		{
 			glColor4f(0.0f, 0.0f, 0.0f, Mouse.isButtonDown(0) ? 0.5f : 0.3f);
@@ -97,6 +110,7 @@ public class WurstCheckButtonUI extends AbstractComponentUI<CheckButton>
 		}
 		glEnable(GL_TEXTURE_2D);
 		
+		// text
 		String text = button.getText();
 		theme.getFontRenderer().drawString(text, size + 4,
 			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2,
