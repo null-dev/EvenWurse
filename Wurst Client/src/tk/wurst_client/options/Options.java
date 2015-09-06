@@ -27,7 +27,6 @@ public class Options
 	public int autoLeaveMode = 0;
 	public int modListMode = 0;
 	public int autobuildMode = 1;
-	public int targetMode = 0;
 	public int fastbreakMode = 0;
 	public int forceOPDelay = 1000;
 	public int ghostHandID = 54;
@@ -50,5 +49,18 @@ public class Options
 		public long first_launch = System.currentTimeMillis() / 1000L;
 		public long last_launch = System.currentTimeMillis() / 1000L;
 		public int launches = 0;
+	}
+	
+	public Options.Target target = new Options.Target();
+	
+	public class Target
+	{	
+		public boolean players = true;
+		public boolean animals = true;
+		public boolean monsters = true;
+		public boolean golems = true;
+		public boolean sleeping_players = true;
+		public boolean invisible_players = true;
+		public boolean invisible_mobs = true;
 	}
 }

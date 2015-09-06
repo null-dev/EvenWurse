@@ -14,13 +14,19 @@ import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.entity.passive.EntityAmbientCreature;
+import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.options.Options;
 
 public class EntityUtils
 {
@@ -47,15 +53,12 @@ public class EntityUtils
 		float[] rotations = getRotationsNeeded(entity);
 		if(rotations != null)
 		{
-			yaw = 
+			yaw =
 				limitAngleChange(
 					Minecraft.getMinecraft().thePlayer.prevRotationYaw,
 					rotations[0], 55);// NoCheat+
 			pitch = rotations[1];
 			lookChanged = true;
-			/*Minecraft.getMinecraft().thePlayer.sendQueue
-				.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(yaw,
-					pitch, Minecraft.getMinecraft().thePlayer.onGround));*/
 		}
 	}
 	
@@ -126,25 +129,45 @@ public class EntityUtils
 	
 	public static boolean isCorrectEntity(Object o, boolean ignoreFriends)
 	{
-		boolean condition;
-		if(WurstClient.INSTANCE.options.targetMode == 0)
-			condition = o instanceof EntityLivingBase;
-		else if(WurstClient.INSTANCE.options.targetMode == 1)
-			condition = o instanceof EntityPlayer;
-		else if(WurstClient.INSTANCE.options.targetMode == 2)
-			condition = o instanceof EntityLiving;
-		else if(WurstClient.INSTANCE.options.targetMode == 3)
-			condition = o instanceof EntityAnimal;
-		else if(WurstClient.INSTANCE.options.targetMode == 4)
-			condition = o instanceof EntityMob;
-		else
-			throw new IllegalArgumentException("Unknown target mode selected: "
-				+ WurstClient.INSTANCE.options.targetMode);
+		// non-entities
+		if(!(o instanceof Entity))
+			return false;
+		
+		// friends
 		if(ignoreFriends && o instanceof EntityPlayer)
 			if(WurstClient.INSTANCE.friends.contains(((EntityPlayer)o)
 				.getName()))
-				condition = false;
-		return condition;
+				return false;
+		
+		Options.Target targetOptions = WurstClient.INSTANCE.options.target;
+		
+		// invisible entities
+		if(((Entity)o).isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
+			return targetOptions.invisible_mobs && o instanceof EntityLiving
+				|| targetOptions.invisible_players && o instanceof EntityPlayer;
+		
+		// players
+		if(o instanceof EntityPlayer)
+			return ((EntityPlayer)o).isPlayerSleeping()
+				&& targetOptions.sleeping_players
+				|| !((EntityPlayer)o).isPlayerSleeping()
+				&& targetOptions.players;
+		
+		// animals
+		if(o instanceof EntityAgeable || o instanceof EntityAmbientCreature
+			|| o instanceof EntityWaterMob)
+			return targetOptions.animals;
+		
+		// monsters
+		if(o instanceof EntityMob || o instanceof EntitySlime
+			|| o instanceof EntityFlying)
+			return targetOptions.monsters;
+		
+		// golems
+		if(o instanceof EntityGolem)
+			return targetOptions.golems;
+		
+		return false;
 	}
 	
 	public static EntityLivingBase getClosestEntity(boolean ignoreFriends)
