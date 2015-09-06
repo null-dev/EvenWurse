@@ -34,10 +34,11 @@ public class TargetFrame extends BasicFrame
 		for(Field option : WurstClient.INSTANCE.options.target.getClass()
 			.getFields())
 		{
+			String title = option.getName().substring(0, 1)
+				.toUpperCase()
+				+ option.getName().substring(1).replace("_", " ");
 			BasicCheckButton checkbox =
-				new BasicCheckButton(option.getName().substring(0, 1)
-					.toUpperCase()
-					+ option.getName().substring(1));
+				new BasicCheckButton(title);
 			checkbox.addButtonListener(new ButtonListener()
 			{
 				@Override

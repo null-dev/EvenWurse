@@ -59,5 +59,8 @@ public class Options
 		public boolean players = true;
 		public boolean animals = true;
 		public boolean monsters = true;
+		public boolean sleeping_players = true;
+		public boolean invisible_players = true;
+		public boolean invisible_mobs = true;
 	}
 }
