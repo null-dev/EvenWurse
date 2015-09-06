@@ -55,7 +55,6 @@ import org.darkstorm.minecraft.gui.component.Slider;
 import org.darkstorm.minecraft.gui.component.basic.BasicButton;
 import org.darkstorm.minecraft.gui.component.basic.BasicComboBox;
 import org.darkstorm.minecraft.gui.component.basic.BasicFrame;
-import org.darkstorm.minecraft.gui.component.basic.BasicLabel;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager.HorizontalGridConstraint;
@@ -213,23 +212,7 @@ public final class GuiManager extends AbstractGuiManager
 		autobuild.add(autoBuildBox, HorizontalGridConstraint.CENTER);
 		
 		// Target
-		ModuleFrame combatFrame = categoryFrames.get(Category.COMBAT);
-		combatFrame.add(new BasicLabel("Target"),
-			HorizontalGridConstraint.CENTER);
-		ComboBox targetBox =
-			new BasicComboBox("All", "Players", "Mobs", "Animals", "Monsters");
-		targetBox.addComboBoxListener(new ComboBoxListener()
-		{
-			@Override
-			public void onComboBoxSelectionChanged(ComboBox comboBox)
-			{
-				WurstClient.INSTANCE.options.targetMode =
-					comboBox.getSelectedIndex();
-				WurstClient.INSTANCE.fileManager.saveOptions();
-			}
-		});
-		targetBox.setSelectedIndex(WurstClient.INSTANCE.options.targetMode);
-		combatFrame.add(targetBox, HorizontalGridConstraint.CENTER);
+		addFrame(new TargetFrame());
 		
 		if(!WurstClient.INSTANCE.fileManager.sliders.exists())
 			WurstClient.INSTANCE.fileManager.saveSliders();
