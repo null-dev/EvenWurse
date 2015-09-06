@@ -51,4 +51,13 @@ public class Options
 		public long last_launch = System.currentTimeMillis() / 1000L;
 		public int launches = 0;
 	}
+	
+	public Options.Target target = new Options.Target();
+	
+	public class Target
+	{	
+		public boolean players = true;
+		public boolean animals = true;
+		public boolean monsters = true;
+	}
 }
