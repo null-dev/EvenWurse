@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.passive.EntityAmbientCreature;
@@ -161,6 +162,10 @@ public class EntityUtils
 		if(o instanceof EntityMob || o instanceof EntitySlime
 			|| o instanceof EntityFlying)
 			return targetOptions.monsters;
+		
+		// golems
+		if(o instanceof EntityGolem)
+			return targetOptions.golems;
 		
 		return false;
 	}
