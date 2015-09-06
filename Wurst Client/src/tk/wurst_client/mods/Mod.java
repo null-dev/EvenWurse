@@ -43,8 +43,7 @@ public class Mod
 		HIDDEN,
 		RENDER,
 		MISC,
-		MOVEMENT,
-		SETTINGS;
+		MOVEMENT;
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)

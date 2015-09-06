@@ -45,6 +45,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 
 import org.darkstorm.minecraft.gui.AbstractGuiManager;
 import org.darkstorm.minecraft.gui.component.Button;
@@ -62,6 +63,7 @@ import org.darkstorm.minecraft.gui.listener.ButtonListener;
 import org.darkstorm.minecraft.gui.listener.ComboBoxListener;
 import org.darkstorm.minecraft.gui.listener.SliderListener;
 import org.darkstorm.minecraft.gui.theme.Theme;
+import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.AutoBuildMod;
@@ -92,6 +94,8 @@ public final class GuiManager extends AbstractGuiManager
 	}
 	
 	private final AtomicBoolean setup;
+	private final Map<Category, ModuleFrame> categoryFrames =
+		new HashMap<Category, ModuleFrame>();
 	
 	public GuiManager()
 	{
@@ -104,8 +108,6 @@ public final class GuiManager extends AbstractGuiManager
 		if(!setup.compareAndSet(false, true))
 			return;
 		
-		final Map<Category, ModuleFrame> categoryFrames =
-			new HashMap<Category, ModuleFrame>();
 		ModuleFrame settings = new ModuleFrame("Settings");
 		settings.setTheme(theme);
 		settings.setLayoutManager(new GridLayoutManager(1, 0));
@@ -114,7 +116,6 @@ public final class GuiManager extends AbstractGuiManager
 		settings.setMinimized(true);
 		settings.setPinnable(true);
 		addFrame(settings);
-		categoryFrames.put(Category.SETTINGS, settings);
 		for(final Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
 		{
 			ModuleFrame frame = categoryFrames.get(mod.getCategory());
@@ -210,6 +211,7 @@ public final class GuiManager extends AbstractGuiManager
 		autoBuildBox
 			.setSelectedIndex(WurstClient.INSTANCE.options.autobuildMode);
 		autobuild.add(autoBuildBox, HorizontalGridConstraint.CENTER);
+		categoryFrames.remove(Category.AUTOBUILD);
 		
 		// Target
 		addFrame(new TargetFrame());
@@ -220,7 +222,6 @@ public final class GuiManager extends AbstractGuiManager
 			WurstClient.INSTANCE.fileManager.loadSliders();
 		resizeComponents();
 		Minecraft minecraft = Minecraft.getMinecraft();
-		Dimension maxSize = recalculateSizes();
 		int offsetX = 5, offsetY = 5;
 		int scale = minecraft.gameSettings.guiScale;
 		if(scale == 0)
@@ -234,12 +235,20 @@ public final class GuiManager extends AbstractGuiManager
 		{
 			frame.setX(offsetX);
 			frame.setY(offsetY);
-			offsetX += maxSize.width + 5;
-			if(offsetX + maxSize.width + 5 > minecraft.displayWidth
+			Dimension frameSize = frame.getSize();
+			offsetX += frameSize.width + 5;
+			if(offsetX + frameSize.width + 5 > minecraft.displayWidth
 				/ scaleFactor)
 			{
 				offsetX = 5;
-				offsetY += maxSize.height + 5;
+				int height = 0;
+				if(frame.isMinimized())
+					for(Rectangle area : frame.getTheme()
+						.getUIForComponent(frame).getInteractableRegions(frame))
+						height = Math.max(height, area.height);
+				else
+					height = frameSize.height;
+				offsetY += height + 5;
 			}
 		}
 		if(WurstClient.INSTANCE.fileManager.gui.exists())
@@ -270,58 +279,36 @@ public final class GuiManager extends AbstractGuiManager
 		recalculateSizes();
 	}
 	
-	private Dimension recalculateSizes()
+	private void recalculateSizes()
 	{
+		// set all frames to optimal width
 		Frame[] frames = getFrames();
-		int maxWidth = 0, maxHeight = 0;
 		for(Frame frame : frames)
 		{
-			if(frame.getTitle().equalsIgnoreCase("settings"))
-				continue;
 			Dimension defaultDimension =
 				frame.getTheme().getUIForComponent(frame).getDefaultSize(frame);
-			maxWidth = Math.max(maxWidth, defaultDimension.width);
+			frame.setWidth(defaultDimension.width);
 			frame.setHeight(defaultDimension.height);
-			if(frame.isMinimized())
-				for(Rectangle area : frame.getTheme().getUIForComponent(frame)
-					.getInteractableRegions(frame))
-					maxHeight = Math.max(maxHeight, area.height);
-			else
-				maxHeight = Math.max(maxHeight, defaultDimension.height);
 		}
+		
+		// ensure enough width for the title
 		for(Frame frame : frames)
 		{
-			if(frame.getTitle().equalsIgnoreCase("settings"))
-				continue;
-			frame.setWidth(maxWidth);
-			if(frame.getTitle().equals("AutoBuild"))
-				frame.setWidth((int)(maxWidth * 1.2));
+			FontRenderer fontRenderer = ((WurstTheme)theme).getFontRenderer();
+			int minWidth =
+				Math.max(fontRenderer.getStringWidth(frame.getTitle()),
+					fontRenderer.getStringWidth("+++++")) + 6;
+			if(frame.isMinimizable())
+				minWidth += fontRenderer.FONT_HEIGHT + 2;
+			if(frame.isPinnable())
+				minWidth += fontRenderer.FONT_HEIGHT + 2;
+			if(frame.isClosable())
+				minWidth += fontRenderer.FONT_HEIGHT + 2;
+			if(frame.getWidth() < minWidth)
+				frame.setWidth(minWidth);
+			
+			// also update position & size of children
 			frame.layoutChildren();
 		}
-		Frame[] frames1 = getFrames();
-		int maxWidth1 = 0, maxHeight1 = 0;
-		for(Frame frame : frames1)
-		{
-			if(!frame.getTitle().equalsIgnoreCase("settings"))
-				continue;
-			Dimension defaultDimension =
-				frame.getTheme().getUIForComponent(frame).getDefaultSize(frame);
-			maxWidth1 = Math.max(maxWidth1, defaultDimension.width);
-			frame.setHeight(defaultDimension.height);
-			if(frame.isMinimized())
-				for(Rectangle area : frame.getTheme().getUIForComponent(frame)
-					.getInteractableRegions(frame))
-					maxHeight1 = Math.max(maxHeight1, area.height);
-			else
-				maxHeight1 = Math.max(maxHeight1, defaultDimension.height);
-		}
-		for(Frame frame : frames1)
-		{
-			if(!frame.getTitle().equalsIgnoreCase("settings"))
-				continue;
-			frame.setWidth(maxWidth1);
-			frame.layoutChildren();
-		}
-		return new Dimension(maxWidth, maxHeight);
 	}
 }
