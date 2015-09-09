@@ -148,12 +148,17 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 		}
 		if(velocity > 1)
 			velocity = 1;
-		double posX = target.posX - Minecraft.getMinecraft().thePlayer.posX;
+		double posX =
+			target.posX + (target.posX - target.prevPosX) * 5
+				- Minecraft.getMinecraft().thePlayer.posX;
 		double posY =
-			target.posY + target.getEyeHeight() - 0.15
+			target.posY + (target.posY - target.prevPosY) * 5
+				+ target.getEyeHeight() - 0.15
 				- Minecraft.getMinecraft().thePlayer.posY
 				- Minecraft.getMinecraft().thePlayer.getEyeHeight();
-		double posZ = target.posZ - Minecraft.getMinecraft().thePlayer.posZ;
+		double posZ =
+			target.posZ + (target.posZ - target.prevPosZ) * 5
+				- Minecraft.getMinecraft().thePlayer.posZ;
 		float yaw = (float)(Math.atan2(posZ, posX) * 180 / Math.PI) - 90;
 		double y2 = Math.sqrt(posX * posX + posZ * posZ);
 		float g = 0.006F;
