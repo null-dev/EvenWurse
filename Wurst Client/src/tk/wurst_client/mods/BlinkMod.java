@@ -32,11 +32,7 @@ public class BlinkMod extends Mod
 	@Override
 	public String getRenderName()
 	{
-		if(fakePlayer != null)
-			return "Blink " + Math.abs(startTime - System.currentTimeMillis())
-				+ " ms";
-		else
-			return "Blink";
+		return "Blink [" + (System.currentTimeMillis() - startTime) + "ms]";
 	}
 	
 	@Override
@@ -66,6 +62,7 @@ public class BlinkMod extends Mod
 		packets.clear();
 		Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
 		fakePlayer = null;
+		startTime = 0;
 	}
 	
 	public static void addToBlinkQueue(Packet packet)
