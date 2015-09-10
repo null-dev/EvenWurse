@@ -27,10 +27,19 @@ public class BlinkMod extends Mod
 	private double oldX;
 	private double oldY;
 	private double oldZ;
+	private long startTime;
+	
+	@Override
+	public String getRenderName()
+	{
+		return "Blink [" + (System.currentTimeMillis() - startTime) + "ms]";
+	}
 	
 	@Override
 	public void onEnable()
 	{
+		startTime = System.currentTimeMillis();
+		
 		oldX = Minecraft.getMinecraft().thePlayer.posX;
 		oldY = Minecraft.getMinecraft().thePlayer.posY;
 		oldZ = Minecraft.getMinecraft().thePlayer.posZ;
@@ -53,6 +62,7 @@ public class BlinkMod extends Mod
 		packets.clear();
 		Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
 		fakePlayer = null;
+		startTime = 0;
 	}
 	
 	public static void addToBlinkQueue(Packet packet)
