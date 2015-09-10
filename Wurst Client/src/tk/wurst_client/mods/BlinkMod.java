@@ -29,6 +29,17 @@ public class BlinkMod extends Mod
 	private double oldZ;
 	
 	@Override
+	public String getRenderName()
+	{
+		if (fakePlayer != null)
+			return "Blink " + String.format("%.1f", Math.sqrt(
+					(Math.pow(oldX - Minecraft.getMinecraft().thePlayer.posX, 2) 
+					+ (Math.pow(oldZ - Minecraft.getMinecraft().thePlayer.posZ, 2)))));
+		else
+			return "Blink";
+	}
+	
+	@Override
 	public void onEnable()
 	{
 		oldX = Minecraft.getMinecraft().thePlayer.posX;
