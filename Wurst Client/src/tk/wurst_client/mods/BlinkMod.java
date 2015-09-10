@@ -30,7 +30,7 @@ public class BlinkMod extends Mod {
 	public String getRenderName() {
 		if (fakePlayer != null)
 			return "Blink " + Math.abs(startTime - System.currentTimeMillis())
-			+ " ms";
+					+ " ms";
 		else
 			return "Blink";
 	}
@@ -46,7 +46,7 @@ public class BlinkMod extends Mod {
 				Minecraft.getMinecraft().thePlayer.getGameProfile());
 		fakePlayer.clonePlayer(Minecraft.getMinecraft().thePlayer, true);
 		fakePlayer
-		.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
+				.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
 		fakePlayer.rotationYawHead = Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
 	}
