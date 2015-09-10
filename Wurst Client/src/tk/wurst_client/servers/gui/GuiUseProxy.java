@@ -180,7 +180,7 @@ public class GuiUseProxy extends GuiScreen
 			width / 2 - 100, 47, 0xA0A0A0);
 		drawCenteredString(fontRendererObj, error, width / 2, 87, 0xFF0000);
 		String currentProxy = System.getProperty("socksProxyHost") + ":" + System.getProperty("socksProxyPort");
-		if(currentProxy.equals(":"))
+		if(currentProxy.equals(":") || currentProxy.equals("null:null"))
 			currentProxy = "none";
 		drawString(fontRendererObj, "Current proxy: " + currentProxy , width / 2 - 100, 97, 0xA0A0A0);
 		proxyBox.drawTextBox();
