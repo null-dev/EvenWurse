@@ -203,7 +203,7 @@ public class Main
 					((float)(int)((float)bytesDownloaded * 1000F / 1048576F) / 1000F)
 						+ " / "
 						+ ((float)(int)((float)bytesTotal * 1000F / 1048576F) / 1000F)
-						+ " Mb";
+						+ " MB";
 				progress.updateProgress("Downloading Update: " + percent, data);
 				System.out.println("Downloading Update: " + percent + " ("
 					+ data + ")");
