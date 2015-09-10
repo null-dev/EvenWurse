@@ -26,12 +26,16 @@ public class BlinkCmd extends Cmd
 				.getModByClass(BlinkMod.class);
 		if(args.length == 0)
 			blink.toggle();
-		else if(args[0].equalsIgnoreCase("on"))
-			blink.setEnabled(true);
+		else if(args[0].equalsIgnoreCase("on")){
+			if (!blink.isEnabled())
+				blink.setEnabled(true);
+		}
 		else if(args[0].equalsIgnoreCase("off"))
 			blink.setEnabled(false);
-		else if(args[0].equalsIgnoreCase("cancel"))
-			blink.cancel();
+		else if(args[0].equalsIgnoreCase("cancel")){
+			if (blink.isEnabled())
+				blink.cancel();
+		}
 		else
 			syntaxError();
 	}
