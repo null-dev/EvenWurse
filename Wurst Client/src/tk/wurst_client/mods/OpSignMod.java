@@ -18,7 +18,7 @@ import tk.wurst_client.opsign.gui.GuiOpSign;
 	description = "Enable this mod, place a sign and click it to get OP.\n"
 		+ "Can also be used to run any other command.\n"
 		+ "Patched in Minecraft 1.8.6! Only works on servers running 1.8.5 and\n"
-		+ "older versions.",
+		+ "older versions. Type .sv to check the server version.",
 	name = "OP-Sign")
 public class OpSignMod extends Mod
 {
