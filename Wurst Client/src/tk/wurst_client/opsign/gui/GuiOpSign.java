@@ -61,11 +61,12 @@ public class GuiOpSign extends GuiScreen
 		{
 			case 0:
 				Minecraft.getMinecraft().displayGuiScreen(prevMenu);
-				mod.createSign(commandBox.getText());
-				WurstClient.INSTANCE.analytics.trackEvent("opsign", "create");
+				mod.setCommand(commandBox.getText());
+				WurstClient.INSTANCE.analytics.trackEvent("opsign", "set command");
 				break;
 			case 1:
 				Minecraft.getMinecraft().displayGuiScreen(prevMenu);
+				mod.setEnabled(false);
 				WurstClient.INSTANCE.analytics.trackEvent("opsign", "cancel");
 				break;
 			default:
@@ -123,7 +124,7 @@ public class GuiOpSign extends GuiScreen
 		drawCenteredString(fontRendererObj,
 			"The command you type in here will be", width / 2, 100, 10526880);
 		drawCenteredString(fontRendererObj,
-			"executed once you place & click the sign.", width / 2, 110,
+			"executed once you place & right click a sign.", width / 2, 110,
 			10526880);
 		commandBox.drawTextBox();
 		super.drawScreen(mouseX, mouseY, partialTicks);

@@ -195,8 +195,8 @@ public class FileManager
 		FollowMod.class.getName(), ForceOpMod.class.getName(),
 		FreecamMod.class.getName(), InvisibilityMod.class.getName(),
 		LsdMod.class.getName(), MassTpaMod.class.getName(),
-		ProtectMod.class.getName(), RemoteViewMod.class.getName(),
-		SpammerMod.class.getName(),};
+		OpSignMod.class.getName(), ProtectMod.class.getName(),
+		RemoteViewMod.class.getName(), SpammerMod.class.getName(),};
 	
 	public void loadMods()
 	{
