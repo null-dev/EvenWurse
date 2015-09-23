@@ -225,7 +225,7 @@ public class RenderUtil
 		glEnd();
 	}
 	
-	public static void downShadow(int x1, int y1, int x2, int y2)
+	public static void downShadow(double x1, double y1, double x2, double y2)
 	{
 		// outline
 		RenderUtil.setColor(outline);
