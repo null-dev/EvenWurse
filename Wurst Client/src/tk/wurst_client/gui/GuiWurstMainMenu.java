@@ -1,7 +1,7 @@
 /*
  * Copyright © 2014 - 2015 | Alexander01998 and contributors
  * All rights reserved.
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -23,6 +23,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiButtonLanguage;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
@@ -40,6 +41,7 @@ import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.alts.gui.GuiAlts;
 import tk.wurst_client.message.gui.GuiMessage;
 import tk.wurst_client.utils.MiscUtils;
 
@@ -57,11 +59,11 @@ public class GuiWurstMainMenu extends GuiMainMenu
 	private XMLElementList news;
 	private String newsTicker;
 	private int newsWidth;
-	
+
 	public GuiWurstMainMenu()
 	{
 		super();
-		
+
 		if(WurstClient.INSTANCE.options.wurstNews)
 			new Thread(new Runnable()
 			{
@@ -73,51 +75,92 @@ public class GuiWurstMainMenu extends GuiMainMenu
 						HttpsURLConnection connection =
 							(HttpsURLConnection)new URL(
 								"https://www.wurst-client.tk/news/feed.xml")
-								.openConnection();
+						.openConnection();
 						connection.connect();
 						XMLElement xml =
 							new XMLParser().parse("",
 								connection.getInputStream());
 						news =
 							xml.getChildrenByName("channel").get(0)
-								.getChildrenByName("item");
+							.getChildrenByName("item");
 					}catch(Exception e)
 					{
 						e.printStackTrace();
 					}
 				}
 			}).start();
-		
+
 		WurstClient.INSTANCE.analytics.trackPageView("/", "Main Menu");
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
 		super.initGui();
-		
+
+		// adjust position of options, quit & language buttons
 		for(int i = 3; i <= 5; i++)
 			((GuiButton)buttonList.get(i)).yPosition =
-				Math.min(((GuiButton)buttonList.get(i)).yPosition, height - 56);
-		
+			Math.min(((GuiButton)buttonList.get(i)).yPosition, height - 56);
+
+		// social buttons
+		for(int i = 0; i < 6; i++)
+		{
+			GuiButtonLanguage button =
+				new GuiButtonLanguage(25 - i, width - 28 - i * 24, height - 36);
+			buttonList.add(button);
+		}
+
 		// news
 		newsTicker = "";
 		try
 		{
 			for(int i = 0; i < news.size(); i++)
 				newsTicker +=
-					news.get(i).getChildrenByName("title").get(0).getContent()
-						+ "§e+++§r";
+				news.get(i).getChildrenByName("title").get(0).getContent()
+				+ "§e+++§r";
 		}catch(ConcurrentModificationException | NullPointerException e)
-		{	
-			
+		{
+
 		}
 		newsWidth = fontRendererObj.getStringWidth(newsTicker);
 		while(fontRendererObj.getStringWidth(newsTicker) < Math.max(width * 2,
 			newsWidth * 2) && !newsTicker.isEmpty())
 			newsTicker += newsTicker;
 	}
-	
+
+	@Override
+	protected void actionPerformed(GuiButton button) throws IOException
+	{
+		super.actionPerformed(button);
+
+		switch(button.id)
+		{
+			case 3:
+				mc.displayGuiScreen(new GuiAlts(this));
+				break;
+			case 20:
+				MiscUtils.openLink("https://www.wurst-client.tk/youtube");
+				break;
+			case 21:
+				MiscUtils.openLink("https://www.wurst-client.tk/twitter");
+				break;
+			case 22:
+				MiscUtils.openLink("https://www.wurst-client.tk/gplus");
+				break;
+			case 23:
+				MiscUtils.openLink("https://www.wurst-client.tk/github");
+				break;
+			case 24:
+				MiscUtils.openLink("https://www.wurst-client.tk/feedback");
+				break;
+			case 25:
+				MiscUtils.openLink("https://www.wurst-client.tk/fanshop");
+				break;
+		}
+	}
+
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
@@ -127,10 +170,10 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		GlStateManager.enableAlpha();
 		drawGradientRect(0, 0, width, height, -2130706433, 16777215);
 		drawGradientRect(0, 0, width, height, 0, Integer.MIN_VALUE);
-		
+
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-		
+
 		// title image
 		GuiScreen.mc.getTextureManager().bindTexture(title);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -186,7 +229,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			GL11.glRotatef(-180.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glTranslatef(-width, (float)(-h - 60), 0.0F);
 		}
-		
+
 		// splash text
 		worldRenderer.setColorOpaque_I(0xffffff);
 		GlStateManager.pushMatrix();
@@ -197,12 +240,12 @@ public class GuiWurstMainMenu extends GuiMainMenu
 				% 1000L / 1000.0F * (float)Math.PI * 2.0F) * 0.1F);
 		splashScale =
 			splashScale * 100.0F
-				/ (fontRendererObj.getStringWidth(splashText) + 32);
+			/ (fontRendererObj.getStringWidth(splashText) + 32);
 		GlStateManager.scale(splashScale, splashScale, splashScale);
-		
+
 		drawCenteredString(fontRendererObj, splashText, 0, 0, -256);
 		GlStateManager.popMatrix();
-		
+
 		// text
 		String vMinecraft = "Minecraft 1.8";
 		String cMinecraft1 = "Copyright Mojang AB";
@@ -221,21 +264,49 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		drawString(fontRendererObj, "All rights reserved.", 8, 28, 0xffffff);
 		drawCenteredString(fontRendererObj, "§nwww.Wurst-Client.tk", width / 2,
 			height - 26, 0xffffff);
-		
+
 		// buttons
 		for(Object button : buttonList)
-			((GuiButton)button).drawButton(mc, mouseX, mouseY);
-		
+			if(((GuiButton)button).id < 20)
+				((GuiButton)button).drawButton(mc, mouseX, mouseY);
+
+		// social buttons
+		mc.getTextureManager().bindTexture(buttons);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glShadeModel(GL_SMOOTH);
+		for(int i = 0; i < 6; i++)
+		{
+			x = width - 27 - i * 24;
+			y = height - 35;
+			h = 18;
+			w = 18;
+			fw = 43;
+			fh = 256;
+			u = 256 * 5 / 6 - i * 256 / 6;
+			v = 0;
+			worldRenderer.startDrawingQuads();
+			worldRenderer.addVertexWithUV(x + 0, y + h, 0,
+				(float)(u + 0) * 0.00390625F, (float)(v + fh) * 0.00390625F);
+			worldRenderer.addVertexWithUV(x + w, y + h, 0,
+				(float)(u + fw) * 0.00390625F, (float)(v + fh) * 0.00390625F);
+			worldRenderer.addVertexWithUV(x + w, y + 0, 0,
+				(float)(u + fw) * 0.00390625F, (float)(v + 0) * 0.00390625F);
+			worldRenderer.addVertexWithUV(x + 0, y + 0, 0,
+				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
+			tessellator.draw();
+		}
+
 		// prevents Clean Up from removing drawNews()
 		if(!"".isEmpty())
 			drawNews(mouseX, mouseY, partialTicks);
-		
+
 		// news
 		if(!newsTicker.isEmpty())
 			drawString(fontRendererObj, newsTicker,
 				-(int)(Minecraft.getSystemTime() / 50 % newsWidth),
 				height - 10, -1);
-		
+
 		if(!WurstClient.INSTANCE.startupMessageDisabled)
 		{
 			if(WurstClient.INSTANCE.updater.isOutdated())
@@ -245,7 +316,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 					"updater",
 					"update to v"
 						+ WurstClient.INSTANCE.updater.getLatestVersion(),
-					"from " + WurstClient.INSTANCE.updater.getCurrentVersion());
+						"from " + WurstClient.INSTANCE.updater.getCurrentVersion());
 				WurstClient.INSTANCE.updater.update();
 			}else if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
 				&& Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24)
@@ -259,40 +330,40 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			}else
 				// emergency message
 				try
-				{
+			{
 					HttpsURLConnection connection =
 						(HttpsURLConnection)new URL(
 							"https://www.wurst-client.tk/api/v1/messages.json")
-							.openConnection();
+					.openConnection();
 					connection.connect();
-					
+
 					JsonObject json =
 						new JsonParser().parse(
 							new InputStreamReader(connection.getInputStream(),
 								"UTF-8")).getAsJsonObject();
-					
+
 					if(json.get(WurstClient.VERSION) != null)
 					{
 						System.out.println("Emergency message found!");
 						mc.displayGuiScreen(new GuiMessage(json.get(
 							WurstClient.VERSION).getAsJsonObject()));
 					}
-				}catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-			
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+
 			WurstClient.INSTANCE.startupMessageDisabled = true;
 		}
 	}
-	
+
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton)
 		throws IOException
 	{
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 		int linkWidth = fontRendererObj.getStringWidth("§nwww.Wurst-Client.tk");
-		
+
 		if(mouseButton == 0 && mouseY >= height - 26 && mouseY < height - 16
 			&& mouseX > width / 2 - linkWidth / 2
 			&& mouseX < width / 2 + linkWidth / 2)
@@ -301,30 +372,30 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			WurstClient.INSTANCE.analytics.trackPageView(
 				"/wurst-client-dot-tk", "www.Wurst-Client.tk");
 		}
-		
+
 		if(news != null && mouseButton == 0 && mouseY >= height - 10)
 		{
 			MiscUtils.openLink("https://www.wurst-client.tk/news");
 			WurstClient.INSTANCE.analytics.trackPageView("/news", "Wurst News");
 		}
 	}
-	
+
 	private void drawNews(int mouseX, int mouseY, float partialTicks)
 	{
 		// redesigned wurst news - unfinished!
-		
+
 		// GL settings
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glShadeModel(GL_SMOOTH);
-		
+
 		// sizes
 		Rectangle area =
 			new Rectangle(width / 2 + 116, 104, width / 2 - 116 - 8,
 				height - 104 - 16);
 		int titleBarHeight = 14;
-		
+
 		// title bar background
 		glColor4f(0.03125f, 0.03125f, 0.03125f, 0.5f);
 		glBegin(GL_QUADS);
@@ -335,7 +406,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			glVertex2d(area.getMinX(), area.getMinY() + titleBarHeight);
 		}
 		glEnd();
-		
+
 		// frame background
 		RenderUtil.setColor(new Color(64, 64, 64, 128));
 		glBegin(GL_QUADS);
@@ -346,17 +417,17 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			glVertex2d(area.getMinX(), area.getMaxY());
 		}
 		glEnd();
-		
+
 		// shadows
 		RenderUtil.boxShadow(area.getMinX(), area.getMinY(), area.getMaxX(),
 			area.getMaxY());
 		RenderUtil.downShadow(area.getMinX(), area.getMinY() + titleBarHeight,
 			area.getMaxX(), area.getMinY() + titleBarHeight + 1);
-		
+
 		// title
 		drawString(fontRendererObj, "Wurst News", area.x + 3, area.y + 3,
 			0xffffff);
-		
+
 		int offsetX = area.x + 2;
 		int offsetY = area.y + titleBarHeight + 3;
 		ArrayList<String> lines = new ArrayList<>();
@@ -370,7 +441,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			lines.addAll(title);
 			lines.add("");
 		}
-		
+
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(offsetX, offsetY, 0f);
 		GlStateManager.scale(0.75, 0.75, 0.75);
@@ -379,17 +450,17 @@ public class GuiWurstMainMenu extends GuiMainMenu
 				EnumChatFormatting.UNDERLINE + lines.get(line), 0, line * 10,
 				0xffffff);
 		GlStateManager.popMatrix();
-		
+
 		// GL resets
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
 	}
-	
+
 	private ArrayList<String> lineWrap(String string, int width)
 	{
 		ArrayList<String> lines = new ArrayList<>();
 		String[] words = string.split(" ");
-		
+
 		String line = "";
 		String lastLine = "";
 		for(String word : words)
