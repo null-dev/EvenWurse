@@ -282,7 +282,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		for(int i = 0; i < 6; i++)
 		{
-			x = (i < 3 ? width - 26 - i * 24 : 10 + (5 - i) * 24);
+			x = i < 3 ? width - 26 - i * 24 : 10 + (5 - i) * 24;
 			y = height - 34;
 			h = 16;
 			w = 16;
@@ -311,6 +311,39 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			drawString(fontRendererObj, newsTicker,
 				-(int)(Minecraft.getSystemTime() / 50 % newsWidth),
 				height - 10, -1);
+		
+		// tooltips
+		for(int i = 0; i < buttonList.size(); i++)
+		{
+			GuiButton button = (GuiButton)buttonList.get(i);
+			if(button.isMouseOver())
+			{
+				ArrayList<String> tooltip = new ArrayList<>();
+				switch(button.id)
+				{
+					case 20:
+						tooltip.add("Wurst on YouTube");
+						break;
+					case 21:
+						tooltip.add("Wurst on Twitter");
+						break;
+					case 22:
+						tooltip.add("Wurst on Google+");
+						break;
+					case 23:
+						tooltip.add("Wurst on GitHub");
+						break;
+					case 24:
+						tooltip.add("Wurst Feedback");
+						break;
+					case 25:
+						tooltip.add("Wurst Fan Shop");
+						break;
+				}
+				drawHoveringText(tooltip, mouseX, mouseY);
+				break;
+			}
+		}
 		
 		if(!WurstClient.INSTANCE.startupMessageDisabled)
 		{
