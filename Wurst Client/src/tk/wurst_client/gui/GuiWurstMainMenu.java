@@ -104,7 +104,13 @@ public class GuiWurstMainMenu extends GuiMainMenu
 				Math.min(((GuiButton)buttonList.get(i)).yPosition, height - 56);
 		
 		// social buttons
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < 3; i++)
+		{
+			GuiButton button =
+				new GuiButton(20 + i, 8 + i * 24, height - 36, 20, 20, "");
+			buttonList.add(button);
+		}
+		for(int i = 0; i < 3; i++)
 		{
 			GuiButton button =
 				new GuiButton(25 - i, width - 28 - i * 24, height - 36, 20, 20,
@@ -276,7 +282,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		for(int i = 0; i < 6; i++)
 		{
-			x = width - 26 - i * 24;
+			x = (i < 3 ? width - 26 - i * 24 : 10 + (5 - i) * 24);
 			y = height - 34;
 			h = 16;
 			w = 16;
