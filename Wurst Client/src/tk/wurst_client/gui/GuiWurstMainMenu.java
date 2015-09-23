@@ -52,6 +52,8 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		"wurst/wurst_380.png");
 	private static final ResourceLocation santaHat = new ResourceLocation(
 		"wurst/santa_hat.png");
+	private static final ResourceLocation buttons = new ResourceLocation(
+		"wurst/buttons.png");
 	private XMLElementList news;
 	private String newsTicker;
 	private int newsWidth;
