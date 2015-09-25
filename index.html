@@ -1,7 +1,10 @@
 ---
 ---
+{% comment %}
 {% assign foundlink = false %}
 {% capture link %}{% if site.github %}{% for release in site.github.releases %}{% unless release.draft or foundlink %}{{ release.assets[0].browser_download_url }}{% assign foundlink = true %}{% endunless %}{% endfor %}{% else %}https://github.com/Wurst-Imperium/Wurst-Client/releases/download/v2.0.1/Wurst-Client-v2.0.1.zip{% endif %}{% endcapture %}
+{% endcomment %}
+{% capture link %}https://github.com/Wurst-Imperium/Wurst-Client/releases/latest{% endcapture %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
