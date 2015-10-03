@@ -10,7 +10,10 @@ package tk.wurst_client.gui;
 
 import java.lang.reflect.Field;
 
+import net.minecraft.client.Minecraft;
+
 import org.darkstorm.minecraft.gui.component.Button;
+import org.darkstorm.minecraft.gui.component.basic.BasicButton;
 import org.darkstorm.minecraft.gui.component.basic.BasicCheckButton;
 import org.darkstorm.minecraft.gui.component.basic.BasicFrame;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager;
@@ -34,11 +37,10 @@ public class TargetFrame extends BasicFrame
 		for(Field option : WurstClient.INSTANCE.options.target.getClass()
 			.getFields())
 		{
-			String title = option.getName().substring(0, 1)
-				.toUpperCase()
-				+ option.getName().substring(1).replace("_", " ");
-			BasicCheckButton checkbox =
-				new BasicCheckButton(title);
+			String title =
+				option.getName().substring(0, 1).toUpperCase()
+					+ option.getName().substring(1).replace("_", " ");
+			BasicCheckButton checkbox = new BasicCheckButton(title);
 			checkbox.addButtonListener(new ButtonListener()
 			{
 				@Override
@@ -71,5 +73,18 @@ public class TargetFrame extends BasicFrame
 			}
 			add(checkbox, HorizontalGridConstraint.FILL);
 		}
+		
+		BasicButton advancedBtn = new BasicButton("Advanced", null);
+		advancedBtn.addButtonListener(new ButtonListener()
+		{
+			@Override
+			public void onButtonPress(Button button)
+			{
+				Minecraft.getMinecraft().displayGuiScreen(
+					new GuiAdvancedTarget(
+						Minecraft.getMinecraft().currentScreen));
+			}
+		});
+		add(advancedBtn);
 	}
 }
