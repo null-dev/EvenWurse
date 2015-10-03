@@ -74,7 +74,7 @@ public class TargetFrame extends BasicFrame
 			add(checkbox, HorizontalGridConstraint.FILL);
 		}
 		
-		BasicButton advancedBtn = new BasicButton("Advanced", null);
+		BasicButton advancedBtn = new BasicButton("Team Settings", null);
 		advancedBtn.addButtonListener(new ButtonListener()
 		{
 			@Override

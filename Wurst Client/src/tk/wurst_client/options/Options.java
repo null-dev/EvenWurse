@@ -62,5 +62,6 @@ public class Options
 		public boolean sleeping_players = true;
 		public boolean invisible_players = true;
 		public boolean invisible_mobs = true;
+		public boolean teams = false;
 	}
 }
