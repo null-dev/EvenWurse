@@ -81,7 +81,7 @@ public class TargetFrame extends BasicFrame
 			public void onButtonPress(Button button)
 			{
 				Minecraft.getMinecraft().displayGuiScreen(
-					new GuiAdvancedTarget(
+					new GuiTeamSettings(
 						Minecraft.getMinecraft().currentScreen));
 			}
 		});
