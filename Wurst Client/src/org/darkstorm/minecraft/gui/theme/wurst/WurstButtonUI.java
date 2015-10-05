@@ -109,6 +109,8 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		
 		// tooltip
 		// TODO: clean up
+		if(button.getDescription() == null)
+			return;
 		if(area.contains(mouse) && describedButton != button)
 		{
 			lastMS = 0L;
@@ -217,7 +219,6 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			return isLastButton;
 		}catch(NullPointerException e)
 		{
-			e.printStackTrace();
 			return false;
 		}
 	}
