@@ -37,6 +37,8 @@ public class TargetFrame extends BasicFrame
 		for(Field option : WurstClient.INSTANCE.options.target.getClass()
 			.getFields())
 		{
+			if(!option.getType().equals(boolean.class))
+				continue;
 			String title =
 				option.getName().substring(0, 1).toUpperCase()
 					+ option.getName().substring(1).replace("_", " ");
@@ -80,9 +82,10 @@ public class TargetFrame extends BasicFrame
 			@Override
 			public void onButtonPress(Button button)
 			{
-				Minecraft.getMinecraft().displayGuiScreen(
-					new GuiTeamSettings(
-						Minecraft.getMinecraft().currentScreen));
+				Minecraft.getMinecraft()
+					.displayGuiScreen(
+						new GuiTeamSettings(
+							Minecraft.getMinecraft().currentScreen));
 			}
 		});
 		add(advancedBtn);
