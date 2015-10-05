@@ -68,7 +68,11 @@ public class GuiTeamSettings extends GuiScreen
 			buttonList.add(new GuiButton(i, width / 2 + offsetX, height / 3
 				+ offsetY, 20, 20, "§" + colors[i] + colors[i]));
 		}
-		buttonList.add(new GuiButton(16, width / 2 - 100, height / 3 * 2 + 60,
+		buttonList.add(new GuiButton(16, width / 2 - 46, height / 3 + 96,
+			44, 20, "All On"));
+		buttonList.add(new GuiButton(17, width / 2 + 2, height / 3 + 96,
+			44, 20, "All Off"));
+		buttonList.add(new GuiButton(18, width / 2 - 100, height / 3 + 120,
 			200, 20, "Done"));
 	}
 	
@@ -79,7 +83,7 @@ public class GuiTeamSettings extends GuiScreen
 			return;
 		switch(button.id)
 		{
-			case 16:
+			case 18:
 				Minecraft.getMinecraft().displayGuiScreen(prevMenu);
 				WurstClient.INSTANCE.analytics.trackEvent("team settings",
 					"done");
