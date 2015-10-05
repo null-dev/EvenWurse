@@ -54,7 +54,7 @@ public class Options
 	public Options.Target target = new Options.Target();
 	
 	public class Target
-	{	
+	{
 		public boolean players = true;
 		public boolean animals = true;
 		public boolean monsters = true;
@@ -63,5 +63,12 @@ public class Options
 		public boolean invisible_players = true;
 		public boolean invisible_mobs = true;
 		public boolean teams = false;
+		
+		public boolean[] team_colors = new boolean[16];
+		
+		{
+			for(int i = 0; i < team_colors.length; i++)
+				team_colors[i] = true;
+		}
 	}
 }
