@@ -8,10 +8,12 @@
  */
 package tk.wurst_client.gui;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glEnable;
 
-import java.awt.Color;
-import java.awt.Rectangle;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -29,11 +31,9 @@ import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 
-import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.util.xml.XMLElement;
 import org.newdawn.slick.util.xml.XMLElementList;
@@ -302,10 +302,6 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			tessellator.draw();
 		}
 		
-		// prevents Clean Up from removing drawNews()
-		if(!"".isEmpty())
-			drawNews(mouseX, mouseY, partialTicks);
-		
 		// news
 		if(!newsTicker.isEmpty())
 			drawString(fontRendererObj, newsTicker,
@@ -416,110 +412,5 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			MiscUtils.openLink("https://www.wurst-client.tk/news");
 			WurstClient.INSTANCE.analytics.trackPageView("/news", "Wurst News");
 		}
-	}
-	
-	private void drawNews(int mouseX, int mouseY, float partialTicks)
-	{
-		// redesigned wurst news - unfinished!
-		
-		// GL settings
-		glEnable(GL_BLEND);
-		glDisable(GL_CULL_FACE);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glShadeModel(GL_SMOOTH);
-		
-		// sizes
-		Rectangle area =
-			new Rectangle(width / 2 + 116, 104, width / 2 - 116 - 8,
-				height - 104 - 16);
-		int titleBarHeight = 14;
-		
-		// title bar background
-		glColor4f(0.03125f, 0.03125f, 0.03125f, 0.5f);
-		glBegin(GL_QUADS);
-		{
-			glVertex2d(area.getMinX(), area.getMinY());
-			glVertex2d(area.getMaxX(), area.getMinY());
-			glVertex2d(area.getMaxX(), area.getMinY() + titleBarHeight);
-			glVertex2d(area.getMinX(), area.getMinY() + titleBarHeight);
-		}
-		glEnd();
-		
-		// frame background
-		RenderUtil.setColor(new Color(64, 64, 64, 128));
-		glBegin(GL_QUADS);
-		{
-			glVertex2d(area.getMinX(), area.getMinY() + titleBarHeight);
-			glVertex2d(area.getMaxX(), area.getMinY() + titleBarHeight);
-			glVertex2d(area.getMaxX(), area.getMaxY());
-			glVertex2d(area.getMinX(), area.getMaxY());
-		}
-		glEnd();
-		
-		// shadows
-		RenderUtil.boxShadow(area.getMinX(), area.getMinY(), area.getMaxX(),
-			area.getMaxY());
-		RenderUtil.downShadow(area.getMinX(), area.getMinY() + titleBarHeight,
-			area.getMaxX(), area.getMinY() + titleBarHeight + 1);
-		
-		// title
-		drawString(fontRendererObj, "Wurst News", area.x + 3, area.y + 3,
-			0xffffff);
-		
-		int offsetX = area.x + 2;
-		int offsetY = area.y + titleBarHeight + 3;
-		ArrayList<String> lines = new ArrayList<>();
-		for(int i = 0; i < news.size(); i++)
-		{
-			ArrayList<String> title =
-				lineWrap(news.get(i).getChildrenByName("title").get(0)
-					.getContent(), (int)((area.width - 8) / 0.75));
-			for(int line = 0; line < title.size(); line++)
-				title.set(line, EnumChatFormatting.UNDERLINE + title.get(line));
-			lines.addAll(title);
-			lines.add("");
-		}
-		
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(offsetX, offsetY, 0f);
-		GlStateManager.scale(0.75, 0.75, 0.75);
-		for(int line = 0; line < lines.size(); line++)
-			drawString(fontRendererObj,
-				EnumChatFormatting.UNDERLINE + lines.get(line), 0, line * 10,
-				0xffffff);
-		GlStateManager.popMatrix();
-		
-		// GL resets
-		glEnable(GL_CULL_FACE);
-		glDisable(GL_BLEND);
-	}
-	
-	private ArrayList<String> lineWrap(String string, int width)
-	{
-		ArrayList<String> lines = new ArrayList<>();
-		String[] words = string.split(" ");
-		
-		String line = "";
-		String lastLine = "";
-		for(String word : words)
-		{
-			line += lastLine.isEmpty() ? word : " " + word;
-			if(fontRendererObj.getStringWidth(line) > width)
-			{
-				if(lastLine.isEmpty())
-				{
-					lines.add(line);
-					lastLine = "";
-				}else
-				{
-					lines.add(lastLine);
-					lastLine = word;
-				}
-				line = lastLine;
-			}else
-				lastLine = line;
-		}
-		lines.add(line);
-		return lines;
 	}
 }
