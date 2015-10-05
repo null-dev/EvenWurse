@@ -120,20 +120,39 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		
 		// news
 		newsTicker = "";
-		try
+		new Thread(new Runnable()
 		{
-			for(int i = 0; i < news.size(); i++)
-				newsTicker +=
-					news.get(i).getChildrenByName("title").get(0).getContent()
-						+ "§e+++§r";
-		}catch(ConcurrentModificationException | NullPointerException e)
-		{	
-			
-		}
-		newsWidth = fontRendererObj.getStringWidth(newsTicker);
-		while(fontRendererObj.getStringWidth(newsTicker) < Math.max(width * 2,
-			newsWidth * 2) && !newsTicker.isEmpty())
-			newsTicker += newsTicker;
+			@Override
+			public void run()
+			{
+				// wait for news to load
+				while(news == null)
+					try
+					{
+						Thread.sleep(50);
+					}catch(InterruptedException e1)
+					{
+						e1.printStackTrace();
+					}
+				
+				// build news ticker
+				try
+				{
+					for(int i = 0; i < news.size(); i++)
+						newsTicker +=
+							news.get(i).getChildrenByName("title").get(0)
+								.getContent()
+								+ "§e+++§r";
+				}catch(ConcurrentModificationException e)
+				{	
+					
+				}
+				newsWidth = fontRendererObj.getStringWidth(newsTicker);
+				while(fontRendererObj.getStringWidth(newsTicker) < Math.max(
+					width * 2, newsWidth * 2) && !newsTicker.isEmpty())
+					newsTicker += newsTicker;
+			}
+		}).start();
 	}
 	
 	@Override
