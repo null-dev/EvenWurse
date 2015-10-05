@@ -148,26 +148,55 @@ public class EntityUtils
 		
 		// players
 		if(o instanceof EntityPlayer)
-			return ((EntityPlayer)o).isPlayerSleeping()
-				&& targetOptions.sleeping_players
-				|| !((EntityPlayer)o).isPlayerSleeping()
-				&& targetOptions.players;
+			return (((EntityPlayer)o).isPlayerSleeping()
+				&& targetOptions.sleeping_players || !((EntityPlayer)o)
+				.isPlayerSleeping() && targetOptions.players)
+				&& (!targetOptions.teams || checkName(((EntityPlayer)o)
+					.getDisplayName().getFormattedText()));
 		
 		// animals
 		if(o instanceof EntityAgeable || o instanceof EntityAmbientCreature
 			|| o instanceof EntityWaterMob)
-			return targetOptions.animals;
+			return targetOptions.animals
+				&& (!targetOptions.teams || !((Entity)o).hasCustomName() || checkName(((Entity)o)
+					.getCustomNameTag()));
 		
 		// monsters
 		if(o instanceof EntityMob || o instanceof EntitySlime
 			|| o instanceof EntityFlying)
-			return targetOptions.monsters;
+			return targetOptions.monsters
+				&& (!targetOptions.teams || !((Entity)o).hasCustomName() || checkName(((Entity)o)
+					.getCustomNameTag()));
 		
 		// golems
 		if(o instanceof EntityGolem)
-			return targetOptions.golems;
+			return targetOptions.golems
+				&& (!targetOptions.teams || !((Entity)o).hasCustomName() || checkName(((Entity)o)
+					.getCustomNameTag()));
 		
 		return false;
+	}
+	
+	private static boolean checkName(String name)
+	{
+		// check colors
+		String[] colors =
+			{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c",
+				"d", "e", "f"};
+		boolean unknownColor = true;
+		for(int i = 0; i < 16; i++)
+		{
+			if(WurstClient.INSTANCE.options.target.team_colors[i])
+			{
+				if(name.contains("§" + colors[i]))
+					return true;
+				unknownColor = false;
+			}
+		}
+		
+		// unknown color / no color => white
+		return WurstClient.INSTANCE.options.target.team_colors[15]
+			&& (unknownColor || !name.contains("§"));
 	}
 	
 	public static EntityLivingBase getClosestEntity(boolean ignoreFriends)
