@@ -124,21 +124,28 @@ public class SpamProcessor
 	
 	private static void runFile(File file) throws Exception
 	{
-		BufferedReader load =
-			new BufferedReader(new InputStreamReader(new FileInputStream(file),
-				"UTF-8"));
-		String content = load.readLine();
-		for(String line = ""; (line = load.readLine()) != null;)
-			content += "\n" + line;
-		load.close();
-		String spam = SpamProcessor.process(content, null, false);
-		if(spam == null || spam.isEmpty())
-			return;
-		for(int i = 0; i < spam.split("\n").length; i++)
+		try
 		{
-			Minecraft.getMinecraft().thePlayer.sendAutomaticChatMessage(spam
-				.split("\n")[i]);
-			Thread.sleep(WurstClient.INSTANCE.options.spamDelay);
+			BufferedReader load =
+				new BufferedReader(new InputStreamReader(new FileInputStream(
+					file), "UTF-8"));
+			String content = load.readLine();
+			for(String line = ""; (line = load.readLine()) != null;)
+				content += "\n" + line;
+			load.close();
+			String spam = SpamProcessor.process(content, null, false);
+			if(spam == null || spam.isEmpty())
+				return;
+			for(int i = 0; i < spam.split("\n").length; i++)
+			{
+				Minecraft.getMinecraft().thePlayer
+					.sendAutomaticChatMessage(spam.split("\n")[i]);
+				Thread.sleep(WurstClient.INSTANCE.options.spamDelay);
+			}
+		}catch(NullPointerException e)
+		{
+			if(Minecraft.getMinecraft().thePlayer != null)
+				throw e;
 		}
 	}
 	
