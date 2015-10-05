@@ -39,17 +39,17 @@ public class GuiTeamSettings extends GuiScreen
 				"d", "e", "f",};
 		for(int i = 0; i < 16; i++)
 		{
-			int offsetX = -24;
+			int offsetX = -22;
 			switch(i % 4)
 			{
 				case 3:
-					offsetX = 24;
+					offsetX = 26;
 					break;
 				case 2:
-					offsetX = 0;
+					offsetX = 2;
 					break;
 				case 0:
-					offsetX = -48;
+					offsetX = -46;
 					break;
 			}
 			int offsetY = 72;
@@ -68,10 +68,10 @@ public class GuiTeamSettings extends GuiScreen
 			buttonList.add(new GuiButton(i, width / 2 + offsetX, height / 3
 				+ offsetY, 20, 20, "§" + colors[i] + colors[i]));
 		}
-		buttonList.add(new GuiButton(16, width / 2 - 46, height / 3 + 96,
-			44, 20, "All On"));
-		buttonList.add(new GuiButton(17, width / 2 + 2, height / 3 + 96,
-			44, 20, "All Off"));
+		buttonList.add(new GuiButton(16, width / 2 - 46, height / 3 + 96, 44,
+			20, "All On"));
+		buttonList.add(new GuiButton(17, width / 2 + 2, height / 3 + 96, 44,
+			20, "All Off"));
 		buttonList.add(new GuiButton(18, width / 2 - 100, height / 3 + 120,
 			200, 20, "Done"));
 	}
