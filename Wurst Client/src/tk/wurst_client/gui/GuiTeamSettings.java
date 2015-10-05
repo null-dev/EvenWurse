@@ -34,6 +34,8 @@ public class GuiTeamSettings extends GuiScreen
 	public void initGui()
 	{
 		Keyboard.enableRepeatEvents(true);
+		
+		// color buttons
 		String[] colors =
 			{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c",
 				"d", "e", "f",};
@@ -68,6 +70,11 @@ public class GuiTeamSettings extends GuiScreen
 			buttonList.add(new TeamColorButton(i, width / 2 + offsetX, height
 				/ 3 + offsetY, "§" + colors[i] + colors[i]));
 		}
+		for(int i = 0; i < 16; i++)
+			((TeamColorButton)buttonList.get(i))
+				.setFakeHover(WurstClient.INSTANCE.options.target.team_colors[i]);
+		
+		// other buttons
 		buttonList.add(new GuiButton(16, width / 2 - 46, height / 3 + 96, 44,
 			20, "All On"));
 		buttonList.add(new GuiButton(17, width / 2 + 2, height / 3 + 96, 44,
@@ -109,6 +116,16 @@ public class GuiTeamSettings extends GuiScreen
 					}
 					WurstClient.INSTANCE.analytics.trackEvent("team settings",
 						"all off");
+					break;
+				default:
+					boolean onOff =
+						!WurstClient.INSTANCE.options.target.team_colors[button.id];
+					WurstClient.INSTANCE.options.target.team_colors[button.id] =
+						onOff;
+					((TeamColorButton)buttonList.get(button.id))
+						.setFakeHover(onOff);
+					WurstClient.INSTANCE.analytics.trackEvent("team settings",
+						"toggle", onOff ? "on" : "off", button.id);
 					break;
 			}
 			WurstClient.INSTANCE.fileManager.saveOptions();
