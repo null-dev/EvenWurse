@@ -65,8 +65,8 @@ public class GuiTeamSettings extends GuiScreen
 					offsetY = 0;
 					break;
 			}
-			buttonList.add(new GuiButton(i, width / 2 + offsetX, height / 3
-				+ offsetY, 20, 20, "§" + colors[i] + colors[i]));
+			buttonList.add(new TeamColorButton(i, width / 2 + offsetX, height
+				/ 3 + offsetY, "§" + colors[i] + colors[i]));
 		}
 		buttonList.add(new GuiButton(16, width / 2 - 46, height / 3 + 96, 44,
 			20, "All On"));
@@ -81,15 +81,37 @@ public class GuiTeamSettings extends GuiScreen
 	{
 		if(!button.enabled)
 			return;
-		switch(button.id)
+		if(button.id == 18)
 		{
-			case 18:
-				Minecraft.getMinecraft().displayGuiScreen(prevMenu);
-				WurstClient.INSTANCE.analytics.trackEvent("team settings",
-					"done");
-				break;
-			default:
-				break;
+			Minecraft.getMinecraft().displayGuiScreen(prevMenu);
+			WurstClient.INSTANCE.analytics.trackEvent("team settings", "done");
+		}else
+		{
+			switch(button.id)
+			{
+				case 16:
+					for(int i = 0; i < 16; i++)
+					{
+						WurstClient.INSTANCE.options.target.team_colors[i] =
+							true;
+						((TeamColorButton)buttonList.get(i)).setFakeHover(true);
+					}
+					WurstClient.INSTANCE.analytics.trackEvent("team settings",
+						"all on");
+					break;
+				case 17:
+					for(int i = 0; i < 16; i++)
+					{
+						WurstClient.INSTANCE.options.target.team_colors[i] =
+							false;
+						((TeamColorButton)buttonList.get(i))
+							.setFakeHover(false);
+					}
+					WurstClient.INSTANCE.analytics.trackEvent("team settings",
+						"all off");
+					break;
+			}
+			WurstClient.INSTANCE.fileManager.saveOptions();
 		}
 	}
 	
@@ -109,6 +131,27 @@ public class GuiTeamSettings extends GuiScreen
 		{
 			GuiButton button = ((GuiButton)buttonList.get(i));
 			button.drawButton(mc, mouseX, mouseY);
+		}
+	}
+	
+	public class TeamColorButton extends GuiButton
+	{
+		private boolean fakeHover;
+		
+		public TeamColorButton(int buttonId, int x, int y, String buttonText)
+		{
+			super(buttonId, x, y, 20, 20, buttonText);
+		}
+		
+		public void setFakeHover(boolean fakeHover)
+		{
+			this.fakeHover = fakeHover;
+		}
+		
+		@Override
+		protected int getHoverState(boolean mouseOver)
+		{
+			return fakeHover ? super.getHoverState(mouseOver) : 0;
 		}
 	}
 }
