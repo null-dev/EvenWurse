@@ -9,6 +9,7 @@
 package tk.wurst_client.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -144,11 +145,67 @@ public class GuiTeamSettings extends GuiScreen
 		drawCenteredString(fontRendererObj, "color(s) in their name:",
 			width / 2, height / 3 - 20, 10526880);
 		
+		ArrayList<String> tooltip = new ArrayList<>();
 		for(int i = 0; i < buttonList.size(); i++)
 		{
 			GuiButton button = ((GuiButton)buttonList.get(i));
 			button.drawButton(mc, mouseX, mouseY);
+			
+			if(!button.isMouseOver())
+				continue;
+			switch(button.id)
+			{
+				case 0:
+					tooltip.add("black");
+					break;
+				case 1:
+					tooltip.add("dark blue");
+					break;
+				case 2:
+					tooltip.add("dark green");
+					break;
+				case 3:
+					tooltip.add("dark aqua");
+					break;
+				case 4:
+					tooltip.add("dark red");
+					break;
+				case 5:
+					tooltip.add("dark purple");
+					break;
+				case 6:
+					tooltip.add("gold");
+					break;
+				case 7:
+					tooltip.add("gray");
+					break;
+				case 8:
+					tooltip.add("dark gray");
+					break;
+				case 9:
+					tooltip.add("blue");
+					break;
+				case 10:
+					tooltip.add("green");
+					break;
+				case 11:
+					tooltip.add("aqua");
+					break;
+				case 12:
+					tooltip.add("red");
+					break;
+				case 13:
+					tooltip.add("light purple");
+					break;
+				case 14:
+					tooltip.add("yellow");
+					break;
+				case 15:
+					tooltip.add("white");
+					break;
+			}
 		}
+		drawHoveringText(tooltip, mouseX, mouseY);
 	}
 	
 	public class TeamColorButton extends GuiButton
