@@ -94,7 +94,7 @@ public class GuiWurstOptions extends GuiScreen
 			100, 20, "Suggest a Feature"));
 		// buttonList.add(new GuiButton(15, width / 2 + 54, height / 4 + 120 -
 		// 16, 100, 20, "???"));
-		((GuiButton)buttonList.get(4)).enabled = !Minecraft.isRunningOnMac;
+		((GuiButton)buttonList.get(3)).enabled = !Minecraft.isRunningOnMac;
 	}
 	
 	@Override
