@@ -72,8 +72,14 @@ public class GuiTeamSettings extends GuiScreen
 				/ 3 + offsetY, "§" + colors[i] + colors[i]));
 		}
 		for(int i = 0; i < 16; i++)
-			((TeamColorButton)buttonList.get(i))
-				.setFakeHover(WurstClient.INSTANCE.options.target.team_colors[i]);
+			try
+			{
+				((TeamColorButton)buttonList.get(i))
+					.setFakeHover(WurstClient.INSTANCE.options.target.team_colors[i]);
+			}catch(NullPointerException e)
+			{
+				((TeamColorButton)buttonList.get(i)).setFakeHover(true);
+			}
 		
 		// other buttons
 		buttonList.add(new GuiButton(16, width / 2 - 46, height / 3 + 96, 44,
