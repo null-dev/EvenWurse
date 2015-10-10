@@ -148,6 +148,9 @@ public class GuiWurstMainMenu extends GuiMainMenu
 					
 				}
 				newsWidth = fontRendererObj.getStringWidth(newsTicker);
+				// divide by zero fix
+				if(newsWidth % 50 == 0)
+					newsWidth++;
 				while(fontRendererObj.getStringWidth(newsTicker) < Math.max(
 					width * 2, newsWidth * 2) && !newsTicker.isEmpty())
 					newsTicker += newsTicker;
