@@ -64,32 +64,37 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		super();
 		
 		if(WurstClient.INSTANCE.options.wurstNews)
-			new Thread(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					try
-					{
-						HttpsURLConnection connection =
-							(HttpsURLConnection)new URL(
-								"https://www.wurst-client.tk/news/feed.xml")
-								.openConnection();
-						connection.connect();
-						XMLElement xml =
-							new XMLParser().parse("",
-								connection.getInputStream());
-						news =
-							xml.getChildrenByName("channel").get(0)
-								.getChildrenByName("item");
-					}catch(Exception e)
-					{
-						e.printStackTrace();
-					}
-				}
-			}).start();
+			downloadWurstNews();
 		
 		WurstClient.INSTANCE.analytics.trackPageView("/", "Main Menu");
+	}
+	
+	private void downloadWurstNews()
+	{
+		new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				try
+				{
+					HttpsURLConnection connection =
+						(HttpsURLConnection)new URL(
+							"https://www.wurst-client.tk/news/feed.xml")
+							.openConnection();
+					connection.connect();
+					XMLElement xml =
+						new XMLParser().parse("",
+							connection.getInputStream());
+					news =
+						xml.getChildrenByName("channel").get(0)
+							.getChildrenByName("item");
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 	
 	@SuppressWarnings("unchecked")
