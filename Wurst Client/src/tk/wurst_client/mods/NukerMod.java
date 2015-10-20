@@ -329,6 +329,8 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 						BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
 					MovingObjectPosition fakeObjectMouseOver =
 						Minecraft.getMinecraft().objectMouseOver;
+					if(fakeObjectMouseOver == null)
+						return;
 					fakeObjectMouseOver.setBlockPos(blockPos);
 					if(Block.getIdFromBlock(block) != 0 && posY >= 0
 						&& currentDistance <= realRange)
