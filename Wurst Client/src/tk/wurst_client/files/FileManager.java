@@ -190,13 +190,14 @@ public class FileManager
 	}
 	
 	private String[] moduleBlacklist = {AntiAfkMod.class.getName(),
-		ArenaBrawlMod.class.getName(), AutoBuildMod.class.getName(),
-		AutoSignMod.class.getName(), FightBotMod.class.getName(),
-		FollowMod.class.getName(), ForceOpMod.class.getName(),
-		FreecamMod.class.getName(), InvisibilityMod.class.getName(),
-		LsdMod.class.getName(), MassTpaMod.class.getName(),
-		OpSignMod.class.getName(), ProtectMod.class.getName(),
-		RemoteViewMod.class.getName(), SpammerMod.class.getName(),};
+		BlinkMod.class.getName(), ArenaBrawlMod.class.getName(),
+		AutoBuildMod.class.getName(), AutoSignMod.class.getName(),
+		FightBotMod.class.getName(), FollowMod.class.getName(),
+		ForceOpMod.class.getName(), FreecamMod.class.getName(),
+		InvisibilityMod.class.getName(), LsdMod.class.getName(),
+		MassTpaMod.class.getName(), OpSignMod.class.getName(),
+		ProtectMod.class.getName(), RemoteViewMod.class.getName(),
+		SpammerMod.class.getName(),};
 	
 	public void loadMods()
 	{
