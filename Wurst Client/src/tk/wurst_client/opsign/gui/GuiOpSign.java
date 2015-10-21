@@ -122,9 +122,21 @@ public class GuiOpSign extends GuiScreen
 		drawCenteredString(fontRendererObj, "OP Sign", width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Command", width / 2 - 100, 47, 10526880);
 		drawCenteredString(fontRendererObj,
-			"The command you type in here will be", width / 2, 100, 10526880);
+			"This command will be executed once", width / 2, 90, 10526880);
 		drawCenteredString(fontRendererObj,
-			"executed once you place & right click a sign.", width / 2, 110,
+			"you place & right click on a sign.", width / 2, 100,
+			10526880);
+		drawCenteredString(fontRendererObj,
+			"§cOnly works on servers running§r", width / 2, 110,
+			10526880);
+		drawCenteredString(fontRendererObj,
+			"§c§lMinecraft 1.8 - 1.8.5 without Spigot!§r", width / 2, 120,
+			10526880);
+		drawCenteredString(fontRendererObj,
+			"Even if these criteria are met, it is always", width / 2, 130,
+			10526880);
+		drawCenteredString(fontRendererObj,
+			"possible to run into a server that wont work.", width / 2, 140,
 			10526880);
 		commandBox.drawTextBox();
 		super.drawScreen(mouseX, mouseY, partialTicks);
