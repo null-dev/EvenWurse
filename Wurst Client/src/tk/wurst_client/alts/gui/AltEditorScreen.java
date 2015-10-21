@@ -177,16 +177,14 @@ public abstract class AltEditorScreen extends GuiScreen
 	public void drawScreen(int par1, int par2, float par3)
 	{
 		drawDefaultBackground();
-		AltRenderer.drawAltBack(getName(), (width / 2 - 100) / 2 - 64,
+		AltRenderer.drawAltBack(emailBox.getText(), (width / 2 - 100) / 2 - 64,
 			height / 2 - 128, 128, 256);
-		AltRenderer.drawAltBody(getName(), width - (width / 2 - 100) / 2 - 64,
+		AltRenderer.drawAltBody(emailBox.getText(), width - (width / 2 - 100) / 2 - 64,
 			height / 2 - 128, 128, 256);
 		drawCenteredString(fontRendererObj, getTitle(), width / 2, 20, 16777215);
 		drawString(fontRendererObj, "Name or E-Mail", width / 2 - 100, 47,
 			10526880);
 		drawString(fontRendererObj, "Password", width / 2 - 100, 87, 10526880);
-		drawString(fontRendererObj, "Name: " + getName(), width / 2 - 100, 127,
-			10526880);
 		drawCenteredString(fontRendererObj, displayText, width / 2, 142,
 			16777215);
 		emailBox.drawTextBox();
