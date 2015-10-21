@@ -27,18 +27,19 @@ public class BlinkMod extends Mod
 	private double oldX;
 	private double oldY;
 	private double oldZ;
-	private long startTime;
+	private static long blinkTime;
+	private static long lastTime;
 	
 	@Override
 	public String getRenderName()
 	{
-		return "Blink [" + (System.currentTimeMillis() - startTime) + "ms]";
+		return "Blink [" + blinkTime + "ms]";
 	}
 	
 	@Override
 	public void onEnable()
 	{
-		startTime = System.currentTimeMillis();
+		lastTime = System.currentTimeMillis();
 		
 		oldX = Minecraft.getMinecraft().thePlayer.posX;
 		oldY = Minecraft.getMinecraft().thePlayer.posY;
@@ -62,12 +63,21 @@ public class BlinkMod extends Mod
 		packets.clear();
 		Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
 		fakePlayer = null;
-		startTime = 0;
+		blinkTime = 0;
 	}
 	
 	public static void addToBlinkQueue(Packet packet)
 	{
-		packets.add(packet);
+		if(Minecraft.getMinecraft().thePlayer.posX != Minecraft.getMinecraft().thePlayer.prevPosX
+			|| Minecraft.getMinecraft().thePlayer.posZ != Minecraft
+				.getMinecraft().thePlayer.prevPosZ
+			|| Minecraft.getMinecraft().thePlayer.posY != Minecraft
+				.getMinecraft().thePlayer.prevPosY)
+		{
+			blinkTime += System.currentTimeMillis() - lastTime;
+			packets.add(packet);
+		}
+		lastTime = System.currentTimeMillis();
 	}
 	
 	public void cancel()
