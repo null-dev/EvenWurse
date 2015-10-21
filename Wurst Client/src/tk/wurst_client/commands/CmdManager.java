@@ -94,9 +94,6 @@ public class CmdManager implements ChatOutputListener
 				try
 				{
 					cmd.execute(args);
-					if(!event.isAutomatic())
-						WurstClient.INSTANCE.analytics.trackEvent("command",
-							commandName);
 				}catch(SyntaxError e)
 				{
 					if(e.getMessage() != null)

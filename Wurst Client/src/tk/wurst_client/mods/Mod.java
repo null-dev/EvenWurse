@@ -121,8 +121,6 @@ public class Mod
 					new GuiError(e, this, "disabling", ""));
 			}
 		WurstClient.INSTANCE.fileManager.saveMods();
-		WurstClient.INSTANCE.analytics.trackEvent("mod", name, enabled
-			? "enable" : "disable");
 	}
 	
 	public final void enableOnStartup()
