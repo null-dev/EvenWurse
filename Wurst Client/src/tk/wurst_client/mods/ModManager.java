@@ -33,6 +33,7 @@ public class ModManager
 		addMod(new AntiCactusMod());
 		addMod(new AntiFireMod());
 		addMod(new AntiKnockbackMod());
+		addMod(new AntiMacMod());
 		addMod(new AntiPotionMod());
 		addMod(new AntiSpamMod());
 		addMod(new ArenaBrawlMod());

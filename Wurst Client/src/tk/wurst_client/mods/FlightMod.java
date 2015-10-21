@@ -48,7 +48,9 @@ public class FlightMod extends Mod implements UpdateListener
 				.setEnabled(false);
 		
 		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isActive())
+			.isActive()
+			|| WurstClient.INSTANCE.modManager.getModByClass(AntiMacMod.class)
+				.isActive())
 		{
 			double startX = Minecraft.getMinecraft().thePlayer.posX;
 			startY = Minecraft.getMinecraft().thePlayer.posY;
@@ -79,6 +81,24 @@ public class FlightMod extends Mod implements UpdateListener
 					Minecraft.getMinecraft().thePlayer.motionY = 0.2;
 				else
 					Minecraft.getMinecraft().thePlayer.motionY = -0.02;
+		}else if(WurstClient.INSTANCE.modManager
+			.getModByClass(AntiMacMod.class).isActive())
+		{
+			updateMS();
+			if(!Minecraft.getMinecraft().thePlayer.onGround)
+				if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed
+					&& hasTimePassedS(2))
+				{
+					Minecraft.getMinecraft().thePlayer.setPosition(
+						Minecraft.getMinecraft().thePlayer.posX,
+						Minecraft.getMinecraft().thePlayer.posY + 8,
+						Minecraft.getMinecraft().thePlayer.posZ);
+					updateLastMS();
+				}else if(Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
+					Minecraft.getMinecraft().thePlayer.motionY = -0.4;
+				else
+					Minecraft.getMinecraft().thePlayer.motionY = -0.02;
+			Minecraft.getMinecraft().thePlayer.jumpMovementFactor = 0.04F;
 		}else
 		{
 			Minecraft.getMinecraft().thePlayer.capabilities.isFlying = false;
