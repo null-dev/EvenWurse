@@ -84,8 +84,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 							.openConnection();
 					connection.connect();
 					XMLElement xml =
-						new XMLParser().parse("",
-							connection.getInputStream());
+						new XMLParser().parse("", connection.getInputStream());
 					news =
 						xml.getChildrenByName("channel").get(0)
 							.getChildrenByName("item");
@@ -291,8 +290,9 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		drawString(fontRendererObj, cMinecraft2,
 			width - fontRendererObj.getStringWidth(cMinecraft2) - 8, 28,
 			0xffffff);
-		drawString(fontRendererObj, "Wurst Client " + WurstClient.VERSION, 8,
-			8, 0xffffff);
+		drawString(fontRendererObj, "Wurst Client " + WurstClient.VERSION
+			+ (WurstClient.INSTANCE.updater.isOutdated() ? "(outdated)" : ""),
+			8, 8, 0xffffff);
 		drawString(fontRendererObj, "Copyright Alexander01998", 8, 18, 0xffffff);
 		drawString(fontRendererObj, "All rights reserved.", 8, 28, 0xffffff);
 		drawCenteredString(fontRendererObj, "§nwww.Wurst-Client.tk", width / 2,

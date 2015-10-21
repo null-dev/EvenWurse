@@ -63,7 +63,9 @@ public class UIRenderer
 	
 	public static void renderUI()
 	{
-		Fonts.segoe22.drawString("v" + WurstClient.VERSION, 74, 4, 0xFF000000);
+		Fonts.segoe22.drawString("v" + WurstClient.VERSION
+			+ (WurstClient.INSTANCE.updater.isOutdated() ? "(outdated)" : ""),
+			74, 4, 0xFF000000);
 		renderModList();
 	}
 	
