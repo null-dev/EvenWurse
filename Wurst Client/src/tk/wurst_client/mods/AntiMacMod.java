@@ -47,8 +47,6 @@ public class AntiMacMod extends Mod
 			blockedMods.remove(WurstClient.INSTANCE.modManager
 				.getModByClass(FastBowMod.class));
 			blockedMods.remove(WurstClient.INSTANCE.modManager
-				.getModByClass(FastEatMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.modManager
 				.getModByClass(GlideMod.class));
 			blockedMods.remove(WurstClient.INSTANCE.modManager
 				.getModByClass(MultiAuraMod.class));
