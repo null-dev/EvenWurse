@@ -66,6 +66,5 @@ public class AntiMacMod extends Mod
 	{
 		for(Mod mod : blockedMods)
 			mod.setBlocked(false);
-		blockedMods = null;// XXX
 	}
 }
