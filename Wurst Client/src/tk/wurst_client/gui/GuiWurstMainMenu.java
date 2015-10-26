@@ -330,7 +330,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		}
 		
 		// news
-		if(!newsTicker.isEmpty())
+		if(!newsTicker.isEmpty() && newsWidth != 0)
 			drawString(fontRendererObj, newsTicker,
 				-(int)(Minecraft.getSystemTime() / 50 % newsWidth),
 				height - 10, -1);
