@@ -8,15 +8,15 @@
  */
 package tk.wurst_client.java8check;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.Base64;
 
 import javax.swing.JOptionPane;
-
-import tk.wurst_client.utils.MiscUtils;
 
 public class Java8Checker
 {
@@ -60,8 +60,18 @@ public class Java8Checker
 			// learn more link
 			if(action == 0)
 			{
-				MiscUtils
-					.openLink("https://www.wurst-client.tk/redirect/outdated-java-help/");
+				try
+				{
+					Desktop
+						.getDesktop()
+						.browse(
+							new URI(
+								"https://www.wurst-client.tk/redirect/outdated-java-help/"));
+				}catch(Exception e1)
+				{
+					System.err.println("Failed to open link");
+					e1.printStackTrace();
+				}
 			}
 			
 			System.exit(0);
