@@ -73,6 +73,7 @@ public class ModManager
 		addMod(new FlightMod());
 		addMod(new FollowMod());
 		addMod(new ForceOpMod());
+		addMod(new ForcePushMod());
 		addMod(new FreecamMod());
 		addMod(new FullbrightMod());
 		addMod(new GhostHandMod());
