@@ -63,7 +63,6 @@ public class WurstCapes
 							+ player.getId().toString().replace("-", ""))
 						.openConnection();
 				connection.connect();
-				System.out.println(connection.getResponseCode());
 				if(connection.getResponseCode() == 200)
 				{
 					BufferedReader reader =
