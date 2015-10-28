@@ -33,7 +33,7 @@ public class ForcePushMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().thePlayer.onGround
 			&& EntityUtils.getClosestEntity(true) != null
 			&& EntityUtils.getClosestEntity(true).getDistanceToEntity(
-				Minecraft.getMinecraft().thePlayer) < 2)
+				Minecraft.getMinecraft().thePlayer) < 1)
 			for(int i = 0; i < 1000; i++)
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C03PacketPlayer(true));
