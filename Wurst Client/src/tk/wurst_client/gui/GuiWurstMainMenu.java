@@ -291,7 +291,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			width - fontRendererObj.getStringWidth(cMinecraft2) - 8, 28,
 			0xffffff);
 		drawString(fontRendererObj, "Wurst Client " + WurstClient.VERSION
-			+ (WurstClient.INSTANCE.updater.isOutdated() ? "(outdated)" : ""),
+			+ (WurstClient.INSTANCE.updater.isOutdated() ? " (outdated)" : ""),
 			8, 8, 0xffffff);
 		drawString(fontRendererObj, "Copyright Alexander01998", 8, 18, 0xffffff);
 		drawString(fontRendererObj, "All rights reserved.", 8, 28, 0xffffff);

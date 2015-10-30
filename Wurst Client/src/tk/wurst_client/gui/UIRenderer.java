@@ -8,21 +8,34 @@
  */
 package tk.wurst_client.gui;
 
+import static org.lwjgl.opengl.GL11.*;
+
+import java.awt.Color;
 import java.util.LinkedList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.util.ResourceLocation;
 
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
+import org.darkstorm.minecraft.gui.util.RenderUtil;
+import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.events.GUIRenderEvent;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.mods.ClickGuiMod;
 import tk.wurst_client.mods.Mod;
 
 public class UIRenderer
 {
+	private static final ResourceLocation wurstLogo = new ResourceLocation(
+		"wurst/wurst_128.png");
+	
 	private static void renderModList()
 	{
 		if(WurstClient.INSTANCE.options.modListMode == 2)
@@ -61,12 +74,81 @@ public class UIRenderer
 			}
 	}
 	
-	public static void renderUI()
+	public static void renderUI(float zLevel)
 	{
-		Fonts.segoe22.drawString("v" + WurstClient.VERSION
-			+ (WurstClient.INSTANCE.updater.isOutdated() ? "(outdated)" : ""),
-			74, 4, 0xFF000000);
+		// GL settings
+		glEnable(GL_BLEND);
+		glDisable(GL_CULL_FACE);
+		glDisable(GL_TEXTURE_2D);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		RenderUtil.setColor(new Color(255, 255, 255, 128));
+		
+		// get version string
+		String version =
+			"v"
+				+ WurstClient.VERSION
+				+ (WurstClient.INSTANCE.updater.isOutdated() ? " (outdated)"
+					: "");
+		
+		// draw version background
+		glBegin(GL_QUADS);
+		{
+			glVertex2d(0, 6);
+			glVertex2d(Fonts.segoe22.getStringWidth(version) + 78, 6);
+			glVertex2d(Fonts.segoe22.getStringWidth(version) + 78, 18);
+			glVertex2d(0, 18);
+		}
+		glEnd();
+		
+		// draw version string
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_CULL_FACE);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(false);
+		Fonts.segoe22.drawString(version, 74, 4, 0xFF000000);
+		
+		// mod list & pinned frames
 		renderModList();
+		UIRenderer.renderPinnedFrames();
+		
+		// Wurst logo
+		OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(wurstLogo);
+		Tessellator ts = Tessellator.getInstance();
+		WorldRenderer wr = ts.getWorldRenderer();
+		double x = 0;
+		double y = 3;
+		double h = 18;
+		double w = 72;
+		double fw = 256;
+		double fh = 256;
+		double u1 = 0;
+		double v1 = 0;
+		wr.startDrawingQuads();
+		wr.addVertexWithUV(x + 0, y + h, zLevel, (float)(u1 + 0) / 256D,
+			(float)(v1 + fh) / 256D);
+		wr.addVertexWithUV(x + w, y + h, zLevel, (float)(u1 + fw) / 256D,
+			(float)(v1 + fh) / 256D);
+		wr.addVertexWithUV(x + w, y + 0, zLevel, (float)(u1 + fw) / 256D,
+			(float)(v1 + 0) / 256D);
+		wr.addVertexWithUV(x + 0, y + 0, zLevel, (float)(u1 + 0) / 256D,
+			(float)(v1 + 0) / 256D);
+		ts.draw();
+		
+		// GUI render event
+		WurstClient.INSTANCE.eventManager.fireEvent(GUIRenderEvent.class,
+			new GUIRenderEvent());
+		
+		// GL resets
+		GL11.glDepthMask(true);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		
+		// is this needed?
+		GL11.glPushMatrix();
+		GL11.glPopMatrix();
 	}
 	
 	public static void renderPinnedFrames()
