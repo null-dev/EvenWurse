@@ -29,6 +29,7 @@ public class KillauraMod extends Mod implements UpdateListener
 	public float normalRange = 5F;
 	public float yesCheatSpeed = 12F;
 	public float yesCheatRange = 4.25F;
+	public int fov = 360;
 	public float realSpeed;
 	public float realRange;
 	
@@ -39,6 +40,8 @@ public class KillauraMod extends Mod implements UpdateListener
 			ValueDisplay.DECIMAL));
 		sliders.add(new BasicSlider("Killaura range", normalRange, 1, 6, 0.05,
 			ValueDisplay.DECIMAL));
+		sliders.add(new BasicSlider("Killaura FOV", fov, 30, 360, 10,
+			ValueDisplay.DEGREES));
 	}
 	
 	@Override
