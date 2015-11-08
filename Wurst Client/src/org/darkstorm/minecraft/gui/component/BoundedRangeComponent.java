@@ -7,6 +7,7 @@ public interface BoundedRangeComponent extends Component
 		DECIMAL,
 		INTEGER,
 		PERCENTAGE,
+		DEGREES,
 		NONE
 	}
 	

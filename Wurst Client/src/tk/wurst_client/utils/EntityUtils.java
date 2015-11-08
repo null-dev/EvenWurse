@@ -26,6 +26,7 @@ import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.mods.KillauraMod;
 import tk.wurst_client.options.Options;
 
 public class EntityUtils
@@ -109,7 +110,7 @@ public class EntityUtils
 		return current + change;
 	}
 	
-	public static int getDistanceFromMouse(EntityLivingBase entity)
+	public static int getDistanceFromMouse(Entity entity)
 	{
 		float[] neededRotations = getRotationsNeeded(entity);
 		if(neededRotations != null)
@@ -199,11 +200,14 @@ public class EntityUtils
 			&& (unknownColor || !name.contains("§"));
 	}
 	
-	public static EntityLivingBase getClosestEntity(boolean ignoreFriends)
+	public static EntityLivingBase getClosestEntity(boolean ignoreFriends,
+		boolean useFOV)
 	{
 		EntityLivingBase closestEntity = null;
 		for(Object o : Minecraft.getMinecraft().theWorld.loadedEntityList)
-			if(isCorrectEntity(o, ignoreFriends))
+			if(isCorrectEntity(o, ignoreFriends)
+				&& getDistanceFromMouse((Entity)o) <= ((KillauraMod)WurstClient.INSTANCE.modManager
+					.getModByClass(KillauraMod.class)).fov / 2)
 			{
 				EntityLivingBase en = (EntityLivingBase)o;
 				if(!(o instanceof EntityPlayerSP)

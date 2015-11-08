@@ -29,6 +29,7 @@ public class KillauraMod extends Mod implements UpdateListener
 	public float normalRange = 5F;
 	public float yesCheatSpeed = 12F;
 	public float yesCheatRange = 4.25F;
+	public int fov = 360;
 	public float realSpeed;
 	public float realRange;
 	
@@ -39,6 +40,8 @@ public class KillauraMod extends Mod implements UpdateListener
 			ValueDisplay.DECIMAL));
 		sliders.add(new BasicSlider("Killaura range", normalRange, 1, 6, 0.05,
 			ValueDisplay.DECIMAL));
+		sliders.add(new BasicSlider("Killaura FOV", fov, 30, 360, 10,
+			ValueDisplay.DEGREES));
 	}
 	
 	@Override
@@ -48,6 +51,7 @@ public class KillauraMod extends Mod implements UpdateListener
 		yesCheatSpeed = Math.min(normalSpeed, 12F);
 		normalRange = (float)sliders.get(1).getValue();
 		yesCheatRange = Math.min(normalRange, 4.25F);
+		fov = (int)sliders.get(2).getValue();
 	}
 	
 	@Override
@@ -82,10 +86,9 @@ public class KillauraMod extends Mod implements UpdateListener
 			realRange = normalRange;
 		}
 		updateMS();
-		if(hasTimePassedS(realSpeed)
-			&& EntityUtils.getClosestEntity(true) != null)
+		EntityLivingBase en = EntityUtils.getClosestEntity(true, true);
+		if(hasTimePassedS(realSpeed) && en != null)
 		{
-			EntityLivingBase en = EntityUtils.getClosestEntity(true);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
 			{
 				if(WurstClient.INSTANCE.modManager.getModByClass(
