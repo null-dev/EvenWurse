@@ -51,6 +51,7 @@ public class KillauraMod extends Mod implements UpdateListener
 		yesCheatSpeed = Math.min(normalSpeed, 12F);
 		normalRange = (float)sliders.get(1).getValue();
 		yesCheatRange = Math.min(normalRange, 4.25F);
+		fov = (int)sliders.get(2).getValue();
 	}
 	
 	@Override
