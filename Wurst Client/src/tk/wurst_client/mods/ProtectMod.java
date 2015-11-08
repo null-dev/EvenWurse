@@ -41,12 +41,10 @@ public class ProtectMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		friend = null;
-		if(EntityUtils.getClosestEntity(false) != null)
-		{
-			EntityLivingBase en = EntityUtils.getClosestEntity(false);
-			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
-				friend = en;
-		}
+		EntityLivingBase en = EntityUtils.getClosestEntity(false, true);
+		if(en != null
+			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
+			friend = en;
 		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
 	}
 	

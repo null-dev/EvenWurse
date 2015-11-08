@@ -46,7 +46,7 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		updateMS();
-		if(EntityUtils.getClosestEntity(true) != null)
+		if(EntityUtils.getClosestEntity(true, false) != null)
 		{
 			for(int i = 0; i < Math.min(
 				EntityUtils.getCloseEntities(true, range).size(), 64); i++)

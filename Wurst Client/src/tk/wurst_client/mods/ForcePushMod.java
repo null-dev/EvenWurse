@@ -9,14 +9,14 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.utils.EntityUtils;
 
 @Mod.Info(category = Mod.Category.FUN,
-	description = "Pushes mobs like crazy.\n"
-		+ "They'll literally fly away!\n"
+	description = "Pushes mobs like crazy.\n" + "They'll literally fly away!\n"
 		+ "Can sometimes get you kicked for \"Flying is not enabled\".",
 	name = "ForcePush")
 public class ForcePushMod extends Mod implements UpdateListener
@@ -30,10 +30,9 @@ public class ForcePushMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(Minecraft.getMinecraft().thePlayer.onGround
-			&& EntityUtils.getClosestEntity(true) != null
-			&& EntityUtils.getClosestEntity(true).getDistanceToEntity(
-				Minecraft.getMinecraft().thePlayer) < 1)
+		EntityLivingBase en = EntityUtils.getClosestEntity(true, true);
+		if(Minecraft.getMinecraft().thePlayer.onGround && en != null
+			&& en.getDistanceToEntity(Minecraft.getMinecraft().thePlayer) < 1)
 			for(int i = 0; i < 1000; i++)
 				Minecraft.getMinecraft().thePlayer.sendQueue
 					.addToSendQueue(new C03PacketPlayer(true));

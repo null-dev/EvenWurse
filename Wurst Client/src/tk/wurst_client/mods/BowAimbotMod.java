@@ -116,7 +116,7 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 				.getItem() instanceof ItemBow
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 		{
-			target = EntityUtils.getClosestEntity(true);
+			target = EntityUtils.getClosestEntity(true, true);
 			aimAtTarget();
 		}
 	}
