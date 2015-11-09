@@ -8,7 +8,6 @@
  */
 package tk.wurst_client.capes;
 
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 public class WurstCapes
 {
 	private static JsonObject capes;
+	private static CapeFetcher capeFetcher;
 	
 	/**
 	 * @see net.minecraft.client.resources.SkinManager#func_152790_a(GameProfile,
@@ -50,28 +50,23 @@ public class WurstCapes
 						.getAsJsonObject();
 			}catch(Exception e)
 			{
+				System.err
+					.println("[Wurst] Failed to load capes from wurst-client.tk!");
 				e.printStackTrace();
+				return;
 			}
-		else if(capes.has("use_new_server")
+		
+		if(capes.has("use_new_server")
 			&& capes.get("use_new_server").getAsBoolean())
 			// get cape from new server
 			try
 			{
-				HttpsURLConnection connection =
-					(HttpsURLConnection)new URL(
-						"https://www.wurst-capes.tk/cape/?uuid="
-							+ player.getId().toString().replace("-", ""))
-						.openConnection();
-				connection.connect();
-				if(connection.getResponseCode() == 200)
+				String uuid = player.getId().toString().replace("-", "");
+				if(capeFetcher == null || !capeFetcher.addUUID(uuid))
 				{
-					BufferedReader reader =
-						new BufferedReader(new InputStreamReader(
-							connection.getInputStream()));
-					String cape = reader.readLine();
-					reader.close();
-					skinManagerMap.put(Type.CAPE, new MinecraftProfileTexture(
-						cape, null));
+					capeFetcher = new CapeFetcher();
+					capeFetcher.addUUID(uuid);
+					new Thread(capeFetcher).start();
 				}
 			}catch(Exception e)
 			{
