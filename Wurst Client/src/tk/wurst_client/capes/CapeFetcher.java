@@ -10,13 +10,15 @@ package tk.wurst_client.capes;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.SkinManager;
+import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
@@ -25,13 +27,15 @@ import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 public class CapeFetcher implements Runnable
 {
 	private JsonArray uuids = new JsonArray();
+	private ArrayList<SkinManager.SkinAvailableCallback> callbacks = new ArrayList<>();
 	private boolean running = false;
 	
-	public boolean addUUID(String uuid)
+	public boolean addUUID(String uuid, SkinAvailableCallback callback)
 	{
 		if(uuids.size() < 100 && !running)
 		{
 			uuids.add(new JsonPrimitive(uuid));
+			callbacks.add(callback);
 			return true;
 		}else
 			return false;
@@ -56,8 +60,9 @@ public class CapeFetcher implements Runnable
 					JsonUtils.gson.toJson(uuids), "application/json");
 			JsonArray capes =
 				JsonUtils.jsonParser.parse(response).getAsJsonArray();
-			for(JsonElement cape : capes)
+			for(int i = 0; i < capes.size(); i++)
 			{
+				final int iFinal = i;
 				Minecraft.getMinecraft().addScheduledTask(new Runnable()
 				{
 					@Override
@@ -67,8 +72,8 @@ public class CapeFetcher implements Runnable
 							.getMinecraft()
 							.getSkinManager()
 							.loadSkin(
-								new MinecraftProfileTexture(cape.getAsString(),
-									null), Type.CAPE);
+								new MinecraftProfileTexture(capes.get(iFinal).getAsString(),
+									null), Type.CAPE, callbacks.get(iFinal));
 					}
 				});
 			}

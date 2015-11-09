@@ -32,9 +32,11 @@ public class WurstCapes
 	 *      SkinAvailableCallback, boolean)
 	 * @param player
 	 * @param skinManagerMap
+	 * @param callback
 	 */
 	@SuppressWarnings("unchecked")
-	public static void checkCape(GameProfile player, HashMap skinManagerMap)
+	public static void checkCape(GameProfile player, HashMap skinManagerMap,
+		SkinAvailableCallback callback)
 	{
 		if(capes == null)
 			try
@@ -62,10 +64,10 @@ public class WurstCapes
 			try
 			{
 				String uuid = player.getId().toString().replace("-", "");
-				if(capeFetcher == null || !capeFetcher.addUUID(uuid))
+				if(capeFetcher == null || !capeFetcher.addUUID(uuid, callback))
 				{
 					capeFetcher = new CapeFetcher();
-					capeFetcher.addUUID(uuid);
+					capeFetcher.addUUID(uuid, callback);
 					new Thread(capeFetcher).start();
 				}
 			}catch(Exception e)
