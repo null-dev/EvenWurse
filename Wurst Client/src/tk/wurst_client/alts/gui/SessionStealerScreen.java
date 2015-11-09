@@ -24,12 +24,12 @@ import net.minecraft.util.Session;
 import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 public class SessionStealerScreen extends GuiScreen
@@ -122,7 +122,7 @@ public class SessionStealerScreen extends GuiScreen
 				try
 				{
 					rawJson =
-						new JsonParser().parse(new InputStreamReader(new URL(
+						JsonUtils.jsonParser.parse(new InputStreamReader(new URL(
 							"https://api.mojang.com/user/profiles/" + uuid
 								+ "/names").openConnection().getInputStream()));
 				}catch(JsonIOException | JsonSyntaxException | IOException e)

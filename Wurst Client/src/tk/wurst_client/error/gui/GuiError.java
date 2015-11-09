@@ -36,11 +36,10 @@ import net.minecraft.util.ResourceLocation;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.mods.Mod;
+import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class GuiError extends GuiScreen
 {
@@ -105,9 +104,9 @@ public class GuiError extends GuiScreen
 						+ "-Error-Report" + ".md", gistError);
 					gist.add("files", gistFiles);
 					JsonObject gistResponse =
-						new JsonParser().parse(
+						JsonUtils.jsonParser.parse(
 							MiscUtils.post(new URL(
-								"https://api.github.com/gists"), new Gson()
+								"https://api.github.com/gists"), JsonUtils.gson
 								.toJson(gist))).getAsJsonObject();
 					MiscUtils.openLink(gistResponse.get("html_url")
 						.getAsString());

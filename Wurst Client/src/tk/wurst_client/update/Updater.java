@@ -21,11 +21,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.utils.JsonUtils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class Updater
 {
@@ -96,7 +96,7 @@ public class Updater
 			for(String line = ""; (line = load.readLine()) != null;)
 				content += "\n" + line;
 			load.close();
-			json = new JsonParser().parse(content).getAsJsonArray();
+			json = JsonUtils.jsonParser.parse(content).getAsJsonArray();
 			latestRelease = new JsonObject();
 			for(JsonElement release : json)
 				if(!release.getAsJsonObject().get("prerelease").getAsBoolean()
@@ -215,7 +215,7 @@ public class Updater
 								.getAsString();
 					else
 						id =
-							new JsonParser()
+							JsonUtils.jsonParser
 								.parse(
 									new InputStreamReader(
 										new URL(

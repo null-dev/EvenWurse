@@ -15,9 +15,9 @@ import java.util.HashMap;
 import javax.net.ssl.HttpsURLConnection;
 
 import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
+import tk.wurst_client.utils.JsonUtils;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
@@ -45,7 +45,7 @@ public class WurstCapes
 						.openConnection();
 				connection.connect();
 				capes =
-					new JsonParser().parse(
+					JsonUtils.jsonParser.parse(
 						new InputStreamReader(connection.getInputStream()))
 						.getAsJsonObject();
 			}catch(Exception e)

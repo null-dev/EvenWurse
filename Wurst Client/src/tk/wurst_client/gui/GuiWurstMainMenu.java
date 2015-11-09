@@ -42,10 +42,10 @@ import org.newdawn.slick.util.xml.XMLParser;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.gui.GuiAlts;
 import tk.wurst_client.message.gui.GuiMessage;
+import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class GuiWurstMainMenu extends GuiMainMenu
 {
@@ -399,7 +399,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 					connection.connect();
 					
 					JsonObject json =
-						new JsonParser().parse(
+						JsonUtils.jsonParser.parse(
 							new InputStreamReader(connection.getInputStream(),
 								"UTF-8")).getAsJsonObject();
 					

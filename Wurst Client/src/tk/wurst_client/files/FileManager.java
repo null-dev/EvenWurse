@@ -32,14 +32,12 @@ import tk.wurst_client.mods.*;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.options.Friends;
 import tk.wurst_client.options.Options;
+import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.XRayUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class FileManager
 {
@@ -61,7 +59,6 @@ public class FileManager
 	public final File autoMaximize = new File(
 		Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
 	public final File xray = new File(wurstDir, "xray.json");
-	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	
 	public void init()
 	{
@@ -131,7 +128,7 @@ public class FileManager
 					json.add(frame.getTitle(), jsonFrame);
 				}
 			PrintWriter save = new PrintWriter(new FileWriter(gui));
-			save.println(gson.toJson(json));
+			save.println(JsonUtils.prettyGson.toJson(json));
 			save.close();
 		}catch(Exception e)
 		{
@@ -144,7 +141,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(gui));
-			JsonObject json = (JsonObject)new JsonParser().parse(load);
+			JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
 			load.close();
 			Iterator<Entry<String, JsonElement>> itr =
 				json.entrySet().iterator();
@@ -181,7 +178,7 @@ public class FileManager
 				json.add(mod.getName(), jsonMod);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(modules));
-			save.println(gson.toJson(json));
+			save.println(JsonUtils.prettyGson.toJson(json));
 			save.close();
 		}catch(Exception e)
 		{
@@ -204,7 +201,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(modules));
-			JsonObject json = (JsonObject)new JsonParser().parse(load);
+			JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
 			load.close();
 			Iterator<Entry<String, JsonElement>> itr =
 				json.entrySet().iterator();
@@ -244,7 +241,7 @@ public class FileManager
 				json.addProperty(entry.getKey(), entry.getValue());
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(keybinds));
-			save.println(gson.toJson(json));
+			save.println(JsonUtils.prettyGson.toJson(json));
 			save.close();
 		}catch(Exception e)
 		{
@@ -257,7 +254,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(keybinds));
-			JsonObject json = (JsonObject)new JsonParser().parse(load);
+			JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
 			load.close();
 			WurstClient.INSTANCE.keybinds.clear();
 			Iterator<Entry<String, JsonElement>> itr =
@@ -279,7 +276,7 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(options));
-			save.println(gson.toJson(WurstClient.INSTANCE.options));
+			save.println(JsonUtils.prettyGson.toJson(WurstClient.INSTANCE.options));
 			save.close();
 		}catch(Exception e)
 		{
@@ -292,7 +289,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(options));
-			WurstClient.INSTANCE.options = gson.fromJson(load, Options.class);
+			WurstClient.INSTANCE.options = JsonUtils.prettyGson.fromJson(load, Options.class);
 			load.close();
 		}catch(Exception e)
 		{
@@ -310,7 +307,7 @@ public class FileManager
 			BufferedReader load =
 				new BufferedReader(new FileReader(autoMaximize));
 			autoMaximizeEnabled =
-				gson.fromJson(load, Boolean.class) && !Minecraft.isRunningOnMac;
+				JsonUtils.prettyGson.fromJson(load, Boolean.class) && !Minecraft.isRunningOnMac;
 			load.close();
 		}catch(Exception e)
 		{
@@ -326,7 +323,7 @@ public class FileManager
 			if(!autoMaximize.getParentFile().exists())
 				autoMaximize.getParentFile().mkdirs();
 			PrintWriter save = new PrintWriter(new FileWriter(autoMaximize));
-			save.println(gson.toJson(autoMaximizeEnabled));
+			save.println(JsonUtils.prettyGson.toJson(autoMaximizeEnabled));
 			save.close();
 		}catch(Exception e)
 		{
@@ -352,7 +349,7 @@ public class FileManager
 				json.add(mod.getName(), jsonModule);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(sliders));
-			save.println(gson.toJson(json));
+			save.println(JsonUtils.prettyGson.toJson(json));
 			save.close();
 		}catch(Exception e)
 		{
@@ -365,7 +362,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(sliders));
-			JsonObject json = (JsonObject)new JsonParser().parse(load);
+			JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
 			load.close();
 			Iterator<Entry<String, JsonElement>> itr =
 				json.entrySet().iterator();
@@ -409,7 +406,7 @@ public class FileManager
 				jsonAlt.addProperty("starred", alt.isStarred());
 				json.add(alt.getEmail(), jsonAlt);
 			}
-			Files.write(alts.toPath(), Encryption.encrypt(gson.toJson(json))
+			Files.write(alts.toPath(), Encryption.encrypt(JsonUtils.prettyGson.toJson(json))
 				.getBytes(Encryption.CHARSET));
 		}catch(Exception e)
 		{
@@ -422,7 +419,7 @@ public class FileManager
 		try
 		{
 			JsonObject json =
-				(JsonObject)new JsonParser().parse(Encryption
+				(JsonObject)JsonUtils.jsonParser.parse(Encryption
 					.decrypt(new String(Files.readAllBytes(alts.toPath()),
 						Encryption.CHARSET)));
 			GuiAltList.alts.clear();
@@ -463,7 +460,7 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(friends));
-			save.println(gson.toJson(WurstClient.INSTANCE.friends));
+			save.println(JsonUtils.prettyGson.toJson(WurstClient.INSTANCE.friends));
 			save.close();
 		}catch(Exception e)
 		{
@@ -476,7 +473,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(friends));
-			WurstClient.INSTANCE.friends = gson.fromJson(load, Friends.class);
+			WurstClient.INSTANCE.friends = JsonUtils.prettyGson.fromJson(load, Friends.class);
 			load.close();
 		}catch(Exception e)
 		{
@@ -491,10 +488,10 @@ public class FileManager
 			XRayUtils.sortBlocks();
 			JsonArray json = new JsonArray();
 			for(int i = 0; i < XRayMod.xrayBlocks.size(); i++)
-				json.add(gson.toJsonTree(Block
+				json.add(JsonUtils.prettyGson.toJsonTree(Block
 					.getIdFromBlock(XRayMod.xrayBlocks.get(i))));
 			PrintWriter save = new PrintWriter(new FileWriter(xray));
-			save.println(gson.toJson(json));
+			save.println(JsonUtils.prettyGson.toJson(json));
 			save.close();
 		}catch(Exception e)
 		{
@@ -507,7 +504,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(xray));
-			JsonArray json = new JsonParser().parse(load).getAsJsonArray();
+			JsonArray json = JsonUtils.jsonParser.parse(load).getAsJsonArray();
 			load.close();
 			Iterator<JsonElement> itr = json.iterator();
 			while(itr.hasNext())
@@ -542,13 +539,13 @@ public class FileManager
 			{
 				Entry<String, int[][]> entry = itr.next();
 				JsonObject json = new JsonObject();
-				json.add("__comment", gson.toJsonTree(comment, String[].class));
+				json.add("__comment", JsonUtils.prettyGson.toJsonTree(comment, String[].class));
 				json.add("blocks",
-					gson.toJsonTree(entry.getValue(), int[][].class));
+					JsonUtils.prettyGson.toJsonTree(entry.getValue(), int[][].class));
 				PrintWriter save =
 					new PrintWriter(new FileWriter(new File(autobuildDir,
 						entry.getKey() + ".json")));
-				save.println(gson.toJson(json));
+				save.println(JsonUtils.prettyGson.toJson(json));
 				save.close();
 			}
 		}catch(Exception e)
@@ -567,9 +564,9 @@ public class FileManager
 			for(File file : files)
 			{
 				BufferedReader load = new BufferedReader(new FileReader(file));
-				JsonObject json = (JsonObject)new JsonParser().parse(load);
+				JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
 				load.close();
-				AutoBuildMod.templates.add(gson.fromJson(json.get("blocks"),
+				AutoBuildMod.templates.add(JsonUtils.prettyGson.fromJson(json.get("blocks"),
 					int[][].class));
 				AutoBuildMod.names.add(file.getName().substring(0,
 					file.getName().indexOf(".json")));
