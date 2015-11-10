@@ -100,6 +100,7 @@ public class ModManager
 		addMod(new MobEspMod());
 		addMod(new MultiAuraMod());
 		addMod(new NameProtectMod());
+		addMod(new NoClipMod());
 		addMod(new NameTagsMod());
 		addMod(new NoFallMod());
 		addMod(new NoHurtcamMod());
