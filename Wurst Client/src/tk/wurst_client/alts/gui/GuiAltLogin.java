@@ -10,9 +10,9 @@ package tk.wurst_client.alts.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.alts.LoginManager;
+import tk.wurst_client.gui.GuiWurstMainMenu;
 
 public class GuiAltLogin extends AltEditorScreen
 {
@@ -50,7 +50,7 @@ public class GuiAltLogin extends AltEditorScreen
 			displayText =
 				LoginManager.login(emailBox.getText(), passwordBox.getText());
 		if(displayText.equals(""))
-			mc.displayGuiScreen(new GuiMainMenu());
+			mc.displayGuiScreen(new GuiWurstMainMenu());
 		else
 			errorTimer = 8;
 	}

@@ -9,9 +9,9 @@
 package tk.wurst_client.bot.commands;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
+import tk.wurst_client.gui.GuiWurstMainMenu;
 
 @Command.Info(help = "Joins a server.", name = "join", syntax = {"<ip>"})
 public class JoinCmd extends Command
@@ -27,7 +27,7 @@ public class JoinCmd extends Command
 			public void run()
 			{
 				Minecraft.getMinecraft().displayGuiScreen(
-					new GuiConnecting(new GuiMainMenu(), Minecraft
+					new GuiConnecting(new GuiWurstMainMenu(), Minecraft
 						.getMinecraft(), new ServerData("", args[0])));
 				System.out.println("Joined " + args[0] + " as "
 					+ Minecraft.getMinecraft().session.getUsername());

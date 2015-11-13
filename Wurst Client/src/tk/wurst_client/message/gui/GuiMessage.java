@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.Map.Entry;
 
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.gui.GuiWurstMainMenu;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonElement;
@@ -62,7 +62,7 @@ public class GuiMessage extends GuiScreen
 		if(button.id == buttons.entrySet().size())
 		{
 			if(cancel.equals("allowed"))
-				mc.displayGuiScreen(new GuiMainMenu());
+				mc.displayGuiScreen(new GuiWurstMainMenu());
 			else if(cancel.equals("prompt"))
 				mc.displayGuiScreen(new GuiYesNo(this,
 					"Are you sure you want to cancel?", "", 0));
@@ -81,7 +81,7 @@ public class GuiMessage extends GuiScreen
 		
 		if(result)
 		{
-			mc.displayGuiScreen(new GuiMainMenu());
+			mc.displayGuiScreen(new GuiWurstMainMenu());
 			WurstClient.INSTANCE.analytics.trackEvent("message", "cancel", "v"
 				+ WurstClient.VERSION);
 		}else
