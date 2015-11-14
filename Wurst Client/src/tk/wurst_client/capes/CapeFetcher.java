@@ -62,6 +62,9 @@ public class CapeFetcher implements Runnable
 				JsonUtils.jsonParser.parse(response).getAsJsonArray();
 			for(int i = 0; i < capes.size(); i++)
 			{
+				String cape = capes.get(i).getAsString();
+				if(cape == null || cape.isEmpty())
+					continue;
 				final int iFinal = i;
 				Minecraft.getMinecraft().addScheduledTask(new Runnable()
 				{
@@ -72,7 +75,7 @@ public class CapeFetcher implements Runnable
 							.getMinecraft()
 							.getSkinManager()
 							.loadSkin(
-								new MinecraftProfileTexture(capes.get(iFinal).getAsString(),
+								new MinecraftProfileTexture(cape,
 									null), Type.CAPE, callbacks.get(iFinal));
 					}
 				});
