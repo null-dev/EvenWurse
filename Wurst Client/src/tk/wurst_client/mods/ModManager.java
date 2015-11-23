@@ -124,6 +124,7 @@ public class ModManager
 		addMod(new SkinBlinkerMod());
 		addMod(new SneakMod());
 		addMod(new SpammerMod());
+		addMod(new SpeedHackMod());
 		addMod(new SpeedNukerMod());
 		addMod(new SpiderMod());
 		addMod(new StepMod());
