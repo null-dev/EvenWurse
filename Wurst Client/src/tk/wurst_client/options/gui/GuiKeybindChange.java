@@ -19,7 +19,7 @@ import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.WurstClient;
 
-public class GuiKeybindChange extends GuiScreen
+public class GuiKeybindChange extends GuiScreen implements GuiPressAKeyCallback
 {
 	private GuiScreen prevMenu;
 	private GuiTextField commandBox;
@@ -79,7 +79,7 @@ public class GuiKeybindChange extends GuiScreen
 	{
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
-				mc.displayGuiScreen(new GuiKeybindPressAKey(this));
+				mc.displayGuiScreen(new GuiPressAKey(this));
 			else if(clickedButton.id == 1)
 			{
 				if(entry != null)
@@ -103,6 +103,7 @@ public class GuiKeybindChange extends GuiScreen
 		commandBox.textboxKeyTyped(par1, par2);
 	}
 	
+	@Override
 	public void setKey(String key)
 	{
 		this.key = key;

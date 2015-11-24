@@ -71,4 +71,13 @@ public class Options
 				team_colors[i] = true;
 		}
 	}
+	
+	public Options.Zoom zoom = new Options.Zoom();
+	
+	public class Zoom
+	{
+		public int keybind = 43;
+		public float level = 2.8F;
+		public boolean scroll = true;
+	}
 }
