@@ -8,12 +8,9 @@
  */
 package tk.wurst_client.options.gui;
 
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.options.Keybinds;
 
 public class GuiZoomManager extends GuiScreen
 {
@@ -77,18 +74,6 @@ public class GuiZoomManager extends GuiScreen
 			}
 	}
 	
-	@Override
-	public void confirmClicked(boolean par1, int par2)
-	{
-		if(par1)
-		{
-			WurstClient.INSTANCE.keybinds = new Keybinds();
-			WurstClient.INSTANCE.fileManager.saveKeybinds();
-			WurstClient.INSTANCE.analytics.trackEvent("keybinds", "reset");
-		}
-		mc.displayGuiScreen(this);
-	}
-	
 	/**
 	 * Fired when a key is typed. This is the equivalent of
 	 * KeyListener.keyTyped(KeyEvent e).
@@ -96,20 +81,7 @@ public class GuiZoomManager extends GuiScreen
 	@Override
 	protected void keyTyped(char par1, int par2)
 	{
-		if(par2 == 28 || par2 == 156)
-			actionPerformed((GuiButton)buttonList.get(0));
-	}
-	
-	/**
-	 * Called when the mouse is clicked.
-	 *
-	 * @throws IOException
-	 */
-	@Override
-	protected void mouseClicked(int par1, int par2, int par3)
-		throws IOException
-	{
-		super.mouseClicked(par1, par2, par3);
+		
 	}
 	
 	/**
