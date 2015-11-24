@@ -13,6 +13,7 @@ import org.lwjgl.input.Keyboard;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.options.Options;
 
 public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 {
@@ -69,12 +70,25 @@ public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 					break;
 				case 2:
 					// Zoom Level More
+					WurstClient.INSTANCE.options.zoom.level =
+						Math.min(
+							Math.round(WurstClient.INSTANCE.options.zoom.level * 10F + 1F) / 10F,
+							10F);
+					WurstClient.INSTANCE.fileManager.saveOptions();
 					break;
 				case 3:
 					// Zoom Level Less
+					WurstClient.INSTANCE.options.zoom.level =
+						Math.max(
+							Math.round(WurstClient.INSTANCE.options.zoom.level * 10F - 1F) / 10F,
+							1F);
+					WurstClient.INSTANCE.fileManager.saveOptions();
 					break;
 				case 4:
 					// Zoom Level Default
+					WurstClient.INSTANCE.options.zoom.level =
+						new Options().zoom.level;
+					WurstClient.INSTANCE.fileManager.saveOptions();
 					break;
 			}
 	}
@@ -98,7 +112,8 @@ public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 		drawBackground(0);
 		drawCenteredString(fontRendererObj, "Zoom Manager", width / 2, 40,
 			0xffffff);
-		drawString(fontRendererObj, "Zoom Level: " + "12345", width / 2 - 75,
+		drawString(fontRendererObj, "Zoom Level: "
+			+ WurstClient.INSTANCE.options.zoom.level, width / 2 - 75,
 			height / 4 + 44, 0xcccccc);
 		super.drawScreen(par1, par2, par3);
 	}
