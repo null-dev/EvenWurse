@@ -12,11 +12,11 @@ import net.minecraft.client.gui.GuiScreen;
 
 import org.lwjgl.input.Keyboard;
 
-public class GuiKeybindPressAKey extends GuiScreen
+public class GuiPressAKey extends GuiScreen
 {
 	private GuiKeybindChange prevMenu;
 	
-	public GuiKeybindPressAKey(GuiKeybindChange prevMenu)
+	public GuiPressAKey(GuiKeybindChange prevMenu)
 	{
 		this.prevMenu = prevMenu;
 	}

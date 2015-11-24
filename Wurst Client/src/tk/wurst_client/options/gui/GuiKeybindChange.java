@@ -79,7 +79,7 @@ public class GuiKeybindChange extends GuiScreen
 	{
 		if(clickedButton.enabled)
 			if(clickedButton.id == 0)
-				mc.displayGuiScreen(new GuiKeybindPressAKey(this));
+				mc.displayGuiScreen(new GuiPressAKey(this));
 			else if(clickedButton.id == 1)
 			{
 				if(entry != null)
