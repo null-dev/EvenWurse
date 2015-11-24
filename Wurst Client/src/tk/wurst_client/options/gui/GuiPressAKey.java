@@ -14,10 +14,13 @@ import org.lwjgl.input.Keyboard;
 
 public class GuiPressAKey extends GuiScreen
 {
-	private GuiKeybindChange prevMenu;
+	private GuiPressAKeyCallback prevMenu;
 	
-	public GuiPressAKey(GuiKeybindChange prevMenu)
+	public GuiPressAKey(GuiPressAKeyCallback prevMenu)
 	{
+		if(!(prevMenu instanceof GuiScreen))
+			throw new IllegalArgumentException(
+				"prevMenu is not an instance of GuiScreen");
 		this.prevMenu = prevMenu;
 	}
 	
@@ -29,7 +32,7 @@ public class GuiPressAKey extends GuiScreen
 	protected void keyTyped(char par1, int par2)
 	{
 		prevMenu.setKey(Keyboard.getKeyName(par2));
-		mc.displayGuiScreen(prevMenu);
+		mc.displayGuiScreen((GuiScreen)prevMenu);
 	}
 	
 	/**
