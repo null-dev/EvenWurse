@@ -23,23 +23,42 @@ public class GuiWurstOptions extends GuiScreen
 {
 	private GuiScreen prevMenu;
 	private String[] modListModes = {"Auto", "Count", "Hidden"};
-	private String[] toolTips = {
-		"",
-		"Manage your friends by clicking them\n"
-			+ "with the middle mouse button.",
-		"How the mod list under the Wurst logo\n" + "should be displayed.\n"
-			+ "§nModes§r:\n" + "§lAuto§r: Renders the whole list if it fits\n"
-			+ "onto the screen.\n"
-			+ "§lCount§r: Only renders the number of active\n" + "mods.\n"
-			+ "§lHidden§r: Renders nothing.",
-		"Automatically maximizes the Minecraft window.\n"
-			+ "Windows & Linux only!",
-		"Whether or not the Wurst news should be\n" + "shown in the main menu",
-		"Sends anonymous usage statistics that help us\n"
-			+ "improve the Wurst Client.", "Manager for the keybinds",
-		"Manager for the blocks that X-Ray will\n" + "show", "", "", "",
-		"The official Website of the Wurst Client",
-		"Frequently asked questions", "", "", ""};
+	private String[] toolTips =
+		{
+			"",
+			"Add/remove friends by clicking them with\n"
+				+ "the middle mouse button.",
+			"How the mod list under the Wurst logo\n"
+				+ "should be displayed.\n" + "§lModes:§r\n"
+				+ "§nAuto§r: Renders the whole list if it fits\n"
+				+ "onto the screen.\n"
+				+ "§nCount§r: Only renders the number of active\n" + "mods.\n"
+				+ "§nHidden§r: Renders nothing.",
+			"Automatically maximizes the Minecraft window.\n"
+				+ "Windows & Linux only!",
+			"Whether or not the Wurst News should be\n"
+				+ "shown in the main menu.",
+			"Sends anonymous usage statistics that\n"
+				+ "help us improve the Wurst Client.",
+			"Keybinds allow you to toggle any mod\n"
+				+ "or command by simply pressing a\n" + "button.",
+			"Manager for the blocks that X-Ray will\n" + "show.",
+			"",
+			"",
+			"",
+			"The official website of the Wurst\n"
+				+ "Client. Here you can find the\n"
+				+ "latest Wurst updates, news and the\n" + "Wurst wiki.",
+			"The official YouTube channel of the\n"
+				+ "Wurst Client. Here we post Wurst\n"
+				+ "update videos, Wurst tutorials and\n" + "more.",
+			"Our Twitter account shows the latest\n"
+				+ "Wurst updates, news and sneak peeks in\n"
+				+ "140 characters or less.",
+			"The feedback network for the Wurst\n"
+				+ "Client, its website, etc. This is\n"
+				+ "the place to go for suggesting\n"
+				+ "features and reporting bugs.", ""};
 	private boolean autoMaximize;
 	
 	public GuiWurstOptions(GuiScreen par1GuiScreen)
@@ -68,7 +87,7 @@ public class GuiWurstOptions extends GuiScreen
 		buttonList.add(new GuiButton(3, width / 2 - 154, height / 4 + 72 - 16,
 			100, 20, "AutoMaximize: " + (autoMaximize ? "ON" : "OFF")));
 		buttonList.add(new GuiButton(4, width / 2 - 154, height / 4 + 96 - 16,
-			100, 20, "Wurst news: "
+			100, 20, "Wurst News: "
 				+ (WurstClient.INSTANCE.options.wurstNews ? "ON" : "OFF")));
 		buttonList.add(new GuiButton(5, width / 2 - 154, height / 4 + 120 - 16,
 			100, 20, "Analytics: "
@@ -87,11 +106,11 @@ public class GuiWurstOptions extends GuiScreen
 		buttonList.add(new GuiButton(11, width / 2 + 54, height / 4 + 24 - 16,
 			100, 20, "Wurst Website"));
 		buttonList.add(new GuiButton(12, width / 2 + 54, height / 4 + 48 - 16,
-			100, 20, "FAQ"));
+			100, 20, "Wurst on YouTube"));
 		buttonList.add(new GuiButton(13, width / 2 + 54, height / 4 + 72 - 16,
-			100, 20, "Report a Bug"));
+			100, 20, "Wurst on Twitter"));
 		buttonList.add(new GuiButton(14, width / 2 + 54, height / 4 + 96 - 16,
-			100, 20, "Suggest a Feature"));
+			100, 20, "Wurst Feedback"));
 		// buttonList.add(new GuiButton(15, width / 2 + 54, height / 4 + 120 -
 		// 16, 100, 20, "???"));
 		((GuiButton)buttonList.get(3)).enabled = !Minecraft.isRunningOnMac;
@@ -141,7 +160,7 @@ public class GuiWurstOptions extends GuiScreen
 				WurstClient.INSTANCE.options.wurstNews =
 					!WurstClient.INSTANCE.options.wurstNews;
 				clickedButton.displayString =
-					"Wurst news: "
+					"Wurst News: "
 						+ (WurstClient.INSTANCE.options.wurstNews ? "ON"
 							: "OFF");
 				WurstClient.INSTANCE.fileManager.saveOptions();
@@ -177,23 +196,23 @@ public class GuiWurstOptions extends GuiScreen
 				
 			}else if(clickedButton.id == 11)
 			{
-				MiscUtils.openLink("http://www.wurst-client.tk/");
+				MiscUtils.openLink("https://www.wurst-client.tk/");
 				WurstClient.INSTANCE.analytics.trackEvent("options",
-					"wurst client website");
+					"wurst website");
 			}else if(clickedButton.id == 12)
 			{
-				MiscUtils.openLink("http://www.wurst-client.tk/faq");
-				WurstClient.INSTANCE.analytics.trackEvent("options", "faq");
+				MiscUtils.openLink("https://www.wurst-client.tk/youtube");
+				WurstClient.INSTANCE.analytics.trackEvent("options",
+					"youtube channel");
 			}else if(clickedButton.id == 13)
 			{
-				MiscUtils.openLink("http://www.wurst-client.tk/bugs");
-				WurstClient.INSTANCE.analytics.trackEvent("options",
-					"bug report");
+				MiscUtils.openLink("https://www.wurst-client.tk/twitter");
+				WurstClient.INSTANCE.analytics.trackEvent("options", "twitter");
 			}else if(clickedButton.id == 14)
 			{
-				MiscUtils.openLink("http://www.wurst-client.tk/ideas");
-				WurstClient.INSTANCE.analytics.trackEvent("options",
-					"suggestion");
+				MiscUtils.openLink("https://www.wurst-client.tk/feedback");
+				WurstClient.INSTANCE.analytics
+					.trackEvent("options", "feedback");
 			}else if(clickedButton.id == 15)
 			{	
 				
