@@ -291,6 +291,7 @@ public class FileManager
 			BufferedReader load = new BufferedReader(new FileReader(options));
 			WurstClient.INSTANCE.options = JsonUtils.prettyGson.fromJson(load, Options.class);
 			load.close();
+			saveOptions();
 		}catch(Exception e)
 		{
 			e.printStackTrace();
