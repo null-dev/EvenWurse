@@ -8,11 +8,13 @@
  */
 package tk.wurst_client.options.gui;
 
+import org.lwjgl.input.Keyboard;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
 
-public class GuiZoomManager extends GuiScreen
+public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 {
 	private GuiScreen prevMenu;
 	
@@ -29,7 +31,9 @@ public class GuiZoomManager extends GuiScreen
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 144 - 16,
 			200, 20, "Back"));
 		buttonList.add(new GuiButton(1, width / 2 - 79, height / 4 + 24 - 16,
-			158, 20, "Zoom Key: " + "BACKSLASH"));
+			158, 20, "Zoom Key: "
+				+ Keyboard
+					.getKeyName(WurstClient.INSTANCE.options.zoom.keybind)));
 		buttonList.add(new GuiButton(2, width / 2 - 79, height / 4 + 72 - 16,
 			50, 20, "More"));
 		buttonList.add(new GuiButton(3, width / 2 - 25, height / 4 + 72 - 16,
@@ -61,6 +65,7 @@ public class GuiZoomManager extends GuiScreen
 					break;
 				case 1:
 					// Zoom Key
+					mc.displayGuiScreen(new GuiPressAKey(this));
 					break;
 				case 2:
 					// Zoom Level More
@@ -80,7 +85,7 @@ public class GuiZoomManager extends GuiScreen
 	 */
 	@Override
 	protected void keyTyped(char par1, int par2)
-	{
+	{	
 		
 	}
 	
@@ -96,5 +101,13 @@ public class GuiZoomManager extends GuiScreen
 		drawString(fontRendererObj, "Zoom Level: " + "12345", width / 2 - 75,
 			height / 4 + 44, 0xcccccc);
 		super.drawScreen(par1, par2, par3);
+	}
+	
+	@Override
+	public void setKey(String key)
+	{
+		WurstClient.INSTANCE.options.zoom.keybind = Keyboard.getKeyIndex(key);
+		WurstClient.INSTANCE.fileManager.saveOptions();
+		((GuiButton)buttonList.get(1)).displayString = "Zoom Key: " + key;
 	}
 }
