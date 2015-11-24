@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright Â© 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -36,6 +36,16 @@ public class AntiPotionMod extends Mod implements UpdateListener
 			&& !Minecraft.getMinecraft().thePlayer.getActivePotionEffects()
 				.isEmpty())
 			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.hunger)
+			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.moveSlowdown)
+			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.digSlowdown)
+			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.harm)
+                        if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.confusion)
+                        if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.blindness)
+                        if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.weakness)
+                        if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.wither)
+
+
+
 				|| Minecraft.getMinecraft().thePlayer
 					.isPotionActive(Potion.poison))
 				for(int i = 0; i < 1000; i++)
