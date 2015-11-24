@@ -43,7 +43,8 @@ public class GuiWurstOptions extends GuiScreen
 			"Keybinds allow you to toggle any mod\n"
 				+ "or command by simply pressing a\n" + "button.",
 			"Manager for the blocks that X-Ray will\n" + "show.",
-			"",
+			"The Zoom Manager allows you to\n"
+				+ "change the zoom key and how far it\n" + "will zoom in.",
 			"",
 			"",
 			"The official website of the Wurst\n"
@@ -97,8 +98,8 @@ public class GuiWurstOptions extends GuiScreen
 			100, 20, "Keybinds"));
 		buttonList.add(new GuiButton(7, width / 2 - 50, height / 4 + 48 - 16,
 			100, 20, "X-Ray Blocks"));
-		// this.buttonList.add(new GuiButton(8, this.width / 2 - 50, this.height
-		// / 4 + 72 - 16, 100, 20, "???"));
+		buttonList.add(new GuiButton(8, width / 2 - 50, height / 4 + 72 - 16,
+			100, 20, "Zoom"));
 		// this.buttonList.add(new GuiButton(9, this.width / 2 - 50, this.height
 		// / 4 + 96 - 16, 100, 20, "???"));
 		// this.buttonList.add(new GuiButton(10, this.width / 2 - 50,
@@ -182,13 +183,15 @@ public class GuiWurstOptions extends GuiScreen
 					"Analytics: " + (analytics.enabled ? "ON" : "OFF");
 				WurstClient.INSTANCE.fileManager.saveOptions();
 			}else if(clickedButton.id == 6)
+				// Keybind Manager
 				mc.displayGuiScreen(new GuiKeybindManager(this));
 			else if(clickedButton.id == 7)
+				// X-Ray Block Manager
 				mc.displayGuiScreen(new GuiXRayBlocksManager(this));
 			else if(clickedButton.id == 8)
-			{	
-				
-			}else if(clickedButton.id == 9)
+				// Zoom Manager
+				mc.displayGuiScreen(new GuiZoomManager(this));
+			else if(clickedButton.id == 9)
 			{	
 				
 			}else if(clickedButton.id == 10)
