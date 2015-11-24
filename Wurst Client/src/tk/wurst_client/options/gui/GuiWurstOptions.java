@@ -44,7 +44,8 @@ public class GuiWurstOptions extends GuiScreen
 				+ "or command by simply pressing a\n" + "button.",
 			"Manager for the blocks that X-Ray will\n" + "show.",
 			"The Zoom Manager allows you to\n"
-				+ "change the zoom key and how far it\n" + "will zoom in.",
+				+ "change the zoom key, how far it\n"
+				+ "will zoom in and more.",
 			"",
 			"",
 			"The official website of the Wurst\n"

@@ -41,6 +41,9 @@ public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 			50, 20, "Less"));
 		buttonList.add(new GuiButton(4, width / 2 + 29, height / 4 + 72 - 16,
 			50, 20, "Default"));
+		buttonList.add(new GuiButton(5, width / 2 - 79, height / 4 + 96 - 16,
+			158, 20, "Use Mouse Wheel: "
+				+ (WurstClient.INSTANCE.options.zoom.scroll ? "ON" : "OFF")));
 		WurstClient.INSTANCE.analytics.trackPageView(
 			"/options/keybind-manager", "Keybind Manager");
 	}
@@ -89,6 +92,16 @@ public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 					WurstClient.INSTANCE.options.zoom.level =
 						new Options().zoom.level;
 					WurstClient.INSTANCE.fileManager.saveOptions();
+					break;
+				case 5:
+					// Use Mouse Wheel
+					WurstClient.INSTANCE.options.zoom.scroll =
+						!WurstClient.INSTANCE.options.zoom.scroll;
+					WurstClient.INSTANCE.fileManager.saveOptions();
+					((GuiButton)buttonList.get(5)).displayString =
+						"Use Mouse Wheel: "
+							+ (WurstClient.INSTANCE.options.zoom.scroll ? "ON"
+								: "OFF");
 					break;
 			}
 	}
