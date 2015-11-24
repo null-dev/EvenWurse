@@ -126,8 +126,8 @@ public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 		drawCenteredString(fontRendererObj, "Zoom Manager", width / 2, 40,
 			0xffffff);
 		drawString(fontRendererObj, "Zoom Level: "
-			+ WurstClient.INSTANCE.options.zoom.level, width / 2 - 75,
-			height / 4 + 44, 0xcccccc);
+			+ WurstClient.INSTANCE.options.zoom.level + " x normal",
+			width / 2 - 75, height / 4 + 44, 0xcccccc);
 		super.drawScreen(par1, par2, par3);
 	}
 	
