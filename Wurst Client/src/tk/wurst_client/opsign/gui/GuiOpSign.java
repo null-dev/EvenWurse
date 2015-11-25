@@ -19,6 +19,7 @@ import org.lwjgl.input.Keyboard;
 
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.OpSignMod;
+import tk.wurst_client.utils.MiscUtils;
 
 public class GuiOpSign extends GuiScreen
 {
@@ -37,10 +38,12 @@ public class GuiOpSign extends GuiScreen
 	public void initGui()
 	{
 		Keyboard.enableRepeatEvents(true);
-		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
+		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 98,
 			20, "Done"));
-		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
-			200, 20, "Cancel"));
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24, 200, 20,
+			"Cancel"));
+		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2,
+			98, 20, "Tutorial"));
 		commandBox =
 			new GuiTextField(0, fontRendererObj, width / 2 - 100, 60, 200, 20);
 		commandBox.setMaxStringLength(100);
@@ -62,14 +65,17 @@ public class GuiOpSign extends GuiScreen
 			case 0:
 				Minecraft.getMinecraft().displayGuiScreen(prevMenu);
 				mod.setCommand(commandBox.getText());
-				WurstClient.INSTANCE.analytics.trackEvent("opsign", "set command");
+				WurstClient.INSTANCE.analytics.trackEvent("opsign",
+					"set command");
 				break;
 			case 1:
 				Minecraft.getMinecraft().displayGuiScreen(prevMenu);
 				mod.setEnabled(false);
 				WurstClient.INSTANCE.analytics.trackEvent("opsign", "cancel");
 				break;
-			default:
+			case 2:
+				MiscUtils
+					.openLink("https://www.wurst-client.tk/wiki/Mods/OP-Sign_(Force_OP)");
 				break;
 		}
 	}
@@ -124,11 +130,9 @@ public class GuiOpSign extends GuiScreen
 		drawCenteredString(fontRendererObj,
 			"This command will be executed once", width / 2, 90, 10526880);
 		drawCenteredString(fontRendererObj,
-			"you place & right click on a sign.", width / 2, 100,
-			10526880);
+			"you place & right click on a sign.", width / 2, 100, 10526880);
 		drawCenteredString(fontRendererObj,
-			"§cOnly works on servers running§r", width / 2, 110,
-			10526880);
+			"§cOnly works on servers running§r", width / 2, 110, 10526880);
 		drawCenteredString(fontRendererObj,
 			"§c§lMinecraft 1.8 - 1.8.5 without Spigot!§r", width / 2, 120,
 			10526880);
