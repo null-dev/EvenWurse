@@ -8,6 +8,7 @@
  */
 package tk.wurst_client.mods;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
@@ -26,119 +27,135 @@ public class ModManager
 			}
 		});
 	
+	public final AntiAfkMod antiAfkMod = new AntiAfkMod();
+	public final AntiBlindMod antiBlindMod = new AntiBlindMod();
+	public final AntiCactusMod antiCactusMod = new AntiCactusMod();
+	public final AntiFireMod antiFireMod = new AntiFireMod();
+	public final AntiKnockbackMod antiKnockbackMod = new AntiKnockbackMod();
+	public final AntiMacMod antiMacMod = new AntiMacMod();
+	public final AntiPotionMod antiPotionMod = new AntiPotionMod();
+	public final AntiSpamMod antiSpamMod = new AntiSpamMod();
+	public final ArenaBrawlMod arenaBrawlMod = new ArenaBrawlMod();
+	public final AutoArmorMod autoArmorMod = new AutoArmorMod();
+	public final AutoBuildMod autoBuildMod = new AutoBuildMod();
+	public final AutoLeaveMod autoLeaveMod = new AutoLeaveMod();
+	public final AutoEatMod autoEatMod = new AutoEatMod();
+	public final AutoFishMod autoFishMod = new AutoFishMod();
+	public final AutoMineMod autoMineMod = new AutoMineMod();
+	public final AutoRespawnMod autoRespawnMod = new AutoRespawnMod();
+	public final AutoSignMod autoSignMod = new AutoSignMod();
+	public final AutoSprintMod autoSprintMod = new AutoSprintMod();
+	public final AutoStealMod autoStealMod = new AutoStealMod();
+	public final AutoSwitchMod autoSwitchMod = new AutoSwitchMod();
+	public final AutoSwordMod autoSwordMod = new AutoSwordMod();
+	public final AutoToolMod autoToolMod = new AutoToolMod();
+	public final AutoWalkMod autoWalkMod = new AutoWalkMod();
+	public final BaseFinderMod baseFinderMod = new BaseFinderMod();
+	public final BlinkMod blinkMod = new BlinkMod();
+	public final BowAimbotMod bowAimbotMod = new BowAimbotMod();
+	public final BuildRandomMod buildRandomMod = new BuildRandomMod();
+	public final BunnyHopMod bunnyHopMod = new BunnyHopMod();
+	public final CaveFinderMod caveFinderMod = new CaveFinderMod();
+	public final ChestEspMod chestEspMod = new ChestEspMod();
+	public final ClickGuiMod clickGuiMod = new ClickGuiMod();
+	public final CmdBlockMod cmdBlockMod = new CmdBlockMod();
+	public final CrashChestMod crashChestMod = new CrashChestMod();
+	public final CrashItemMod crashItemMod = new CrashItemMod();
+	public final CriticalsMod criticalsMod = new CriticalsMod();
+	public final DerpMod derpMod = new DerpMod();
+	public final DolphinMod dolphinMod = new DolphinMod();
+	public final FastBreakMod fastBreakMod = new FastBreakMod();
+	public final FastBowMod fastBowMod = new FastBowMod();
+	public final FastEatMod fastEatMod = new FastEatMod();
+	public final FastLadderMod fastLadderMod = new FastLadderMod();
+	public final FastPlaceMod fastPlaceMod = new FastPlaceMod();
+	public final FightBotMod fightBotMod = new FightBotMod();
+	public final FlightMod flightMod = new FlightMod();
+	public final FollowMod followMod = new FollowMod();
+	public final ForceOpMod forceOpMod = new ForceOpMod();
+	public final ForcePushMod forcePushMod = new ForcePushMod();
+	public final FreecamMod freecamMod = new FreecamMod();
+	public final FullbrightMod fullbrightMod = new FullbrightMod();
+	public final GhostHandMod ghostHandMod = new GhostHandMod();
+	public final GlideMod glideMod = new GlideMod();
+	public final GoToCmdMod goToCmdMod = new GoToCmdMod();
+	public final HeadlessMod headlessMod = new HeadlessMod();
+	public final HeadRollMod headRollMod = new HeadRollMod();
+	public final HealthTagsMod healthTagsMod = new HealthTagsMod();
+	public final HighJumpMod highJumpMod = new HighJumpMod();
+	public final HomeMod homeMod = new HomeMod();
+	public final InstantBunkerMod instantBunkerMod = new InstantBunkerMod();
+	public final InvisibilityMod invisibilityMod = new InvisibilityMod();
+	public final ItemEspMod itemEspMod = new ItemEspMod();
+	public final JesusMod jesusMod = new JesusMod();
+	public final JetpackMod jetpackMod = new JetpackMod();
+	public final KaboomMod kaboomMod = new KaboomMod();
+	public final KillauraLegitMod killauraLegitMod = new KillauraLegitMod();
+	public final KillauraMod killauraMod = new KillauraMod();
+	public final KillerPotionMod killerPotionMod = new KillerPotionMod();
+	public final LiquidsMod liquidsMod = new LiquidsMod();
+	public final LsdMod lsdMod = new LsdMod();
+	public final MassTpaMod massTpaMod = new MassTpaMod();
+	public final MileyCyrusMod mileyCyrusMod = new MileyCyrusMod();
+	public final MobEspMod mobEspMod = new MobEspMod();
+	public final MultiAuraMod multiAuraMod = new MultiAuraMod();
+	public final NameProtectMod nameProtectMod = new NameProtectMod();
+	public final NoClipMod noClipMod = new NoClipMod();
+	public final NameTagsMod nameTagsMod = new NameTagsMod();
+	public final NoFallMod noFallMod = new NoFallMod();
+	public final NoHurtcamMod noHurtcamMod = new NoHurtcamMod();
+	public final NoSlowdownMod noSlowdownMod = new NoSlowdownMod();
+	public final NoWebMod noWebMod = new NoWebMod();
+	public final NukerMod nukerMod = new NukerMod();
+	public final NukerLegitMod nukerLegitMod = new NukerLegitMod();
+	public final OpSignMod opSignMod = new OpSignMod();
+	public final OverlayMod overlayMod = new OverlayMod();
+	public final PanicMod panicMod = new PanicMod();
+	public final PhaseMod phaseMod = new PhaseMod();
+	public final PlayerEspMod playerEspMod = new PlayerEspMod();
+	public final PlayerFinderMod playerFinderMod = new PlayerFinderMod();
+	public final PotionSaverMod potionSaverMod = new PotionSaverMod();
+	public final ProphuntEspMod prophuntEspMod = new ProphuntEspMod();
+	public final ProtectMod protectMod = new ProtectMod();
+	public final RegenMod regenMod = new RegenMod();
+	public final RemoteViewMod remoteViewMod = new RemoteViewMod();
+	public final SafeWalkMod safeWalkMod = new SafeWalkMod();
+	public final SearchMod searchMod = new SearchMod();
+	public final SkinBlinkerMod skinBlinkerMod = new SkinBlinkerMod();
+	public final SneakMod sneakMod = new SneakMod();
+	public final SpammerMod spammerMod = new SpammerMod();
+	public final SpeedHackMod speedHackMod = new SpeedHackMod();
+	public final SpeedNukerMod speedNukerMod = new SpeedNukerMod();
+	public final SpiderMod spiderMod = new SpiderMod();
+	public final StepMod stepMod = new StepMod();
+	public final ThrowMod throwMod = new ThrowMod();
+	public final TimerMod timerMod = new TimerMod();
+	public final TiredMod tiredMod = new TiredMod();
+	public final TracersMod tracersMod = new TracersMod();
+	public final TriggerBotMod triggerBotMod = new TriggerBotMod();
+	public final TrollPotionMod trollPotionMod = new TrollPotionMod();
+	public final TrueSightMod trueSightMod = new TrueSightMod();
+	public final TunnellerMod tunnellerMod = new TunnellerMod();
+	public final XRayMod xRayMod = new XRayMod();
+	public final YesCheatMod yesCheatMod = new YesCheatMod();
+	
 	public ModManager()
 	{
-		addMod(new AntiAfkMod());
-		addMod(new AntiBlindMod());
-		addMod(new AntiCactusMod());
-		addMod(new AntiFireMod());
-		addMod(new AntiKnockbackMod());
-		addMod(new AntiMacMod());
-		addMod(new AntiPotionMod());
-		addMod(new AntiSpamMod());
-		addMod(new ArenaBrawlMod());
-		addMod(new AutoArmorMod());
-		addMod(new AutoLeaveMod());
-		addMod(new AutoEatMod());
-		addMod(new AutoFishMod());
-		addMod(new AutoMineMod());
-		addMod(new AutoRespawnMod());
-		addMod(new AutoSignMod());
-		addMod(new AutoSprintMod());
-		addMod(new AutoStealMod());
-		addMod(new AutoSwitchMod());
-		addMod(new AutoSwordMod());
-		addMod(new AutoToolMod());
-		addMod(new AutoWalkMod());
-		addMod(new BaseFinderMod());
-		addMod(new BlinkMod());
-		addMod(new BowAimbotMod());
-		addMod(new BuildRandomMod());
-		addMod(new BunnyHopMod());
-		addMod(new CaveFinderMod());
-		addMod(new ChestEspMod());
-		addMod(new ClickGuiMod());
-		addMod(new CmdBlockMod());
-		addMod(new CrashChestMod());
-		addMod(new CrashItemMod());
-		addMod(new CriticalsMod());
-		addMod(new DerpMod());
-		addMod(new DolphinMod());
-		addMod(new FastBreakMod());
-		addMod(new FastBowMod());
-		addMod(new FastEatMod());
-		addMod(new FastLadderMod());
-		addMod(new FastPlaceMod());
-		addMod(new FightBotMod());
-		addMod(new FlightMod());
-		addMod(new FollowMod());
-		addMod(new ForceOpMod());
-		addMod(new ForcePushMod());
-		addMod(new FreecamMod());
-		addMod(new FullbrightMod());
-		addMod(new GhostHandMod());
-		addMod(new GlideMod());
-		addMod(new GoToCmdMod());
-		addMod(new HeadlessMod());
-		addMod(new HeadRollMod());
-		addMod(new HealthTagsMod());
-		addMod(new HighJumpMod());
-		addMod(new HomeMod());
-		addMod(new InstantBunkerMod());
-		addMod(new InvisibilityMod());
-		addMod(new ItemEspMod());
-		addMod(new JesusMod());
-		addMod(new JetpackMod());
-		addMod(new KaboomMod());
-		addMod(new KillauraLegitMod());
-		addMod(new KillauraMod());
-		addMod(new KillerPotionMod());
-		addMod(new LiquidsMod());
-		addMod(new LsdMod());
-		addMod(new MassTpaMod());
-		addMod(new MileyCyrusMod());
-		addMod(new MobEspMod());
-		addMod(new MultiAuraMod());
-		addMod(new NameProtectMod());
-		addMod(new NoClipMod());
-		addMod(new NameTagsMod());
-		addMod(new NoFallMod());
-		addMod(new NoHurtcamMod());
-		addMod(new NoSlowdownMod());
-		addMod(new NoWebMod());
-		addMod(new NukerMod());
-		addMod(new NukerLegitMod());
-		addMod(new OpSignMod());
-		addMod(new OverlayMod());
-		addMod(new PanicMod());
-		addMod(new PhaseMod());
-		addMod(new PlayerEspMod());
-		addMod(new PlayerFinderMod());
-		addMod(new PotionSaverMod());
-		addMod(new ProphuntEspMod());
-		addMod(new ProtectMod());
-		addMod(new RegenMod());
-		addMod(new RemoteViewMod());
-		addMod(new SafeWalkMod());
-		addMod(new SearchMod());
-		addMod(new SkinBlinkerMod());
-		addMod(new SneakMod());
-		addMod(new SpammerMod());
-		addMod(new SpeedHackMod());
-		addMod(new SpeedNukerMod());
-		addMod(new SpiderMod());
-		addMod(new StepMod());
-		addMod(new ThrowMod());
-		addMod(new TimerMod());
-		addMod(new TiredMod());
-		addMod(new TracersMod());
-		addMod(new TriggerBotMod());
-		addMod(new TrollPotionMod());
-		addMod(new TrueSightMod());
-		addMod(new TunnellerMod());
-		addMod(new XRayMod());
-		addMod(new YesCheatMod());
-		addMod(new AutoBuildMod());
+		try
+		{
+			for(Field field : ModManager.class.getFields())
+			{
+				if(field.getName().endsWith("Mod"))
+				{
+					Mod mod = (Mod)field.get(this);
+					mods.put(mod.getName(), mod);
+					mod.initSliders();
+				}
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public Mod getModByClass(Class<?> modClass)
@@ -159,11 +176,5 @@ public class ModManager
 	public int countMods()
 	{
 		return mods.size();
-	}
-	
-	private void addMod(Mod mod)
-	{
-		mods.put(mod.getName(), mod);
-		mod.initSliders();
 	}
 }
