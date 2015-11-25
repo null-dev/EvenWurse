@@ -133,7 +133,7 @@ public abstract class AltEditorScreen extends GuiScreen
 			else if(button.id == 4)
 				displayText = SkinStealer.stealSkin(getName());
 			else if(button.id == 5)
-				MiscUtils.openFile(WurstClient.INSTANCE.fileManager.skinDir);
+				MiscUtils.openFile(WurstClient.INSTANCE.files.skinDir);
 	}
 	
 	/**

@@ -12,16 +12,16 @@ import net.minecraft.client.gui.ServerListEntryNormal;
 
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
-import tk.wurst_client.analytics.Analytics;
-import tk.wurst_client.chat.ChatMessenger;
+import tk.wurst_client.analytics.AnalyticsManager;
+import tk.wurst_client.chat.ChatManager;
 import tk.wurst_client.commands.CmdManager;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.files.FileManager;
 import tk.wurst_client.gui.GuiManager;
 import tk.wurst_client.mods.ModManager;
-import tk.wurst_client.options.Friends;
-import tk.wurst_client.options.Keybinds;
-import tk.wurst_client.options.Options;
+import tk.wurst_client.options.FriendsList;
+import tk.wurst_client.options.KeybindManager;
+import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.update.Updater;
 
 public enum WurstClient
@@ -33,35 +33,35 @@ public enum WurstClient
 	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
 	
-	public ChatMessenger chat;
-	public CmdManager cmdManager;
-	public EventManager eventManager;
-	public FileManager fileManager;
-	public Friends friends;
-	public GuiManager guiManager;
-	public ModManager modManager;
-	public Keybinds keybinds;
-	public Options options;
+	public ChatManager chat;
+	public CmdManager commands;
+	public EventManager events;
+	public FileManager files;
+	public FriendsList friends;
+	public GuiManager gui;
+	public ModManager mods;
+	public KeybindManager keybinds;
+	public OptionsManager options;
 	public Updater updater;
-	public Analytics analytics;
+	public AnalyticsManager analytics;
 	
 	public void startClient()
 	{
-		eventManager = new EventManager();
-		modManager = new ModManager();
-		guiManager = new GuiManager();
-		cmdManager = new CmdManager();
-		fileManager = new FileManager();
+		events = new EventManager();
+		mods = new ModManager();
+		gui = new GuiManager();
+		commands = new CmdManager();
+		files = new FileManager();
 		updater = new Updater();
-		chat = new ChatMessenger();
-		keybinds = new Keybinds();
-		options = new Options();
-		friends = new Friends();
+		chat = new ChatManager();
+		keybinds = new KeybindManager();
+		options = new OptionsManager();
+		friends = new FriendsList();
 		
-		fileManager.init();
-		guiManager.setTheme(new WurstTheme());
-		guiManager.setup();
+		files.init();
+		gui.setTheme(new WurstTheme());
+		gui.setup();
 		updater.checkForUpdate();
-		analytics = new Analytics("UA-52838431-5", "client.wurst-client.tk");
+		analytics = new AnalyticsManager("UA-52838431-5", "client.wurst-client.tk");
 	}
 }

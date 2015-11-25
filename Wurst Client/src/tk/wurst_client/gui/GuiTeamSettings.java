@@ -32,7 +32,7 @@ public class GuiTeamSettings extends GuiScreen
 			WurstClient.INSTANCE.options.target.team_colors = new boolean[16];
 			for(int i = 0; i < WurstClient.INSTANCE.options.target.team_colors.length; i++)
 				WurstClient.INSTANCE.options.target.team_colors[i] = true;
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 		}
 		
 		WurstClient.INSTANCE.analytics.trackPageView("/team-settings",
@@ -138,7 +138,7 @@ public class GuiTeamSettings extends GuiScreen
 						"toggle", onOff ? "on" : "off", button.id);
 					break;
 			}
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 		}
 	}
 	

@@ -58,7 +58,7 @@ public class GuiAltAdd extends AltEditorScreen
 		if(displayText.equals(""))
 		{
 			GuiAltList.sortAlts();
-			WurstClient.INSTANCE.fileManager.saveAlts();
+			WurstClient.INSTANCE.files.saveAlts();
 			mc.displayGuiScreen(prevMenu);
 		}else
 			errorTimer = 8;

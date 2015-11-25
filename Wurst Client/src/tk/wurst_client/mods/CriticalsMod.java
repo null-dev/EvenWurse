@@ -24,13 +24,13 @@ public class CriticalsMod extends Mod implements LeftClickListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.eventManager.add(LeftClickListener.class, this);
+		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(LeftClickListener.class, this);
+		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class CriticalsMod extends Mod implements LeftClickListener
 	
 	public static void doCritical()
 	{
-		if(!WurstClient.INSTANCE.modManager.getModByClass(CriticalsMod.class)
+		if(!WurstClient.INSTANCE.mods.getModByClass(CriticalsMod.class)
 			.isActive())
 			return;
 		if(!Minecraft.getMinecraft().thePlayer.isInWater()

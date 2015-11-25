@@ -25,36 +25,36 @@ public class AntiMacMod extends Mod
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 				.setEnabled(false);
 		if(blockedMods == null)
 		{
 			blockedMods = new HashSet<>();
 			// add mods that down't work with YesCheat+
-			for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
+			for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 				if(!mod.getClass().getAnnotation(Mod.Info.class)
 					.noCheatCompatible())
 					blockedMods.add(mod);
 			
 			// remove mods that work with MAC
 			// TODO: More efficient method to do this
-			blockedMods.remove(WurstClient.INSTANCE.modManager
+			blockedMods.remove(WurstClient.INSTANCE.mods
 				.getModByClass(AntiFireMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.modManager
+			blockedMods.remove(WurstClient.INSTANCE.mods
 				.getModByClass(AntiPotionMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.modManager
+			blockedMods.remove(WurstClient.INSTANCE.mods
 				.getModByClass(FastBowMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.modManager
+			blockedMods.remove(WurstClient.INSTANCE.mods
 				.getModByClass(GlideMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.modManager
+			blockedMods.remove(WurstClient.INSTANCE.mods
 				.getModByClass(MultiAuraMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.modManager
+			blockedMods.remove(WurstClient.INSTANCE.mods
 				.getModByClass(NoSlowdownMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.modManager
+			blockedMods.remove(WurstClient.INSTANCE.mods
 				.getModByClass(RegenMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.modManager
+			blockedMods.remove(WurstClient.INSTANCE.mods
 				.getModByClass(SpiderMod.class));
 		}
 		for(Mod mod : blockedMods)

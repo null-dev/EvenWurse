@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.options.Options;
+import tk.wurst_client.options.OptionsManager;
 
 public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 {
@@ -77,7 +77,7 @@ public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 						Math.min(
 							Math.round(WurstClient.INSTANCE.options.zoom.level * 10F + 1F) / 10F,
 							10F);
-					WurstClient.INSTANCE.fileManager.saveOptions();
+					WurstClient.INSTANCE.files.saveOptions();
 					break;
 				case 3:
 					// Zoom Level Less
@@ -85,19 +85,19 @@ public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 						Math.max(
 							Math.round(WurstClient.INSTANCE.options.zoom.level * 10F - 1F) / 10F,
 							1F);
-					WurstClient.INSTANCE.fileManager.saveOptions();
+					WurstClient.INSTANCE.files.saveOptions();
 					break;
 				case 4:
 					// Zoom Level Default
 					WurstClient.INSTANCE.options.zoom.level =
-						new Options().zoom.level;
-					WurstClient.INSTANCE.fileManager.saveOptions();
+						new OptionsManager().zoom.level;
+					WurstClient.INSTANCE.files.saveOptions();
 					break;
 				case 5:
 					// Use Mouse Wheel
 					WurstClient.INSTANCE.options.zoom.scroll =
 						!WurstClient.INSTANCE.options.zoom.scroll;
-					WurstClient.INSTANCE.fileManager.saveOptions();
+					WurstClient.INSTANCE.files.saveOptions();
 					((GuiButton)buttonList.get(5)).displayString =
 						"Use Mouse Wheel: "
 							+ (WurstClient.INSTANCE.options.zoom.scroll ? "ON"
@@ -135,7 +135,7 @@ public class GuiZoomManager extends GuiScreen implements GuiPressAKeyCallback
 	public void setKey(String key)
 	{
 		WurstClient.INSTANCE.options.zoom.keybind = Keyboard.getKeyIndex(key);
-		WurstClient.INSTANCE.fileManager.saveOptions();
+		WurstClient.INSTANCE.files.saveOptions();
 		((GuiButton)buttonList.get(1)).displayString = "Zoom Key: " + key;
 	}
 }

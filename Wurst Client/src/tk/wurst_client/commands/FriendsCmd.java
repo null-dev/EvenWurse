@@ -61,14 +61,14 @@ public class FriendsCmd extends Cmd
 				return;
 			}
 			WurstClient.INSTANCE.friends.add(args[1]);
-			WurstClient.INSTANCE.fileManager.saveFriends();
+			WurstClient.INSTANCE.files.saveFriends();
 			WurstClient.INSTANCE.chat.message("Added friend \"" + args[1]
 				+ "\".");
 		}else if(args[0].equalsIgnoreCase("remove"))
 		{
 			if(WurstClient.INSTANCE.friends.remove(args[1]))
 			{
-				WurstClient.INSTANCE.fileManager.saveFriends();
+				WurstClient.INSTANCE.files.saveFriends();
 				WurstClient.INSTANCE.chat.message("Removed friend \"" + args[1]
 					+ "\".");
 			}else

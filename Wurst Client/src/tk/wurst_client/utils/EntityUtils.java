@@ -27,7 +27,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.KillauraMod;
-import tk.wurst_client.options.Options;
+import tk.wurst_client.options.OptionsManager;
 
 public class EntityUtils
 {
@@ -140,7 +140,7 @@ public class EntityUtils
 				.getName()))
 				return false;
 		
-		Options.Target targetOptions = WurstClient.INSTANCE.options.target;
+		OptionsManager.Target targetOptions = WurstClient.INSTANCE.options.target;
 		
 		// invisible entities
 		if(((Entity)o).isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
@@ -206,7 +206,7 @@ public class EntityUtils
 		EntityLivingBase closestEntity = null;
 		for(Object o : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(isCorrectEntity(o, ignoreFriends)
-				&& getDistanceFromMouse((Entity)o) <= ((KillauraMod)WurstClient.INSTANCE.modManager
+				&& getDistanceFromMouse((Entity)o) <= ((KillauraMod)WurstClient.INSTANCE.mods
 					.getModByClass(KillauraMod.class)).fov / 2)
 			{
 				EntityLivingBase en = (EntityLivingBase)o;

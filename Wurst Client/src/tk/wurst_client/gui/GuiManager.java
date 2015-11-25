@@ -116,14 +116,14 @@ public final class GuiManager extends AbstractGuiManager
 		settings.setMinimized(true);
 		settings.setPinnable(true);
 		addFrame(settings);
-		for(final Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
+		for(final Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 		{
 			ModuleFrame frame = categoryFrames.get(mod.getCategory());
 			if(frame == null)
 			{
 				String name = mod.getCategory().name().toLowerCase();
-				if(WurstClient.INSTANCE.fileManager.options.exists())
-					WurstClient.INSTANCE.fileManager.loadOptions();
+				if(WurstClient.INSTANCE.files.options.exists())
+					WurstClient.INSTANCE.files.loadOptions();
 				if(name.equalsIgnoreCase("HIDDEN"))
 					continue;
 				name =
@@ -183,7 +183,7 @@ public final class GuiManager extends AbstractGuiManager
 							{
 								int id = moduleSliders.indexOf(slider);
 								moduleSliders.set(id, (BasicSlider)slider);
-								WurstClient.INSTANCE.fileManager.saveSliders();
+								WurstClient.INSTANCE.files.saveSliders();
 							}
 							mod.setSliders(moduleSliders);
 							mod.updateSettings();
@@ -205,7 +205,7 @@ public final class GuiManager extends AbstractGuiManager
 			{
 				WurstClient.INSTANCE.options.autobuildMode =
 					comboBox.getSelectedIndex();
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 			}
 		});
 		autoBuildBox
@@ -216,10 +216,10 @@ public final class GuiManager extends AbstractGuiManager
 		// Target
 		addFrame(new TargetFrame());
 		
-		if(!WurstClient.INSTANCE.fileManager.sliders.exists())
-			WurstClient.INSTANCE.fileManager.saveSliders();
+		if(!WurstClient.INSTANCE.files.sliders.exists())
+			WurstClient.INSTANCE.files.saveSliders();
 		else
-			WurstClient.INSTANCE.fileManager.loadSliders();
+			WurstClient.INSTANCE.files.loadSliders();
 		resizeComponents();
 		Minecraft minecraft = Minecraft.getMinecraft();
 		int offsetX = 5, offsetY = 5;
@@ -251,8 +251,8 @@ public final class GuiManager extends AbstractGuiManager
 				offsetY += height + 5;
 			}
 		}
-		if(WurstClient.INSTANCE.fileManager.gui.exists())
-			WurstClient.INSTANCE.fileManager.loadGUI(getFrames());
+		if(WurstClient.INSTANCE.files.gui.exists())
+			WurstClient.INSTANCE.files.loadGUI(getFrames());
 	}
 	
 	@Override

@@ -38,7 +38,7 @@ public class VisitorData
 		long now = now();
 		WurstClient.INSTANCE.options.google_analytics.last_launch = now;
 		WurstClient.INSTANCE.options.google_analytics.launches = visits + 1;
-		WurstClient.INSTANCE.fileManager.saveOptions();
+		WurstClient.INSTANCE.files.saveOptions();
 		return new VisitorData(visitorId, timestampfirst, timestamplast, now,
 			visits + 1);
 	}

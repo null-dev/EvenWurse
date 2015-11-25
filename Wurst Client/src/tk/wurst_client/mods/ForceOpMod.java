@@ -87,7 +87,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 			public void run()
 			{
 				lastPW = -1;
-				WurstClient.INSTANCE.fileManager.loadOptions();
+				WurstClient.INSTANCE.files.loadOptions();
 				dialog =
 					new JDialog((JFrame)null, ForceOpMod.this.getName(), false);
 				dialog.setAlwaysOnTop(true);
@@ -104,7 +104,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						WurstClient.INSTANCE.modManager.getModByClass(
+						WurstClient.INSTANCE.mods.getModByClass(
 							ForceOpMod.class).setEnabled(false);
 					}
 				});
@@ -117,7 +117,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 				rbDefaultList =
 					new JRadioButton("default",
 						WurstClient.INSTANCE.options.forceOPList
-							.equals(WurstClient.INSTANCE.fileManager.wurstDir
+							.equals(WurstClient.INSTANCE.files.wurstDir
 								.getPath()));
 				rbDefaultList.setLocation(4, 24);
 				rbDefaultList.setSize(rbDefaultList.getPreferredSize());
@@ -137,9 +137,9 @@ public class ForceOpMod extends Mod implements ChatInputListener
 						if(!rbTXTList.isSelected())
 						{
 							WurstClient.INSTANCE.options.forceOPList =
-								WurstClient.INSTANCE.fileManager.wurstDir
+								WurstClient.INSTANCE.files.wurstDir
 									.getPath();
-							WurstClient.INSTANCE.fileManager.saveOptions();
+							WurstClient.INSTANCE.files.saveOptions();
 						}
 						loadPWList();
 						update();
@@ -179,7 +179,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 							{
 								WurstClient.INSTANCE.options.forceOPList =
 									fsTXTList.getSelectedFile().getPath();
-								WurstClient.INSTANCE.fileManager.saveOptions();
+								WurstClient.INSTANCE.files.saveOptions();
 							}
 						loadPWList();
 						update();
@@ -245,7 +245,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 					{
 						WurstClient.INSTANCE.options.forceOPDelay =
 							(Integer)spDelay.getValue();
-						WurstClient.INSTANCE.fileManager.saveOptions();
+						WurstClient.INSTANCE.files.saveOptions();
 						update();
 					}
 				});
@@ -272,7 +272,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 					{
 						WurstClient.INSTANCE.options.forceOPDontWait =
 							cbDontWait.isSelected();
-						WurstClient.INSTANCE.fileManager.saveOptions();
+						WurstClient.INSTANCE.files.saveOptions();
 						update();
 					}
 				});
@@ -344,7 +344,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 								update();
 								for(int i = 0; i < passwords.length; i++)
 								{
-									if(!WurstClient.INSTANCE.modManager
+									if(!WurstClient.INSTANCE.mods
 										.getModByClass(ForceOpMod.class)
 										.isActive())
 										return;
@@ -354,7 +354,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 										&& !hasGotWrongPWMSG()
 										|| Minecraft.getMinecraft().thePlayer == null)
 									{
-										if(!WurstClient.INSTANCE.modManager
+										if(!WurstClient.INSTANCE.mods
 											.getModByClass(ForceOpMod.class)
 											.isActive())
 											return;
@@ -416,14 +416,14 @@ public class ForceOpMod extends Mod implements ChatInputListener
 				dialog.toFront();
 			}
 		}.start();
-		WurstClient.INSTANCE.eventManager.add(ChatInputListener.class, this);
+		WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
 	}
 	
 	private void loadPWList()
 	{
 		if(rbTXTList.isSelected()
 			&& !WurstClient.INSTANCE.options.forceOPList
-				.equals(WurstClient.INSTANCE.fileManager.wurstDir.getPath()))
+				.equals(WurstClient.INSTANCE.files.wurstDir.getPath()))
 			try
 			{
 				File pwList =
@@ -523,7 +523,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(ChatInputListener.class, this);
+		WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
 		new Thread()
 		{
 			@Override

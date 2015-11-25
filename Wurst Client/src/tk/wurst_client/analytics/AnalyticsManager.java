@@ -4,7 +4,7 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.analytics.JGoogleAnalyticsTracker.GoogleAnalyticsVersion;
 import tk.wurst_client.bot.WurstBot;
 
-public class Analytics
+public class AnalyticsManager
 {
 	private final JGoogleAnalyticsTracker tracker;
 	
@@ -12,7 +12,7 @@ public class Analytics
 	public final String HOSTNAME;
 	public long lastRequest;
 	
-	public Analytics(String analyticsCode, String hostName)
+	public AnalyticsManager(String analyticsCode, String hostName)
 	{
 		tracker =
 			new JGoogleAnalyticsTracker(new AnalyticsConfigData(analyticsCode),

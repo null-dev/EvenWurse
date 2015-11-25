@@ -23,10 +23,10 @@ public class ThrowCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			WurstClient.INSTANCE.modManager.getModByClass(ThrowMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(ThrowMod.class)
 				.toggle();
 			WurstClient.INSTANCE.chat.message("Throw turned "
-				+ (WurstClient.INSTANCE.modManager
+				+ (WurstClient.INSTANCE.mods
 					.getModByClass(ThrowMod.class).isEnabled() == true ? "on"
 					: "off") + ".");
 		}else if(args.length == 2 && args[0].equalsIgnoreCase("amount")
@@ -39,7 +39,7 @@ public class ThrowCmd extends Cmd
 				return;
 			}
 			WurstClient.INSTANCE.options.throwAmount = Integer.valueOf(args[1]);
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 			WurstClient.INSTANCE.chat.message("Throw amount set to " + args[1]
 				+ ".");
 		}else

@@ -80,21 +80,21 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(NukerLegitMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(NukerLegitMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(NukerLegitMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(NukerLegitMod.class)
 				.setEnabled(false);
-		if(WurstClient.INSTANCE.modManager.getModByClass(SpeedNukerMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(SpeedNukerMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(SpeedNukerMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(SpeedNukerMod.class)
 				.setEnabled(false);
-		if(WurstClient.INSTANCE.modManager.getModByClass(TunnellerMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(TunnellerMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(TunnellerMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(TunnellerMod.class)
 				.setEnabled(false);
-		WurstClient.INSTANCE.eventManager.add(LeftClickListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -113,7 +113,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 			.isActive())
 			realRange = yesCheatRange;
 		else
@@ -146,7 +146,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
-			if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
+			if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class)
 				.isActive() && oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
@@ -157,7 +157,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			{
 				currentDamage = 0;
 				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-					&& !WurstClient.INSTANCE.modManager.getModByClass(
+					&& !WurstClient.INSTANCE.mods.getModByClass(
 						YesCheatMod.class).isActive())
 					nukeAll();
 				else
@@ -170,7 +170,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 				return;
 			}
 		}
-		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class)
 			.isActive())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
@@ -181,10 +181,10 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos)
-				* (WurstClient.INSTANCE.modManager.getModByClass(
+				* (WurstClient.INSTANCE.mods.getModByClass(
 					FastBreakMod.class).isActive()
 					&& WurstClient.INSTANCE.options.fastbreakMode == 0
-					? ((FastBreakMod)WurstClient.INSTANCE.modManager
+					? ((FastBreakMod)WurstClient.INSTANCE.mods
 						.getModByClass(FastBreakMod.class)).speed : 1);
 		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(
 			Minecraft.getMinecraft().thePlayer.getEntityId(), pos,
@@ -198,7 +198,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 				side);
 			blockHitDelay = (byte)4;
 			currentDamage = 0;
-		}else if(WurstClient.INSTANCE.modManager.getModByClass(
+		}else if(WurstClient.INSTANCE.mods.getModByClass(
 			FastBreakMod.class).isActive()
 			&& WurstClient.INSTANCE.options.fastbreakMode == 1)
 			Minecraft.getMinecraft().thePlayer.sendQueue
@@ -209,9 +209,9 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(LeftClickListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
@@ -220,7 +220,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 		currentDamage = 0;
 		shouldRenderESP = false;
 		id = 0;
-		WurstClient.INSTANCE.fileManager.saveOptions();
+		WurstClient.INSTANCE.files.saveOptions();
 	}
 	
 	@Override
@@ -240,7 +240,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 					.getBlockState(
 						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
 					.getBlock());
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 		}
 	}
 	
@@ -283,7 +283,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 					default:
 						return currentPos;
 				}
-			if(!WurstClient.INSTANCE.modManager
+			if(!WurstClient.INSTANCE.mods
 				.getModByClass(YesCheatMod.class).isActive()
 				|| !Minecraft.getMinecraft().theWorld.getBlockState(currentPos)
 					.getBlock().getMaterial().blocksMovement())

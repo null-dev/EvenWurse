@@ -33,7 +33,7 @@ public class InvseeCmd extends Cmd implements RenderListener
 			return;
 		}
 		playerName = args[0];
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -56,6 +56,6 @@ public class InvseeCmd extends Cmd implements RenderListener
 		if(!found)
 			WurstClient.INSTANCE.chat.error("Player not found.");
 		playerName = null;
-		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 	}
 }

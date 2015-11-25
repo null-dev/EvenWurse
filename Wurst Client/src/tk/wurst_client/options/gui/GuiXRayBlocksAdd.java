@@ -83,7 +83,7 @@ public class GuiXRayBlocksAdd extends GuiScreen
 				Block block = Block.getBlockFromName(nameBox.getText());
 				XRayMod.xrayBlocks.add(block);
 				GuiXRayBlocksList.sortBlocks();
-				WurstClient.INSTANCE.fileManager.saveXRayBlocks();
+				WurstClient.INSTANCE.files.saveXRayBlocks();
 				mc.displayGuiScreen(prevMenu);
 				WurstClient.INSTANCE.analytics.trackEvent("x-ray blocks",
 					"add", Integer.toString(Block.getIdFromBlock(block)));

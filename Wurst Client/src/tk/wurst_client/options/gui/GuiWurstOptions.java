@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.options.Options.GoogleAnalytics;
+import tk.wurst_client.options.OptionsManager.GoogleAnalytics;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.common.collect.Lists;
@@ -75,7 +75,7 @@ public class GuiWurstOptions extends GuiScreen
 	@Override
 	public void initGui()
 	{
-		autoMaximize = WurstClient.INSTANCE.fileManager.loadAutoMaximize();
+		autoMaximize = WurstClient.INSTANCE.files.loadAutoMaximize();
 		buttonList.clear();
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 4 + 144 - 16,
 			200, 20, "Back"));
@@ -132,7 +132,7 @@ public class GuiWurstOptions extends GuiScreen
 					"Click Friends: "
 						+ (WurstClient.INSTANCE.options.middleClickFriends
 							? "ON" : "OFF");
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.analytics.trackEvent("options",
 					"click friends",
 					WurstClient.INSTANCE.options.middleClickFriends ? "ON"
@@ -145,7 +145,7 @@ public class GuiWurstOptions extends GuiScreen
 				clickedButton.displayString =
 					"Mod List: "
 						+ modListModes[WurstClient.INSTANCE.options.modListMode];
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.analytics.trackEvent("options",
 					"mod list",
 					modListModes[WurstClient.INSTANCE.options.modListMode]);
@@ -154,7 +154,7 @@ public class GuiWurstOptions extends GuiScreen
 				autoMaximize = !autoMaximize;
 				clickedButton.displayString =
 					"AutoMaximize: " + (autoMaximize ? "ON" : "OFF");
-				WurstClient.INSTANCE.fileManager.saveAutoMaximize(autoMaximize);
+				WurstClient.INSTANCE.files.saveAutoMaximize(autoMaximize);
 				WurstClient.INSTANCE.analytics.trackEvent("options",
 					"automaximize", autoMaximize ? "ON" : "OFF");
 			}else if(clickedButton.id == 4)
@@ -165,7 +165,7 @@ public class GuiWurstOptions extends GuiScreen
 					"Wurst News: "
 						+ (WurstClient.INSTANCE.options.wurstNews ? "ON"
 							: "OFF");
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.analytics.trackEvent("options",
 					"wurst news", WurstClient.INSTANCE.options.wurstNews ? "ON"
 						: "OFF");
@@ -182,7 +182,7 @@ public class GuiWurstOptions extends GuiScreen
 						"analytics", "enable");
 				clickedButton.displayString =
 					"Analytics: " + (analytics.enabled ? "ON" : "OFF");
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 			}else if(clickedButton.id == 6)
 				// Keybind Manager
 				mc.displayGuiScreen(new GuiKeybindManager(this));

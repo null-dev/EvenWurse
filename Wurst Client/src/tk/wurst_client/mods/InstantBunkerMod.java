@@ -54,12 +54,12 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(FastPlaceMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(FastPlaceMod.class)
 			.isActive())
 			speed = 1000000000;
 		else
 			speed = 5;
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 			.isActive())
 		{
 			i = 0;
@@ -74,8 +74,8 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 			while(playerYaw < -180)
 				playerYaw += 360;
 		}
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -232,7 +232,7 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 		updateMS();
 		if(shouldBuild)
 		{
-			if((hasTimePassedS(speed) || WurstClient.INSTANCE.modManager
+			if((hasTimePassedS(speed) || WurstClient.INSTANCE.mods
 				.getModByClass(FastPlaceMod.class).isActive())
 				&& i < building.length)
 			{
@@ -334,8 +334,8 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 		shouldBuild = false;
 	}
 }

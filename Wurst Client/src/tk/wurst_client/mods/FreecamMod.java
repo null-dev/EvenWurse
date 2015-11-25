@@ -41,7 +41,7 @@ public class FreecamMod extends Mod implements UpdateListener
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class FreecamMod extends Mod implements UpdateListener
 		Minecraft.getMinecraft().thePlayer.motionY = 0;
 		Minecraft.getMinecraft().thePlayer.motionZ = 0;
 		float flightSpeed =
-			((FlightMod)WurstClient.INSTANCE.modManager
+			((FlightMod)WurstClient.INSTANCE.mods
 				.getModByClass(FlightMod.class)).speed;
 		Minecraft.getMinecraft().thePlayer.jumpMovementFactor =
 			flightSpeed / 10;
@@ -64,7 +64,7 @@ public class FreecamMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY,
 			oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
 			Minecraft.getMinecraft().thePlayer.rotationPitch);

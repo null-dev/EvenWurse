@@ -85,7 +85,7 @@ public class GuiKeybindChange extends GuiScreen implements GuiPressAKeyCallback
 				if(entry != null)
 					WurstClient.INSTANCE.keybinds.remove(entry.getKey());
 				WurstClient.INSTANCE.keybinds.put(key, commandBox.getText());
-				WurstClient.INSTANCE.fileManager.saveKeybinds();
+				WurstClient.INSTANCE.files.saveKeybinds();
 				mc.displayGuiScreen(prevMenu);
 				WurstClient.INSTANCE.analytics.trackEvent("keybinds", "set",
 					key);

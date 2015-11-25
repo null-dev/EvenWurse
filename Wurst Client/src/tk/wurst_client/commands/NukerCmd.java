@@ -43,7 +43,7 @@ public class NukerCmd extends Cmd
 				NukerMod.id = 0;
 			}else
 				syntaxError();
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 			WurstClient.INSTANCE.chat.message("Nuker mode set to \"" + args[1]
 				+ "\".");
 		}else if(args[0].equalsIgnoreCase("id") && MiscUtils.isInteger(args[1]))
@@ -55,7 +55,7 @@ public class NukerCmd extends Cmd
 					+ args[0] + "\".");
 			}
 			NukerMod.id = Integer.valueOf(args[1]);
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 			WurstClient.INSTANCE.chat.message("Nuker ID set to " + args[1]
 				+ ".");
 		}else if(args[0].equalsIgnoreCase("name"))
@@ -74,7 +74,7 @@ public class NukerCmd extends Cmd
 				return;
 			}
 			NukerMod.id = Integer.valueOf(newID);
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 			WurstClient.INSTANCE.chat.message("Nuker ID set to " + newID + " ("
 				+ args[1] + ").");
 		}else

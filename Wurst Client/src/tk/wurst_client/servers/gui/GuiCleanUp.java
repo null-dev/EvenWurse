@@ -167,7 +167,7 @@ public class GuiCleanUp extends GuiScreen
 				clickedButton.displayString =
 					"Unknown Hosts: "
 						+ removeOrKeep(WurstClient.INSTANCE.options.cleanupUnknown);
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.analytics.trackEvent("clean up",
 					"unknown host",
 					removeOrKeep(WurstClient.INSTANCE.options.cleanupUnknown));
@@ -178,7 +178,7 @@ public class GuiCleanUp extends GuiScreen
 				clickedButton.displayString =
 					"Outdated Servers: "
 						+ removeOrKeep(WurstClient.INSTANCE.options.cleanupOutdated);
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.analytics.trackEvent("clean up",
 					"outdated servers",
 					removeOrKeep(WurstClient.INSTANCE.options.cleanupOutdated));
@@ -189,7 +189,7 @@ public class GuiCleanUp extends GuiScreen
 				clickedButton.displayString =
 					"Failed Ping: "
 						+ removeOrKeep(WurstClient.INSTANCE.options.cleanupFailed);
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.analytics.trackEvent("clean up",
 					"failed ping",
 					removeOrKeep(WurstClient.INSTANCE.options.cleanupFailed));
@@ -207,7 +207,7 @@ public class GuiCleanUp extends GuiScreen
 				clickedButton.displayString =
 					"Rename all Servers: "
 						+ yesOrNo(WurstClient.INSTANCE.options.cleanupRename);
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.analytics.trackEvent("clean up",
 					"rename servers",
 					yesOrNo(WurstClient.INSTANCE.options.cleanupRename));

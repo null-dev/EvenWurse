@@ -48,7 +48,7 @@ public class PathUtils
 	{
 		if(jesusMod == null)
 			jesusMod =
-				WurstClient.INSTANCE.modManager.getModByClass(JesusMod.class);
+				WurstClient.INSTANCE.mods.getModByClass(JesusMod.class);
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
 			|| getMaterial(pos) == Material.water && jesusMod.isEnabled();
@@ -66,7 +66,7 @@ public class PathUtils
 	{
 		if(spiderMod == null)
 			spiderMod =
-				WurstClient.INSTANCE.modManager.getModByClass(SpiderMod.class);
+				WurstClient.INSTANCE.mods.getModByClass(SpiderMod.class);
 		if(isSolid(pos.add(0, -1, 0)) || spiderMod.isEnabled()
 			|| getID(pos) == 65 || isFlyable(pos))
 			if(isSolid(pos.add(0, 0, -1)) || isSolid(pos.add(0, 0, 1))
@@ -79,7 +79,7 @@ public class PathUtils
 	{
 		if(noFallMod == null)
 			noFallMod =
-				WurstClient.INSTANCE.modManager.getModByClass(NoFallMod.class);
+				WurstClient.INSTANCE.mods.getModByClass(NoFallMod.class);
 		return noFallMod.isEnabled() || isCreative();
 	}
 	
@@ -94,10 +94,10 @@ public class PathUtils
 	{
 		if(flightMod == null)
 			flightMod =
-				WurstClient.INSTANCE.modManager.getModByClass(FlightMod.class);
+				WurstClient.INSTANCE.mods.getModByClass(FlightMod.class);
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				WurstClient.INSTANCE.modManager
+				WurstClient.INSTANCE.mods
 					.getModByClass(NoSlowdownMod.class);
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
@@ -109,11 +109,11 @@ public class PathUtils
 	{
 		if(noSlowdownMod == null)
 			noSlowdownMod =
-				WurstClient.INSTANCE.modManager
+				WurstClient.INSTANCE.mods
 					.getModByClass(NoSlowdownMod.class);
 		if(antiKnockbackMod == null)
 			antiKnockbackMod =
-				WurstClient.INSTANCE.modManager
+				WurstClient.INSTANCE.mods
 					.getModByClass(AntiKnockbackMod.class);
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)

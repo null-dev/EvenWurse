@@ -108,7 +108,7 @@ public class GuiServerFinder extends GuiScreen
 		{
 			WurstClient.INSTANCE.options.serverFinderThreads =
 				Integer.valueOf(maxThreadsBox.getText());
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 		}
 		Keyboard.enableRepeatEvents(false);
 	}
@@ -123,7 +123,7 @@ public class GuiServerFinder extends GuiScreen
 				{
 					WurstClient.INSTANCE.options.serverFinderThreads =
 						Integer.valueOf(maxThreadsBox.getText());
-					WurstClient.INSTANCE.fileManager.saveOptions();
+					WurstClient.INSTANCE.files.saveOptions();
 				}
 				running = true;
 				new Thread("Server Finder")

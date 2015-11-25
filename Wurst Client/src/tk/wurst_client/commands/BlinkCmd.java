@@ -22,7 +22,7 @@ public class BlinkCmd extends Cmd
 		if(args.length > 1)
 			syntaxError();
 		BlinkMod blink =
-			(BlinkMod)WurstClient.INSTANCE.modManager
+			(BlinkMod)WurstClient.INSTANCE.mods
 				.getModByClass(BlinkMod.class);
 		if(args.length == 0)
 			blink.toggle();

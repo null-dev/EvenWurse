@@ -11,7 +11,7 @@ package tk.wurst_client.chat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
-public class ChatMessenger
+public class ChatManager
 {
 	private boolean enabled = true;
 	

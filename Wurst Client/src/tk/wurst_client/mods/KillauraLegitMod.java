@@ -25,19 +25,19 @@ public class KillauraLegitMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
 				.setEnabled(false);
-		if(WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
 				.setEnabled(false);
-		if(WurstClient.INSTANCE.modManager.getModByClass(TriggerBotMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(TriggerBotMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(TriggerBotMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(TriggerBotMod.class)
 				.setEnabled(false);
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -45,14 +45,14 @@ public class KillauraLegitMod extends Mod implements UpdateListener
 	{
 		updateMS();
 		KillauraMod killaura =
-			(KillauraMod)WurstClient.INSTANCE.modManager
+			(KillauraMod)WurstClient.INSTANCE.mods
 				.getModByClass(KillauraMod.class);
 		EntityLivingBase en = EntityUtils.getClosestEntity(true, true);
 		if(hasTimePassedS(killaura.yesCheatSpeed) && en != null)
 		{
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= killaura.yesCheatRange)
 			{
-				if(WurstClient.INSTANCE.modManager.getModByClass(
+				if(WurstClient.INSTANCE.mods.getModByClass(
 					CriticalsMod.class).isActive()
 					&& Minecraft.getMinecraft().thePlayer.onGround)
 					Minecraft.getMinecraft().thePlayer.jump();
@@ -73,6 +73,6 @@ public class KillauraLegitMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 	}
 }

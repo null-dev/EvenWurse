@@ -12,7 +12,7 @@ import java.security.SecureRandom;
 
 import tk.wurst_client.WurstClient;
 
-public class Options
+public class OptionsManager
 {
 	public boolean autoReconnect = false;
 	public boolean cleanupFailed = true;
@@ -36,11 +36,11 @@ public class Options
 	public int spamDelay = 1000;
 	public int throwAmount = 16;
 	
-	public String forceOPList = WurstClient.INSTANCE.fileManager.wurstDir
+	public String forceOPList = WurstClient.INSTANCE.files.wurstDir
 		.getPath();
 	
-	public Options.GoogleAnalytics google_analytics =
-		new Options.GoogleAnalytics();
+	public OptionsManager.GoogleAnalytics google_analytics =
+		new OptionsManager.GoogleAnalytics();
 	
 	public class GoogleAnalytics
 	{
@@ -51,7 +51,7 @@ public class Options
 		public int launches = 0;
 	}
 	
-	public Options.Target target = new Options.Target();
+	public OptionsManager.Target target = new OptionsManager.Target();
 	
 	public class Target
 	{
@@ -72,7 +72,7 @@ public class Options
 		}
 	}
 	
-	public Options.Zoom zoom = new Options.Zoom();
+	public OptionsManager.Zoom zoom = new OptionsManager.Zoom();
 	
 	public class Zoom
 	{

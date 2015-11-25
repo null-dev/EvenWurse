@@ -62,7 +62,7 @@ public class GuiAltEdit extends AltEditorScreen
 		if(displayText.equals(""))
 		{
 			GuiAltList.sortAlts();
-			WurstClient.INSTANCE.fileManager.saveAlts();
+			WurstClient.INSTANCE.files.saveAlts();
 			mc.displayGuiScreen(prevMenu);
 			GuiAlts.altList.elementClicked(GuiAltList.alts.indexOf(newAlt),
 				false, 0, 0);

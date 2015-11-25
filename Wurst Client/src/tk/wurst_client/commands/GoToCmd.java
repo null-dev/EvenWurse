@@ -45,7 +45,7 @@ public class GoToCmd extends Cmd
 				{
 					tk.wurst_client.mods.GoToCmdMod.setPath(pathFinder
 						.formatPath());
-					WurstClient.INSTANCE.modManager.getModByClass(
+					WurstClient.INSTANCE.mods.getModByClass(
 						tk.wurst_client.mods.GoToCmdMod.class).setEnabled(true);
 				}else
 					WurstClient.INSTANCE.chat.error("Could not find a path.");

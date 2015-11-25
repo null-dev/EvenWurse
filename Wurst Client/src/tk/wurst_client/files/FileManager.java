@@ -30,8 +30,8 @@ import tk.wurst_client.alts.Encryption;
 import tk.wurst_client.alts.gui.GuiAltList;
 import tk.wurst_client.mods.*;
 import tk.wurst_client.mods.Mod.Category;
-import tk.wurst_client.options.Friends;
-import tk.wurst_client.options.Options;
+import tk.wurst_client.options.FriendsList;
+import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.XRayUtils;
 
@@ -171,7 +171,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
+			for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 			{
 				JsonObject jsonMod = new JsonObject();
 				jsonMod.addProperty("enabled", mod.isEnabled());
@@ -209,7 +209,7 @@ public class FileManager
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				Mod mod =
-					WurstClient.INSTANCE.modManager
+					WurstClient.INSTANCE.mods
 						.getModByName(entry.getKey());
 				if(mod != null
 					&& mod.getCategory() != Category.HIDDEN
@@ -289,7 +289,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(options));
-			WurstClient.INSTANCE.options = JsonUtils.prettyGson.fromJson(load, Options.class);
+			WurstClient.INSTANCE.options = JsonUtils.prettyGson.fromJson(load, OptionsManager.class);
 			load.close();
 			saveOptions();
 		}catch(Exception e)
@@ -337,7 +337,7 @@ public class FileManager
 		try
 		{
 			JsonObject json = new JsonObject();
-			for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
+			for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 			{
 				if(mod.getSliders().isEmpty())
 					continue;
@@ -371,7 +371,7 @@ public class FileManager
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				Mod mod =
-					WurstClient.INSTANCE.modManager
+					WurstClient.INSTANCE.mods
 						.getModByName(entry.getKey());
 				if(mod != null)
 				{
@@ -474,7 +474,7 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(friends));
-			WurstClient.INSTANCE.friends = JsonUtils.prettyGson.fromJson(load, Friends.class);
+			WurstClient.INSTANCE.friends = JsonUtils.prettyGson.fromJson(load, FriendsList.class);
 			load.close();
 		}catch(Exception e)
 		{

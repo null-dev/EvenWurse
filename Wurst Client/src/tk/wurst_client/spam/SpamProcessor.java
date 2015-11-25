@@ -37,7 +37,7 @@ public class SpamProcessor
 			public void run()
 			{
 				File file =
-					new File(WurstClient.INSTANCE.fileManager.scriptsDir,
+					new File(WurstClient.INSTANCE.files.scriptsDir,
 						filename + ".wspam");
 				try
 				{
@@ -82,7 +82,7 @@ public class SpamProcessor
 	public static boolean runSpam(final String filename)
 	{
 		final File file =
-			new File(WurstClient.INSTANCE.fileManager.spamDir, filename
+			new File(WurstClient.INSTANCE.files.spamDir, filename
 				+ ".wspam");
 		if(!file.exists())
 			return false;

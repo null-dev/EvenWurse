@@ -49,8 +49,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -74,8 +74,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 		shouldBuild = false;
 	}
 	
@@ -597,7 +597,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 	{
 		updateMS();
 		if(!shouldBuild
-			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.modManager
+			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.mods
 				.getModByClass(FastPlaceMod.class).isActive())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed
 			&& Minecraft.getMinecraft().objectMouseOver != null
@@ -607,12 +607,12 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
 				.getBlock().getMaterial() != Material.air)
 		{
-			if(WurstClient.INSTANCE.modManager
+			if(WurstClient.INSTANCE.mods
 				.getModByClass(FastPlaceMod.class).isActive())
 				speed = 1000000000;
 			else
 				speed = 5;
-			if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 				.isActive())
 			{
 				blockIndex = 0;
@@ -630,7 +630,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 			return;
 		}
 		if(shouldBuild)
-			if((hasTimePassedS(speed) || WurstClient.INSTANCE.modManager
+			if((hasTimePassedS(speed) || WurstClient.INSTANCE.mods
 				.getModByClass(FastPlaceMod.class).isActive())
 				&& blockIndex < templates
 					.get(WurstClient.INSTANCE.options.autobuildMode).length)
@@ -768,7 +768,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 	{
 		updateMS();
 		if(!shouldBuild
-			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.modManager
+			&& (Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.mods
 				.getModByClass(FastPlaceMod.class).isActive())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed
 			&& Minecraft.getMinecraft().objectMouseOver != null
@@ -778,12 +778,12 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 					Minecraft.getMinecraft().objectMouseOver.getBlockPos())
 				.getBlock().getMaterial() != Material.air)
 		{
-			if(WurstClient.INSTANCE.modManager
+			if(WurstClient.INSTANCE.mods
 				.getModByClass(FastPlaceMod.class).isActive())
 				speed = 1000000000;
 			else
 				speed = 5;
-			if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+			if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 				.isActive())
 			{
 				blockIndex = 0;
@@ -801,7 +801,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 			return;
 		}
 		if(shouldBuild)
-			if((hasTimePassedS(speed) || WurstClient.INSTANCE.modManager
+			if((hasTimePassedS(speed) || WurstClient.INSTANCE.mods
 				.getModByClass(FastPlaceMod.class).isActive())
 				&& blockIndex < templates
 					.get(WurstClient.INSTANCE.options.autobuildMode).length)

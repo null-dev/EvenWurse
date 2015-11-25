@@ -42,7 +42,7 @@ public class DamageCmd extends Cmd
 		double x = Minecraft.getMinecraft().thePlayer.posX;
 		double y = Minecraft.getMinecraft().thePlayer.posY;
 		double z = Minecraft.getMinecraft().thePlayer.posZ;
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 			.isEnabled())
 		{
 			Minecraft

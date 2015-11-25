@@ -54,12 +54,12 @@ public class AddAltCmd extends Cmd
 				WurstClient.INSTANCE.chat.message("Added " + alts
 					+ " alts to the alt list.");
 			GuiAltList.sortAlts();
-			WurstClient.INSTANCE.fileManager.saveAlts();
+			WurstClient.INSTANCE.files.saveAlts();
 		}else if(!args[0].equals("Alexander01998"))
 		{
 			GuiAltList.alts.add(new Alt(args[0]));
 			GuiAltList.sortAlts();
-			WurstClient.INSTANCE.fileManager.saveAlts();
+			WurstClient.INSTANCE.files.saveAlts();
 			WurstClient.INSTANCE.chat.message("Added \"" + args[0]
 				+ "\" to the alt list.");
 		}

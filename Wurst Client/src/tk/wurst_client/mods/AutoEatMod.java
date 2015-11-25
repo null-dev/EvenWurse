@@ -28,7 +28,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		oldSlot = -1;
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 		if(bestSlot == -1)
 			return;
 		oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class,
+		WurstClient.INSTANCE.events.add(UpdateListener.class,
 			new UpdateListener()
 			{
 				@Override
@@ -97,7 +97,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem =
 						oldSlot;
 					oldSlot = -1;
-					WurstClient.INSTANCE.eventManager.remove(
+					WurstClient.INSTANCE.events.remove(
 						UpdateListener.class, this);
 				}
 			});
@@ -106,7 +106,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 	}
 	
 	public boolean isEating()

@@ -22,13 +22,13 @@ public class PanicMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
+		for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 			if(mod.getCategory() != Category.HIDDEN && mod.isEnabled())
 				mod.setEnabled(false);
 	}
@@ -36,6 +36,6 @@ public class PanicMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 	}
 }

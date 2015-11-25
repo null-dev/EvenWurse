@@ -30,7 +30,7 @@ public class FightBotMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -64,9 +64,9 @@ public class FightBotMod extends Mod implements UpdateListener
 			&& Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
 		KillauraMod killaura =
-			(KillauraMod)WurstClient.INSTANCE.modManager
+			(KillauraMod)WurstClient.INSTANCE.mods
 				.getModByClass(KillauraMod.class);
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 			.isActive())
 			speed = killaura.yesCheatSpeed;
 		else
@@ -75,7 +75,7 @@ public class FightBotMod extends Mod implements UpdateListener
 		if(hasTimePassedS(speed))
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) <= range)
 			{
-				if(WurstClient.INSTANCE.modManager.getModByClass(
+				if(WurstClient.INSTANCE.mods.getModByClass(
 					AutoSwordMod.class).isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
@@ -95,7 +95,7 @@ public class FightBotMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 	}
 }

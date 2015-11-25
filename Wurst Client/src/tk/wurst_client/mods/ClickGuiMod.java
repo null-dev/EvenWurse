@@ -24,7 +24,7 @@ public class ClickGuiMod extends Mod implements UpdateListener
 {
 	public ClickGuiMod()
 	{
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -32,12 +32,12 @@ public class ClickGuiMod extends Mod implements UpdateListener
 	{
 		if(!(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
 			Minecraft.getMinecraft().displayGuiScreen(
-				new GuiManagerDisplayScreen(WurstClient.INSTANCE.guiManager));
+				new GuiManagerDisplayScreen(WurstClient.INSTANCE.gui));
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		WurstClient.INSTANCE.guiManager.update();
+		WurstClient.INSTANCE.gui.update();
 	}
 }

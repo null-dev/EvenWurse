@@ -38,20 +38,20 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(NukerMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(NukerMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(NukerMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(NukerMod.class)
 				.setEnabled(false);
-		if(WurstClient.INSTANCE.modManager.getModByClass(NukerLegitMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(NukerLegitMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(NukerLegitMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(NukerLegitMod.class)
 				.setEnabled(false);
-		if(WurstClient.INSTANCE.modManager.getModByClass(SpeedNukerMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(SpeedNukerMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(SpeedNukerMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(SpeedNukerMod.class)
 				.setEnabled(false);
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -98,7 +98,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
-			if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
+			if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class)
 				.isActive() && oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
@@ -109,7 +109,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			{
 				currentDamage = 0;
 				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-					&& !WurstClient.INSTANCE.modManager.getModByClass(
+					&& !WurstClient.INSTANCE.mods.getModByClass(
 						YesCheatMod.class).isActive())
 					nukeAll();
 				else
@@ -122,7 +122,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 				return;
 			}
 		}
-		if(WurstClient.INSTANCE.modManager.getModByClass(AutoToolMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class)
 			.isActive())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
@@ -133,10 +133,10 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos)
-				* (WurstClient.INSTANCE.modManager.getModByClass(
+				* (WurstClient.INSTANCE.mods.getModByClass(
 					FastBreakMod.class).isActive()
 					&& WurstClient.INSTANCE.options.fastbreakMode == 0
-					? ((FastBreakMod)WurstClient.INSTANCE.modManager
+					? ((FastBreakMod)WurstClient.INSTANCE.mods
 						.getModByClass(FastBreakMod.class)).speed : 1);
 		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(
 			Minecraft.getMinecraft().thePlayer.getEntityId(), pos,
@@ -150,7 +150,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 				side);
 			blockHitDelay = (byte)4;
 			currentDamage = 0;
-		}else if(WurstClient.INSTANCE.modManager.getModByClass(
+		}else if(WurstClient.INSTANCE.mods.getModByClass(
 			FastBreakMod.class).isActive()
 			&& WurstClient.INSTANCE.options.fastbreakMode == 1)
 			Minecraft.getMinecraft().thePlayer.sendQueue
@@ -161,8 +161,8 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

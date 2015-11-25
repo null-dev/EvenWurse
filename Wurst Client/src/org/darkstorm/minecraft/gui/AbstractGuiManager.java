@@ -113,7 +113,7 @@ public abstract class AbstractGuiManager implements GuiManager
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
-		WurstClient.INSTANCE.fileManager.saveGUI(getFrames());
+		WurstClient.INSTANCE.files.saveGUI(getFrames());
 	}
 	
 	@Override

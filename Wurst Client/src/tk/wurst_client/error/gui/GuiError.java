@@ -235,7 +235,7 @@ public class GuiError extends GuiScreen
 	private void backToGame()
 	{
 		if(cause instanceof Mod)
-			WurstClient.INSTANCE.modManager.getModByClass(cause.getClass())
+			WurstClient.INSTANCE.mods.getModByClass(cause.getClass())
 				.setEnabled(false);
 		mc.displayGuiScreen(null);
 	}
@@ -246,7 +246,7 @@ public class GuiError extends GuiScreen
 		if(cause instanceof Mod)
 			title +=
 				"in `"
-					+ WurstClient.INSTANCE.modManager.getModByClass(
+					+ WurstClient.INSTANCE.mods.getModByClass(
 						cause.getClass()).getName() + "` ";
 		else if(cause instanceof Cmd)
 			title += "in `." + ((Cmd)cause).getName() + "` ";

@@ -27,7 +27,7 @@ public class TargetFrame extends BasicFrame
 	public TargetFrame()
 	{
 		setTitle("Target");
-		setTheme(WurstClient.INSTANCE.guiManager.getTheme());
+		setTheme(WurstClient.INSTANCE.gui.getTheme());
 		setLayoutManager(new GridLayoutManager(1, 0));
 		setVisible(true);
 		setClosable(false);
@@ -52,7 +52,7 @@ public class TargetFrame extends BasicFrame
 					{
 						option.setBoolean(WurstClient.INSTANCE.options.target,
 							((BasicCheckButton)button).isSelected());
-						WurstClient.INSTANCE.fileManager.saveOptions();
+						WurstClient.INSTANCE.files.saveOptions();
 					}catch(Exception e)
 					{
 						System.err

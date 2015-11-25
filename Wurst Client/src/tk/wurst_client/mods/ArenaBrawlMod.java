@@ -94,10 +94,10 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	public void onEnable()
 	{
 		reset();
-		WurstClient.INSTANCE.eventManager.add(ChatInputListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(DeathListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
+		WurstClient.INSTANCE.events.add(DeathListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -271,10 +271,10 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(ChatInputListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(DeathListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
+		WurstClient.INSTANCE.events.remove(DeathListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
 			WurstClient.INSTANCE.chat
@@ -339,7 +339,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 		frame.setHeight(frame.getTheme().getUIForComponent(frame)
 			.getDefaultSize(frame).height);
 		frame.layoutChildren();
-		WurstClient.INSTANCE.guiManager.addFrame(frame);
+		WurstClient.INSTANCE.gui.addFrame(frame);
 		frame.setBackgroundColor(new Color(64, 64, 64, 224));
 		((Label)frame.getChildren()[0]).setForegroundColor(Color.CYAN);
 		((Label)frame.getChildren()[1]).setForegroundColor(Color.CYAN);
@@ -654,7 +654,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 		matchingBlocks.clear();
 		enemyTotems.clear();
 		friendTotems.clear();
-		WurstClient.INSTANCE.guiManager.removeFrame(frame);
+		WurstClient.INSTANCE.gui.removeFrame(frame);
 		frame = null;
 		friend = null;
 		entityTarget = null;

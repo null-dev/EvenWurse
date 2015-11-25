@@ -120,7 +120,7 @@ public class Mod
 				Minecraft.getMinecraft().displayGuiScreen(
 					new GuiError(e, this, "disabling", ""));
 			}
-		WurstClient.INSTANCE.fileManager.saveMods();
+		WurstClient.INSTANCE.files.saveMods();
 	}
 	
 	public final void enableOnStartup()

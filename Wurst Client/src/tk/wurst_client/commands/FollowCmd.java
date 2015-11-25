@@ -24,7 +24,7 @@ public class FollowCmd extends Cmd
 		if(args.length > 1)
 			syntaxError();
 		FollowMod followMod =
-			(FollowMod)WurstClient.INSTANCE.modManager
+			(FollowMod)WurstClient.INSTANCE.mods
 				.getModByClass(FollowMod.class);
 		if(args.length == 0)
 			followMod.toggle();

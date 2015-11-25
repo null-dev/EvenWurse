@@ -43,14 +43,14 @@ public class FlightMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(JetpackMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(JetpackMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(JetpackMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(JetpackMod.class)
 				.setEnabled(false);
 		
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 			.isActive()
-			|| WurstClient.INSTANCE.modManager.getModByClass(AntiMacMod.class)
+			|| WurstClient.INSTANCE.mods.getModByClass(AntiMacMod.class)
 				.isActive())
 		{
 			double startX = Minecraft.getMinecraft().thePlayer.posX;
@@ -67,13 +67,13 @@ public class FlightMod extends Mod implements UpdateListener
 			}
 			Minecraft.getMinecraft().thePlayer.jump();
 		}
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
 			.isActive())
 		{
 			if(!Minecraft.getMinecraft().thePlayer.onGround)
@@ -82,7 +82,7 @@ public class FlightMod extends Mod implements UpdateListener
 					Minecraft.getMinecraft().thePlayer.motionY = 0.2;
 				else
 					Minecraft.getMinecraft().thePlayer.motionY = -0.02;
-		}else if(WurstClient.INSTANCE.modManager
+		}else if(WurstClient.INSTANCE.mods
 			.getModByClass(AntiMacMod.class).isActive())
 		{
 			updateMS();
@@ -117,6 +117,6 @@ public class FlightMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 	}
 }

@@ -25,19 +25,19 @@ public class TriggerBotMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(KillauraMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
 				.setEnabled(false);
-		if(WurstClient.INSTANCE.modManager
+		if(WurstClient.INSTANCE.mods
 			.getModByClass(KillauraLegitMod.class).isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(
+			WurstClient.INSTANCE.mods.getModByClass(
 				KillauraLegitMod.class).setEnabled(false);
-		if(WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
+		if(WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
 			.isEnabled())
-			WurstClient.INSTANCE.modManager.getModByClass(MultiAuraMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
 				.setEnabled(false);
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -49,10 +49,10 @@ public class TriggerBotMod extends Mod implements UpdateListener
 		{
 			updateMS();
 			boolean yesCheatMode =
-				WurstClient.INSTANCE.modManager
+				WurstClient.INSTANCE.mods
 					.getModByClass(YesCheatMod.class).isActive();
 			KillauraMod killaura =
-				(KillauraMod)WurstClient.INSTANCE.modManager
+				(KillauraMod)WurstClient.INSTANCE.mods
 					.getModByClass(KillauraMod.class);
 			if(yesCheatMode && hasTimePassedS(killaura.yesCheatSpeed)
 				|| !yesCheatMode && hasTimePassedS(killaura.normalSpeed))
@@ -66,7 +66,7 @@ public class TriggerBotMod extends Mod implements UpdateListener
 						.getDistanceToEntity(en) <= killaura.normalRange)
 					&& EntityUtils.isCorrectEntity(en, true))
 				{
-					if(WurstClient.INSTANCE.modManager.getModByClass(
+					if(WurstClient.INSTANCE.mods.getModByClass(
 						AutoSwordMod.class).isActive())
 						AutoSwordMod.setSlot();
 					CriticalsMod.doCritical();
@@ -82,6 +82,6 @@ public class TriggerBotMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 	}
 }

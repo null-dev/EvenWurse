@@ -23,10 +23,10 @@ public class GhostHandCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			WurstClient.INSTANCE.modManager.getModByClass(GhostHandMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(GhostHandMod.class)
 				.toggle();
 			WurstClient.INSTANCE.chat.message("GhostHand turned "
-				+ (WurstClient.INSTANCE.modManager.getModByClass(
+				+ (WurstClient.INSTANCE.mods.getModByClass(
 					GhostHandMod.class).isEnabled() ? "on" : "off") + ".");
 		}else if(args.length == 2)
 		{
@@ -34,7 +34,7 @@ public class GhostHandCmd extends Cmd
 			{
 				WurstClient.INSTANCE.options.ghostHandID =
 					Integer.valueOf(args[1]);
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.chat.message("GhostHand ID set to "
 					+ args[1] + ".");
 			}else if(args[0].equalsIgnoreCase("name"))
@@ -48,7 +48,7 @@ public class GhostHandCmd extends Cmd
 					return;
 				}
 				WurstClient.INSTANCE.options.ghostHandID = newID;
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.chat.message("GhostHand ID set to "
 					+ newID + " (" + args[1] + ").");
 			}else

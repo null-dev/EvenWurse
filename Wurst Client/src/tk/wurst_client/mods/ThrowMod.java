@@ -32,13 +32,13 @@ public class ThrowMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.modManager
+		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.mods
 			.getModByClass(FastPlaceMod.class).isActive())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 		{
@@ -54,6 +54,6 @@ public class ThrowMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 	}
 }

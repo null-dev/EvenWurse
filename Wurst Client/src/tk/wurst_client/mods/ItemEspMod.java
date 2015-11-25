@@ -25,7 +25,7 @@ public class ItemEspMod extends Mod implements RenderListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override
@@ -39,6 +39,6 @@ public class ItemEspMod extends Mod implements RenderListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 	}
 }

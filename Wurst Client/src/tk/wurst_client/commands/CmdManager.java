@@ -108,7 +108,7 @@ public class CmdManager implements ChatOutputListener
 					WurstClient.INSTANCE.chat.error(e.getMessage());
 				}catch(Exception e)
 				{
-					WurstClient.INSTANCE.eventManager.handleException(e, cmd,
+					WurstClient.INSTANCE.events.handleException(e, cmd,
 						"executing", "Exact input: `" + event.getMessage()
 							+ "`");
 				}

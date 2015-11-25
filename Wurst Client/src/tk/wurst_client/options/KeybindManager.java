@@ -10,9 +10,9 @@ package tk.wurst_client.options;
 
 import java.util.TreeMap;
 
-public class Keybinds extends TreeMap<String, String>
+public class KeybindManager extends TreeMap<String, String>
 {
-	public Keybinds()
+	public KeybindManager()
 	{
 		put("B", ".t fastbreak");
 		put("C", ".t fullbright");

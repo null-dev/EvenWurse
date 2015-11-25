@@ -24,15 +24,15 @@ public class SearchCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			WurstClient.INSTANCE.modManager.getModByClass(SearchMod.class)
+			WurstClient.INSTANCE.mods.getModByClass(SearchMod.class)
 				.toggle();
 			WurstClient.INSTANCE.chat.message("Search turned "
-				+ (WurstClient.INSTANCE.modManager.getModByClass(
+				+ (WurstClient.INSTANCE.mods.getModByClass(
 					SearchMod.class).isEnabled() == true ? "on" : "off") + ".");
 		}else if(args.length == 2)
 		{
 			SearchMod search =
-				(SearchMod)WurstClient.INSTANCE.modManager
+				(SearchMod)WurstClient.INSTANCE.mods
 					.getModByClass(SearchMod.class);
 			if(args[0].toLowerCase().equals("id"))
 			{
@@ -41,7 +41,7 @@ public class SearchCmd extends Cmd
 						Integer.valueOf(args[1]);
 				else
 					syntaxError("ID must be a number.");
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				search.notify = true;
 				WurstClient.INSTANCE.chat.message("Search ID set to " + args[1]
 					+ ".");
@@ -52,7 +52,7 @@ public class SearchCmd extends Cmd
 				if(newID == -1)
 					error("Block \"" + args[1] + "\" could not be found.");
 				WurstClient.INSTANCE.options.searchID = Integer.valueOf(newID);
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				search.notify = true;
 				WurstClient.INSTANCE.chat.message("Search ID set to " + newID
 					+ " (" + args[1] + ").");
