@@ -36,13 +36,13 @@ public class AntiPotionMod extends Mod implements UpdateListener
 			&& !Minecraft.getMinecraft().thePlayer.getActivePotionEffects()
 				.isEmpty())
 			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.hunger)
-			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.moveSlowdown)
-			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.digSlowdown)
-			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.harm)
-                        if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.confusion)
-                        if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.blindness)
-                        if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.weakness)
-                        if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.wither)
+			|| Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.moveSlowdown)
+			|| Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.digSlowdown)
+			|| Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.harm)
+                        || Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.confusion)
+                        || Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.blindness)
+                        || Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.weakness)
+                        || Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.wither)
 
 
 
