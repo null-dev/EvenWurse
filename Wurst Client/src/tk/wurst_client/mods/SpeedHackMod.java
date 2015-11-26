@@ -14,7 +14,9 @@ import tk.wurst_client.events.listeners.UpdateListener;
 
 @Mod.Info(category = Mod.Category.MOVEMENT,
 	description = "Allows you to run roughly twice as fast as normal.\n"
-		+ "Bypasses NoCheat+.",
+		+ "Bypasses NoCheat+.\n"
+		+ "Warning: AntiCheat systems other than NoCheat+ (e.g. Hypixel\n"
+		+ "AntiCheat) might still be able to block it.",
 	name = "SpeedHack")
 public class SpeedHackMod extends Mod implements UpdateListener
 {
