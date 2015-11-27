@@ -43,15 +43,11 @@ public class FlightMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(JetpackMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(JetpackMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.jetpackMod.isEnabled())
+			WurstClient.INSTANCE.mods.jetpackMod.setEnabled(false);
 		
-		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
-			.isActive()
-			|| WurstClient.INSTANCE.mods.getModByClass(AntiMacMod.class)
-				.isActive())
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive()
+			|| WurstClient.INSTANCE.mods.antiMacMod.isActive())
 		{
 			double startX = Minecraft.getMinecraft().thePlayer.posX;
 			startY = Minecraft.getMinecraft().thePlayer.posY;
@@ -73,8 +69,7 @@ public class FlightMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
-			.isActive())
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
 		{
 			if(!Minecraft.getMinecraft().thePlayer.onGround)
 				if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed
@@ -82,8 +77,7 @@ public class FlightMod extends Mod implements UpdateListener
 					Minecraft.getMinecraft().thePlayer.motionY = 0.2;
 				else
 					Minecraft.getMinecraft().thePlayer.motionY = -0.02;
-		}else if(WurstClient.INSTANCE.mods
-			.getModByClass(AntiMacMod.class).isActive())
+		}else if(WurstClient.INSTANCE.mods.antiMacMod.isActive())
 		{
 			updateMS();
 			if(!Minecraft.getMinecraft().thePlayer.onGround)

@@ -57,26 +57,19 @@ public class KillauraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods
-			.getModByClass(KillauraLegitMod.class).isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(
-				KillauraLegitMod.class).setEnabled(false);
-		if(WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
-				.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.getModByClass(TriggerBotMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(TriggerBotMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.killauraLegitMod.isEnabled())
+			WurstClient.INSTANCE.mods.killauraLegitMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.multiAuraMod.isEnabled())
+			WurstClient.INSTANCE.mods.multiAuraMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.triggerBotMod.isEnabled())
+			WurstClient.INSTANCE.mods.triggerBotMod.setEnabled(false);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
-			.isActive())
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
 		{
 			realSpeed = yesCheatSpeed;
 			realRange = yesCheatRange;
@@ -91,8 +84,7 @@ public class KillauraMod extends Mod implements UpdateListener
 		{
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
 			{
-				if(WurstClient.INSTANCE.mods.getModByClass(
-					AutoSwordMod.class).isActive())
+				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				EntityUtils.faceEntityPacket(en);

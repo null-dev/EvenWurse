@@ -27,18 +27,12 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
-				.setEnabled(false);
-		if(WurstClient.INSTANCE.mods
-			.getModByClass(KillauraLegitMod.class).isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(
-				KillauraLegitMod.class).setEnabled(false);
-		if(WurstClient.INSTANCE.mods.getModByClass(TriggerBotMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(TriggerBotMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.killauraMod.isEnabled())
+			WurstClient.INSTANCE.mods.killauraMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.killauraLegitMod.isEnabled())
+			WurstClient.INSTANCE.mods.killauraLegitMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.triggerBotMod.isEnabled())
+			WurstClient.INSTANCE.mods.triggerBotMod.setEnabled(false);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
@@ -53,8 +47,7 @@ public class MultiAuraMod extends Mod implements UpdateListener
 			{
 				EntityLivingBase en =
 					EntityUtils.getCloseEntities(true, range).get(i);
-				if(WurstClient.INSTANCE.mods.getModByClass(
-					AutoSwordMod.class).isActive())
+				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				EntityUtils.faceEntityPacket(en);

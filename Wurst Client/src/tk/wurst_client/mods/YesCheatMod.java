@@ -25,10 +25,8 @@ public class YesCheatMod extends Mod
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(AntiMacMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(AntiMacMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.antiMacMod.isEnabled())
+			WurstClient.INSTANCE.mods.antiMacMod.setEnabled(false);
 		if(blockedMods == null)
 		{
 			blockedMods = new HashSet<>();

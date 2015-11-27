@@ -63,20 +63,15 @@ public class FightBotMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		KillauraMod killaura =
-			(KillauraMod)WurstClient.INSTANCE.mods
-				.getModByClass(KillauraMod.class);
-		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
-			.isActive())
-			speed = killaura.yesCheatSpeed;
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
+			speed = WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed;
 		else
-			speed = killaura.normalSpeed;
+			speed = WurstClient.INSTANCE.mods.killauraMod.normalSpeed;
 		updateMS();
 		if(hasTimePassedS(speed))
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) <= range)
 			{
-				if(WurstClient.INSTANCE.mods.getModByClass(
-					AutoSwordMod.class).isActive())
+				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				if(EntityUtils.getDistanceFromMouse(entity) > 55)

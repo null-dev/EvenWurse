@@ -25,10 +25,8 @@ public class AntiMacMod extends Mod
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isEnabled())
+			WurstClient.INSTANCE.mods.yesCheatMod.setEnabled(false);
 		if(blockedMods == null)
 		{
 			blockedMods = new HashSet<>();
@@ -40,22 +38,14 @@ public class AntiMacMod extends Mod
 			
 			// remove mods that work with MAC
 			// TODO: More efficient method to do this
-			blockedMods.remove(WurstClient.INSTANCE.mods
-				.getModByClass(AntiFireMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.mods
-				.getModByClass(AntiPotionMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.mods
-				.getModByClass(FastBowMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.mods
-				.getModByClass(GlideMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.mods
-				.getModByClass(MultiAuraMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.mods
-				.getModByClass(NoSlowdownMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.mods
-				.getModByClass(RegenMod.class));
-			blockedMods.remove(WurstClient.INSTANCE.mods
-				.getModByClass(SpiderMod.class));
+			blockedMods.remove(WurstClient.INSTANCE.mods.antiFireMod);
+			blockedMods.remove(WurstClient.INSTANCE.mods.antiPotionMod);
+			blockedMods.remove(WurstClient.INSTANCE.mods.fastBowMod);
+			blockedMods.remove(WurstClient.INSTANCE.mods.glideMod);
+			blockedMods.remove(WurstClient.INSTANCE.mods.multiAuraMod);
+			blockedMods.remove(WurstClient.INSTANCE.mods.noSlowdownMod);
+			blockedMods.remove(WurstClient.INSTANCE.mods.regenMod);
+			blockedMods.remove(WurstClient.INSTANCE.mods.spiderMod);
 		}
 		for(Mod mod : blockedMods)
 			mod.setBlocked(true);

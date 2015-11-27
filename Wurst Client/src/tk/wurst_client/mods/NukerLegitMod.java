@@ -59,18 +59,12 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(NukerMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(NukerMod.class)
-				.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.getModByClass(SpeedNukerMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(SpeedNukerMod.class)
-				.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.getModByClass(TunnellerMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(TunnellerMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.nukerMod.isEnabled())
+			WurstClient.INSTANCE.mods.nukerMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.speedNukerMod.isEnabled())
+			WurstClient.INSTANCE.mods.speedNukerMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.tunnellerMod.isEnabled())
+			WurstClient.INSTANCE.mods.tunnellerMod.setEnabled(false);
 		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 		WurstClient.INSTANCE.events.add(RenderListener.class, this);
@@ -120,8 +114,8 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
-			if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class)
-				.isActive() && oldSlot == -1)
+			if(WurstClient.INSTANCE.mods.autoToolMod.isActive()
+				&& oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
@@ -138,8 +132,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 				return;
 			}
 		}
-		if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class)
-			.isActive())
+		if(WurstClient.INSTANCE.mods.autoToolMod.isActive())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());
@@ -203,9 +196,6 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	
 	private BlockPos find()
 	{
-		NukerMod nuker =
-			(NukerMod)WurstClient.INSTANCE.mods
-				.getModByClass(NukerMod.class);
 		LinkedList<BlockPos> queue = new LinkedList<BlockPos>();
 		HashSet<BlockPos> alreadyProcessed = new HashSet<BlockPos>();
 		queue.add(new BlockPos(Minecraft.getMinecraft().thePlayer));
@@ -215,7 +205,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 			if(alreadyProcessed.contains(currentPos))
 				continue;
 			alreadyProcessed.add(currentPos);
-			if(BlockUtils.getPlayerBlockDistance(currentPos) > nuker.yesCheatRange)
+			if(BlockUtils.getPlayerBlockDistance(currentPos) > WurstClient.INSTANCE.mods.nukerMod.yesCheatRange)
 				continue;
 			int currentID =
 				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld

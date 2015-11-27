@@ -25,18 +25,12 @@ public class TriggerBotMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
-				.setEnabled(false);
-		if(WurstClient.INSTANCE.mods
-			.getModByClass(KillauraLegitMod.class).isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(
-				KillauraLegitMod.class).setEnabled(false);
-		if(WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.killauraMod.isEnabled())
+			WurstClient.INSTANCE.mods.killauraMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.killauraLegitMod.isEnabled())
+			WurstClient.INSTANCE.mods.killauraLegitMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.multiAuraMod.isEnabled())
+			WurstClient.INSTANCE.mods.multiAuraMod.setEnabled(false);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
@@ -49,25 +43,22 @@ public class TriggerBotMod extends Mod implements UpdateListener
 		{
 			updateMS();
 			boolean yesCheatMode =
-				WurstClient.INSTANCE.mods
-					.getModByClass(YesCheatMod.class).isActive();
-			KillauraMod killaura =
-				(KillauraMod)WurstClient.INSTANCE.mods
-					.getModByClass(KillauraMod.class);
-			if(yesCheatMode && hasTimePassedS(killaura.yesCheatSpeed)
-				|| !yesCheatMode && hasTimePassedS(killaura.normalSpeed))
+				WurstClient.INSTANCE.mods.yesCheatMod.isActive();
+			if(yesCheatMode
+				&& hasTimePassedS(WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed)
+				|| !yesCheatMode
+				&& hasTimePassedS(WurstClient.INSTANCE.mods.killauraMod.normalSpeed))
 			{
 				EntityLivingBase en =
 					(EntityLivingBase)Minecraft.getMinecraft().objectMouseOver.entityHit;
 				if((yesCheatMode
 					&& Minecraft.getMinecraft().thePlayer
-						.getDistanceToEntity(en) <= killaura.yesCheatRange || !yesCheatMode
+						.getDistanceToEntity(en) <= WurstClient.INSTANCE.mods.killauraMod.yesCheatRange || !yesCheatMode
 					&& Minecraft.getMinecraft().thePlayer
-						.getDistanceToEntity(en) <= killaura.normalRange)
+						.getDistanceToEntity(en) <= WurstClient.INSTANCE.mods.killauraMod.normalRange)
 					&& EntityUtils.isCorrectEntity(en, true))
 				{
-					if(WurstClient.INSTANCE.mods.getModByClass(
-						AutoSwordMod.class).isActive())
+					if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 						AutoSwordMod.setSlot();
 					CriticalsMod.doCritical();
 					Minecraft.getMinecraft().thePlayer.swingItem();
