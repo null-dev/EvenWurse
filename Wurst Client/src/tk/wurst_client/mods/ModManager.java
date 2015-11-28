@@ -13,8 +13,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-import tk.wurst_client.mods.Mod.Info;
-
 public class ModManager
 {
 	private final TreeMap<String, Mod> mods = new TreeMap<String, Mod>(
@@ -156,11 +154,6 @@ public class ModManager
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	public Mod getModByClass(Class<?> modClass)
-	{
-		return mods.get(modClass.getAnnotation(Info.class).name());
 	}
 	
 	public Mod getModByName(String name)
