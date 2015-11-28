@@ -10,7 +10,6 @@ package tk.wurst_client.commands;
 
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.mods.ThrowMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Changes the amount of Throw or toggles it.",
@@ -23,12 +22,10 @@ public class ThrowCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			WurstClient.INSTANCE.mods.getModByClass(ThrowMod.class)
-				.toggle();
+			WurstClient.INSTANCE.mods.throwMod.toggle();
 			WurstClient.INSTANCE.chat.message("Throw turned "
-				+ (WurstClient.INSTANCE.mods
-					.getModByClass(ThrowMod.class).isEnabled() == true ? "on"
-					: "off") + ".");
+				+ (WurstClient.INSTANCE.mods.throwMod.isEnabled() == true
+					? "on" : "off") + ".");
 		}else if(args.length == 2 && args[0].equalsIgnoreCase("amount")
 			&& MiscUtils.isInteger(args[1]))
 		{

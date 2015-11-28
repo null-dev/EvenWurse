@@ -100,9 +100,9 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 		}
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
-		((WurstTheme)WurstClient.INSTANCE.gui.getTheme())
-			.getFontRenderer().drawStringWithShadow(targetLocked,
-				width / 2 + 2, height / 2, RenderUtil.toRGBA(Color.WHITE));
+		((WurstTheme)WurstClient.INSTANCE.gui.getTheme()).getFontRenderer()
+			.drawStringWithShadow(targetLocked, width / 2 + 2, height / 2,
+				RenderUtil.toRGBA(Color.WHITE));
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
 	}
@@ -137,8 +137,7 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 			Minecraft.getMinecraft().thePlayer.getItemInUseDuration();
 		velocity = bowCharge / 20;
 		velocity = (velocity * velocity + velocity * 2) / 3;
-		if(WurstClient.INSTANCE.mods.getModByClass(FastBowMod.class)
-			.isActive())
+		if(WurstClient.INSTANCE.mods.fastBowMod.isActive())
 			velocity = 1;
 		if(velocity < 0.1)
 		{

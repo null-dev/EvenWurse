@@ -90,22 +90,17 @@ public class ProtectMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		KillauraMod killaura =
-			(KillauraMod)WurstClient.INSTANCE.mods
-				.getModByClass(KillauraMod.class);
-		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class)
-			.isActive())
-			speed = killaura.yesCheatSpeed;
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
+			speed = WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed;
 		else
-			speed = killaura.normalSpeed;
+			speed = WurstClient.INSTANCE.mods.killauraMod.normalSpeed;
 		updateMS();
 		if(hasTimePassedS(speed) && EntityUtils.getClosestEnemy(friend) != null)
 		{
 			enemy = EntityUtils.getClosestEnemy(friend);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= range)
 			{
-				if(WurstClient.INSTANCE.mods.getModByClass(
-					AutoSwordMod.class).isActive())
+				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				EntityUtils.faceEntityClient(enemy);

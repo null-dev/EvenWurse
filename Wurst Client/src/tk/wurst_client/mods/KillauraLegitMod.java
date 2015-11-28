@@ -25,18 +25,12 @@ public class KillauraLegitMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class)
-				.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(MultiAuraMod.class)
-				.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.getModByClass(TriggerBotMod.class)
-			.isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(TriggerBotMod.class)
-				.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.killauraMod.isEnabled())
+			WurstClient.INSTANCE.mods.killauraMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.multiAuraMod.isEnabled())
+			WurstClient.INSTANCE.mods.multiAuraMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.triggerBotMod.isEnabled())
+			WurstClient.INSTANCE.mods.triggerBotMod.setEnabled(false);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
@@ -44,16 +38,13 @@ public class KillauraLegitMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		updateMS();
-		KillauraMod killaura =
-			(KillauraMod)WurstClient.INSTANCE.mods
-				.getModByClass(KillauraMod.class);
 		EntityLivingBase en = EntityUtils.getClosestEntity(true, true);
-		if(hasTimePassedS(killaura.yesCheatSpeed) && en != null)
+		if(hasTimePassedS(WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed)
+			&& en != null)
 		{
-			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= killaura.yesCheatRange)
+			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= WurstClient.INSTANCE.mods.killauraMod.yesCheatRange)
 			{
-				if(WurstClient.INSTANCE.mods.getModByClass(
-					CriticalsMod.class).isActive()
+				if(WurstClient.INSTANCE.mods.criticalsMod.isActive()
 					&& Minecraft.getMinecraft().thePlayer.onGround)
 					Minecraft.getMinecraft().thePlayer.jump();
 				if(EntityUtils.getDistanceFromMouse(en) > 55)
