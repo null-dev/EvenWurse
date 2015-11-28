@@ -6,12 +6,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package tk.wurst_client.zoom;
+package tk.wurst_client.hooks;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.options.OptionsManager.Zoom;
 
 public class ZoomHook
 {
@@ -19,9 +20,10 @@ public class ZoomHook
 	
 	public static float changeFovBasedOnZoom(float fov)
 	{
-		if(Keyboard.isKeyDown(WurstClient.INSTANCE.options.zoom.keybind))
+		Zoom zoom = WurstClient.INSTANCE.options.zoom;
+		if(Keyboard.isKeyDown(zoom.keybind))
 		{
-			if(WurstClient.INSTANCE.options.zoom.scroll)
+			if(zoom.scroll)
 			{
 				int scroll = Mouse.getDWheel();
 				if(scroll > 0)
@@ -32,9 +34,9 @@ public class ZoomHook
 						Math.max(Math.round(scrollLevel * 9F) / 10F, 1F);
 				fov /= scrollLevel;
 			}else
-				fov /= WurstClient.INSTANCE.options.zoom.level;
-		}else if(scrollLevel != WurstClient.INSTANCE.options.zoom.level)
-			scrollLevel = WurstClient.INSTANCE.options.zoom.level;
+				fov /= zoom.level;
+		}else if(scrollLevel != zoom.level)
+			scrollLevel = zoom.level;
 		return fov;
 	}
 }
