@@ -66,6 +66,7 @@ import org.darkstorm.minecraft.gui.theme.Theme;
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.gui.target.TargetFrame;
 import tk.wurst_client.mods.AutoBuildMod;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.mods.Mod.Category;

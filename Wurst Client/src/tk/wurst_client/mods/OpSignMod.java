@@ -10,9 +10,9 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.gui.mods.GuiOpSign;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
-import tk.wurst_client.opsign.gui.GuiOpSign;
 
 @Info(category = Category.EXPLOITS,
 	description = "Enable this mod, place a sign and click it to get OP.\n"

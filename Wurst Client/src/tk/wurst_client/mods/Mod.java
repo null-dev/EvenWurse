@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.error.gui.GuiError;
+import tk.wurst_client.gui.error.GuiError;
 
 public class Mod
 {
