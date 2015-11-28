@@ -17,7 +17,9 @@ import tk.wurst_client.chat.ChatManager;
 import tk.wurst_client.commands.CmdManager;
 import tk.wurst_client.events.EventManager;
 import tk.wurst_client.files.FileManager;
+import tk.wurst_client.font.Fonts;
 import tk.wurst_client.gui.GuiManager;
+import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.options.FriendsList;
 import tk.wurst_client.options.KeybindManager;
@@ -59,9 +61,13 @@ public enum WurstClient
 		friends = new FriendsList();
 		
 		files.init();
+		Fonts.loadFonts();
 		gui.setTheme(new WurstTheme());
 		gui.setup();
 		updater.checkForUpdate();
-		analytics = new AnalyticsManager("UA-52838431-5", "client.wurst-client.tk");
+		analytics =
+			new AnalyticsManager("UA-52838431-5", "client.wurst-client.tk");
+
+		FrameHook.maximize();
 	}
 }

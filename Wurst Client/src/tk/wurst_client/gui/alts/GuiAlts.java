@@ -22,7 +22,6 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
@@ -33,6 +32,7 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.alts.NameGenerator;
+import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.utils.MiscUtils;
 
 public class GuiAlts extends GuiScreen
@@ -176,8 +176,7 @@ public class GuiAlts extends GuiScreen
 							.addChoosableFileFilter(new FileNameExtensionFilter(
 								"Username:Password format (TXT)", "txt"));
 						int action =
-							fileChooser.showOpenDialog(Minecraft.getMinecraft()
-								.getFrame());
+							fileChooser.showOpenDialog(FrameHook.getFrame());
 						if(action == JFileChooser.APPROVE_OPTION)
 							try
 							{

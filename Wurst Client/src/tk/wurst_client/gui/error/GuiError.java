@@ -28,13 +28,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.util.ResourceLocation;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd;
+import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
@@ -145,8 +145,7 @@ public class GuiError extends GuiScreen
 					@Override
 					public void run()
 					{
-						switch(JOptionPane.showOptionDialog(Minecraft
-							.getMinecraft().getFrame(), report, "Stacktrace",
+						switch(JOptionPane.showOptionDialog(FrameHook.getFrame(), report, "Stacktrace",
 							JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE, null,
 							new String[]{"Close", "Copy to Clipboard",
@@ -180,8 +179,7 @@ public class GuiError extends GuiScreen
 									.addChoosableFileFilter(new FileNameExtensionFilter(
 										"Markdown files", "md"));
 								int action =
-									fileChooser.showSaveDialog(Minecraft
-										.getMinecraft().getFrame());
+									fileChooser.showSaveDialog(FrameHook.getFrame());
 								if(action == JFileChooser.APPROVE_OPTION)
 									try
 									{

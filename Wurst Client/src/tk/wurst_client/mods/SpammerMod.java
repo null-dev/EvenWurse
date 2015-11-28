@@ -31,6 +31,7 @@ import javax.swing.text.BadLocationException;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.spam.SpamProcessor;
@@ -460,8 +461,7 @@ public class SpammerMod extends Mod
 				
 				dialog.setContentPane(panel);
 				dialog.pack();
-				dialog.setLocationRelativeTo(Minecraft.getMinecraft()
-					.getFrame());
+				dialog.setLocationRelativeTo(FrameHook.getFrame());
 				dialog.setAlwaysOnTop(true);
 				Minecraft.getMinecraft().setIngameNotInFocus();
 				dialog.setVisible(true);
