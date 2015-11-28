@@ -13,8 +13,8 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 
 @Mod.Info(category = Mod.Category.MOVEMENT,
-	description = "Allows you to run roughly twice as fast as normal.\n"
-		+ "Bypasses NoCheat+.\n"
+	description = "Allows you to run roughly 2.5x faster than you would by\n"
+		+ "sprinting and jumping. Bypasses NoCheat+.\n"
 		+ "Warning: AntiCheat systems other than NoCheat+ (e.g. Hypixel\n"
 		+ "AntiCheat) might still be able to block it.",
 	name = "SpeedHack")
@@ -43,7 +43,7 @@ public class SpeedHackMod extends Mod implements UpdateListener
 		// activate mini jump if on ground
 		if(Minecraft.getMinecraft().thePlayer.onGround)
 		{
-			Minecraft.getMinecraft().thePlayer.motionY += 0.2;
+			Minecraft.getMinecraft().thePlayer.motionY += 0.1;
 			Minecraft.getMinecraft().thePlayer.motionX *= 1.8;
 			Minecraft.getMinecraft().thePlayer.motionZ *= 1.8;
 			double currentSpeed =
