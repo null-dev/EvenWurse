@@ -94,8 +94,6 @@ public class BasicFrame extends AbstractContainer implements Frame
 		if(!pinnable)
 			pinned = false;
 		this.pinned = pinned;
-		WurstClient.INSTANCE.files
-			.saveGUI(WurstClient.INSTANCE.gui.getFrames());
 	}
 	
 	@Override
@@ -124,8 +122,6 @@ public class BasicFrame extends AbstractContainer implements Frame
 		if(!minimizable)
 			minimized = false;
 		this.minimized = minimized;
-		WurstClient.INSTANCE.files
-			.saveGUI(WurstClient.INSTANCE.gui.getFrames());
 	}
 	
 	@Override

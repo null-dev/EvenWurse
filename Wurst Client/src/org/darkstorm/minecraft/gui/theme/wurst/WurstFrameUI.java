@@ -24,6 +24,8 @@ import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 
+import tk.wurst_client.WurstClient;
+
 public class WurstFrameUI extends AbstractComponentUI<Frame>
 {
 	private final WurstTheme theme;
@@ -462,6 +464,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				&& location.y >= 2 && location.y <= textHeight + 2)
 			{
 				component.setPinned(!component.isPinned());
+				WurstClient.INSTANCE.files
+				.saveGUI(WurstClient.INSTANCE.gui.getFrames());
 				return;
 			}
 			offset -= textHeight + 2;
@@ -472,6 +476,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				&& location.y >= 2 && location.y <= textHeight + 2)
 			{
 				component.setMinimized(!component.isMinimized());
+				WurstClient.INSTANCE.files
+				.saveGUI(WurstClient.INSTANCE.gui.getFrames());
 				return;
 			}
 			offset -= textHeight + 2;
