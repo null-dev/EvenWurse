@@ -23,6 +23,8 @@ import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
 
+import tk.wurst_client.WurstClient;
+
 public class WurstSliderUI extends AbstractComponentUI<Slider>
 {
 	private WurstTheme theme;
@@ -181,6 +183,7 @@ public class WurstSliderUI extends AbstractComponentUI<Slider>
 			if(!Mouse.isButtonDown(0))
 			{
 				component.setValueChanging(false);
+				WurstClient.INSTANCE.files.saveSliders();
 				return;
 			}
 			Point mouse = RenderUtil.calculateMouseLocation();

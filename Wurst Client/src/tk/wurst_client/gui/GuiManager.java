@@ -184,7 +184,6 @@ public final class GuiManager extends AbstractGuiManager
 							{
 								int id = moduleSliders.indexOf(slider);
 								moduleSliders.set(id, (BasicSlider)slider);
-								WurstClient.INSTANCE.files.saveSliders();
 							}
 							mod.setSliders(moduleSliders);
 							mod.updateSettings();
