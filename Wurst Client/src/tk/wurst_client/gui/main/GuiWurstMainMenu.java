@@ -27,7 +27,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -344,22 +343,22 @@ public class GuiWurstMainMenu extends GuiMainMenu
 				switch(button.id)
 				{
 					case 20:
-						tooltip.add("Wurst on YouTube");
+						tooltip.add("Wurst YouTube Channel");
 						break;
 					case 21:
-						tooltip.add("Wurst on Twitter");
+						tooltip.add("Wurst Twitter Account");
 						break;
 					case 22:
-						tooltip.add("Wurst on Google+");
+						tooltip.add("Wurst Google+ Page");
 						break;
 					case 23:
-						tooltip.add("Wurst on GitHub");
+						tooltip.add("Wurst Source Code");
 						break;
 					case 24:
 						tooltip.add("Wurst Feedback");
 						break;
 					case 25:
-						tooltip.add("Wurst Fan Shop");
+						tooltip.add("Wurst Merchandise");
 						break;
 				}
 				drawHoveringText(tooltip, mouseX, mouseY);
@@ -378,15 +377,6 @@ public class GuiWurstMainMenu extends GuiMainMenu
 						+ WurstClient.INSTANCE.updater.getLatestVersion(),
 					"from " + WurstClient.INSTANCE.updater.getCurrentVersion());
 				WurstClient.INSTANCE.updater.update();
-			}else if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER
-				&& Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 24)
-			{
-				// christmas
-				mc.displayGuiScreen(new GuiYesNo(this, "Dude, it's Christmas!",
-					"What do you want here?", "I want a Christmas song",
-					"I want to grief", 1));
-				WurstClient.INSTANCE.analytics.trackPageView(
-					"/easter-eggs/christmas", "Dude, it's Christmas!");
 			}else
 				// emergency message
 				try
