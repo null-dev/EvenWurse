@@ -28,6 +28,7 @@ public class Mod
 		.category();
 	private boolean enabled;
 	private boolean blocked;
+	private boolean active;
 	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
@@ -85,12 +86,13 @@ public class Mod
 	
 	public final boolean isActive()
 	{
-		return enabled && !blocked;
+		return active;
 	}
 	
 	public final void setEnabled(boolean enabled)
 	{
 		this.enabled = enabled;
+		active = enabled && !blocked;
 		if(blocked && enabled)
 			return;
 		try
@@ -126,6 +128,7 @@ public class Mod
 	public final void enableOnStartup()
 	{
 		enabled = true;
+		active = enabled && !blocked;
 		try
 		{
 			onToggle();
@@ -158,6 +161,7 @@ public class Mod
 	public void setBlocked(boolean blocked)
 	{
 		this.blocked = blocked;
+		active = enabled && !blocked;
 		if(enabled)
 		{
 			try
