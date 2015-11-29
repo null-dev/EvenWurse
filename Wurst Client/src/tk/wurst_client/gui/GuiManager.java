@@ -123,8 +123,6 @@ public final class GuiManager extends AbstractGuiManager
 			if(frame == null)
 			{
 				String name = mod.getCategory().name().toLowerCase();
-				if(WurstClient.INSTANCE.files.options.exists())
-					WurstClient.INSTANCE.files.loadOptions();
 				if(name.equalsIgnoreCase("HIDDEN"))
 					continue;
 				name =
@@ -205,7 +203,6 @@ public final class GuiManager extends AbstractGuiManager
 			{
 				WurstClient.INSTANCE.options.autobuildMode =
 					comboBox.getSelectedIndex();
-				WurstClient.INSTANCE.files.saveOptions();
 			}
 		});
 		autoBuildBox

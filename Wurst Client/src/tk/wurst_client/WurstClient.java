@@ -63,6 +63,7 @@ public enum WurstClient
 		updater.checkForUpdate();
 		analytics =
 			new AnalyticsManager("UA-52838431-5", "client.wurst-client.tk");
+		files.saveOptions();
 
 		FrameHook.maximize();
 	}
