@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.mods.NukerMod;
+import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Changes the settings of Nuker.", name = "nuker", syntax = {
@@ -24,26 +25,29 @@ public class NukerCmd extends Cmd
 		if(args.length != 2)
 			syntaxError();
 		else if(args[0].toLowerCase().equals("mode"))
-		{// 0=normal, 1=id, 2=flat, 3=smash
-			if(args[1].toLowerCase().equals("normal"))
+		{
+			OptionsManager options = WurstClient.INSTANCE.options;
+			final int oldMode = options.nukerMode;
+			switch(args[1].toLowerCase())
 			{
-				WurstClient.INSTANCE.options.nukerMode = 0;
-				NukerMod.id = 0;
-			}else if(args[1].toLowerCase().equals("id"))
-			{
-				WurstClient.INSTANCE.options.nukerMode = 1;
-				NukerMod.id = 0;
-			}else if(args[1].toLowerCase().equals("flat"))
-			{
-				WurstClient.INSTANCE.options.nukerMode = 2;
-				NukerMod.id = 0;
-			}else if(args[1].toLowerCase().equals("smash"))
-			{
-				WurstClient.INSTANCE.options.nukerMode = 3;
-				NukerMod.id = 0;
-			}else
-				syntaxError();
-			WurstClient.INSTANCE.files.saveOptions();
+				case "normal":
+					options.nukerMode = 0;
+					break;
+				case "id":
+					options.nukerMode = 1;
+					break;
+				case "flat":
+					options.nukerMode = 2;
+					break;
+				case "smash":
+					options.nukerMode = 3;
+					break;
+				default:
+					syntaxError();
+					break;
+			}
+			if(oldMode != options.nukerMode)
+				WurstClient.INSTANCE.files.saveOptions();
 			WurstClient.INSTANCE.chat.message("Nuker mode set to \"" + args[1]
 				+ "\".");
 		}else if(args[0].equalsIgnoreCase("id") && MiscUtils.isInteger(args[1]))
