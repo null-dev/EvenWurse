@@ -14,7 +14,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -35,6 +35,7 @@ import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.XRayUtils;
 
+import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -186,15 +187,20 @@ public class FileManager
 		}
 	}
 	
-	private String[] moduleBlacklist = {AntiAfkMod.class.getName(),
-		BlinkMod.class.getName(), ArenaBrawlMod.class.getName(),
-		AutoBuildMod.class.getName(), AutoSignMod.class.getName(),
-		FightBotMod.class.getName(), FollowMod.class.getName(),
-		ForceOpMod.class.getName(), FreecamMod.class.getName(),
-		InvisibilityMod.class.getName(), LsdMod.class.getName(),
-		MassTpaMod.class.getName(), OpSignMod.class.getName(),
-		ProtectMod.class.getName(), RemoteViewMod.class.getName(),
-		SpammerMod.class.getName(),};
+	private HashSet<String> modBlacklist = Sets.newHashSet(
+		AntiAfkMod.class.getName(), BlinkMod.class.getName(),
+		ArenaBrawlMod.class.getName(), AutoBuildMod.class.getName(),
+		AutoSignMod.class.getName(), FightBotMod.class.getName(),
+		FollowMod.class.getName(), ForceOpMod.class.getName(),
+		FreecamMod.class.getName(), InvisibilityMod.class.getName(),
+		LsdMod.class.getName(), MassTpaMod.class.getName(),
+		OpSignMod.class.getName(), ProtectMod.class.getName(),
+		RemoteViewMod.class.getName(), SpammerMod.class.getName());
+	
+	public boolean isModBlacklited(Mod mod)
+	{
+		return modBlacklist.contains(mod.getClass().getName());
+	}
 	
 	public void loadMods()
 	{
@@ -209,12 +215,9 @@ public class FileManager
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				Mod mod =
-					WurstClient.INSTANCE.mods
-						.getModByName(entry.getKey());
-				if(mod != null
-					&& mod.getCategory() != Category.HIDDEN
-					&& !Arrays.asList(moduleBlacklist).contains(
-						mod.getClass().getName()))
+					WurstClient.INSTANCE.mods.getModByName(entry.getKey());
+				if(mod != null && mod.getCategory() != Category.HIDDEN
+					&& !modBlacklist.contains(mod.getClass().getName()))
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
 					boolean enabled = jsonModule.get("enabled").getAsBoolean();
@@ -276,7 +279,8 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(options));
-			save.println(JsonUtils.prettyGson.toJson(WurstClient.INSTANCE.options));
+			save.println(JsonUtils.prettyGson
+				.toJson(WurstClient.INSTANCE.options));
 			save.close();
 		}catch(Exception e)
 		{
@@ -289,9 +293,9 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(options));
-			WurstClient.INSTANCE.options = JsonUtils.prettyGson.fromJson(load, OptionsManager.class);
+			WurstClient.INSTANCE.options =
+				JsonUtils.prettyGson.fromJson(load, OptionsManager.class);
 			load.close();
-			saveOptions();
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -308,7 +312,8 @@ public class FileManager
 			BufferedReader load =
 				new BufferedReader(new FileReader(autoMaximize));
 			autoMaximizeEnabled =
-				JsonUtils.prettyGson.fromJson(load, Boolean.class) && !Minecraft.isRunningOnMac;
+				JsonUtils.prettyGson.fromJson(load, Boolean.class)
+					&& !Minecraft.isRunningOnMac;
 			load.close();
 		}catch(Exception e)
 		{
@@ -371,8 +376,7 @@ public class FileManager
 			{
 				Entry<String, JsonElement> entry = itr.next();
 				Mod mod =
-					WurstClient.INSTANCE.mods
-						.getModByName(entry.getKey());
+					WurstClient.INSTANCE.mods.getModByName(entry.getKey());
 				if(mod != null)
 				{
 					JsonObject jsonModule = (JsonObject)entry.getValue();
@@ -407,8 +411,10 @@ public class FileManager
 				jsonAlt.addProperty("starred", alt.isStarred());
 				json.add(alt.getEmail(), jsonAlt);
 			}
-			Files.write(alts.toPath(), Encryption.encrypt(JsonUtils.prettyGson.toJson(json))
-				.getBytes(Encryption.CHARSET));
+			Files.write(
+				alts.toPath(),
+				Encryption.encrypt(JsonUtils.prettyGson.toJson(json)).getBytes(
+					Encryption.CHARSET));
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -461,7 +467,8 @@ public class FileManager
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(friends));
-			save.println(JsonUtils.prettyGson.toJson(WurstClient.INSTANCE.friends));
+			save.println(JsonUtils.prettyGson
+				.toJson(WurstClient.INSTANCE.friends));
 			save.close();
 		}catch(Exception e)
 		{
@@ -474,7 +481,8 @@ public class FileManager
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(friends));
-			WurstClient.INSTANCE.friends = JsonUtils.prettyGson.fromJson(load, FriendsList.class);
+			WurstClient.INSTANCE.friends =
+				JsonUtils.prettyGson.fromJson(load, FriendsList.class);
 			load.close();
 		}catch(Exception e)
 		{
@@ -540,9 +548,10 @@ public class FileManager
 			{
 				Entry<String, int[][]> entry = itr.next();
 				JsonObject json = new JsonObject();
-				json.add("__comment", JsonUtils.prettyGson.toJsonTree(comment, String[].class));
-				json.add("blocks",
-					JsonUtils.prettyGson.toJsonTree(entry.getValue(), int[][].class));
+				json.add("__comment",
+					JsonUtils.prettyGson.toJsonTree(comment, String[].class));
+				json.add("blocks", JsonUtils.prettyGson.toJsonTree(
+					entry.getValue(), int[][].class));
 				PrintWriter save =
 					new PrintWriter(new FileWriter(new File(autobuildDir,
 						entry.getKey() + ".json")));
@@ -567,8 +576,8 @@ public class FileManager
 				BufferedReader load = new BufferedReader(new FileReader(file));
 				JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
 				load.close();
-				AutoBuildMod.templates.add(JsonUtils.prettyGson.fromJson(json.get("blocks"),
-					int[][].class));
+				AutoBuildMod.templates.add(JsonUtils.prettyGson.fromJson(
+					json.get("blocks"), int[][].class));
 				AutoBuildMod.names.add(file.getName().substring(0,
 					file.getName().indexOf(".json")));
 			}

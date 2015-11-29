@@ -122,7 +122,8 @@ public class Mod
 				Minecraft.getMinecraft().displayGuiScreen(
 					new GuiError(e, this, "disabling", ""));
 			}
-		WurstClient.INSTANCE.files.saveMods();
+		if(!WurstClient.INSTANCE.files.isModBlacklited(this))
+			WurstClient.INSTANCE.files.saveMods();
 	}
 	
 	public final void enableOnStartup()
