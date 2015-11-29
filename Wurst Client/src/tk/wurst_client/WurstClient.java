@@ -8,8 +8,6 @@
  */
 package tk.wurst_client;
 
-import net.minecraft.client.gui.ServerListEntryNormal;
-
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 
 import tk.wurst_client.analytics.AnalyticsManager;
@@ -31,8 +29,6 @@ public enum WurstClient
 	INSTANCE;
 	
 	public static final String VERSION = "2.10";
-	public String currentServerIP = "127.0.0.1:25565";
-	public ServerListEntryNormal lastServer;
 	public boolean startupMessageDisabled = false;
 	
 	public ChatManager chat;
