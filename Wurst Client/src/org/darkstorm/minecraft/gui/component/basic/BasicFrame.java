@@ -7,6 +7,8 @@ import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
 
+import tk.wurst_client.WurstClient;
+
 public class BasicFrame extends AbstractContainer implements Frame
 {
 	private String title;
@@ -73,7 +75,11 @@ public class BasicFrame extends AbstractContainer implements Frame
 			dragOffset =
 				new Point(mouseLocation.x - getX(), mouseLocation.y - getY());
 		}else
+		{
 			dragOffset = null;
+			WurstClient.INSTANCE.files.saveGUI(WurstClient.INSTANCE.gui
+				.getFrames());
+		}
 	}
 	
 	@Override
@@ -88,6 +94,8 @@ public class BasicFrame extends AbstractContainer implements Frame
 		if(!pinnable)
 			pinned = false;
 		this.pinned = pinned;
+		WurstClient.INSTANCE.files
+			.saveGUI(WurstClient.INSTANCE.gui.getFrames());
 	}
 	
 	@Override
@@ -116,6 +124,8 @@ public class BasicFrame extends AbstractContainer implements Frame
 		if(!minimizable)
 			minimized = false;
 		this.minimized = minimized;
+		WurstClient.INSTANCE.files
+			.saveGUI(WurstClient.INSTANCE.gui.getFrames());
 	}
 	
 	@Override
