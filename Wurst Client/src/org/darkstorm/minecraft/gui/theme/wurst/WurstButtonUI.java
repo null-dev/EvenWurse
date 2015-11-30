@@ -142,10 +142,10 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
 			Mod mod =
-				WurstClient.INSTANCE.modManager.getModByName(button.getText());
-			for(Frame frame : WurstClient.INSTANCE.guiManager.getFrames())
+				WurstClient.INSTANCE.mods.getModByName(button.getText());
+			for(Frame frame : WurstClient.INSTANCE.gui.getFrames())
 				if(frame.getTitle().equalsIgnoreCase(mod.getCategory().name()))
-					WurstClient.INSTANCE.guiManager.bringForward(frame);
+					WurstClient.INSTANCE.gui.bringForward(frame);
 			int scale = Minecraft.getMinecraft().gameSettings.guiScale;
 			if(scale == 0)
 				scale = 1000;
@@ -200,17 +200,17 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			Category buttonCategory = null;
 			Category dButtonCategory = null;
 			buttonCategory =
-				WurstClient.INSTANCE.modManager.getModByName(button.getText())
+				WurstClient.INSTANCE.mods.getModByName(button.getText())
 					.getCategory();
 			dButtonCategory =
-				WurstClient.INSTANCE.modManager.getModByName(dButton.getText())
+				WurstClient.INSTANCE.mods.getModByName(dButton.getText())
 					.getCategory();
 			boolean isRightFrame =
 				buttonCategory == dButtonCategory && buttonCategory != null;
 			if(!isRightFrame)
 				return false;
 			boolean isLastButton = false;
-			for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
+			for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 				if(buttonCategory == mod.getCategory())
 					if(button.getText().equals(mod.getName()))
 						isLastButton = true;

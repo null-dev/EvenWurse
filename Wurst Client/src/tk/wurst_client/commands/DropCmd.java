@@ -17,7 +17,6 @@ import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.events.listeners.UpdateListener;
-import tk.wurst_client.mods.YesCheatMod;
 
 @Info(help = "Drops all your items on the ground.",
 	name = "drop",
@@ -42,7 +41,7 @@ public class DropCmd extends Cmd implements UpdateListener
 			infinite = false;
 		timer = 0;
 		counter = 9;
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -58,8 +57,7 @@ public class DropCmd extends Cmd implements UpdateListener
 					new ItemStack(item, 64)));
 			return;
 		}
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
 		{
 			timer++;
 			if(timer >= 5)
@@ -69,16 +67,15 @@ public class DropCmd extends Cmd implements UpdateListener
 				counter++;
 				timer = 0;
 				if(counter >= 45)
-					WurstClient.INSTANCE.eventManager.remove(
-						UpdateListener.class, this);
+					WurstClient.INSTANCE.events.remove(UpdateListener.class,
+						this);
 			}
 		}else
 		{
 			for(int i = 9; i < 45; i++)
 				Minecraft.getMinecraft().playerController.windowClick(0, i, 1,
 					4, Minecraft.getMinecraft().thePlayer);
-			WurstClient.INSTANCE.eventManager
-				.remove(UpdateListener.class, this);
+			WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		}
 	}
 }

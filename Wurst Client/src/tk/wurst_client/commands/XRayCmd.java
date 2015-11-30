@@ -71,7 +71,7 @@ public class XRayCmd extends Cmd
 				}
 				tk.wurst_client.mods.XRayMod.xrayBlocks.add(Block
 					.getBlockById(Integer.valueOf(args[2])));
-				WurstClient.INSTANCE.fileManager.saveXRayBlocks();
+				WurstClient.INSTANCE.files.saveXRayBlocks();
 				WurstClient.INSTANCE.chat.message("Added block " + args[2]
 					+ ".");
 				Minecraft.getMinecraft().renderGlobal.loadRenderers();
@@ -87,7 +87,7 @@ public class XRayCmd extends Cmd
 				}
 				tk.wurst_client.mods.XRayMod.xrayBlocks.add(Block
 					.getBlockById(newID));
-				WurstClient.INSTANCE.fileManager.saveXRayBlocks();
+				WurstClient.INSTANCE.files.saveXRayBlocks();
 				WurstClient.INSTANCE.chat.message("Added block " + newID
 					+ " (\"" + args[2] + "\").");
 				Minecraft.getMinecraft().renderGlobal.loadRenderers();
@@ -107,7 +107,7 @@ public class XRayCmd extends Cmd
 						.equals(args[2].toLowerCase()))
 					{
 						tk.wurst_client.mods.XRayMod.xrayBlocks.remove(i);
-						WurstClient.INSTANCE.fileManager.saveXRayBlocks();
+						WurstClient.INSTANCE.files.saveXRayBlocks();
 						WurstClient.INSTANCE.chat.message("Removed block "
 							+ args[2] + ".");
 						Minecraft.getMinecraft().renderGlobal.loadRenderers();
@@ -132,7 +132,7 @@ public class XRayCmd extends Cmd
 							.get(i)) == newID)
 					{
 						tk.wurst_client.mods.XRayMod.xrayBlocks.remove(i);
-						WurstClient.INSTANCE.fileManager.saveXRayBlocks();
+						WurstClient.INSTANCE.files.saveXRayBlocks();
 						WurstClient.INSTANCE.chat.message("Removed block "
 							+ newID + " (\"" + args[2] + "\").");
 						Minecraft.getMinecraft().renderGlobal.loadRenderers();

@@ -41,7 +41,7 @@ public class LeaveCmd extends Cmd
 				break;
 			case 2:
 				WurstClient.INSTANCE.options.autoLeaveMode = parseMode(args[1]);
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.chat.message("AutoLeave mode set to \""
 					+ args[1] + "\".");
 				break;

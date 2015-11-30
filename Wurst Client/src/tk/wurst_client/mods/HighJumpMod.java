@@ -17,5 +17,5 @@ import tk.wurst_client.mods.Mod.Info;
 	noCheatCompatible = false)
 public class HighJumpMod extends Mod
 {
-	public static double jumpHeight = 0.41999998688697815D * 6;
+	public double jumpHeight = 0.41999998688697815D * 6;
 }

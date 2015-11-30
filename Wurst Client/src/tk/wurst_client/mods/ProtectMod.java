@@ -45,7 +45,7 @@ public class ProtectMod extends Mod implements UpdateListener
 		if(en != null
 			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
 			friend = en;
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -90,22 +90,17 @@ public class ProtectMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
-		KillauraMod killaura =
-			(KillauraMod)WurstClient.INSTANCE.modManager
-				.getModByClass(KillauraMod.class);
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isActive())
-			speed = killaura.yesCheatSpeed;
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
+			speed = WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed;
 		else
-			speed = killaura.normalSpeed;
+			speed = WurstClient.INSTANCE.mods.killauraMod.normalSpeed;
 		updateMS();
 		if(hasTimePassedS(speed) && EntityUtils.getClosestEnemy(friend) != null)
 		{
 			enemy = EntityUtils.getClosestEnemy(friend);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= range)
 			{
-				if(WurstClient.INSTANCE.modManager.getModByClass(
-					AutoSwordMod.class).isActive())
+				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
 				EntityUtils.faceEntityClient(enemy);
@@ -120,7 +115,7 @@ public class ProtectMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		if(friend != null)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;

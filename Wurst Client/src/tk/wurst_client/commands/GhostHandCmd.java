@@ -10,7 +10,6 @@ package tk.wurst_client.commands;
 
 import net.minecraft.block.Block;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.mods.GhostHandMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Cmd.Info(help = "Changes the settings of GhostHand or toggles it.",
@@ -23,18 +22,16 @@ public class GhostHandCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			WurstClient.INSTANCE.modManager.getModByClass(GhostHandMod.class)
-				.toggle();
+			WurstClient.INSTANCE.mods.ghostHandMod.toggle();
 			WurstClient.INSTANCE.chat.message("GhostHand turned "
-				+ (WurstClient.INSTANCE.modManager.getModByClass(
-					GhostHandMod.class).isEnabled() ? "on" : "off") + ".");
+				+ (WurstClient.INSTANCE.mods.ghostHandMod.isEnabled() ? "on" : "off") + ".");
 		}else if(args.length == 2)
 		{
 			if(args[0].equalsIgnoreCase("id") && MiscUtils.isInteger(args[1]))
 			{
 				WurstClient.INSTANCE.options.ghostHandID =
 					Integer.valueOf(args[1]);
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.chat.message("GhostHand ID set to "
 					+ args[1] + ".");
 			}else if(args[0].equalsIgnoreCase("name"))
@@ -48,7 +45,7 @@ public class GhostHandCmd extends Cmd
 					return;
 				}
 				WurstClient.INSTANCE.options.ghostHandID = newID;
-				WurstClient.INSTANCE.fileManager.saveOptions();
+				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.chat.message("GhostHand ID set to "
 					+ newID + " (" + args[1] + ").");
 			}else

@@ -25,14 +25,13 @@ public class PlayerEspMod extends Mod implements RenderListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override
 	public void onRender()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(ArenaBrawlMod.class)
-			.isActive())
+		if(WurstClient.INSTANCE.mods.arenaBrawlMod.isActive())
 			return;
 		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(entity instanceof EntityPlayer
@@ -46,6 +45,6 @@ public class PlayerEspMod extends Mod implements RenderListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 	}
 }

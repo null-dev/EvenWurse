@@ -40,8 +40,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.theme.Theme;
 
-import tk.wurst_client.WurstClient;
-
 /**
  * Minecraft GUI API
  *
@@ -113,7 +111,6 @@ public abstract class AbstractGuiManager implements GuiManager
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
-		WurstClient.INSTANCE.fileManager.saveGUI(getFrames());
 	}
 	
 	@Override

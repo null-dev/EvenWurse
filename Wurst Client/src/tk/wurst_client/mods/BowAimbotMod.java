@@ -43,9 +43,9 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.eventManager.add(GUIRenderListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(RenderListener.class, this);
-		WurstClient.INSTANCE.eventManager.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(GUIRenderListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
@@ -79,30 +79,30 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 			glVertex2d(
 				width
 					/ 2
-					+ ((WurstTheme)WurstClient.INSTANCE.guiManager.getTheme())
+					+ ((WurstTheme)WurstClient.INSTANCE.gui.getTheme())
 						.getFontRenderer().getStringWidth(targetLocked) + 4,
 				height / 2 + 1);
 			glVertex2d(
 				width
 					/ 2
-					+ ((WurstTheme)WurstClient.INSTANCE.guiManager.getTheme())
+					+ ((WurstTheme)WurstClient.INSTANCE.gui.getTheme())
 						.getFontRenderer().getStringWidth(targetLocked) + 4,
 				height
 					/ 2
-					+ ((WurstTheme)WurstClient.INSTANCE.guiManager.getTheme())
+					+ ((WurstTheme)WurstClient.INSTANCE.gui.getTheme())
 						.getFontRenderer().FONT_HEIGHT);
 			glVertex2d(
 				width / 2 + 1,
 				height
 					/ 2
-					+ ((WurstTheme)WurstClient.INSTANCE.guiManager.getTheme())
+					+ ((WurstTheme)WurstClient.INSTANCE.gui.getTheme())
 						.getFontRenderer().FONT_HEIGHT);
 		}
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
-		((WurstTheme)WurstClient.INSTANCE.guiManager.getTheme())
-			.getFontRenderer().drawStringWithShadow(targetLocked,
-				width / 2 + 2, height / 2, RenderUtil.toRGBA(Color.WHITE));
+		((WurstTheme)WurstClient.INSTANCE.gui.getTheme()).getFontRenderer()
+			.drawStringWithShadow(targetLocked, width / 2 + 2, height / 2,
+				RenderUtil.toRGBA(Color.WHITE));
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_BLEND);
 	}
@@ -124,9 +124,9 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(GUIRenderListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(RenderListener.class, this);
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(GUIRenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 	}
 	
 	private void aimAtTarget()
@@ -137,8 +137,7 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 			Minecraft.getMinecraft().thePlayer.getItemInUseDuration();
 		velocity = bowCharge / 20;
 		velocity = (velocity * velocity + velocity * 2) / 3;
-		if(WurstClient.INSTANCE.modManager.getModByClass(FastBowMod.class)
-			.isActive())
+		if(WurstClient.INSTANCE.mods.fastBowMod.isActive())
 			velocity = 1;
 		if(velocity < 0.1)
 		{

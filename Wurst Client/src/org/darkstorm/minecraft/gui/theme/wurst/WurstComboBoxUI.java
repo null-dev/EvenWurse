@@ -24,6 +24,8 @@ import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
 
+import tk.wurst_client.WurstClient;
+
 public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 {
 	private final WurstTheme theme;
@@ -308,6 +310,7 @@ public class WurstComboBoxUI extends AbstractComponentUI<ComboBox>
 				{
 					component.setSelectedIndex(i);
 					component.setSelected(false);
+					WurstClient.INSTANCE.files.saveOptions();
 					break;
 				}
 				offset += theme.getFontRenderer().FONT_HEIGHT + 2;

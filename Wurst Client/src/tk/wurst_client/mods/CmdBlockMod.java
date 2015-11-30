@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.cmdblock.gui.GuiCmdBlock;
+import tk.wurst_client.gui.mods.GuiCmdBlock;
 
 @Mod.Info(category = Mod.Category.EXPLOITS,
 	description = "Allows you to make a Command Block without having OP.\n"

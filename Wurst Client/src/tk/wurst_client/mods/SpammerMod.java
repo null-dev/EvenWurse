@@ -31,6 +31,7 @@ import javax.swing.text.BadLocationException;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.spam.SpamProcessor;
@@ -68,8 +69,7 @@ public class SpammerMod extends Mod
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						WurstClient.INSTANCE.modManager.getModByClass(
-							SpammerMod.class).setEnabled(false);
+						WurstClient.INSTANCE.mods.spammerMod.setEnabled(false);
 					}
 				});
 				JPanel panel = new JPanel();
@@ -85,8 +85,7 @@ public class SpammerMod extends Mod
 					public void actionPerformed(ActionEvent e)
 					{
 						JFileChooser fileChooser =
-							new JFileChooser(
-								WurstClient.INSTANCE.fileManager.spamDir)
+							new JFileChooser(WurstClient.INSTANCE.files.spamDir)
 							{
 								@Override
 								protected JDialog createDialog(Component parent)
@@ -138,8 +137,7 @@ public class SpammerMod extends Mod
 					public void actionPerformed(ActionEvent e)
 					{
 						JFileChooser fileChooser =
-							new JFileChooser(
-								WurstClient.INSTANCE.fileManager.spamDir)
+							new JFileChooser(WurstClient.INSTANCE.files.spamDir)
 							{
 								@Override
 								protected JDialog createDialog(Component parent)
@@ -185,8 +183,7 @@ public class SpammerMod extends Mod
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
-						MiscUtils
-							.openFile(WurstClient.INSTANCE.fileManager.spamDir);
+						MiscUtils.openFile(WurstClient.INSTANCE.files.spamDir);
 					}
 				});
 				fileMenu.add(fileOpenFolder);
@@ -269,7 +266,7 @@ public class SpammerMod extends Mod
 					{
 						WurstClient.INSTANCE.options.spamFont =
 							!WurstClient.INSTANCE.options.spamFont;
-						WurstClient.INSTANCE.fileManager.saveOptions();
+						WurstClient.INSTANCE.files.saveOptions();
 						updateFont();
 					}
 				});
@@ -384,7 +381,7 @@ public class SpammerMod extends Mod
 					{
 						WurstClient.INSTANCE.options.spamDelay =
 							(Integer)delaySpinner.getValue();
-						WurstClient.INSTANCE.fileManager.saveOptions();
+						WurstClient.INSTANCE.files.saveOptions();
 					}
 				});
 				delaySpinner.setEditor(new JSpinner.NumberEditor(delaySpinner,
@@ -464,8 +461,7 @@ public class SpammerMod extends Mod
 				
 				dialog.setContentPane(panel);
 				dialog.pack();
-				dialog.setLocationRelativeTo(Minecraft.getMinecraft()
-					.getFrame());
+				dialog.setLocationRelativeTo(FrameHook.getFrame());
 				dialog.setAlwaysOnTop(true);
 				Minecraft.getMinecraft().setIngameNotInFocus();
 				dialog.setVisible(true);

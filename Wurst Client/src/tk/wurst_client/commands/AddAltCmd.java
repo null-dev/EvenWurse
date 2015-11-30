@@ -15,8 +15,8 @@ import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.StringUtils;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
-import tk.wurst_client.alts.gui.GuiAltList;
 import tk.wurst_client.commands.Cmd.Info;
+import tk.wurst_client.gui.alts.GuiAltList;
 
 @Info(help = "Adds a player or all players on a server to your alt list.",
 	name = "addalt",
@@ -54,12 +54,12 @@ public class AddAltCmd extends Cmd
 				WurstClient.INSTANCE.chat.message("Added " + alts
 					+ " alts to the alt list.");
 			GuiAltList.sortAlts();
-			WurstClient.INSTANCE.fileManager.saveAlts();
+			WurstClient.INSTANCE.files.saveAlts();
 		}else if(!args[0].equals("Alexander01998"))
 		{
 			GuiAltList.alts.add(new Alt(args[0]));
 			GuiAltList.sortAlts();
-			WurstClient.INSTANCE.fileManager.saveAlts();
+			WurstClient.INSTANCE.files.saveAlts();
 			WurstClient.INSTANCE.chat.message("Added \"" + args[0]
 				+ "\" to the alt list.");
 		}

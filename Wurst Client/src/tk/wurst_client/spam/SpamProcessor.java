@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.mods.SpammerMod;
 import tk.wurst_client.spam.exceptions.InvalidVariableException;
 import tk.wurst_client.spam.exceptions.SpamException;
@@ -37,8 +38,8 @@ public class SpamProcessor
 			public void run()
 			{
 				File file =
-					new File(WurstClient.INSTANCE.fileManager.scriptsDir,
-						filename + ".wspam");
+					new File(WurstClient.INSTANCE.files.scriptsDir, filename
+						+ ".wspam");
 				try
 				{
 					long startTime = System.currentTimeMillis();
@@ -71,9 +72,8 @@ public class SpamProcessor
 						"An error occurred while running " + file.getName()
 							+ ":\n" + e.getLocalizedMessage() + "\n"
 							+ tracewriter.toString();
-					JOptionPane.showMessageDialog(Minecraft.getMinecraft()
-						.getFrame(), message, "Error",
-						JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(FrameHook.getFrame(),
+						message, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}).start();
@@ -82,8 +82,7 @@ public class SpamProcessor
 	public static boolean runSpam(final String filename)
 	{
 		final File file =
-			new File(WurstClient.INSTANCE.fileManager.spamDir, filename
-				+ ".wspam");
+			new File(WurstClient.INSTANCE.files.spamDir, filename + ".wspam");
 		if(!file.exists())
 			return false;
 		new Thread(new Runnable()
@@ -113,9 +112,8 @@ public class SpamProcessor
 						"An error occurred while running " + file.getName()
 							+ ":\n" + e.getLocalizedMessage() + "\n"
 							+ tracewriter.toString();
-					JOptionPane.showMessageDialog(Minecraft.getMinecraft()
-						.getFrame(), message, "Error",
-						JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(FrameHook.getFrame(),
+						message, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}).start();

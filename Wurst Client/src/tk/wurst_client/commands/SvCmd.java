@@ -11,6 +11,7 @@ package tk.wurst_client.commands;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
+import tk.wurst_client.hooks.ServerHook;
 
 @Info(help = "Shows the version of the server you are currently playing on.",
 	name = "sv",
@@ -25,6 +26,6 @@ public class SvCmd extends Cmd
 		if(Minecraft.getMinecraft().isSingleplayer())
 			error("Can't check server version in singleplayer.");
 		WurstClient.INSTANCE.chat.message("Server version: "
-			+ WurstClient.INSTANCE.lastServer.getServerData().gameVersion);
+			+ ServerHook.getLastServerData().gameVersion);
 	}
 }

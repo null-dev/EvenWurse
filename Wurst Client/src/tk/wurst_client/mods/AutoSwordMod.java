@@ -34,7 +34,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	public void onEnable()
 	{
 		oldSlot = -1;
-		WurstClient.INSTANCE.eventManager.add(LeftClickListener.class, this);
+		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
 	}
 	
 	@Override
@@ -46,20 +46,19 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 			return;
 		}
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
-		WurstClient.INSTANCE.eventManager.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.eventManager.remove(LeftClickListener.class, this);
+		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
 	}
 	
 	@Override
 	public void onLeftClick()
 	{
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isActive())
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
 		{
 			noCheatMessage();
 			setEnabled(false);
@@ -72,8 +71,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	
 	public static void setSlot()
 	{
-		if(((AutoEatMod)WurstClient.INSTANCE.modManager
-			.getModByClass(AutoEatMod.class)).isEating())
+		if((WurstClient.INSTANCE.mods.autoEatMod).isEating())
 			return;
 		float bestSpeed = 1F;
 		int bestSlot = -1;
@@ -99,15 +97,12 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 		if(bestSlot != -1
 			&& bestSlot != Minecraft.getMinecraft().thePlayer.inventory.currentItem)
 		{
-			AutoSwordMod instance =
-				(AutoSwordMod)WurstClient.INSTANCE.modManager
-					.getModByClass(AutoSwordMod.class);
-			instance.oldSlot =
+			WurstClient.INSTANCE.mods.autoSwordMod.oldSlot =
 				Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = bestSlot;
-			instance.timer = 4;
-			WurstClient.INSTANCE.eventManager.add(UpdateListener.class,
-				instance);
+			WurstClient.INSTANCE.mods.autoSwordMod.timer = 4;
+			WurstClient.INSTANCE.events.add(UpdateListener.class,
+				WurstClient.INSTANCE.mods.autoSwordMod);
 		}
 	}
 }

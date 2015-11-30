@@ -11,7 +11,6 @@ package tk.wurst_client.commands;
 import net.minecraft.block.Block;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
-import tk.wurst_client.mods.SearchMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Changes the settings of Search or toggles it.",
@@ -24,16 +23,12 @@ public class SearchCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			WurstClient.INSTANCE.modManager.getModByClass(SearchMod.class)
-				.toggle();
+			WurstClient.INSTANCE.mods.searchMod.toggle();
 			WurstClient.INSTANCE.chat.message("Search turned "
-				+ (WurstClient.INSTANCE.modManager.getModByClass(
-					SearchMod.class).isEnabled() == true ? "on" : "off") + ".");
+				+ (WurstClient.INSTANCE.mods.searchMod.isEnabled() == true
+					? "on" : "off") + ".");
 		}else if(args.length == 2)
 		{
-			SearchMod search =
-				(SearchMod)WurstClient.INSTANCE.modManager
-					.getModByClass(SearchMod.class);
 			if(args[0].toLowerCase().equals("id"))
 			{
 				if(MiscUtils.isInteger(args[1]))
@@ -41,8 +36,8 @@ public class SearchCmd extends Cmd
 						Integer.valueOf(args[1]);
 				else
 					syntaxError("ID must be a number.");
-				WurstClient.INSTANCE.fileManager.saveOptions();
-				search.notify = true;
+				WurstClient.INSTANCE.files.saveOptions();
+				WurstClient.INSTANCE.mods.searchMod.notify = true;
 				WurstClient.INSTANCE.chat.message("Search ID set to " + args[1]
 					+ ".");
 			}else if(args[0].equalsIgnoreCase("name"))
@@ -52,8 +47,8 @@ public class SearchCmd extends Cmd
 				if(newID == -1)
 					error("Block \"" + args[1] + "\" could not be found.");
 				WurstClient.INSTANCE.options.searchID = Integer.valueOf(newID);
-				WurstClient.INSTANCE.fileManager.saveOptions();
-				search.notify = true;
+				WurstClient.INSTANCE.files.saveOptions();
+				WurstClient.INSTANCE.mods.searchMod.notify = true;
 				WurstClient.INSTANCE.chat.message("Search ID set to " + newID
 					+ " (" + args[1] + ").");
 			}

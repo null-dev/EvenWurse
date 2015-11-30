@@ -29,7 +29,7 @@ public class FastBreakCmd extends Cmd
 				WurstClient.INSTANCE.options.fastbreakMode = 1;
 			else
 				syntaxError();
-			WurstClient.INSTANCE.fileManager.saveOptions();
+			WurstClient.INSTANCE.files.saveOptions();
 			WurstClient.INSTANCE.chat.message("FastBreak mode set to \""
 				+ args[1] + "\".");
 		}else

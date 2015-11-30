@@ -27,7 +27,7 @@ public class TCmd extends Cmd
 			mode = 2;
 		else
 			syntaxError();
-		Mod mod = WurstClient.INSTANCE.modManager.getModByName(args[0]);
+		Mod mod = WurstClient.INSTANCE.mods.getModByName(args[0]);
 		if(mod == null)
 			error("Could not find mod \"" + args[0] + "\".");
 		if(mode == 0)

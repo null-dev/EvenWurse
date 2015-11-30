@@ -13,8 +13,8 @@ import java.util.EventListener;
 import javax.swing.event.EventListenerList;
 
 import net.minecraft.client.Minecraft;
-import tk.wurst_client.error.gui.GuiError;
 import tk.wurst_client.events.listeners.*;
+import tk.wurst_client.gui.error.GuiError;
 
 public final class EventManager
 {

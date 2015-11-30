@@ -13,7 +13,6 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.ai.PathUtils;
-import tk.wurst_client.mods.YesCheatMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Cmd.Info(help = "Applies the given amount of damage.",
@@ -42,8 +41,7 @@ public class DamageCmd extends Cmd
 		double x = Minecraft.getMinecraft().thePlayer.posX;
 		double y = Minecraft.getMinecraft().thePlayer.posY;
 		double z = Minecraft.getMinecraft().thePlayer.posZ;
-		if(WurstClient.INSTANCE.modManager.getModByClass(YesCheatMod.class)
-			.isEnabled())
+		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
 		{
 			Minecraft
 				.getMinecraft()

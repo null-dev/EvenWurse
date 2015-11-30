@@ -41,7 +41,7 @@ public class UIRenderer
 		if(WurstClient.INSTANCE.options.modListMode == 2)
 			return;
 		LinkedList<String> modList = new LinkedList<String>();
-		for(Mod mod : WurstClient.INSTANCE.modManager.getAllMods())
+		for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 		{
 			if(mod instanceof ClickGuiMod)
 				continue;
@@ -137,7 +137,7 @@ public class UIRenderer
 		ts.draw();
 		
 		// GUI render event
-		WurstClient.INSTANCE.eventManager.fireEvent(GUIRenderEvent.class,
+		WurstClient.INSTANCE.events.fireEvent(GUIRenderEvent.class,
 			new GUIRenderEvent());
 		
 		// GL resets
@@ -153,7 +153,7 @@ public class UIRenderer
 	
 	public static void renderPinnedFrames()
 	{
-		for(Frame moduleFrame : WurstClient.INSTANCE.guiManager.getFrames())
+		for(Frame moduleFrame : WurstClient.INSTANCE.gui.getFrames())
 			if(moduleFrame.isPinned()
 				&& !(Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen))
 				moduleFrame.render();
