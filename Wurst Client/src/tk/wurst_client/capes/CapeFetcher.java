@@ -8,7 +8,6 @@
  */
 package tk.wurst_client.capes;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -19,7 +18,6 @@ import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
@@ -56,7 +54,7 @@ public class CapeFetcher implements Runnable
 		try
 		{
 			response =
-				MiscUtils.post(new URL("https://www.wurst-capes.tk/capes/"),
+				MiscUtils.post(new URL("https://www.wurst-capes.tk/cosmetics/"),
 					JsonUtils.gson.toJson(uuids), "application/json");
 			JsonArray capes =
 				JsonUtils.jsonParser.parse(response).getAsJsonArray();
@@ -80,7 +78,7 @@ public class CapeFetcher implements Runnable
 					}
 				});
 			}
-		}catch(IOException | JsonParseException e)
+		}catch(Exception e)
 		{
 			System.err.println("[Wurst] Failed to load " + uuids.size()
 				+ " cape(s) from wurst-capes.tk!");
