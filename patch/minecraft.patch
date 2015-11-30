@@ -1,6 +1,6 @@
-From f96fe3aa096a518c8426c1710561028c380a6b39 Mon Sep 17 00:00:00 2001
+From c50668cf35efd4a1ce7028e43d7dfe306e42493d Mon Sep 17 00:00:00 2001
 From: Alexander01998 <contact.wurstimperium@gmail.com>
-Date: Sun, 29 Nov 2015 22:30:50 +0100
+Date: Mon, 30 Nov 2015 22:02:08 +0100
 Subject: [PATCH] Wurst
 
 ---
@@ -114,6 +114,7 @@ Subject: [PATCH] Wurst
  .../client/renderer/BlockFluidRenderer.java        |   6 +-
  .../client/renderer/BlockModelRenderer.java        |  10 +-
  .../minecraft/client/renderer/EntityRenderer.java  |  91 +++--
+ .../client/renderer/ImageBufferDownload.java       |   6 +-
  .../client/renderer/InventoryEffectRenderer.java   |   4 +-
  .../minecraft/client/renderer/ItemModelMesher.java |  15 +-
  .../minecraft/client/renderer/ItemRenderer.java    |   2 +-
@@ -231,7 +232,7 @@ Subject: [PATCH] Wurst
  .../minecraft/world/gen/ChunkProviderServer.java   |   3 +
  src/net/minecraft/world/gen/layer/GenLayer.java    |   1 +
  .../world/gen/structure/MapGenStructure.java       |   2 +
- 227 files changed, 2583 insertions(+), 1159 deletions(-)
+ 228 files changed, 2587 insertions(+), 1161 deletions(-)
 
 diff --git a/.gitignore b/.gitignore
 index eba4a99..aad12bb 100644
@@ -6510,6 +6511,23 @@ index e32c68b..0aa2f53 100644
              var6 = 5.0F;
              int var7 = ((EntityLivingBase)var3).getActivePotionEffect(Potion.blindness).getDuration();
  
+diff --git a/src/net/minecraft/client/renderer/ImageBufferDownload.java b/src/net/minecraft/client/renderer/ImageBufferDownload.java
+index 7c9693f..1dd7921 100644
+--- a/src/net/minecraft/client/renderer/ImageBufferDownload.java
++++ b/src/net/minecraft/client/renderer/ImageBufferDownload.java
+@@ -20,8 +20,10 @@ public class ImageBufferDownload implements IImageBuffer
+         }
+         else
+         {
+-            this.imageWidth = 64;
+-            this.imageHeight = 64;
++        	// TODO: Client
++            this.imageWidth = p_78432_1_.getWidth();
++            this.imageHeight = p_78432_1_.getHeight();
++            
+             BufferedImage var2 = new BufferedImage(this.imageWidth, this.imageHeight, 2);
+             Graphics var3 = var2.getGraphics();
+             var3.drawImage(p_78432_1_, 0, 0, (ImageObserver)null);
 diff --git a/src/net/minecraft/client/renderer/InventoryEffectRenderer.java b/src/net/minecraft/client/renderer/InventoryEffectRenderer.java
 index 0bf153c..b8411b0 100644
 --- a/src/net/minecraft/client/renderer/InventoryEffectRenderer.java

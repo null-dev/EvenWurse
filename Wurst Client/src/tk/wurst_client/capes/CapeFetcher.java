@@ -8,9 +8,9 @@
  */
 package tk.wurst_client.capes;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.SkinManager;
@@ -18,24 +18,21 @@ import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 
 public class CapeFetcher implements Runnable
 {
-	private JsonArray uuids = new JsonArray();
-	private ArrayList<SkinManager.SkinAvailableCallback> callbacks = new ArrayList<>();
+	private HashMap<String, SkinAvailableCallback> callbacks = new HashMap<>();
 	private boolean running = false;
 	
 	public boolean addUUID(String uuid, SkinAvailableCallback callback)
 	{
-		if(uuids.size() < 100 && !running)
+		if(callbacks.size() < 100 && !running)
 		{
-			uuids.add(new JsonPrimitive(uuid));
-			callbacks.add(callback);
+			callbacks.put(uuid, callback);
 			return true;
 		}else
 			return false;
@@ -56,34 +53,42 @@ public class CapeFetcher implements Runnable
 		try
 		{
 			response =
-				MiscUtils.post(new URL("https://www.wurst-capes.tk/capes/"),
-					JsonUtils.gson.toJson(uuids), "application/json");
-			JsonArray capes =
-				JsonUtils.jsonParser.parse(response).getAsJsonArray();
-			for(int i = 0; i < capes.size(); i++)
+				MiscUtils.post(
+					new URL("https://www.wurst-capes.tk/cosmetics/"),
+					JsonUtils.gson.toJson(JsonUtils.gson.toJsonTree(
+						callbacks.keySet()).getAsJsonArray()),
+					"application/json");
+			JsonObject cosmetics =
+				JsonUtils.jsonParser.parse(response).getAsJsonObject();
+			
+			for(Entry<String, JsonElement> entry : cosmetics.entrySet())
 			{
-				String cape = capes.get(i).getAsString();
-				if(cape == null || cape.isEmpty())
-					continue;
-				final int iFinal = i;
+				JsonObject playerCosmetics = entry.getValue().getAsJsonObject();
 				Minecraft.getMinecraft().addScheduledTask(new Runnable()
 				{
 					@Override
 					public void run()
 					{
-						Minecraft
-							.getMinecraft()
-							.getSkinManager()
-							.loadSkin(
-								new MinecraftProfileTexture(cape,
-									null), Type.CAPE, callbacks.get(iFinal));
+						SkinManager skinManager =
+							Minecraft.getMinecraft().getSkinManager();
+						if(playerCosmetics.has("skin"))
+							
+							skinManager.loadSkin(
+								new MinecraftProfileTexture(playerCosmetics
+									.get("skin").getAsString(), null),
+								Type.SKIN, callbacks.get(entry.getKey()));
+						if(playerCosmetics.has("cape"))
+							skinManager.loadSkin(
+								new MinecraftProfileTexture(playerCosmetics
+									.get("cape").getAsString(), null),
+								Type.CAPE, callbacks.get(entry.getKey()));
 					}
 				});
 			}
-		}catch(IOException | JsonParseException e)
+		}catch(Exception e)
 		{
-			System.err.println("[Wurst] Failed to load " + uuids.size()
-				+ " cape(s) from wurst-capes.tk!");
+			System.err.println("[Wurst] Failed to load " + callbacks.size()
+				+ " cosmetic(s) from wurst-capes.tk!");
 			System.out.println("Server response:\n" + response);
 			e.printStackTrace();
 		}
