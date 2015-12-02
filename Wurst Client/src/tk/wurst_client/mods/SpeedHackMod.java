@@ -14,9 +14,10 @@ import tk.wurst_client.events.listeners.UpdateListener;
 
 @Mod.Info(category = Mod.Category.MOVEMENT,
 	description = "Allows you to run roughly 2.5x faster than you would by\n"
-		+ "sprinting and jumping. Bypasses NoCheat+.\n"
-		+ "Warning: AntiCheat systems other than NoCheat+ (e.g. Hypixel\n"
-		+ "AntiCheat) might still be able to block it.",
+		+ "sprinting and jumping.\n"
+		+ "Notice: This mod was patched in NoCheat+ version 3.13.2. It will\n"
+		+ "only bypass older versions of NoCheat+. Type \"/ncp version\" to\n"
+		+ "check the NoCheat+ version of a server.",
 	name = "SpeedHack")
 public class SpeedHackMod extends Mod implements UpdateListener
 {
@@ -53,6 +54,7 @@ public class SpeedHackMod extends Mod implements UpdateListener
 			
 			// limit speed to highest value that works on NoCheat+ version
 			// 3.13.0-BETA-sMD5NET-b878
+			// UPDATE: Patched in NoCheat+ version 3.13.2-SNAPSHOT-sMD5NET-b888
 			double maxSpeed = 0.66F;
 			if(currentSpeed > maxSpeed)
 			{
