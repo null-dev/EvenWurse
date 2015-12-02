@@ -9,6 +9,7 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.potion.Potion;
 import tk.wurst_client.WurstClient;
@@ -31,30 +32,20 @@ public class AntiPotionMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-			&& Minecraft.getMinecraft().thePlayer.onGround
-			&& !Minecraft.getMinecraft().thePlayer.getActivePotionEffects()
-				.isEmpty())
-			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.hunger)
-				|| Minecraft.getMinecraft().thePlayer
-					.isPotionActive(Potion.moveSlowdown)
-				|| Minecraft.getMinecraft().thePlayer
-					.isPotionActive(Potion.digSlowdown)
-				|| Minecraft.getMinecraft().thePlayer
-					.isPotionActive(Potion.harm)
-				|| Minecraft.getMinecraft().thePlayer
-					.isPotionActive(Potion.confusion)
-				|| Minecraft.getMinecraft().thePlayer
-					.isPotionActive(Potion.blindness)
-				|| Minecraft.getMinecraft().thePlayer
-					.isPotionActive(Potion.weakness)
-				|| Minecraft.getMinecraft().thePlayer
-					.isPotionActive(Potion.wither)
-				|| Minecraft.getMinecraft().thePlayer
-					.isPotionActive(Potion.poison))
+		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+		if(!player.capabilities.isCreativeMode && player.onGround
+			&& !player.getActivePotionEffects().isEmpty())
+			if(player.isPotionActive(Potion.hunger)
+				|| player.isPotionActive(Potion.moveSlowdown)
+				|| player.isPotionActive(Potion.digSlowdown)
+				|| player.isPotionActive(Potion.harm)
+				|| player.isPotionActive(Potion.confusion)
+				|| player.isPotionActive(Potion.blindness)
+				|| player.isPotionActive(Potion.weakness)
+				|| player.isPotionActive(Potion.wither)
+				|| player.isPotionActive(Potion.poison))
 				for(int i = 0; i < 1000; i++)
-					Minecraft.getMinecraft().thePlayer.sendQueue
-						.addToSendQueue(new C03PacketPlayer());
+					player.sendQueue.addToSendQueue(new C03PacketPlayer());
 	}
 	
 	@Override
