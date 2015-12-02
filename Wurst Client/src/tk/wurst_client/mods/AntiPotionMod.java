@@ -1,5 +1,5 @@
 /*
- * Copyright Â© 2014 - 2015 Alexander01998 and contributors
+ * Copyright © 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -36,16 +36,20 @@ public class AntiPotionMod extends Mod implements UpdateListener
 			&& !Minecraft.getMinecraft().thePlayer.getActivePotionEffects()
 				.isEmpty())
 			if(Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.hunger)
-			|| Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.moveSlowdown)
-			|| Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.digSlowdown)
-			|| Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.harm)
-                        || Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.confusion)
-                        || Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.blindness)
-                        || Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.weakness)
-                        || Minecraft.getMinecraft().thePlayer.isPotionActive(Potion.wither)
-
-
-
+				|| Minecraft.getMinecraft().thePlayer
+					.isPotionActive(Potion.moveSlowdown)
+				|| Minecraft.getMinecraft().thePlayer
+					.isPotionActive(Potion.digSlowdown)
+				|| Minecraft.getMinecraft().thePlayer
+					.isPotionActive(Potion.harm)
+				|| Minecraft.getMinecraft().thePlayer
+					.isPotionActive(Potion.confusion)
+				|| Minecraft.getMinecraft().thePlayer
+					.isPotionActive(Potion.blindness)
+				|| Minecraft.getMinecraft().thePlayer
+					.isPotionActive(Potion.weakness)
+				|| Minecraft.getMinecraft().thePlayer
+					.isPotionActive(Potion.wither)
 				|| Minecraft.getMinecraft().thePlayer
 					.isPotionActive(Potion.poison))
 				for(int i = 0; i < 1000; i++)
