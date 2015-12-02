@@ -94,6 +94,7 @@ public class ModManager
 	public final LiquidsMod liquidsMod = new LiquidsMod();
 	public final LsdMod lsdMod = new LsdMod();
 	public final MassTpaMod massTpaMod = new MassTpaMod();
+	public final MenuWalkMod menuWalkMod = new MenuWalkMod();
 	public final MileyCyrusMod mileyCyrusMod = new MileyCyrusMod();
 	public final MobEspMod mobEspMod = new MobEspMod();
 	public final MultiAuraMod multiAuraMod = new MultiAuraMod();
