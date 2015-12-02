@@ -28,7 +28,7 @@ public enum WurstClient
 {
 	INSTANCE;
 	
-	public static final String VERSION = "2.10";
+	public static final String VERSION = "2.11";
 	public boolean startupMessageDisabled = false;
 	
 	public ChatManager chat;
