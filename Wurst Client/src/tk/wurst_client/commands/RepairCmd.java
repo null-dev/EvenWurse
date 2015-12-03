@@ -25,28 +25,25 @@ public class RepairCmd extends Cmd
 		if(args.length > 0)
 			syntaxError();
 		
+		// check for creative mode
 		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-		
 		if(!player.capabilities.isCreativeMode)
 			error("Creative mode only.");
 		
-		ItemStack heldItem = player.inventory.getCurrentItem();
-		
-		if (heldItem == null)
+		// validate item
+		ItemStack item = player.inventory.getCurrentItem();
+		if(item == null)
 			error("You need an item in your hand.");
-		
-		if (!heldItem.isItemStackDamageable())
+		if(!item.isItemStackDamageable())
 			error("This item can't take damage.");
-		
-		if (!heldItem.isItemDamaged())
+		if(!item.isItemDamaged())
 			error("This item is not damaged.");
 		
-		heldItem.setItemDamage(0);
+		// repair item
+		item.setItemDamage(0);
+		player.sendQueue.addToSendQueue(new C10PacketCreativeInventoryAction(
+			36 + player.inventory.currentItem, item));
 		
-		player.sendQueue.addToSendQueue(
-				new C10PacketCreativeInventoryAction(
-						36+player.inventory.currentItem, heldItem));
-		
-		WurstClient.INSTANCE.chat.info("Your item has been repaired.");
+		WurstClient.INSTANCE.chat.info("Item has been repaired successfully.");
 	}
 }
