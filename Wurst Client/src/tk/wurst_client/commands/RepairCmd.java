@@ -12,7 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
-import tk.wurst_client.WurstClient;
 
 @Cmd.Info(help = "Repairs the held item. Requires creative mode.",
 	name = "repair",
@@ -43,7 +42,5 @@ public class RepairCmd extends Cmd
 		item.setItemDamage(0);
 		player.sendQueue.addToSendQueue(new C10PacketCreativeInventoryAction(
 			36 + player.inventory.currentItem, item));
-		
-		WurstClient.INSTANCE.chat.info("Item has been repaired successfully.");
 	}
 }
