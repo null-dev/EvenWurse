@@ -10,6 +10,7 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.GuiIngameMenu;
 
 import org.lwjgl.input.Keyboard;
 
@@ -31,7 +32,7 @@ public class MenuWalkMod extends Mod
 			return false;
 		
 		// check if player is viewing chat
-		if((mc.currentScreen instanceof GuiChat))
+		if((mc.currentScreen instanceof GuiChat) || (mc.currentScreen instanceof GuiIngameMenu))
 			return false;
 		
 		// check if inventory key is pressed
