@@ -294,7 +294,7 @@ public class FileManager
 		{
 			BufferedReader load = new BufferedReader(new FileReader(options));
 			WurstClient.INSTANCE.options =
-				JsonUtils.prettyGson.fromJson(load, OptionsManager.class);
+				JsonUtils.gson.fromJson(load, OptionsManager.class);
 			load.close();
 		}catch(Exception e)
 		{
@@ -312,7 +312,7 @@ public class FileManager
 			BufferedReader load =
 				new BufferedReader(new FileReader(autoMaximize));
 			autoMaximizeEnabled =
-				JsonUtils.prettyGson.fromJson(load, Boolean.class)
+				JsonUtils.gson.fromJson(load, Boolean.class)
 					&& !Minecraft.isRunningOnMac;
 			load.close();
 		}catch(Exception e)
@@ -482,7 +482,7 @@ public class FileManager
 		{
 			BufferedReader load = new BufferedReader(new FileReader(friends));
 			WurstClient.INSTANCE.friends =
-				JsonUtils.prettyGson.fromJson(load, FriendsList.class);
+				JsonUtils.gson.fromJson(load, FriendsList.class);
 			load.close();
 		}catch(Exception e)
 		{
@@ -576,7 +576,7 @@ public class FileManager
 				BufferedReader load = new BufferedReader(new FileReader(file));
 				JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
 				load.close();
-				AutoBuildMod.templates.add(JsonUtils.prettyGson.fromJson(
+				AutoBuildMod.templates.add(JsonUtils.gson.fromJson(
 					json.get("blocks"), int[][].class));
 				AutoBuildMod.names.add(file.getName().substring(0,
 					file.getName().indexOf(".json")));

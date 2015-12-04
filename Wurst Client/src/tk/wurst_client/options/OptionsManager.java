@@ -36,8 +36,7 @@ public class OptionsManager
 	public int spamDelay = 1000;
 	public int throwAmount = 16;
 	
-	public String forceOPList = WurstClient.INSTANCE.files.wurstDir
-		.getPath();
+	public String forceOPList = WurstClient.INSTANCE.files.wurstDir.getPath();
 	
 	public OptionsManager.GoogleAnalytics google_analytics =
 		new OptionsManager.GoogleAnalytics();
@@ -63,12 +62,15 @@ public class OptionsManager
 		public boolean invisible_players = true;
 		public boolean invisible_mobs = true;
 		public boolean teams = false;
+		public boolean[] team_colors = new boolean[]{true, true, true, true,
+			true, true, true, true, true, true, true, true, true, true, true,
+			true};
 		
-		public boolean[] team_colors = new boolean[16];
-		
+		public boolean[] getTeamColorsSafely()
 		{
-			for(int i = 0; i < team_colors.length; i++)
-				team_colors[i] = true;
+			if(team_colors == null)
+				team_colors = new Target().team_colors;
+			return team_colors;
 		}
 	}
 	

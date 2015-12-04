@@ -26,15 +26,6 @@ public class GuiTeamSettings extends GuiScreen
 	public GuiTeamSettings(GuiScreen prevMenu)
 	{
 		this.prevMenu = prevMenu;
-		
-		if(WurstClient.INSTANCE.options.target.team_colors == null)
-		{
-			WurstClient.INSTANCE.options.target.team_colors = new boolean[16];
-			for(int i = 0; i < WurstClient.INSTANCE.options.target.team_colors.length; i++)
-				WurstClient.INSTANCE.options.target.team_colors[i] = true;
-			WurstClient.INSTANCE.files.saveOptions();
-		}
-		
 		WurstClient.INSTANCE.analytics.trackPageView("/team-settings",
 			"Team Settings");
 	}
@@ -80,9 +71,10 @@ public class GuiTeamSettings extends GuiScreen
 			buttonList.add(new TeamColorButton(i, width / 2 + offsetX, height
 				/ 3 + offsetY, "§" + colors[i] + colors[i]));
 		}
+		boolean[] team_colors =
+			WurstClient.INSTANCE.options.target.getTeamColorsSafely();
 		for(int i = 0; i < 16; i++)
-			((TeamColorButton)buttonList.get(i))
-				.setFakeHover(WurstClient.INSTANCE.options.target.team_colors[i]);
+			((TeamColorButton)buttonList.get(i)).setFakeHover(team_colors[i]);
 		
 		// other buttons
 		buttonList.add(new GuiButton(16, width / 2 - 46, height / 3 + 96, 44,
