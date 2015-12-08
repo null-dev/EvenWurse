@@ -13,8 +13,11 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 
 @Mod.Info(category = Mod.Category.MOVEMENT,
-	description = "Allows you to run roughly twice as fast as normal.\n"
-		+ "Bypasses NoCheat+.",
+	description = "Allows you to run roughly 2.5x faster than you would by\n"
+		+ "sprinting and jumping.\n"
+		+ "Notice: This mod was patched in NoCheat+ version 3.13.2. It will\n"
+		+ "only bypass older versions of NoCheat+. Type \"/ncp version\" to\n"
+		+ "check the NoCheat+ version of a server.",
 	name = "SpeedHack")
 public class SpeedHackMod extends Mod implements UpdateListener
 {
@@ -41,7 +44,7 @@ public class SpeedHackMod extends Mod implements UpdateListener
 		// activate mini jump if on ground
 		if(Minecraft.getMinecraft().thePlayer.onGround)
 		{
-			Minecraft.getMinecraft().thePlayer.motionY += 0.2;
+			Minecraft.getMinecraft().thePlayer.motionY += 0.1;
 			Minecraft.getMinecraft().thePlayer.motionX *= 1.8;
 			Minecraft.getMinecraft().thePlayer.motionZ *= 1.8;
 			double currentSpeed =
@@ -51,6 +54,7 @@ public class SpeedHackMod extends Mod implements UpdateListener
 			
 			// limit speed to highest value that works on NoCheat+ version
 			// 3.13.0-BETA-sMD5NET-b878
+			// UPDATE: Patched in NoCheat+ version 3.13.2-SNAPSHOT-sMD5NET-b888
 			double maxSpeed = 0.66F;
 			if(currentSpeed > maxSpeed)
 			{

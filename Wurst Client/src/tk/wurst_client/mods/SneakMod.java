@@ -9,6 +9,7 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.play.client.C0BPacketEntityAction;
 import net.minecraft.network.play.client.C0BPacketEntityAction.Action;
 import tk.wurst_client.WurstClient;
@@ -31,8 +32,14 @@ public class SneakMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
-			Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = true;
-		else
+		{
+			NetHandlerPlayClient sendQueue =
+				Minecraft.getMinecraft().thePlayer.sendQueue;
+			sendQueue.addToSendQueue(new C0BPacketEntityAction(Minecraft
+				.getMinecraft().thePlayer, Action.START_SNEAKING));
+			sendQueue.addToSendQueue(new C0BPacketEntityAction(Minecraft
+				.getMinecraft().thePlayer, Action.STOP_SNEAKING));
+		}else
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C0BPacketEntityAction(Minecraft
 					.getMinecraft().thePlayer, Action.START_SNEAKING));

@@ -25,12 +25,15 @@ public class TriggerBotMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
+		// TODO: Clean up this mess!
 		if(WurstClient.INSTANCE.mods.killauraMod.isEnabled())
 			WurstClient.INSTANCE.mods.killauraMod.setEnabled(false);
 		if(WurstClient.INSTANCE.mods.killauraLegitMod.isEnabled())
 			WurstClient.INSTANCE.mods.killauraLegitMod.setEnabled(false);
 		if(WurstClient.INSTANCE.mods.multiAuraMod.isEnabled())
 			WurstClient.INSTANCE.mods.multiAuraMod.setEnabled(false);
+		if(WurstClient.INSTANCE.mods.clickAuraMod.isEnabled())
+			WurstClient.INSTANCE.mods.clickAuraMod.setEnabled(false);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	

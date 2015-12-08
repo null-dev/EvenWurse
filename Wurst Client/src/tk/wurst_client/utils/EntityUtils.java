@@ -184,20 +184,14 @@ public class EntityUtils
 		String[] colors =
 			{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c",
 				"d", "e", "f"};
-		boolean unknownColor = true;
+		boolean[] teamColors =
+			WurstClient.INSTANCE.options.target.getTeamColorsSafely();
 		for(int i = 0; i < 16; i++)
-		{
-			if(WurstClient.INSTANCE.options.target.team_colors[i])
-			{
-				if(name.contains("§" + colors[i]))
-					return true;
-				unknownColor = false;
-			}
-		}
+			if(teamColors[i] && name.contains("§" + colors[i]))
+				return true;
 		
 		// unknown color / no color => white
-		return WurstClient.INSTANCE.options.target.team_colors[15]
-			&& (unknownColor || !name.contains("§"));
+		return teamColors[15];
 	}
 	
 	public static EntityLivingBase getClosestEntity(boolean ignoreFriends,
