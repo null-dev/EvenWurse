@@ -9,7 +9,6 @@
 package tk.wurst_client.events;
 
 import java.util.EventListener;
-import java.util.HashSet;
 
 import javax.swing.event.EventListenerList;
 
@@ -21,147 +20,109 @@ public final class EventManager
 {
 	private static final EventListenerList listenerList =
 		new EventListenerList();
-	private static final HashSet<ChatInputListener> chatInputListeners =
-		new HashSet<>();
-	private static final HashSet<ChatOutputListener> chatOutputListeners =
-		new HashSet<>();
-	private static final HashSet<DeathListener> deathListeners =
-		new HashSet<>();
-	private static final HashSet<GUIRenderListener> guiRenderListeners =
-		new HashSet<>();
-	private static final HashSet<LeftClickListener> leftClickListeners =
-		new HashSet<>();
-	private static final HashSet<PacketInputListener> packetInputListeners =
-		new HashSet<>();
-	private static final HashSet<RenderListener> renderListeners =
-		new HashSet<>();
-	private static final HashSet<UpdateListener> updateListeners =
-		new HashSet<>();
 	
-	public void addChatInputListener(ChatInputListener listener)
+	public synchronized <T extends Event> void fireEvent(Class<T> type, T event)
 	{
-		chatInputListeners.add(listener);
+		try
+		{
+			// TODO: A more efficient way to process the type
+			if(type == GUIRenderEvent.class)
+				fireGuiRender();
+			else if(type == RenderEvent.class)
+				fireRender();
+			else if(type == PacketInputEvent.class)
+				firePacketInput((PacketInputEvent)event);
+			else if(type == UpdateEvent.class)
+				fireUpdate();
+			else if(type == ChatInputEvent.class)
+				fireChatInput((ChatInputEvent)event);
+			else if(type == ChatOutputEvent.class)
+				fireChatOutput((ChatOutputEvent)event);
+			else if(type == LeftClickEvent.class)
+				fireLeftClick();
+			else if(type == DeathEvent.class)
+				fireDeath();
+			else
+				throw new IllegalArgumentException("Invalid event type: "
+					+ type.getName());
+		}catch(Exception e)
+		{
+			handleException(e, this, "processing events", "Event type: "
+				+ event.getClass().getSimpleName());
+		}
 	}
 	
-	public void addChatOutputListener(ChatOutputListener listener)
+	private void fireChatInput(ChatInputEvent event)
 	{
-		chatOutputListeners.add(listener);
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+		{
+			if(listeners[i] == ChatInputListener.class)
+				((ChatInputListener)listeners[i + 1]).onReceivedMessage(event);
+			if(event.isCancelled())
+				break;
+		}
 	}
 	
-	public void addDeathListener(DeathListener listener)
+	private void fireChatOutput(ChatOutputEvent event)
 	{
-		deathListeners.add(listener);
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+		{
+			if(listeners[i] == ChatOutputListener.class)
+				((ChatOutputListener)listeners[i + 1]).onSentMessage(event);
+			if(event.isCancelled())
+				break;
+		}
 	}
 	
-	public void addGuiRenderListener(GUIRenderListener listener)
+	private void fireDeath()
 	{
-		guiRenderListeners.add(listener);
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+			if(listeners[i] == DeathListener.class)
+				((DeathListener)listeners[i + 1]).onDeath();
 	}
 	
-	public void addLeftClickListener(LeftClickListener listener)
+	private void fireGuiRender()
 	{
-		leftClickListeners.add(listener);
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+			if(listeners[i] == GUIRenderListener.class)
+				((GUIRenderListener)listeners[i + 1]).onRenderGUI();
 	}
 	
-	public void addPacketInputListener(PacketInputListener listener)
+	private void fireLeftClick()
 	{
-		packetInputListeners.add(listener);
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+			if(listeners[i] == LeftClickListener.class)
+				((LeftClickListener)listeners[i + 1]).onLeftClick();
 	}
 	
-	public void addRenderListener(RenderListener listener)
+	private void firePacketInput(PacketInputEvent event)
 	{
-		renderListeners.add(listener);
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+			if(listeners[i] == PacketInputListener.class)
+				((PacketInputListener)listeners[i + 1]).onReceivedPacket(event);
 	}
 	
-	public void addUpdateListener(UpdateListener listener)
+	private void fireRender()
 	{
-		updateListeners.add(listener);
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+			if(listeners[i] == RenderListener.class)
+				((RenderListener)listeners[i + 1]).onRender();
 	}
 	
-	public void removeChatInputListener(ChatInputListener listener)
+	private void fireUpdate()
 	{
-		chatInputListeners.remove(listener);
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+			if(listeners[i] == UpdateListener.class)
+				((UpdateListener)listeners[i + 1]).onUpdate();
 	}
-	
-	public void removeChatOutputListener(ChatOutputListener listener)
-	{
-		chatOutputListeners.remove(listener);
-	}
-	
-	public void removeDeathListener(DeathListener listener)
-	{
-		deathListeners.remove(listener);
-	}
-	
-	public void removeGuiRenderListener(GUIRenderListener listener)
-	{
-		guiRenderListeners.remove(listener);
-	}
-	
-	public void removeLeftClickListener(LeftClickListener listener)
-	{
-		leftClickListeners.remove(listener);
-	}
-	
-	public void removePacketInputListener(PacketInputListener listener)
-	{
-		packetInputListeners.remove(listener);
-	}
-	
-	public void removeRenderListener(RenderListener listener)
-	{
-		renderListeners.remove(listener);
-	}
-	
-	public void removeUpdateListener(UpdateListener listener)
-	{
-		updateListeners.remove(listener);
-	}
-	
-	public void fireChatInputEvent(ChatInputEvent event)
-	{
-		chatInputListeners.forEach((listener) -> listener
-			.onReceivedMessage(event));
-	}
-	
-	public void fireChatOutputEvent(ChatOutputEvent event)
-	{
-		chatOutputListeners
-			.forEach((listener) -> listener.onSentMessage(event));
-	}
-	
-	public void fireDeathEvent()
-	{
-		deathListeners.forEach((listener) -> listener.onDeath());
-	}
-	
-	public void fireGuiRenderEvent()
-	{
-		guiRenderListeners.forEach((listener) -> listener.onRenderGUI());
-	}
-	
-	public void fireLeftClickEvent()
-	{
-		leftClickListeners.forEach((listener) -> listener.onLeftClick());
-	}
-	
-	public void firePacketInputEvent(PacketInputEvent event)
-	{
-		packetInputListeners.forEach((listener) -> listener
-			.onReceivedPacket(event));
-	}
-	
-	public void fireRenderEventEvent()
-	{
-		renderListeners.forEach((listener) -> listener.onRender());
-	}
-	
-	public void fireUpdateEventEvent()
-	{
-		updateListeners.forEach((listener) -> listener.onUpdate());
-	}
-	
-	// XXX: Outdated methods
 	
 	public void handleException(final Exception e, final Object cause,
 		final String action, final String comment)
@@ -190,36 +151,5 @@ public final class EventManager
 	public <T extends EventListener> void remove(Class<T> type, T listener)
 	{
 		listenerList.remove(type, listener);
-	}
-	
-	public synchronized <T extends Event> void fireEvent(Class<T> type, T event)
-	{
-		try
-		{
-			// TODO: A more efficient way to process the type
-			if(type == GUIRenderEvent.class)
-				fireGuiRenderEvent();
-			else if(type == RenderEvent.class)
-				fireRenderEventEvent();
-			else if(type == PacketInputEvent.class)
-				firePacketInputEvent((PacketInputEvent)event);
-			else if(type == UpdateEvent.class)
-				fireUpdateEventEvent();
-			else if(type == ChatInputEvent.class)
-				fireChatInputEvent((ChatInputEvent)event);
-			else if(type == ChatOutputEvent.class)
-				fireChatOutputEvent((ChatOutputEvent)event);
-			else if(type == LeftClickEvent.class)
-				fireLeftClickEvent();
-			else if(type == DeathEvent.class)
-				fireDeathEvent();
-			else
-				throw new IllegalArgumentException("Invalid event type: "
-					+ type.getName());
-		}catch(Exception e)
-		{
-			handleException(e, this, "processing events", "Event type: "
-				+ event.getClass().getSimpleName());
-		}
 	}
 }
