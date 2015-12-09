@@ -52,6 +52,7 @@ public class ClickAuraMod extends Mod implements UpdateListener
 				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
+				WurstClient.INSTANCE.mods.blockHitMod.doBlock();
 				EntityUtils.faceEntityPacket(en);
 				Minecraft.getMinecraft().thePlayer.swingItem();
 				Minecraft.getMinecraft().playerController.attackEntity(

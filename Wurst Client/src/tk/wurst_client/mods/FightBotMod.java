@@ -74,6 +74,7 @@ public class FightBotMod extends Mod implements UpdateListener
 				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
+				WurstClient.INSTANCE.mods.blockHitMod.doBlock();
 				if(EntityUtils.getDistanceFromMouse(entity) > 55)
 					EntityUtils.faceEntityClient(entity);
 				else

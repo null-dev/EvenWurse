@@ -8,6 +8,8 @@
  */
 package tk.wurst_client.mods;
 
+import java.util.ArrayList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.WurstClient;
@@ -45,14 +47,15 @@ public class MultiAuraMod extends Mod implements UpdateListener
 		updateMS();
 		if(EntityUtils.getClosestEntity(true, false) != null)
 		{
-			for(int i = 0; i < Math.min(
-				EntityUtils.getCloseEntities(true, range).size(), 64); i++)
+			if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
+				AutoSwordMod.setSlot();
+			CriticalsMod.doCritical();
+			WurstClient.INSTANCE.mods.blockHitMod.doBlock();
+			ArrayList<EntityLivingBase> entities =
+				EntityUtils.getCloseEntities(true, range);
+			for(int i = 0; i < Math.min(entities.size(), 64); i++)
 			{
-				EntityLivingBase en =
-					EntityUtils.getCloseEntities(true, range).get(i);
-				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
-					AutoSwordMod.setSlot();
-				CriticalsMod.doCritical();
+				EntityLivingBase en = entities.get(i);
 				EntityUtils.faceEntityPacket(en);
 				Minecraft.getMinecraft().thePlayer.swingItem();
 				Minecraft.getMinecraft().playerController.attackEntity(
