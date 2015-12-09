@@ -145,7 +145,8 @@ public class GuiError extends GuiScreen
 					@Override
 					public void run()
 					{
-						switch(JOptionPane.showOptionDialog(FrameHook.getFrame(), report, "Stacktrace",
+						switch(JOptionPane.showOptionDialog(
+							FrameHook.getFrame(), report, "Stacktrace",
 							JOptionPane.DEFAULT_OPTION,
 							JOptionPane.INFORMATION_MESSAGE, null,
 							new String[]{"Close", "Copy to Clipboard",
@@ -179,7 +180,8 @@ public class GuiError extends GuiScreen
 									.addChoosableFileFilter(new FileNameExtensionFilter(
 										"Markdown files", "md"));
 								int action =
-									fileChooser.showSaveDialog(FrameHook.getFrame());
+									fileChooser.showSaveDialog(FrameHook
+										.getFrame());
 								if(action == JFileChooser.APPROVE_OPTION)
 									try
 									{

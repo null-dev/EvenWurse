@@ -59,7 +59,6 @@ public class Java8Checker
 			
 			// learn more link
 			if(action == 0)
-			{
 				try
 				{
 					Desktop
@@ -72,7 +71,6 @@ public class Java8Checker
 					System.err.println("Failed to open link");
 					e1.printStackTrace();
 				}
-			}
 			
 			System.exit(0);
 		}

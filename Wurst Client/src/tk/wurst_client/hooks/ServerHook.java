@@ -57,7 +57,6 @@ public class ServerHook
 			"TXT files", "txt"));
 		int action = fileChooser.showOpenDialog(FrameHook.getFrame());
 		if(action == JFileChooser.APPROVE_OPTION)
-		{
 			try
 			{
 				File file = fileChooser.getSelectedFile();
@@ -80,7 +79,6 @@ public class ServerHook
 				e.printStackTrace();
 				MiscUtils.simpleError(e, fileChooser);
 			}
-		}
 	}
 	
 	public static void exportServers(GuiMultiplayer guiMultiplayer)
@@ -103,7 +101,6 @@ public class ServerHook
 			"TXT files", "txt"));
 		int action = fileChooser.showSaveDialog(FrameHook.getFrame());
 		if(action == JFileChooser.APPROVE_OPTION)
-		{
 			try
 			{
 				File file = fileChooser.getSelectedFile();
@@ -120,7 +117,6 @@ public class ServerHook
 				e.printStackTrace();
 				MiscUtils.simpleError(e, fileChooser);
 			}
-		}
 	}
 	
 	public static void joinLastServer(GuiMultiplayer guiMultiplayer)
@@ -201,7 +197,7 @@ public class ServerHook
 	{
 		currentServerIP = "127.0.0.1:" + port;
 	}
-
+	
 	public static String getCurrentServerIP()
 	{
 		return currentServerIP;

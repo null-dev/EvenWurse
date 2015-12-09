@@ -90,7 +90,7 @@ public class FrameHook
 		if(!WurstBot.isEnabled())
 			frame.setVisible(true);
 	}
-
+	
 	private static boolean isAutoMaximize()
 	{
 		File autoMaximizeFile =
