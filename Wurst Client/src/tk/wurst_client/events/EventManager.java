@@ -10,16 +10,12 @@ package tk.wurst_client.events;
 
 import java.util.HashSet;
 
-import javax.swing.event.EventListenerList;
-
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.events.listeners.*;
 import tk.wurst_client.gui.error.GuiError;
 
 public final class EventManager
 {
-	private static final EventListenerList listenerList =
-		new EventListenerList();
 	private static final HashSet<ChatInputListener> chatInputListeners =
 		new HashSet<>();
 	private static final HashSet<ChatOutputListener> chatOutputListeners =
