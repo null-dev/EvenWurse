@@ -26,6 +26,7 @@ import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.opengl.GL11;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.events.GUIRenderEvent;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.mods.ClickGuiMod;
 import tk.wurst_client.mods.Mod;
@@ -136,7 +137,8 @@ public class UIRenderer
 		ts.draw();
 		
 		// GUI render event
-		WurstClient.INSTANCE.events.fireGuiRenderEvent();
+		WurstClient.INSTANCE.events.fireEvent(GUIRenderEvent.class,
+			new GUIRenderEvent());
 		
 		// GL resets
 		GL11.glDepthMask(true);

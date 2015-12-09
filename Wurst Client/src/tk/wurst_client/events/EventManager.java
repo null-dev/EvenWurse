@@ -191,4 +191,35 @@ public final class EventManager
 	{
 		listenerList.remove(type, listener);
 	}
+	
+	public synchronized <T extends Event> void fireEvent(Class<T> type, T event)
+	{
+		try
+		{
+			// TODO: A more efficient way to process the type
+			if(type == GUIRenderEvent.class)
+				fireGuiRenderEvent();
+			else if(type == RenderEvent.class)
+				fireRenderEvent();
+			else if(type == PacketInputEvent.class)
+				firePacketInputEvent((PacketInputEvent)event);
+			else if(type == UpdateEvent.class)
+				fireUpdateEvent();
+			else if(type == ChatInputEvent.class)
+				fireChatInputEvent((ChatInputEvent)event);
+			else if(type == ChatOutputEvent.class)
+				fireChatOutputEvent((ChatOutputEvent)event);
+			else if(type == LeftClickEvent.class)
+				fireLeftClickEvent();
+			else if(type == DeathEvent.class)
+				fireDeathEvent();
+			else
+				throw new IllegalArgumentException("Invalid event type: "
+					+ type.getName());
+		}catch(Exception e)
+		{
+			handleException(e, this, "processing events", "Event type: "
+				+ event.getClass().getSimpleName());
+		}
+	}
 }
