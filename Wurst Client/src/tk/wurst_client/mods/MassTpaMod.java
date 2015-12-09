@@ -46,8 +46,8 @@ public class MassTpaMod extends Mod implements UpdateListener,
 			players.add(StringUtils.stripControlCodes(((NetworkPlayerInfo)itr
 				.next()).getPlayerNameForReal()));
 		Collections.shuffle(players, random);
-		WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addChatInputListener(this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -70,8 +70,8 @@ public class MassTpaMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeChatInputListener(this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 	}
 	
 	@Override

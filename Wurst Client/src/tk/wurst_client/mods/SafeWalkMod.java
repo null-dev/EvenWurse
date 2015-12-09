@@ -12,6 +12,6 @@ package tk.wurst_client.mods;
 	description = "Protects you from falling down as if you were sneaking.",
 	name = "SafeWalk")
 public class SafeWalkMod extends Mod
-{
+{	
 	
 }

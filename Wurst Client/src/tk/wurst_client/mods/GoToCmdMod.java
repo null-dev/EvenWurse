@@ -19,9 +19,7 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 
-@Info(category = Category.HIDDEN,
-	description = "",
-	name = "GoTo")
+@Info(category = Category.HIDDEN, description = "", name = "GoTo")
 public class GoToCmdMod extends Mod implements UpdateListener
 {
 	private static ArrayList<BlockPos> path;
@@ -42,7 +40,7 @@ public class GoToCmdMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		index = 0;
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -106,7 +104,7 @@ public class GoToCmdMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 		path = null;
 		goal = null;
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;

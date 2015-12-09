@@ -45,7 +45,7 @@ public class ProtectMod extends Mod implements UpdateListener
 		if(en != null
 			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
 			friend = en;
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -115,7 +115,7 @@ public class ProtectMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 		if(friend != null)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;

@@ -72,8 +72,8 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 			while(playerYaw < -180)
 				playerYaw += 360;
 		}
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
 	}
 	
 	@Override
@@ -331,8 +331,8 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
 		shouldBuild = false;
 	}
 }

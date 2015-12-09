@@ -65,9 +65,9 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 			WurstClient.INSTANCE.mods.speedNukerMod.setEnabled(false);
 		if(WurstClient.INSTANCE.mods.tunnellerMod.isEnabled())
 			WurstClient.INSTANCE.mods.tunnellerMod.setEnabled(false);
-		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.addLeftClickListener(this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
 	}
 	
 	@Override
@@ -159,9 +159,9 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.removeLeftClickListener(this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.removeRenderListener(this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

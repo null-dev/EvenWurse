@@ -43,9 +43,9 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.add(GUIRenderListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addGuiRenderListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -124,9 +124,9 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(GUIRenderListener.class, this);
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeGuiRenderListener(this);
+		WurstClient.INSTANCE.events.removeRenderListener(this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 	}
 	
 	private void aimAtTarget()

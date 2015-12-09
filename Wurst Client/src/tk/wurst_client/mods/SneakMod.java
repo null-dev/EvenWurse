@@ -25,7 +25,7 @@ public class SneakMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class SneakMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0BPacketEntityAction(

@@ -34,7 +34,7 @@ public class TriggerBotMod extends Mod implements UpdateListener
 			WurstClient.INSTANCE.mods.multiAuraMod.setEnabled(false);
 		if(WurstClient.INSTANCE.mods.clickAuraMod.isEnabled())
 			WurstClient.INSTANCE.mods.clickAuraMod.setEnabled(false);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -76,6 +76,6 @@ public class TriggerBotMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 	}
 }

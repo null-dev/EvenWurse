@@ -94,10 +94,10 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	public void onEnable()
 	{
 		reset();
-		WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
-		WurstClient.INSTANCE.events.add(DeathListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addChatInputListener(this);
+		WurstClient.INSTANCE.events.addDeathListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -271,10 +271,10 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
-		WurstClient.INSTANCE.events.remove(DeathListener.class, this);
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeChatInputListener(this);
+		WurstClient.INSTANCE.events.removeDeathListener(this);
+		WurstClient.INSTANCE.events.removeRenderListener(this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
 		if(friendsName != null)
 			WurstClient.INSTANCE.chat

@@ -141,8 +141,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 				(theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
-			Mod mod =
-				WurstClient.INSTANCE.mods.getModByName(button.getText());
+			Mod mod = WurstClient.INSTANCE.mods.getModByName(button.getText());
 			for(Frame frame : WurstClient.INSTANCE.gui.getFrames())
 				if(frame.getTitle().equalsIgnoreCase(mod.getCategory().name()))
 					WurstClient.INSTANCE.gui.bringForward(frame);

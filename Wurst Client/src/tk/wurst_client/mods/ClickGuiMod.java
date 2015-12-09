@@ -17,14 +17,12 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
-@Info(category = Category.HIDDEN,
-	description = "",
-	name = "ClickGUI")
+@Info(category = Category.HIDDEN, description = "", name = "ClickGUI")
 public class ClickGuiMod extends Mod implements UpdateListener
 {
 	public ClickGuiMod()
 	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override

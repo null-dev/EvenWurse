@@ -86,9 +86,9 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 			WurstClient.INSTANCE.mods.speedNukerMod.setEnabled(false);
 		if(WurstClient.INSTANCE.mods.tunnellerMod.isEnabled())
 			WurstClient.INSTANCE.mods.tunnellerMod.setEnabled(false);
-		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.addLeftClickListener(this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
 	}
 	
 	@Override
@@ -174,7 +174,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 				Minecraft.getMinecraft().theWorld, pos)
 				* (WurstClient.INSTANCE.mods.fastBreakMod.isActive()
 					&& WurstClient.INSTANCE.options.fastbreakMode == 0
-					? (WurstClient.INSTANCE.mods.fastBreakMod).speed : 1);
+					? WurstClient.INSTANCE.mods.fastBreakMod.speed : 1);
 		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(
 			Minecraft.getMinecraft().thePlayer.getEntityId(), pos,
 			(int)(currentDamage * 10.0F) - 1);
@@ -197,9 +197,9 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.removeLeftClickListener(this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.removeRenderListener(this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

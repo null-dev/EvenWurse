@@ -13,6 +13,6 @@ package tk.wurst_client.mods;
 	name = "Liquids",
 	noCheatCompatible = false)
 public class LiquidsMod extends Mod
-{
+{	
 	
 }

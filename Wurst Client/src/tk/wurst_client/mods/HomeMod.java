@@ -27,8 +27,8 @@ public class HomeMod extends Mod implements UpdateListener, ChatInputListener
 	public void onEnable()
 	{
 		disableTimer = 0;
-		WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addChatInputListener(this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -44,8 +44,8 @@ public class HomeMod extends Mod implements UpdateListener, ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeChatInputListener(this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 	}
 	
 	@Override

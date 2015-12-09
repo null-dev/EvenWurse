@@ -412,7 +412,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 				dialog.toFront();
 			}
 		}.start();
-		WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
+		WurstClient.INSTANCE.events.addChatInputListener(this);
 	}
 	
 	private void loadPWList()
@@ -519,7 +519,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
+		WurstClient.INSTANCE.events.removeChatInputListener(this);
 		new Thread()
 		{
 			@Override

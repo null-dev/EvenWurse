@@ -8,9 +8,7 @@
  */
 package tk.wurst_client.events;
 
-import java.util.EventListener;
-
-import javax.swing.event.EventListenerList;
+import java.util.HashSet;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.events.listeners.*;
@@ -18,111 +16,147 @@ import tk.wurst_client.gui.error.GuiError;
 
 public final class EventManager
 {
-	private static final EventListenerList listenerList =
-		new EventListenerList();
+	private static final HashSet<ChatInputListener> chatInputListeners =
+		new HashSet<>();
+	private static final HashSet<ChatOutputListener> chatOutputListeners =
+		new HashSet<>();
+	private static final HashSet<DeathListener> deathListeners =
+		new HashSet<>();
+	private static final HashSet<GUIRenderListener> guiRenderListeners =
+		new HashSet<>();
+	private static final HashSet<LeftClickListener> leftClickListeners =
+		new HashSet<>();
+	private static final HashSet<PacketInputListener> packetInputListeners =
+		new HashSet<>();
+	private static final HashSet<RenderListener> renderListeners =
+		new HashSet<>();
+	private static final HashSet<UpdateListener> updateListeners =
+		new HashSet<>();
 	
-	public synchronized <T extends Event> void fireEvent(Class<T> type, T event)
+	public void addChatInputListener(ChatInputListener listener)
 	{
-		try
-		{
-			// TODO: A more efficient way to process the type
-			if(type == GUIRenderEvent.class)
-				fireGuiRender();
-			else if(type == RenderEvent.class)
-				fireRender();
-			else if(type == PacketInputEvent.class)
-				firePacketInput((PacketInputEvent)event);
-			else if(type == UpdateEvent.class)
-				fireUpdate();
-			else if(type == ChatInputEvent.class)
-				fireChatInput((ChatInputEvent)event);
-			else if(type == ChatOutputEvent.class)
-				fireChatOutput((ChatOutputEvent)event);
-			else if(type == LeftClickEvent.class)
-				fireLeftClick();
-			else if(type == DeathEvent.class)
-				fireDeath();
-			else
-				throw new IllegalArgumentException("Invalid event type: "
-					+ type.getName());
-		}catch(Exception e)
-		{
-			handleException(e, this, "processing events", "Event type: "
-				+ event.getClass().getSimpleName());
-		}
+		chatInputListeners.add(listener);
 	}
 	
-	private void fireChatInput(ChatInputEvent event)
+	public void addChatOutputListener(ChatOutputListener listener)
 	{
-		Object[] listeners = listenerList.getListenerList();
-		for(int i = listeners.length - 2; i >= 0; i -= 2)
-		{
-			if(listeners[i] == ChatInputListener.class)
-				((ChatInputListener)listeners[i + 1]).onReceivedMessage(event);
-			if(event.isCancelled())
-				break;
-		}
+		chatOutputListeners.add(listener);
 	}
 	
-	private void fireChatOutput(ChatOutputEvent event)
+	public void addDeathListener(DeathListener listener)
 	{
-		Object[] listeners = listenerList.getListenerList();
-		for(int i = listeners.length - 2; i >= 0; i -= 2)
-		{
-			if(listeners[i] == ChatOutputListener.class)
-				((ChatOutputListener)listeners[i + 1]).onSentMessage(event);
-			if(event.isCancelled())
-				break;
-		}
+		deathListeners.add(listener);
 	}
 	
-	private void fireDeath()
+	public void addGuiRenderListener(GUIRenderListener listener)
 	{
-		Object[] listeners = listenerList.getListenerList();
-		for(int i = listeners.length - 2; i >= 0; i -= 2)
-			if(listeners[i] == DeathListener.class)
-				((DeathListener)listeners[i + 1]).onDeath();
+		guiRenderListeners.add(listener);
 	}
 	
-	private void fireGuiRender()
+	public void addLeftClickListener(LeftClickListener listener)
 	{
-		Object[] listeners = listenerList.getListenerList();
-		for(int i = listeners.length - 2; i >= 0; i -= 2)
-			if(listeners[i] == GUIRenderListener.class)
-				((GUIRenderListener)listeners[i + 1]).onRenderGUI();
+		leftClickListeners.add(listener);
 	}
 	
-	private void fireLeftClick()
+	public void addPacketInputListener(PacketInputListener listener)
 	{
-		Object[] listeners = listenerList.getListenerList();
-		for(int i = listeners.length - 2; i >= 0; i -= 2)
-			if(listeners[i] == LeftClickListener.class)
-				((LeftClickListener)listeners[i + 1]).onLeftClick();
+		packetInputListeners.add(listener);
 	}
 	
-	private void firePacketInput(PacketInputEvent event)
+	public void addRenderListener(RenderListener listener)
 	{
-		Object[] listeners = listenerList.getListenerList();
-		for(int i = listeners.length - 2; i >= 0; i -= 2)
-			if(listeners[i] == PacketInputListener.class)
-				((PacketInputListener)listeners[i + 1]).onReceivedPacket(event);
+		renderListeners.add(listener);
 	}
 	
-	private void fireRender()
+	public void addUpdateListener(UpdateListener listener)
 	{
-		Object[] listeners = listenerList.getListenerList();
-		for(int i = listeners.length - 2; i >= 0; i -= 2)
-			if(listeners[i] == RenderListener.class)
-				((RenderListener)listeners[i + 1]).onRender();
+		updateListeners.add(listener);
 	}
 	
-	private void fireUpdate()
+	public void removeChatInputListener(ChatInputListener listener)
 	{
-		Object[] listeners = listenerList.getListenerList();
-		for(int i = listeners.length - 2; i >= 0; i -= 2)
-			if(listeners[i] == UpdateListener.class)
-				((UpdateListener)listeners[i + 1]).onUpdate();
+		chatInputListeners.remove(listener);
 	}
+	
+	public void removeChatOutputListener(ChatOutputListener listener)
+	{
+		chatOutputListeners.remove(listener);
+	}
+	
+	public void removeDeathListener(DeathListener listener)
+	{
+		deathListeners.remove(listener);
+	}
+	
+	public void removeGuiRenderListener(GUIRenderListener listener)
+	{
+		guiRenderListeners.remove(listener);
+	}
+	
+	public void removeLeftClickListener(LeftClickListener listener)
+	{
+		leftClickListeners.remove(listener);
+	}
+	
+	public void removePacketInputListener(PacketInputListener listener)
+	{
+		packetInputListeners.remove(listener);
+	}
+	
+	public void removeRenderListener(RenderListener listener)
+	{
+		renderListeners.remove(listener);
+	}
+	
+	public void removeUpdateListener(UpdateListener listener)
+	{
+		updateListeners.remove(listener);
+	}
+	
+	public void fireChatInputEvent(ChatInputEvent event)
+	{
+		chatInputListeners.forEach((listener) -> listener
+			.onReceivedMessage(event));
+	}
+	
+	public void fireChatOutputEvent(ChatOutputEvent event)
+	{
+		chatOutputListeners
+			.forEach((listener) -> listener.onSentMessage(event));
+	}
+	
+	public void fireDeathEvent()
+	{
+		deathListeners.forEach((listener) -> listener.onDeath());
+	}
+	
+	public void fireGuiRenderEvent()
+	{
+		guiRenderListeners.forEach((listener) -> listener.onRenderGUI());
+	}
+	
+	public void fireLeftClickEvent()
+	{
+		leftClickListeners.forEach((listener) -> listener.onLeftClick());
+	}
+	
+	public void firePacketInputEvent(PacketInputEvent event)
+	{
+		packetInputListeners.forEach((listener) -> listener
+			.onReceivedPacket(event));
+	}
+	
+	public void fireRenderEvent()
+	{
+		renderListeners.forEach((listener) -> listener.onRender());
+	}
+	
+	public void fireUpdateEvent()
+	{
+		updateListeners.forEach((listener) -> listener.onUpdate());
+	}
+	
+	// XXX: Outdated methods
 	
 	public void handleException(final Exception e, final Object cause,
 		final String action, final String comment)
@@ -131,25 +165,15 @@ public final class EventManager
 			&& e.getMessage().equals(
 				"No OpenGL context found in the current thread."))
 			return;
-		add(UpdateListener.class, new UpdateListener()
+		addUpdateListener(new UpdateListener()
 		{
 			@Override
 			public void onUpdate()
 			{
 				Minecraft.getMinecraft().displayGuiScreen(
 					new GuiError(e, cause, action, comment));
-				remove(UpdateListener.class, this);
+				removeUpdateListener(this);
 			}
 		});
-	}
-	
-	public <T extends EventListener> void add(Class<T> type, T listener)
-	{
-		listenerList.add(type, listener);
-	}
-	
-	public <T extends EventListener> void remove(Class<T> type, T listener)
-	{
-		listenerList.remove(type, listener);
 	}
 }
