@@ -151,12 +151,12 @@ public final class EventManager
 			.onReceivedPacket(event));
 	}
 	
-	public void fireRenderEventEvent()
+	public void fireRenderEvent()
 	{
 		renderListeners.forEach((listener) -> listener.onRender());
 	}
 	
-	public void fireUpdateEventEvent()
+	public void fireUpdateEvent()
 	{
 		updateListeners.forEach((listener) -> listener.onUpdate());
 	}
@@ -200,11 +200,11 @@ public final class EventManager
 			if(type == GUIRenderEvent.class)
 				fireGuiRenderEvent();
 			else if(type == RenderEvent.class)
-				fireRenderEventEvent();
+				fireRenderEvent();
 			else if(type == PacketInputEvent.class)
 				firePacketInputEvent((PacketInputEvent)event);
 			else if(type == UpdateEvent.class)
-				fireUpdateEventEvent();
+				fireUpdateEvent();
 			else if(type == ChatInputEvent.class)
 				fireChatInputEvent((ChatInputEvent)event);
 			else if(type == ChatOutputEvent.class)
