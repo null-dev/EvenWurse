@@ -115,7 +115,7 @@ public class ProtectMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		if(friend != null)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;

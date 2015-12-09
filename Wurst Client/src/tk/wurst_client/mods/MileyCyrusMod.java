@@ -43,7 +43,7 @@ public class MileyCyrusMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed = false;
 	}
 }

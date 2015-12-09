@@ -98,6 +98,6 @@ public class AntiSpamMod extends Mod implements ChatInputListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeChatInputListener(this);
+		WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
 	}
 }

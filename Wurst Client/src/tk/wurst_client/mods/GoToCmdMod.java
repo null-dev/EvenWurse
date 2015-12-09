@@ -104,7 +104,7 @@ public class GoToCmdMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		path = null;
 		goal = null;
 		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;

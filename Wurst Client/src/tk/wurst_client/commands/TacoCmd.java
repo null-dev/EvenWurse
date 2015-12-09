@@ -52,8 +52,8 @@ public class TacoCmd extends Cmd implements GUIRenderListener, UpdateListener
 			WurstClient.INSTANCE.events.addUpdateListener(this);
 		}else
 		{
-			WurstClient.INSTANCE.events.removeGuiRenderListener(this);
-			WurstClient.INSTANCE.events.removeUpdateListener(this);
+			WurstClient.INSTANCE.events.remove(GUIRenderListener.class, this);
+			WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		}
 	}
 	

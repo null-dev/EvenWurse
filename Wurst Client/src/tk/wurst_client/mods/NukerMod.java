@@ -197,9 +197,9 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeLeftClickListener(this);
-		WurstClient.INSTANCE.events.removeUpdateListener(this);
-		WurstClient.INSTANCE.events.removeRenderListener(this);
+		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 		if(oldSlot != -1)
 		{
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;

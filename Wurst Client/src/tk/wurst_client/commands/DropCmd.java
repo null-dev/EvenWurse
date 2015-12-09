@@ -67,14 +67,15 @@ public class DropCmd extends Cmd implements UpdateListener
 				counter++;
 				timer = 0;
 				if(counter >= 45)
-					WurstClient.INSTANCE.events.removeUpdateListener(this);
+					WurstClient.INSTANCE.events.remove(UpdateListener.class,
+						this);
 			}
 		}else
 		{
 			for(int i = 9; i < 45; i++)
 				Minecraft.getMinecraft().playerController.windowClick(0, i, 1,
 					4, Minecraft.getMinecraft().thePlayer);
-			WurstClient.INSTANCE.events.removeUpdateListener(this);
+			WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		}
 	}
 }

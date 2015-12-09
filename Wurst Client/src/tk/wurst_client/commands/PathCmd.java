@@ -30,7 +30,7 @@ public class PathCmd extends Cmd implements RenderListener
 		path = null;
 		if(enabled)
 		{
-			WurstClient.INSTANCE.events.removeRenderListener(this);
+			WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 			enabled = false;
 			return;
 		}

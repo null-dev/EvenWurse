@@ -105,7 +105,7 @@ public class RemoteViewMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		if(otherView != null)
 		{
 			WurstClient.INSTANCE.chat.message("No longer viewing "

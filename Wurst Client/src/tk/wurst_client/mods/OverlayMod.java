@@ -48,6 +48,6 @@ public class OverlayMod extends Mod implements RenderListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeRenderListener(this);
+		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 	}
 }

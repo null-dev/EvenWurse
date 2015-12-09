@@ -331,7 +331,7 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		WurstClient.INSTANCE.events.addRenderListener(this);
 		shouldBuild = false;
 	}

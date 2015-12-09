@@ -66,7 +66,7 @@ public class LsdMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.removeUpdateListener(this);
+		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
 		Minecraft.getMinecraft().thePlayer.removePotionEffect(Potion.confusion
 			.getId());
 		if(Minecraft.getMinecraft().entityRenderer.theShaderGroup != null)
