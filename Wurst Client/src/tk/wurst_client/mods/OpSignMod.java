@@ -23,7 +23,7 @@ import tk.wurst_client.mods.Mod.Info;
 public class OpSignMod extends Mod
 {
 	public String command;
-	
+
 	@Override
 	public void onEnable()
 	{

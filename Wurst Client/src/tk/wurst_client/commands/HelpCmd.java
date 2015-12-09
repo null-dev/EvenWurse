@@ -28,7 +28,8 @@ public class HelpCmd extends Cmd
 			return;
 		}
 		int pages =
-			(int)Math.ceil(WurstClient.INSTANCE.commands.countCommands() / 8D);
+			(int)Math
+				.ceil(WurstClient.INSTANCE.commands.countCommands() / 8D);
 		if(MiscUtils.isInteger(args[0]))
 		{
 			int page = Integer.valueOf(args[0]);

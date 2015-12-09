@@ -78,11 +78,13 @@ public class CmdManager implements ChatOutputListener
 		try
 		{
 			for(Field field : CmdManager.class.getFields())
+			{
 				if(field.getName().endsWith("Cmd"))
 				{
 					Cmd cmd = (Cmd)field.get(this);
 					cmds.put(cmd.getName(), cmd);
 				}
+			}
 		}catch(Exception e)
 		{
 			e.printStackTrace();

@@ -39,8 +39,8 @@ public class ChestEspMod extends Mod implements UpdateListener, RenderListener
 	public void onEnable()
 	{
 		shouldInform = true;
-		WurstClient.INSTANCE.events.addUpdateListener(this);
-		WurstClient.INSTANCE.events.addRenderListener(this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override

@@ -28,15 +28,15 @@ public class AutoArmorMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override
 	public void onUpdate()
 	{
 		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-			|| Minecraft.getMinecraft().currentScreen instanceof GuiContainer
-			&& !(Minecraft.getMinecraft().currentScreen instanceof GuiInventory))
+			|| (Minecraft.getMinecraft().currentScreen instanceof GuiContainer && !(Minecraft
+				.getMinecraft().currentScreen instanceof GuiInventory)))
 			return;
 		updateMS();
 		if(hasTimePassedM(3000))

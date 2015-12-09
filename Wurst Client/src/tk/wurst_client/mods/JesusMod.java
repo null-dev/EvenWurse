@@ -14,6 +14,6 @@ package tk.wurst_client.mods;
 		+ "Bypasses NoCheat+ is YesCheat+ is enabled.",
 	name = "Jesus")
 public class JesusMod extends Mod
-{	
+{
 	
 }

@@ -170,7 +170,7 @@ public final class EventManager
 			&& e.getMessage().equals(
 				"No OpenGL context found in the current thread."))
 			return;
-		addUpdateListener(new UpdateListener()
+		add(UpdateListener.class, new UpdateListener()
 		{
 			@Override
 			public void onUpdate()
@@ -180,6 +180,11 @@ public final class EventManager
 				remove(UpdateListener.class, this);
 			}
 		});
+	}
+	
+	public <T extends EventListener> void add(Class<T> type, T listener)
+	{
+		listenerList.add(type, listener);
 	}
 	
 	public <T extends EventListener> void remove(Class<T> type, T listener)

@@ -24,7 +24,7 @@ public class CriticalsMod extends Mod implements LeftClickListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.addLeftClickListener(this);
+		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
 	}
 	
 	@Override

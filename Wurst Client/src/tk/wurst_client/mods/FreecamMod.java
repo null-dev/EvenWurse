@@ -41,7 +41,7 @@ public class FreecamMod extends Mod implements UpdateListener
 		fakePlayer.rotationYawHead =
 			Minecraft.getMinecraft().thePlayer.rotationYawHead;
 		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override

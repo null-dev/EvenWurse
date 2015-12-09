@@ -23,7 +23,7 @@ public class AutoRespawnMod extends Mod implements DeathListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.addDeathListener(this);
+		WurstClient.INSTANCE.events.add(DeathListener.class, this);
 	}
 	
 	@Override

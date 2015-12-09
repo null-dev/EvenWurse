@@ -63,7 +63,7 @@ public class FlightMod extends Mod implements UpdateListener
 			}
 			Minecraft.getMinecraft().thePlayer.jump();
 		}
-		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override

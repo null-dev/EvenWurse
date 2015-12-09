@@ -50,7 +50,7 @@ public class LsdMod extends Mod implements UpdateListener
 					Minecraft.getMinecraft().entityRenderer.theShaderGroup =
 						null;
 			}
-		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override

@@ -25,7 +25,7 @@ public class AntiSpamMod extends Mod implements ChatInputListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.addChatInputListener(this);
+		WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
 	}
 	
 	@Override

@@ -39,7 +39,7 @@ public class AntiAfkMod extends Mod implements UpdateListener
 			e.printStackTrace();
 		}
 		random = new Random();
-		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
 	@Override

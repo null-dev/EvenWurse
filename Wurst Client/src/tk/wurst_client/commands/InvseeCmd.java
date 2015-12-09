@@ -33,7 +33,7 @@ public class InvseeCmd extends Cmd implements RenderListener
 			return;
 		}
 		playerName = args[0];
-		WurstClient.INSTANCE.events.addRenderListener(this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override

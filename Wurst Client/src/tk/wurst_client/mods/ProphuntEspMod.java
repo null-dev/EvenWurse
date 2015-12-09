@@ -28,7 +28,7 @@ public class ProphuntEspMod extends Mod implements RenderListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.addRenderListener(this);
+		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
 	
 	@Override
