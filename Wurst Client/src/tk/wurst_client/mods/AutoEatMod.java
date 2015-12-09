@@ -28,7 +28,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		oldSlot = -1;
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -59,48 +59,46 @@ public class AutoEatMod extends Mod implements UpdateListener
 		if(bestSlot == -1)
 			return;
 		oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
-		WurstClient.INSTANCE.events.add(UpdateListener.class,
-			new UpdateListener()
+		WurstClient.INSTANCE.events.addUpdateListener(new UpdateListener()
+		{
+			@Override
+			public void onUpdate()
 			{
-				@Override
-				public void onUpdate()
+				if(!AutoEatMod.this.isActive()
+					|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+					|| Minecraft.getMinecraft().thePlayer.getFoodStats()
+						.getFoodLevel() >= 20)
 				{
-					if(!AutoEatMod.this.isActive()
-						|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-						|| Minecraft.getMinecraft().thePlayer.getFoodStats()
-							.getFoodLevel() >= 20)
-					{
-						stop();
-						return;
-					}
-					ItemStack item =
-						Minecraft.getMinecraft().thePlayer.inventory
-							.getStackInSlot(bestSlot);
-					if(item == null || !(item.getItem() instanceof ItemFood))
-					{
-						stop();
-						return;
-					}
-					Minecraft.getMinecraft().thePlayer.inventory.currentItem =
-						bestSlot;
-					Minecraft.getMinecraft().playerController.sendUseItem(
-						Minecraft.getMinecraft().thePlayer,
-						Minecraft.getMinecraft().theWorld, item);
-					Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
-						true;
+					stop();
+					return;
 				}
-				
-				private void stop()
+				ItemStack item =
+					Minecraft.getMinecraft().thePlayer.inventory
+						.getStackInSlot(bestSlot);
+				if(item == null || !(item.getItem() instanceof ItemFood))
 				{
-					Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
-						false;
-					Minecraft.getMinecraft().thePlayer.inventory.currentItem =
-						oldSlot;
-					oldSlot = -1;
-					WurstClient.INSTANCE.events.remove(
-						UpdateListener.class, this);
+					stop();
+					return;
 				}
-			});
+				Minecraft.getMinecraft().thePlayer.inventory.currentItem =
+					bestSlot;
+				Minecraft.getMinecraft().playerController.sendUseItem(
+					Minecraft.getMinecraft().thePlayer,
+					Minecraft.getMinecraft().theWorld, item);
+				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
+					true;
+			}
+			
+			private void stop()
+			{
+				Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
+					false;
+				Minecraft.getMinecraft().thePlayer.inventory.currentItem =
+					oldSlot;
+				oldSlot = -1;
+				WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+			}
+		});
 	}
 	
 	@Override

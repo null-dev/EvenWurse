@@ -24,7 +24,7 @@ public class AutoSwitchMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override

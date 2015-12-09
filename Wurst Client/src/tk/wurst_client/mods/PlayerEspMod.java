@@ -25,7 +25,7 @@ public class PlayerEspMod extends Mod implements RenderListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
 	}
 	
 	@Override

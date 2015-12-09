@@ -144,14 +144,12 @@ public class ModManager
 		try
 		{
 			for(Field field : ModManager.class.getFields())
-			{
 				if(field.getName().endsWith("Mod"))
 				{
 					Mod mod = (Mod)field.get(this);
 					mods.put(mod.getName(), mod);
 					mod.initSliders();
 				}
-			}
 		}catch(Exception e)
 		{
 			e.printStackTrace();

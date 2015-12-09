@@ -66,7 +66,7 @@ public class KillauraMod extends Mod implements UpdateListener
 			WurstClient.INSTANCE.mods.clickAuraMod.setEnabled(false);
 		if(WurstClient.INSTANCE.mods.triggerBotMod.isEnabled())
 			WurstClient.INSTANCE.mods.triggerBotMod.setEnabled(false);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
@@ -84,7 +84,6 @@ public class KillauraMod extends Mod implements UpdateListener
 		updateMS();
 		EntityLivingBase en = EntityUtils.getClosestEntity(true, true);
 		if(hasTimePassedS(realSpeed) && en != null)
-		{
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange)
 			{
 				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
@@ -96,7 +95,6 @@ public class KillauraMod extends Mod implements UpdateListener
 					Minecraft.getMinecraft().thePlayer, en);
 				updateLastMS();
 			}
-		}
 	}
 	
 	@Override

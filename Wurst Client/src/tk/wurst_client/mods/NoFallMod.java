@@ -16,15 +16,14 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
-	description = "Protects you from fall damage.\n"
-		+ "Bypasses AntiCheat.",
+	description = "Protects you from fall damage.\n" + "Bypasses AntiCheat.",
 	name = "NoFall")
 public class NoFallMod extends Mod implements UpdateListener
 {
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override

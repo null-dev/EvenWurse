@@ -25,7 +25,7 @@ public class MileyCyrusMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		timer = 0;
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override

@@ -32,8 +32,8 @@ public class AutoToolMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addLeftClickListener(this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override

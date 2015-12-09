@@ -37,8 +37,8 @@ public class PlayerFinderMod extends Mod implements PacketInputListener,
 	public void onEnable()
 	{
 		blockPos = null;
-		WurstClient.INSTANCE.events.add(PacketInputListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.addPacketInputListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
 	}
 	
 	@Override
@@ -66,8 +66,7 @@ public class PlayerFinderMod extends Mod implements PacketInputListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(PacketInputListener.class,
-			this);
+		WurstClient.INSTANCE.events.remove(PacketInputListener.class, this);
 		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
 	}
 	

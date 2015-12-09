@@ -43,8 +43,8 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 	public void onEnable()
 	{
 		shouldInform = true;
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
 	}
 	
 	@Override

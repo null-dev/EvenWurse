@@ -49,8 +49,8 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 	@Override
 	public void onEnable()
 	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
+		WurstClient.INSTANCE.events.addRenderListener(this);
 	}
 	
 	@Override

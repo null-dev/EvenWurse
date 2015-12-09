@@ -24,7 +24,8 @@ public class GhostHandCmd extends Cmd
 		{
 			WurstClient.INSTANCE.mods.ghostHandMod.toggle();
 			WurstClient.INSTANCE.chat.message("GhostHand turned "
-				+ (WurstClient.INSTANCE.mods.ghostHandMod.isEnabled() ? "on" : "off") + ".");
+				+ (WurstClient.INSTANCE.mods.ghostHandMod.isEnabled() ? "on"
+					: "off") + ".");
 		}else if(args.length == 2)
 		{
 			if(args[0].equalsIgnoreCase("id") && MiscUtils.isInteger(args[1]))

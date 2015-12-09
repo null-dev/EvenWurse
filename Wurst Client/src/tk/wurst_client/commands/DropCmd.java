@@ -41,7 +41,7 @@ public class DropCmd extends Cmd implements UpdateListener
 			infinite = false;
 		timer = 0;
 		counter = 9;
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override

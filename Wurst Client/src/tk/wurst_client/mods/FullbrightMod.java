@@ -21,7 +21,7 @@ public class FullbrightMod extends Mod implements UpdateListener
 {
 	public FullbrightMod()
 	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.addUpdateListener(this);
 	}
 	
 	@Override
