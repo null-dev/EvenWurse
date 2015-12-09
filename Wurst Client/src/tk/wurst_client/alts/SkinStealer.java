@@ -31,7 +31,8 @@ public class SkinStealer
 			BufferedInputStream skinputStream =
 				new BufferedInputStream(skinCon.getInputStream());
 			File skin =
-				new File(WurstClient.INSTANCE.files.skinDir, name + ".png");
+				new File(WurstClient.INSTANCE.files.skinDir, name
+					+ ".png");
 			FileOutputStream outputStream = new FileOutputStream(skin);
 			int i;
 			while((i = skinputStream.read()) != -1)

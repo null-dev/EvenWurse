@@ -74,8 +74,8 @@ public class WurstSliderUI extends AbstractComponentUI<Slider>
 				break;
 			case DEGREES:
 				content =
-					String.format("%,d°",
-						Long.valueOf(Math.round(component.getValue())));
+				String.format("%,d°",
+					Long.valueOf(Math.round(component.getValue())));
 				break;
 			case PERCENTAGE:
 				int percent =

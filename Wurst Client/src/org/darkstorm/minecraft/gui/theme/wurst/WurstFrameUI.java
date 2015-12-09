@@ -464,8 +464,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				&& location.y >= 2 && location.y <= textHeight + 2)
 			{
 				component.setPinned(!component.isPinned());
-				WurstClient.INSTANCE.files.saveGUI(WurstClient.INSTANCE.gui
-					.getFrames());
+				WurstClient.INSTANCE.files
+				.saveGUI(WurstClient.INSTANCE.gui.getFrames());
 				return;
 			}
 			offset -= textHeight + 2;
@@ -476,8 +476,8 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 				&& location.y >= 2 && location.y <= textHeight + 2)
 			{
 				component.setMinimized(!component.isMinimized());
-				WurstClient.INSTANCE.files.saveGUI(WurstClient.INSTANCE.gui
-					.getFrames());
+				WurstClient.INSTANCE.files
+				.saveGUI(WurstClient.INSTANCE.gui.getFrames());
 				return;
 			}
 			offset -= textHeight + 2;

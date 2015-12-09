@@ -149,7 +149,7 @@ public class GuiTeamSettings extends GuiScreen
 		ArrayList<String> tooltip = new ArrayList<>();
 		for(int i = 0; i < buttonList.size(); i++)
 		{
-			GuiButton button = (GuiButton)buttonList.get(i);
+			GuiButton button = ((GuiButton)buttonList.get(i));
 			button.drawButton(mc, mouseX, mouseY);
 			
 			if(!button.isMouseOver())

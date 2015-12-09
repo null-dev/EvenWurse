@@ -122,10 +122,9 @@ public class SessionStealerScreen extends GuiScreen
 				try
 				{
 					rawJson =
-						JsonUtils.jsonParser.parse(new InputStreamReader(
-							new URL("https://api.mojang.com/user/profiles/"
-								+ uuid + "/names").openConnection()
-								.getInputStream()));
+						JsonUtils.jsonParser.parse(new InputStreamReader(new URL(
+							"https://api.mojang.com/user/profiles/" + uuid
+								+ "/names").openConnection().getInputStream()));
 				}catch(JsonIOException | JsonSyntaxException | IOException e)
 				{
 					e.printStackTrace();
