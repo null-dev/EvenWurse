@@ -46,7 +46,7 @@ public class AutoMineMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
 	}
 }

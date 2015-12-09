@@ -63,7 +63,7 @@ public class FreecamMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 		Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY,
 			oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
 			Minecraft.getMinecraft().thePlayer.rotationPitch);

@@ -46,13 +46,13 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 			return;
 		}
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
+		WurstClient.INSTANCE.events.removeLeftClickListener(this);
 	}
 	
 	@Override

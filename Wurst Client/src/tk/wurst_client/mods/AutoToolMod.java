@@ -57,8 +57,8 @@ public class AutoToolMod extends Mod implements LeftClickListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeLeftClickListener(this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 		isActive = false;
 		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
 	}

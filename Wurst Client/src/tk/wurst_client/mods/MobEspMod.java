@@ -39,6 +39,6 @@ public class MobEspMod extends Mod implements RenderListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+		WurstClient.INSTANCE.events.removeRenderListener(this);
 	}
 }

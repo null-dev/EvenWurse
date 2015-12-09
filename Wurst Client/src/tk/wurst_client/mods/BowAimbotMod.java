@@ -124,9 +124,9 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(GUIRenderListener.class, this);
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeGuiRenderListener(this);
+		WurstClient.INSTANCE.events.removeRenderListener(this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 	}
 	
 	private void aimAtTarget()

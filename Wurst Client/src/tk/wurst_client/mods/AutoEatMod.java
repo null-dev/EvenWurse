@@ -96,7 +96,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 				Minecraft.getMinecraft().thePlayer.inventory.currentItem =
 					oldSlot;
 				oldSlot = -1;
-				WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+				WurstClient.INSTANCE.events.removeUpdateListener(this);
 			}
 		});
 	}
@@ -104,7 +104,7 @@ public class AutoEatMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 	}
 	
 	public boolean isEating()

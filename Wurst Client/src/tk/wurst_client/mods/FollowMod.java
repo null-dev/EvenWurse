@@ -79,7 +79,7 @@ public class FollowMod extends Mod implements UpdateListener
 	@Override
 	public void onDisable()
 	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+		WurstClient.INSTANCE.events.removeUpdateListener(this);
 		if(entity != null)
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;

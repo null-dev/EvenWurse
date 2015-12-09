@@ -8,7 +8,6 @@
  */
 package tk.wurst_client.events;
 
-import java.util.EventListener;
 import java.util.HashSet;
 
 import javax.swing.event.EventListenerList;
@@ -177,13 +176,8 @@ public final class EventManager
 			{
 				Minecraft.getMinecraft().displayGuiScreen(
 					new GuiError(e, cause, action, comment));
-				remove(UpdateListener.class, this);
+				removeUpdateListener(this);
 			}
 		});
-	}
-	
-	public <T extends EventListener> void remove(Class<T> type, T listener)
-	{
-		listenerList.remove(type, listener);
 	}
 }

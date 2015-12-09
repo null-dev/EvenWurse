@@ -43,7 +43,7 @@ public class AnnoyCmd extends Cmd implements ChatInputListener
 			}
 		}else
 		{
-			WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
+			WurstClient.INSTANCE.events.removeChatInputListener(this);
 			if(name != null)
 			{
 				WurstClient.INSTANCE.chat.message("No longer annoying " + name
