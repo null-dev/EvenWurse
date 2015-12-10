@@ -21,7 +21,7 @@ public abstract class AbstractContainer extends AbstractComponent implements
 	public void render()
 	{
 		super.render();
-		
+
 		synchronized(children)
 		{
 			for(Component child : children.keySet())

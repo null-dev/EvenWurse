@@ -14,8 +14,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.lang.reflect.Field;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 
 import org.darkstorm.minecraft.gui.component.Button;
 import org.darkstorm.minecraft.gui.component.Component;
@@ -27,6 +29,7 @@ import org.lwjgl.input.Mouse;
 
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod;
+import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.mods.Mod.Category;
 
 public class WurstButtonUI extends AbstractComponentUI<Button>
@@ -100,15 +103,15 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		
 		// text
 		String text = button.getText();
-		theme.getFontRenderer().drawString(text,
-			area.width / 2 - theme.getFontRenderer().getStringWidth(text) / 2,
-			area.height / 2 - theme.getFontRenderer().FONT_HEIGHT / 2 - 1,
+		FontRenderer fontRenderer = theme.getFontRenderer();
+		fontRenderer.drawString(text,
+			(area.width - fontRenderer.getStringWidth(text)) / 2,
+			(area.height - fontRenderer.FONT_HEIGHT) / 2 - 1,
 			RenderUtil.toRGBA(button.getForegroundColor()));
 		
 		translateComponent(button, true);
 		
 		// tooltip
-		// TODO: clean up
 		if(button.getDescription() == null)
 			return;
 		if(area.contains(mouse) && describedButton != button)
@@ -117,7 +120,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			describedButton = button;
 		}
 		if(lastMS == 0L && describedButton != null
-			&& isRightButton(button, describedButton))
+			&& isCorrectButton(button, describedButton))
 		{
 			lastMS = System.currentTimeMillis();
 			rightButton = button;
@@ -129,6 +132,7 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 			&& rightButton == button
 			&& Minecraft.getMinecraft().currentScreen instanceof GuiManagerDisplayScreen)
 		{
+			// TODO: clean up
 			String[] lines = describedButton.getDescription().split("\n");
 			int textWidth = 0;
 			for(String line : lines)
@@ -141,10 +145,9 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 				(theme.getFontRenderer().FONT_HEIGHT + 2) * lines.length;
 			Rectangle dArea = describedButton.getArea();
 			dArea.width = describedButton.getParent().getWidth() - 4;
-			Mod mod =
-				WurstClient.INSTANCE.mods.getModByName(button.getText());
 			for(Frame frame : WurstClient.INSTANCE.gui.getFrames())
-				if(frame.getTitle().equalsIgnoreCase(mod.getCategory().name()))
+				if(frame.getTitle().equalsIgnoreCase(
+					button.getMod().getCategory().name()))
 					WurstClient.INSTANCE.gui.bringForward(frame);
 			int scale = Minecraft.getMinecraft().gameSettings.guiScale;
 			if(scale == 0)
@@ -193,34 +196,34 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		glDisable(GL_BLEND);
 	}
 	
-	private boolean isRightButton(Button button, Button dButton)
+	private boolean isCorrectButton(Button button, Button dButton)
 	{
+		if(button.getMod() == null || dButton.getMod() == null)
+			return false;
+		
+		Category buttonCategory = button.getMod().getCategory();
+		
+		if(buttonCategory != dButton.getMod().getCategory())
+			return false;
+		
+		Field[] fields = ModManager.class.getFields();
 		try
 		{
-			Category buttonCategory = null;
-			Category dButtonCategory = null;
-			buttonCategory =
-				WurstClient.INSTANCE.mods.getModByName(button.getText())
-					.getCategory();
-			dButtonCategory =
-				WurstClient.INSTANCE.mods.getModByName(dButton.getText())
-					.getCategory();
-			boolean isRightFrame =
-				buttonCategory == dButtonCategory && buttonCategory != null;
-			if(!isRightFrame)
-				return false;
-			boolean isLastButton = false;
-			for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
-				if(buttonCategory == mod.getCategory())
-					if(button.getText().equals(mod.getName()))
-						isLastButton = true;
-					else
-						isLastButton = false;
-			return isLastButton;
-		}catch(NullPointerException e)
+			for(int i = fields.length - 1; i > -1; i--)
+			{
+				Field field = fields[i];
+				if(field.getName().endsWith("Mod"))
+				{
+					Mod mod = (Mod)field.get(WurstClient.INSTANCE.mods);
+					if(mod.getCategory() == buttonCategory)
+						return mod == button.getMod();
+				}
+			}
+		}catch(Exception e)
 		{
-			return false;
+			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	@Override

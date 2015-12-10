@@ -139,19 +139,15 @@ public final class GuiManager extends AbstractGuiManager
 				addFrame(frame);
 				categoryFrames.put(mod.getCategory(), frame);
 			}
-			String moduleDescription = mod.getDescription();
-			if(moduleDescription.equals(""))
-				moduleDescription = "Error! This is a bug. Please report it.";
-			final Mod updateModule = mod;
-			Button button = new BasicButton(mod.getName(), moduleDescription)
+			Button button = new BasicButton(mod)
 			{
 				@Override
 				public void update()
 				{
-					setForegroundColor(updateModule.isEnabled() ? Color.BLACK
+					setForegroundColor(mod.isEnabled() ? Color.BLACK
 						: Color.WHITE);
-					if(updateModule.isEnabled())
-						if(updateModule.isBlocked())
+					if(mod.isEnabled())
+						if(mod.isBlocked())
 							setBackgroundColor(new Color(255, 0, 0, 96));
 						else
 							setBackgroundColor(new Color(0, 255, 0, 96));
@@ -164,7 +160,7 @@ public final class GuiManager extends AbstractGuiManager
 				@Override
 				public void onButtonPress(Button button)
 				{
-					updateModule.toggle();
+					mod.toggle();
 				}
 			});
 			frame.add(button);

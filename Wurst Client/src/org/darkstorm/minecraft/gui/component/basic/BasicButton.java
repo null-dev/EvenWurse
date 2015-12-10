@@ -6,11 +6,14 @@ import org.darkstorm.minecraft.gui.component.ButtonGroup;
 import org.darkstorm.minecraft.gui.listener.ButtonListener;
 import org.darkstorm.minecraft.gui.listener.ComponentListener;
 
+import tk.wurst_client.mods.Mod;
+
 public class BasicButton extends AbstractComponent implements Button
 {
 	protected String text = "";
 	protected ButtonGroup group;
 	private String description;
+	private Mod mod;
 	
 	public BasicButton()
 	{}
@@ -19,6 +22,16 @@ public class BasicButton extends AbstractComponent implements Button
 	{
 		this.text = text;
 		this.description = description;
+	}
+	
+	public BasicButton(Mod mod)
+	{
+		text = mod.getName();
+		if(mod.getDescription().isEmpty())
+			description = "Error! This is a bug. Please report it.";
+		else
+			description = mod.getDescription();
+		this.mod = mod;
 	}
 	
 	@Override
@@ -37,12 +50,6 @@ public class BasicButton extends AbstractComponent implements Button
 	public String getDescription()
 	{
 		return description;
-	}
-	
-	@Override
-	public void setDescription(String desccription)
-	{
-		description = desccription;
 	}
 	
 	@Override
@@ -74,5 +81,11 @@ public class BasicButton extends AbstractComponent implements Button
 	public void setGroup(ButtonGroup group)
 	{
 		this.group = group;
+	}
+	
+	@Override
+	public Mod getMod()
+	{
+		return mod;
 	}
 }

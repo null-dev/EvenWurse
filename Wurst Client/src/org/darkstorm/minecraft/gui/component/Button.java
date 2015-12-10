@@ -2,6 +2,8 @@ package org.darkstorm.minecraft.gui.component;
 
 import org.darkstorm.minecraft.gui.listener.ButtonListener;
 
+import tk.wurst_client.mods.Mod;
+
 public interface Button extends Component, TextComponent
 {
 	public void press();
@@ -16,5 +18,5 @@ public interface Button extends Component, TextComponent
 	
 	public String getDescription();
 	
-	public void setDescription(String description);
+	public Mod getMod();
 }
