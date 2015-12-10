@@ -28,7 +28,6 @@ import org.lwjgl.opengl.GL11;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.GUIRenderEvent;
 import tk.wurst_client.font.Fonts;
-import tk.wurst_client.mods.ClickGuiMod;
 import tk.wurst_client.mods.Mod;
 
 public class UIRenderer
@@ -43,7 +42,7 @@ public class UIRenderer
 		LinkedList<String> modList = new LinkedList<String>();
 		for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 		{
-			if(mod instanceof ClickGuiMod)
+			if(mod.getCategory() == Mod.Category.HIDDEN)
 				continue;
 			if(mod.isActive())
 				modList.add(mod.getRenderName());
