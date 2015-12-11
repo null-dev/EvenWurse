@@ -8,6 +8,7 @@ import java.io.IOException;
 import net.minecraft.client.gui.GuiScreen;
 
 import org.darkstorm.minecraft.gui.util.RenderUtil;
+import org.lwjgl.input.Mouse;
 
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
@@ -16,6 +17,8 @@ import tk.wurst_client.mods.ModManager;
 
 public class NavigatorScreen extends GuiScreen
 {
+	private int scroll = 0;
+	
 	@Override
 	public boolean doesGuiPauseGame()
 	{
@@ -35,6 +38,22 @@ public class NavigatorScreen extends GuiScreen
 	}
 	
 	@Override
+	public void updateScreen()
+	{
+		scroll += Mouse.getDWheel() / 10;
+		if(scroll > 0)
+			scroll = 0;
+		else
+		{
+			int maxScroll =
+				-WurstClient.INSTANCE.mods.getAllMods().size() / 3 * 20
+					+ height - 120;
+			if(scroll < maxScroll)
+				scroll = maxScroll;
+		}
+	}
+	
+	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -45,9 +64,13 @@ public class NavigatorScreen extends GuiScreen
 		glShadeModel(GL_SMOOTH);
 		
 		int x = width / 2 - 50;
+		RenderUtil.scissorBox(0, 59, width, height - 42);
+		glEnable(GL_SCISSOR_TEST);
 		for(int i = 0; i < WurstClient.INSTANCE.mods.getAllMods().size(); i++)
 		{
-			int y = 60 + (i / 3) * 20;
+			int y = 60 + (i / 3) * 20 + scroll;
+			if(y < 40)
+				continue;
 			if(y > height - 40)
 				break;
 			int xi;
@@ -93,6 +116,7 @@ public class NavigatorScreen extends GuiScreen
 			}
 			glDisable(GL_TEXTURE_2D);
 		}
+		glDisable(GL_SCISSOR_TEST);
 		
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
