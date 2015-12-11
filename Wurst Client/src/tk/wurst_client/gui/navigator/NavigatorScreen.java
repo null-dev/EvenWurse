@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
 
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
@@ -21,6 +22,7 @@ public class NavigatorScreen extends GuiScreen
 {
 	private int scroll = 0;
 	private ArrayList<Mod> navigatorList = new ArrayList<>();
+	private GuiTextField searchBar;
 	
 	public NavigatorScreen()
 	{
@@ -40,6 +42,16 @@ public class NavigatorScreen extends GuiScreen
 		{
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initGui()
+	{
+		searchBar =
+			new GuiTextField(0, Fonts.segoe22, width / 2 - 100, 32, 200, 20);
+		searchBar.setEnableBackgroundDrawing(false);
+		searchBar.setMaxStringLength(128);
+		searchBar.setFocused(true);
 	}
 	
 	@Override
@@ -61,6 +73,13 @@ public class NavigatorScreen extends GuiScreen
 	}
 	
 	@Override
+	protected void keyTyped(char typedChar, int keyCode) throws IOException
+	{
+		super.keyTyped(typedChar, keyCode);
+		searchBar.textboxKeyTyped(typedChar, keyCode);
+	}
+	
+	@Override
 	public void updateScreen()
 	{
 		scroll += Mouse.getDWheel() / 10;
@@ -72,18 +91,24 @@ public class NavigatorScreen extends GuiScreen
 			if(scroll < maxScroll)
 				scroll = maxScroll;
 		}
+		searchBar.updateCursorCounter();
 	}
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
 		super.drawScreen(mouseX, mouseY, partialTicks);
+		
+		// search bar
+		Fonts.segoe22.drawString("Search: ", width / 2 - 150, 32, 0xffffff);
+		searchBar.drawTextBox();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glDisable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glShadeModel(GL_SMOOTH);
 		
+		// feature list
 		int x = width / 2 - 50;
 		RenderUtil.scissorBox(0, 59, width, height - 42);
 		glEnable(GL_SCISSOR_TEST);
