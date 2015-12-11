@@ -4,6 +4,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import net.minecraft.client.gui.GuiScreen;
 
@@ -18,6 +20,27 @@ import tk.wurst_client.mods.ModManager;
 public class NavigatorScreen extends GuiScreen
 {
 	private int scroll = 0;
+	private ArrayList<Mod> navigatorList = new ArrayList<>();
+	
+	public NavigatorScreen()
+	{
+		Field[] fields = ModManager.class.getFields();
+		try
+		{
+			for(int i = 0; i < fields.length; i++)
+			{
+				Field field = fields[i];
+				if(field.getName().endsWith("Mod"))
+				{
+					Mod mod = (Mod)field.get(WurstClient.INSTANCE.mods);
+					navigatorList.add(mod);
+				}
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	@Override
 	public boolean doesGuiPauseGame()
@@ -45,9 +68,7 @@ public class NavigatorScreen extends GuiScreen
 			scroll = 0;
 		else
 		{
-			int maxScroll =
-				-WurstClient.INSTANCE.mods.getAllMods().size() / 3 * 20
-					+ height - 120;
+			int maxScroll = -navigatorList.size() / 3 * 20 + height - 120;
 			if(scroll < maxScroll)
 				scroll = maxScroll;
 		}
@@ -66,7 +87,7 @@ public class NavigatorScreen extends GuiScreen
 		int x = width / 2 - 50;
 		RenderUtil.scissorBox(0, 59, width, height - 42);
 		glEnable(GL_SCISSOR_TEST);
-		for(int i = 0; i < WurstClient.INSTANCE.mods.getAllMods().size(); i++)
+		for(int i = 0; i < navigatorList.size(); i++)
 		{
 			int y = 60 + (i / 3) * 20 + scroll;
 			if(y < 40)
@@ -104,11 +125,9 @@ public class NavigatorScreen extends GuiScreen
 			glEnable(GL_TEXTURE_2D);
 			try
 			{
-				String mod =
-					((Mod)ModManager.class.getFields()[i]
-						.get(WurstClient.INSTANCE.mods)).getName();
-				Fonts.segoe15.drawString(mod, area.x
-					+ (area.width - Fonts.segoe15.getStringWidth(mod)) / 2,
+				String modName = navigatorList.get(i).getName();
+				Fonts.segoe15.drawString(modName, area.x
+					+ (area.width - Fonts.segoe15.getStringWidth(modName)) / 2,
 					area.y + 2, 0xffffff);
 			}catch(Exception e)
 			{
