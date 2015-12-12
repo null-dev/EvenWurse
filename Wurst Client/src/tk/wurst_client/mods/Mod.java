@@ -18,8 +18,9 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.gui.error.GuiError;
+import tk.wurst_client.navigator.NavigatorItem;
 
-public class Mod
+public class Mod implements NavigatorItem
 {
 	private final String name = getClass().getAnnotation(Info.class).name();
 	private final String description = getClass().getAnnotation(Info.class)
@@ -59,6 +60,7 @@ public class Mod
 		boolean noCheatCompatible() default true;
 	}
 	
+	@Override
 	public final String getName()
 	{
 		return name;
@@ -69,9 +71,16 @@ public class Mod
 		return name;
 	}
 	
+	@Override
 	public final String getDescription()
 	{
 		return description;
+	}
+	
+	@Override
+	public final String[] getTags()
+	{
+		return new String[0];
 	}
 	
 	public final Category getCategory()

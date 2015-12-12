@@ -10,9 +10,7 @@ package tk.wurst_client.navigator;
 
 import java.util.Comparator;
 
-import tk.wurst_client.mods.Mod;
-
-public class SearchResultsComparator implements Comparator<Mod>
+public class SearchResultsComparator implements Comparator<NavigatorItem>
 {
 	private String query;
 	
@@ -22,7 +20,7 @@ public class SearchResultsComparator implements Comparator<Mod>
 	}
 	
 	@Override
-	public int compare(Mod o1, Mod o2)
+	public int compare(NavigatorItem o1, NavigatorItem o2)
 	{
 		int result = compareNext(o1.getName(), o2.getName());
 		if(result != 0)

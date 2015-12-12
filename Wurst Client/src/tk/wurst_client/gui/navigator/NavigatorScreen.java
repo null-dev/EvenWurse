@@ -14,12 +14,13 @@ import org.lwjgl.input.Mouse;
 
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
-import tk.wurst_client.mods.Mod;
+import tk.wurst_client.navigator.NavigatorItem;
 
 public class NavigatorScreen extends GuiScreen
 {
 	private int scroll = 0;
-	private static ArrayList<Mod> navigatorDisplayList = new ArrayList<>();
+	private static ArrayList<NavigatorItem> navigatorDisplayList =
+		new ArrayList<>();
 	private GuiTextField searchBar;
 	
 	@Override
