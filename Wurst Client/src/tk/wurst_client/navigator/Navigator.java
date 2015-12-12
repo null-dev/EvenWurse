@@ -41,8 +41,11 @@ public class Navigator
 	
 	public void copyNavigatorList(ArrayList<Mod> list)
 	{
-		list.clear();
-		list.addAll(navigatorList);
+		if(!list.equals(navigatorList))
+		{
+			list.clear();
+			list.addAll(navigatorList);
+		}
 	}
 	
 	public void getSearchResults(ArrayList<Mod> list, String query)
