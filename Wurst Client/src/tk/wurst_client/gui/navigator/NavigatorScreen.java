@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -22,6 +23,7 @@ public class NavigatorScreen extends GuiScreen
 {
 	private int scroll = 0;
 	private ArrayList<Mod> navigatorList = new ArrayList<>();
+	private ArrayList<Mod> navigatorDisplayList = new ArrayList<>();
 	private GuiTextField searchBar;
 	
 	public NavigatorScreen()
@@ -42,8 +44,9 @@ public class NavigatorScreen extends GuiScreen
 		{
 			e.printStackTrace();
 		}
+		navigatorDisplayList.addAll(navigatorList);
 	}
-
+	
 	@Override
 	public void initGui()
 	{
@@ -76,7 +79,53 @@ public class NavigatorScreen extends GuiScreen
 	protected void keyTyped(char typedChar, int keyCode) throws IOException
 	{
 		super.keyTyped(typedChar, keyCode);
+		
+		String oldText = searchBar.getText();
 		searchBar.textboxKeyTyped(typedChar, keyCode);
+		String newText = searchBar.getText();
+		
+		if(newText.isEmpty())
+		{
+			navigatorDisplayList.clear();
+			navigatorDisplayList.addAll(navigatorList);
+		}else if(!newText.equals(oldText))
+		{
+			String searchText = newText.toLowerCase();
+			navigatorDisplayList.clear();
+			for(Mod mod : navigatorList)
+				if(mod.getName().toLowerCase().contains(searchText)
+					|| mod.getDescription().toLowerCase().contains(searchText))
+					navigatorDisplayList.add(mod);
+			navigatorDisplayList.sort(new Comparator<Mod>()
+			{
+				@Override
+				public int compare(Mod o1, Mod o2)
+				{
+					int result = compareNext(o1.getName(), o2.getName());
+					if(result != 0)
+						return result;
+					
+					result =
+						compareNext(o1.getDescription(), o2.getDescription());
+					return result;
+				}
+				
+				private int compareNext(String o1, String o2)
+				{
+					int index1 = o1.toLowerCase().indexOf(searchText);
+					int index2 = o2.toLowerCase().indexOf(searchText);
+					
+					if(index1 == index2)
+						return 0;
+					else if(index1 == -1)
+						return 1;
+					else if(index2 == -1)
+						return -1;
+					else
+						return index1 - index2;
+				}
+			});
+		}
 	}
 	
 	@Override
@@ -87,7 +136,10 @@ public class NavigatorScreen extends GuiScreen
 			scroll = 0;
 		else
 		{
-			int maxScroll = -navigatorList.size() / 3 * 20 + height - 120;
+			int maxScroll =
+				-navigatorDisplayList.size() / 3 * 20 + height - 120;
+			if(maxScroll > 0)
+				maxScroll = 0;
 			if(scroll < maxScroll)
 				scroll = maxScroll;
 		}
@@ -112,7 +164,7 @@ public class NavigatorScreen extends GuiScreen
 		int x = width / 2 - 50;
 		RenderUtil.scissorBox(0, 59, width, height - 42);
 		glEnable(GL_SCISSOR_TEST);
-		for(int i = 0; i < navigatorList.size(); i++)
+		for(int i = 0; i < navigatorDisplayList.size(); i++)
 		{
 			int y = 60 + (i / 3) * 20 + scroll;
 			if(y < 40)
@@ -150,7 +202,7 @@ public class NavigatorScreen extends GuiScreen
 			glEnable(GL_TEXTURE_2D);
 			try
 			{
-				String modName = navigatorList.get(i).getName();
+				String modName = navigatorDisplayList.get(i).getName();
 				Fonts.segoe15.drawString(modName, area.x
 					+ (area.width - Fonts.segoe15.getStringWidth(modName)) / 2,
 					area.y + 2, 0xffffff);
