@@ -4,9 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Rectangle;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -17,34 +15,16 @@ import org.lwjgl.input.Mouse;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.mods.Mod;
-import tk.wurst_client.mods.ModManager;
 
 public class NavigatorScreen extends GuiScreen
 {
 	private int scroll = 0;
-	private ArrayList<Mod> navigatorList = new ArrayList<>();
-	private ArrayList<Mod> navigatorDisplayList = new ArrayList<>();
+	private static ArrayList<Mod> navigatorDisplayList = new ArrayList<>();
 	private GuiTextField searchBar;
 	
-	public NavigatorScreen()
+	static
 	{
-		Field[] fields = ModManager.class.getFields();
-		try
-		{
-			for(int i = 0; i < fields.length; i++)
-			{
-				Field field = fields[i];
-				if(field.getName().endsWith("Mod"))
-				{
-					Mod mod = (Mod)field.get(WurstClient.INSTANCE.mods);
-					navigatorList.add(mod);
-				}
-			}
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		navigatorDisplayList.addAll(navigatorList);
+		WurstClient.INSTANCE.navigator.copyNavigatorList(navigatorDisplayList);
 	}
 	
 	@Override
@@ -86,45 +66,12 @@ public class NavigatorScreen extends GuiScreen
 		
 		if(newText.isEmpty())
 		{
-			navigatorDisplayList.clear();
-			navigatorDisplayList.addAll(navigatorList);
+			WurstClient.INSTANCE.navigator
+				.copyNavigatorList(navigatorDisplayList);
 		}else if(!newText.equals(oldText))
 		{
-			String searchText = newText.toLowerCase();
-			navigatorDisplayList.clear();
-			for(Mod mod : navigatorList)
-				if(mod.getName().toLowerCase().contains(searchText)
-					|| mod.getDescription().toLowerCase().contains(searchText))
-					navigatorDisplayList.add(mod);
-			navigatorDisplayList.sort(new Comparator<Mod>()
-			{
-				@Override
-				public int compare(Mod o1, Mod o2)
-				{
-					int result = compareNext(o1.getName(), o2.getName());
-					if(result != 0)
-						return result;
-					
-					result =
-						compareNext(o1.getDescription(), o2.getDescription());
-					return result;
-				}
-				
-				private int compareNext(String o1, String o2)
-				{
-					int index1 = o1.toLowerCase().indexOf(searchText);
-					int index2 = o2.toLowerCase().indexOf(searchText);
-					
-					if(index1 == index2)
-						return 0;
-					else if(index1 == -1)
-						return 1;
-					else if(index2 == -1)
-						return -1;
-					else
-						return index1 - index2;
-				}
-			});
+			WurstClient.INSTANCE.navigator.getSearchResults(
+				navigatorDisplayList, newText.toLowerCase());
 		}
 	}
 	
