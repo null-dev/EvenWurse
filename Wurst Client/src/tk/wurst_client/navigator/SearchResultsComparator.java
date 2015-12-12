@@ -14,13 +14,13 @@ import tk.wurst_client.mods.Mod;
 
 public class SearchResultsComparator implements Comparator<Mod>
 {
-	private String searchText;
-
-	public SearchResultsComparator(String searchText)
+	private String query;
+	
+	public SearchResultsComparator(String query)
 	{
-		this.searchText = searchText;
+		this.query = query;
 	}
-
+	
 	@Override
 	public int compare(Mod o1, Mod o2)
 	{
@@ -34,8 +34,8 @@ public class SearchResultsComparator implements Comparator<Mod>
 	
 	private int compareNext(String o1, String o2)
 	{
-		int index1 = o1.toLowerCase().indexOf(searchText);
-		int index2 = o2.toLowerCase().indexOf(searchText);
+		int index1 = o1.toLowerCase().indexOf(query);
+		int index2 = o2.toLowerCase().indexOf(query);
 		
 		if(index1 == index2)
 			return 0;
