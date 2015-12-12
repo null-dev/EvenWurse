@@ -99,6 +99,8 @@ public class NavigatorScreen extends GuiScreen
 		// search bar
 		Fonts.segoe22.drawString("Search: ", width / 2 - 150, 32, 0xffffff);
 		searchBar.drawTextBox();
+		
+		// GL settings
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glDisable(GL_CULL_FACE);
@@ -159,6 +161,7 @@ public class NavigatorScreen extends GuiScreen
 		}
 		glDisable(GL_SCISSOR_TEST);
 		
+		// GL resets
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
