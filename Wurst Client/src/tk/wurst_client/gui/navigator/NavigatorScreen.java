@@ -22,11 +22,6 @@ public class NavigatorScreen extends GuiScreen
 	private static ArrayList<Mod> navigatorDisplayList = new ArrayList<>();
 	private GuiTextField searchBar;
 	
-	static
-	{
-		WurstClient.INSTANCE.navigator.copyNavigatorList(navigatorDisplayList);
-	}
-	
 	@Override
 	public void initGui()
 	{
@@ -35,6 +30,8 @@ public class NavigatorScreen extends GuiScreen
 		searchBar.setEnableBackgroundDrawing(false);
 		searchBar.setMaxStringLength(128);
 		searchBar.setFocused(true);
+		
+		WurstClient.INSTANCE.navigator.copyNavigatorList(navigatorDisplayList);
 	}
 	
 	@Override
