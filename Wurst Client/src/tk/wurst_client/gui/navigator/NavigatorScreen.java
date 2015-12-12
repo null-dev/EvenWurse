@@ -171,17 +171,17 @@ public class NavigatorScreen extends GuiScreen
 				continue;
 			if(y > height - 40)
 				break;
-			int xi;
+			int xi = 0;
 			switch(i % 3)
 			{
-				case 1:
+				case 0:
 					xi = x - 104;
+					break;
+				case 1:
+					xi = x;
 					break;
 				case 2:
 					xi = x + 104;
-					break;
-				default:
-					xi = x;
 					break;
 			}
 			Rectangle area = new Rectangle(xi, y, 100, 16);
