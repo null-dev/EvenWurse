@@ -45,7 +45,7 @@ public class HelpCmd extends Cmd
 			{
 				Cmd cmd = itr.next();
 				if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
-					WurstClient.INSTANCE.chat.message(cmd.getName());
+					WurstClient.INSTANCE.chat.message(cmd.getCmdName());
 			}
 		}else
 		{

@@ -82,7 +82,7 @@ public class CmdManager implements ChatOutputListener
 				if(field.getName().endsWith("Cmd"))
 				{
 					Cmd cmd = (Cmd)field.get(this);
-					cmds.put(cmd.getName(), cmd);
+					cmds.put(cmd.getCmdName(), cmd);
 				}
 			}
 		}catch(Exception e)

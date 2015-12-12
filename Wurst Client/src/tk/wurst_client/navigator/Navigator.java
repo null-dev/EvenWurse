@@ -12,6 +12,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.commands.CmdManager;
 import tk.wurst_client.mods.ModManager;
 
 public class Navigator
@@ -20,15 +21,32 @@ public class Navigator
 	
 	public Navigator()
 	{
-		Field[] fields = ModManager.class.getFields();
+		// add mods
+		Field[] modFields = ModManager.class.getFields();
 		try
 		{
-			for(int i = 0; i < fields.length; i++)
+			for(int i = 0; i < modFields.length; i++)
 			{
-				Field field = fields[i];
+				Field field = modFields[i];
 				if(field.getName().endsWith("Mod"))
 					navigatorList.add((NavigatorItem)field
 						.get(WurstClient.INSTANCE.mods));
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		// add commands
+		Field[] cmdFields = CmdManager.class.getFields();
+		try
+		{
+			for(int i = 0; i < cmdFields.length; i++)
+			{
+				Field field = cmdFields[i];
+				if(field.getName().endsWith("Cmd"))
+					navigatorList.add((NavigatorItem)field
+						.get(WurstClient.INSTANCE.commands));
 			}
 		}catch(Exception e)
 		{

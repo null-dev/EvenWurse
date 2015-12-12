@@ -243,7 +243,7 @@ public class GuiError extends GuiScreen
 		if(cause instanceof Mod)
 			title += "in `" + ((Mod)cause).getName() + "` ";
 		else if(cause instanceof Cmd)
-			title += "in `." + ((Cmd)cause).getName() + "` ";
+			title += "in `." + ((Cmd)cause).getCmdName() + "` ";
 		title += "while " + action + ".";
 		return title;
 	}
