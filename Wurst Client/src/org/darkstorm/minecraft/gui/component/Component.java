@@ -1,67 +1,64 @@
 package org.darkstorm.minecraft.gui.component;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import org.darkstorm.minecraft.gui.theme.Theme;
+
+import java.awt.*;
 
 public interface Component
 {
-	public Theme getTheme();
+	Theme getTheme();
 	
-	public void setTheme(Theme theme);
+	void setTheme(Theme theme);
 	
-	public void render();
+	void render();
 	
-	public void update();
+	void update();
 	
-	public int getX();
+	int getX();
 	
-	public int getY();
+	int getY();
 	
-	public int getWidth();
+	int getWidth();
 	
-	public int getHeight();
+	int getHeight();
 	
-	public void setX(int x);
+	void setX(int x);
 	
-	public void setY(int y);
+	void setY(int y);
 	
-	public void setWidth(int width);
+	void setWidth(int width);
 	
-	public void setHeight(int height);
+	void setHeight(int height);
 	
-	public Point getLocation();
+	Point getLocation();
 	
-	public Dimension getSize();
+	Dimension getSize();
 	
-	public Rectangle getArea();
+	Rectangle getArea();
 	
-	public Container getParent();
+	Container getParent();
 	
-	public Color getBackgroundColor();
+	Color getBackgroundColor();
 	
-	public Color getForegroundColor();
+	Color getForegroundColor();
 	
-	public void setBackgroundColor(Color color);
+	void setBackgroundColor(Color color);
 	
-	public void setForegroundColor(Color color);
+	void setForegroundColor(Color color);
 	
-	public void setParent(Container parent);
+	void setParent(Container parent);
 	
-	public void onMousePress(int x, int y, int button);
+	void onMousePress(int x, int y, int button);
 	
-	public void onMouseRelease(int x, int y, int button);
+	void onMouseRelease(int x, int y, int button);
 	
-	public void resize();
+	void resize();
 	
-	public boolean isVisible();
+	boolean isVisible();
 	
-	public void setVisible(boolean visible);
+	void setVisible(boolean visible);
 	
-	public boolean isEnabled();
+	boolean isEnabled();
 	
-	public void setEnabled(boolean enabled);
+	void setEnabled(boolean enabled);
 }

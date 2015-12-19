@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -32,26 +32,21 @@ public class GoToCmd extends Cmd
 		}
 		tk.wurst_client.mods.GoToCmdMod.setGoal(new BlockPos(pos[0], pos[1],
 			pos[2]));
-		Thread thread = new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				System.out.println("Finding path");
-				long startTime = System.nanoTime();
-				PathFinder pathFinder =
-					new PathFinder(tk.wurst_client.mods.GoToCmdMod.getGoal());
-				if(pathFinder.find())
-				{
-					tk.wurst_client.mods.GoToCmdMod.setPath(pathFinder
-						.formatPath());
-					WurstClient.INSTANCE.mods.goToCmdMod.setEnabled(true);
-				}else
-					WurstClient.INSTANCE.chat.error("Could not find a path.");
-				System.out.println("Done after "
-					+ (System.nanoTime() - startTime) / 1e6 + "ms");
-			}
-		});
+		Thread thread = new Thread(() -> {
+            System.out.println("Finding path");
+            long startTime = System.nanoTime();
+            PathFinder pathFinder =
+                new PathFinder(tk.wurst_client.mods.GoToCmdMod.getGoal());
+            if(pathFinder.find())
+            {
+                tk.wurst_client.mods.GoToCmdMod.setPath(pathFinder
+                    .formatPath());
+                WurstClient.INSTANCE.mods.goToCmdMod.setEnabled(true);
+            }else
+                WurstClient.INSTANCE.chat.error("Could not find a path.");
+            System.out.println("Done after "
+                + (System.nanoTime() - startTime) / 1e6 + "ms");
+        });
 		thread.setPriority(Thread.MIN_PRIORITY);
 		thread.start();
 	}

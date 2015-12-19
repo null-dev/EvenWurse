@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -32,12 +32,9 @@ public class EmailAllowedCharacters
 		StringBuilder var1 = new StringBuilder();
 		char[] var2 = input.toCharArray();
 		int var3 = var2.length;
-		
-		for(int var4 = 0; var4 < var3; ++var4)
-		{
-			char var5 = var2[var4];
-			
-			if(isAllowedCharacter(var5))
+
+		for (char var5 : var2) {
+			if (isAllowedCharacter(var5))
 				var1.append(var5);
 		}
 		

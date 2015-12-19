@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,6 +8,8 @@
  */
 package tk.wurst_client.alts;
 
+import tk.wurst_client.WurstClient;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,13 +17,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 
-import tk.wurst_client.WurstClient;
-
 public class SkinStealer
 {
 	public static String stealSkin(String name)
 	{
-		String reply = "";
+		String reply;
 		try
 		{
 			URL skinURL =
@@ -39,13 +39,13 @@ public class SkinStealer
 				outputStream.write(i);
 			outputStream.close();
 			skinputStream.close();
-			reply = "§a§lSaved skin to wurst/skins/" + name + ".png.";
+			reply = "ï¿½aï¿½lSaved skin to wurst/skins/" + name + ".png.";
 		}catch(UnknownHostException e)
 		{
-			reply = "§4§lCannot contact skin server!";
+			reply = "ï¿½4ï¿½lCannot contact skin server!";
 		}catch(Exception e)
 		{
-			reply = "§4§lUnable to steal skin.";
+			reply = "ï¿½4ï¿½lUnable to steal skin.";
 		}
 		return reply;
 	}

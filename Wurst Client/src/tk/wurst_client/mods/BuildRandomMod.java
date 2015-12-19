@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -25,7 +25,7 @@ import tk.wurst_client.utils.BlockUtils;
 	name = "BuildRandom")
 public class BuildRandomMod extends Mod implements UpdateListener
 {
-	private float range = 6;
+	private static final float RANGE = 6;
 	
 	@Override
 	public void onEnable()
@@ -44,16 +44,16 @@ public class BuildRandomMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().rightClickDelayTimer > 0
 			&& !WurstClient.INSTANCE.mods.fastPlaceMod.isActive())
 			return;
-		float xDiff = 0;
-		float yDiff = 0;
-		float zDiff = 0;
-		float distance = range + 1;
+		float xDiff;
+		float yDiff;
+		float zDiff;
+		float distance = RANGE + 1;
 		boolean hasBlocks = false;
-		for(int y = (int)range; y >= -range; y--)
+		for(int y = (int) RANGE; y >= -RANGE; y--)
 		{
-			for(int x = (int)range; x >= -range - 1; x--)
+			for(int x = (int) RANGE; x >= -RANGE - 1; x--)
 			{
-				for(int z = (int)range; z >= -range; z--)
+				for(int z = (int) RANGE; z >= -RANGE; z--)
 					if(Block
 						.getIdFromBlock(Minecraft.getMinecraft().theWorld
 							.getBlockState(
@@ -62,7 +62,7 @@ public class BuildRandomMod extends Mod implements UpdateListener
 									(int)(y + Minecraft.getMinecraft().thePlayer.posY),
 									(int)(z + Minecraft.getMinecraft().thePlayer.posZ)))
 							.getBlock()) != 0
-						&& BlockUtils.getBlockDistance(x, y, z) <= range)
+						&& BlockUtils.getBlockDistance(x, y, z) <= RANGE)
 					{
 						hasBlocks = true;
 						break;
@@ -76,15 +76,14 @@ public class BuildRandomMod extends Mod implements UpdateListener
 		if(!hasBlocks)
 			return;
 		BlockPos randomPos = null;
-		while(distance > range
-			|| distance < -range
-			|| randomPos == null
+		while(distance > RANGE
+			|| distance < -RANGE
 			|| Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
 				.getBlockState(randomPos).getBlock()) == 0)
 		{
-			xDiff = (int)(Math.random() * range * 2 - range - 1);
-			yDiff = (int)(Math.random() * range * 2 - range);
-			zDiff = (int)(Math.random() * range * 2 - range);
+			xDiff = (int)(Math.random() * RANGE * 2 - RANGE - 1);
+			yDiff = (int)(Math.random() * RANGE * 2 - RANGE);
+			zDiff = (int)(Math.random() * RANGE * 2 - RANGE);
 			distance = BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
 			int randomPosX =
 				(int)(xDiff + Minecraft.getMinecraft().thePlayer.posX);
@@ -96,7 +95,7 @@ public class BuildRandomMod extends Mod implements UpdateListener
 		}
 		MovingObjectPosition fakeObjectMouseOver =
 			Minecraft.getMinecraft().objectMouseOver;
-		if(fakeObjectMouseOver == null || randomPos == null)
+		if(fakeObjectMouseOver == null)
 			return;
 		fakeObjectMouseOver.setBlockPos(randomPos);
 		BlockUtils.faceBlockPacket(randomPos);

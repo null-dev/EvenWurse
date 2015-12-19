@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 | Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,19 +8,17 @@
  */
 package tk.wurst_client.capes;
 
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.HashMap;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
-import tk.wurst_client.utils.JsonUtils;
-
 import com.google.gson.JsonObject;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
+import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
+import tk.wurst_client.utils.JsonUtils;
+
+import javax.net.ssl.HttpsURLConnection;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.HashMap;
 
 public class WurstCapes
 {
@@ -30,9 +28,6 @@ public class WurstCapes
 	/**
 	 * @see net.minecraft.client.resources.SkinManager#func_152790_a(GameProfile,
 	 *      SkinAvailableCallback, boolean)
-	 * @param player
-	 * @param skinManagerMap
-	 * @param callback
 	 */
 	@SuppressWarnings("unchecked")
 	public static void checkCape(GameProfile player, HashMap skinManagerMap,

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 | Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,17 +8,18 @@
  */
 package tk.wurst_client.gui.target;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-
 import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.WurstClient;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+/*
+TODO FEATURE: Automatic team setup by getting the color of the user's nametag
+ */
 public class GuiTeamSettings extends GuiScreen
 {
 	private GuiScreen prevMenu;
@@ -69,7 +70,7 @@ public class GuiTeamSettings extends GuiScreen
 					break;
 			}
 			buttonList.add(new TeamColorButton(i, width / 2 + offsetX, height
-				/ 3 + offsetY, "§" + colors[i] + colors[i]));
+				/ 3 + offsetY, "ï¿½" + colors[i] + colors[i]));
 		}
 		boolean[] team_colors =
 			WurstClient.INSTANCE.options.target.getTeamColorsSafely();
@@ -147,15 +148,13 @@ public class GuiTeamSettings extends GuiScreen
 			width / 2, height / 3 - 20, 10526880);
 		
 		ArrayList<String> tooltip = new ArrayList<>();
-		for(int i = 0; i < buttonList.size(); i++)
-		{
-			GuiButton button = ((GuiButton)buttonList.get(i));
+		for (Object aButtonList : buttonList) {
+			GuiButton button = ((GuiButton) aButtonList);
 			button.drawButton(mc, mouseX, mouseY);
-			
-			if(!button.isMouseOver())
+
+			if (!button.isMouseOver())
 				continue;
-			switch(button.id)
-			{
+			switch (button.id) {
 				case 0:
 					tooltip.add("black");
 					break;

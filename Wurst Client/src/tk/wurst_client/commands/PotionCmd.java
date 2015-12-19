@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.commands;
-
-import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
@@ -20,6 +18,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.utils.MiscUtils;
+
+import java.util.List;
 
 @Info(help = "Changes the effects of the held potion.",
 	name = "potion",
@@ -48,15 +48,13 @@ public class PotionCmd extends Cmd
 		{
 			if(!args[0].equalsIgnoreCase("Remove"))
 				syntaxError();
-			int id = 0;
+			int id;
 			id = parsePotionEffectId(args[1]);
 			List oldEffects = new ItemPotion().getEffects(currentItem);
 			if(oldEffects != null)
-				for(int i = 0; i < oldEffects.size(); i++)
-				{
-					PotionEffect temp = (PotionEffect)oldEffects.get(i);
-					if(temp.getPotionID() != id)
-					{
+				for (Object oldEffect : oldEffects) {
+					PotionEffect temp = (PotionEffect) oldEffect;
+					if (temp.getPotionID() != id) {
 						NBTTagCompound effect = new NBTTagCompound();
 						effect.setInteger("Id", temp.getPotionID());
 						effect.setInteger("Amplifier", temp.getAmplifier());
@@ -74,9 +72,8 @@ public class PotionCmd extends Cmd
 		{
 			List oldEffects = new ItemPotion().getEffects(currentItem);
 			if(oldEffects != null)
-				for(int i = 0; i < oldEffects.size(); i++)
-				{
-					PotionEffect temp = (PotionEffect)oldEffects.get(i);
+				for (Object oldEffect : oldEffects) {
+					PotionEffect temp = (PotionEffect) oldEffect;
 					NBTTagCompound effect = new NBTTagCompound();
 					effect.setInteger("Id", temp.getPotionID());
 					effect.setInteger("Amplifier", temp.getAmplifier());

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.commands;
-
-import java.util.Iterator;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -31,18 +29,14 @@ public class AddAltCmd extends Cmd
 		if(args[0].equals("all"))
 		{
 			int alts = 0;
-			Iterator itr =
-				Minecraft.getMinecraft().getNetHandler().getPlayerInfo()
-					.iterator();
-			while(itr.hasNext())
-			{
-				NetworkPlayerInfo info = (NetworkPlayerInfo)itr.next();
+			for (Object o : Minecraft.getMinecraft().getNetHandler().getPlayerInfo()) {
+				NetworkPlayerInfo info = (NetworkPlayerInfo) o;
 				String crackedName =
-					StringUtils.stripControlCodes(info.getPlayerNameForReal());
-				if(crackedName.equals(Minecraft.getMinecraft().thePlayer
-					.getName())
-					|| crackedName.equals("Alexander01998")
-					|| GuiAltList.alts.contains(new Alt(crackedName)))
+						StringUtils.stripControlCodes(info.getPlayerNameForReal());
+				if (crackedName.equals(Minecraft.getMinecraft().thePlayer
+						.getName())
+						|| crackedName.equals("Alexander01998")
+						|| GuiAltList.alts.contains(new Alt(crackedName)))
 					continue;
 				GuiAltList.alts.add(new Alt(crackedName));
 				alts++;

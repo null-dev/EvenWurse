@@ -78,7 +78,7 @@ public class AnalyticsManager
 	{
 		if(!shouldTrack())
 			return;
-		tracker.trackEvent(category, action, label, new Integer(value));
+		tracker.trackEvent(category, action, label, value);
 		lastRequest = System.currentTimeMillis();
 	}
 	

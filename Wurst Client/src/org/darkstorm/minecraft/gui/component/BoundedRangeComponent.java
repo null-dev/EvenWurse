@@ -2,7 +2,7 @@ package org.darkstorm.minecraft.gui.component;
 
 public interface BoundedRangeComponent extends Component
 {
-	public enum ValueDisplay
+	enum ValueDisplay
 	{
 		DECIMAL,
 		INTEGER,
@@ -11,23 +11,23 @@ public interface BoundedRangeComponent extends Component
 		NONE
 	}
 	
-	public double getValue();
+	double getValue();
 	
-	public double getMinimumValue();
+	double getMinimumValue();
 	
-	public double getMaximumValue();
+	double getMaximumValue();
 	
-	public double getIncrement();
+	double getIncrement();
 	
-	public ValueDisplay getValueDisplay();
+	ValueDisplay getValueDisplay();
 	
-	public void setValue(double value);
+	void setValue(double value);
 	
-	public void setMinimumValue(double minimumValue);
+	void setMinimumValue(double minimumValue);
 	
-	public void setMaximumValue(double maximumValue);
+	void setMaximumValue(double maximumValue);
 	
-	public void setIncrement(double increment);
+	void setIncrement(double increment);
 	
-	public void setValueDisplay(ValueDisplay display);
+	void setValueDisplay(ValueDisplay display);
 }

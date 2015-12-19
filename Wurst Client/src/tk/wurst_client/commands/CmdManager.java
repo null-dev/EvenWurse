@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,27 +8,21 @@
  */
 package tk.wurst_client.commands;
 
-import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.TreeMap;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.SyntaxError;
 import tk.wurst_client.events.ChatOutputEvent;
 import tk.wurst_client.events.listeners.ChatOutputListener;
 
+import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.TreeMap;
+
 public class CmdManager implements ChatOutputListener
 {
 	private final TreeMap<String, Cmd> cmds = new TreeMap<String, Cmd>(
-		new Comparator<String>()
-		{
-			@Override
-			public int compare(String o1, String o2)
-			{
+			(o1, o2) -> {
 				return o1.compareToIgnoreCase(o2);
-			}
-		});
+			});
 	
 	public final AddAltCmd addAltCmd = new AddAltCmd();
 	public final AnnoyCmd annoyCmd = new AnnoyCmd();
@@ -77,6 +71,7 @@ public class CmdManager implements ChatOutputListener
 	{
 		try
 		{
+			//Umm WTF, reflection? REALLY? TODO, replace with dynamic class loading
 			for(Field field : CmdManager.class.getFields())
 			{
 				if(field.getName().endsWith("Cmd"))
@@ -113,10 +108,10 @@ public class CmdManager implements ChatOutputListener
 				}catch(SyntaxError e)
 				{
 					if(e.getMessage() != null)
-						WurstClient.INSTANCE.chat.message("§4Syntax error:§r "
+						WurstClient.INSTANCE.chat.message("ï¿½4Syntax error:ï¿½r "
 							+ e.getMessage());
 					else
-						WurstClient.INSTANCE.chat.message("§4Syntax error!§r");
+						WurstClient.INSTANCE.chat.message("ï¿½4Syntax error!ï¿½r");
 					cmd.printSyntax();
 				}catch(Cmd.Error e)
 				{

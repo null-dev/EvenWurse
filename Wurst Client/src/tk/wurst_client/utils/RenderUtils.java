@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,10 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.utils;
-
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -20,22 +16,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
-
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtils
 {
 	/**
 	 * Renders a box with any size and any color.
-	 *
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @param x2
-	 * @param y2
-	 * @param z2
-	 * @param color
 	 */
 	public static void box(double x, double y, double z, double x2, double y2,
 		double z2, Color color)
@@ -65,14 +56,6 @@ public class RenderUtils
 	
 	/**
 	 * Renders a frame with any size and any color.
-	 *
-	 * @param x
-	 * @param y
-	 * @param z
-	 * @param x2
-	 * @param y2
-	 * @param z2
-	 * @param color
 	 */
 	public static void frame(double x, double y, double z, double x2,
 		double y2, double z2, Color color)
@@ -101,10 +84,6 @@ public class RenderUtils
 	/**
 	 * Renders an ESP box with the size of a normal block at the specified
 	 * coordinates.
-	 *
-	 * @param x
-	 * @param y
-	 * @param z
 	 */
 	public static void blockESPBox(BlockPos blockPos)
 	{
@@ -186,11 +165,11 @@ public class RenderUtils
 		GL11.glDisable(GL_BLEND);
 	}
 	
-	public static int enemy = 0;
-	public static int friend = 1;
-	public static int other = 2;
-	public static int target = 3;
-	public static int team = 4;
+	public static int ENEMY = 0;
+	public static int FRIEND = 1;
+	public static int OTHER = 2;
+	public static int TARGET = 3;
+	public static int TEAM = 4;
 	
 	public static void entityESPBox(Entity entity, int mode)
 	{
@@ -199,7 +178,7 @@ public class RenderUtils
 		GL11.glLineWidth(2.0F);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL_DEPTH_TEST);
-		GL11.glDepthMask(false);
+		//FIXME What is the point of the static fields if ur not going to use them :/
 		if(mode == 0)// Enemy
 			GL11.glColor4d(
 				1 - Minecraft.getMinecraft().thePlayer

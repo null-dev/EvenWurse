@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -19,14 +19,9 @@ public class StopCmd extends Command
 		if(args.length != 0)
 			syntaxError();
 		System.out.println("Stopping Wurst-Bot...");
-		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				System.out.println("Wurst-Bot stopped.");
-			}
-		}));
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Wurst-Bot stopped.");
+        }));
 		Minecraft.getMinecraft().shutdown();
 	}
 }

@@ -1,16 +1,13 @@
 package org.darkstorm.minecraft.gui.theme.simple;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-
 import net.minecraft.client.gui.FontRenderer;
-
 import org.darkstorm.minecraft.gui.component.ProgressBar;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class SimpleProgressBarUI extends AbstractComponentUI<ProgressBar>
 {
@@ -71,7 +68,7 @@ public class SimpleProgressBarUI extends AbstractComponentUI<ProgressBar>
 			case INTEGER:
 				content =
 					String.format("%,d",
-						Long.valueOf(Math.round(component.getValue())));
+							Math.round(component.getValue()));
 				break;
 			case PERCENTAGE:
 				int percent =

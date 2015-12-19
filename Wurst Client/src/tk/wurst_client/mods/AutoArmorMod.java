@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -23,8 +23,7 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "AutoArmor")
 public class AutoArmorMod extends Mod implements UpdateListener
 {
-	private int[] bestArmor;
-	
+
 	@Override
 	public void onEnable()
 	{
@@ -41,9 +40,9 @@ public class AutoArmorMod extends Mod implements UpdateListener
 		updateMS();
 		if(hasTimePassedM(3000))
 		{
-			bestArmor = new int[4];
-			for(int i = 0; i < bestArmor.length; i++)
-				bestArmor[i] = -1;
+			int[] bestArmor1 = new int[4];
+			for(int i = 0; i < bestArmor1.length; i++)
+				bestArmor1[i] = -1;
 			for(int i = 0; i < 36; i++)
 			{
 				ItemStack itemstack =
@@ -53,8 +52,8 @@ public class AutoArmorMod extends Mod implements UpdateListener
 					&& itemstack.getItem() instanceof ItemArmor)
 				{
 					ItemArmor armor = (ItemArmor)itemstack.getItem();
-					if(armor.damageReduceAmount > bestArmor[3 - armor.armorType])
-						bestArmor[3 - armor.armorType] = i;
+					if(armor.damageReduceAmount > bestArmor1[3 - armor.armorType])
+						bestArmor1[3 - armor.armorType] = i;
 				}
 			}
 			for(int i = 0; i < 4; i++)
@@ -73,7 +72,7 @@ public class AutoArmorMod extends Mod implements UpdateListener
 				{
 					bestArmor =
 						(ItemArmor)Minecraft.getMinecraft().thePlayer.inventory
-							.getStackInSlot(this.bestArmor[i]).getItem();
+							.getStackInSlot(bestArmor1[i]).getItem();
 				}catch(Exception e)
 				{
 					bestArmor = null;
@@ -86,8 +85,8 @@ public class AutoArmorMod extends Mod implements UpdateListener
 						Minecraft.getMinecraft().playerController.windowClick(
 							0, 8 - i, 0, 1, Minecraft.getMinecraft().thePlayer);
 						Minecraft.getMinecraft().playerController.windowClick(
-							0, this.bestArmor[i] < 9 ? 36 + this.bestArmor[i]
-								: this.bestArmor[i], 0, 1, Minecraft
+							0, bestArmor1[i] < 9 ? 36 + bestArmor1[i]
+								: bestArmor1[i], 0, 1, Minecraft
 								.getMinecraft().thePlayer);
 					}
 			}

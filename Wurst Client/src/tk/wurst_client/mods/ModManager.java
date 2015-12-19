@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,20 +10,12 @@ package tk.wurst_client.mods;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.TreeMap;
 
 public class ModManager
 {
-	private final TreeMap<String, Mod> mods = new TreeMap<String, Mod>(
-		new Comparator<String>()
-		{
-			@Override
-			public int compare(String o1, String o2)
-			{
-				return o1.compareToIgnoreCase(o2);
-			}
-		});
+	private final TreeMap<String, Mod> mods = new TreeMap<>(
+			String::compareToIgnoreCase);
 	
 	public final AntiAfkMod antiAfkMod = new AntiAfkMod();
 	public final AntiBlindMod antiBlindMod = new AntiBlindMod();
@@ -139,7 +131,8 @@ public class ModManager
 	public final TunnellerMod tunnellerMod = new TunnellerMod();
 	public final XRayMod xRayMod = new XRayMod();
 	public final YesCheatMod yesCheatMod = new YesCheatMod();
-	
+
+	//TODO WHAT THE FREAKING HELL, MORE UGLY REFLECTION! I SWEAR TO THE END OF HELL I WILL CLEAN UP THIS MESS!
 	public ModManager()
 	{
 		try

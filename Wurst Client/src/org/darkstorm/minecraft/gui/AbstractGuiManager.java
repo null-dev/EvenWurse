@@ -28,17 +28,13 @@
  */
 package org.darkstorm.minecraft.gui;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
+import org.darkstorm.minecraft.gui.component.Frame;
+import org.darkstorm.minecraft.gui.theme.Theme;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.darkstorm.minecraft.gui.component.Frame;
-import org.darkstorm.minecraft.gui.theme.Theme;
+import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Minecraft GUI API
@@ -53,7 +49,7 @@ public abstract class AbstractGuiManager implements GuiManager
 	
 	public AbstractGuiManager()
 	{
-		frames = new CopyOnWriteArrayList<Frame>();
+		frames = new CopyOnWriteArrayList<>();
 	}
 	
 	@Override

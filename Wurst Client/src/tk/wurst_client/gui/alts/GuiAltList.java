@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,21 +8,19 @@
  */
 package tk.wurst_client.gui.alts;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.MathHelper;
-
 import org.lwjgl.opengl.GL11;
-
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.gui.GuiWurstSlot;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
+
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
 
 public class GuiAltList extends GuiWurstSlot
 {
@@ -35,34 +33,23 @@ public class GuiAltList extends GuiWurstSlot
 	
 	private int selectedSlot;
 	private Minecraft mc;
-	public static ArrayList<Alt> alts = new ArrayList<Alt>();
+	public static ArrayList<Alt> alts = new ArrayList<>();
 	public static int premiumAlts;
 	public static int crackedAlts;
 	
 	public static void sortAlts()
 	{
-		Collections.sort(alts, new Comparator<Alt>()
-		{
-			@Override
-			public int compare(Alt o1, Alt o2)
-			{
-				if(o1 == null || o2 == null)
-					return 0;
-				return o1.getName().compareToIgnoreCase(o2.getName());
-			}
-		});
-		ArrayList<Alt> newAlts = new ArrayList<Alt>();
+		Collections.sort(alts, (o1, o2) -> {
+            if(o1 == null || o2 == null)
+                return 0;
+            return o1.getName().compareToIgnoreCase(o2.getName());
+        });
+		ArrayList<Alt> newAlts = new ArrayList<>();
 		premiumAlts = 0;
 		crackedAlts = 0;
-		for(int i = 0; i < alts.size(); i++)
-			if(alts.get(i).isStarred())
-				newAlts.add(alts.get(i));
-		for(int i = 0; i < alts.size(); i++)
-			if(!alts.get(i).isCracked() && !alts.get(i).isStarred())
-				newAlts.add(alts.get(i));
-		for(int i = 0; i < alts.size(); i++)
-			if(alts.get(i).isCracked() && !alts.get(i).isStarred())
-				newAlts.add(alts.get(i));
+		newAlts.addAll(alts.stream().filter(Alt::isStarred).collect(Collectors.toList()));
+		newAlts.addAll(alts.stream().filter(alt -> !alt.isCracked() && !alt.isStarred()).collect(Collectors.toList()));
+		newAlts.addAll(alts.stream().filter(alt -> alt.isCracked() && !alt.isStarred()).collect(Collectors.toList()));
 		for(int i = 0; i < newAlts.size(); i++)
 			for(int i2 = 0; i2 < newAlts.size(); i2++)
 				if(i != i2
@@ -71,8 +58,8 @@ public class GuiAltList extends GuiWurstSlot
 					&& newAlts.get(i).isCracked() == newAlts.get(i2)
 						.isCracked())
 					newAlts.remove(i2);
-		for(int i = 0; i < newAlts.size(); i++)
-			if(newAlts.get(i).isCracked())
+		for (Alt newAlt : newAlts)
+			if (newAlt.isCracked())
 				crackedAlts++;
 			else
 				premiumAlts++;
@@ -138,8 +125,8 @@ public class GuiAltList extends GuiWurstSlot
 			GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
 		mc.fontRendererObj.drawString("Name: " + alt.getName(), x + 31, y + 3,
 			10526880);
-		mc.fontRendererObj.drawString((alt.isCracked() ? "§8cracked"
-			: "§2premium") + (alt.isStarred() ? "§r & §estarred" : ""), x + 31,
+		mc.fontRendererObj.drawString((alt.isCracked() ? "ï¿½8cracked"
+			: "ï¿½2premium") + (alt.isStarred() ? "ï¿½r & ï¿½estarred" : ""), x + 31,
 			y + 15, 10526880);
 	}
 }

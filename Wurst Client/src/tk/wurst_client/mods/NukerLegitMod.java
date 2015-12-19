@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,9 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.mods;
-
-import java.util.HashSet;
-import java.util.LinkedList;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -27,6 +24,9 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
+
+import java.util.HashSet;
+import java.util.LinkedList;
 
 @Info(category = Category.BLOCKS,
 	description = "Slower Nuker that bypasses any cheat prevention\n"
@@ -196,8 +196,8 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	
 	private BlockPos find()
 	{
-		LinkedList<BlockPos> queue = new LinkedList<BlockPos>();
-		HashSet<BlockPos> alreadyProcessed = new HashSet<BlockPos>();
+		LinkedList<BlockPos> queue = new LinkedList<>();
+		HashSet<BlockPos> alreadyProcessed = new HashSet<>();
 		queue.add(new BlockPos(Minecraft.getMinecraft().thePlayer));
 		while(!queue.isEmpty())
 		{

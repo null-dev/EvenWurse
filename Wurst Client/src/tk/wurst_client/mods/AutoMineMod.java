@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -33,13 +33,10 @@ public class AutoMineMod extends Mod implements UpdateListener
 		if(Minecraft.getMinecraft().objectMouseOver == null
 			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
 			return;
-		if(Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
-			.getBlockState(
-				Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-			.getBlock()) != 0)
-			Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = true;
-		else
-			Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
+		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+				.getBlockState(
+						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+				.getBlock()) != 0;
 		
 	}
 	

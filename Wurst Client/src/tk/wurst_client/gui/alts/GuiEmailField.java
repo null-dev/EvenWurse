@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -506,8 +506,7 @@ public class GuiEmailField extends Gui
 			}
 			
 			if(var4.length() > 0 && var5 && var2 < var4.length())
-				var9 =
-					fontRendererInstance.drawStringWithShadow(
+				fontRendererInstance.drawStringWithShadow(
 						var4.substring(var2), var9, var8, var1);
 			
 			if(var6)

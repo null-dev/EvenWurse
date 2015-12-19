@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,5 +12,5 @@ import tk.wurst_client.events.ChatOutputEvent;
 
 public interface ChatOutputListener extends Listener
 {
-	public void onSentMessage(ChatOutputEvent event);
+	void onSentMessage(ChatOutputEvent event);
 }

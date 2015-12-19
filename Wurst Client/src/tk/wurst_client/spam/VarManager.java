@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,9 +13,9 @@ import java.util.HashMap;
 public class VarManager
 {
 	private final HashMap<String, String> spammerVars =
-		new HashMap<String, String>();
+			new HashMap<>();
 	private final HashMap<String, String> userVars =
-		new HashMap<String, String>();
+			new HashMap<>();
 	
 	public VarManager()
 	{

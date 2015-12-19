@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -22,11 +22,9 @@ import tk.wurst_client.utils.EntityUtils;
 	name = "FightBot")
 public class FightBotMod extends Mod implements UpdateListener
 {
-	private float speed;
-	private float range = 6F;
-	private double distance = 3D;
-	private EntityLivingBase entity;
-	
+	private static final float RANGE = 6F;
+	private static final double DISTANCE = 3D;
+
 	@Override
 	public void onEnable()
 	{
@@ -36,13 +34,12 @@ public class FightBotMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		entity = EntityUtils.getClosestEntity(true, false);
+		EntityLivingBase entity = EntityUtils.getClosestEntity(true);
 		if(entity == null)
 			return;
 		if(entity.getHealth() <= 0 || entity.isDead
 			|| Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
 		{
-			entity = null;
 			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
 				false;
 			return;
@@ -52,24 +49,21 @@ public class FightBotMod extends Mod implements UpdateListener
 		double zDist =
 			Math.abs(Minecraft.getMinecraft().thePlayer.posZ - entity.posZ);
 		EntityUtils.faceEntityClient(entity);
-		if(xDist > distance || zDist > distance)
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
-		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
-				false;
+		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = xDist > DISTANCE || zDist > DISTANCE;
 		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
 			&& Minecraft.getMinecraft().thePlayer.onGround)
 			Minecraft.getMinecraft().thePlayer.jump();
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().thePlayer.posY < entity.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
+		float speed;
 		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
 			speed = WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed;
 		else
 			speed = WurstClient.INSTANCE.mods.killauraMod.normalSpeed;
 		updateMS();
 		if(hasTimePassedS(speed))
-			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) <= range)
+			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) <= RANGE)
 			{
 				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();

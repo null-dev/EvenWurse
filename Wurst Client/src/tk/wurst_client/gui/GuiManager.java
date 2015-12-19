@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -36,40 +36,32 @@
  */
 package tk.wurst_client.gui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-
 import org.darkstorm.minecraft.gui.AbstractGuiManager;
 import org.darkstorm.minecraft.gui.component.Button;
 import org.darkstorm.minecraft.gui.component.ComboBox;
 import org.darkstorm.minecraft.gui.component.Component;
 import org.darkstorm.minecraft.gui.component.Frame;
-import org.darkstorm.minecraft.gui.component.Slider;
 import org.darkstorm.minecraft.gui.component.basic.BasicButton;
 import org.darkstorm.minecraft.gui.component.basic.BasicComboBox;
 import org.darkstorm.minecraft.gui.component.basic.BasicFrame;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager.HorizontalGridConstraint;
-import org.darkstorm.minecraft.gui.listener.ButtonListener;
-import org.darkstorm.minecraft.gui.listener.ComboBoxListener;
-import org.darkstorm.minecraft.gui.listener.SliderListener;
 import org.darkstorm.minecraft.gui.theme.Theme;
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.gui.target.TargetFrame;
 import tk.wurst_client.mods.AutoBuildMod;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.mods.Mod.Category;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Minecraft GUI API
@@ -85,9 +77,6 @@ public final class GuiManager extends AbstractGuiManager
 {
 	private class ModuleFrame extends BasicFrame
 	{
-		private ModuleFrame()
-		{}
-		
 		private ModuleFrame(String title)
 		{
 			super(title);
@@ -96,7 +85,7 @@ public final class GuiManager extends AbstractGuiManager
 	
 	private final AtomicBoolean setup;
 	private final Map<Category, ModuleFrame> categoryFrames =
-		new HashMap<Category, ModuleFrame>();
+			new HashMap<>();
 	
 	public GuiManager()
 	{
@@ -155,34 +144,24 @@ public final class GuiManager extends AbstractGuiManager
 						setBackgroundColor(new Color(0, 0, 0, 0));
 				}
 			};
-			button.addButtonListener(new ButtonListener()
-			{
-				@Override
-				public void onButtonPress(Button button)
-				{
-					mod.toggle();
-				}
-			});
+			button.addButtonListener(button1 -> mod.toggle());
 			frame.add(button);
 			if(!mod.getSliders().isEmpty())
 				for(BasicSlider slider : mod.getSliders())
 				{
-					slider.addSliderListener(new SliderListener()
-					{
-						@Override
-						public void onSliderValueChanged(Slider slider)
-						{
-							ArrayList<BasicSlider> moduleSliders =
-								mod.getSliders();
-							if(moduleSliders.contains(slider))
-							{
-								int id = moduleSliders.indexOf(slider);
-								moduleSliders.set(id, (BasicSlider)slider);
-							}
-							mod.setSliders(moduleSliders);
-							mod.updateSettings();
-						}
-					});
+					slider.addSliderListener(slider1 -> {
+                        ArrayList<BasicSlider> moduleSliders =
+                            mod.getSliders();
+						//No idea how this works but looks really weird
+						//FIXME later
+                        if(moduleSliders.contains(slider1))
+                        {
+                            int id = moduleSliders.indexOf(slider1);
+                            moduleSliders.set(id, (BasicSlider) slider1);
+                        }
+                        mod.setSliders(moduleSliders);
+                        mod.updateSettings();
+                    });
 					settings.add(slider);
 				}
 		}
@@ -192,15 +171,8 @@ public final class GuiManager extends AbstractGuiManager
 		ComboBox autoBuildBox =
 			new BasicComboBox(
 				AutoBuildMod.names.toArray(new String[AutoBuildMod.names.size()]));
-		autoBuildBox.addComboBoxListener(new ComboBoxListener()
-		{
-			@Override
-			public void onComboBoxSelectionChanged(ComboBox comboBox)
-			{
-				WurstClient.INSTANCE.options.autobuildMode =
-					comboBox.getSelectedIndex();
-			}
-		});
+		autoBuildBox.addComboBoxListener(comboBox -> WurstClient.INSTANCE.options.autobuildMode =
+            comboBox.getSelectedIndex());
 		autoBuildBox
 			.setSelectedIndex(WurstClient.INSTANCE.options.autobuildMode);
 		autobuild.add(autoBuildBox, HorizontalGridConstraint.CENTER);

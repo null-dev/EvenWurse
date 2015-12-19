@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -60,7 +60,7 @@ public class NameGenerator
 					name =
 						name.substring(0, i)
 							+ name.substring(i, i + 1).toUpperCase()
-							+ (i == nameLength ? "" : name.substring(i + 1));
+							+ (name.substring(i + 1));
 		int numberLength = (int)Math.round(Math.random() * 3) + 1;
 		int numberMode = (int)Math.round(Math.random() * 3);
 		boolean number = random.nextBoolean();

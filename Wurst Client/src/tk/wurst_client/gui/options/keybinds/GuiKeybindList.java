@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,15 +8,15 @@
  */
 package tk.wurst_client.gui.options.keybinds;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.gui.GuiWurstSlot;
 import tk.wurst_client.mods.Mod;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class GuiKeybindList extends GuiWurstSlot
 {
@@ -30,7 +30,7 @@ public class GuiKeybindList extends GuiWurstSlot
 	private int selectedSlot;
 	private Minecraft mc;
 	@Deprecated
-	public static ArrayList<Mod> mods = new ArrayList<Mod>();
+	public static ArrayList<Mod> mods = new ArrayList<>();
 	
 	@Override
 	protected boolean isSelected(int id)

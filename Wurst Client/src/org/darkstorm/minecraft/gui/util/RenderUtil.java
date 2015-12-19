@@ -1,24 +1,22 @@
 package org.darkstorm.minecraft.gui.util;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.GL_MULTISAMPLE;
-import static org.lwjgl.opengl.GL13.GL_SAMPLE_ALPHA_TO_COVERAGE;
-
-import java.awt.Color;
-import java.awt.Point;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
-
 import org.lwjgl.input.Mouse;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.GL_MULTISAMPLE;
+import static org.lwjgl.opengl.GL13.GL_SAMPLE_ALPHA_TO_COVERAGE;
 
 public class RenderUtil
 {
-	private static Color outline = new Color(0f, 0f, 0f, 0.5f);
-	private static Color shadow1 = new Color(0.125f, 0.125f, 0.125f, 0.75f);
-	private static Color shadow2 = new Color(0.125f, 0.125f, 0.125f, 0f);
+	private static Color OUTLINE = new Color(0f, 0f, 0f, 0.5f);
+	private static Color SHADOW_1 = new Color(0.125f, 0.125f, 0.125f, 0.75f);
+	private static Color SHADOW_2 = new Color(0.125f, 0.125f, 0.125f, 0f);
 	
 	public static void scissorBox(int x, int y, int xend, int yend)
 	{
@@ -74,14 +72,14 @@ public class RenderUtil
 		float var8 = 0.00390625F;
 		WorldRenderer var9 = Tessellator.getInstance().getWorldRenderer();
 		var9.startDrawingQuads();
-		var9.addVertexWithUV(par1 + 0, par2 + par6, 0, (par3 + 0) * var7,
+		var9.addVertexWithUV(par1, par2 + par6, 0, par3 * var7,
 			(par4 + par6) * var8);
 		var9.addVertexWithUV(par1 + par5, par2 + par6, 0, (par3 + par5) * var7,
 			(par4 + par6) * var8);
-		var9.addVertexWithUV(par1 + par5, par2 + 0, 0, (par3 + par5) * var7,
-			(par4 + 0) * var8);
-		var9.addVertexWithUV(par1 + 0, par2 + 0, 0, (par3 + 0) * var7,
-			(par4 + 0) * var8);
+		var9.addVertexWithUV(par1 + par5, par2, 0, (par3 + par5) * var7,
+			(par4) * var8);
+		var9.addVertexWithUV(par1, par2, 0, par3 * var7,
+			(par4) * var8);
 		var9.draw();
 	}
 	
@@ -183,7 +181,7 @@ public class RenderUtil
 	public static void boxShadow(double x1, double y1, double x2, double y2)
 	{
 		// outline
-		RenderUtil.setColor(outline);
+		RenderUtil.setColor(OUTLINE);
 		glLineWidth(1f);
 		glBegin(GL_LINE_LOOP);
 		{
@@ -197,14 +195,14 @@ public class RenderUtil
 		// top left
 		glBegin(GL_POLYGON);
 		{
-			RenderUtil.setColor(shadow1);
+			RenderUtil.setColor(SHADOW_1);
 			glVertex2d(x1, y1);
 			glVertex2d(x2, y1);
-			RenderUtil.setColor(shadow2);
+			RenderUtil.setColor(SHADOW_2);
 			glVertex2d(x2 + 1d, y1 - 1d);
 			glVertex2d(x1 - 1d, y1 - 1d);
 			glVertex2d(x1 - 1d, y2 + 1d);
-			RenderUtil.setColor(shadow1);
+			RenderUtil.setColor(SHADOW_1);
 			glVertex2d(x1, y2);
 		}
 		glEnd();
@@ -212,14 +210,14 @@ public class RenderUtil
 		// bottom right
 		glBegin(GL_POLYGON);
 		{
-			RenderUtil.setColor(shadow1);
+			RenderUtil.setColor(SHADOW_1);
 			glVertex2d(x2, y2);
 			glVertex2d(x2, y1);
-			RenderUtil.setColor(shadow2);
+			RenderUtil.setColor(SHADOW_2);
 			glVertex2d(x2 + 1d, y1 - 1d);
 			glVertex2d(x2 + 1d, y2 + 1d);
 			glVertex2d(x1 - 1d, y2 + 1d);
-			RenderUtil.setColor(shadow1);
+			RenderUtil.setColor(SHADOW_1);
 			glVertex2d(x1, y2);
 		}
 		glEnd();
@@ -228,7 +226,7 @@ public class RenderUtil
 	public static void downShadow(double x1, double y1, double x2, double y2)
 	{
 		// outline
-		RenderUtil.setColor(outline);
+		RenderUtil.setColor(OUTLINE);
 		glLineWidth(1f);
 		glBegin(GL_LINES);
 		{
@@ -239,10 +237,10 @@ public class RenderUtil
 		
 		glBegin(GL_POLYGON);
 		{
-			RenderUtil.setColor(shadow1);
+			RenderUtil.setColor(SHADOW_1);
 			glVertex2d(x1, y1);
 			glVertex2d(x2, y1);
-			RenderUtil.setColor(shadow2);
+			RenderUtil.setColor(SHADOW_2);
 			glVertex2d(x2, y2);
 			glVertex2d(x1, y2);
 		}

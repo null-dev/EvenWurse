@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -22,7 +22,7 @@ import tk.wurst_client.utils.EntityUtils;
 public class FollowMod extends Mod implements UpdateListener
 {
 	private EntityLivingBase entity;
-	private float range = 12F;
+	private static final float RANGE = 12F;
 	
 	@Override
 	public String getRenderName()
@@ -37,9 +37,9 @@ public class FollowMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		entity = null;
-		EntityLivingBase en = EntityUtils.getClosestEntity(false, true);
+		EntityLivingBase en = EntityUtils.getClosestEntity(false);
 		if(en != null
-			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
+			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= RANGE)
 			entity = en;
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
@@ -63,11 +63,7 @@ public class FollowMod extends Mod implements UpdateListener
 		double zDist =
 			Math.abs(Minecraft.getMinecraft().thePlayer.posZ - entity.posZ);
 		EntityUtils.faceEntityClient(entity);
-		if(xDist > 1D || zDist > 1D)
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
-		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
-				false;
+		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = xDist > 1D || zDist > 1D;
 		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
 			&& Minecraft.getMinecraft().thePlayer.onGround)
 			Minecraft.getMinecraft().thePlayer.jump();

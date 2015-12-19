@@ -1,9 +1,9 @@
 package org.darkstorm.minecraft.gui.theme;
 
+import org.darkstorm.minecraft.gui.component.Component;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.darkstorm.minecraft.gui.component.Component;
 
 public abstract class AbstractTheme implements Theme
 {
@@ -11,7 +11,7 @@ public abstract class AbstractTheme implements Theme
 	
 	public AbstractTheme()
 	{
-		uis = new HashMap<Class<? extends Component>, ComponentUI>();
+		uis = new HashMap<>();
 	}
 	
 	protected void installUI(AbstractComponentUI<?> ui)
@@ -22,7 +22,7 @@ public abstract class AbstractTheme implements Theme
 	@Override
 	public ComponentUI getUIForComponent(Component component)
 	{
-		if(component == null || !(component instanceof Component))
+		if(component == null)
 			throw new IllegalArgumentException();
 		return getComponentUIForClass(component.getClass());
 	}

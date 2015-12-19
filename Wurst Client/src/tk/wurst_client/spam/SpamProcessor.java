@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,11 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.spam;
-
-import java.awt.HeadlessException;
-import java.io.*;
-
-import javax.swing.JOptionPane;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.WurstClient;
@@ -25,6 +20,10 @@ import tk.wurst_client.spam.tag.TagData;
 import tk.wurst_client.spam.tag.TagManager;
 import tk.wurst_client.utils.MiscUtils;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+
 public class SpamProcessor
 {
 	public static TagManager tagManager = new TagManager();
@@ -32,51 +31,46 @@ public class SpamProcessor
 	
 	public static void runScript(final String filename, final String description)
 	{
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				File file =
-					new File(WurstClient.INSTANCE.files.scriptsDir, filename
-						+ ".wspam");
-				try
-				{
-					long startTime = System.currentTimeMillis();
-					while(!canSpam())
-					{
-						Thread.sleep(50);
-						if(System.currentTimeMillis() > startTime + 10000)
-							return;
-					}
-					if(!file.getParentFile().exists())
-						file.getParentFile().mkdirs();
-					if(!file.exists())
-					{
-						PrintWriter save =
-							new PrintWriter(new OutputStreamWriter(
-								new FileOutputStream(file), "UTF-8"));
-						save.println("<!--");
-						for(String line : description.split("\n"))
-							save.println("  " + line);
-						save.println("-->");
-						save.close();
-					}
-					runFile(file);
-				}catch(Exception e)
-				{
-					e.printStackTrace();
-					StringWriter tracewriter = new StringWriter();
-					e.printStackTrace(new PrintWriter(tracewriter));
-					String message =
-						"An error occurred while running " + file.getName()
-							+ ":\n" + e.getLocalizedMessage() + "\n"
-							+ tracewriter.toString();
-					JOptionPane.showMessageDialog(FrameHook.getFrame(),
-						message, "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		}).start();
+		new Thread(() -> {
+            File file =
+                new File(WurstClient.INSTANCE.files.scriptsDir, filename
+                    + ".wspam");
+            try
+            {
+                long startTime = System.currentTimeMillis();
+                while(!canSpam())
+                {
+                    Thread.sleep(50);
+                    if(System.currentTimeMillis() > startTime + 10000)
+                        return;
+                }
+                if(!file.getParentFile().exists())
+                    file.getParentFile().mkdirs();
+                if(!file.exists())
+                {
+                    PrintWriter save =
+                        new PrintWriter(new OutputStreamWriter(
+                            new FileOutputStream(file), "UTF-8"));
+                    save.println("<!--");
+                    for(String line : description.split("\n"))
+                        save.println("  " + line);
+                    save.println("-->");
+                    save.close();
+                }
+                runFile(file);
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+                StringWriter tracewriter = new StringWriter();
+                e.printStackTrace(new PrintWriter(tracewriter));
+                String message =
+                    "An error occurred while running " + file.getName()
+                        + ":\n" + e.getLocalizedMessage() + "\n"
+                        + tracewriter.toString();
+                JOptionPane.showMessageDialog(FrameHook.getFrame(),
+                    message, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }).start();
 	}
 	
 	public static boolean runSpam(final String filename)
@@ -85,38 +79,33 @@ public class SpamProcessor
 			new File(WurstClient.INSTANCE.files.spamDir, filename + ".wspam");
 		if(!file.exists())
 			return false;
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				try
-				{
-					long startTime = System.currentTimeMillis();
-					while(!canSpam())
-					{
-						Thread.sleep(50);
-						if(System.currentTimeMillis() > startTime + 10000)
-							return;
-					}
-					runFile(file);
-				}catch(Exception e)
-				{
-					if(e instanceof NullPointerException
-						&& Minecraft.getMinecraft().thePlayer == null)
-						return;
-					e.printStackTrace();
-					StringWriter tracewriter = new StringWriter();
-					e.printStackTrace(new PrintWriter(tracewriter));
-					String message =
-						"An error occurred while running " + file.getName()
-							+ ":\n" + e.getLocalizedMessage() + "\n"
-							+ tracewriter.toString();
-					JOptionPane.showMessageDialog(FrameHook.getFrame(),
-						message, "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		}).start();
+		new Thread(() -> {
+            try
+            {
+                long startTime = System.currentTimeMillis();
+                while(!canSpam())
+                {
+                    Thread.sleep(50);
+                    if(System.currentTimeMillis() > startTime + 10000)
+                        return;
+                }
+                runFile(file);
+            }catch(Exception e)
+            {
+                if(e instanceof NullPointerException
+                    && Minecraft.getMinecraft().thePlayer == null)
+                    return;
+                e.printStackTrace();
+                StringWriter tracewriter = new StringWriter();
+                e.printStackTrace(new PrintWriter(tracewriter));
+                String message =
+                    "An error occurred while running " + file.getName()
+                        + ":\n" + e.getLocalizedMessage() + "\n"
+                        + tracewriter.toString();
+                JOptionPane.showMessageDialog(FrameHook.getFrame(),
+                    message, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }).start();
 		return true;
 	}
 	
@@ -128,7 +117,7 @@ public class SpamProcessor
 				new BufferedReader(new InputStreamReader(new FileInputStream(
 					file), "UTF-8"));
 			String content = load.readLine();
-			for(String line = ""; (line = load.readLine()) != null;)
+			for(String line; (line = load.readLine()) != null;)
 				content += "\n" + line;
 			load.close();
 			String spam = SpamProcessor.process(content, null, false);
@@ -161,7 +150,7 @@ public class SpamProcessor
 			log("### Cleaning up variables...");
 			varManager.clearUserVars();
 			log("### Processing spam...");
-			final String source = new String(spam);
+			final String source = spam;
 			log("### Processing comments...");
 			if(test)
 				spam = spam.replace("<!--", "#!--");
@@ -178,7 +167,7 @@ public class SpamProcessor
 					MiscUtils.countMatches(spam.substring(0, tagStart), "\n");
 				log("TagLine: " + tagLine);
 				String tag;
-				String tagName = null;
+				String tagName;
 				tag = spam.substring(tagStart);
 				try
 				{
@@ -202,7 +191,7 @@ public class SpamProcessor
 				log("TagArgs:");
 				for(int i = 0; i < tagArgs.length; i++)
 					log("No. " + i + ": " + tagArgs[i]);
-				String tmpTag = new String(tag);
+				String tmpTag = tag;
 				int tmpSubTags = 0;
 				int tagLength = tag.length();
 				boolean tagClosed = false;
@@ -225,7 +214,6 @@ public class SpamProcessor
 						tagLength = tmpTag.indexOf("<") + tagName.length() + 3;
 						tagContentLength = tmpTag.indexOf("<");
 						log("TagContentLength: " + tagContentLength);
-						tmpTag = tmpTag.replaceFirst("<", "#");
 						tagClosed = true;
 						break;
 					}
@@ -258,17 +246,17 @@ public class SpamProcessor
 				log("** Processed tag:\n" + spam);
 			}
 			log("### Processing variables...");
-			while(spam.contains("§"))
+			while(spam.contains("ï¿½"))
 			{
 				log("** Processing variable...");
-				int varStart = spam.indexOf("§");
+				int varStart = spam.indexOf("ï¿½");
 				log("VarStart: " + varStart);
 				int varLine =
 					MiscUtils.countMatches(spam.substring(0, varStart), "\n");
 				log("VarLine: " + varLine);
 				int varEnd = spam.indexOf(";", varStart) + 1;
 				log("VarEnd: " + varEnd);
-				String var = spam.substring(varStart);
+				String var;
 				try
 				{
 					if(varEnd <= 0)
@@ -288,7 +276,7 @@ public class SpamProcessor
 					throw new InvalidVariableException(varName, varLine);
 				if(test)
 					spam =
-						spam.substring(0, varStart) + var.replace("§", "*")
+						spam.substring(0, varStart) + var.replace("ï¿½", "*")
 							+ spam.substring(varEnd, spam.length());
 				else
 					spam =

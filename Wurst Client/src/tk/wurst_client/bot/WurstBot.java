@@ -1,12 +1,12 @@
 package tk.wurst_client.bot;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import net.minecraft.client.main.Main;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.bot.commands.Command;
 import tk.wurst_client.bot.commands.CommandManager;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class WurstBot
 {
@@ -31,20 +31,15 @@ public class WurstBot
 	
 	public void start()
 	{
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				try
-				{
-					WurstBot.this.run();
-				}catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}, "Wurst-Bot").start();
+		new Thread(() -> {
+            try
+            {
+                WurstBot.this.run();
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }, "Wurst-Bot").start();
 	}
 	
 	private void run() throws Exception
@@ -69,6 +64,7 @@ public class WurstBot
 		System.out.println();
 		System.out.println("Wurst-Bot v" + WurstClient.VERSION);
 		System.out.println("Type \"help\" for a list of commands.");
+		//Umm, really?
 		while(true)
 		{
 			String input = br.readLine();

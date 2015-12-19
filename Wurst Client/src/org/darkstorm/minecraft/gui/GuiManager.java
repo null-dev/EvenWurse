@@ -38,23 +38,23 @@ import org.darkstorm.minecraft.gui.theme.Theme;
  */
 public interface GuiManager
 {
-	public void setup();
+	void setup();
 	
-	public void addFrame(Frame frame);
+	void addFrame(Frame frame);
 	
-	public void removeFrame(Frame frame);
+	void removeFrame(Frame frame);
 	
-	public Frame[] getFrames();
+	Frame[] getFrames();
 	
-	public void bringForward(Frame frame);
+	void bringForward(Frame frame);
 	
-	public Theme getTheme();
+	Theme getTheme();
 	
-	public void setTheme(Theme theme);
+	void setTheme(Theme theme);
 	
-	public void render();
+	void render();
 	
-	public void renderPinned();
+	void renderPinned();
 	
-	public void update();
+	void update();
 }

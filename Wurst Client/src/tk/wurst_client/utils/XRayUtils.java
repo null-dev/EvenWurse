@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,11 +8,10 @@
  */
 package tk.wurst_client.utils;
 
-import java.util.Collections;
-import java.util.Comparator;
-
 import net.minecraft.block.Block;
 import tk.wurst_client.mods.XRayMod;
+
+import java.util.Collections;
 
 public class XRayUtils
 {
@@ -57,20 +56,11 @@ public class XRayUtils
 	
 	public static boolean isXRayBlock(Block blockToCheck)
 	{
-		if(XRayMod.xrayBlocks.contains(blockToCheck))
-			return true;
-		return false;
+		return XRayMod.xrayBlocks.contains(blockToCheck);
 	}
 	
 	public static void sortBlocks()
 	{
-		Collections.sort(XRayMod.xrayBlocks, new Comparator<Block>()
-		{
-			@Override
-			public int compare(Block o1, Block o2)
-			{
-				return Block.getIdFromBlock(o1) - Block.getIdFromBlock(o2);
-			}
-		});
+		Collections.sort(XRayMod.xrayBlocks, (o1, o2) -> Block.getIdFromBlock(o1) - Block.getIdFromBlock(o2));
 	}
 }

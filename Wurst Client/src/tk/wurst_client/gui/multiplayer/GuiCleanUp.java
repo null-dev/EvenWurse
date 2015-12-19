@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,20 +8,17 @@
  */
 package tk.wurst_client.gui.multiplayer;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
+import com.google.common.collect.Lists;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.EnumChatFormatting;
-
 import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.WurstClient;
 
-import com.google.common.collect.Lists;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class GuiCleanUp extends GuiScreen
 {
@@ -41,7 +38,7 @@ public class GuiCleanUp extends GuiScreen
 				+ "press the refresh button and wait until\n"
 				+ "all servers are done refreshing.",
 			"This will completely clear your server\n"
-				+ "list. §cUse with caution!§r",
+				+ "list. ï¿½cUse with caution!ï¿½r",
 			"Renames your servers to \"Grief me #1\",\n"
 				+ "\"Grief me #2\", etc.",};
 	
@@ -75,14 +72,14 @@ public class GuiCleanUp extends GuiScreen
 		buttonList.add(new GuiButton(2, width / 2 - 100, height / 4 - 24 + 12,
 			"Unknown Hosts: "
 				+ removeOrKeep(WurstClient.INSTANCE.options.cleanupUnknown)));
-		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 0 + 12,
+		buttonList.add(new GuiButton(3, width / 2 - 100, height / 4 + 12,
 			"Outdated Servers: "
 				+ removeOrKeep(WurstClient.INSTANCE.options.cleanupOutdated)));
 		buttonList.add(new GuiButton(4, width / 2 - 100, height / 4 + 24 + 12,
 			"Failed Ping: "
 				+ removeOrKeep(WurstClient.INSTANCE.options.cleanupFailed)));
 		buttonList.add(new GuiButton(5, width / 2 - 100, height / 4 + 48 + 12,
-			"§cRemove all Servers: " + yesOrNo(removeAll)));
+			"ï¿½cRemove all Servers: " + yesOrNo(removeAll)));
 		buttonList.add(new GuiButton(6, width / 2 - 100, height / 4 + 72 + 12,
 			"Rename all Servers: "
 				+ yesOrNo(WurstClient.INSTANCE.options.cleanupRename)));
@@ -197,7 +194,7 @@ public class GuiCleanUp extends GuiScreen
 			{// Remove
 				removeAll = !removeAll;
 				clickedButton.displayString =
-					"§cRemove all Servers: " + yesOrNo(removeAll);
+					"ï¿½cRemove all Servers: " + yesOrNo(removeAll);
 				WurstClient.INSTANCE.analytics.trackEvent("clean up",
 					"remove all servers", yesOrNo(removeAll));
 			}else if(clickedButton.id == 6)
@@ -249,13 +246,11 @@ public class GuiCleanUp extends GuiScreen
 			"Please select the servers you want to remove:", width / 2, 36,
 			10526880);
 		super.drawScreen(par1, par2, par3);
-		for(int i = 0; i < buttonList.size(); i++)
-		{
-			GuiButton button = (GuiButton)buttonList.get(i);
-			if(button.isMouseOver() && !toolTips[button.id].isEmpty())
-			{
+		for (Object aButtonList : buttonList) {
+			GuiButton button = (GuiButton) aButtonList;
+			if (button.isMouseOver() && !toolTips[button.id].isEmpty()) {
 				ArrayList toolTip =
-					Lists.newArrayList(toolTips[button.id].split("\n"));
+						Lists.newArrayList(toolTips[button.id].split("\n"));
 				drawHoveringText(toolTip, par1, par2);
 				break;
 			}

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,19 +8,19 @@
  */
 package tk.wurst_client.mods;
 
-import java.util.ArrayList;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+
+import java.util.ArrayList;
 
 @Info(category = Category.RENDER,
 	description = "Allows you to see ores through walls.",
 	name = "X-Ray")
 public class XRayMod extends Mod
 {
-	public static ArrayList<Block> xrayBlocks = new ArrayList<Block>();
+	public static ArrayList<Block> xrayBlocks = new ArrayList<>();
 	
 	@Override
 	public String getRenderName()

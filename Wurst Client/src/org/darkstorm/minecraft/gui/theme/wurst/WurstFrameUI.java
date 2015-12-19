@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,23 +8,18 @@
  */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import net.minecraft.client.Minecraft;
-
 import org.darkstorm.minecraft.gui.component.Component;
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.layout.Constraint;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
-
 import tk.wurst_client.WurstClient;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class WurstFrameUI extends AbstractComponentUI<Frame>
 {
@@ -486,7 +481,6 @@ public class WurstFrameUI extends AbstractComponentUI<Frame>
 			&& location.y <= textHeight + 4)
 		{
 			component.setDragging(true);
-			return;
 		}
 	}
 }

@@ -1,17 +1,14 @@
 package org.darkstorm.minecraft.gui.theme.simple;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import org.darkstorm.minecraft.gui.component.Component;
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.layout.Constraint;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class SimpleFrameUI extends AbstractComponentUI<Frame>
 {
@@ -214,7 +211,6 @@ public class SimpleFrameUI extends AbstractComponentUI<Frame>
 			&& location.y <= textHeight + 4)
 		{
 			component.setDragging(true);
-			return;
 		}
 	}
 }

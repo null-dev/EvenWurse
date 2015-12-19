@@ -4,13 +4,13 @@ import org.darkstorm.minecraft.gui.listener.SelectableComponentListener;
 
 public interface SelectableComponent extends Component
 {
-	public boolean isSelected();
+	boolean isSelected();
 	
-	public void setSelected(boolean selected);
+	void setSelected(boolean selected);
 	
-	public void addSelectableComponentListener(
-		SelectableComponentListener listener);
+	void addSelectableComponentListener(
+			SelectableComponentListener listener);
 	
-	public void removeSelectableComponentListener(
-		SelectableComponentListener listener);
+	void removeSelectableComponentListener(
+			SelectableComponentListener listener);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,7 +10,4 @@ package tk.wurst_client.events.listeners;
 
 import java.util.EventListener;
 
-public interface Listener extends EventListener
-{	
-	
-}
+public interface Listener extends EventListener {}

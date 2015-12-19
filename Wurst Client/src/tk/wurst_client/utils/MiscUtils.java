@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,30 +8,21 @@
  */
 package tk.wurst_client.utils;
 
-import java.awt.Component;
-import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Util;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.Sys;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URI;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.swing.JOptionPane;
-
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Util;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.Sys;
 
 public class MiscUtils
 {
@@ -93,7 +84,7 @@ public class MiscUtils
 		{
 			String command =
 				String.format("cmd.exe /C start \"Open file\" \"%s\"",
-					new Object[]{apath});
+						apath);
 			
 			try
 			{
@@ -191,13 +182,13 @@ public class MiscUtils
 		BufferedReader input =
 			new BufferedReader(new InputStreamReader(
 				connection.getInputStream()));
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder builder = new StringBuilder();
 		for(String line; (line = input.readLine()) != null;)
 		{
-			buffer.append(line);
-			buffer.append("\n");
+			builder.append(line);
+			builder.append("\n");
 		}
 		input.close();
-		return buffer.toString();
+		return builder.toString();
 	}
 }

@@ -4,5 +4,5 @@ import org.darkstorm.minecraft.gui.component.Component;
 
 public interface Theme
 {
-	public ComponentUI getUIForComponent(Component component);
+	ComponentUI getUIForComponent(Component component);
 }

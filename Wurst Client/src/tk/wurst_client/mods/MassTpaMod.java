@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,11 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.mods;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -23,6 +18,11 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Random;
+
 @Info(category = Category.CHAT,
 	description = "Sends a TPA request to all players.\n"
 		+ "Stops if someone accepts.",
@@ -30,7 +30,7 @@ import tk.wurst_client.mods.Mod.Info;
 public class MassTpaMod extends Mod implements UpdateListener,
 	ChatInputListener
 {
-	private float speed = 1F;
+	private static final float SPEED = 1F;
 	private int i;
 	private ArrayList<String> players;
 	private Random random = new Random();
@@ -41,7 +41,7 @@ public class MassTpaMod extends Mod implements UpdateListener,
 		i = 0;
 		Iterator itr =
 			Minecraft.getMinecraft().getNetHandler().getPlayerInfo().iterator();
-		players = new ArrayList<String>();
+		players = new ArrayList<>();
 		while(itr.hasNext())
 			players.add(StringUtils.stripControlCodes(((NetworkPlayerInfo)itr
 				.next()).getPlayerNameForReal()));
@@ -54,7 +54,7 @@ public class MassTpaMod extends Mod implements UpdateListener,
 	public void onUpdate()
 	{
 		updateMS();
-		if(hasTimePassedS(speed))
+		if(hasTimePassedS(SPEED))
 		{
 			String name = players.get(i);
 			if(!name.equals(Minecraft.getMinecraft().thePlayer.getName()))
@@ -78,14 +78,14 @@ public class MassTpaMod extends Mod implements UpdateListener,
 	public void onReceivedMessage(ChatInputEvent event)
 	{
 		String message = event.getComponent().getUnformattedText();
-		if(message.startsWith("§c[§6Wurst§c]§f "))
+		if(message.startsWith("ï¿½c[ï¿½6Wurstï¿½c]ï¿½f "))
 			return;
 		if(message.toLowerCase().contains("/help")
 			|| message.toLowerCase().contains("permission"))
 		{
 			event.cancel();
 			WurstClient.INSTANCE.chat
-				.message("§4§lERROR:§f This server doesn't have TPA.");
+				.message("ï¿½4ï¿½lERROR:ï¿½f This server doesn't have TPA.");
 			setEnabled(false);
 		}else if(message.toLowerCase().contains("accepted")
 			&& message.toLowerCase().contains("request")

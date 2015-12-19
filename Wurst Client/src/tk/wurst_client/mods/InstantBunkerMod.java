@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -253,8 +253,7 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 											.convertPosInAdvancedBuiling(3, i,
 												building))).getBlock()) != 0)
 							i += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > 45 && playerYaw <= 135)
 					try
 					{
@@ -273,8 +272,7 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 											.convertPosInAdvancedBuiling(1, i,
 												building))).getBlock()) != 0)
 							i += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > 135 || playerYaw <= -135)
 					try
 					{
@@ -293,8 +291,7 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 											.convertPosInAdvancedBuiling(3, i,
 												building))).getBlock()) != 0)
 							i += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > -135 && playerYaw <= -45)
 					try
 					{
@@ -313,8 +310,7 @@ public class InstantBunkerMod extends Mod implements UpdateListener,
 											.convertPosInAdvancedBuiling(1, i,
 												building))).getBlock()) != 0)
 							i += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				updateLastMS();
 			}else if(i == building.length)
 			{

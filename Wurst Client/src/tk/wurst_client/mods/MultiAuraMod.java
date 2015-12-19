@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.mods;
-
-import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,13 +16,15 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 
+import java.util.ArrayList;
+
 @Info(category = Category.COMBAT,
 	description = "Faster Killaura that attacks multiple entities at once.",
 	name = "MultiAura",
 	noCheatCompatible = false)
 public class MultiAuraMod extends Mod implements UpdateListener
 {
-	private float range = 6F;
+	private static final float RANGE = 6F;
 	
 	@Override
 	public void onEnable()
@@ -45,14 +45,14 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	public void onUpdate()
 	{
 		updateMS();
-		if(EntityUtils.getClosestEntity(true, false) != null)
+		if(EntityUtils.getClosestEntity(true) != null)
 		{
 			if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 				AutoSwordMod.setSlot();
 			CriticalsMod.doCritical();
 			WurstClient.INSTANCE.mods.blockHitMod.doBlock();
 			ArrayList<EntityLivingBase> entities =
-				EntityUtils.getCloseEntities(true, range);
+				EntityUtils.getCloseEntities(true, RANGE);
 			for(int i = 0; i < Math.min(entities.size(), 64); i++)
 			{
 				EntityLivingBase en = entities.get(i);

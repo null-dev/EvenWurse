@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -23,11 +23,10 @@ public class ProtectMod extends Mod implements UpdateListener
 {
 	private EntityLivingBase friend;
 	private EntityLivingBase enemy;
-	private float range = 6F;
-	private double distanceF = 2D;
-	private double distanceE = 3D;
-	private float speed;
-	
+	private static final float RANGE = 6F;
+	private static final double DISTANCE_F = 2D;
+	private static final double DISTANCE_E = 3D;
+
 	@Override
 	public String getRenderName()
 	{
@@ -41,9 +40,9 @@ public class ProtectMod extends Mod implements UpdateListener
 	public void onEnable()
 	{
 		friend = null;
-		EntityLivingBase en = EntityUtils.getClosestEntity(false, true);
+		EntityLivingBase en = EntityUtils.getClosestEntity(false);
 		if(en != null
-			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= range)
+			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= RANGE)
 			friend = en;
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
@@ -65,10 +64,10 @@ public class ProtectMod extends Mod implements UpdateListener
 			Math.abs(Minecraft.getMinecraft().thePlayer.posX - friend.posX);
 		double zDistF =
 			Math.abs(Minecraft.getMinecraft().thePlayer.posZ - friend.posZ);
-		double xDistE = distanceE;
-		double zDistE = distanceE;
+		double xDistE = DISTANCE_E;
+		double zDistE = DISTANCE_E;
 		if(enemy != null
-			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= range)
+			&& Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= RANGE)
 		{
 			xDistE =
 				Math.abs(Minecraft.getMinecraft().thePlayer.posX - enemy.posX);
@@ -76,20 +75,17 @@ public class ProtectMod extends Mod implements UpdateListener
 				Math.abs(Minecraft.getMinecraft().thePlayer.posZ - enemy.posZ);
 		}else
 			EntityUtils.faceEntityClient(friend);
-		if((xDistF > distanceF || zDistF > distanceF)
-			&& (enemy == null || Minecraft.getMinecraft().thePlayer
-				.getDistanceToEntity(enemy) > range) || xDistE > distanceE
-			|| zDistE > distanceE)
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
-		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
-				false;
+		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = (xDistF > DISTANCE_F || zDistF > DISTANCE_F)
+				&& (enemy == null || Minecraft.getMinecraft().thePlayer
+				.getDistanceToEntity(enemy) > RANGE) || xDistE > DISTANCE_E
+				|| zDistE > DISTANCE_E;
 		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
 			&& Minecraft.getMinecraft().thePlayer.onGround)
 			Minecraft.getMinecraft().thePlayer.jump();
 		if(Minecraft.getMinecraft().thePlayer.isInWater()
 			&& Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
+		float speed;
 		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
 			speed = WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed;
 		else
@@ -98,7 +94,7 @@ public class ProtectMod extends Mod implements UpdateListener
 		if(hasTimePassedS(speed) && EntityUtils.getClosestEnemy(friend) != null)
 		{
 			enemy = EntityUtils.getClosestEnemy(friend);
-			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= range)
+			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= RANGE)
 			{
 				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
 					AutoSwordMod.setSlot();

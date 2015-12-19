@@ -49,8 +49,6 @@ public class AnalyticsConfigData
 	
 	/**
 	 * constructs with the tracking code and a new visitor data.
-	 *
-	 * @param argTrackingCode
 	 */
 	public AnalyticsConfigData(String argTrackingCode)
 	{
@@ -63,8 +61,6 @@ public class AnalyticsConfigData
 	
 	/**
 	 * constructs with the tracking code using the provided visitor data.
-	 *
-	 * @param argTrackingCode
 	 */
 	public AnalyticsConfigData(String argTrackingCode, VisitorData visitorData)
 	{
@@ -140,8 +136,6 @@ public class AnalyticsConfigData
 	
 	/**
 	 * Sets the color depth of the user. like 32 bit.
-	 *
-	 * @param argColorDepth
 	 */
 	public void setColorDepth(String argColorDepth)
 	{

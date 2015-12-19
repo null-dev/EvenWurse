@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,16 +8,14 @@
  */
 package tk.wurst_client.mods;
 
+import net.minecraft.client.Minecraft;
+import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
+import tk.wurst_client.WurstClient;
+import tk.wurst_client.gui.error.GuiError;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-
-import net.minecraft.client.Minecraft;
-
-import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-
-import tk.wurst_client.WurstClient;
-import tk.wurst_client.gui.error.GuiError;
 
 public class Mod
 {
@@ -29,7 +27,7 @@ public class Mod
 	private boolean enabled;
 	private boolean blocked;
 	private boolean active;
-	protected ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
+	protected ArrayList<BasicSlider> sliders = new ArrayList<>();
 	private long currentMS = 0L;
 	protected long lastMS = -1L;
 	
@@ -44,7 +42,7 @@ public class Mod
 		HIDDEN,
 		RENDER,
 		MISC,
-		MOVEMENT;
+		MOVEMENT
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)
@@ -129,7 +127,7 @@ public class Mod
 	public final void enableOnStartup()
 	{
 		enabled = true;
-		active = enabled && !blocked;
+		active = !blocked;
 		try
 		{
 			onToggle();

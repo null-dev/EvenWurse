@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -31,9 +31,7 @@ public class ItemEspMod extends Mod implements RenderListener
 	@Override
 	public void onRender()
 	{
-		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
-			if(entity instanceof EntityItem)
-				RenderUtils.entityESPBox((Entity)entity, 2);
+		Minecraft.getMinecraft().theWorld.loadedEntityList.stream().filter(entity -> entity instanceof EntityItem).forEach(entity -> RenderUtils.entityESPBox((Entity) entity, 2));
 	}
 	
 	@Override

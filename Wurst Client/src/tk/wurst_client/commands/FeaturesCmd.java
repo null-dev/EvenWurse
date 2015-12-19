@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,14 +8,14 @@
  */
 package tk.wurst_client.commands;
 
-import java.util.ArrayList;
-
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.mods.Mod.Category;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Info(help = "Counts the features in this release of Wurst.",
 	name = "features",
@@ -40,10 +40,9 @@ public class FeaturesCmd extends Cmd
 		WurstClient.INSTANCE.chat.message(">"
 			+ WurstClient.INSTANCE.keybinds.size()
 			+ " keybinds in your current configuration");
-		ArrayList<BasicSlider> sliders = new ArrayList<BasicSlider>();
+		ArrayList<BasicSlider> sliders = new ArrayList<>();
 		for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
-			for(BasicSlider slider : mod.getSliders())
-				sliders.add(slider);
+			sliders.addAll(mod.getSliders().stream().collect(Collectors.toList()));
 		WurstClient.INSTANCE.chat.message(">" + sliders.size()
 			+ " sliders in the Settings frame");
 	}

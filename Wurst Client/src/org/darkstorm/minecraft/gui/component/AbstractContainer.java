@@ -1,19 +1,19 @@
 package org.darkstorm.minecraft.gui.component;
 
-import java.awt.Rectangle;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.darkstorm.minecraft.gui.layout.BasicLayoutManager;
 import org.darkstorm.minecraft.gui.layout.Constraint;
 import org.darkstorm.minecraft.gui.layout.LayoutManager;
 import org.darkstorm.minecraft.gui.theme.Theme;
 
+import java.awt.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public abstract class AbstractContainer extends AbstractComponent implements
 	Container
 {
 	private final Map<Component, Constraint[]> children =
-		new LinkedHashMap<Component, Constraint[]>();
+			new LinkedHashMap<>();
 	
 	private LayoutManager layoutManager = new BasicLayoutManager();
 	
@@ -24,8 +24,7 @@ public abstract class AbstractContainer extends AbstractComponent implements
 
 		synchronized(children)
 		{
-			for(Component child : children.keySet())
-				child.render();
+			children.keySet().forEach(Component::render);
 		}
 	}
 	

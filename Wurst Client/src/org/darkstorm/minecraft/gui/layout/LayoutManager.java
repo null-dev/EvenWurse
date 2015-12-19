@@ -5,9 +5,9 @@ import java.awt.Rectangle;
 
 public interface LayoutManager
 {
-	public void reposition(Rectangle area, Rectangle[] componentAreas,
-		Constraint[][] constraints);
+	void reposition(Rectangle area, Rectangle[] componentAreas,
+					Constraint[][] constraints);
 	
-	public Dimension getOptimalPositionedSize(Rectangle[] componentAreas,
-		Constraint[][] constraints);
+	Dimension getOptimalPositionedSize(Rectangle[] componentAreas,
+									   Constraint[][] constraints);
 }

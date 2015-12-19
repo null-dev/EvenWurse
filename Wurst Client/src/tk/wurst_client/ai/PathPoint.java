@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,10 +8,10 @@
  */
 package tk.wurst_client.ai;
 
-import java.util.ArrayList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
+
+import java.util.ArrayList;
 
 public class PathPoint
 {
@@ -32,7 +32,7 @@ public class PathPoint
 	public ArrayList<BlockPos> getNeighbors()
 	{
 		BlockPos playerPos = new BlockPos(Minecraft.getMinecraft().thePlayer);
-		ArrayList<BlockPos> neighbors = new ArrayList<BlockPos>();
+		ArrayList<BlockPos> neighbors = new ArrayList<>();
 		neighbors.add(pos.add(0, 0, -1));// north
 		neighbors.add(pos.add(0, 0, 1));// south
 		neighbors.add(pos.add(1, 0, 0));// east

@@ -31,16 +31,16 @@ package tk.wurst_client.analytics;
 public class URIEncoder
 {
 	
-	private static String mark = "-_.!~*'()\"";
+	private static final String MARK = "-_.!~*'()\"";
 	
 	public static String encodeURI(String argString)
 	{
-		StringBuffer uri = new StringBuffer(); // Encoded URL
+		StringBuilder uri = new StringBuilder(); // Encoded URL
 		
 		char[] chars = argString.toCharArray();
 		for(char c : chars)
 			if(c >= '0' && c <= '9' || c >= 'a' && c <= 'z' || c >= 'A'
-				&& c <= 'Z' || mark.indexOf(c) != -1)
+				&& c <= 'Z' || MARK.indexOf(c) != -1)
 				uri.append(c);
 			else
 			{

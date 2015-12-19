@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,23 +8,16 @@
  */
 package tk.wurst_client.bot.commands;
 
+import tk.wurst_client.bot.commands.Command.Info;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeMap;
 
-import tk.wurst_client.bot.commands.Command.Info;
-
 public class CommandManager
 {
 	private final TreeMap<String, Command> commands =
-		new TreeMap<String, Command>(new Comparator<String>()
-		{
-			@Override
-			public int compare(String o1, String o2)
-			{
-				return o1.compareToIgnoreCase(o2);
-			}
-		});
+			new TreeMap<>((Comparator<String>) String::compareToIgnoreCase);
 	
 	public CommandManager()
 	{

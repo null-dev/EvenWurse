@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,11 +8,12 @@
  */
 package tk.wurst_client.mods;
 
-import java.util.HashSet;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 @Info(category = Category.MISC,
 	description = "Makes other mods bypass NoCheat+ or blocks them if\n"
@@ -30,10 +31,8 @@ public class YesCheatMod extends Mod
 		if(blockedMods == null)
 		{
 			blockedMods = new HashSet<>();
-			for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
-				if(!mod.getClass().getAnnotation(Mod.Info.class)
-					.noCheatCompatible())
-					blockedMods.add(mod);
+			blockedMods.addAll(WurstClient.INSTANCE.mods.getAllMods().stream().filter(mod -> !mod.getClass().getAnnotation(Info.class)
+					.noCheatCompatible()).collect(Collectors.toList()));
 		}
 		for(Mod mod : blockedMods)
 			mod.setBlocked(true);

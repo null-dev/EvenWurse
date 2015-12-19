@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -58,8 +58,8 @@ public class AnnoyCmd extends Cmd implements ChatInputListener
 	@Override
 	public void onReceivedMessage(ChatInputEvent event)
 	{
-		String message = new String(event.getComponent().getUnformattedText());
-		if(message.startsWith("§c[§6Wurst§c]§f "))
+		String message = event.getComponent().getUnformattedText();
+		if(message.startsWith("ï¿½c[ï¿½6Wurstï¿½c]ï¿½f "))
 			return;
 		if(message.startsWith("<" + name + ">") || message.contains(name + ">"))
 		{

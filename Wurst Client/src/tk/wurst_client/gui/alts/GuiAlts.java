@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,32 +8,27 @@
  */
 package tk.wurst_client.gui.alts;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
-
-import java.awt.Component;
-import java.awt.HeadlessException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
-
 import org.lwjgl.opengl.GL11;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.alts.NameGenerator;
 import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.utils.MiscUtils;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
 
 public class GuiAlts extends GuiScreen
 {
@@ -116,7 +111,7 @@ public class GuiAlts extends GuiScreen
 					else
 					{
 						errorTimer = 8;
-						if(reply.equals("§4§lWrong password!"))
+						if(reply.equals("ï¿½4ï¿½lWrong password!"))
 						{
 							GuiAltList.alts.remove(altList.getSelectedSlot());
 							GuiAltList.sortAlts();
@@ -183,7 +178,7 @@ public class GuiAlts extends GuiScreen
 								File file = fileChooser.getSelectedFile();
 								BufferedReader load =
 									new BufferedReader(new FileReader(file));
-								for(String line = ""; (line = load.readLine()) != null;)
+								for(String line; (line = load.readLine()) != null;)
 								{
 									String[] data = line.split(":");
 									if(data.length != 2)

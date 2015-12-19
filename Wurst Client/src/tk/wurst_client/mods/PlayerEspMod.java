@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -33,13 +33,11 @@ public class PlayerEspMod extends Mod implements RenderListener
 	{
 		if(WurstClient.INSTANCE.mods.arenaBrawlMod.isActive())
 			return;
-		for(Object entity : Minecraft.getMinecraft().theWorld.loadedEntityList)
-			if(entity instanceof EntityPlayer
-				&& !((Entity)entity).getName().equals(
-					Minecraft.getMinecraft().getSession().getUsername()))
-				RenderUtils.entityESPBox((Entity)entity,
-					WurstClient.INSTANCE.friends
-						.contains(((EntityPlayer)entity).getName()) ? 1 : 0);
+		Minecraft.getMinecraft().theWorld.loadedEntityList.stream().filter(entity -> entity instanceof EntityPlayer
+				&& !((Entity) entity).getName().equals(
+				Minecraft.getMinecraft().getSession().getUsername())).forEach(entity -> RenderUtils.entityESPBox((Entity) entity,
+				WurstClient.INSTANCE.friends
+						.contains(((EntityPlayer) entity).getName()) ? 1 : 0));
 	}
 	
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,16 +8,9 @@
  */
 package tk.wurst_client.utils;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityFlying;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
@@ -27,6 +20,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.options.OptionsManager;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class EntityUtils
 {
@@ -98,8 +94,8 @@ public class EntityUtils
 		
 	}
 	
-	private final static float limitAngleChange(final float current,
-		final float intended, final float maxChange)
+	private static float limitAngleChange(final float current,
+										  final float intended, final float maxChange)
 	{
 		float change = intended - current;
 		if(change > maxChange)
@@ -127,55 +123,50 @@ public class EntityUtils
 		return -1;
 	}
 	
-	public static boolean isCorrectEntity(Object o, boolean ignoreFriends)
-	{
+	public static boolean isCorrectEntity(Object o, boolean ignoreFriends) {
 		// non-entities
-		if(!(o instanceof Entity))
+		if (!(o instanceof Entity))
 			return false;
-		
+
 		// friends
-		if(ignoreFriends && o instanceof EntityPlayer)
-			if(WurstClient.INSTANCE.friends.contains(((EntityPlayer)o)
-				.getName()))
+		if (ignoreFriends && o instanceof EntityPlayer)
+			if (WurstClient.INSTANCE.friends.contains(((EntityPlayer) o)
+					.getName()))
 				return false;
-		
+
 		OptionsManager.Target targetOptions =
-			WurstClient.INSTANCE.options.target;
-		
+				WurstClient.INSTANCE.options.target;
+
 		// invisible entities
-		if(((Entity)o).isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
+		if (((Entity) o).isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
 			return targetOptions.invisible_mobs && o instanceof EntityLiving
-				|| targetOptions.invisible_players && o instanceof EntityPlayer;
-		
+					|| targetOptions.invisible_players && o instanceof EntityPlayer;
+
 		// players
-		if(o instanceof EntityPlayer)
-			return (((EntityPlayer)o).isPlayerSleeping()
-				&& targetOptions.sleeping_players || !((EntityPlayer)o)
-				.isPlayerSleeping() && targetOptions.players)
-				&& (!targetOptions.teams || checkName(((EntityPlayer)o)
+		if (o instanceof EntityPlayer)
+			return (((EntityPlayer) o).isPlayerSleeping()
+					&& targetOptions.sleeping_players || !((EntityPlayer) o)
+					.isPlayerSleeping() && targetOptions.players)
+					&& (!targetOptions.teams || checkName(((EntityPlayer) o)
 					.getDisplayName().getFormattedText()));
-		
+
 		// animals
-		if(o instanceof EntityAgeable || o instanceof EntityAmbientCreature
-			|| o instanceof EntityWaterMob)
+		if (o instanceof EntityAgeable || o instanceof EntityAmbientCreature
+				|| o instanceof EntityWaterMob)
 			return targetOptions.animals
-				&& (!targetOptions.teams || !((Entity)o).hasCustomName() || checkName(((Entity)o)
+					&& (!targetOptions.teams || !((Entity) o).hasCustomName() || checkName(((Entity) o)
 					.getCustomNameTag()));
-		
+
 		// monsters
-		if(o instanceof EntityMob || o instanceof EntitySlime
-			|| o instanceof EntityFlying)
+		if (o instanceof EntityMob || o instanceof EntitySlime
+				|| o instanceof EntityFlying)
 			return targetOptions.monsters
-				&& (!targetOptions.teams || !((Entity)o).hasCustomName() || checkName(((Entity)o)
+					&& (!targetOptions.teams || !((Entity) o).hasCustomName() || checkName(((Entity) o)
 					.getCustomNameTag()));
-		
+
 		// golems
-		if(o instanceof EntityGolem)
-			return targetOptions.golems
-				&& (!targetOptions.teams || !((Entity)o).hasCustomName() || checkName(((Entity)o)
-					.getCustomNameTag()));
-		
-		return false;
+		return o instanceof EntityGolem && targetOptions.golems && (!targetOptions.teams || !((Entity) o).hasCustomName() || checkName(((Entity) o).getCustomNameTag()));
+
 	}
 	
 	private static boolean checkName(String name)
@@ -187,15 +178,14 @@ public class EntityUtils
 		boolean[] teamColors =
 			WurstClient.INSTANCE.options.target.getTeamColorsSafely();
 		for(int i = 0; i < 16; i++)
-			if(teamColors[i] && name.contains("§" + colors[i]))
+			if(teamColors[i] && name.contains("ï¿½" + colors[i]))
 				return true;
 		
 		// unknown color / no color => white
 		return teamColors[15];
 	}
 	
-	public static EntityLivingBase getClosestEntity(boolean ignoreFriends,
-		boolean useFOV)
+	public static EntityLivingBase getClosestEntity(boolean ignoreFriends)
 	{
 		EntityLivingBase closestEntity = null;
 		for(Object o : Minecraft.getMinecraft().theWorld.loadedEntityList)
@@ -222,21 +212,19 @@ public class EntityUtils
 		boolean ignoreFriends, float range)
 	{
 		ArrayList<EntityLivingBase> closeEntities =
-			new ArrayList<EntityLivingBase>();
-		for(Object o : Minecraft.getMinecraft().theWorld.loadedEntityList)
-			if(isCorrectEntity(o, ignoreFriends))
-			{
-				EntityLivingBase en = (EntityLivingBase)o;
-				if(!(o instanceof EntityPlayerSP)
+				new ArrayList<>();
+		Minecraft.getMinecraft().theWorld.loadedEntityList.stream().filter(o -> isCorrectEntity(o, ignoreFriends)).forEach(o -> {
+			EntityLivingBase en = (EntityLivingBase) o;
+			if (!(o instanceof EntityPlayerSP)
 					&& !en.isDead
 					&& en.getHealth() > 0
 					&& Minecraft.getMinecraft().thePlayer.canEntityBeSeen(en)
 					&& !en.getName().equals(
-						Minecraft.getMinecraft().thePlayer.getName())
+					Minecraft.getMinecraft().thePlayer.getName())
 					&& Minecraft.getMinecraft().thePlayer
-						.getDistanceToEntity(en) <= range)
-					closeEntities.add(en);
-			}
+					.getDistanceToEntity(en) <= range)
+				closeEntities.add(en);
+		});
 		return closeEntities;
 	}
 	
@@ -266,7 +254,7 @@ public class EntityUtils
 			{
 				EntityLivingBase en = (EntityLivingBase)o;
 				if(!(o instanceof EntityPlayerSP) && o != friend && !en.isDead
-					&& en.getHealth() <= 0 == false
+					&& en.getHealth() > 0
 					&& Minecraft.getMinecraft().thePlayer.canEntityBeSeen(en))
 					if(closestEnemy == null
 						|| Minecraft.getMinecraft().thePlayer

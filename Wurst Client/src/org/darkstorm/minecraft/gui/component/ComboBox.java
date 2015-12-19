@@ -4,17 +4,17 @@ import org.darkstorm.minecraft.gui.listener.ComboBoxListener;
 
 public interface ComboBox extends Component, SelectableComponent
 {
-	public String[] getElements();
+	String[] getElements();
 	
-	public void setElements(String... elements);
+	void setElements(String... elements);
 	
-	public int getSelectedIndex();
+	int getSelectedIndex();
 	
-	public void setSelectedIndex(int selectedIndex);
+	void setSelectedIndex(int selectedIndex);
 	
-	public String getSelectedElement();
+	String getSelectedElement();
 	
-	public void addComboBoxListener(ComboBoxListener listener);
+	void addComboBoxListener(ComboBoxListener listener);
 	
-	public void removeComboBoxListener(ComboBoxListener listener);
+	void removeComboBoxListener(ComboBoxListener listener);
 }

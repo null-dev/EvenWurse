@@ -5,21 +5,21 @@ import org.darkstorm.minecraft.gui.layout.LayoutManager;
 
 public interface Container extends Component
 {
-	public LayoutManager getLayoutManager();
+	LayoutManager getLayoutManager();
 	
-	public void setLayoutManager(LayoutManager layoutManager);
+	void setLayoutManager(LayoutManager layoutManager);
 	
-	public Component[] getChildren();
+	Component[] getChildren();
 	
-	public void add(Component child, Constraint... constraints);
+	void add(Component child, Constraint... constraints);
 	
-	public Constraint[] getConstraints(Component child);
+	Constraint[] getConstraints(Component child);
 	
-	public Component getChildAt(int x, int y);
+	Component getChildAt(int x, int y);
 	
-	public boolean hasChild(Component component);
+	boolean hasChild(Component component);
 	
-	public boolean remove(Component child);
+	boolean remove(Component child);
 	
-	public void layoutChildren();
+	void layoutChildren();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -27,8 +27,6 @@ public class WmsCmd extends Cmd
 		else if(args[0].equalsIgnoreCase("echo") && args.length == 2)
 		{
 			String message = args[1];
-			for(int i = 2; i < args.length; i++)
-				message += " " + args[i];
 			WurstClient.INSTANCE.chat.cmd(message);
 		}else
 			syntaxError();

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,32 +8,24 @@
  */
 package tk.wurst_client.update;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import tk.wurst_client.WurstClient;
-import tk.wurst_client.utils.JsonUtils;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import tk.wurst_client.WurstClient;
+import tk.wurst_client.utils.JsonUtils;
+
+import javax.net.ssl.HttpsURLConnection;
+import java.io.*;
+import java.net.URL;
 
 public class Updater
 {
 	private static final Logger logger = LogManager.getLogger();
 	private boolean outdated;
 	private JsonArray json;
-	private JsonObject latestRelease;
-	
+
 	private String currentVersion;
 	private int currentMajor;
 	private int currentMinor;
@@ -93,11 +85,11 @@ public class Updater
 				new BufferedReader(new InputStreamReader(
 					connection.getInputStream()));
 			String content = load.readLine();
-			for(String line = ""; (line = load.readLine()) != null;)
+			for(String line; (line = load.readLine()) != null;)
 				content += "\n" + line;
 			load.close();
 			json = JsonUtils.jsonParser.parse(content).getAsJsonArray();
-			latestRelease = new JsonObject();
+			JsonObject latestRelease = new JsonObject();
 			for(JsonElement release : json)
 				if(!release.getAsJsonObject().get("prerelease").getAsBoolean()
 					|| currentPreRelease > 0)
@@ -157,25 +149,13 @@ public class Updater
 		}
 	}
 	
-	private boolean isLatestVersionHigher()
-	{
-		if(latestMajor > currentMajor)
-			return true;
-		else if(latestMajor < currentMajor)
-			return false;
-		else if(latestMinor > currentMinor)
-			return true;
-		else if(latestMinor < currentMinor)
-			return false;
-		else if(latestPatch > currentPatch)
-			return true;
-		else if(latestPatch < currentPatch)
-			return false;
-		else if(latestPreRelease > currentPreRelease || latestPreRelease == 0
-			&& currentPreRelease > 0)
-			return true;
-		else
-			return false;
+	private boolean isLatestVersionHigher() {
+		return latestMajor > currentMajor
+				|| latestMajor >= currentMajor
+				&& (latestMinor > currentMinor || latestMinor >= currentMinor
+				&& (latestPatch > currentPatch || latestPatch >= currentPatch
+				&& (latestPreRelease > currentPreRelease || latestPreRelease == 0
+				&& currentPreRelease > 0)));
 	}
 	
 	public void update()

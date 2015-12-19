@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 | Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,21 +8,7 @@
  */
 package tk.wurst_client.gui.main;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glEnable;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.ConcurrentModificationException;
-
-import javax.net.ssl.HttpsURLConnection;
-
+import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -32,18 +18,24 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.util.xml.XMLElement;
 import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.gui.alts.GuiAlts;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
-import com.google.gson.JsonObject;
+import javax.net.ssl.HttpsURLConnection;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.ConcurrentModificationException;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class GuiWurstMainMenu extends GuiMainMenu
 {
@@ -69,29 +61,24 @@ public class GuiWurstMainMenu extends GuiMainMenu
 	
 	private void downloadWurstNews()
 	{
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				try
-				{
-					HttpsURLConnection connection =
-						(HttpsURLConnection)new URL(
-							"https://www.wurst-client.tk/news/feed.xml")
-							.openConnection();
-					connection.connect();
-					XMLElement xml =
-						new XMLParser().parse("", connection.getInputStream());
-					news =
-						xml.getChildrenByName("channel").get(0)
-							.getChildrenByName("item");
-				}catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}).start();
+		new Thread(() -> {
+            try
+            {
+                HttpsURLConnection connection =
+                    (HttpsURLConnection)new URL(
+                        "https://www.wurst-client.tk/news/feed.xml")
+                        .openConnection();
+                connection.connect();
+                XMLElement xml =
+                    new XMLParser().parse("", connection.getInputStream());
+                news =
+                    xml.getChildrenByName("channel").get(0)
+                        .getChildrenByName("item");
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }).start();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -122,42 +109,34 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		
 		// news
 		newsTicker = "";
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				// wait for news to load
-				while(news == null)
-					try
-					{
-						Thread.sleep(50);
-					}catch(InterruptedException e1)
-					{
-						e1.printStackTrace();
-					}
-				
-				// build news ticker
-				try
-				{
-					for(int i = 0; i < news.size(); i++)
-						newsTicker +=
-							news.get(i).getChildrenByName("title").get(0)
-								.getContent()
-								+ "§e+++§r";
-				}catch(ConcurrentModificationException e)
-				{	
-					
-				}
-				newsWidth = fontRendererObj.getStringWidth(newsTicker);
-				// divide by zero fix
-				if(newsWidth % 50 == 0)
-					newsWidth++;
-				while(fontRendererObj.getStringWidth(newsTicker) < Math.max(
-					width * 2, newsWidth * 2) && !newsTicker.isEmpty())
-					newsTicker += newsTicker;
-			}
-		}).start();
+		new Thread(() -> {
+            // wait for news to load
+            while(news == null)
+                try
+                {
+                    Thread.sleep(50);
+                }catch(InterruptedException e1)
+                {
+                    e1.printStackTrace();
+                }
+
+            // build news ticker
+            try
+            {
+                for(int i = 0; i < news.size(); i++)
+                    newsTicker +=
+                        news.get(i).getChildrenByName("title").get(0)
+                            .getContent()
+                            + "ï¿½e+++ï¿½r";
+            }catch(ConcurrentModificationException ignored) {}
+            newsWidth = fontRendererObj.getStringWidth(newsTicker);
+            // divide by zero fix
+            if(newsWidth % 50 == 0)
+                newsWidth++;
+            while(fontRendererObj.getStringWidth(newsTicker) < Math.max(
+                width * 2, newsWidth * 2) && !newsTicker.isEmpty())
+                newsTicker += newsTicker;
+        }).start();
 	}
 	
 	@Override
@@ -232,6 +211,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		worldRenderer.addVertexWithUV(x + 0, y + 0, zLevel, (u + 0) / 256D,
 			(v + 0) / 256D);
 		tessellator.draw();
+		//noinspection MagicConstant (I have no idea where this comes from :/)
 		if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER)
 		{
 			mc.getTextureManager().bindTexture(santaHat);
@@ -293,7 +273,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 			8, 8, 0xffffff);
 		drawString(fontRendererObj, "Copyright Alexander01998", 8, 18, 0xffffff);
 		drawString(fontRendererObj, "All rights reserved.", 8, 28, 0xffffff);
-		drawCenteredString(fontRendererObj, "§nwww.Wurst-Client.tk", width / 2,
+		drawCenteredString(fontRendererObj, "ï¿½nwww.Wurst-Client.tk", width / 2,
 			height - 26, 0xffffff);
 		
 		// buttons
@@ -334,14 +314,11 @@ public class GuiWurstMainMenu extends GuiMainMenu
 				height - 10, -1);
 		
 		// tooltips
-		for(int i = 0; i < buttonList.size(); i++)
-		{
-			GuiButton button = (GuiButton)buttonList.get(i);
-			if(button.isMouseOver())
-			{
+		for (Object aButtonList : buttonList) {
+			GuiButton button = (GuiButton) aButtonList;
+			if (button.isMouseOver()) {
 				ArrayList<String> tooltip = new ArrayList<>();
-				switch(button.id)
-				{
+				switch (button.id) {
 					case 20:
 						tooltip.add("Wurst YouTube Channel");
 						break;
@@ -412,7 +389,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		throws IOException
 	{
 		super.mouseClicked(mouseX, mouseY, mouseButton);
-		int linkWidth = fontRendererObj.getStringWidth("§nwww.Wurst-Client.tk");
+		int linkWidth = fontRendererObj.getStringWidth("ï¿½nwww.Wurst-Client.tk");
 		
 		if(mouseButton == 0 && mouseY >= height - 26 && mouseY < height - 16
 			&& mouseX > width / 2 - linkWidth / 2

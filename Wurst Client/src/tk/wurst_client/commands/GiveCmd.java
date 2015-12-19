@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -42,7 +42,7 @@ public class GiveCmd extends Cmd
 	private ItemTemplate[] templates =
 		new ItemTemplate[]{
 			new ItemTemplate("Knockback Stick", Items.stick,
-				"{ench:[{id:19, lvl:12}], display:{Name:§6Knockback Stick},"
+				"{ench:[{id:19, lvl:12}], display:{Name:ï¿½6Knockback Stick},"
 					+ "HideFlags:63}"),
 			
 			new ItemTemplate("One Hit Sword", Items.diamond_sword,
@@ -50,13 +50,13 @@ public class GiveCmd extends Cmd
 					+ "{AttributeName:generic.attackDamage,"
 					+ "Name:generic.attackDamage, Amount:2147483647,"
 					+ "Operation:0, UUIDMost:246216, UUIDLeast:24636}"
-					+ "], display:{Name:§6One Hitter}, Unbreakable:1,"
+					+ "], display:{Name:ï¿½6One Hitter}, Unbreakable:1,"
 					+ "HideFlags:63}"),
 			
 			new ItemTemplate("Super Bow", Items.bow, "{ench:["
 				+ "{id:48, lvl:32767}, {id:49, lvl:5}, {id:50, lvl:1},"
 				+ "{id:51, lvl:1}"
-				+ "], display:{Name:§6Super Bow}, HideFlags:63}"),
+				+ "], display:{Name:ï¿½6Super Bow}, HideFlags:63}"),
 			
 			new ItemTemplate(
 				"Super Thorns Chestplate",
@@ -67,7 +67,7 @@ public class GiveCmd extends Cmd
 					+ "], AttributeModifiers:["
 					+ "{AttributeName:generic.maxHealth, Name:generic.maxHealth,"
 					+ "Amount:200, Operation:0, UUIDMost:43631, UUIDLeast:2641}"
-					+ "], display:{Name:§6Super Thorns Chestplate}, HideFlags:63,"
+					+ "], display:{Name:ï¿½6Super Thorns Chestplate}, HideFlags:63,"
 					+ "Unbreakable:1}"),
 			
 			new ItemTemplate("Super Potion", Items.potionitem,
@@ -79,12 +79,12 @@ public class GiveCmd extends Cmd
 					+ "{Id:8, Amplifier:3, Duration:2147483647},"
 					+ "{Id:1, Amplifier:5, Duration:2147483647},"
 					+ "{Id:5, Amplifier:127, Duration:2147483647}],"
-					+ "display:{Name:§6Super Potion}, HideFlags:63}"),
+					+ "display:{Name:ï¿½6Super Potion}, HideFlags:63}"),
 			
 			new ItemTemplate("Griefer Potion", Items.potionitem,
 				"{CustomPotionEffects:["
 					+ "{Id:3, Amplifier:127, Duration:2147483647}"
-					+ "], display:{Name:§6Griefer Potion}, HideFlags:63}")};
+					+ "], display:{Name:ï¿½6Griefer Potion}, HideFlags:63}")};
 	
 	private int parseAmount(Item item, String input) throws Error
 	{
@@ -110,17 +110,17 @@ public class GiveCmd extends Cmd
 		// list all templates
 		if(args[0].equalsIgnoreCase("templates"))
 		{
-			WurstClient.INSTANCE.chat.message("§cItem templates:");
+			WurstClient.INSTANCE.chat.message("ï¿½cItem templates:");
 			for(int i = 0; i < templates.length; i++)
 			{
 				ItemTemplate template = templates[i];
-				WurstClient.INSTANCE.chat.message("§c" + (i + 1) + "§c: §6"
+				WurstClient.INSTANCE.chat.message("ï¿½c" + (i + 1) + "ï¿½c: ï¿½6"
 					+ template.name);
 			}
 			return;
 		}
 		
-		Item item = null;
+		Item item;
 		int amount = 1;
 		int metadata = 0;
 		String nbt = null;

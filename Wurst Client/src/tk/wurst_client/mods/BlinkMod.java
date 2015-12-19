@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,13 +8,13 @@
  */
 package tk.wurst_client.mods;
 
-import java.util.ArrayList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.network.Packet;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+
+import java.util.ArrayList;
 
 @Info(category = Category.MOVEMENT,
 	description = "Suspends all motion updates while enabled.\n"
@@ -22,7 +22,7 @@ import tk.wurst_client.mods.Mod.Info;
 	name = "Blink")
 public class BlinkMod extends Mod
 {
-	private static ArrayList<Packet> packets = new ArrayList<Packet>();
+	private static ArrayList<Packet> packets = new ArrayList<>();
 	private EntityOtherPlayerMP fakePlayer = null;
 	private double oldX;
 	private double oldY;

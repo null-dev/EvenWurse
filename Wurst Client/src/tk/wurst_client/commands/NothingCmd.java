@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,8 +16,5 @@ import tk.wurst_client.commands.Cmd.Info;
 public class NothingCmd extends Cmd
 {
 	@Override
-	public void execute(String[] args) throws Error
-	{	
-		
-	}
+	public void execute(String[] args) throws Error {}
 }

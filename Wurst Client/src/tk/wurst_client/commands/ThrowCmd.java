@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -24,7 +24,7 @@ public class ThrowCmd extends Cmd
 		{
 			WurstClient.INSTANCE.mods.throwMod.toggle();
 			WurstClient.INSTANCE.chat.message("Throw turned "
-				+ (WurstClient.INSTANCE.mods.throwMod.isEnabled() == true
+				+ (WurstClient.INSTANCE.mods.throwMod.isEnabled()
 					? "on" : "off") + ".");
 		}else if(args.length == 2 && args[0].equalsIgnoreCase("amount")
 			&& MiscUtils.isInteger(args[1]))

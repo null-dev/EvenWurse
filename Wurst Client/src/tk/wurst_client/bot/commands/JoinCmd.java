@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -21,17 +21,12 @@ public class JoinCmd extends Command
 	{
 		if(args.length != 1)
 			syntaxError();
-		Minecraft.getMinecraft().addScheduledTask(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				Minecraft.getMinecraft().displayGuiScreen(
-					new GuiConnecting(new GuiWurstMainMenu(), Minecraft
-						.getMinecraft(), new ServerData("", args[0])));
-				System.out.println("Joined " + args[0] + " as "
-					+ Minecraft.getMinecraft().session.getUsername());
-			}
-		});
+		Minecraft.getMinecraft().addScheduledTask(() -> {
+            Minecraft.getMinecraft().displayGuiScreen(
+                new GuiConnecting(new GuiWurstMainMenu(), Minecraft
+                    .getMinecraft(), new ServerData("", args[0])));
+            System.out.println("Joined " + args[0] + " as "
+                + Minecraft.getMinecraft().session.getUsername());
+        });
 	}
 }

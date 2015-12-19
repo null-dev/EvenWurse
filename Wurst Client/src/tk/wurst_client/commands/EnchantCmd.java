@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -36,10 +36,7 @@ public class EnchantCmd extends Cmd
 					if(enchantment == Enchantment.silkTouch)
 						continue;
 					currentItem.addEnchantment(enchantment, 127);
-				}catch(Exception e)
-				{	
-					
-				}
+				}catch(Exception ignored) {}
 		}else if(args[0].equals("all"))
 		{
 			int items = 0;
@@ -57,10 +54,7 @@ public class EnchantCmd extends Cmd
 						if(enchantment == Enchantment.silkTouch)
 							continue;
 						currentItem.addEnchantment(enchantment, 127);
-					}catch(Exception e)
-					{	
-						
-					}
+					}catch(Exception ignored) {}
 			}
 			if(items == 1)
 				WurstClient.INSTANCE.chat.message("Enchanted 1 item.");

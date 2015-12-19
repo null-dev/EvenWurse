@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,7 +8,8 @@
  */
 package tk.wurst_client.java8check;
 
-import java.awt.Desktop;
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +17,9 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.Base64;
 
-import javax.swing.JOptionPane;
-
+/**
+ * TODO Is this seriously needed? I believe old version of Java will not even run Java 8 bytecode :/
+ */
 public class Java8Checker
 {
 	public static void checkJavaVersion()
@@ -44,7 +46,7 @@ public class Java8Checker
 				reader.close();
 				
 				message =
-					message.replace("§currentjava",
+					message.replace("ï¿½currentjava",
 						System.getProperty("java.version"));
 			}catch(IOException e1)
 			{

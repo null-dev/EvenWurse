@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -30,7 +30,7 @@ public class AutoRespawnMod extends Mod implements DeathListener
 	public void onDeath()
 	{
 		Minecraft.getMinecraft().thePlayer.respawnPlayer();
-		GuiScreen.mc.displayGuiScreen((GuiScreen)null);
+		GuiScreen.mc.displayGuiScreen(null);
 	}
 	
 	@Override

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -77,7 +77,7 @@ public class NukerCmd extends Cmd
 					+ "\" could not be found.");
 				return;
 			}
-			NukerMod.id = Integer.valueOf(newID);
+			NukerMod.id = newID;
 			WurstClient.INSTANCE.files.saveOptions();
 			WurstClient.INSTANCE.chat.message("Nuker ID set to " + newID + " ("
 				+ args[1] + ").");

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -29,8 +29,6 @@ import tk.wurst_client.utils.BlockUtils;
 public class SpeedNukerMod extends Mod implements LeftClickListener,
 	UpdateListener
 {
-	private static Block currentBlock;
-	private BlockPos pos;
 	private int oldSlot = -1;
 	
 	@Override
@@ -92,17 +90,15 @@ public class SpeedNukerMod extends Mod implements LeftClickListener,
 			}
 			return;
 		}
-		pos = newPos;
-		currentBlock =
-			Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
+		Block currentBlock = Minecraft.getMinecraft().theWorld.getBlockState(newPos).getBlock();
 		if(WurstClient.INSTANCE.mods.autoToolMod.isActive() && oldSlot == -1)
 			oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
 			&& WurstClient.INSTANCE.mods.autoToolMod.isActive()
 			&& currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
-				Minecraft.getMinecraft().theWorld, pos) < 1)
-			AutoToolMod.setSlot(pos);
+				Minecraft.getMinecraft().theWorld, newPos) < 1)
+			AutoToolMod.setSlot(newPos);
 		nukeAll();
 	}
 	

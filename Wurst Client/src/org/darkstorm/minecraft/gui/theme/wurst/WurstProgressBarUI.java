@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,17 +8,14 @@
  */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Rectangle;
-
 import net.minecraft.client.gui.FontRenderer;
-
 import org.darkstorm.minecraft.gui.component.ProgressBar;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar>
 {
@@ -79,7 +76,7 @@ public class WurstProgressBarUI extends AbstractComponentUI<ProgressBar>
 			case INTEGER:
 				content =
 					String.format("%,d",
-						Long.valueOf(Math.round(component.getValue())));
+							Math.round(component.getValue()));
 				break;
 			case PERCENTAGE:
 				int percent =

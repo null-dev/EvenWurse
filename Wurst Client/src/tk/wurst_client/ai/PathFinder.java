@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,21 +8,17 @@
  */
 package tk.wurst_client.ai;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.PriorityQueue;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
+
+import java.util.*;
 
 public class PathFinder
 {
 	private BlockPos goal;
 	private PriorityQueue<PathPoint> queue;
 	private HashMap<BlockPos, PathPoint> processed =
-		new HashMap<BlockPos, PathPoint>();
+			new HashMap<>();
 	private PathPoint lastPoint;
 	
 	public PathFinder(BlockPos goal)
@@ -33,25 +29,20 @@ public class PathFinder
 	public PathFinder(BlockPos start, BlockPos goal)
 	{
 		this.goal = goal;
-		queue = new PriorityQueue<PathPoint>(new Comparator<PathPoint>()
-		{
-			@Override
-			public int compare(PathPoint o1, PathPoint o2)
-			{
-				if(o1.getPriority() < o2.getPriority())
-					return -1;
-				else if(o1.getPriority() > o2.getPriority())
-					return 1;
-				else if(getDistance(o1.getPos(), PathFinder.this.goal) < getDistance(
-					o2.getPos(), PathFinder.this.goal))
-					return -1;
-				else if(getDistance(o1.getPos(), PathFinder.this.goal) > getDistance(
-					o2.getPos(), PathFinder.this.goal))
-					return 1;
-				else
-					return 0;
-			}
-		});
+		queue = new PriorityQueue<>((Comparator<PathPoint>) (o1, o2) -> {
+            if (o1.getPriority() < o2.getPriority())
+                return -1;
+            else if (o1.getPriority() > o2.getPriority())
+                return 1;
+            else if (getDistance(o1.getPos(), PathFinder.this.goal) < getDistance(
+                    o2.getPos(), PathFinder.this.goal))
+                return -1;
+            else if (getDistance(o1.getPos(), PathFinder.this.goal) > getDistance(
+                    o2.getPos(), PathFinder.this.goal))
+                return 1;
+            else
+                return 0;
+        });
 		addPoint(start, null, 0, 0);
 	}
 	
@@ -78,7 +69,7 @@ public class PathFinder
 			{
 				if(!PathUtils.isSafe(next))
 					continue;
-				int nextCost = PathUtils.getCost(lastPoint.getPos(), next);
+				int nextCost = PathUtils.getCost(next);
 				int newCost = lastPoint.getMovementCost() + nextCost;
 				if(!processed.containsKey(next)
 					|| processed.get(next).getMovementCost() > newCost)
@@ -109,7 +100,7 @@ public class PathFinder
 	
 	public ArrayList<BlockPos> formatPath()
 	{
-		ArrayList<BlockPos> path = new ArrayList<BlockPos>();
+		ArrayList<BlockPos> path = new ArrayList<>();
 		PathPoint point = lastPoint;
 		while(point != null)
 		{

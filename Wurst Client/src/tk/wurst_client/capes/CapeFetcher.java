@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 | Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,20 +8,19 @@
  */
 package tk.wurst_client.capes;
 
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map.Entry;
-
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mojang.authlib.minecraft.MinecraftProfileTexture;
+import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.SkinManager;
 import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class CapeFetcher implements Runnable
 {
@@ -64,26 +63,21 @@ public class CapeFetcher implements Runnable
 			for(Entry<String, JsonElement> entry : cosmetics.entrySet())
 			{
 				JsonObject playerCosmetics = entry.getValue().getAsJsonObject();
-				Minecraft.getMinecraft().addScheduledTask(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						SkinManager skinManager =
-							Minecraft.getMinecraft().getSkinManager();
-						if(playerCosmetics.has("skin"))
-							
-							skinManager.loadSkin(
-								new MinecraftProfileTexture(playerCosmetics
-									.get("skin").getAsString(), null),
-								Type.SKIN, callbacks.get(entry.getKey()));
-						if(playerCosmetics.has("cape"))
-							skinManager.loadSkin(
-								new MinecraftProfileTexture(playerCosmetics
-									.get("cape").getAsString(), null),
-								Type.CAPE, callbacks.get(entry.getKey()));
-					}
-				});
+				Minecraft.getMinecraft().addScheduledTask(() -> {
+                    SkinManager skinManager =
+                        Minecraft.getMinecraft().getSkinManager();
+                    if(playerCosmetics.has("skin"))
+
+                        skinManager.loadSkin(
+                            new MinecraftProfileTexture(playerCosmetics
+                                .get("skin").getAsString(), null),
+                            Type.SKIN, callbacks.get(entry.getKey()));
+                    if(playerCosmetics.has("cape"))
+                        skinManager.loadSkin(
+                            new MinecraftProfileTexture(playerCosmetics
+                                .get("cape").getAsString(), null),
+                            Type.CAPE, callbacks.get(entry.getKey()));
+                });
 			}
 		}catch(Exception e)
 		{

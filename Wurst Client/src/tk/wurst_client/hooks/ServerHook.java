@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 | Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,19 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.hooks;
-
-import java.awt.Component;
-import java.awt.HeadlessException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry;
@@ -31,6 +18,11 @@ import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.utils.MiscUtils;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.io.*;
 
 public class ServerHook
 {
@@ -63,7 +55,7 @@ public class ServerHook
 				File file = fileChooser.getSelectedFile();
 				BufferedReader load = new BufferedReader(new FileReader(file));
 				int i = 0;
-				for(String line = ""; (line = load.readLine()) != null;)
+				for(String line; (line = load.readLine()) != null;)
 				{
 					i++;
 					guiMultiplayer.savedServerList

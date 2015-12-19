@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -28,9 +28,7 @@ public class PanicMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
-			if(mod.getCategory() != Category.HIDDEN && mod.isEnabled())
-				mod.setEnabled(false);
+		WurstClient.INSTANCE.mods.getAllMods().stream().filter(mod -> mod.getCategory() != Category.HIDDEN && mod.isEnabled()).forEach(mod -> mod.setEnabled(false));
 	}
 	
 	@Override

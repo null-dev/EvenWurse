@@ -1,8 +1,8 @@
 package tk.wurst_client.analytics;
 
-import java.security.SecureRandom;
-
 import tk.wurst_client.WurstClient;
+
+import java.security.SecureRandom;
 
 public class VisitorData
 {
@@ -52,8 +52,7 @@ public class VisitorData
 	
 	private static long now()
 	{
-		long now = System.currentTimeMillis() / 1000L;
-		return now;
+		return System.currentTimeMillis() / 1000L;
 	}
 	
 	public int getVisitorId()

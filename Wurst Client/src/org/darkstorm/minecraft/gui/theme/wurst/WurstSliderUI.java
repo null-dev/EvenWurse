@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,22 +8,17 @@
  */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import net.minecraft.client.gui.FontRenderer;
-
 import org.darkstorm.minecraft.gui.component.Container;
 import org.darkstorm.minecraft.gui.component.Slider;
 import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
-
 import tk.wurst_client.WurstClient;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class WurstSliderUI extends AbstractComponentUI<Slider>
 {
@@ -70,12 +65,12 @@ public class WurstSliderUI extends AbstractComponentUI<Slider>
 			case INTEGER:
 				content =
 					String.format("%,d",
-						Long.valueOf(Math.round(component.getValue())));
+							Math.round(component.getValue()));
 				break;
 			case DEGREES:
 				content =
-				String.format("%,d°",
-					Long.valueOf(Math.round(component.getValue())));
+				String.format("%,dï¿½",
+						Math.round(component.getValue()));
 				break;
 			case PERCENTAGE:
 				int percent =

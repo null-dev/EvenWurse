@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,9 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.mods;
-
-import java.awt.Color;
-import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -20,6 +17,9 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
+
+import java.awt.*;
+import java.util.ArrayList;
 
 @Info(category = Category.RENDER,
 	description = "Finds player bases by searching for man-made blocks.\n"
@@ -33,10 +33,10 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 		initBlocks();
 	}
 	
-	private ArrayList<Block> naturalBlocks = new ArrayList<Block>();
-	private ArrayList<BlockPos> matchingBlocks = new ArrayList<BlockPos>();
-	private int range = 50;
-	private int maxBlocks = 1024;
+	private ArrayList<Block> naturalBlocks = new ArrayList<>();
+	private ArrayList<BlockPos> matchingBlocks = new ArrayList<>();
+	private static final int RANGE = 50;
+	private static final int MAX_BLOCKS = 1024;
 	private boolean shouldInform = true;
 	
 	@Override
@@ -61,11 +61,11 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 		if(hasTimePassedM(3000))
 		{
 			matchingBlocks.clear();
-			for(int y = range; y >= -range; y--)
+			for(int y = RANGE; y >= -RANGE; y--)
 			{
-				for(int x = range; x >= -range; x--)
+				for(int x = RANGE; x >= -RANGE; x--)
 				{
-					for(int z = range; z >= -range; z--)
+					for(int z = RANGE; z >= -RANGE; z--)
 					{
 						int posX =
 							(int)(Minecraft.getMinecraft().thePlayer.posX + x);
@@ -78,24 +78,24 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 							.contains(Minecraft.getMinecraft().theWorld
 								.getBlockState(pos).getBlock()))
 							matchingBlocks.add(pos);
-						if(matchingBlocks.size() >= maxBlocks)
+						if(matchingBlocks.size() >= MAX_BLOCKS)
 							break;
 					}
-					if(matchingBlocks.size() >= maxBlocks)
+					if(matchingBlocks.size() >= MAX_BLOCKS)
 						break;
 				}
-				if(matchingBlocks.size() >= maxBlocks)
+				if(matchingBlocks.size() >= MAX_BLOCKS)
 					break;
 			}
-			if(matchingBlocks.size() >= maxBlocks && shouldInform)
+			if(matchingBlocks.size() >= MAX_BLOCKS && shouldInform)
 			{
 				WurstClient.INSTANCE.chat.warning(getName()
-					+ " found §lA LOT§r of blocks.");
+					+ " found ï¿½lA LOTï¿½r of blocks.");
 				WurstClient.INSTANCE.chat
 					.message("To prevent lag, it will only show the first "
-						+ maxBlocks + " blocks.");
+						+ MAX_BLOCKS + " blocks.");
 				shouldInform = false;
-			}else if(matchingBlocks.size() < maxBlocks)
+			}else if(matchingBlocks.size() < MAX_BLOCKS)
 				shouldInform = true;
 			updateLastMS();
 		}

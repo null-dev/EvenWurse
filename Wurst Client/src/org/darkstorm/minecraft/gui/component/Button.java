@@ -6,17 +6,17 @@ import tk.wurst_client.mods.Mod;
 
 public interface Button extends Component, TextComponent
 {
-	public void press();
+	void press();
 	
-	public void addButtonListener(ButtonListener listener);
+	void addButtonListener(ButtonListener listener);
 	
-	public void removeButtonListener(ButtonListener listener);
+	void removeButtonListener(ButtonListener listener);
 	
-	public ButtonGroup getGroup();
+	ButtonGroup getGroup();
 	
-	public void setGroup(ButtonGroup group);
+	void setGroup(ButtonGroup group);
 	
-	public String getDescription();
+	String getDescription();
 	
-	public Mod getMod();
+	Mod getMod();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,8 +8,6 @@
  */
 package tk.wurst_client.mods;
 
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
@@ -17,6 +15,8 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.BlockUtils;
+
+import java.util.Random;
 
 @Info(name = "AntiAFK",
 	description = "Walks around randomly to hide you from AFK detectors.\n"
@@ -55,11 +55,7 @@ public class AntiAfkMod extends Mod implements UpdateListener
 			updateLastMS();
 		}
 		BlockUtils.faceBlockClientHorizontally(nextBlock);
-		if(BlockUtils.getHorizontalPlayerBlockDistance(nextBlock) > 0.75)
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
-		else
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed =
-				false;
+		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = BlockUtils.getHorizontalPlayerBlockDistance(nextBlock) > 0.75;
 	}
 	
 	@Override

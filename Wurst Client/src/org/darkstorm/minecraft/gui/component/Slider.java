@@ -4,15 +4,15 @@ import org.darkstorm.minecraft.gui.listener.SliderListener;
 
 public interface Slider extends Component, TextComponent, BoundedRangeComponent
 {
-	public String getContentSuffix();
+	String getContentSuffix();
 	
-	public boolean isValueChanging();
+	boolean isValueChanging();
 	
-	public void setContentSuffix(String suffix);
+	void setContentSuffix(String suffix);
 	
-	public void setValueChanging(boolean changing);
+	void setValueChanging(boolean changing);
 	
-	public void addSliderListener(SliderListener listener);
+	void addSliderListener(SliderListener listener);
 	
-	public void removeSliderListener(SliderListener listener);
+	void removeSliderListener(SliderListener listener);
 }

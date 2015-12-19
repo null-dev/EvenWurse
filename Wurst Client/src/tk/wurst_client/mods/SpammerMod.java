@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,27 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.mods;
-
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.*;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.BadLocationException;
 
 import net.minecraft.client.Minecraft;
 import tk.wurst_client.WurstClient;
@@ -38,6 +17,20 @@ import tk.wurst_client.spam.SpamProcessor;
 import tk.wurst_client.spam.exceptions.UnreadableTagException;
 import tk.wurst_client.spam.tag.Tag;
 import tk.wurst_client.utils.MiscUtils;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.*;
+import java.util.Iterator;
+import java.util.Map;
 
 @Info(category = Category.CHAT,
 	description = "It's called Spammer, but it's a lot more.\n"
@@ -117,7 +110,7 @@ public class SpammerMod extends Mod
 									new BufferedReader(new InputStreamReader(
 										new FileInputStream(file), "UTF-8"));
 								String newspam = load.readLine();
-								for(String line = ""; (line = load.readLine()) != null;)
+								for(String line; (line = load.readLine()) != null;)
 									newspam += "\n" + line;
 								load.close();
 								spamArea.setText(newspam);
@@ -178,80 +171,56 @@ public class SpammerMod extends Mod
 				fileMenu.add(fileSave);
 				fileMenu.add(new JSeparator());
 				JMenuItem fileOpenFolder = new JMenuItem("Open spam folder");
-				fileOpenFolder.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						MiscUtils.openFile(WurstClient.INSTANCE.files.spamDir);
-					}
-				});
+				fileOpenFolder.addActionListener(e -> MiscUtils.openFile(WurstClient.INSTANCE.files.spamDir));
 				fileMenu.add(fileOpenFolder);
 				menubar.add(fileMenu);
 				JMenuItem fileOpenLink = new JMenuItem("Get more spam online");
-				fileOpenLink.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						MiscUtils
-							.openLink("https://www.wurst-client.tk/downloads/wspam/");
-					}
-				});
+				fileOpenLink.addActionListener(e -> MiscUtils
+                    .openLink("https://www.wurst-client.tk/downloads/wspam/"));
 				fileMenu.add(fileOpenLink);
 				menubar.add(fileMenu);
 				
 				JMenu editMenu = new JMenu("Edit");
 				JMenuItem editNewVar = new JMenuItem("New variable");
-				editNewVar.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						final JDialog editDialog =
-							new JDialog(dialog, "New variable");
-						JPanel mainPanel = new JPanel();
-						mainPanel.setLayout(new BoxLayout(mainPanel,
-							BoxLayout.Y_AXIS));
-						JPanel namePanel = new JPanel();
-						JLabel nameLabel = new JLabel("Variable name");
-						namePanel.add(nameLabel);
-						final JTextField nameField = new JTextField(16);
-						namePanel.add(nameField);
-						mainPanel.add(namePanel);
-						JPanel valuePanel = new JPanel();
-						JLabel valueLabel = new JLabel("Variable value");
-						valuePanel.add(valueLabel);
-						final JTextField valueField = new JTextField(16);
-						valuePanel.add(valueField);
-						mainPanel.add(valuePanel);
-						JPanel createPanel = new JPanel();
-						JButton createButton = new JButton("Create variable");
-						createButton.addActionListener(new ActionListener()
-						{
-							@Override
-							public void actionPerformed(ActionEvent e)
-							{
-								updateSpam();
-								spamArea.setText("<var "
-									+ (nameField.getText().isEmpty()
-										? "undefined" : nameField.getText())
-									+ ">"
-									+ (valueField.getText().isEmpty()
-										? "undefined" : valueField.getText())
-									+ "</var><!--\n-->" + spam);
-								editDialog.dispose();
-							}
-						});
-						createPanel.add(createButton);
-						mainPanel.add(createPanel);
-						editDialog.setContentPane(mainPanel);
-						editDialog.pack();
-						editDialog.setLocationRelativeTo(dialog);
-						editDialog.setAlwaysOnTop(true);
-						editDialog.setVisible(true);
-					}
-				});
+				editNewVar.addActionListener(e -> {
+                    final JDialog editDialog =
+                        new JDialog(dialog, "New variable");
+                    JPanel mainPanel = new JPanel();
+                    mainPanel.setLayout(new BoxLayout(mainPanel,
+                        BoxLayout.Y_AXIS));
+                    JPanel namePanel = new JPanel();
+                    JLabel nameLabel = new JLabel("Variable name");
+                    namePanel.add(nameLabel);
+                    final JTextField nameField = new JTextField(16);
+                    namePanel.add(nameField);
+                    mainPanel.add(namePanel);
+                    JPanel valuePanel = new JPanel();
+                    JLabel valueLabel = new JLabel("Variable value");
+                    valuePanel.add(valueLabel);
+                    final JTextField valueField = new JTextField(16);
+                    valuePanel.add(valueField);
+                    mainPanel.add(valuePanel);
+                    JPanel createPanel = new JPanel();
+                    JButton createButton = new JButton("Create variable");
+                    createButton.addActionListener(e1 -> {
+                        updateSpam();
+                        spamArea.setText("<var "
+                            + (nameField.getText().isEmpty()
+                                ? "undefined" : nameField.getText())
+                            + ">"
+                            + (valueField.getText().isEmpty()
+                                ? "undefined" : valueField.getText())
+                            + "</var><!--\n-->" + spam);
+                        editDialog.dispose();
+                    });
+                    createPanel.add(createButton);
+                    mainPanel.add(createPanel);
+                    editDialog.setContentPane(mainPanel);
+                    editDialog.pack();
+                    editDialog.setLocationRelativeTo(dialog);
+                    editDialog.setAlwaysOnTop(true);
+                    editDialog.setVisible(true);
+                });
 				editMenu.add(editNewVar);
 				menubar.add(editMenu);
 				
@@ -259,107 +228,85 @@ public class SpammerMod extends Mod
 				JCheckBoxMenuItem viewFont =
 					new JCheckBoxMenuItem("Simulate ingame font",
 						WurstClient.INSTANCE.options.spamFont);
-				viewFont.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						WurstClient.INSTANCE.options.spamFont =
-							!WurstClient.INSTANCE.options.spamFont;
-						WurstClient.INSTANCE.files.saveOptions();
-						updateFont();
-					}
-				});
+				viewFont.addActionListener(e -> {
+                    WurstClient.INSTANCE.options.spamFont =
+                        !WurstClient.INSTANCE.options.spamFont;
+                    WurstClient.INSTANCE.files.saveOptions();
+                    updateFont();
+                });
 				viewMenu.add(viewFont);
 				menubar.add(viewMenu);
 				
 				JMenu helpMenu = new JMenu("Help");
 				JMenuItem helpIntro = new JMenuItem("Introduction to WSPAM");
-				helpIntro.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						JOptionPane.showOptionDialog(dialog,
-							new UnreadableTagException("", 0).getHelp(),
-							"Help", JOptionPane.DEFAULT_OPTION,
-							JOptionPane.INFORMATION_MESSAGE, null,
-							new String[]{"OK"}, 0);
-					}
-				});
+				helpIntro.addActionListener(e -> JOptionPane.showOptionDialog(dialog,
+                    new UnreadableTagException("", 0).getHelp(),
+                    "Help", JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE, null,
+                    new String[]{"OK"}, 0));
 				helpMenu.add(helpIntro);
 				JMenuItem helpTaglist = new JMenuItem("Available Tags");
-				helpTaglist.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						JDialog helpDialog =
-							new JDialog(dialog, "Available tags");
-						Object[][] rowData =
-							new Object[SpamProcessor.tagManager.getActiveTags()
-								.size()][3];
-						Iterator itr =
-							SpamProcessor.tagManager.getActiveTags().iterator();
-						for(int i = 0; itr.hasNext(); i++)
-						{
-							Tag tag = (Tag)itr.next();
-							rowData[i][0] = tag.getName();
-							rowData[i][1] = tag.getDescription();
-							rowData[i][2] = tag.getSyntax();
-						}
-						JTable table =
-							new JTable(rowData, new Object[]{"Name",
-								"Description", "Syntax"});
-						table.setDefaultEditor(Object.class, null);
-						table.setFillsViewportHeight(true);
-						table.setCellSelectionEnabled(true);
-						JScrollPane tablePane = new JScrollPane(table);
-						helpDialog.setContentPane(tablePane);
-						helpDialog.pack();
-						helpDialog.setLocationRelativeTo(dialog);
-						helpDialog.setAlwaysOnTop(true);
-						helpDialog.setVisible(true);
-					}
-				});
+				helpTaglist.addActionListener(e -> {
+                    JDialog helpDialog =
+                        new JDialog(dialog, "Available tags");
+                    Object[][] rowData =
+                        new Object[SpamProcessor.tagManager.getActiveTags()
+                            .size()][3];
+                    Iterator itr =
+                        SpamProcessor.tagManager.getActiveTags().iterator();
+                    for(int i = 0; itr.hasNext(); i++)
+                    {
+                        Tag tag = (Tag)itr.next();
+                        rowData[i][0] = tag.getName();
+                        rowData[i][1] = tag.getDescription();
+                        rowData[i][2] = tag.getSyntax();
+                    }
+                    JTable table =
+                        new JTable(rowData, new Object[]{"Name",
+                            "Description", "Syntax"});
+                    table.setDefaultEditor(Object.class, null);
+                    table.setFillsViewportHeight(true);
+                    table.setCellSelectionEnabled(true);
+                    JScrollPane tablePane = new JScrollPane(table);
+                    helpDialog.setContentPane(tablePane);
+                    helpDialog.pack();
+                    helpDialog.setLocationRelativeTo(dialog);
+                    helpDialog.setAlwaysOnTop(true);
+                    helpDialog.setVisible(true);
+                });
 				helpMenu.add(helpTaglist);
 				JMenuItem helpVarlist = new JMenuItem("Pre-defined variables");
-				helpVarlist.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						JDialog helpDialog =
-							new JDialog(dialog, "Pre-defined variables");
-						Object[][] rowData =
-							new Object[SpamProcessor.varManager
-								.getSpammerVars().size()][2];
-						Iterator itr =
-							SpamProcessor.varManager.getSpammerVars()
-								.entrySet().iterator();
-						for(int i = 0; itr.hasNext(); i++)
-						{
-							Map.Entry var = (Map.Entry)itr.next();
-							rowData[i][0] = "§_" + var.getKey() + ";";
-							rowData[i][1] = "\"" + var.getValue() + "\"";
-							if(var.getValue().equals(" "))
-								rowData[i][1] = "\" \" (space)";
-							else if(var.getValue().equals("\n"))
-								rowData[i][1] = "\"\" (line break)";
-						}
-						JTable table =
-							new JTable(rowData, new Object[]{"Name", "Value"});
-						table.setDefaultEditor(Object.class, null);
-						table.setFillsViewportHeight(true);
-						table.setCellSelectionEnabled(true);
-						JScrollPane tablePane = new JScrollPane(table);
-						helpDialog.setContentPane(tablePane);
-						helpDialog.pack();
-						helpDialog.setLocationRelativeTo(dialog);
-						helpDialog.setAlwaysOnTop(true);
-						helpDialog.setVisible(true);
-					}
-				});
+				helpVarlist.addActionListener(e -> {
+                    JDialog helpDialog =
+                        new JDialog(dialog, "Pre-defined variables");
+                    Object[][] rowData =
+                        new Object[SpamProcessor.varManager
+                            .getSpammerVars().size()][2];
+                    Iterator itr =
+                        SpamProcessor.varManager.getSpammerVars()
+                            .entrySet().iterator();
+                    for(int i = 0; itr.hasNext(); i++)
+                    {
+                        Map.Entry var = (Map.Entry)itr.next();
+                        rowData[i][0] = "ï¿½_" + var.getKey() + ";";
+                        rowData[i][1] = "\"" + var.getValue() + "\"";
+                        if(var.getValue().equals(" "))
+                            rowData[i][1] = "\" \" (space)";
+                        else if(var.getValue().equals("\n"))
+                            rowData[i][1] = "\"\" (line break)";
+                    }
+                    JTable table =
+                        new JTable(rowData, new Object[]{"Name", "Value"});
+                    table.setDefaultEditor(Object.class, null);
+                    table.setFillsViewportHeight(true);
+                    table.setCellSelectionEnabled(true);
+                    JScrollPane tablePane = new JScrollPane(table);
+                    helpDialog.setContentPane(tablePane);
+                    helpDialog.pack();
+                    helpDialog.setLocationRelativeTo(dialog);
+                    helpDialog.setAlwaysOnTop(true);
+                    helpDialog.setVisible(true);
+                });
 				helpMenu.add(helpVarlist);
 				menubar.add(helpMenu);
 				
@@ -374,16 +321,11 @@ public class SpammerMod extends Mod
 				delaySpinner =
 					new JSpinner(new SpinnerNumberModel(
 						WurstClient.INSTANCE.options.spamDelay, 0, 3600000, 50));
-				delaySpinner.addChangeListener(new ChangeListener()
-				{
-					@Override
-					public void stateChanged(ChangeEvent e)
-					{
-						WurstClient.INSTANCE.options.spamDelay =
-							(Integer)delaySpinner.getValue();
-						WurstClient.INSTANCE.files.saveOptions();
-					}
-				});
+				delaySpinner.addChangeListener(e -> {
+                    WurstClient.INSTANCE.options.spamDelay =
+                        (Integer)delaySpinner.getValue();
+                    WurstClient.INSTANCE.files.saveOptions();
+                });
 				delaySpinner.setEditor(new JSpinner.NumberEditor(delaySpinner,
 					"#'ms'"));
 				delayPanel.add(delaySpinner);
@@ -420,43 +362,36 @@ public class SpammerMod extends Mod
 				startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 				startButton.setFont(new Font(startButton.getFont().getFamily(),
 					Font.BOLD, 18));
-				startButton.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						new Thread()
-						{
-							@Override
-							public void run()
-							{
-								try
-								{
-									updateSpam();
-									SpamProcessor.process(spam,
-										SpammerMod.this, true);
-									spam =
-										SpamProcessor.process(spam,
-											SpammerMod.this, false);
-									if(spam == null)
-										return;
-									for(int i = 0; i < spam.split("\n").length; i++)
-									{
-										String message = spam.split("\n")[i];
-										Minecraft.getMinecraft().thePlayer
-											.sendAutomaticChatMessage(message);
-										Thread
-											.sleep(WurstClient.INSTANCE.options.spamDelay);
-									}
-								}catch(Exception e)
-								{
-									System.err.println("Exception in Spammer:");
-									e.printStackTrace();
-								}
-							};
-						}.start();
-					}
-				});
+				startButton.addActionListener(e -> new Thread()
+                {
+                    @Override
+                    public void run()
+                    {
+                        try
+                        {
+                            updateSpam();
+                            SpamProcessor.process(spam,
+                                SpammerMod.this, true);
+                            spam =
+                                SpamProcessor.process(spam,
+                                    SpammerMod.this, false);
+                            if(spam == null)
+                                return;
+                            for(int i = 0; i < spam.split("\n").length; i++)
+                            {
+                                String message = spam.split("\n")[i];
+                                Minecraft.getMinecraft().thePlayer
+                                    .sendAutomaticChatMessage(message);
+                                Thread
+                                    .sleep(WurstClient.INSTANCE.options.spamDelay);
+                            }
+                        }catch(Exception e)
+                        {
+                            System.err.println("Exception in Spammer:");
+                            e.printStackTrace();
+                        }
+                    }
+				}.start());
 				panel.add(startButton);
 				
 				dialog.setContentPane(panel);
@@ -531,7 +466,7 @@ public class SpammerMod extends Mod
 	public void goToLine(int line)
 	{
 		int lineStart = 0;
-		int lineEnd = 0;
+		int lineEnd;
 		int currentLine = 0;
 		if(line >= spam.split("\n").length)
 		{

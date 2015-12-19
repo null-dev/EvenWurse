@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,28 +8,26 @@
  */
 package tk.wurst_client.gui;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-import java.util.LinkedList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.util.ResourceLocation;
-
 import org.darkstorm.minecraft.gui.component.Frame;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.opengl.GL11;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.GUIRenderEvent;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.mods.ClickGuiMod;
 import tk.wurst_client.mods.Mod;
+
+import java.awt.*;
+import java.util.LinkedList;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class UIRenderer
 {
@@ -40,7 +38,7 @@ public class UIRenderer
 	{
 		if(WurstClient.INSTANCE.options.modListMode == 2)
 			return;
-		LinkedList<String> modList = new LinkedList<String>();
+		LinkedList<String> modList = new LinkedList<>();
 		for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 		{
 			if(mod instanceof ClickGuiMod)
@@ -56,7 +54,7 @@ public class UIRenderer
 		if(yCount + modList.size() * 9 > sr.getScaledHeight()
 			|| WurstClient.INSTANCE.options.modListMode == 1)
 		{
-			String tooManyMods = "";
+			String tooManyMods;
 			if(modList.isEmpty())
 				return;
 			else if(modList.size() > 1)

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,23 +8,23 @@
  */
 package tk.wurst_client.spam.tag;
 
-import java.util.ArrayList;
-
 import tk.wurst_client.spam.exceptions.InvalidTagException;
 import tk.wurst_client.spam.exceptions.SpamException;
 import tk.wurst_client.spam.tag.tags.Random;
 import tk.wurst_client.spam.tag.tags.Repeat;
 import tk.wurst_client.spam.tag.tags.Var;
 
+import java.util.ArrayList;
+
 public class TagManager
 {
-	private final ArrayList<Tag> activeTags = new ArrayList<Tag>();
+	private final ArrayList<Tag> activeTags = new ArrayList<>();
 	
 	public Tag getTagByName(String name, int line) throws SpamException
 	{
-		for(int i = 0; i < activeTags.size(); i++)
-			if(activeTags.get(i).getName().equals(name))
-				return activeTags.get(i);
+		for (Tag activeTag : activeTags)
+			if (activeTag.getName().equals(name))
+				return activeTag;
 		throw new InvalidTagException(name, line);
 	}
 	
@@ -36,8 +36,7 @@ public class TagManager
 	public String process(TagData tagData) throws SpamException
 	{
 		Tag tag = getTagByName(tagData.getTagName(), tagData.getTagLine());
-		String processedTag = tag.process(tagData);
-		return processedTag;
+		return tag.process(tagData);
 	}
 	
 	public TagManager()

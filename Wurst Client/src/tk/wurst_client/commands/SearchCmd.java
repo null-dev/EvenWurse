@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -25,7 +25,7 @@ public class SearchCmd extends Cmd
 		{
 			WurstClient.INSTANCE.mods.searchMod.toggle();
 			WurstClient.INSTANCE.chat.message("Search turned "
-				+ (WurstClient.INSTANCE.mods.searchMod.isEnabled() == true
+				+ (WurstClient.INSTANCE.mods.searchMod.isEnabled()
 					? "on" : "off") + ".");
 		}else if(args.length == 2)
 		{
@@ -46,7 +46,7 @@ public class SearchCmd extends Cmd
 					Block.getIdFromBlock(Block.getBlockFromName(args[1]));
 				if(newID == -1)
 					error("Block \"" + args[1] + "\" could not be found.");
-				WurstClient.INSTANCE.options.searchID = Integer.valueOf(newID);
+				WurstClient.INSTANCE.options.searchID = newID;
 				WurstClient.INSTANCE.files.saveOptions();
 				WurstClient.INSTANCE.mods.searchMod.notify = true;
 				WurstClient.INSTANCE.chat.message("Search ID set to " + newID

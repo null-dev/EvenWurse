@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,16 +8,14 @@
  */
 package tk.wurst_client.gui.alts;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.player.EntityPlayer;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class AltRenderer
 {
@@ -94,7 +92,6 @@ public class AltRenderer
 			glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			// Face
 			x = x + width / 4;
-			y = y + 0;
 			double w = width / 2;
 			double h = height / 4;
 			double fw = 32;
@@ -112,8 +109,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Hat
-			x = x + 0;
-			y = y + 0;
 			w = width / 2;
 			h = height / 4;
 			fw = 32;
@@ -131,7 +126,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Chest
-			x = x + 0;
 			y = y + height / 4;
 			w = width / 2;
 			h = height / 8 * 3;
@@ -150,8 +144,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Jacket
-			x = x + 0;
-			y = y + 0;
 			w = width / 2;
 			h = height / 8 * 3;
 			fw = 32;
@@ -188,8 +180,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Left Sleeve
-			x = x + 0;
-			y = y + 0;
 			w = width / 16 * (slim ? 3 : 4);
 			h = height / 8 * 3;
 			fw = slim ? 12 : 16;
@@ -208,7 +198,6 @@ public class AltRenderer
 			var3.draw();
 			// Right Arm
 			x = x + width / 16 * (slim ? 11 : 12);
-			y = y + 0;
 			w = width / 16 * (slim ? 3 : 4);
 			h = height / 8 * 3;
 			fw = slim ? 12 : 16;
@@ -226,8 +215,6 @@ public class AltRenderer
 				(float)(u + fw) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Right Sleeve
-			x = x + 0;
-			y = y + 0;
 			w = width / 16 * (slim ? 3 : 4);
 			h = height / 8 * 3;
 			fw = slim ? 12 : 16;
@@ -264,8 +251,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Left Pants
-			x = x + 0;
-			y = y + 0;
 			w = width / 4;
 			h = height / 8 * 3;
 			fw = 16;
@@ -284,7 +269,6 @@ public class AltRenderer
 			var3.draw();
 			// Right Leg
 			x = x + width / 4;
-			y = y + 0;
 			w = width / 4;
 			h = height / 8 * 3;
 			fw = 16;
@@ -302,8 +286,6 @@ public class AltRenderer
 				(float)(u + fw) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Right Pants
-			x = x + 0;
-			y = y + 0;
 			w = width / 4;
 			h = height / 8 * 3;
 			fw = 16;
@@ -346,7 +328,6 @@ public class AltRenderer
 			glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			// Face
 			x = x + width / 4;
-			y = y + 0;
 			double w = width / 2;
 			double h = height / 4;
 			double fw = 32;
@@ -364,8 +345,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Hat
-			x = x + 0;
-			y = y + 0;
 			w = width / 2;
 			h = height / 4;
 			fw = 32;
@@ -383,7 +362,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Chest
-			x = x + 0;
 			y = y + height / 4;
 			w = width / 2;
 			h = height / 8 * 3;
@@ -402,8 +380,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Jacket
-			x = x + 0;
-			y = y + 0;
 			w = width / 2;
 			h = height / 8 * 3;
 			fw = 32;
@@ -440,8 +416,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Left Sleeve
-			x = x + 0;
-			y = y + 0;
 			w = width / 16 * (slim ? 3 : 4);
 			h = height / 8 * 3;
 			fw = slim ? 12 : 16;
@@ -460,7 +434,6 @@ public class AltRenderer
 			var3.draw();
 			// Right Arm
 			x = x + width / 16 * (slim ? 11 : 12);
-			y = y + 0;
 			w = width / 16 * (slim ? 3 : 4);
 			h = height / 8 * 3;
 			fw = slim ? 12 : 16;
@@ -478,8 +451,6 @@ public class AltRenderer
 				(float)(u + fw) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Right Sleeve
-			x = x + 0;
-			y = y + 0;
 			w = width / 16 * (slim ? 3 : 4);
 			h = height / 8 * 3;
 			fw = slim ? 12 : 16;
@@ -516,8 +487,6 @@ public class AltRenderer
 				(float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Left Pants
-			x = x + 0;
-			y = y + 0;
 			w = width / 4;
 			h = height / 8 * 3;
 			fw = 16;
@@ -536,7 +505,6 @@ public class AltRenderer
 			var3.draw();
 			// Right Leg
 			x = x + width / 4;
-			y = y + 0;
 			w = width / 4;
 			h = height / 8 * 3;
 			fw = 16;
@@ -554,8 +522,6 @@ public class AltRenderer
 				(float)(u + fw) * 0.00390625F, (float)(v + 0) * 0.00390625F);
 			var3.draw();
 			// Right Pants
-			x = x + 0;
-			y = y + 0;
 			w = width / 4;
 			h = height / 8 * 3;
 			fw = 16;

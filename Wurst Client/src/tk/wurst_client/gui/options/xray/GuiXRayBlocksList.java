@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,13 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.gui.options.xray;
-
-import static org.lwjgl.opengl.GL11.GL_LIGHTING;
-import static org.lwjgl.opengl.GL11.glDisable;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -24,6 +17,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tk.wurst_client.gui.GuiWurstSlot;
 import tk.wurst_client.mods.XRayMod;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
+
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
+import static org.lwjgl.opengl.GL11.glDisable;
 
 public class GuiXRayBlocksList extends GuiWurstSlot
 {
@@ -36,27 +36,15 @@ public class GuiXRayBlocksList extends GuiWurstSlot
 	
 	private int selectedSlot;
 	private Minecraft mc;
-	public static ArrayList<Block> blocks = new ArrayList<Block>();
+	public static ArrayList<Block> blocks = new ArrayList<>();
 	
 	public static void sortBlocks()
 	{
 		blocks = XRayMod.xrayBlocks;
-		Collections.sort(blocks, new Comparator<Block>()
-		{
-			@Override
-			public int compare(Block o1, Block o2)
-			{
-				return o1.getLocalizedName().compareToIgnoreCase(
-					o2.getLocalizedName());
-			}
-		});
-		ArrayList<Block> newBlocks = new ArrayList<Block>();
-		for(Block block : blocks)
-			if(XRayMod.xrayBlocks.contains(block))
-				newBlocks.add(block);
-		for(Block block : blocks)
-			if(!XRayMod.xrayBlocks.contains(block))
-				newBlocks.add(block);
+		Collections.sort(blocks, (o1, o2) -> o1.getLocalizedName().compareToIgnoreCase(
+            o2.getLocalizedName()));
+		ArrayList<Block> newBlocks = blocks.stream().filter(block -> XRayMod.xrayBlocks.contains(block)).collect(Collectors.toCollection(ArrayList::new));
+		newBlocks.addAll(blocks.stream().filter(block -> !XRayMod.xrayBlocks.contains(block)).collect(Collectors.toList()));
 		blocks = newBlocks;
 	}
 	

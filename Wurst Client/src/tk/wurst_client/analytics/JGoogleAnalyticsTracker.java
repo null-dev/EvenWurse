@@ -81,7 +81,7 @@ import java.util.regex.MatchResult;
 public class JGoogleAnalyticsTracker
 {
 	
-	public static enum DispatchMode
+	public enum DispatchMode
 	{
 		/**
 		 * Each tracking call will wait until the http request
@@ -105,7 +105,7 @@ public class JGoogleAnalyticsTracker
 		"Async Google Analytics Threads");
 	private static long asyncThreadsRunning = 0;
 	private static Proxy proxy = Proxy.NO_PROXY;
-	private static LinkedList<String> fifo = new LinkedList<String>();
+	private static final LinkedList<String> fifo = new LinkedList<>();
 	private static volatile Thread backgroundThread = null; // the thread used
 	// in
 	// 'queued' mode.
@@ -117,7 +117,7 @@ public class JGoogleAnalyticsTracker
 		asyncThreadGroup.setDaemon(true);
 	}
 	
-	public static enum GoogleAnalyticsVersion
+	public enum GoogleAnalyticsVersion
 	{
 		V_4_7_2
 	}
@@ -167,7 +167,6 @@ public class JGoogleAnalyticsTracker
 	 * {@link DispatchMode#SINGLE_THREAD}.
 	 *
 	 * @see DispatchMode
-	 * @return
 	 */
 	public DispatchMode getDispatchMode()
 	{
@@ -176,8 +175,6 @@ public class JGoogleAnalyticsTracker
 	
 	/**
 	 * Convenience method to check if the tracker is in synchronous mode.
-	 *
-	 * @return
 	 */
 	public boolean isSynchronous()
 	{
@@ -186,8 +183,6 @@ public class JGoogleAnalyticsTracker
 	
 	/**
 	 * Convenience method to check if the tracker is in single-thread mode
-	 *
-	 * @return
 	 */
 	public boolean isSingleThreaded()
 	{
@@ -196,8 +191,6 @@ public class JGoogleAnalyticsTracker
 	
 	/**
 	 * Convenience method to check if the tracker is in multi-thread mode
-	 *
-	 * @return
 	 */
 	public boolean isMultiThreaded()
 	{
@@ -214,8 +207,6 @@ public class JGoogleAnalyticsTracker
 	
 	/**
 	 * Sets if the api dispatches tracking requests.
-	 *
-	 * @param argEnabled
 	 */
 	public void setEnabled(boolean argEnabled)
 	{
@@ -224,8 +215,6 @@ public class JGoogleAnalyticsTracker
 	
 	/**
 	 * If the api is dispatching tracking requests (default of true).
-	 *
-	 * @return
 	 */
 	public boolean isEnabled()
 	{
@@ -258,26 +247,22 @@ public class JGoogleAnalyticsTracker
 	{
 		if(proxyAddr != null)
 		{
-			Scanner s = new Scanner(proxyAddr);
-			
+
+			String oldProxyAddr = proxyAddr;
 			// Split into "proxyAddr:proxyPort".
 			proxyAddr = null;
 			int proxyPort = 8080;
-			try
-			{
+			try (Scanner s = new Scanner(oldProxyAddr)) {
 				s.findInLine("(http://|)([^:/]+)(:|)([0-9]*)(/|)");
 				MatchResult m = s.match();
-				
-				if(m.groupCount() >= 2)
+
+				if (m.groupCount() >= 2)
 					proxyAddr = m.group(2);
-				
-				if(m.groupCount() >= 4 && !(m.group(4).length() == 0))
+
+				if (m.groupCount() >= 4 && !(m.group(4).length() == 0))
 					proxyPort = Integer.parseInt(m.group(4));
-			}finally
-			{
-				s.close();
 			}
-			
+
 			if(proxyAddr != null)
 			{
 				SocketAddress sa = new InetSocketAddress(proxyAddr, proxyPort);
@@ -297,8 +282,8 @@ public class JGoogleAnalyticsTracker
 	public static void completeBackgroundTasks(long timeoutMillis)
 	{
 		
-		boolean fifoEmpty = false;
-		boolean asyncThreadsCompleted = false;
+		boolean fifoEmpty;
+		boolean asyncThreadsCompleted;
 		
 		long absTimeout = System.currentTimeMillis() + timeoutMillis;
 		while(System.currentTimeMillis() < absTimeout)
@@ -416,9 +401,6 @@ public class JGoogleAnalyticsTracker
 	/**
 	 * Tracks an event. To provide more info about the page, use
 	 * {@link #makeCustomRequest(AnalyticsRequestData)}.
-	 *
-	 * @param argCategory
-	 * @param argAction
 	 */
 	public void trackEvent(String argCategory, String argAction)
 	{
@@ -428,10 +410,6 @@ public class JGoogleAnalyticsTracker
 	/**
 	 * Tracks an event. To provide more info about the page, use
 	 * {@link #makeCustomRequest(AnalyticsRequestData)}.
-	 *
-	 * @param argCategory
-	 * @param argAction
-	 * @param argLabel
 	 */
 	public void trackEvent(String argCategory, String argAction, String argLabel)
 	{
@@ -466,7 +444,6 @@ public class JGoogleAnalyticsTracker
 	/**
 	 * Makes a custom tracking request based from the given data.
 	 *
-	 * @param argData
 	 * @throws NullPointerException
 	 *             if argData is null or if the URL builder is null
 	 */
@@ -660,7 +637,7 @@ public class JGoogleAnalyticsTracker
 			try
 			{
 				backgroundThread.join(timeoutMillis);
-			}catch(InterruptedException e)
+			}catch(InterruptedException ignored)
 			{}
 			backgroundThread = null;
 		}

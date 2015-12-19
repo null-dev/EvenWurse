@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 | Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 | Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,19 +8,15 @@
  */
 package tk.wurst_client.gui.target;
 
-import java.lang.reflect.Field;
-
 import net.minecraft.client.Minecraft;
-
-import org.darkstorm.minecraft.gui.component.Button;
 import org.darkstorm.minecraft.gui.component.basic.BasicButton;
 import org.darkstorm.minecraft.gui.component.basic.BasicCheckButton;
 import org.darkstorm.minecraft.gui.component.basic.BasicFrame;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager;
 import org.darkstorm.minecraft.gui.layout.GridLayoutManager.HorizontalGridConstraint;
-import org.darkstorm.minecraft.gui.listener.ButtonListener;
-
 import tk.wurst_client.WurstClient;
+
+import java.lang.reflect.Field;
 
 public class TargetFrame extends BasicFrame
 {
@@ -43,25 +39,20 @@ public class TargetFrame extends BasicFrame
 				option.getName().substring(0, 1).toUpperCase()
 					+ option.getName().substring(1).replace("_", " ");
 			BasicCheckButton checkbox = new BasicCheckButton(title);
-			checkbox.addButtonListener(new ButtonListener()
-			{
-				@Override
-				public void onButtonPress(Button button)
-				{
-					try
-					{
-						option.setBoolean(WurstClient.INSTANCE.options.target,
-							((BasicCheckButton)button).isSelected());
-						WurstClient.INSTANCE.files.saveOptions();
-					}catch(Exception e)
-					{
-						System.err
-							.println("[Wurst] Failed to save option \"target."
-								+ option.getName() + "\"!");
-						e.printStackTrace();
-					}
-				}
-			});
+			checkbox.addButtonListener(button -> {
+                try
+                {
+                    option.setBoolean(WurstClient.INSTANCE.options.target,
+                        ((BasicCheckButton)button).isSelected());
+                    WurstClient.INSTANCE.files.saveOptions();
+                }catch(Exception e)
+                {
+                    System.err
+                        .println("[Wurst] Failed to save option \"target."
+                            + option.getName() + "\"!");
+                    e.printStackTrace();
+                }
+            });
 			try
 			{
 				checkbox.setSelected(option
@@ -77,17 +68,10 @@ public class TargetFrame extends BasicFrame
 		}
 		
 		BasicButton advancedBtn = new BasicButton("Team Settings", null);
-		advancedBtn.addButtonListener(new ButtonListener()
-		{
-			@Override
-			public void onButtonPress(Button button)
-			{
-				Minecraft.getMinecraft()
-					.displayGuiScreen(
-						new GuiTeamSettings(
-							Minecraft.getMinecraft().currentScreen));
-			}
-		});
+		advancedBtn.addButtonListener(button -> Minecraft.getMinecraft()
+            .displayGuiScreen(
+                new GuiTeamSettings(
+                    Minecraft.getMinecraft().currentScreen)));
 		add(advancedBtn);
 	}
 }

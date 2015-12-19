@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,21 +8,19 @@
  */
 package tk.wurst_client.gui.multiplayer;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.multiplayer.ServerData;
-
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.servers.ServerPinger;
 import tk.wurst_client.utils.MiscUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class GuiServerFinder extends GuiScreen
 {
@@ -137,7 +135,7 @@ public class GuiServerFinder extends GuiScreen
 								Integer
 									.valueOf(ipBox.getText().split("\\.")[i]);
 						ArrayList<ServerPinger> pingers =
-							new ArrayList<ServerPinger>();
+								new ArrayList<>();
 						serverFinder: for(int i = 3; i >= 0; i--)
 							for(int i2 = 0; i2 <= 255; i2++)
 							{
@@ -245,50 +243,50 @@ public class GuiServerFinder extends GuiScreen
 		maxThreadsBox.drawTextBox();
 		if(!((GuiButton)buttonList.get(0)).enabled)
 			if(ipBox.getText().length() == 0)
-				drawCenteredString(fontRendererObj, "§4IP field is empty!",
+				drawCenteredString(fontRendererObj, "ï¿½4IP field is empty!",
 					width / 2, height / 4 + 73, 10526880);
 			else if(ipBox.getText().contains(":"))
 				drawCenteredString(fontRendererObj,
-					"§4Ports are not supported!", width / 2, height / 4 + 73,
+					"ï¿½4Ports are not supported!", width / 2, height / 4 + 73,
 					10526880);
 			else if(!MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[0]))
 				drawCenteredString(fontRendererObj,
-					"§4Hostnames are not supported!", width / 2,
+					"ï¿½4Hostnames are not supported!", width / 2,
 					height / 4 + 73, 10526880);
 			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 1
 				&& !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[1]))
 				drawCenteredString(fontRendererObj,
-					"§4Hostnames are not supported!", width / 2,
+					"ï¿½4Hostnames are not supported!", width / 2,
 					height / 4 + 73, 10526880);
 			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 2
 				&& !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[2]))
 				drawCenteredString(fontRendererObj,
-					"§4Hostnames are not supported!", width / 2,
+					"ï¿½4Hostnames are not supported!", width / 2,
 					height / 4 + 73, 10526880);
 			else if(StringUtils.countMatches(ipBox.getText(), ".") >= 3
 				&& !MiscUtils.isInteger(ipBox.getText().split("\\.", -1)[3]))
 				drawCenteredString(fontRendererObj,
-					"§4Hostnames are not supported!", width / 2,
+					"ï¿½4Hostnames are not supported!", width / 2,
 					height / 4 + 73, 10526880);
 			else if(StringUtils.countMatches(ipBox.getText(), ".") < 3)
-				drawCenteredString(fontRendererObj, "§4IP is too short!",
+				drawCenteredString(fontRendererObj, "ï¿½4IP is too short!",
 					width / 2, height / 4 + 73, 10526880);
 			else if(StringUtils.countMatches(ipBox.getText(), ".") > 3)
-				drawCenteredString(fontRendererObj, "§4IP is too long!",
+				drawCenteredString(fontRendererObj, "ï¿½4IP is too long!",
 					width / 2, height / 4 + 73, 10526880);
 			else if(!MiscUtils.isInteger(maxThreadsBox.getText()))
 				drawCenteredString(fontRendererObj,
-					"§4Max. threads must be a number!", width / 2,
+					"ï¿½4Max. threads must be a number!", width / 2,
 					height / 4 + 73, 10526880);
 			else if(running)
 				if(checked == 1024)
-					drawCenteredString(fontRendererObj, "§2Done!", width / 2,
+					drawCenteredString(fontRendererObj, "ï¿½2Done!", width / 2,
 						height / 4 + 73, 10526880);
 				else
-					drawCenteredString(fontRendererObj, "§2Searching...",
+					drawCenteredString(fontRendererObj, "ï¿½2Searching...",
 						width / 2, height / 4 + 73, 10526880);
 			else
-				drawCenteredString(fontRendererObj, "§4Unknown error! Bug?",
+				drawCenteredString(fontRendererObj, "ï¿½4Unknown error! Bug?",
 					width / 2, height / 4 + 73, 10526880);
 		drawString(fontRendererObj, "Checked: " + checked + " / 1024",
 			width / 2 - 100, height / 4 + 84, 10526880);

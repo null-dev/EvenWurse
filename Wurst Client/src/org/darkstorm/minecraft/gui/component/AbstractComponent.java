@@ -1,15 +1,12 @@
 package org.darkstorm.minecraft.gui.component;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.darkstorm.minecraft.gui.listener.ComponentListener;
 import org.darkstorm.minecraft.gui.theme.ComponentUI;
 import org.darkstorm.minecraft.gui.theme.Theme;
+
+import java.awt.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class AbstractComponent implements Component
 {
@@ -22,7 +19,7 @@ public abstract class AbstractComponent implements Component
 	protected boolean enabled = true, visible = true;
 	
 	private List<ComponentListener> listeners =
-		new CopyOnWriteArrayList<ComponentListener>();
+			new CopyOnWriteArrayList<>();
 	
 	@Override
 	public void render()
@@ -222,12 +219,8 @@ public abstract class AbstractComponent implements Component
 	}
 	
 	@Override
-	public void setEnabled(boolean enabled)
-	{
-		if(parent != null && !parent.isEnabled())
-			this.enabled = false;
-		else
-			this.enabled = enabled;
+	public void setEnabled(boolean enabled) {
+		this.enabled = !(parent != null && !parent.isEnabled()) && enabled;
 	}
 	
 	@Override
@@ -237,12 +230,8 @@ public abstract class AbstractComponent implements Component
 	}
 	
 	@Override
-	public void setVisible(boolean visible)
-	{
-		if(parent != null && !parent.isVisible())
-			this.visible = false;
-		else
-			this.visible = visible;
+	public void setVisible(boolean visible) {
+		this.visible = !(parent != null && !parent.isVisible()) && visible;
 	}
 	
 	protected void addListener(ComponentListener listener)

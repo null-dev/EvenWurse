@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -76,7 +76,7 @@ public class PathUtils
 			|| !WurstClient.INSTANCE.mods.noSlowdownMod.isEnabled() && getMaterial(pos) == Material.water;
 	}
 	
-	public static int getCost(BlockPos current, BlockPos next)
+	public static int getCost(BlockPos next)
 	{
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)

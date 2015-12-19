@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.mods;
-
-import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -23,6 +21,8 @@ import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.BuildUtils;
 import tk.wurst_client.utils.RenderUtils;
 
+import java.util.ArrayList;
+
 @Info(category = Category.AUTOBUILD,
 	description = "Automatically builds the selected template whenever\n"
 		+ "you place a block. Use the combo box below to select\n"
@@ -31,8 +31,8 @@ import tk.wurst_client.utils.RenderUtils;
 	name = "AutoBuild")
 public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 {
-	public static ArrayList<String> names = new ArrayList<String>();
-	public static ArrayList<int[][]> templates = new ArrayList<int[][]>();
+	public static ArrayList<String> names = new ArrayList<>();
+	public static ArrayList<int[][]> templates = new ArrayList<>();
 	private float speed = 5;
 	private int blockIndex;
 	private boolean shouldBuild;
@@ -664,8 +664,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 													.get(WurstClient.INSTANCE.options.autobuildMode))))
 								.getBlock()) != 0)
 							blockIndex += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > 45 && playerYaw <= 135)
 					try
 					{
@@ -694,8 +693,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 													.get(WurstClient.INSTANCE.options.autobuildMode))))
 								.getBlock()) != 0)
 							blockIndex += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > 135 || playerYaw <= -135)
 					try
 					{
@@ -724,8 +722,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 													.get(WurstClient.INSTANCE.options.autobuildMode))))
 								.getBlock()) != 0)
 							blockIndex += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > -135 && playerYaw <= -45)
 					try
 					{
@@ -754,8 +751,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 													.get(WurstClient.INSTANCE.options.autobuildMode))))
 								.getBlock()) != 0)
 							blockIndex += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				updateLastMS();
 			}else if(blockIndex == templates
 				.get(WurstClient.INSTANCE.options.autobuildMode).length)
@@ -834,8 +830,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 													.get(WurstClient.INSTANCE.options.autobuildMode),
 												mouseOver))).getBlock()) != 0)
 							blockIndex += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > 45 && playerYaw <= 135)
 					try
 					{
@@ -865,8 +860,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 													.get(WurstClient.INSTANCE.options.autobuildMode),
 												mouseOver))).getBlock()) != 0)
 							blockIndex += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > 135 || playerYaw <= -135)
 					try
 					{
@@ -896,8 +890,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 													.get(WurstClient.INSTANCE.options.autobuildMode),
 												mouseOver))).getBlock()) != 0)
 							blockIndex += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				else if(playerYaw > -135 && playerYaw <= -45)
 					try
 					{
@@ -927,8 +920,7 @@ public class AutoBuildMod extends Mod implements UpdateListener, RenderListener
 													.get(WurstClient.INSTANCE.options.autobuildMode),
 												mouseOver))).getBlock()) != 0)
 							blockIndex += 1;
-					}catch(NullPointerException e)
-					{}// If the current item is null.
+					}catch(NullPointerException ignored) {}// If the current item is null.
 				updateLastMS();
 			}else if(blockIndex == templates
 				.get(WurstClient.INSTANCE.options.autobuildMode).length)

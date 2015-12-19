@@ -49,9 +49,6 @@ public interface IGoogleAnalyticsURLBuilder
 	
 	/**
 	 * Build the url request from the data.
-	 *
-	 * @param argData
-	 * @return
 	 */
 	public String buildURL(AnalyticsRequestData argData);
 }

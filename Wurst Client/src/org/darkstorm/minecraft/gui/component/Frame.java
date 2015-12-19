@@ -2,29 +2,29 @@ package org.darkstorm.minecraft.gui.component;
 
 public interface Frame extends Container, DraggableComponent
 {
-	public String getTitle();
+	String getTitle();
 	
-	public void setTitle(String title);
+	void setTitle(String title);
 	
-	public boolean isPinned();
+	boolean isPinned();
 	
-	public void setPinned(boolean pinned);
+	void setPinned(boolean pinned);
 	
-	public boolean isPinnable();
+	boolean isPinnable();
 	
-	public void setPinnable(boolean pinnable);
+	void setPinnable(boolean pinnable);
 	
-	public boolean isMinimized();
+	boolean isMinimized();
 	
-	public void setMinimized(boolean minimized);
+	void setMinimized(boolean minimized);
 	
-	public boolean isMinimizable();
+	boolean isMinimizable();
 	
-	public void setMinimizable(boolean minimizable);
+	void setMinimizable(boolean minimizable);
 	
-	public void close();
+	void close();
 	
-	public boolean isClosable();
+	boolean isClosable();
 	
-	public void setClosable(boolean closable);
+	void setClosable(boolean closable);
 }

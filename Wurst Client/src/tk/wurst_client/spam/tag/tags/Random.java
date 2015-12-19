@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -47,33 +47,34 @@ public class Random extends Tag
 				"Invalid number in <random> tag: \"" + tagData.getTagArgs()[1]
 					+ "\"", tagData.getTagLine(), this);
 		String result = "";
-		if(tagData.getTagArgs()[0].equals("number"))
-			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
-				result += random.nextInt(10);
-		else if(tagData.getTagArgs()[0].equals("string"))
-		{
-			String alphabet =
-				"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
-			{
-				char nextChar =
-					alphabet.charAt(random.nextInt(alphabet.length()));
-				result += new String(new char[]{nextChar});
-			}
-		}else if(tagData.getTagArgs()[0].equals("junk"))
-			for(int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]);)
-			{
-				byte[] nextChar = new byte[1];
-				random.nextBytes(nextChar);
-				if(ChatAllowedCharacters.isAllowedCharacter((char)nextChar[0]))
-				{
-					String nextString =
-						new String(nextChar).replace("<", "§_lt;").replace("§",
-							"");
-					result += nextString;
-					i++;
+		switch (tagData.getTagArgs()[0]) {
+			case "number":
+				for (int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++)
+					result += random.nextInt(10);
+				break;
+			case "string":
+				String alphabet =
+						"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+				for (int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); i++) {
+					char nextChar =
+							alphabet.charAt(random.nextInt(alphabet.length()));
+					result += new String(new char[]{nextChar});
 				}
-			}
+				break;
+			case "junk":
+				for (int i = 0; i < Integer.valueOf(tagData.getTagArgs()[1]); ) {
+					byte[] nextChar = new byte[1];
+					random.nextBytes(nextChar);
+					if (ChatAllowedCharacters.isAllowedCharacter((char) nextChar[0])) {
+						String nextString =
+								new String(nextChar).replace("<", "ï¿½_lt;").replace("ï¿½",
+										"");
+						result += nextString;
+						i++;
+					}
+				}
+				break;
+		}
 		return result + tagData.getTagContent();
 	}
 }
