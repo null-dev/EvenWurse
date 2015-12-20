@@ -147,7 +147,6 @@ public class Formatting {
                 } else if(c == '>') {
                     if(!inTag) throw new IllegalArgumentException("Invalid input string (unexpected end of tag)!");
                     inTag = false;
-                    //TODO Process tag
                     String tag = currentTag.toString().toUpperCase();
                     boolean updateColor = false;
                     boolean updateFormatting = false;
