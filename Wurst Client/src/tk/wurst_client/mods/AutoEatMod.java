@@ -15,6 +15,10 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.utils.Utils;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 //TODO Autoeat timeout
 @Info(category = Category.MISC,
@@ -60,48 +64,18 @@ public class AutoEatMod extends Mod implements UpdateListener
 		if(bestSlot == -1)
 			return;
 		oldSlot = Minecraft.getMinecraft().thePlayer.inventory.currentItem;
-		WurstClient.INSTANCE.events.add(UpdateListener.class,
-			new UpdateListener()
-			{
-				@Override
-				public void onUpdate()
-				{
-					if(!AutoEatMod.this.isActive()
-						|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-						|| Minecraft.getMinecraft().thePlayer.getFoodStats()
-							.getFoodLevel() >= 20)
-					{
-						stop();
-						return;
-					}
-					ItemStack item =
-						Minecraft.getMinecraft().thePlayer.inventory
-							.getStackInSlot(bestSlot);
-					if(item == null || !(item.getItem() instanceof ItemFood))
-					{
-						stop();
-						return;
-					}
-					Minecraft.getMinecraft().thePlayer.inventory.currentItem =
-						bestSlot;
-					Minecraft.getMinecraft().playerController.sendUseItem(
-						Minecraft.getMinecraft().thePlayer,
-						Minecraft.getMinecraft().theWorld, item);
-					Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
-						true;
-				}
-				
-				private void stop()
-				{
-					Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
-						false;
-					Minecraft.getMinecraft().thePlayer.inventory.currentItem =
-						oldSlot;
-					oldSlot = -1;
-					WurstClient.INSTANCE.events.remove(
-						UpdateListener.class, this);
-				}
-			});
+		final AtomicBoolean canceled = new AtomicBoolean(false);
+		AutoEatListener listener = new AutoEatListener(canceled);
+		//Timeout after 10 seconds of trying to eat
+		Utils.schedule(() -> {
+			if(!canceled.get()) {
+				WurstClient.INSTANCE.chat.warning("AutoEat timed out, trying again...");
+				this.setEnabled(false);
+				try {Thread.sleep(3000);} catch (InterruptedException ignored) {}
+				this.setEnabled(true);
+			}
+		}, 15, TimeUnit.SECONDS);
+		WurstClient.INSTANCE.events.add(UpdateListener.class, listener);
 	}
 	
 	@Override
@@ -114,4 +88,54 @@ public class AutoEatMod extends Mod implements UpdateListener
 	{
 		return oldSlot != -1;
 	}
+
+	class AutoEatListener implements UpdateListener {
+
+		AtomicBoolean canceled;
+
+		public AutoEatListener(AtomicBoolean canceled) {
+			this.canceled = canceled;
+		}
+
+		@Override
+		public void onUpdate()
+		{
+			if(!AutoEatMod.this.isActive()
+					|| Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
+					|| Minecraft.getMinecraft().thePlayer.getFoodStats()
+					.getFoodLevel() >= 20)
+			{
+				stop();
+				return;
+			}
+			ItemStack item =
+					Minecraft.getMinecraft().thePlayer.inventory
+							.getStackInSlot(bestSlot);
+			if(item == null || !(item.getItem() instanceof ItemFood))
+			{
+				stop();
+				return;
+			}
+			Minecraft.getMinecraft().thePlayer.inventory.currentItem =
+					bestSlot;
+			Minecraft.getMinecraft().playerController.sendUseItem(
+					Minecraft.getMinecraft().thePlayer,
+					Minecraft.getMinecraft().theWorld, item);
+			Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
+					true;
+		}
+
+		public void stop()
+		{
+			Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed =
+					false;
+			Minecraft.getMinecraft().thePlayer.inventory.currentItem =
+					oldSlot;
+			oldSlot = -1;
+			WurstClient.INSTANCE.events.remove(
+					UpdateListener.class, this);
+			canceled.set(true);
+		}
+	}
+
 }

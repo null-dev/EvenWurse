@@ -87,7 +87,8 @@ public class GuiCleanUp extends GuiScreen
 		WurstClient.INSTANCE.analytics.trackPageView("/multiplayer/clean-up",
 			"Clean Up");
 	}
-	
+
+	//TODO Shouldn't this be in utils?
 	private String yesOrNo(boolean bool)
 	{
 		return bool ? "Yes" : "No";
@@ -195,7 +196,7 @@ public class GuiCleanUp extends GuiScreen
 			{// Remove
 				removeAll = !removeAll;
 				clickedButton.displayString =
-					"�cRemove all Servers: " + yesOrNo(removeAll);
+					F.RED + "Remove all Servers: " + yesOrNo(removeAll);
 				WurstClient.INSTANCE.analytics.trackEvent("clean up",
 					"remove all servers", yesOrNo(removeAll));
 			}else if(clickedButton.id == 6)

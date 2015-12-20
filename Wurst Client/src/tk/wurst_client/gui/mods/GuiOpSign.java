@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,18 +8,17 @@
  */
 package tk.wurst_client.gui.mods;
 
-import java.io.IOException;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
-
 import org.lwjgl.input.Keyboard;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.OpSignMod;
+import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
+
+import java.io.IOException;
 
 public class GuiOpSign extends GuiScreen
 {
@@ -132,9 +131,9 @@ public class GuiOpSign extends GuiScreen
 		drawCenteredString(fontRendererObj,
 			"you place & right click on a sign.", width / 2, 100, 10526880);
 		drawCenteredString(fontRendererObj,
-			"§cOnly works on servers running§r", width / 2, 110, 10526880);
+				F.RED + "Only works on servers running" + F.R, width / 2, 110, 10526880);
 		drawCenteredString(fontRendererObj,
-			"§c§lMinecraft 1.8 - 1.8.5 without Spigot!§r", width / 2, 120,
+			F.RED + F.BOLD + "Minecraft 1.8 - 1.8.5 without Spigot!" + F.R, width / 2, 120,
 			10526880);
 		drawCenteredString(fontRendererObj,
 			"Even if these criteria are met, it is always", width / 2, 130,

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,26 +8,7 @@
  */
 package tk.wurst_client.gui.error;
 
-import java.awt.Component;
-import java.awt.HeadlessException;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
+import com.google.gson.JsonObject;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiYesNo;
@@ -36,10 +17,18 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.mods.Mod;
+import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
-import com.google.gson.JsonObject;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.io.*;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GuiError extends GuiScreen
 {
@@ -63,7 +52,7 @@ public class GuiError extends GuiScreen
 	public void initGui()
 	{
 		buttonList.add(new GuiButton(0, width / 2 - 100, height / 3 * 2, 200,
-			20, "§a§l§nReport Bug"));
+			20, F.GREEN + F.BOLD + F.UNDERLINE + "Report Bug"));
 		buttonList.add(new GuiButton(1, width / 2 - 100, height / 3 * 2 + 24,
 			98, 20, "View Bug"));
 		buttonList.add(new GuiButton(2, width / 2 + 2, height / 3 * 2 + 24, 98,
@@ -210,7 +199,7 @@ public class GuiError extends GuiScreen
 				mc.displayGuiScreen(new GuiYesNo(
 					this,
 					"Are you absolutely sure you don't want to report this error?",
-					"We can't fix it that way!", "§4Yes", "§2No", 0));
+					"We can't fix it that way!", F.DARK_RED + "Yes", F.DARK_GREEN + "No", 0));
 				break;
 			default:
 				break;
@@ -262,25 +251,25 @@ public class GuiError extends GuiScreen
 				output.println(line);
 			String content = writer.toString();
 			content =
-				content.replace("§time", new SimpleDateFormat(
+				content.replace("ï¿½time", new SimpleDateFormat(
 					"yyyy.MM.dd-hh:mm:ss").format(new Date()));
-			content = content.replace("§trace", trace);
+			content = content.replace("ï¿½trace", trace);
 			content =
-				content.replace("§os", System.getProperty("os.name") + " ("
+				content.replace("ï¿½os", System.getProperty("os.name") + " ("
 					+ System.getProperty("os.arch") + ")");
 			content =
-				content.replace("§java", System.getProperty("java.version")
+				content.replace("ï¿½java", System.getProperty("java.version")
 					+ " (" + System.getProperty("java.vendor") + ")");
 			content =
 				content
 					.replace(
-						"§wurst",
+						"ï¿½wurst",
 						WurstClient.INSTANCE.updater.getCurrentVersion()
 							+ " (latest: "
 							+ WurstClient.INSTANCE.updater.getLatestVersion()
 							+ ")");
 			content =
-				content.replace("§desc",
+				content.replace("ï¿½desc",
 					getReportDescription()
 						+ (comment.isEmpty() ? "" : "\n" + comment));
 			return content;
@@ -302,7 +291,7 @@ public class GuiError extends GuiScreen
 		mc.getTextureManager().bindTexture(bugTexture);
 		drawScaledCustomSizeModalRect(width / 2 - 48, height / 3, 0, 0, 256,
 			256, 96, 96, 256, 256);
-		drawCenteredString(fontRendererObj, "§nError!§r", width / 2,
+		drawCenteredString(fontRendererObj, F.UNDERLINE + "Error!" + F.R, width / 2,
 			height / 4, 0xffffffff);
 		drawCenteredString(fontRendererObj, getReportDescription(), width / 2,
 			height / 4 + 16, 0xffffffff);

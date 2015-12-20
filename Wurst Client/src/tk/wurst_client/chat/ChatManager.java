@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,6 +10,7 @@ package tk.wurst_client.chat;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
+import tk.wurst_client.utils.F;
 
 public class ChatManager
 {
@@ -24,43 +25,43 @@ public class ChatManager
 	{
 		if(enabled)
 			Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
-				new ChatComponentText("§c[§6Wurst§c]§f " + message));
+				new ChatComponentText(F.f("<RED>[<GOLD>Wurst</GOLD>]</RED> ") + message));
 	}
 	
 	public void info(String message)
 	{
-		message("§8[§7§lINFO§8]§f " + message);
+		message(F.f("<DARK-GRAY>[<GRAY><BOLD>INFO</BOLD></GRAY>]</DARK-GRAY> ") + message);
 	}
 	
 	public void debug(String message)
 	{
-		message("§8[§7§lDEBUG-INFO§8]§f " + message);
+		message(F.f("<DARK-GRAY>[<GRAY><BOLD>DEBUG-INFO</BOLD></GRAY>]</DARK-GRAY> ") + message);
 	}
 	
 	public void warning(String message)
 	{
-		message("§c[§6§lWARNING§c]§f " + message);
+		message(F.f("<RED>[<GOLD><BOLD>WARNING</BOLD></GOLD>]</RED> ") + message);
 	}
 	
 	public void error(String message)
 	{
-		message("§c[§4§lERROR§c]§f " + message);
+		message(F.f("<RED>[<DARK-RED><BOLD>ERROR</BOLD></DARK-RED>]</RED> ") + message);
 	}
 	
 	public void success(String message)
 	{
-		message("§a[§2§lSUCCESS§a]§f " + message);
+		message(F.f("<GREEN>[<DARK-GREEN><BOLD>SUCCESS</BOLD></DARK-GREEN>]</GREEN> ") + message);
 	}
 	
 	public void failure(String message)
 	{
-		message("§c[§4§lFAILURE§c]§f " + message);
+		message(F.f("<RED>[<DARK-RED><BOLD>INFO</BOLD></DARK-RED>]</RED> ") + message);
 	}
 	
 	public void cmd(String message)
 	{
 		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
-			new ChatComponentText("§c[§6Wurst§c]§f §0§l<§aCMD§0§l>§f "
+			new ChatComponentText(F.f("<RED>[<GOLD>Wurst</GOLD>]</RED> <BLACK><BOLD><GREEN>\\<CMD\\></GREEN></BOLD></BLACK> ")
 				+ message));
 	}
 }

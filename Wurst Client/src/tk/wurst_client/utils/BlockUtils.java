@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,6 +8,8 @@
  */
 package tk.wurst_client.utils;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.BlockPos;
@@ -110,5 +112,19 @@ public class BlockUtils
 			(float)(Minecraft.getMinecraft().thePlayer.posZ - blockPos.getZ());
 		return MathHelper.sqrt_float((xDiff - 0.5F) * (xDiff - 0.5F)
 			+ (zDiff - 0.5F) * (zDiff - 0.5F));
+	}
+
+	public static int getID(BlockPos pos)
+	{
+		return Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
+				.getBlockState(pos).getBlock());
+	}
+
+	public static BlockPos getRelative(BlockPos pos, int x, int y, int z) {
+		return pos.add(x, y, z);
+	}
+
+	public static IBlockState fromPos(BlockPos pos) {
+		return Minecraft.getMinecraft().theWorld.getBlockState(pos).;
 	}
 }

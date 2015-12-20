@@ -21,6 +21,10 @@ public class Formatting {
     public static char SECTION_SIGN = '§';
     public static char SS = SECTION_SIGN;
 
+    //Newline
+    public static char NEWLINE = '\n';
+    public static char NL = NEWLINE;
+
     //Colors (yay)
     public static String BLACK = SS + "0";
     public static String DARK_BLUE = SS + "1";
@@ -43,18 +47,32 @@ public class Formatting {
     static {
         COLOR_MAP.put("BLACK", BLACK);
         COLOR_MAP.put("DARK_BLUE", DARK_BLUE);
+        COLOR_MAP.put("DARK-BLUE", DARK_BLUE);
+        COLOR_MAP.put("DARK BLUE", DARK_BLUE);
         COLOR_MAP.put("DARK_GREEN", DARK_GREEN);
+        COLOR_MAP.put("DARK-GREEN", DARK_GREEN);
+        COLOR_MAP.put("DARK GREEN", DARK_GREEN);
         COLOR_MAP.put("DARK_AQUA", DARK_AQUA);
+        COLOR_MAP.put("DARK-AQUA", DARK_AQUA);
+        COLOR_MAP.put("DARK AQUA", DARK_AQUA);
         COLOR_MAP.put("DARK_RED", DARK_RED);
+        COLOR_MAP.put("DARK-RED", DARK_RED);
+        COLOR_MAP.put("DARK RED", DARK_RED);
         COLOR_MAP.put("DARK_PURPLE", DARK_PURPLE);
+        COLOR_MAP.put("DARK-PURPLE", DARK_PURPLE);
+        COLOR_MAP.put("DARK PURPLE", DARK_PURPLE);
         COLOR_MAP.put("GOLD", GOLD);
         COLOR_MAP.put("GRAY", GRAY);
         COLOR_MAP.put("DARK_GRAY", DARK_GRAY);
+        COLOR_MAP.put("DARK-GRAY", DARK_GRAY);
+        COLOR_MAP.put("DARK GRAY", DARK_GRAY);
         COLOR_MAP.put("BLUE", BLUE);
         COLOR_MAP.put("GREEN", GREEN);
         COLOR_MAP.put("AQUA", AQUA);
         COLOR_MAP.put("RED", RED);
         COLOR_MAP.put("LIGHT_PURPLE", LIGHT_PURPLE);
+        COLOR_MAP.put("LIGHT-PURPLE", LIGHT_PURPLE);
+        COLOR_MAP.put("LIGHT PURPLE", LIGHT_PURPLE);
         COLOR_MAP.put("YELLOW", YELLOW);
         COLOR_MAP.put("WHITE", WHITE);
     }
@@ -90,12 +108,16 @@ public class Formatting {
         return COLOR_MAP.containsKey(string);
     }
 
+    public static boolean isNewLine(String string) {
+        return string.equals("NEWLINE") || string.equals("NL");
+    }
+
     public static boolean isSectionSign(String string) {
         return string.equals("SECTION_SIGN") || string.equals("SS");
     }
 
     public static boolean isFormatting(String string) {
-        return !isColor(string) && !isSectionSign(string);
+        return !isColor(string) && !isSectionSign(string) && !isNewLine(string);
     }
 
     public static String processTag(String string) {
@@ -104,7 +126,7 @@ public class Formatting {
         } else {
             try {
                 Field field = Formatting.class.getField(string);
-                if(isSectionSign(field.getName())) {
+                if(field.getType().isPrimitive()) {
                     return (char) field.get(null) + "";
                 }
                 return (String) field.get(null);
@@ -129,7 +151,9 @@ public class Formatting {
      * @return The parsed string
      */
     public static String format(String string) {
+        //Check the cache first
         if(initAndGetParseCache().contains(string)) return initAndGetParseCache().get(string);
+        //Damn it, not in the cache, now we have to parse it :/
         Stack<String> currentColor = new Stack<>();
         Stack<String> currentFormatting = new Stack<>();
         char[] asArray = string.toCharArray();

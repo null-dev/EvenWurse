@@ -14,6 +14,7 @@ import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.gui.GuiWurstSlot;
+import tk.wurst_client.utils.F;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,8 +126,8 @@ public class GuiAltList extends GuiWurstSlot
 			GuiAlts.altList.isSelected(GuiAltList.alts.indexOf(alt)));
 		mc.fontRendererObj.drawString("Name: " + alt.getName(), x + 31, y + 3,
 			10526880);
-		mc.fontRendererObj.drawString((alt.isCracked() ? "�8cracked"
-			: "�2premium") + (alt.isStarred() ? "�r & �estarred" : ""), x + 31,
+		mc.fontRendererObj.drawString((alt.isCracked() ? F.DARK_GRAY + "cracked"
+			: F.DARK_GREEN + "premium") + (alt.isStarred() ? F.RESET + " & " + F.YELLOW + "starred" : ""), x + 31,
 			y + 15, 10526880);
 	}
 }
