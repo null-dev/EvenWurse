@@ -24,6 +24,8 @@ import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.gui.alts.GuiAlts;
+import tk.wurst_client.utils.F;
+import tk.wurst_client.utils.Formatting;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
@@ -123,11 +125,11 @@ public class GuiWurstMainMenu extends GuiMainMenu
             // build news ticker
             try
             {
-                for(int i = 0; i < news.size(); i++)
-                    newsTicker +=
-                        news.get(i).getChildrenByName("title").get(0)
-                            .getContent()
-                            + "�e+++�r";
+//                for(int i = 0; i < news.size(); i++)
+//                    newsTicker +=
+//                        news.get(i).getChildrenByName("title").get(0)
+//                            .getContent()
+//                            + "�e+++�r";
             }catch(ConcurrentModificationException ignored) {}
             newsWidth = fontRendererObj.getStringWidth(newsTicker);
             // divide by zero fix
@@ -268,14 +270,19 @@ public class GuiWurstMainMenu extends GuiMainMenu
 		drawString(fontRendererObj, cMinecraft2,
 			width - fontRendererObj.getStringWidth(cMinecraft2) - 8, 28,
 			0xffffff);
-		drawString(fontRendererObj, "Wurst Client " + WurstClient.VERSION
-			+ (WurstClient.INSTANCE.updater.isOutdated() ? " (outdated)" : ""),
+		drawString(fontRendererObj, "Based on Wurst: v" + WurstClient.VERSION,
 			8, 8, 0xffffff);
 		drawString(fontRendererObj, "Copyright Alexander01998", 8, 18, 0xffffff);
 		drawString(fontRendererObj, "All rights reserved.", 8, 28, 0xffffff);
-		drawCenteredString(fontRendererObj, "�nwww.Wurst-Client.tk", width / 2,
+		drawCenteredString(fontRendererObj, Formatting.SS + "nwww.Wurst-Client.tk", width / 2,
 			height - 26, 0xffffff);
-		
+
+		// text (EvenWurse)
+		//TODO Custom updater and stuffz
+		drawString(fontRendererObj, F.format("<GREEN>EvenWurse " + WurstClient.EW_VERSION
+						+ (WurstClient.INSTANCE.updater.isOutdated() ? " <RED><ITALIC>(outdated)</ITALIC></RED>" : "") + "</GREEN>"),
+				8, height - 50, 0xffffff);
+
 		// buttons
 		for(Object button : buttonList)
 			((GuiButton)button).drawButton(mc, mouseX, mouseY);

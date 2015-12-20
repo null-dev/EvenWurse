@@ -16,6 +16,7 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.input.Keyboard;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.utils.F;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class GuiCleanUp extends GuiScreen
 				+ "press the refresh button and wait until\n"
 				+ "all servers are done refreshing.",
 			"This will completely clear your server\n"
-				+ "list. �cUse with caution!�r",
+				+ "list. " + F.SS + "cUse with caution!" + F.SS + "r",
 			"Renames your servers to \"Grief me #1\",\n"
 				+ "\"Grief me #2\", etc.",};
 	

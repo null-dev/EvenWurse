@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,8 +9,8 @@
 package tk.wurst_client;
 
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
-
 import tk.wurst_client.analytics.AnalyticsManager;
+import tk.wurst_client.analytics.DoNothingAnalyticsManagerImpl;
 import tk.wurst_client.chat.ChatManager;
 import tk.wurst_client.commands.CmdManager;
 import tk.wurst_client.events.EventManager;
@@ -24,11 +24,12 @@ import tk.wurst_client.options.KeybindManager;
 import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.update.Updater;
 
-public enum WurstClient
+public class WurstClient
 {
-	INSTANCE;
+	public static WurstClient INSTANCE = new WurstClient();
 	
 	public static final String VERSION = "2.12";
+    public static final String EW_VERSION = "1.00";
 	public boolean startupMessageDisabled = false;
 	
 	public ChatManager chat;
@@ -61,8 +62,7 @@ public enum WurstClient
 		gui.setTheme(new WurstTheme());
 		gui.setup();
 		updater.checkForUpdate();
-		analytics =
-			new AnalyticsManager("UA-52838431-5", "client.wurst-client.tk");
+		analytics = new DoNothingAnalyticsManagerImpl();
 		files.saveOptions();
 
 		FrameHook.maximize();
