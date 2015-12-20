@@ -7,6 +7,7 @@
 [![hot, fresh & sexy](https://img.shields.io/badge/hot,%20fresh%20&%20sexy-100%-ff69e3.svg)](http://wizardhax.com/wurst)  
 [![](https://img.shields.io/github/license/Wurst-Imperium/Wurst-Client.svg)](https://github.com/Wurst-Imperium/Wurst-Client/blob/master/LICENSE)
 [![analytics](https://img.shields.io/badge/analytics-GA-blue.svg)](https://github.com/igrigorik/ga-beacon)-->
+Enhanced, neater and more optimized version of the Wurst hacking client by [Alexander01998](https://github.com/Alexander01998).
 
 ## About :information_source:
 The EvenWurse Client is a Hacked Client for Minecraft based on the original [Wurst Client](https://github.com/Wurst-Imperium/Wurst-Client) by [Alexander01998](https://github.com/Alexander01998), packed full of the latest and most exciting mods, commands and other features. All of the mods and commands are instantly deployable at any moment, through buttons, keybinds and even automatic scripts. *You rule the game!*
