@@ -100,15 +100,15 @@ public class CmdManager implements ChatOutputListener
 	}
 
 	public static void handleModuleLoadException(Module.ModuleLoadException e, String name) {
-		if(e instanceof Module.OutdatedClientException) {
-			Module.OutdatedClientException e1 = (Module.OutdatedClientException) e;
+		if(e instanceof Module.InvalidVersionException) {
+			Module.InvalidVersionException e1 = (Module.InvalidVersionException) e;
 			System.out.println("[EvenWurse] Error loading command: '"
-					+ e1.getModName()
-					+ "'! This command requires EvenWurse version: '"
-					+ e1.getMinVersion()
-					+ "' but you are running EvenWurse version: '"
+					+ e1.getName()
+					+ "'! The current EvenWurse version ("
 					+ WurstClient.EW_VERSION_CODE
-					+ "'. Please update EvenWurse to use this command!");
+					+ ") is not inside range: "
+					+ e1.getMinVersion() + " - " + e1.getMaxVersion()
+					+ ". Please update EvenWurse and/or the command to use it!");
 		} else {
 			System.out.println("[EvenWurse] Exception loading command: '" + name + "', skipping!");
 			e.printStackTrace();
@@ -155,7 +155,7 @@ public class CmdManager implements ChatOutputListener
 		}
 		//Don't load cmds that require a higher version than us
 		if(cmd.getMinVersion() > WurstClient.EW_VERSION_CODE) {
-			throw new Module.OutdatedClientException(cmd.getName(), cmd.getMinVersion(), WurstClient.EW_VERSION_CODE);
+			throw new Module.InvalidVersionException(cmd.getName(), cmd.getMinVersion(), WurstClient.EW_VERSION_CODE);
 		}
 		cmds.put(cmd.getName(), cmd);
 		cmdClasses.put(cmd.getClass(), cmd);

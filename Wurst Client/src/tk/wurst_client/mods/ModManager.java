@@ -50,15 +50,15 @@ public class ModManager
     }
 
     public static void handleModuleLoadException(Module.ModuleLoadException e, String name) {
-        if(e instanceof Module.OutdatedClientException) {
-            Module.OutdatedClientException e1 = (Module.OutdatedClientException) e;
+        if(e instanceof Module.InvalidVersionException) {
+            Module.InvalidVersionException e1 = (Module.InvalidVersionException) e;
             System.out.println("[EvenWurse] Error loading mod: '"
-                    + e1.getModName()
-                    + "'! This mod requires EvenWurse version: '"
-                    + e1.getMinVersion()
-                    + "' but you are running EvenWurse version: '"
+                    + e1.getName()
+                    + "'! The current EvenWurse version ("
                     + WurstClient.EW_VERSION_CODE
-                    + "'. Please update EvenWurse to use this mod!");
+                    + ") is not inside range: "
+                    + e1.getMinVersion() + " - " + e1.getMaxVersion()
+                    + ". Please update EvenWurse and/or the mod to use it!");
         } else {
             System.out.println("[EvenWurse] Exception loading mod: '" + name + "', skipping!");
             e.printStackTrace();
@@ -86,7 +86,7 @@ public class ModManager
         }
         //Don't load mods that require a higher version than us
         if(mod.getMinVersion() > WurstClient.EW_VERSION_CODE) {
-            throw new Module.OutdatedClientException(mod.getName(), mod.getMinVersion(), WurstClient.EW_VERSION_CODE);
+            throw new Module.InvalidVersionException(mod.getName(), mod.getMinVersion(), mod.getMaxVersion());
         }
         mods.put(mod.getName(), mod);
         modClasses.put(mod.getClass(), mod);

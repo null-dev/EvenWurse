@@ -8,15 +8,17 @@ import java.lang.annotation.RetentionPolicy;
  * Created: 20/12/15
  * Author: nulldev
  */
-public abstract class Module {
+public class Module {
     private float version = 1.00f;
     private int minVersion = 0;
+    private int maxVersion = 0;
 
     public Module() {
         //Setup annotations
         if(getClass().isAnnotationPresent(ModuleInfo.class)) {
             version = getClass().getAnnotation(ModuleInfo.class).version();
             minVersion = getClass().getAnnotation(ModuleInfo.class).minVersion();
+            maxVersion = getClass().getAnnotation(ModuleInfo.class).maxVersion();
         }
     }
 
@@ -26,6 +28,10 @@ public abstract class Module {
 
     public int getMinVersion() {
         return minVersion;
+    }
+
+    public int getMaxVersion() {
+        return maxVersion;
     }
 
     //Overridable on unload
@@ -46,27 +52,27 @@ public abstract class Module {
 
         public ModuleLoadException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {super(message, cause, enableSuppression, writableStackTrace);}
     }
-    public static class OutdatedClientException extends ModuleLoadException {
-        String modName;
+    public static class InvalidVersionException extends ModuleLoadException {
+        String name;
         int minVersion;
-        int curVersion;
+        int maxVersion;
 
-        public OutdatedClientException(String modName, int minVersion, int curVersion) {
-            this.modName = modName;
+        public InvalidVersionException(String name, int minVersion, int maxVersion) {
+            this.name = name;
             this.minVersion = minVersion;
-            this.curVersion = curVersion;
+            this.maxVersion = maxVersion;
         }
 
-        public String getModName() {
-            return modName;
+        public String getName() {
+            return name;
         }
 
         public int getMinVersion() {
             return minVersion;
         }
 
-        public int getCurVersion() {
-            return curVersion;
+        public int getMaxVersion() {
+            return maxVersion;
         }
     }
 
@@ -76,5 +82,7 @@ public abstract class Module {
         float version() default 1.00f;
 
         int minVersion() default 0;
+
+        int maxVersion() default Integer.MAX_VALUE;
     }
 }

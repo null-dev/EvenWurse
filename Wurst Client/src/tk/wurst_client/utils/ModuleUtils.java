@@ -22,6 +22,9 @@ import java.util.jar.JarFile;
  */
 public class ModuleUtils {
 
+    //Misc modules, TODO refactor later
+    public static ArrayList<Module> miscModules = new ArrayList<>();
+
     public static void reloadModules() {
         System.out.println("[EvenWurse] Reloading modules...");
         ModManager modManager = WurstClient.INSTANCE.mods;
@@ -32,6 +35,16 @@ public class ModuleUtils {
         Cmd[] cmdsToRemove = cmdsToRemoveList.toArray(new Cmd[cmdsToRemoveList.size()]);
         modManager.unloadMods(modsToRemove);
         commandManager.unloadCommands(cmdsToRemove);
+        for(Module module : miscModules) {
+            try {
+                module.onUnload();
+            } catch(Throwable t) {
+                System.out.println("[EvenWurse] Module in class '"
+                        + module.getClass().getSimpleName()
+                        + "' threw exception in onUnload(), ignoring!");
+            }
+        }
+        miscModules.clear();
         int mods = modsToRemove.length;
         int cmds = cmdsToRemove.length;
         modsToRemoveList = null;
@@ -74,6 +87,17 @@ public class ModuleUtils {
                         } catch (Module.ModuleLoadException e1) {
                             CmdManager.handleModuleLoadException(e1, c.getSimpleName());
                         }
+                    } else {
+                        Module module = (Module) c.getConstructor().newInstance();
+                        System.out.println("[EvenWurse] Loading misc module from class: '" + c.getSimpleName() + "'...");
+                        try {
+                            module.onLoad();
+                        } catch(Throwable t) {
+                            System.out.println("[EvenWurse] Module in class '" + c.getSimpleName() + "' threw exception in onLoad(), skipping!");
+                            t.printStackTrace();
+                            continue;
+                        }
+                        miscModules.add(module);
                     }
                 }
             }
