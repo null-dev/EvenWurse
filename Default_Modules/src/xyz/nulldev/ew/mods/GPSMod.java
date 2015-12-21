@@ -1,5 +1,6 @@
 package xyz.nulldev.ew.mods;
 
+import tk.wurst_client.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod;
 
@@ -8,6 +9,8 @@ import tk.wurst_client.mods.Mod;
  * Created: 19/12/15
  * Author: nulldev
  */
+@Module.ModuleInfo(version = 1.02f,
+        minVersion = 120)
 @Mod.Info(category = Mod.Category.RENDER,
         description = "Faster, enhanced version of .path and .goto!",
         name = "GPS")

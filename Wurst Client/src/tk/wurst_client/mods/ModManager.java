@@ -40,7 +40,7 @@ public class ModManager
         int loaded = 0;
         for (Class<? extends Mod> MOD : KNOWN_MODS) {
             try {
-                loadMod(MOD);
+                loadMod(MOD, false);
                 loaded++;
             } catch (Module.ModuleLoadException e) {
                 handleModuleLoadException(e, MOD.getSimpleName());
@@ -71,7 +71,7 @@ public class ModManager
      * @return The loaded mod object
      * @throws Module.ModuleLoadException Failed to load mod
      */
-    public Mod loadMod(Class<? extends Mod> clazz) throws Module.ModuleLoadException {
+    public Mod loadMod(Class<? extends Mod> clazz, boolean custom) throws Module.ModuleLoadException {
         System.out.println("[EvenWurse] Loading mod from class: " + clazz.getSimpleName());
         Mod mod;
         try {
@@ -85,6 +85,8 @@ public class ModManager
         }
         mods.put(mod.getName(), mod);
         modClasses.put(mod.getClass(), mod);
+        if(custom)
+            customMods.add(mod);
         mod.initSliders();
         return mod;
     }
@@ -106,6 +108,31 @@ public class ModManager
         }
         System.out.println("[EvenWurse] Found " + KNOWN_MODS.length + " mods!");
     }
+
+    public void unloadMods(Mod... modsToRemove) {
+        for(Mod mod : modsToRemove) {
+            mod.onUnload();
+            Iterator<Map.Entry<String, Mod>> stringEntries = mods.entrySet().iterator();
+            while (stringEntries.hasNext()) {
+                if(stringEntries.next().getValue().equals(mod)) {
+                    stringEntries.remove();
+                }
+            }
+            Iterator<Map.Entry<Class<? extends Mod>, Mod>> classEntries = modClasses.entrySet().iterator();
+            while (classEntries.hasNext()) {
+                if(classEntries.next().getValue().equals(mod)) {
+                    classEntries.remove();
+                }
+            }
+            customMods.remove(mod);
+        }
+    }
+
+    public ArrayList<Mod> getCustomMods() {
+        return customMods;
+    }
+
+    ArrayList<Mod> customMods = new ArrayList<>();
 
     private final TreeMap<String, Mod> mods = new TreeMap<>(String::compareToIgnoreCase);
 

@@ -28,6 +28,9 @@ public abstract class Module {
         return minVersion;
     }
 
+    //Overridable on unload
+    public void onUnload(){}
+
     //Mod load exceptions
     public static class ModuleLoadException extends Exception {
         public ModuleLoadException() {}

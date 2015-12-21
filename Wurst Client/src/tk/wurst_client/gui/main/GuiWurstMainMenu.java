@@ -299,12 +299,12 @@ public class GuiWurstMainMenu extends GuiMainMenu
 
         //text (Modules)
         int defaultMods = ModManager.KNOWN_MODS.length;
-        int customMods = WurstClient.INSTANCE.mods.countMods() - defaultMods;
+        int customMods = WurstClient.INSTANCE.mods.getCustomMods().size();
         String modString = F.f("<LIGHT-PURPLE><UNDERLINE>" + defaultMods + "</UNDERLINE> default, <UNDERLINE>" + customMods + "</UNDERLINE> custom <BOLD>mods</BOLD> loaded!</LIGHT-PURPLE>");
         drawString(fontRendererObj, modString,
                 width - fontRendererObj.getStringWidth(modString) - 8, height - 33, 0xffffff);
         int defaultCmds = CmdManager.KNOWN_CMDS.length;
-        int customCmds = WurstClient.INSTANCE.commands.countCommands() - defaultCmds;
+        int customCmds = WurstClient.INSTANCE.commands.getCustomCommands().size();
         String cmdString = F.f("<LIGHT-PURPLE><UNDERLINE>" + defaultCmds + "</UNDERLINE> default, <UNDERLINE>" + customCmds + "</UNDERLINE> custom <BOLD>commands</BOLD> loaded!</LIGHT-PURPLE>");
         drawString(fontRendererObj, cmdString,
                 width - fontRendererObj.getStringWidth(cmdString) - 8, height - 23,

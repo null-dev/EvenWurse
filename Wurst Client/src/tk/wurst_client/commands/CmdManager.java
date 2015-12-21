@@ -27,6 +27,8 @@ public class CmdManager implements ChatOutputListener
 {
 	public static Class<? extends Cmd>[] KNOWN_CMDS = null;
 
+	ArrayList<Cmd> customCommands = new ArrayList<>();
+
 	private final TreeMap<String, Cmd> cmds = new TreeMap<>(String::compareToIgnoreCase);
 
 	private final HashMap<Class<? extends Cmd>, Cmd> cmdClasses = new HashMap<>();
@@ -88,7 +90,7 @@ public class CmdManager implements ChatOutputListener
 		int loaded = 0;
 		for (Class<? extends Cmd> CMD : KNOWN_CMDS) {
 			try {
-				loadCommand(CMD);
+				loadCommand(CMD, false);
 				loaded++;
 			} catch (Module.ModuleLoadException e) {
 				handleModuleLoadException(e, CMD.getSimpleName());
@@ -113,13 +115,32 @@ public class CmdManager implements ChatOutputListener
 		}
 	}
 
+	public void unloadCommands(Cmd... modsToRemove) {
+		for(Cmd cmd : modsToRemove) {
+			cmd.onUnload();
+			Iterator<Map.Entry<String, Cmd>> stringEntries = cmds.entrySet().iterator();
+			while (stringEntries.hasNext()) {
+				if(stringEntries.next().getValue().equals(cmd)) {
+					stringEntries.remove();
+				}
+			}
+			Iterator<Map.Entry<Class<? extends Cmd>, Cmd>> classEntries = cmdClasses.entrySet().iterator();
+			while (classEntries.hasNext()) {
+				if(classEntries.next().getValue().equals(cmd)) {
+					classEntries.remove();
+				}
+			}
+			customCommands.remove(cmd);
+		}
+	}
+
 	/**
 	 * Load a command into memory.
 	 * @param clazz The class of the command to load
 	 * @return The loaded command object
 	 * @throws Module.ModuleLoadException Failed to load command
 	 */
-	public Cmd loadCommand(Class<? extends Cmd> clazz) throws Module.ModuleLoadException {
+	public Cmd loadCommand(Class<? extends Cmd> clazz, boolean custom) throws Module.ModuleLoadException {
 		System.out.println("[EvenWurse] Loading cmd from class: " + clazz.getSimpleName());
 		Cmd cmd;
 		try {
@@ -133,6 +154,8 @@ public class CmdManager implements ChatOutputListener
 		}
 		cmds.put(cmd.getName(), cmd);
 		cmdClasses.put(cmd.getClass(), cmd);
+		if(custom)
+			customCommands.add(cmd);
 		return cmd;
 	}
 
@@ -153,7 +176,11 @@ public class CmdManager implements ChatOutputListener
 		}
 		System.out.println("[EvenWurse] Found " + KNOWN_CMDS.length + " cmds!");
 	}
-	
+
+	public ArrayList<Cmd> getCustomCommands() {
+		return customCommands;
+	}
+
 	public Cmd getCommandByName(String name)
 	{
 		return cmds.get(name);

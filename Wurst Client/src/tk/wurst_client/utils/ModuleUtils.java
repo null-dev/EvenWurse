@@ -10,6 +10,7 @@ import tk.wurst_client.mods.ModManager;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -20,6 +21,28 @@ import java.util.jar.JarFile;
  * Author: nulldev
  */
 public class ModuleUtils {
+
+    public static void reloadModules() {
+        System.out.println("[EvenWurse] Reloading modules...");
+        ModManager modManager = WurstClient.INSTANCE.mods;
+        ArrayList<Mod> modsToRemoveList = modManager.getCustomMods();
+        Mod[] modsToRemove = modsToRemoveList.toArray(new Mod[modsToRemoveList.size()]);
+        CmdManager commandManager = WurstClient.INSTANCE.commands;
+        ArrayList<Cmd> cmdsToRemoveList = commandManager.getCustomCommands();
+        Cmd[] cmdsToRemove = cmdsToRemoveList.toArray(new Cmd[cmdsToRemoveList.size()]);
+        modManager.unloadMods(modsToRemove);
+        commandManager.unloadCommands(cmdsToRemove);
+        int mods = modsToRemove.length;
+        int cmds = cmdsToRemove.length;
+        modsToRemoveList = null;
+        modsToRemove = null;
+        cmdsToRemoveList = null;
+        cmdsToRemove = null;
+        System.gc();
+        WurstClient.INSTANCE.files.loadModules();
+        System.out.println("[EvenWurse] Reloaded " + mods + " mods and " + cmds + " commands!");
+    }
+
     public static void loadModule(File jar) {
         System.out.println("[EvenWurse] Loading module from JAR file: '" + jar.getName() + "'...");
         try {
@@ -41,13 +64,13 @@ public class ModuleUtils {
                 if (Module.class.isAssignableFrom(c)) {
                     if (Mod.class.isAssignableFrom(c)) {
                         try {
-                            WurstClient.INSTANCE.mods.loadMod(c);
+                            WurstClient.INSTANCE.mods.loadMod(c, true);
                         } catch (Module.ModuleLoadException e1) {
                             ModManager.handleModuleLoadException(e1, c.getSimpleName());
                         }
                     } else if (Cmd.class.isAssignableFrom(c)) {
                         try {
-                            WurstClient.INSTANCE.commands.loadCommand(c);
+                            WurstClient.INSTANCE.commands.loadCommand(c, true);
                         } catch (Module.ModuleLoadException e1) {
                             CmdManager.handleModuleLoadException(e1, c.getSimpleName());
                         }
