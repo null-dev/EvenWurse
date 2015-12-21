@@ -24,6 +24,7 @@ import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.CmdManager;
+import tk.wurst_client.gui.alts.GuiAlts;
 import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.Formatting;
@@ -158,11 +159,11 @@ public class GuiWurstMainMenu extends GuiMainMenu
             return;
         }
 
-//        switch(button.id)
-//        {
-//            case 3:
-//                mc.displayGuiScreen(new GuiAlts(this));
-//                break;
+        switch(button.id)
+        {
+            case 3:
+                mc.displayGuiScreen(new GuiAlts(this));
+                break;
 //            case 20:
 //                MiscUtils.openLink("https://www.wurst-client.tk/youtube");
 //                break;
@@ -181,7 +182,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 //            case 25:
 //                MiscUtils.openLink("https://www.wurst-client.tk/fanshop");
 //                break;
-//        }
+        }
     }
 
     @Override
