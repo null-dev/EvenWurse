@@ -79,6 +79,11 @@ public class ModManager
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             throw new Module.ModuleLoadException("Unknown error loading mod!", e);
         }
+        try {
+            mod.onLoad();
+        } catch(Throwable t) {
+            throw new Module.ModuleLoadException("Module '" + mod.getName() + "' threw exception in onLoad()!", t);
+        }
         //Don't load mods that require a higher version than us
         if(mod.getMinVersion() > WurstClient.EW_VERSION_CODE) {
             throw new Module.OutdatedClientException(mod.getName(), mod.getMinVersion(), WurstClient.EW_VERSION_CODE);

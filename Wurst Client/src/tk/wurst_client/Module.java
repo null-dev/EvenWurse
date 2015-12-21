@@ -31,6 +31,9 @@ public abstract class Module {
     //Overridable on unload
     public void onUnload(){}
 
+    //Overridable on load
+    public void onLoad(){}
+
     //Mod load exceptions
     public static class ModuleLoadException extends Exception {
         public ModuleLoadException() {}

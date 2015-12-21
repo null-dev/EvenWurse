@@ -148,6 +148,11 @@ public class CmdManager implements ChatOutputListener
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			throw new Module.ModuleLoadException("Unknown error loading cmd!", e);
 		}
+		try {
+			cmd.onLoad();
+		} catch(Throwable t) {
+			throw new Module.ModuleLoadException("Module '" + cmd.getName() + "' threw exception in onLoad()!", t);
+		}
 		//Don't load cmds that require a higher version than us
 		if(cmd.getMinVersion() > WurstClient.EW_VERSION_CODE) {
 			throw new Module.OutdatedClientException(cmd.getName(), cmd.getMinVersion(), WurstClient.EW_VERSION_CODE);
