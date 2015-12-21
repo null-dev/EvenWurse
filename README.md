@@ -7,7 +7,7 @@
 [![hot, fresh & sexy](https://img.shields.io/badge/hot,%20fresh%20&%20sexy-100%-ff69e3.svg)](http://wizardhax.com/EvenWurse)  
 [![](https://img.shields.io/github/license/EvenWurse-Imperium/EvenWurse-Client.svg)](https://github.com/EvenWurse-Imperium/EvenWurse-Client/blob/master/LICENSE)
 [![analytics](https://img.shields.io/badge/analytics-GA-blue.svg)](https://github.com/igrigorik/ga-beacon)-->
-Enhanced, neater and more optimized version of the EvenWurse hacking client by [Alexander01998](https://github.com/Alexander01998).
+Enhanced, neater and more optimized version of the Wurst hacking client by [Alexander01998](https://github.com/Alexander01998).
 
 ## About :information_source:
 <!-- TODO Module docs -->
@@ -33,7 +33,7 @@ So what are you waiting for? Grab a [download](https://download.wurst-client.tk/
 If you found a bug or you have a suggestion, use the GitHub Issue tracker. Keep the [contributing guidelines](/CONTRIBUTING.md) in mind - Issues that violate them will be removed with no mercy.
 
 ## Contributing :computer:
-Want to help with the development? Awesome! Just click the[`fork`](https://github.com/null-dev/EvenWurse) button, make your changes and create a Pull Request. Again, keep the [contributing guidelines](/CONTRIBUTING.md) in mind.
+Want to help with the development? Awesome! Just click the[`fork`](https://github.com/null-dev/EvenWurse/fork) button, make your changes and create a Pull Request. Again, keep the [contributing guidelines](/CONTRIBUTING.md) in mind.
 
 If you have trouble setting it up in Eclipse, read the wiki page ["How to Debug Wurst in Eclipse"](https://www.wurst-client.tk/wiki/Tutorials/How-to-Debug-Wurst-In-Eclipse/).
 
