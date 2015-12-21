@@ -10,13 +10,14 @@
 Enhanced, neater and more optimized version of the Wurst hacking client by [Alexander01998](https://github.com/Alexander01998).
 
 ## About :information_source:
-<!-- TODO Module docs -->
 The EvenWurse Client is a Hacked Client for Minecraft based on the original [Wurst Client](https://github.com/Wurst-Imperium/Wurst-Client) by [Alexander01998](https://github.com/Alexander01998), packed full of the latest and most exciting mods, commands and other features. All of the mods and commands are instantly deployable at any moment, through buttons, keybinds and even automatic scripts. *You rule the game!*
 
 ## :sparkles::sparkles::sparkles: Special Features :sparkles::sparkles::sparkles:
 
 ### Custom Module API :wrench:
 EvenWurse has a new custom module loader which is not present in the original Wurst Client. Write your own modules using the EvenWurse API without having to distribute the entire EvenWurse client! Load and use your modules and other peoples modules without having to merge and recompile the client!
+
+Details for developers here: [Custom Module Documentation](https://github.com/null-dev/EvenWurse/wiki/Custom-Modules)
 
 ### Secure AltManager :closed_lock_with_key:
 EvenWurse comes packed with a full featured Alt Manager that supports both premium and cracked accounts. It's the only Alt Manager out there that uses modern encryption algorithms to ensure your alts are stored securely.
