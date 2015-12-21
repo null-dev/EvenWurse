@@ -10,6 +10,7 @@
 Enhanced, neater and more optimized version of the EvenWurse hacking client by [Alexander01998](https://github.com/Alexander01998).
 
 ## About :information_source:
+<!-- TODO Module docs -->
 The EvenWurse Client is a Hacked Client for Minecraft based on the original [EvenWurse Client](https://github.com/EvenWurse-Imperium/EvenWurse-Client) by [Alexander01998](https://github.com/Alexander01998), packed full of the latest and most exciting mods, commands and other features. All of the mods and commands are instantly deployable at any moment, through buttons, keybinds and even automatic scripts. *You rule the game!*
 
 ## :sparkles::sparkles::sparkles: Special Features :sparkles::sparkles::sparkles:

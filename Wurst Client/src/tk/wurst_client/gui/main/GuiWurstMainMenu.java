@@ -110,7 +110,6 @@ public class GuiWurstMainMenu extends GuiMainMenu
 //                            "");
 //            buttonList.add(button);
 //        }
-        //TODO Fix this on smaller screens
         //Mod button
         moduleButton = new GuiButton(30, this.width / 2 + 2, this.height / 4 + 48 + 24 * 2, 98, 20, "Module Folder");
         buttonList.add(moduleButton);

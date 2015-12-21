@@ -1,6 +1,7 @@
-package tk.wurst_client.mods;
+package xyz.nulldev.ew.mods;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.mods.Mod;
 
 /**
  * Project: EvenWurse

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Default Modules">
+    <output-path>$MCP_LOC$/jars/wurst/modules/</output-path>
+    <root id="archive" name="Default Modules.jar">
+      <element id="module-output" name="Default Modules" />
+    </root>
+  </artifact>
+</component>
