@@ -42,7 +42,7 @@ public class FileManager
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
 	public final File scriptsDir = new File(spamDir, "autorun");
-	public final File modulesDir = new File(spamDir, "modules");
+	public final File modulesDir = new File(wurstDir, "modules");
 	
 	public final File alts = new File(wurstDir, "alts.json");
 	public final File friends = new File(wurstDir, "friends.json");

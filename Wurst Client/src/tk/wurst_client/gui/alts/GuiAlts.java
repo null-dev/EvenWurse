@@ -17,6 +17,7 @@ import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.alts.NameGenerator;
 import tk.wurst_client.hooks.FrameHook;
+import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
 
 import javax.swing.*;
@@ -111,7 +112,7 @@ public class GuiAlts extends GuiScreen
 					else
 					{
 						errorTimer = 8;
-						if(reply.equals("�4�lWrong password!"))
+						if(reply.equals(F.DARK_RED + F.BOLD + "Wrong password!"))
 						{
 							GuiAltList.alts.remove(altList.getSelectedSlot());
 							GuiAltList.sortAlts();

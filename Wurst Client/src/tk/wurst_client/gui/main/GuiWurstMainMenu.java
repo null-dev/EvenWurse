@@ -23,13 +23,16 @@ import org.newdawn.slick.util.xml.XMLElement;
 import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.commands.CmdManager;
 import tk.wurst_client.gui.alts.GuiAlts;
+import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.Formatting;
 import tk.wurst_client.utils.JsonUtils;
 import tk.wurst_client.utils.MiscUtils;
 
 import javax.net.ssl.HttpsURLConnection;
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -50,6 +53,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
     private XMLElementList news;
     private String newsTicker;
     private int newsWidth;
+    GuiButton moduleButton;
 
     public GuiWurstMainMenu()
     {
@@ -108,6 +112,10 @@ public class GuiWurstMainMenu extends GuiMainMenu
                             "");
             buttonList.add(button);
         }
+        //TODO Fix this on smaller screens
+        //Mod button
+        moduleButton = new GuiButton(30, this.width / 2 - 100, this.height / 4 + 48 + 24 * 3, "Open Module Folder");
+        buttonList.add(moduleButton);
 
         // news
         newsTicker = "";
@@ -146,6 +154,12 @@ public class GuiWurstMainMenu extends GuiMainMenu
     protected void actionPerformed(GuiButton button) throws IOException
     {
         super.actionPerformed(button);
+
+        if(button.equals(moduleButton)) {
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(WurstClient.INSTANCE.files.modulesDir);
+            return;
+        }
 
         switch(button.id)
         {
@@ -275,7 +289,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
                 8, 8, 0xffffff);
         drawString(fontRendererObj, "Copyright Alexander01998", 8, 18, 0xffffff);
         drawString(fontRendererObj, "All rights reserved.", 8, 28, 0xffffff);
-        drawCenteredString(fontRendererObj, Formatting.SS + "nwww.Wurst-Client.tk", width / 2,
+        drawCenteredString(fontRendererObj, Formatting.UNDERLINE + "www.Wurst-Client.tk", width / 2,
                 height - 26, 0xffffff);
 
         // text (EvenWurse)
@@ -285,6 +299,19 @@ public class GuiWurstMainMenu extends GuiMainMenu
                 8, height - 60, 0xffffff);
         drawString(fontRendererObj, F.format("<BLUE>By: nulldev</BLUE>"),
                 8, height - 50, 0xffffff);
+
+        //text (Modules)
+        int defaultMods = ModManager.KNOWN_MODS.length;
+        int customMods = WurstClient.INSTANCE.mods.countMods() - defaultMods;
+        String modString = F.f("<LIGHT-PURPLE><UNDERLINE>" + defaultMods + "</UNDERLINE> default, <UNDERLINE>" + customMods + "</UNDERLINE> custom <BOLD>mods</BOLD> loaded!</LIGHT-PURPLE>");
+        drawString(fontRendererObj, modString,
+                width - fontRendererObj.getStringWidth(modString) - 8, height - 60, 0xffffff);
+        int defaultCmds = CmdManager.KNOWN_CMDS.length;
+        int customCmds = WurstClient.INSTANCE.commands.countCommands() - defaultCmds;
+        String cmdString = F.f("<LIGHT-PURPLE><UNDERLINE>" + defaultCmds + "</UNDERLINE> default, <UNDERLINE>" + customCmds + "</UNDERLINE> custom <BOLD>commands</BOLD> loaded!</LIGHT-PURPLE>");
+        drawString(fontRendererObj, cmdString,
+                width - fontRendererObj.getStringWidth(cmdString) - 8, height - 50,
+                0xffffff);
 
         // buttons
         for(Object button : buttonList)
@@ -399,7 +426,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
             throws IOException
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        int linkWidth = fontRendererObj.getStringWidth("�nwww.Wurst-Client.tk");
+        int linkWidth = fontRendererObj.getStringWidth(F.UNDERLINE + "www.Wurst-Client.tk");
 
         if(mouseButton == 0 && mouseY >= height - 26 && mouseY < height - 16
                 && mouseX > width / 2 - linkWidth / 2
