@@ -24,7 +24,6 @@ import org.newdawn.slick.util.xml.XMLElementList;
 import org.newdawn.slick.util.xml.XMLParser;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.CmdManager;
-import tk.wurst_client.gui.alts.GuiAlts;
 import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.Formatting;
@@ -36,7 +35,6 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ConcurrentModificationException;
 
@@ -99,22 +97,22 @@ public class GuiWurstMainMenu extends GuiMainMenu
                     Math.min(((GuiButton)buttonList.get(i)).yPosition, height - 56);
 
         // social buttons
-        for(int i = 0; i < 3; i++)
-        {
-            GuiButton button =
-                    new GuiButton(20 + i, 8 + i * 24, height - 36, 20, 20, "");
-            buttonList.add(button);
-        }
-        for(int i = 0; i < 3; i++)
-        {
-            GuiButton button =
-                    new GuiButton(25 - i, width - 28 - i * 24, height - 36, 20, 20,
-                            "");
-            buttonList.add(button);
-        }
+//        for(int i = 0; i < 3; i++)
+//        {
+//            GuiButton button =
+//                    new GuiButton(20 + i, 8 + i * 24, height - 36, 20, 20, "");
+//            buttonList.add(button);
+//        }
+//        for(int i = 0; i < 3; i++)
+//        {
+//            GuiButton button =
+//                    new GuiButton(25 - i, width - 28 - i * 24, height - 36, 20, 20,
+//                            "");
+//            buttonList.add(button);
+//        }
         //TODO Fix this on smaller screens
         //Mod button
-        moduleButton = new GuiButton(30, this.width / 2 - 100, this.height / 4 + 48 + 24 * 3, "Open Module Folder");
+        moduleButton = new GuiButton(30, this.width / 2 + 2, this.height / 4 + 48 + 24 * 2, 98, 20, "Module Folder");
         buttonList.add(moduleButton);
 
         // news
@@ -161,30 +159,30 @@ public class GuiWurstMainMenu extends GuiMainMenu
             return;
         }
 
-        switch(button.id)
-        {
-            case 3:
-                mc.displayGuiScreen(new GuiAlts(this));
-                break;
-            case 20:
-                MiscUtils.openLink("https://www.wurst-client.tk/youtube");
-                break;
-            case 21:
-                MiscUtils.openLink("https://www.wurst-client.tk/twitter");
-                break;
-            case 22:
-                MiscUtils.openLink("https://www.wurst-client.tk/gplus");
-                break;
-            case 23:
-                MiscUtils.openLink("https://www.wurst-client.tk/github");
-                break;
-            case 24:
-                MiscUtils.openLink("https://www.wurst-client.tk/feedback");
-                break;
-            case 25:
-                MiscUtils.openLink("https://www.wurst-client.tk/fanshop");
-                break;
-        }
+//        switch(button.id)
+//        {
+//            case 3:
+//                mc.displayGuiScreen(new GuiAlts(this));
+//                break;
+//            case 20:
+//                MiscUtils.openLink("https://www.wurst-client.tk/youtube");
+//                break;
+//            case 21:
+//                MiscUtils.openLink("https://www.wurst-client.tk/twitter");
+//                break;
+//            case 22:
+//                MiscUtils.openLink("https://www.wurst-client.tk/gplus");
+//                break;
+//            case 23:
+//                MiscUtils.openLink("https://www.wurst-client.tk/github");
+//                break;
+//            case 24:
+//                MiscUtils.openLink("https://www.wurst-client.tk/feedback");
+//                break;
+//            case 25:
+//                MiscUtils.openLink("https://www.wurst-client.tk/fanshop");
+//                break;
+//        }
     }
 
     @Override
@@ -290,27 +288,27 @@ public class GuiWurstMainMenu extends GuiMainMenu
         drawString(fontRendererObj, "Copyright Alexander01998", 8, 18, 0xffffff);
         drawString(fontRendererObj, "All rights reserved.", 8, 28, 0xffffff);
         drawCenteredString(fontRendererObj, Formatting.UNDERLINE + "www.Wurst-Client.tk", width / 2,
-                height - 26, 0xffffff);
+                height - 12, 0xffffff);
 
         // text (EvenWurse)
         //TODO Custom updater and stuffz
         drawString(fontRendererObj, F.format("<GREEN>EvenWurse " + WurstClient.EW_VERSION
                         + (WurstClient.INSTANCE.updater.isOutdated() ? " <RED><ITALIC>(outdated)</ITALIC></RED>" : "") + "</GREEN>"),
-                8, height - 60, 0xffffff);
+                8, height - 33, 0xffffff);
         drawString(fontRendererObj, F.format("<BLUE>By: nulldev</BLUE>"),
-                8, height - 50, 0xffffff);
+                8, height - 23, 0xffffff);
 
         //text (Modules)
         int defaultMods = ModManager.KNOWN_MODS.length;
         int customMods = WurstClient.INSTANCE.mods.countMods() - defaultMods;
         String modString = F.f("<LIGHT-PURPLE><UNDERLINE>" + defaultMods + "</UNDERLINE> default, <UNDERLINE>" + customMods + "</UNDERLINE> custom <BOLD>mods</BOLD> loaded!</LIGHT-PURPLE>");
         drawString(fontRendererObj, modString,
-                width - fontRendererObj.getStringWidth(modString) - 8, height - 60, 0xffffff);
+                width - fontRendererObj.getStringWidth(modString) - 8, height - 33, 0xffffff);
         int defaultCmds = CmdManager.KNOWN_CMDS.length;
         int customCmds = WurstClient.INSTANCE.commands.countCommands() - defaultCmds;
         String cmdString = F.f("<LIGHT-PURPLE><UNDERLINE>" + defaultCmds + "</UNDERLINE> default, <UNDERLINE>" + customCmds + "</UNDERLINE> custom <BOLD>commands</BOLD> loaded!</LIGHT-PURPLE>");
         drawString(fontRendererObj, cmdString,
-                width - fontRendererObj.getStringWidth(cmdString) - 8, height - 50,
+                width - fontRendererObj.getStringWidth(cmdString) - 8, height - 23,
                 0xffffff);
 
         // buttons
@@ -318,67 +316,67 @@ public class GuiWurstMainMenu extends GuiMainMenu
             ((GuiButton)button).drawButton(mc, mouseX, mouseY);
 
         // social buttons
-        mc.getTextureManager().bindTexture(buttons);
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        for(int i = 0; i < 6; i++)
-        {
-            x = i < 3 ? width - 26 - i * 24 : 10 + (5 - i) * 24;
-            y = height - 34;
-            h = 16;
-            w = 16;
-            fw = 43;
-            fh = 256;
-            u = 256 * 5 / 6 - i * 256 / 6;
-            v = 0;
-            worldRenderer.startDrawingQuads();
-            worldRenderer.addVertexWithUV(x + 0, y + h, 0,
-                    (float)(u + 0) * 0.00390625F, (float)(v + fh) * 0.00390625F);
-            worldRenderer.addVertexWithUV(x + w, y + h, 0,
-                    (float)(u + fw) * 0.00390625F, (float)(v + fh) * 0.00390625F);
-            worldRenderer.addVertexWithUV(x + w, y + 0, 0,
-                    (float)(u + fw) * 0.00390625F, (float)(v + 0) * 0.00390625F);
-            worldRenderer.addVertexWithUV(x + 0, y + 0, 0,
-                    (float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
-            tessellator.draw();
-        }
+//        mc.getTextureManager().bindTexture(buttons);
+//        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+//        glEnable(GL_BLEND);
+//        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//        for(int i = 0; i < 6; i++)
+//        {
+//            x = i < 3 ? width - 26 - i * 24 : 10 + (5 - i) * 24;
+//            y = height - 34;
+//            h = 16;
+//            w = 16;
+//            fw = 43;
+//            fh = 256;
+//            u = 256 * 5 / 6 - i * 256 / 6;
+//            v = 0;
+//            worldRenderer.startDrawingQuads();
+//            worldRenderer.addVertexWithUV(x + 0, y + h, 0,
+//                    (float)(u + 0) * 0.00390625F, (float)(v + fh) * 0.00390625F);
+//            worldRenderer.addVertexWithUV(x + w, y + h, 0,
+//                    (float)(u + fw) * 0.00390625F, (float)(v + fh) * 0.00390625F);
+//            worldRenderer.addVertexWithUV(x + w, y + 0, 0,
+//                    (float)(u + fw) * 0.00390625F, (float)(v + 0) * 0.00390625F);
+//            worldRenderer.addVertexWithUV(x + 0, y + 0, 0,
+//                    (float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
+//            tessellator.draw();
+//        }
 
         // news
-        if(!newsTicker.isEmpty() && newsWidth != 0)
-            drawString(fontRendererObj, newsTicker,
-                    -(int)(Minecraft.getSystemTime() / 50 % newsWidth),
-                    height - 10, -1);
+//        if(!newsTicker.isEmpty() && newsWidth != 0)
+//            drawString(fontRendererObj, newsTicker,
+//                    -(int)(Minecraft.getSystemTime() / 50 % newsWidth),
+//                    height - 10, -1);
 
         // tooltips
-        for (Object aButtonList : buttonList) {
-            GuiButton button = (GuiButton) aButtonList;
-            if (button.isMouseOver()) {
-                ArrayList<String> tooltip = new ArrayList<>();
-                switch (button.id) {
-                    case 20:
-                        tooltip.add("Wurst YouTube Channel");
-                        break;
-                    case 21:
-                        tooltip.add("Wurst Twitter Account");
-                        break;
-                    case 22:
-                        tooltip.add("Wurst Google+ Page");
-                        break;
-                    case 23:
-                        tooltip.add("Wurst Source Code");
-                        break;
-                    case 24:
-                        tooltip.add("Wurst Feedback");
-                        break;
-                    case 25:
-                        tooltip.add("Wurst Merchandise");
-                        break;
-                }
-                drawHoveringText(tooltip, mouseX, mouseY);
-                break;
-            }
-        }
+//        for (Object aButtonList : buttonList) {
+//            GuiButton button = (GuiButton) aButtonList;
+//            if (button.isMouseOver()) {
+//                ArrayList<String> tooltip = new ArrayList<>();
+//                switch (button.id) {
+//                    case 20:
+//                        tooltip.add("Wurst YouTube Channel");
+//                        break;
+//                    case 21:
+//                        tooltip.add("Wurst Twitter Account");
+//                        break;
+//                    case 22:
+//                        tooltip.add("Wurst Google+ Page");
+//                        break;
+//                    case 23:
+//                        tooltip.add("Wurst Source Code");
+//                        break;
+//                    case 24:
+//                        tooltip.add("Wurst Feedback");
+//                        break;
+//                    case 25:
+//                        tooltip.add("Wurst Merchandise");
+//                        break;
+//                }
+//                drawHoveringText(tooltip, mouseX, mouseY);
+//                break;
+//            }
+//        }
 
         if(!WurstClient.INSTANCE.startupMessageDisabled)
         {
@@ -428,7 +426,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
         super.mouseClicked(mouseX, mouseY, mouseButton);
         int linkWidth = fontRendererObj.getStringWidth(F.UNDERLINE + "www.Wurst-Client.tk");
 
-        if(mouseButton == 0 && mouseY >= height - 26 && mouseY < height - 16
+        if(mouseButton == 0 && mouseY >= height - 12 && mouseY < height - 2
                 && mouseX > width / 2 - linkWidth / 2
                 && mouseX < width / 2 + linkWidth / 2)
         {
