@@ -19,6 +19,7 @@ import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.mods.KillauraMod;
 import tk.wurst_client.options.OptionsManager;
 
 import java.util.ArrayList;
@@ -190,7 +191,7 @@ public class EntityUtils
 		EntityLivingBase closestEntity = null;
 		for(Object o : Minecraft.getMinecraft().theWorld.loadedEntityList)
 			if(isCorrectEntity(o, ignoreFriends)
-				&& getDistanceFromMouse((Entity)o) <= WurstClient.INSTANCE.mods.killauraMod.fov / 2)
+				&& getDistanceFromMouse((Entity)o) <= WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).fov / 2)
 			{
 				EntityLivingBase en = (EntityLivingBase)o;
 				if(!(o instanceof EntityPlayerSP)

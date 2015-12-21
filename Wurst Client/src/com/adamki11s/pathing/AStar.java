@@ -4,9 +4,10 @@
 
 package com.adamki11s.pathing;
 
-import net.minecraft.block.state.IBlockState;
+import xyz.nulldev.mcpwrapper.BlockWrapper;
+import xyz.nulldev.mcpwrapper.bukkit.BukkitBridge;
+import xyz.nulldev.mcpwrapper.bukkit.Location;
 import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 import tk.wurst_client.utils.BlockUtils;
 
 import java.util.*;
@@ -21,8 +22,6 @@ public class AStar {
 	private final int sx, sy, sz, ex, ey, ez;
 
 	private PathingResult result;
-
-	private World world;
 
 	private HashMap<String, Tile> open = new HashMap<>();
 	private HashMap<String, Tile> closed = new HashMap<>();
@@ -252,34 +251,43 @@ public class AStar {
 
 	private boolean isTileWalkable(Tile t) {
 		Location l = new Location((sx + t.getX()), (sy + t.getY()), (sz + t.getZ()));
-        BlockPos pos = new BlockPos((sx + t.getX()), (sy + t.getY()), (sz + t.getZ()));
+		BlockPos pos = new BlockPos((sx + t.getX()), (sy + t.getY()), (sz + t.getZ()));
 		int i = BlockUtils.getID(pos);
+		BlockWrapper wrapper = new BlockWrapper(pos);
 
 		// lava, fire, wheat and ladders cannot be walked on, and of course air
 		// 85, 107 and 113 stops npcs climbing fences and fence gates
-		if (i != 10 && i != 11 && i != 51 && i != 59 && i != 65 && i != 0 && i != 85 && i != 107 && i != 113 && !canBlockBeWalkedThrough(i)) {
-			// make sure the blocks above are air
-
-			if (BlockUtils.getID(BlockUtils.getRelative(pos, 0, 1, 0)) == 107) {
-                return false;
-			}
-			return (canBlockBeWalkedThrough(BlockUtils.getRelative(pos, 0, 1, 0).getTypeId()) && b.getRelative(0, 2, 0).getTypeId() == 0);
-
-		} else {
-			return false;
-		}
+		// make sure the blocks above are air
+		// This is the most readable thing I have ever written :P
+		return i != 10
+				&& i != 11
+				&& i != 51
+				&& i != 59
+				&& i != 65
+				&& i != 0
+				&& i != 85
+				&& i != 107
+				&& i != 113
+				&& !canBlockBeWalkedThrough(i)
+				&& BlockUtils.getID(BlockUtils.getRelative(pos, 0, 1, 0)) != 107
+				&& (canBlockBeWalkedThrough(wrapper.getRelative(0, 1, 0).getId())
+				&& wrapper.getRelative(0, 2, 0).getId() == 0);
 	}
 
 	private boolean isLocationWalkable(Location l) {
-		Block b = l.getBlock();
-		int i = b.getTypeId();
+		BlockWrapper wrapper = new BlockWrapper(BukkitBridge.fromBukkit(l));
+		int i = wrapper.getId();
 
-		if (i != 10 && i != 11 && i != 51 && i != 59 && i != 65 && i != 0 && !canBlockBeWalkedThrough(i)) {
-			// make sure the blocks above are air or can be walked through
-			return (canBlockBeWalkedThrough(b.getRelative(0, 1, 0).getTypeId()) && b.getRelative(0, 2, 0).getTypeId() == 0);
-		} else {
-			return false;
-		}
+		// make sure the blocks above are air or can be walked through
+		return i != 10
+				&& i != 11
+				&& i != 51
+				&& i != 59
+				&& i != 65
+				&& i != 0
+				&& !canBlockBeWalkedThrough(i)
+				&& (canBlockBeWalkedThrough(wrapper.getRelative(0, 1, 0).getId())
+				&& wrapper.getRelative(0, 2, 0).getId() == 0);
 	}
 
 	private boolean canBlockBeWalkedThrough(int id) {

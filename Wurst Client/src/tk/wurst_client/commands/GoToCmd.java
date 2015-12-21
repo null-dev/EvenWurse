@@ -13,6 +13,7 @@ import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.ai.PathFinder;
 import tk.wurst_client.commands.Cmd.Info;
+import tk.wurst_client.mods.GoToCmdMod;
 
 @Info(help = "Walks or flies you to a specific location.",
 	name = "goto",
@@ -41,7 +42,7 @@ public class GoToCmd extends Cmd
             {
                 tk.wurst_client.mods.GoToCmdMod.setPath(pathFinder
                     .formatPath());
-                WurstClient.INSTANCE.mods.goToCmdMod.setEnabled(true);
+                WurstClient.INSTANCE.mods.getModByClass(GoToCmdMod.class).setEnabled(true);
             }else
                 WurstClient.INSTANCE.chat.error("Could not find a path.");
             System.out.println("Done after "

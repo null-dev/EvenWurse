@@ -26,15 +26,10 @@ public class ClickAuraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		// TODO: Clean up this mess!
-		if(WurstClient.INSTANCE.mods.killauraMod.isEnabled())
-			WurstClient.INSTANCE.mods.killauraMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.killauraLegitMod.isEnabled())
-			WurstClient.INSTANCE.mods.killauraLegitMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.multiAuraMod.isEnabled())
-			WurstClient.INSTANCE.mods.multiAuraMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.triggerBotMod.isEnabled())
-			WurstClient.INSTANCE.mods.triggerBotMod.setEnabled(false);
+		WurstClient.INSTANCE.mods.disableModsByClass(KillauraMod.class,
+				KillauraLegitMod.class,
+				MultiAuraMod.class,
+				TriggerBotMod.class);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
@@ -43,16 +38,16 @@ public class ClickAuraMod extends Mod implements UpdateListener
 	{
 		updateMS();
 		EntityLivingBase en = EntityUtils.getClosestEntity(true);
-		if(hasTimePassedS(WurstClient.INSTANCE.mods.killauraMod.realSpeed)
+		if(hasTimePassedS(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).realSpeed)
 			&& en != null
 			&& Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed)
 		{
-			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= WurstClient.INSTANCE.mods.killauraMod.realRange)
+			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).realRange)
 			{
-				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
+				if(WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
-				WurstClient.INSTANCE.mods.blockHitMod.doBlock();
+				WurstClient.INSTANCE.mods.getModByClass(BlockHitMod.class).doBlock();
 				EntityUtils.faceEntityPacket(en);
 				Minecraft.getMinecraft().thePlayer.swingItem();
 				Minecraft.getMinecraft().playerController.attackEntity(

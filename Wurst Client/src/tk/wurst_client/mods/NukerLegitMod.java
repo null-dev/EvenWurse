@@ -59,12 +59,9 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.nukerMod.isEnabled())
-			WurstClient.INSTANCE.mods.nukerMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.speedNukerMod.isEnabled())
-			WurstClient.INSTANCE.mods.speedNukerMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.tunnellerMod.isEnabled())
-			WurstClient.INSTANCE.mods.tunnellerMod.setEnabled(false);
+		WurstClient.INSTANCE.mods.disableModsByClass(NukerMod.class,
+				SpeedNukerMod.class,
+				TunnellerMod.class);
 		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 		WurstClient.INSTANCE.events.add(RenderListener.class, this);
@@ -114,7 +111,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
-			if(WurstClient.INSTANCE.mods.autoToolMod.isActive()
+			if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class).isActive()
 				&& oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
@@ -132,7 +129,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 				return;
 			}
 		}
-		if(WurstClient.INSTANCE.mods.autoToolMod.isActive())
+		if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class).isActive())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());
@@ -205,7 +202,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener,
 			if(alreadyProcessed.contains(currentPos))
 				continue;
 			alreadyProcessed.add(currentPos);
-			if(BlockUtils.getPlayerBlockDistance(currentPos) > WurstClient.INSTANCE.mods.nukerMod.yesCheatRange)
+			if(BlockUtils.getPlayerBlockDistance(currentPos) > WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).yesCheatRange)
 				continue;
 			int currentID =
 				Block.getIdFromBlock(Minecraft.getMinecraft().theWorld

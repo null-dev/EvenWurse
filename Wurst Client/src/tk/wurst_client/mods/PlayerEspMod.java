@@ -31,7 +31,7 @@ public class PlayerEspMod extends Mod implements RenderListener
 	@Override
 	public void onRender()
 	{
-		if(WurstClient.INSTANCE.mods.arenaBrawlMod.isActive())
+		if(WurstClient.INSTANCE.mods.getModByClass(ArenaBrawlMod.class).isActive())
 			return;
 		Minecraft.getMinecraft().theWorld.loadedEntityList.stream().filter(entity -> entity instanceof EntityPlayer
 				&& !((Entity) entity).getName().equals(

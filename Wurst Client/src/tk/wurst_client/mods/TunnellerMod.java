@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -38,12 +38,9 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.nukerMod.isEnabled())
-			WurstClient.INSTANCE.mods.nukerMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.nukerLegitMod.isEnabled())
-			WurstClient.INSTANCE.mods.nukerLegitMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.speedNukerMod.isEnabled())
-			WurstClient.INSTANCE.mods.speedNukerMod.setEnabled(false);
+		WurstClient.INSTANCE.mods.disableModsByClass(NukerMod.class,
+				NukerLegitMod.class,
+				SpeedNukerMod.class);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 		WurstClient.INSTANCE.events.add(RenderListener.class, this);
 	}
@@ -92,7 +89,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(
 					Action.START_DESTROY_BLOCK, pos, side));
-			if(WurstClient.INSTANCE.mods.autoToolMod.isActive()
+			if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class).isActive()
 				&& oldSlot == -1)
 				oldSlot =
 					Minecraft.getMinecraft().thePlayer.inventory.currentItem;
@@ -103,7 +100,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			{
 				currentDamage = 0;
 				if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-					&& !WurstClient.INSTANCE.mods.yesCheatMod.isActive())
+					&& !WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive())
 					nukeAll();
 				else
 				{
@@ -115,7 +112,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 				return;
 			}
 		}
-		if(WurstClient.INSTANCE.mods.autoToolMod.isActive())
+		if(WurstClient.INSTANCE.mods.getModByClass(AutoToolMod.class).isActive())
 			AutoToolMod.setSlot(pos);
 		Minecraft.getMinecraft().thePlayer.sendQueue
 			.addToSendQueue(new C0APacketAnimation());
@@ -125,9 +122,9 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 			currentBlock.getPlayerRelativeBlockHardness(
 				Minecraft.getMinecraft().thePlayer,
 				Minecraft.getMinecraft().theWorld, pos)
-				* (WurstClient.INSTANCE.mods.fastBreakMod.isActive()
+				* (WurstClient.INSTANCE.mods.getModByClass(FastBreakMod.class).isActive()
 					&& WurstClient.INSTANCE.options.fastbreakMode == 0
-					? (WurstClient.INSTANCE.mods.fastBreakMod).speed : 1);
+					? (WurstClient.INSTANCE.mods.getModByClass(FastBreakMod.class)).speed : 1);
 		Minecraft.getMinecraft().theWorld.sendBlockBreakProgress(
 			Minecraft.getMinecraft().thePlayer.getEntityId(), pos,
 			(int)(currentDamage * 10.0F) - 1);
@@ -140,7 +137,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener
 				side);
 			blockHitDelay = (byte)4;
 			currentDamage = 0;
-		}else if(WurstClient.INSTANCE.mods.fastBreakMod.isActive()
+		}else if(WurstClient.INSTANCE.mods.getModByClass(FastBreakMod.class).isActive()
 			&& WurstClient.INSTANCE.options.fastbreakMode == 1)
 			Minecraft.getMinecraft().thePlayer.sendQueue
 				.addToSendQueue(new C07PacketPlayerDigging(

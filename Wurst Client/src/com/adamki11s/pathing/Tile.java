@@ -4,7 +4,7 @@
 
 package com.adamki11s.pathing;
 
-import xyz.nulldev.bukkitcompat.Location;
+import xyz.nulldev.mcpwrapper.bukkit.Location;
 
 /**
  * SOURCE: https://bukkit.org/threads/lib-a-pathfinding-algorithm.129786/
@@ -45,7 +45,7 @@ public class Tile {
 	}
 
 	public Location getLocation(Location start) {
-		return new Location(start.getWorld(), start.getBlockX() + x, start.getBlockY() + y, start.getBlockZ() + z);
+		return new Location(start.getBlockX() + x, start.getBlockY() + y, start.getBlockZ() + z);
 	}
 
 	public Tile getParent() {

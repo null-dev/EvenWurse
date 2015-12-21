@@ -25,6 +25,7 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.options.FriendsList;
 import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.utils.JsonUtils;
+import tk.wurst_client.utils.ModuleUtils;
 import tk.wurst_client.utils.XRayUtils;
 
 import java.io.*;
@@ -41,6 +42,7 @@ public class FileManager
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
 	public final File scriptsDir = new File(spamDir, "autorun");
+	public final File modulesDir = new File(spamDir, "modules");
 	
 	public final File alts = new File(wurstDir, "alts.json");
 	public final File friends = new File(wurstDir, "friends.json");
@@ -67,6 +69,8 @@ public class FileManager
 			skinDir.mkdir();
 		if(!serverlistsDir.exists())
 			serverlistsDir.mkdir();
+		if(!modulesDir.exists())
+			modulesDir.mkdir();
 		if(!options.exists())
 			saveOptions();
 		else
@@ -103,6 +107,7 @@ public class FileManager
 			WurstClient.INSTANCE.options.autobuildMode = 0;
 			saveOptions();
 		}
+		loadModules();
 	}
 	
 	public void saveGUI(Frame[] frames)
@@ -385,6 +390,17 @@ public class FileManager
 		}catch(Exception e)
 		{
 			e.printStackTrace();
+		}
+	}
+
+	public void loadModules() {
+		System.out.println("[EvenWurse] Scanning modules folder for modules to load...");
+		File[] listed = modulesDir.listFiles();
+		if(listed == null) return;
+		for(File module : listed) {
+			if(module.getName().endsWith(".jar")) {
+				ModuleUtils.loadModule(module);
+			}
 		}
 	}
 	

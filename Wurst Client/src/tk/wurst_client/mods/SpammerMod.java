@@ -62,7 +62,7 @@ public class SpammerMod extends Mod
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						WurstClient.INSTANCE.mods.spammerMod.setEnabled(false);
+						WurstClient.INSTANCE.mods.getModByClass(SpammerMod.class).setEnabled(false);
 					}
 				});
 				JPanel panel = new JPanel();

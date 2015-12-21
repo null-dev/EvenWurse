@@ -29,15 +29,10 @@ public class MultiAuraMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		// TODO: Clean up this mess!
-		if(WurstClient.INSTANCE.mods.killauraMod.isEnabled())
-			WurstClient.INSTANCE.mods.killauraMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.killauraLegitMod.isEnabled())
-			WurstClient.INSTANCE.mods.killauraLegitMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.clickAuraMod.isEnabled())
-			WurstClient.INSTANCE.mods.clickAuraMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.triggerBotMod.isEnabled())
-			WurstClient.INSTANCE.mods.triggerBotMod.setEnabled(false);
+		WurstClient.INSTANCE.mods.disableModsByClass(KillauraMod.class,
+				KillauraLegitMod.class,
+				ClickAuraMod.class,
+				TriggerBotMod.class);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
@@ -47,10 +42,10 @@ public class MultiAuraMod extends Mod implements UpdateListener
 		updateMS();
 		if(EntityUtils.getClosestEntity(true) != null)
 		{
-			if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
+			if(WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).isActive())
 				AutoSwordMod.setSlot();
 			CriticalsMod.doCritical();
-			WurstClient.INSTANCE.mods.blockHitMod.doBlock();
+			WurstClient.INSTANCE.mods.getModByClass(BlockHitMod.class).doBlock();
 			ArrayList<EntityLivingBase> entities =
 				EntityUtils.getCloseEntities(true, RANGE);
 			for(int i = 0; i < Math.min(entities.size(), 64); i++)

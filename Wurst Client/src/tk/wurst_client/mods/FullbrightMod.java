@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -27,7 +27,7 @@ public class FullbrightMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if(isEnabled() || WurstClient.INSTANCE.mods.xRayMod.isActive())
+		if(isEnabled() || WurstClient.INSTANCE.mods.getModByClass(XRayMod.class).isActive())
 		{
 			if(Minecraft.getMinecraft().gameSettings.gammaSetting < 16F)
 				Minecraft.getMinecraft().gameSettings.gammaSetting += 0.5F;

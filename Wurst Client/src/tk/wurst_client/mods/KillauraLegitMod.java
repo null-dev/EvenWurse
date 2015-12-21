@@ -25,15 +25,10 @@ public class KillauraLegitMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		// TODO: Clean up this mess!
-		if(WurstClient.INSTANCE.mods.killauraMod.isEnabled())
-			WurstClient.INSTANCE.mods.killauraMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.multiAuraMod.isEnabled())
-			WurstClient.INSTANCE.mods.multiAuraMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.clickAuraMod.isEnabled())
-			WurstClient.INSTANCE.mods.clickAuraMod.setEnabled(false);
-		if(WurstClient.INSTANCE.mods.triggerBotMod.isEnabled())
-			WurstClient.INSTANCE.mods.triggerBotMod.setEnabled(false);
+		WurstClient.INSTANCE.mods.disableModsByClass(KillauraMod.class,
+				MultiAuraMod.class,
+				ClickAuraMod.class,
+				TriggerBotMod.class);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	
@@ -42,12 +37,12 @@ public class KillauraLegitMod extends Mod implements UpdateListener
 	{
 		updateMS();
 		EntityLivingBase en = EntityUtils.getClosestEntity(true);
-		if(hasTimePassedS(WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed)
+		if(hasTimePassedS(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).yesCheatSpeed)
 			&& en != null)
 		{
-			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= WurstClient.INSTANCE.mods.killauraMod.yesCheatRange)
+			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).yesCheatRange)
 			{
-				if(WurstClient.INSTANCE.mods.criticalsMod.isActive()
+				if(WurstClient.INSTANCE.mods.getModByClass(CriticalsMod.class).isActive()
 					&& Minecraft.getMinecraft().thePlayer.onGround)
 					Minecraft.getMinecraft().thePlayer.jump();
 				if(EntityUtils.getDistanceFromMouse(en) > 55)

@@ -1,7 +1,12 @@
-package com.adamki11s.pathing;
+package xyz.nulldev.mcpwrapper.bukkit;
+
+import xyz.nulldev.mcpwrapper.bukkit.util.NumberConversions;
+import xyz.nulldev.mcpwrapper.bukkit.util.Vector;
 
 /**
  * Represents a 3-dimensional position in a world
+ *
+ * Modified to not require a world
  */
 public class Location implements Cloneable {
     private double x;

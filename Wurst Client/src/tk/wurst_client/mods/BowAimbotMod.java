@@ -8,19 +8,13 @@
  */
 package tk.wurst_client.mods;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemBow;
-
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.GUIRenderListener;
 import tk.wurst_client.events.listeners.RenderListener;
@@ -29,6 +23,10 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.RenderUtils;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 @Info(category = Category.COMBAT,
 	description = "Automatically aims your bow at the closest entity.\n"
@@ -137,7 +135,7 @@ public class BowAimbotMod extends Mod implements UpdateListener,
 			Minecraft.getMinecraft().thePlayer.getItemInUseDuration();
 		velocity = bowCharge / 20;
 		velocity = (velocity * velocity + velocity * 2) / 3;
-		if(WurstClient.INSTANCE.mods.fastBowMod.isActive())
+		if(WurstClient.INSTANCE.mods.getModByClass(FastBowMod.class).isActive())
 			velocity = 1;
 		if(velocity < 0.1)
 		{

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -24,8 +24,7 @@ public class JetpackMod extends Mod implements UpdateListener
 	@Override
 	public void onEnable()
 	{
-		if(WurstClient.INSTANCE.mods.flightMod.isEnabled())
-			WurstClient.INSTANCE.mods.flightMod.setEnabled(false);
+		WurstClient.INSTANCE.mods.disableModsByClass(FlightMod.class);
 		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
 	}
 	

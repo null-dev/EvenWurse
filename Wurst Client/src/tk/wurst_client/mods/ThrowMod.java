@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -38,7 +38,7 @@ public class ThrowMod extends Mod implements UpdateListener
 	@Override
 	public void onUpdate()
 	{
-		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.mods.fastPlaceMod
+		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.mods.getModByClass(FastPlaceMod.class)
 			.isActive())
 			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
 		{

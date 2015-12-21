@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,8 +8,6 @@
  */
 package tk.wurst_client.commands;
 
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +15,9 @@ import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.events.listeners.UpdateListener;
+import tk.wurst_client.mods.YesCheatMod;
+
+import java.util.Random;
 
 @Info(help = "Drops all your items on the ground.",
 	name = "drop",
@@ -57,7 +58,7 @@ public class DropCmd extends Cmd implements UpdateListener
 					new ItemStack(item, 64)));
 			return;
 		}
-		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive())
 		{
 			timer++;
 			if(timer >= 5)

@@ -97,7 +97,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
 					@Override
 					public void windowClosing(WindowEvent e)
 					{
-						WurstClient.INSTANCE.mods.forceOpMod.setEnabled(false);
+						WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class).setEnabled(false);
 					}
 				});
 				
@@ -302,7 +302,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
                         update();
                         for(int i = 0; i < passwords.length; i++)
                         {
-                            if(!WurstClient.INSTANCE.mods.forceOpMod
+                            if(!WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class)
                                 .isActive())
                                 return;
                             if(!cbDontWait.isSelected())
@@ -311,7 +311,7 @@ public class ForceOpMod extends Mod implements ChatInputListener
                                 && !hasGotWrongPWMSG()
                                 || Minecraft.getMinecraft().thePlayer == null)
                             {
-                                if(!WurstClient.INSTANCE.mods.forceOpMod
+                                if(!WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class)
                                     .isActive())
                                     return;
                                 try

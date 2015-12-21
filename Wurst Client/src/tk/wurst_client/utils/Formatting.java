@@ -20,6 +20,8 @@ public class Formatting {
     //Section signs
     public static char SECTION_SIGN = '§';
     public static char SS = SECTION_SIGN;
+    public static String STRING_SECTION_SIGN = SS + "";
+    public static String STRING_SS = STRING_SECTION_SIGN;
 
     //Newline
     public static char NEWLINE = '\n';

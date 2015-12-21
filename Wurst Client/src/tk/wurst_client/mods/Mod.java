@@ -10,6 +10,7 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
+import tk.wurst_client.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.gui.error.GuiError;
 
@@ -17,7 +18,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
-public class Mod
+public class Mod extends Module
 {
 	private final String name = getClass().getAnnotation(Info.class).name();
 	private final String description = getClass().getAnnotation(Info.class)
@@ -53,7 +54,7 @@ public class Mod
 		String description();
 		
 		Category category();
-		
+
 		boolean noCheatCompatible() default true;
 	}
 	
@@ -76,7 +77,7 @@ public class Mod
 	{
 		return category;
 	}
-	
+
 	public final boolean isEnabled()
 	{
 		return enabled;

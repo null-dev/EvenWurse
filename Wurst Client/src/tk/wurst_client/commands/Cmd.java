@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,17 +8,19 @@
  */
 package tk.wurst_client.commands;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
+import tk.wurst_client.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.utils.EntityUtils;
+import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
 
-public abstract class Cmd
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+public abstract class Cmd extends Module
 {
 	private String name = getClass().getAnnotation(Info.class).name();
 	private String help = getClass().getAnnotation(Info.class).help();
@@ -83,7 +85,7 @@ public abstract class Cmd
 	
 	public void printSyntax()
 	{
-		String output = "§o." + name + "§r";
+		String output = F.ITALIC + "." + name + F.RESET;
 		if(syntax.length != 0)
 		{
 			output += " " + syntax[0];

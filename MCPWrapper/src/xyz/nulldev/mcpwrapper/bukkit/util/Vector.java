@@ -1,4 +1,6 @@
-package com.adamki11s.pathing;
+package xyz.nulldev.mcpwrapper.bukkit.util;
+
+import xyz.nulldev.mcpwrapper.bukkit.Location;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

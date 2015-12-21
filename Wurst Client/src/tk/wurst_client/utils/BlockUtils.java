@@ -125,6 +125,6 @@ public class BlockUtils
 	}
 
 	public static IBlockState fromPos(BlockPos pos) {
-		return Minecraft.getMinecraft().theWorld.getBlockState(pos).;
+		return Minecraft.getMinecraft().theWorld.getBlockState(pos);
 	}
 }

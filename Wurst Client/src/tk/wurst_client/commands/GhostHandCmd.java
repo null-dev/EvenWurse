@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,6 +10,7 @@ package tk.wurst_client.commands;
 
 import net.minecraft.block.Block;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.mods.GhostHandMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Cmd.Info(help = "Changes the settings of GhostHand or toggles it.",
@@ -22,9 +23,9 @@ public class GhostHandCmd extends Cmd
 	{
 		if(args.length == 0)
 		{
-			WurstClient.INSTANCE.mods.ghostHandMod.toggle();
+			WurstClient.INSTANCE.mods.getModByClass(GhostHandMod.class).toggle();
 			WurstClient.INSTANCE.chat.message("GhostHand turned "
-				+ (WurstClient.INSTANCE.mods.ghostHandMod.isEnabled() ? "on" : "off") + ".");
+				+ (WurstClient.INSTANCE.mods.getModByClass(GhostHandMod.class).isEnabled() ? "on" : "off") + ".");
 		}else if(args.length == 2)
 		{
 			if(args[0].equalsIgnoreCase("id") && MiscUtils.isInteger(args[1]))

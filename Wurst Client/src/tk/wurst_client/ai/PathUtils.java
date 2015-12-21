@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.mods.*;
 
 public class PathUtils
 {
@@ -35,7 +36,7 @@ public class PathUtils
 	{
 		return Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock()
 			.getMaterial().blocksMovement()
-			|| getMaterial(pos) == Material.water && WurstClient.INSTANCE.mods.jesusMod.isEnabled();
+			|| getMaterial(pos) == Material.water && WurstClient.INSTANCE.mods.getModByClass(JesusMod.class).isEnabled();
 	}
 	
 	public static boolean isFallable(BlockPos pos)
@@ -48,7 +49,7 @@ public class PathUtils
 	
 	public static boolean isClimbable(BlockPos pos)
 	{
-		if(isSolid(pos.add(0, -1, 0)) || WurstClient.INSTANCE.mods.spiderMod.isEnabled()
+		if(isSolid(pos.add(0, -1, 0)) || WurstClient.INSTANCE.mods.getModByClass(SpiderMod.class).isEnabled()
 			|| getID(pos) == 65 || isFlyable(pos))
 			if(isSolid(pos.add(0, 0, -1)) || isSolid(pos.add(0, 0, 1))
 				|| isSolid(pos.add(1, 0, 0)) || isSolid(pos.add(-1, 0, 0)))
@@ -58,7 +59,7 @@ public class PathUtils
 	
 	public static boolean isNoFall()
 	{
-		return WurstClient.INSTANCE.mods.noFallMod.isEnabled() || isCreative();
+		return WurstClient.INSTANCE.mods.getModByClass(NoFallMod.class).isEnabled() || isCreative();
 	}
 	
 	public static boolean isCreative()
@@ -72,17 +73,17 @@ public class PathUtils
 	{
 		if(playerCaps == null)
 			playerCaps = Minecraft.getMinecraft().thePlayer.capabilities;
-		return WurstClient.INSTANCE.mods.flightMod.isEnabled() || playerCaps.isFlying
-			|| !WurstClient.INSTANCE.mods.noSlowdownMod.isEnabled() && getMaterial(pos) == Material.water;
+		return WurstClient.INSTANCE.mods.getModByClass(FlightMod.class).isEnabled() || playerCaps.isFlying
+			|| !WurstClient.INSTANCE.mods.getModByClass(NoSlowdownMod.class).isEnabled() && getMaterial(pos) == Material.water;
 	}
 	
 	public static int getCost(BlockPos next)
 	{
 		Material nextMaterial = getMaterial(next);
 		if(nextMaterial == Material.water)
-			if(WurstClient.INSTANCE.mods.noSlowdownMod.isEnabled())
+			if(WurstClient.INSTANCE.mods.getModByClass(NoSlowdownMod.class).isEnabled())
 				return 1;
-			else if(WurstClient.INSTANCE.mods.antiKnockbackMod.isEnabled())
+			else if(WurstClient.INSTANCE.mods.getModByClass(AntiKnockbackMod.class).isEnabled())
 				return 2;
 			else
 				return 3;

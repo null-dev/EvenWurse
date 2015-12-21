@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 package tk.wurst_client.mods;
-
-import java.util.UUID;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -19,6 +17,8 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.EntityUtils;
+
+import java.util.UUID;
 
 @Info(category = Category.RENDER,
 	description = "Allows you to see the world as someone else.\n"
@@ -77,7 +77,7 @@ public class RemoteViewMod extends Mod implements UpdateListener
 			if(otherID == null && !viewName.equals(""))
 				otherID =
 					EntityUtils.searchEntityByNameRaw(viewName).getUniqueID();
-			WurstClient.INSTANCE.mods.remoteViewMod.toggle();
+			WurstClient.INSTANCE.mods.getModByClass(RemoteViewMod.class).toggle();
 		}catch(NullPointerException e)
 		{
 			WurstClient.INSTANCE.chat.error("Entity not found.");

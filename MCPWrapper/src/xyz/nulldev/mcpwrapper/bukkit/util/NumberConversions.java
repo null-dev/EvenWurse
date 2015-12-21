@@ -1,4 +1,4 @@
-package com.adamki11s.pathing;
+package xyz.nulldev.mcpwrapper.bukkit.util;
 
 /**
  * Utils for casting number types to other number types

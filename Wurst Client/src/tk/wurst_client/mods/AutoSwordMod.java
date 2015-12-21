@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -58,7 +58,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	@Override
 	public void onLeftClick()
 	{
-		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive())
 		{
 			noCheatMessage();
 			setEnabled(false);
@@ -71,7 +71,7 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 	
 	public static void setSlot()
 	{
-		if((WurstClient.INSTANCE.mods.autoEatMod).isEating())
+		if(WurstClient.INSTANCE.mods.getModByClass(AutoEatMod.class).isEating())
 			return;
 		float bestSpeed = 1F;
 		int bestSlot = -1;
@@ -97,12 +97,12 @@ public class AutoSwordMod extends Mod implements LeftClickListener,
 		if(bestSlot != -1
 			&& bestSlot != Minecraft.getMinecraft().thePlayer.inventory.currentItem)
 		{
-			WurstClient.INSTANCE.mods.autoSwordMod.oldSlot =
+			WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).oldSlot =
 				Minecraft.getMinecraft().thePlayer.inventory.currentItem;
 			Minecraft.getMinecraft().thePlayer.inventory.currentItem = bestSlot;
-			WurstClient.INSTANCE.mods.autoSwordMod.timer = 4;
+			WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).timer = 4;
 			WurstClient.INSTANCE.events.add(UpdateListener.class,
-				WurstClient.INSTANCE.mods.autoSwordMod);
+				WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class));
 		}
 	}
 }

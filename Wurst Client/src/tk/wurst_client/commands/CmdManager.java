@@ -8,82 +8,37 @@
  */
 package tk.wurst_client.commands;
 
+import org.reflections.Reflections;
+import org.reflections.scanners.ResourcesScanner;
+import org.reflections.scanners.SubTypesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import tk.wurst_client.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.SyntaxError;
 import tk.wurst_client.events.ChatOutputEvent;
 import tk.wurst_client.events.listeners.ChatOutputListener;
+import tk.wurst_client.utils.F;
 
-import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.TreeMap;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 public class CmdManager implements ChatOutputListener
 {
-	private final TreeMap<String, Cmd> cmds = new TreeMap<String, Cmd>(
-			(o1, o2) -> {
-				return o1.compareToIgnoreCase(o2);
-			});
-	
-	public final AddAltCmd addAltCmd = new AddAltCmd();
-	public final AnnoyCmd annoyCmd = new AnnoyCmd();
-	public final AuthorCmd authorCmd = new AuthorCmd();
-	public final BindsCmd bindsCmd = new BindsCmd();
-	public final BlinkCmd blinkCmd = new BlinkCmd();
-	public final ClearCmd clearCmd = new ClearCmd();
-	public final DamageCmd damageCmd = new DamageCmd();
-	public final DropCmd dropCmd = new DropCmd();
-	public final EnchantCmd enchantCmd = new EnchantCmd();
-	public final FastBreakCmd fastBreakCmd = new FastBreakCmd();
-	public final FeaturesCmd featuresCmd = new FeaturesCmd();
-	public final FollowCmd followCmd = new FollowCmd();
-	public final FriendsCmd friendsCmd = new FriendsCmd();
-	public final GetPosCmd getPosCmd = new GetPosCmd();
-	public final GhostHandCmd ghostHandCmd = new GhostHandCmd();
-	public final GiveCmd giveCmd = new GiveCmd();
-	public final GmCmd gmCmd = new GmCmd();
-	public final GoToCmd goToCmd = new GoToCmd();
-	public final HelpCmd HhelpCmd = new HelpCmd();
-	public final InvseeCmd invseeCmd = new InvseeCmd();
-	public final IpCmd ipCmd = new IpCmd();
-	public final JumpCmd jumpCmd = new JumpCmd();
-	public final LeaveCmd leaveCmd = new LeaveCmd();
-	public final NothingCmd nothingCmd = new NothingCmd();
-	public final NukerCmd nukerCmd = new NukerCmd();
-	public final PathCmd pathCmd = new PathCmd();
-	public final PotionCmd potionCmd = new PotionCmd();
-	public final ProtectCmd protectCmd = new ProtectCmd();
-	public final RenameCmd renameCmd = new RenameCmd();
-	public final RepairCmd repairCmd = new RepairCmd();
-	public final RvCmd rvCmd = new RvCmd();
-	public final SvCmd svCmd = new SvCmd();
-	public final SayCmd sayCmd = new SayCmd();
-	public final SearchCmd searchCmd = new SearchCmd();
-	public final SpammerCmd spammerCmd = new SpammerCmd();
-	public final TacoCmd tacoCmd = new TacoCmd();
-	public final TCmd tCmd = new TCmd();
-	public final ThrowCmd throwCmd = new ThrowCmd();
-	public final TpCmd tpCmd = new TpCmd();
-	public final VClipCmd vClipCmd = new VClipCmd();
-	public final WmsCmd wmsCmd = new WmsCmd();
-	public final XRayCmd xRayCmd = new XRayCmd();
+	public static Class<? extends Cmd>[] KNOWN_CMDS = null;
+
+	private final TreeMap<String, Cmd> cmds = new TreeMap<>(String::compareToIgnoreCase);
+
+	private final HashMap<Class<? extends Cmd>, Cmd> cmdClasses = new HashMap<>();
 	
 	public CmdManager()
 	{
-		try
-		{
-			//Umm WTF, reflection? REALLY? TODO, replace with dynamic class loading
-			for(Field field : CmdManager.class.getFields())
-			{
-				if(field.getName().endsWith("Cmd"))
-				{
-					Cmd cmd = (Cmd)field.get(this);
-					cmds.put(cmd.getName(), cmd);
-				}
-			}
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		//Scan for cmds
+		CmdManager.scanForCommands();
+		//Load all cmds into memory
+		cmds.clear();
+		cmdClasses.clear();
+		loadAllCommands();
 	}
 	
 	@Override
@@ -108,10 +63,10 @@ public class CmdManager implements ChatOutputListener
 				}catch(SyntaxError e)
 				{
 					if(e.getMessage() != null)
-						WurstClient.INSTANCE.chat.message("�4Syntax error:�r "
+						WurstClient.INSTANCE.chat.message(F.DARK_RED + "Syntax error:" + F.RESET + " "
 							+ e.getMessage());
 					else
-						WurstClient.INSTANCE.chat.message("�4Syntax error!�r");
+						WurstClient.INSTANCE.chat.message(F.DARK_RED + "Syntax error!" + F.RESET);
 					cmd.printSyntax();
 				}catch(Cmd.Error e)
 				{
@@ -127,10 +82,85 @@ public class CmdManager implements ChatOutputListener
 					+ "\" is not a valid command.");
 		}
 	}
+
+	void loadAllCommands() {
+		System.out.println("[EvenWurse] Loading commands into memory...");
+		int loaded = 0;
+		for (Class<? extends Cmd> CMD : KNOWN_CMDS) {
+			try {
+				loadCommand(CMD);
+				loaded++;
+			} catch (Module.ModuleLoadException e) {
+				handleModuleLoadException(e, CMD.getSimpleName());
+			}
+		}
+		System.out.println("[EvenWurse] Loaded " + loaded + " commands!");
+	}
+
+	public static void handleModuleLoadException(Module.ModuleLoadException e, String name) {
+		if(e instanceof Module.OutdatedClientException) {
+			Module.OutdatedClientException e1 = (Module.OutdatedClientException) e;
+			System.out.println("[EvenWurse] Error loading command: '"
+					+ e1.getModName()
+					+ "'! This command requires EvenWurse version: '"
+					+ e1.getMinVersion()
+					+ "' but you are running EvenWurse version: '"
+					+ WurstClient.EW_VERSION_CODE
+					+ "'. Please update EvenWurse to use this command!");
+		} else {
+			System.out.println("[EvenWurse] Exception loading command: '" + name + "', skipping!");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Load a command into memory.
+	 * @param clazz The class of the command to load
+	 * @return The loaded command object
+	 * @throws Module.ModuleLoadException Failed to load command
+	 */
+	public Cmd loadCommand(Class<? extends Cmd> clazz) throws Module.ModuleLoadException {
+		System.out.println("[EvenWurse] Loading cmd from class: " + clazz.getSimpleName());
+		Cmd cmd;
+		try {
+			cmd = clazz.getConstructor().newInstance();
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+			throw new Module.ModuleLoadException("Unknown error loading cmd!", e);
+		}
+		//Don't load cmds that require a higher version than us
+		if(cmd.getMinVersion() > WurstClient.EW_VERSION_CODE) {
+			throw new Module.OutdatedClientException(cmd.getName(), cmd.getMinVersion(), WurstClient.EW_VERSION_CODE);
+		}
+		cmds.put(cmd.getName(), cmd);
+		cmdClasses.put(cmd.getClass(), cmd);
+		return cmd;
+	}
+
+	public static void scanForCommands() {
+		//Populate all the cmds
+		System.out.println("[EvenWurse] Reloading cmd list...");
+		ArrayList<ClassLoader> classLoadersList = new ArrayList<>();
+		classLoadersList.add(ClasspathHelper.contextClassLoader());
+		classLoadersList.add(ClasspathHelper.staticClassLoader());
+		Reflections reflections = new Reflections(new ConfigurationBuilder()
+				.setScanners(new SubTypesScanner(), new ResourcesScanner())
+				.setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[classLoadersList.size()]))));
+		Set<Class<? extends Cmd>> classes = reflections.getSubTypesOf(Cmd.class);
+		KNOWN_CMDS = new Class[classes.size()];
+		for(int i = 0; i < classes.size(); i++) {
+			KNOWN_CMDS[i] = (Class<? extends Cmd>) classes.toArray()[i];
+			System.out.println("[EvenWurse] Found cmd: " + KNOWN_CMDS[i].getSimpleName() + "!");
+		}
+		System.out.println("[EvenWurse] Found " + KNOWN_CMDS.length + " cmds!");
+	}
 	
 	public Cmd getCommandByName(String name)
 	{
 		return cmds.get(name);
+	}
+
+	public <T> T getCmdByClass(Class<T> theClass) {
+		return (T) cmdClasses.get(theClass);
 	}
 	
 	public Collection<Cmd> getAllCommands()

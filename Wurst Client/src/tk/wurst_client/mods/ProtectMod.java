@@ -86,20 +86,20 @@ public class ProtectMod extends Mod implements UpdateListener
 			&& Minecraft.getMinecraft().thePlayer.posY < friend.posY)
 			Minecraft.getMinecraft().thePlayer.motionY += 0.04;
 		float speed;
-		if(WurstClient.INSTANCE.mods.yesCheatMod.isActive())
-			speed = WurstClient.INSTANCE.mods.killauraMod.yesCheatSpeed;
+		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive())
+			speed = WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).yesCheatSpeed;
 		else
-			speed = WurstClient.INSTANCE.mods.killauraMod.normalSpeed;
+			speed = WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).normalSpeed;
 		updateMS();
 		if(hasTimePassedS(speed) && EntityUtils.getClosestEnemy(friend) != null)
 		{
 			enemy = EntityUtils.getClosestEnemy(friend);
 			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(enemy) <= RANGE)
 			{
-				if(WurstClient.INSTANCE.mods.autoSwordMod.isActive())
+				if(WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).isActive())
 					AutoSwordMod.setSlot();
 				CriticalsMod.doCritical();
-				WurstClient.INSTANCE.mods.blockHitMod.doBlock();
+				WurstClient.INSTANCE.mods.getModByClass(BlockHitMod.class).doBlock();
 				EntityUtils.faceEntityClient(enemy);
 				Minecraft.getMinecraft().thePlayer.swingItem();
 				Minecraft.getMinecraft().playerController.attackEntity(
