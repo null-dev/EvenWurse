@@ -1,4 +1,4 @@
-package tk.wurst_client;
+package tk.wurst_client.api;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
