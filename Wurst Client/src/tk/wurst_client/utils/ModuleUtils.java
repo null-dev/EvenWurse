@@ -1,9 +1,11 @@
 package tk.wurst_client.utils;
 
-import tk.wurst_client.Module;
+import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.commands.CmdManager;
+import tk.wurst_client.gui.GuiManager;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.mods.ModManager;
 
@@ -45,14 +47,30 @@ public class ModuleUtils {
             }
         }
         miscModules.clear();
+        modsToRemoveList.clear();
+        cmdsToRemoveList.clear();
+        for(int i = 0; i < modsToRemove.length; i++) {
+            modsToRemove[i] = null;
+        }
+        for(int i = 0; i < cmdsToRemove.length; i++) {
+            cmdsToRemove[i] = null;
+        }
         int mods = modsToRemove.length;
         int cmds = cmdsToRemove.length;
         modsToRemoveList = null;
         modsToRemove = null;
         cmdsToRemoveList = null;
         cmdsToRemove = null;
+        //GC GUI
+        WurstClient.INSTANCE.gui = null;
+        //Perform GC
         System.gc();
+        //Load new modules
         WurstClient.INSTANCE.files.loadModules();
+        //Load new GUI
+        WurstClient.INSTANCE.gui = new GuiManager();
+        WurstClient.INSTANCE.gui.setTheme(new WurstTheme());
+        WurstClient.INSTANCE.gui.setup();
         System.out.println("[EvenWurse] Reloaded " + mods + " mods and " + cmds + " commands!");
     }
 
@@ -63,7 +81,7 @@ public class ModuleUtils {
             Enumeration e = jarFile.entries();
 
             URL[] urls = {new URL("jar:file:" + jar.getPath() + "!/")};
-            URLClassLoader cl = URLClassLoader.newInstance(urls);
+            URLClassLoader cl = new URLClassLoader(urls, ModuleUtils.class.getClassLoader());
 
             while (e.hasMoreElements()) {
                 JarEntry je = (JarEntry) e.nextElement();
@@ -101,6 +119,7 @@ public class ModuleUtils {
                     }
                 }
             }
+            cl.close();
         } catch(Exception e) {
             System.out.println("[EvenWurse] Exception loading module from file: '" + jar.getName() + "'!");
             e.printStackTrace();

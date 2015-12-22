@@ -13,7 +13,7 @@ import org.reflections.scanners.ResourcesScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
-import tk.wurst_client.Module;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
 
 import java.lang.reflect.InvocationTargetException;
@@ -116,16 +116,24 @@ public class ModManager
 
     public void unloadMods(Mod... modsToRemove) {
         for(Mod mod : modsToRemove) {
-            mod.onUnload();
+            //Disable mod
+            if(mod.isEnabled()) mod.setEnabled(false);
+            try {
+                mod.onUnload();
+            } catch(Throwable t) {
+                System.out.println("[EvenWurse] Module in class '"
+                        + mod.getClass().getSimpleName()
+                        + "' threw exception in onUnload(), ignoring!");
+            }
             Iterator<Map.Entry<String, Mod>> stringEntries = mods.entrySet().iterator();
             while (stringEntries.hasNext()) {
-                if(stringEntries.next().getValue().equals(mod)) {
+                if(stringEntries.next().getValue().getClass().equals(mod.getClass())) {
                     stringEntries.remove();
                 }
             }
             Iterator<Map.Entry<Class<? extends Mod>, Mod>> classEntries = modClasses.entrySet().iterator();
             while (classEntries.hasNext()) {
-                if(classEntries.next().getValue().equals(mod)) {
+                if(classEntries.next().getValue().getClass().equals(mod.getClass())) {
                     classEntries.remove();
                 }
             }

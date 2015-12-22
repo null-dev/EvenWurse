@@ -10,7 +10,7 @@ package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
-import tk.wurst_client.Module;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.gui.error.GuiError;
 

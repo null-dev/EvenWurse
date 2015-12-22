@@ -13,7 +13,7 @@ import org.reflections.scanners.ResourcesScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
-import tk.wurst_client.Module;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.SyntaxError;
 import tk.wurst_client.events.ChatOutputEvent;
@@ -117,16 +117,22 @@ public class CmdManager implements ChatOutputListener
 
 	public void unloadCommands(Cmd... modsToRemove) {
 		for(Cmd cmd : modsToRemove) {
-			cmd.onUnload();
+			try {
+				cmd.onUnload();
+			} catch(Throwable t) {
+				System.out.println("[EvenWurse] Module in class '"
+						+ cmd.getClass().getSimpleName()
+						+ "' threw exception in onUnload(), ignoring!");
+			}
 			Iterator<Map.Entry<String, Cmd>> stringEntries = cmds.entrySet().iterator();
 			while (stringEntries.hasNext()) {
-				if(stringEntries.next().getValue().equals(cmd)) {
+				if(stringEntries.next().getValue().getClass().equals(cmd.getClass())) {
 					stringEntries.remove();
 				}
 			}
 			Iterator<Map.Entry<Class<? extends Cmd>, Cmd>> classEntries = cmdClasses.entrySet().iterator();
 			while (classEntries.hasNext()) {
-				if(classEntries.next().getValue().equals(cmd)) {
+				if(classEntries.next().getValue().getClass().equals(cmd.getClass())) {
 					classEntries.remove();
 				}
 			}

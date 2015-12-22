@@ -11,7 +11,7 @@ package tk.wurst_client.commands;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.Module;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.F;

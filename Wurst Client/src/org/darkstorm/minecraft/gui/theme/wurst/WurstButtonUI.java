@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,17 +8,8 @@
  */
 package org.darkstorm.minecraft.gui.theme.wurst;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.lang.reflect.Field;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-
 import org.darkstorm.minecraft.gui.component.Button;
 import org.darkstorm.minecraft.gui.component.Component;
 import org.darkstorm.minecraft.gui.component.Frame;
@@ -26,11 +17,13 @@ import org.darkstorm.minecraft.gui.theme.AbstractComponentUI;
 import org.darkstorm.minecraft.gui.util.GuiManagerDisplayScreen;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Mouse;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod;
-import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.mods.Mod.Category;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class WurstButtonUI extends AbstractComponentUI<Button>
 {
@@ -206,22 +199,10 @@ public class WurstButtonUI extends AbstractComponentUI<Button>
 		if(buttonCategory != dButton.getMod().getCategory())
 			return false;
 		
-		Field[] fields = ModManager.class.getFields();
-		try
-		{
-			for(int i = fields.length - 1; i > -1; i--)
-			{
-				Field field = fields[i];
-				if(field.getName().endsWith("Mod"))
-				{
-					Mod mod = (Mod)field.get(WurstClient.INSTANCE.mods);
-					if(mod.getCategory() == buttonCategory)
-						return mod == button.getMod();
-				}
+		for(Mod mod : WurstClient.INSTANCE.mods.getAllMods()) {
+			if(mod.getCategory() == buttonCategory) {
+				return mod == button.getMod();
 			}
-		}catch(Exception e)
-		{
-			e.printStackTrace();
 		}
 		return false;
 	}

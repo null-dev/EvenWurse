@@ -1,6 +1,6 @@
 package xyz.nulldev.ew.mods;
 
-import tk.wurst_client.Module;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod;
 
