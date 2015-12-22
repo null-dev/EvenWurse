@@ -16,6 +16,7 @@ import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.RenderUtils;
 
 import java.awt.*;
@@ -89,8 +90,8 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 			}
 			if(matchingBlocks.size() >= MAX_BLOCKS && shouldInform)
 			{
-				WurstClient.INSTANCE.chat.warning(getName()
-					+ " found �lA LOT�r of blocks.");
+				WurstClient.INSTANCE.chat.warning(F.f(getName()
+					+ " found <UNDERLINE>A LOT</UNDERLINE> of blocks."));
 				WurstClient.INSTANCE.chat
 					.message("To prevent lag, it will only show the first "
 						+ MAX_BLOCKS + " blocks.");

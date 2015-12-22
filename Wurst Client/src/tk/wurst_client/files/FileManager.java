@@ -75,31 +75,42 @@ public class FileManager
 			saveOptions();
 		else
 			loadOptions();
-		if(!modules.exists())
+		loadModules();
+		if(!modules.exists()) {
 			saveMods();
-		else
+		}
+		else {
 			loadMods();
-		if(!keybinds.exists())
+		}
+		if(!keybinds.exists()) {
 			saveKeybinds();
-		else
+		}
+		else {
 			loadKeybinds();
-		if(!alts.exists())
+		}
+		if(!alts.exists()) {
 			saveAlts();
-		else
+		}
+		else {
 			loadAlts();
-		if(!friends.exists())
+		}
+		if(!friends.exists()) {
 			saveFriends();
-		else
+		}
+		else {
 			loadFriends();
+		}
 		if(!xray.exists())
 		{
 			XRayUtils.initXRayBlocks();
 			saveXRayBlocks();
-		}else
+		}else {
 			loadXRayBlocks();
+		}
 		File[] autobuildFiles = autobuildDir.listFiles();
-		if(autobuildFiles != null && autobuildFiles.length == 0)
+		if(autobuildFiles != null && autobuildFiles.length == 0) {
 			createDefaultAutoBuildTemplates();
+		}
 		loadAutoBuildTemplates();
 		if(WurstClient.INSTANCE.options.autobuildMode >= AutoBuildMod.names
 			.size())
@@ -107,7 +118,6 @@ public class FileManager
 			WurstClient.INSTANCE.options.autobuildMode = 0;
 			saveOptions();
 		}
-		loadModules();
 	}
 	
 	public void saveGUI(Frame[] frames)
