@@ -13,10 +13,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.gui.options.config.GuiConfigManager;
 import tk.wurst_client.gui.options.keybinds.GuiKeybindManager;
 import tk.wurst_client.gui.options.xray.GuiXRayBlocksManager;
 import tk.wurst_client.gui.options.zoom.GuiZoomManager;
 import tk.wurst_client.options.OptionsManager.GoogleAnalytics;
+import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
 
 import java.util.ArrayList;
@@ -30,12 +32,12 @@ public class GuiWurstOptions extends GuiScreen
 			"",
 			"Add/remove friends by clicking them with\n"
 				+ "the middle mouse button.",
-			"How the mod list under the Wurst logo\n"
+				F.f("How the mod list under the Wurst logo\n"
 				+ "should be displayed.\n" + "�lModes:�r\n"
-				+ "�nAuto�r: Renders the whole list if it fits\n"
+				+ "<UNDERLINE>Auto</UNDERLINE>: Renders the whole list if it fits\n"
 				+ "onto the screen.\n"
-				+ "�nCount�r: Only renders the number of active\n" + "mods.\n"
-				+ "�nHidden�r: Renders nothing.",
+				+ "<UNDERLINE>Count</UNDERLINE>: Only renders the number of active\n" + "mods.\n"
+				+ "<UNDERLINE>Hidden</UNDERLINE>: Renders nothing."),
 			"Automatically maximizes the Minecraft window.\n"
 				+ "Windows & Linux only!",
 			"Whether or not the Wurst News should be\n"
@@ -48,6 +50,8 @@ public class GuiWurstOptions extends GuiScreen
 			"The Zoom Manager allows you to\n"
 				+ "change the zoom key, how far it\n"
 				+ "will zoom in and more.",
+				F.f("Modify the configurations of all any loaded<NEWLINE>" +
+						"modules to customize your EvenWurse experience!"),
 			"",
 			"",
 			"The official website of the Wurst\n"
@@ -103,6 +107,8 @@ public class GuiWurstOptions extends GuiScreen
 			100, 20, "X-Ray Blocks"));
 		buttonList.add(new GuiButton(8, width / 2 - 50, height / 4 + 72 - 16,
 			100, 20, "Zoom"));
+		buttonList.add(new GuiButton(9, width / 2 - 50, height / 4 + 96 - 16,
+				100, 20, "Module Config"));
 		// this.buttonList.add(new GuiButton(9, this.width / 2 - 50, this.height
 		// / 4 + 96 - 16, 100, 20, "???"));
 		// this.buttonList.add(new GuiButton(10, this.width / 2 - 50,
@@ -200,6 +206,8 @@ public class GuiWurstOptions extends GuiScreen
 					mc.displayGuiScreen(new GuiZoomManager(this));
 					break;
 				case 9:
+					//Config Manager
+					mc.displayGuiScreen(new GuiConfigManager(this));
 					break;
 				case 10:
 					break;

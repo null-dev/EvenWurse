@@ -12,6 +12,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.api.Module;
+import tk.wurst_client.api.ModuleConfiguration;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
@@ -22,6 +24,7 @@ import tk.wurst_client.utils.RenderUtils;
 import java.awt.*;
 import java.util.ArrayList;
 
+@Module.ModuleInfo(usesConfig = true)
 @Info(category = Category.RENDER,
 	description = "Finds player bases by searching for man-made blocks.\n"
 		+ "Good for finding faction bases.",
@@ -37,7 +40,7 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 	private ArrayList<Block> naturalBlocks = new ArrayList<>();
 	private ArrayList<BlockPos> matchingBlocks = new ArrayList<>();
 	private static final int RANGE = 50;
-	private static final int MAX_BLOCKS = 1024;
+	private static int MAX_BLOCKS = 1024;
 	private boolean shouldInform = true;
 	
 	@Override
@@ -61,6 +64,7 @@ public class BaseFinderMod extends Mod implements UpdateListener,
 		updateMS();
 		if(hasTimePassedM(3000))
 		{
+			MAX_BLOCKS = ModuleConfiguration.forModule(this).getInt("Max Blocks", 1024);
 			matchingBlocks.clear();
 			for(int y = RANGE; y >= -RANGE; y--)
 			{

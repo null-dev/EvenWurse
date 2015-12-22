@@ -192,6 +192,7 @@ public class CmdManager implements ChatOutputListener
 		return customCommands;
 	}
 
+	@Deprecated
 	public Cmd getCommandByName(String name)
 	{
 		return cmds.get(name);

@@ -8,10 +8,18 @@ import java.lang.annotation.RetentionPolicy;
  * Created: 20/12/15
  * Author: nulldev
  */
+
+/**
+ * A module which can be loaded and unloaded dynamically.
+ *
+ * DO NOT STORE STATIC REFERENCES TO THIS!
+ * A module cannot be reloaded properly if there are still references to it!
+ */
 public class Module {
     private float version = 1.00f;
     private int minVersion = 0;
     private int maxVersion = 0;
+    private boolean usesConfig = false;
 
     public Module() {
         //Setup annotations
@@ -19,6 +27,7 @@ public class Module {
             version = getClass().getAnnotation(ModuleInfo.class).version();
             minVersion = getClass().getAnnotation(ModuleInfo.class).minVersion();
             maxVersion = getClass().getAnnotation(ModuleInfo.class).maxVersion();
+            usesConfig = getClass().getAnnotation(ModuleInfo.class).usesConfig();
         }
     }
 
@@ -32,6 +41,10 @@ public class Module {
 
     public int getMaxVersion() {
         return maxVersion;
+    }
+
+    public boolean isUsesConfig() {
+        return usesConfig;
     }
 
     //Overridable on unload
@@ -84,5 +97,7 @@ public class Module {
         int minVersion() default 0;
 
         int maxVersion() default Integer.MAX_VALUE;
+
+        boolean usesConfig() default false;
     }
 }

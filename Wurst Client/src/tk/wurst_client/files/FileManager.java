@@ -19,31 +19,33 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.Encryption;
+import tk.wurst_client.api.Module;
+import tk.wurst_client.api.ModuleConfiguration;
 import tk.wurst_client.gui.alts.GuiAltList;
 import tk.wurst_client.mods.*;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.options.FriendsList;
 import tk.wurst_client.options.OptionsManager;
-import tk.wurst_client.utils.JsonUtils;
-import tk.wurst_client.utils.ModuleUtils;
-import tk.wurst_client.utils.XRayUtils;
+import tk.wurst_client.utils.*;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
 
 public class FileManager
 {
 	public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir,
-		"wurst");
+			"wurst");
 	public final File autobuildDir = new File(wurstDir, "autobuild");
 	public final File skinDir = new File(wurstDir, "skins");
 	public final File serverlistsDir = new File(wurstDir, "serverlists");
 	public final File spamDir = new File(wurstDir, "spam");
 	public final File scriptsDir = new File(spamDir, "autorun");
 	public final File modulesDir = new File(wurstDir, "modules");
-	
+
 	public final File alts = new File(wurstDir, "alts.json");
 	public final File friends = new File(wurstDir, "friends.json");
 	public final File gui = new File(wurstDir, "gui.json");
@@ -51,10 +53,10 @@ public class FileManager
 	public final File keybinds = new File(wurstDir, "keybinds.json");
 	public final File sliders = new File(wurstDir, "sliders.json");
 	public final File options = new File(wurstDir, "options.json");
-	public final File autoMaximize = new File(
-		Minecraft.getMinecraft().mcDataDir + "/wurst/automaximize.json");
+	public final File moduleConfig = new File(wurstDir, "moduleConfig.json");
+	public final File autoMaximize = new File(wurstDir, "automaximize.json");
 	public final File xray = new File(wurstDir, "xray.json");
-	
+
 	public void init()
 	{
 		if(!wurstDir.exists())
@@ -75,6 +77,10 @@ public class FileManager
 			saveOptions();
 		else
 			loadOptions();
+		if(!moduleConfig.exists())
+			saveModuleConfigs();
+		else
+			loadModuleConfigs();
 		loadModules();
 		if(!modules.exists()) {
 			saveMods();
@@ -113,13 +119,13 @@ public class FileManager
 		}
 		loadAutoBuildTemplates();
 		if(WurstClient.INSTANCE.options.autobuildMode >= AutoBuildMod.names
-			.size())
+				.size())
 		{
 			WurstClient.INSTANCE.options.autobuildMode = 0;
 			saveOptions();
 		}
 	}
-	
+
 	public void saveGUI(Frame[] frames)
 	{
 		try
@@ -143,7 +149,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void loadGUI(Frame[] frames)
 	{
 		try
@@ -168,7 +174,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void saveMods()
 	{
 		try
@@ -188,22 +194,45 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void saveModuleConfigs() {
+		HashMap<String, ModuleConfiguration> toSaveConfigs = new HashMap<>();
+		ArrayList<Module> toSave = ModuleUtils.getAllModules();
+		toSave.stream().filter(module -> module.isUsesConfig()).forEach(module -> toSaveConfigs.put(module.getClass().getName(), ModuleConfiguration.forModule(module)));
+		String ser = GsonUtils.getGson().toJson(toSaveConfigs, ModuleConfiguration.TYPE);
+		try {
+			IOUtils.writeToFile(ser, moduleConfig);
+		} catch (IOException e) {
+			System.out.println("[EvenWurse] Failed to save module configs!");
+			e.printStackTrace();
+		}
+	}
+
+	public void loadModuleConfigs() {
+		try {
+			ModuleConfiguration.CONFIGURATION = GsonUtils.getGson().fromJson(IOUtils.readFile(moduleConfig),
+					ModuleConfiguration.TYPE);
+		} catch (IOException e) {
+			System.out.println("[EvenWurse] Failed to read module config!");
+			e.printStackTrace();
+		}
+	}
+
 	private HashSet<String> modBlacklist = Sets.newHashSet(
-		AntiAfkMod.class.getName(), BlinkMod.class.getName(),
-		ArenaBrawlMod.class.getName(), AutoBuildMod.class.getName(),
-		AutoSignMod.class.getName(), FightBotMod.class.getName(),
-		FollowMod.class.getName(), ForceOpMod.class.getName(),
-		FreecamMod.class.getName(), InvisibilityMod.class.getName(),
-		LsdMod.class.getName(), MassTpaMod.class.getName(),
-		OpSignMod.class.getName(), ProtectMod.class.getName(),
-		RemoteViewMod.class.getName(), SpammerMod.class.getName());
-	
+			AntiAfkMod.class.getName(), BlinkMod.class.getName(),
+			ArenaBrawlMod.class.getName(), AutoBuildMod.class.getName(),
+			AutoSignMod.class.getName(), FightBotMod.class.getName(),
+			FollowMod.class.getName(), ForceOpMod.class.getName(),
+			FreecamMod.class.getName(), InvisibilityMod.class.getName(),
+			LsdMod.class.getName(), MassTpaMod.class.getName(),
+			OpSignMod.class.getName(), ProtectMod.class.getName(),
+			RemoteViewMod.class.getName(), SpammerMod.class.getName());
+
 	public boolean isModBlacklited(Mod mod)
 	{
 		return modBlacklist.contains(mod.getClass().getName());
 	}
-	
+
 	public void loadMods()
 	{
 		try
@@ -227,7 +256,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void saveKeybinds()
 	{
 		try
@@ -244,7 +273,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void loadKeybinds()
 	{
 		try
@@ -262,35 +291,35 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void saveOptions()
 	{
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(options));
 			save.println(JsonUtils.prettyGson
-				.toJson(WurstClient.INSTANCE.options));
+					.toJson(WurstClient.INSTANCE.options));
 			save.close();
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void loadOptions()
 	{
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(options));
 			WurstClient.INSTANCE.options =
-				JsonUtils.gson.fromJson(load, OptionsManager.class);
+					JsonUtils.gson.fromJson(load, OptionsManager.class);
 			load.close();
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean loadAutoMaximize()
 	{
 		boolean autoMaximizeEnabled = false;
@@ -299,10 +328,10 @@ public class FileManager
 		try
 		{
 			BufferedReader load =
-				new BufferedReader(new FileReader(autoMaximize));
+					new BufferedReader(new FileReader(autoMaximize));
 			autoMaximizeEnabled =
-				JsonUtils.gson.fromJson(load, Boolean.class)
-					&& !Minecraft.isRunningOnMac;
+					JsonUtils.gson.fromJson(load, Boolean.class)
+							&& !Minecraft.isRunningOnMac;
 			load.close();
 		}catch(Exception e)
 		{
@@ -310,7 +339,7 @@ public class FileManager
 		}
 		return autoMaximizeEnabled;
 	}
-	
+
 	public void saveAutoMaximize(boolean autoMaximizeEnabled)
 	{
 		try
@@ -325,7 +354,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void saveSliders()
 	{
 		try
@@ -338,9 +367,9 @@ public class FileManager
 				JsonObject jsonModule = new JsonObject();
 				for(BasicSlider slider : mod.getSliders())
 					jsonModule.addProperty(slider.getText(),
-						(double)(Math.round(slider.getValue()
-							/ slider.getIncrement()) * 1000000 * (long)(slider
-							.getIncrement() * 1000000)) / 1000000 / 1000000);
+							(double)(Math.round(slider.getValue()
+									/ slider.getIncrement()) * 1000000 * (long)(slider
+									.getIncrement() * 1000000)) / 1000000 / 1000000);
 				json.add(mod.getName(), jsonModule);
 			}
 			PrintWriter save = new PrintWriter(new FileWriter(sliders));
@@ -351,7 +380,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void loadSliders()
 	{
 		try
@@ -378,7 +407,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void saveAlts()
 	{
 		try
@@ -394,9 +423,9 @@ public class FileManager
 				json.add(alt.getEmail(), jsonAlt);
 			}
 			Files.write(
-				alts.toPath(),
-				Encryption.encrypt(JsonUtils.prettyGson.toJson(json)).getBytes(
-					Encryption.CHARSET));
+					alts.toPath(),
+					Encryption.encrypt(JsonUtils.prettyGson.toJson(json)).getBytes(
+							Encryption.CHARSET));
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -413,15 +442,15 @@ public class FileManager
 			}
 		}
 	}
-	
+
 	public void loadAlts()
 	{
 		try
 		{
 			JsonObject json =
-				(JsonObject)JsonUtils.jsonParser.parse(Encryption
-					.decrypt(new String(Files.readAllBytes(alts.toPath()),
-						Encryption.CHARSET)));
+					(JsonObject)JsonUtils.jsonParser.parse(Encryption
+							.decrypt(new String(Files.readAllBytes(alts.toPath()),
+									Encryption.CHARSET)));
 			GuiAltList.alts.clear();
 			for (Entry<String, JsonElement> entry : json.entrySet()) {
 				JsonObject jsonAlt = entry.getValue().getAsJsonObject();
@@ -450,35 +479,35 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void saveFriends()
 	{
 		try
 		{
 			PrintWriter save = new PrintWriter(new FileWriter(friends));
 			save.println(JsonUtils.prettyGson
-				.toJson(WurstClient.INSTANCE.friends));
+					.toJson(WurstClient.INSTANCE.friends));
 			save.close();
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void loadFriends()
 	{
 		try
 		{
 			BufferedReader load = new BufferedReader(new FileReader(friends));
 			WurstClient.INSTANCE.friends =
-				JsonUtils.gson.fromJson(load, FriendsList.class);
+					JsonUtils.gson.fromJson(load, FriendsList.class);
 			load.close();
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void saveXRayBlocks()
 	{
 		try
@@ -487,7 +516,7 @@ public class FileManager
 			JsonArray json = new JsonArray();
 			for(int i = 0; i < XRayMod.xrayBlocks.size(); i++)
 				json.add(JsonUtils.prettyGson.toJsonTree(Block
-					.getIdFromBlock(XRayMod.xrayBlocks.get(i))));
+						.getIdFromBlock(XRayMod.xrayBlocks.get(i))));
 			PrintWriter save = new PrintWriter(new FileWriter(xray));
 			save.println(JsonUtils.prettyGson.toJson(json));
 			save.close();
@@ -496,7 +525,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void loadXRayBlocks()
 	{
 		try
@@ -517,17 +546,17 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void createDefaultAutoBuildTemplates()
 	{
 		try
 		{
 			String[] comment =
-				{
-					"Copyright � 2014 - 2015 | Alexander01998 and contributors | All rights reserved.",
-					"This Source Code Form is subject to the terms of the Mozilla Public",
-					"License, v. 2.0. If a copy of the MPL was not distributed with this",
-					"file, You can obtain one at http://mozilla.org/MPL/2.0/."};
+					{
+							"Copyright � 2014 - 2015 | Alexander01998 and contributors | All rights reserved.",
+							"This Source Code Form is subject to the terms of the Mozilla Public",
+							"License, v. 2.0. If a copy of the MPL was not distributed with this",
+							"file, You can obtain one at http://mozilla.org/MPL/2.0/."};
 			for (Entry<String, int[][]> entry : new DefaultAutoBuildTemplates().entrySet()) {
 				JsonObject json = new JsonObject();
 				json.add("__comment",
@@ -545,7 +574,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void loadAutoBuildTemplates()
 	{
 		try
@@ -559,9 +588,9 @@ public class FileManager
 				JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
 				load.close();
 				AutoBuildMod.templates.add(JsonUtils.gson.fromJson(
-					json.get("blocks"), int[][].class));
+						json.get("blocks"), int[][].class));
 				AutoBuildMod.names.add(file.getName().substring(0,
-					file.getName().indexOf(".json")));
+						file.getName().indexOf(".json")));
 			}
 		}catch(Exception e)
 		{

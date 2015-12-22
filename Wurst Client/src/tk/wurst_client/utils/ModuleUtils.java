@@ -27,6 +27,38 @@ public class ModuleUtils {
     //Misc modules, TODO refactor later
     public static ArrayList<Module> miscModules = new ArrayList<>();
 
+    public static String getModuleName(Module m) {
+        if(m instanceof Mod) return ((Mod) m).getName();
+        if(m instanceof Cmd) return ((Cmd) m).getName();
+        return m.getClass().getSimpleName();
+    }
+
+    public static ArrayList<Module> getAllModules() {
+        ArrayList<Module> modules = new ArrayList<>();
+        WurstClient.INSTANCE.mods.getAllMods().stream().filter(mod -> !modules.contains(mod)).forEach(modules::add);
+        WurstClient.INSTANCE.commands.getAllCommands().stream().filter(cmd -> !modules.contains(cmd)).forEach(modules::add);
+        ModuleUtils.miscModules.stream().filter(module -> !modules.contains(module)).forEach(modules::add);
+        return modules;
+    }
+
+    public static Module moduleFromClass(Class c) {
+        if(!Module.class.isAssignableFrom(c)) {
+            throw new IllegalArgumentException("Not a module class!");
+        }
+        Module module;
+        if((module = (Module) WurstClient.INSTANCE.mods.getModByClass(c)) != null) {
+            return module;
+        } else if((module = (Module) WurstClient.INSTANCE.commands.getCmdByClass(c)) != null) {
+            return module;
+        }
+        for(Module module1 : miscModules) {
+            if(module1.getClass().getName().equals(c.getName())) {
+                return module1;
+            }
+        }
+        return null;
+    }
+
     public static void reloadModules() {
         System.out.println("[EvenWurse] Reloading modules...");
         ModManager modManager = WurstClient.INSTANCE.mods;
