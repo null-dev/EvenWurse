@@ -37,6 +37,3 @@ If you found a bug or you have a suggestion, use the GitHub Issue tracker. Keep 
 Want to help with the development? Awesome! Just click the[`fork`](https://github.com/null-dev/EvenWurse/fork) button, make your changes and create a Pull Request. Again, keep the [contributing guidelines](/CONTRIBUTING.md) in mind.
 
 If you have trouble setting it up in Eclipse, read the wiki page ["How to Debug Wurst in Eclipse"](https://www.wurst-client.tk/wiki/Tutorials/How-to-Debug-Wurst-In-Eclipse/).
-
-## NOTE:
-I have not committed the updated patch yet so the client may not compile.
