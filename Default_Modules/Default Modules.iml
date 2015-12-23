@@ -10,6 +10,15 @@
     <orderEntry type="module" module-name="Wurst Client" />
     <orderEntry type="module" module-name="MCPWrapper" />
     <orderEntry type="module" module-name="Client" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MCP_LOC$/jars/libraries/org/lwjgl/lwjgl/lwjgl/2.9.1/lwjgl-2.9.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">

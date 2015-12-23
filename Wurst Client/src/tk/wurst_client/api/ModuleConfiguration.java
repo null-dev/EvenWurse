@@ -153,4 +153,19 @@ public class ModuleConfiguration {
         configuration.setName(ModuleUtils.getModuleName(module));
         return configuration;
     }
+
+    /**
+     * Get the configuration for a module. It will be created if it does not exist.
+     *
+     * Since modules cannot share classes, this allows one module to get another's config
+     *
+     * @param className The classname of the module of the configuration to get
+     * @return The configuration for the specified module
+     */
+    public static ModuleConfiguration forClassName(String className) {
+        if(!CONFIGURATION.containsKey(className)) CONFIGURATION.put(className, new ModuleConfiguration(className));
+        ModuleConfiguration configuration = CONFIGURATION.get(className);
+        configuration.setName(className);
+        return configuration;
+    }
 }

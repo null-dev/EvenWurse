@@ -19,7 +19,6 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.alts.Alt;
 import tk.wurst_client.alts.Encryption;
-import tk.wurst_client.api.Module;
 import tk.wurst_client.api.ModuleConfiguration;
 import tk.wurst_client.gui.alts.GuiAltList;
 import tk.wurst_client.mods.*;
@@ -30,9 +29,8 @@ import tk.wurst_client.utils.*;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class FileManager
@@ -196,9 +194,10 @@ public class FileManager
 	}
 
 	public void saveModuleConfigs() {
-		HashMap<String, ModuleConfiguration> toSaveConfigs = new HashMap<>();
-		ArrayList<Module> toSave = ModuleUtils.getAllModules();
-		toSave.stream().filter(module -> module.isUsesConfig()).forEach(module -> toSaveConfigs.put(module.getClass().getName(), ModuleConfiguration.forModule(module)));
+		Map<String, ModuleConfiguration> toSaveConfigs = ModuleConfiguration.CONFIGURATION;
+		//The code below prevents saving of configs for non-loaded modules, let's ignore it for now :P
+//		ArrayList<Module> toSave = ModuleUtils.getAllModules();
+//		toSave.stream().filter(module -> module.isUsesConfig()).forEach(module -> toSaveConfigs.put(module.getClass().getName(), ModuleConfiguration.forModule(module)));
 		String ser = GsonUtils.getGson().toJson(toSaveConfigs, ModuleConfiguration.TYPE);
 		try {
 			IOUtils.writeToFile(ser, moduleConfig);
@@ -228,7 +227,7 @@ public class FileManager
 			OpSignMod.class.getName(), ProtectMod.class.getName(),
 			RemoteViewMod.class.getName(), SpammerMod.class.getName());
 
-	public boolean isModBlacklited(Mod mod)
+	public boolean isModBlacklisted(Mod mod)
 	{
 		return modBlacklist.contains(mod.getClass().getName());
 	}

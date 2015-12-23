@@ -66,7 +66,7 @@ public class BowSpamMod extends Mod implements UpdateListener
 								Minecraft.getMinecraft().theWorld,
 								Minecraft.getMinecraft().thePlayer);
 				String configKey = "Charge Level (1 - 20)";
-				int iters = ModuleConfiguration.forModule(this).getInt(configKey, 1);
+				int iters = ModuleConfiguration.forModule(this).getInt(configKey, 3);
 				if(iters > 20 || iters < 1) {
 					iters = 1;
 					Chat.sendWarning("BowSpam charge level range out of range, resetting!");
@@ -74,7 +74,7 @@ public class BowSpamMod extends Mod implements UpdateListener
 				}
 				for(int i = 0; i < iters; i++) {
 					try {
-						Thread.sleep(ModuleConfiguration.forModule(this).getInt("Delay between charges (ms)", 5));
+						Thread.sleep(ModuleConfiguration.forModule(this).getInt("Delay between charges (ms)", 10));
 					} catch (InterruptedException ignored) {}
 					Minecraft.getMinecraft().thePlayer.sendQueue
 							.addToSendQueue(new C03PacketPlayer(false));
