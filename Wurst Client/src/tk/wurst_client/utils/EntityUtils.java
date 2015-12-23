@@ -169,17 +169,18 @@ public class EntityUtils
 		return o instanceof EntityGolem && targetOptions.golems && (!targetOptions.teams || !((Entity) o).hasCustomName() || checkName(((Entity) o).getCustomNameTag()));
 
 	}
+
+	public static final String[] COLORS =
+			{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c",
+					"d", "e", "f"};
 	
 	private static boolean checkName(String name)
 	{
 		// check colors
-		String[] colors =
-			{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c",
-				"d", "e", "f"};
 		boolean[] teamColors =
 			WurstClient.INSTANCE.options.target.getTeamColorsSafely();
 		for(int i = 0; i < 16; i++)
-			if(teamColors[i] && name.contains("�" + colors[i]))
+			if(teamColors[i] && name.contains(F.SS + COLORS[i]))
 				return true;
 		
 		// unknown color / no color => white

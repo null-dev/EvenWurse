@@ -50,7 +50,7 @@ public class GuiWurstOptions extends GuiScreen
 			"The Zoom Manager allows you to\n"
 				+ "change the zoom key, how far it\n"
 				+ "will zoom in and more.",
-				F.f("Modify the configurations of all any loaded<NEWLINE>" +
+				F.f("Modify the configurations of loaded<NEWLINE>" +
 						"modules to customize your EvenWurse experience!"),
 			"",
 			"",

@@ -10,6 +10,7 @@ package tk.wurst_client.gui.options.config;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.api.Module;
 import tk.wurst_client.api.ModuleConfiguration;
 
@@ -33,10 +34,12 @@ public class GuiConfigManager extends GuiScreen
 		configList.registerScrollButtons(7, 8);
 		configList.elementClicked(-1, false, 0, 0);
 		buttonList.clear();
-		buttonList.add(new GuiButton(0, width / 2 - 100, height - 52, 200, 20,
-			"Edit"));
-		buttonList.add(new GuiButton(1, width / 2 - 100, height - 28, 200, 20,
-			"Back"));
+		buttonList.add(new GuiButton(0, width / 2 - 100, height - 52, 98, 20,
+				"Edit"));
+		buttonList.add(new GuiButton(1, width / 2 + 2, height - 52, 98, 20,
+				"Remove/Clear"));
+		buttonList.add(new GuiButton(2, width / 2 - 100, height - 28, 200, 20,
+				"Back"));
 	}
 
 	/**
@@ -45,8 +48,9 @@ public class GuiConfigManager extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		((GuiButton)buttonList.get(0)).enabled =
-			configList.getSelectedSlot() != -1 && !ModuleConfiguration.CONFIGURATION.isEmpty();
+		boolean selected = configList.getSelectedSlot() != -1 && !ModuleConfiguration.CONFIGURATION.isEmpty();
+		((GuiButton)buttonList.get(0)).enabled = selected;
+		((GuiButton)buttonList.get(1)).enabled = selected;
 	}
 
 	@Override
@@ -66,7 +70,13 @@ public class GuiConfigManager extends GuiScreen
 					return;
 				}
 				mc.displayGuiScreen(new GuiConfigEntryManager(this, module));
-			} else if(clickedButton.id == 1)
+			} else if(clickedButton.id == 1) {
+				int s = configList.getSelectedSlot();
+				String name = configList.elements.get(s).getKey();
+				configList.elements.remove(s);
+				ModuleConfiguration.CONFIGURATION.remove(name);
+				WurstClient.INSTANCE.files.saveModuleConfigs();
+			} else if(clickedButton.id == 2)
 				mc.displayGuiScreen(prevMenu);
 	}
 
@@ -88,7 +98,7 @@ public class GuiConfigManager extends GuiScreen
 	 */
 	@Override
 	protected void mouseClicked(int par1, int par2, int par3)
-		throws IOException
+			throws IOException
 	{
 		if(par2 >= 36 && par2 <= height - 57)
 			if(par1 >= width / 2 + 140 || par1 <= width / 2 - 126)
@@ -105,10 +115,10 @@ public class GuiConfigManager extends GuiScreen
 		drawDefaultBackground();
 		configList.drawScreen(par1, par2, par3);
 		drawCenteredString(fontRendererObj, "Module Configuration Manager", width / 2,
-			8, 16777215);
+				8, 16777215);
 		drawCenteredString(fontRendererObj, "Total Configurable Modules: "
-				+ ModuleConfiguration.CONFIGURATION.size(),
-			width / 2, 20, 16777215);
+						+ ModuleConfiguration.CONFIGURATION.size(),
+				width / 2, 20, 16777215);
 		super.drawScreen(par1, par2, par3);
 	}
 }

@@ -45,7 +45,7 @@ public class Formatting {
     public static String YELLOW = SS + "e";
     public static String WHITE = SS + "f";
 
-    private static HashMap<String, String> COLOR_MAP = new HashMap<>();
+    public static HashMap<String, String> COLOR_MAP = new HashMap<>();
     static {
         COLOR_MAP.put("BLACK", BLACK);
         COLOR_MAP.put("DARK_BLUE", DARK_BLUE);
@@ -108,6 +108,10 @@ public class Formatting {
 
     public static boolean isColor(String string) {
         return COLOR_MAP.containsKey(string);
+    }
+
+    public static boolean isColorCode(String string) {
+        return COLOR_MAP.containsValue(string);
     }
 
     public static boolean isNewLine(String string) {

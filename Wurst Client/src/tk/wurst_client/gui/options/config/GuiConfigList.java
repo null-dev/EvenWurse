@@ -28,6 +28,9 @@ public class GuiConfigList extends GuiWurstSlot
 			prevMenu.height - 56, 30);
 		mc = par1Minecraft;
 		WurstClient.INSTANCE.files.saveModuleConfigs();
+		//Add entry for modules that have no entries but still accept configuration
+		ModuleUtils.getAllModules().stream().filter(module -> (!ModuleConfiguration.CONFIGURATION.containsKey(module.getClass().getName())) && module.isUsesConfig())
+				.forEach(ModuleConfiguration::forModule);
 		elements.addAll(ModuleConfiguration.CONFIGURATION.entrySet());
 	}
 	

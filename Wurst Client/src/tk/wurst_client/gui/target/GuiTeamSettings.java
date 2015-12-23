@@ -13,6 +13,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.utils.F;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class GuiTeamSettings extends GuiScreen
 					break;
 			}
 			buttonList.add(new TeamColorButton(i, width / 2 + offsetX, height
-				/ 3 + offsetY, "�" + colors[i] + colors[i]));
+				/ 3 + offsetY, F.SS + colors[i] + colors[i]));
 		}
 		boolean[] team_colors =
 			WurstClient.INSTANCE.options.target.getTeamColorsSafely();
@@ -156,52 +157,52 @@ public class GuiTeamSettings extends GuiScreen
 				continue;
 			switch (button.id) {
 				case 0:
-					tooltip.add("black");
+					tooltip.add("Black");
 					break;
 				case 1:
-					tooltip.add("dark blue");
+					tooltip.add("Dark Blue");
 					break;
 				case 2:
-					tooltip.add("dark green");
+					tooltip.add("Dark Green");
 					break;
 				case 3:
-					tooltip.add("dark aqua");
+					tooltip.add("Dark Aqua");
 					break;
 				case 4:
-					tooltip.add("dark red");
+					tooltip.add("Dark Red");
 					break;
 				case 5:
-					tooltip.add("dark purple");
+					tooltip.add("Dark Purple");
 					break;
 				case 6:
-					tooltip.add("gold");
+					tooltip.add("Gold");
 					break;
 				case 7:
-					tooltip.add("gray");
+					tooltip.add("Gray");
 					break;
 				case 8:
-					tooltip.add("dark gray");
+					tooltip.add("Dark Gray");
 					break;
 				case 9:
-					tooltip.add("blue");
+					tooltip.add("Blue");
 					break;
 				case 10:
-					tooltip.add("green");
+					tooltip.add("Green");
 					break;
 				case 11:
-					tooltip.add("aqua");
+					tooltip.add("Aqua");
 					break;
 				case 12:
-					tooltip.add("red");
+					tooltip.add("Red");
 					break;
 				case 13:
-					tooltip.add("light purple");
+					tooltip.add("Light Purple");
 					break;
 				case 14:
-					tooltip.add("yellow");
+					tooltip.add("Yellow");
 					break;
 				case 15:
-					tooltip.add("white");
+					tooltip.add("White");
 					break;
 			}
 		}
