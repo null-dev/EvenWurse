@@ -29,8 +29,8 @@ public class WurstClient
 	public static WurstClient INSTANCE = new WurstClient();
 	
 	public static final String VERSION = "2.12";
-	public static final int EW_VERSION_CODE = 120;
-	public static final String EW_VERSION = "1.20 (Alpha)";
+	public static final int EW_VERSION_CODE = 130;
+	public static final String EW_VERSION = "1.30 (Alpha)";
 	public boolean startupMessageDisabled = false;
 	
 	public ChatManager chat;
