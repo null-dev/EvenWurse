@@ -20,7 +20,6 @@ import tk.wurst_client.utils.Utils;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-//TODO Autoeat timeout
 @Info(category = Category.MISC,
 	description = "Automatically eats food when necessary.",
 	name = "AutoEat")

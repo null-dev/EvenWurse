@@ -55,7 +55,7 @@ public class ChatManager
 	
 	public void failure(String message)
 	{
-		message(F.f("<RED>[<DARK-RED><BOLD>INFO</BOLD></DARK-RED>]</RED> ") + message);
+		message(F.f("<RED>[<DARK-RED><BOLD>FAILURE</BOLD></DARK-RED>]</RED> ") + message);
 	}
 	
 	public void cmd(String message)

@@ -106,7 +106,7 @@ public class GuiConfigManager extends GuiScreen
 		configList.drawScreen(par1, par2, par3);
 		drawCenteredString(fontRendererObj, "Module Configuration Manager", width / 2,
 			8, 16777215);
-		drawCenteredString(fontRendererObj, "Total Configurable Mods: "
+		drawCenteredString(fontRendererObj, "Total Configurable Modules: "
 				+ ModuleConfiguration.CONFIGURATION.size(),
 			width / 2, 20, 16777215);
 		super.drawScreen(par1, par2, par3);

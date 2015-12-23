@@ -63,8 +63,16 @@ public class GuiConfigList extends GuiWurstSlot
 	{}
 
 	public Module moduleFromClassName(String name) throws ClassNotFoundException {
-		Class c = Class.forName(name);
-		return ModuleUtils.moduleFromClass(c);
+		ArrayList<Module> modules = new ArrayList<>();
+		WurstClient.INSTANCE.mods.getAllMods().stream().filter(mod -> !modules.contains(mod)).forEach(modules::add);
+		WurstClient.INSTANCE.commands.getAllCommands().stream().filter(cmd -> !modules.contains(cmd)).forEach(modules::add);
+		ModuleUtils.miscModules.stream().filter(module -> !modules.contains(module)).forEach(modules::add);
+		for(Module module : modules) {
+			if(module.getClass().getName().equals(name)) {
+				return module;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -82,6 +90,7 @@ public class GuiConfigList extends GuiWurstSlot
 			unloaded = true;
 			//TODO Just don't draw the slot at all :/
 			System.out.println("[EvenWurse] Could not find module associated with config class: '" + name + "', using class name!");
+			e.printStackTrace();
 		}
 		mc.fontRendererObj.drawString("Module: " + name, x, y + 3, 10526880);
 		String string = "Number of configuration entries: " + entry.getValue().getConfig().size();

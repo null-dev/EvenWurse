@@ -141,6 +141,11 @@ public class ModuleConfiguration {
         this.name = name;
     }
 
+    /**
+     * Get the configuration for a module. It will be created if it does not exist.
+     * @param module The module of the configuration to get
+     * @return The configuration for the specified module
+     */
     public static ModuleConfiguration forModule(Module module) {
         String className = module.getClass().getName();
         if(!CONFIGURATION.containsKey(className)) CONFIGURATION.put(className, new ModuleConfiguration(ModuleUtils.getModuleName(module)));

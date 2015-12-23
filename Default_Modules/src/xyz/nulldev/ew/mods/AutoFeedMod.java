@@ -15,8 +15,6 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
-
-//TODO Autoeat timeout
 @Info(category = Category.MISC,
 		description = "Automatically executes /feed when you are getting hungry.",
 		name = "AutoFeed")

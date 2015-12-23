@@ -47,7 +47,7 @@ public class AStar {
 
 	public AStar(Location start, Location end, int range) throws InvalidPathException {
 
-		boolean s = true, e = true;
+		boolean s, e = true;
 
 		if (!(s = this.isLocationWalkable(start)) || !(e = this.isLocationWalkable(end))) {
 			throw new InvalidPathException(s, e);
