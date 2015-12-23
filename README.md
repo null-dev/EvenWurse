@@ -1,16 +1,17 @@
-# EvenWurse![](https://ga-beacon.appspot.com/UA-52838431-1/GitHub/README.md?pixel)
+# EvenWurse
 
-<!--[![downloads](https://drive.google.com/uc?id=0B2YeSS9tm5zLMF9NWjNZYnNqSTA)](https://download.EvenWurse-client.tk/)
-[![latest release](https://img.shields.io/github/release/EvenWurse-Imperium/EvenWurse-Client.svg?label=latest%20release)](https://github.com/EvenWurse-Imperium/EvenWurse-Client/releases/latest)  
-[![mods](https://img.shields.io/badge/mods-95+-brightgreen.svg)](#)
-[![commands](https://img.shields.io/badge/commands-35+-brightgreen.svg)](#)
-[![hot, fresh & sexy](https://img.shields.io/badge/hot,%20fresh%20&%20sexy-100%-ff69e3.svg)](http://wizardhax.com/EvenWurse)  
-[![](https://img.shields.io/github/license/EvenWurse-Imperium/EvenWurse-Client.svg)](https://github.com/EvenWurse-Imperium/EvenWurse-Client/blob/master/LICENSE)
-[![analytics](https://img.shields.io/badge/analytics-GA-blue.svg)](https://github.com/igrigorik/ga-beacon)-->
+[![latest release](https://img.shields.io/github/release/null-dev/EvenWurse.svg?label=latest%20release)](https://github.com/null-dev/EvenWurse/releases/latest)  
+[![mods](https://img.shields.io/badge/mods-118-brightgreen.svg)](#)
+[![commands](https://img.shields.io/badge/commands-43-brightgreen.svg)](#)
+[![](https://img.shields.io/github/license/null-dev/EvenWurse.svg)](https://github.com/null-dev/EvenWurse/blob/master/LICENSE)
+<!--[![analytics](https://img.shields.io/badge/analytics-GA-blue.svg)](https://github.com/igrigorik/ga-beacon)-->
 Enhanced, neater and more optimized version of the Wurst hacking client by [Alexander01998](https://github.com/Alexander01998).
 
 ## About :information_source:
 The EvenWurse Client is a Hacked Client for Minecraft based on the original [Wurst Client](https://github.com/Wurst-Imperium/Wurst-Client) by [Alexander01998](https://github.com/Alexander01998), packed full of the latest and most exciting mods, commands and other features. All of the mods and commands are instantly deployable at any moment, through buttons, keybinds and even automatic scripts. *You rule the game!*
+
+## Download :page_facing_up:
+You can get the latest release right here: [Download EvenWurse 1.30](http://files.nulldev.xyz/Projects/EvenWurse/EvenWurse130.zip)
 
 ## :sparkles::sparkles::sparkles: Special Features :sparkles::sparkles::sparkles:
 
