@@ -49,6 +49,7 @@ public class CmdManager implements ChatOutputListener
 		String message = event.getMessage();
 		if(message.startsWith("."))
 		{
+			event.cancel();
 			boolean inDoubleQuotes = false;
 			boolean nextCharEscaped = false;
 			String input = message.substring(1);
