@@ -13,6 +13,23 @@ The EvenWurse Client is a Hacked Client for Minecraft based on the original [Wur
 ## Download :page_facing_up:
 You can get the latest binary release right here: [Download EvenWurse 1.35](http://files.nulldev.xyz/Projects/EvenWurse/EvenWurse135.zip)
 
+## What's the difference between EvenWurse and Wurst?
+EvenWurse has some extra mods and features packed in:
+
+**Features:**
+* Module API
+* Configuration API
+* Performance Optimizations
+* Automatic Team Setup
+
+**Modules:**
+* Waypoints
+* Aimbot
+* AutoFeed
+* BowSpam
+* SpawnTracer
+* Trajectories
+
 ## :sparkles::sparkles::sparkles: Special Features :sparkles::sparkles::sparkles:
 
 ### Custom Module API :wrench:
