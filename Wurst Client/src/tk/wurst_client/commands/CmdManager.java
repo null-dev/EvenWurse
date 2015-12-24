@@ -13,8 +13,8 @@ import org.reflections.scanners.ResourcesScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
-import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.commands.Cmd.SyntaxError;
 import tk.wurst_client.events.ChatOutputEvent;
 import tk.wurst_client.events.listeners.ChatOutputListener;
@@ -32,7 +32,7 @@ public class CmdManager implements ChatOutputListener
 	private final TreeMap<String, Cmd> cmds = new TreeMap<>(String::compareToIgnoreCase);
 
 	private final HashMap<Class<? extends Cmd>, Cmd> cmdClasses = new HashMap<>();
-	
+
 	public CmdManager()
 	{
 		//Scan for cmds
@@ -42,7 +42,7 @@ public class CmdManager implements ChatOutputListener
 		cmdClasses.clear();
 		loadAllCommands();
 	}
-	
+
 	@Override
 	public void onSentMessage(ChatOutputEvent event)
 	{
@@ -50,38 +50,66 @@ public class CmdManager implements ChatOutputListener
 		if(message.startsWith("."))
 		{
 			event.cancel();
+
+			boolean inDoubleQuotes = false;
+			boolean nextCharEscaped = false;
 			String input = message.substring(1);
 			String commandName = input.split(" ")[0];
-			String[] args;
-			if(input.contains(" "))
-				args = input.substring(input.indexOf(" ") + 1).split(" ");
-			else
-				args = new String[0];
+
 			Cmd cmd = getCommandByName(commandName);
-			if(cmd != null)
-				try
-				{
-					cmd.execute(args);
-				}catch(SyntaxError e)
-				{
-					if(e.getMessage() != null)
-						WurstClient.INSTANCE.chat.message(F.DARK_RED + "Syntax error:" + F.RESET + " "
-							+ e.getMessage());
-					else
-						WurstClient.INSTANCE.chat.message(F.DARK_RED + "Syntax error!" + F.RESET);
-					cmd.printSyntax();
-				}catch(Cmd.Error e)
-				{
-					WurstClient.INSTANCE.chat.error(e.getMessage());
-				}catch(Exception e)
-				{
-					WurstClient.INSTANCE.events.handleException(e, cmd,
-						"executing", "Exact input: `" + event.getMessage()
-							+ "`");
-				}
-			else
+			if(cmd == null) {
 				WurstClient.INSTANCE.chat.error("\"." + commandName
-					+ "\" is not a valid command.");
+						+ "\" is not a valid command.");
+				return;
+			}
+
+			ArrayList<String> args = new ArrayList<>();
+			StringBuilder curArg = new StringBuilder();
+			if(input.contains(" ")) {
+				for (char c : input.substring(input.indexOf(" ") + 1).toCharArray()) {
+					if (!nextCharEscaped) {
+						if (c == '\\') {
+							nextCharEscaped = true;
+						} else if (c == '"') {
+							inDoubleQuotes = !inDoubleQuotes;
+						} else if (c == ' ') {
+							if(inDoubleQuotes) {
+								curArg.append(' ');
+							} else {
+								if(curArg.length() > 0) {
+									args.add(curArg.toString());
+									curArg.setLength(0);
+								}
+							}
+						} else {
+							curArg.append(c);
+						}
+					} else {
+						curArg.append(c);
+						nextCharEscaped = false;
+					}
+				}
+				if(curArg.length() > 0) {
+					args.add(curArg.toString());
+				}
+			}
+			System.out.println(Arrays.toString(args.toArray()));
+			try {
+				cmd.execute(args.toArray(new String[args.size()]));
+			} catch(SyntaxError e) {
+				if(e.getMessage() != null)
+					WurstClient.INSTANCE.chat.message(F.DARK_RED + "Syntax error:" + F.RESET + " "
+							+ e.getMessage());
+				else
+					WurstClient.INSTANCE.chat.message(F.DARK_RED + "Syntax error!" + F.RESET);
+				cmd.printSyntax();
+			} catch(Cmd.Error e) {
+				WurstClient.INSTANCE.chat.error(e.getMessage());
+			} catch(Exception e) {
+				WurstClient.INSTANCE.events.handleException(e, cmd,
+						"executing", "Exact input: `" + event.getMessage()
+								+ "`");
+			}
 		}
 	}
 
@@ -124,19 +152,23 @@ public class CmdManager implements ChatOutputListener
 						+ cmd.getClass().getSimpleName()
 						+ "' threw exception in onUnload(), ignoring!");
 			}
-			Iterator<Map.Entry<String, Cmd>> stringEntries = cmds.entrySet().iterator();
-			while (stringEntries.hasNext()) {
-				if(stringEntries.next().getValue().getClass().equals(cmd.getClass())) {
-					stringEntries.remove();
-				}
-			}
-			Iterator<Map.Entry<Class<? extends Cmd>, Cmd>> classEntries = cmdClasses.entrySet().iterator();
-			while (classEntries.hasNext()) {
-				if(classEntries.next().getValue().getClass().equals(cmd.getClass())) {
-					classEntries.remove();
-				}
-			}
+			removeCmdFromMaps(cmd);
 			customCommands.remove(cmd);
+		}
+	}
+
+	void removeCmdFromMaps(Cmd cmd) {
+		Iterator<Map.Entry<String, Cmd>> stringEntries = cmds.entrySet().iterator();
+		while (stringEntries.hasNext()) {
+			if(stringEntries.next().getValue().getClass().equals(cmd.getClass())) {
+				stringEntries.remove();
+			}
+		}
+		Iterator<Map.Entry<Class<? extends Cmd>, Cmd>> classEntries = cmdClasses.entrySet().iterator();
+		while (classEntries.hasNext()) {
+			if(classEntries.next().getValue().getClass().equals(cmd.getClass())) {
+				classEntries.remove();
+			}
 		}
 	}
 
@@ -154,19 +186,34 @@ public class CmdManager implements ChatOutputListener
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			throw new Module.ModuleLoadException("Unknown error loading cmd!", e);
 		}
-		try {
-			cmd.onLoad();
-		} catch(Throwable t) {
-			throw new Module.ModuleLoadException("Module '" + cmd.getName() + "' threw exception in onLoad()!", t);
-		}
 		//Don't load cmds that require a higher version than us
 		if(cmd.getMinVersion() > WurstClient.EW_VERSION_CODE) {
 			throw new Module.InvalidVersionException(cmd.getName(), cmd.getMinVersion(), WurstClient.EW_VERSION_CODE);
 		}
-		cmds.put(cmd.getName(), cmd);
+		//TODO Better way to do this
+		//We have to put this here or cmds can't use the configuration in their onload method :/
+		if(cmds.containsKey(cmd.getName())) {
+			System.out.println("[EvenWurse] Command '" + cmd.getName() + "' attempted to register it's name but failed as a command has already registered this name/alias!");
+		} else {
+			cmds.put(cmd.getName(), cmd);
+		}
+		for(String alias : cmd.getAliases()) {
+			if(cmds.containsKey(alias)) {
+				System.out.println("[EvenWurse] Command '" + cmd.getName() + "' attempted to register alias '" + alias + "' but failed as a command has already registered this name/alias!");
+			} else {
+				cmds.put(alias, cmd);
+			}
+		}
 		cmdClasses.put(cmd.getClass(), cmd);
 		if(custom)
 			customCommands.add(cmd);
+		try {
+			cmd.onLoad();
+		} catch(Throwable t) {
+			removeCmdFromMaps(cmd);
+			customCommands.remove(cmd);
+			throw new Module.ModuleLoadException("Module '" + cmd.getName() + "' threw exception in onLoad()!", t);
+		}
 		return cmd;
 	}
 
@@ -192,7 +239,6 @@ public class CmdManager implements ChatOutputListener
 		return customCommands;
 	}
 
-	@Deprecated
 	public Cmd getCommandByName(String name)
 	{
 		return cmds.get(name);
@@ -201,12 +247,12 @@ public class CmdManager implements ChatOutputListener
 	public <T> T getCmdByClass(Class<T> theClass) {
 		return (T) cmdClasses.get(theClass);
 	}
-	
+
 	public Collection<Cmd> getAllCommands()
 	{
 		return cmds.values();
 	}
-	
+
 	public int countCommands()
 	{
 		return cmds.size();

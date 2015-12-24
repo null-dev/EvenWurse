@@ -157,89 +157,93 @@ public class Formatting {
      * @return The parsed string
      */
     public static String format(String string) {
-        //Check the cache first
-        if(initAndGetParseCache().contains(string)) return initAndGetParseCache().get(string);
-        //Damn it, not in the cache, now we have to parse it :/
-        Stack<String> currentColor = new Stack<>();
-        Stack<String> currentFormatting = new Stack<>();
-        char[] asArray = string.toCharArray();
-        boolean isEscaping = false;
-        boolean inTag = false;
-        boolean nextTagCancels = false;
-        StringBuilder builtString = new StringBuilder();
-        StringBuilder currentTag = new StringBuilder();
-        for(char c : asArray) {
-            if(!isEscaping) {
-                if (c == '<') {
-                    inTag = true;
-                } else if(c == '/' && inTag) {
-                    nextTagCancels = true;
-                } else if(c == '>') {
-                    if(!inTag) throw new IllegalArgumentException("Invalid input string (unexpected end of tag)!");
-                    inTag = false;
-                    String tag = currentTag.toString().toUpperCase();
-                    boolean updateColor = false;
-                    boolean updateFormatting = false;
-                    boolean cancelProcess = false;
-                    StringBuilder update = new StringBuilder();
-                    if(nextTagCancels) {
-                        if(isColor(tag)) {
-                            if (!tag.equals(currentColor.pop())) {
-                                throw new IllegalArgumentException("Invalid input string (mismatched closing tag)!");
+        try {
+            //Check the cache first
+            if (initAndGetParseCache().contains(string)) return initAndGetParseCache().get(string);
+            //Damn it, not in the cache, now we have to parse it :/
+            Stack<String> currentColor = new Stack<>();
+            Stack<String> currentFormatting = new Stack<>();
+            char[] asArray = string.toCharArray();
+            boolean isEscaping = false;
+            boolean inTag = false;
+            boolean nextTagCancels = false;
+            StringBuilder builtString = new StringBuilder();
+            StringBuilder currentTag = new StringBuilder();
+            for (char c : asArray) {
+                if (!isEscaping) {
+                    if (c == '<') {
+                        inTag = true;
+                    } else if (c == '/' && inTag) {
+                        nextTagCancels = true;
+                    } else if (c == '>') {
+                        if (!inTag) throw new IllegalArgumentException("Invalid input string (unexpected end of tag)!");
+                        inTag = false;
+                        String tag = currentTag.toString().toUpperCase();
+                        boolean updateColor = false;
+                        boolean updateFormatting = false;
+                        boolean cancelProcess = false;
+                        StringBuilder update = new StringBuilder();
+                        if (nextTagCancels) {
+                            if (isColor(tag)) {
+                                if (!tag.equals(currentColor.pop())) {
+                                    throw new IllegalArgumentException("Invalid input string (mismatched closing tag)!");
+                                }
+                                updateColor = true;
+                            } else if (isFormatting(tag)) {
+                                if (!tag.equals(currentFormatting.pop())) {
+                                    throw new IllegalArgumentException("Invalid input string (mismatched closing tag)!");
+                                }
+                                updateFormatting = true;
+                                cancelProcess = true;
+                            } else {
+                                throw new IllegalArgumentException("Invalid input string (invalid closing tag)!");
+                            }
+                        } else if (isColor(tag)) {
+                            currentColor.push(tag);
+                            updateColor = true;
+                        } else if (isFormatting(tag)) {
+                            currentFormatting.push(tag);
+                            update.append(processTag(tag));
+                            cancelProcess = true;
+                        }
+                        if (updateFormatting) {
+                            update.append(RESET);
+                            for (String formatting : currentFormatting) {
+                                update.append(processTag(formatting));
                             }
                             updateColor = true;
-                        } else if(isFormatting(tag)) {
-                            if (!tag.equals(currentFormatting.pop())) {
-                                throw new IllegalArgumentException("Invalid input string (mismatched closing tag)!");
+                        }
+                        if (updateColor) {
+                            if (currentColor.size() < 1) {
+                                update.append(WHITE);
+                            } else {
+                                update.append(processTag(currentColor.peek()));
                             }
-                            updateFormatting = true;
-                            cancelProcess = true;
-                        } else {
-                            throw new IllegalArgumentException("Invalid input string (invalid closing tag)!");
+                        } else if (!cancelProcess) {
+                            update.append(processTag(tag));
                         }
-                    } else if(isColor(tag)) {
-                        currentColor.push(tag);
-                        updateColor = true;
-                    } else if(isFormatting(tag)) {
-                        currentFormatting.push(tag);
-                        update.append(processTag(tag));
-                        cancelProcess = true;
-                    }
-                    if(updateFormatting) {
-                        update.append(RESET);
-                        for(String formatting : currentFormatting) {
-                            update.append(processTag(formatting));
-                        }
-                        updateColor = true;
-                    }
-                    if(updateColor) {
-                        if(currentColor.size() < 1) {
-                            update.append(WHITE);
-                        } else {
-                            update.append(processTag(currentColor.peek()));
-                        }
-                    } else if(!cancelProcess) {
-                        update.append(processTag(tag));
-                    }
-                    builtString.append(update);
-                    currentTag.setLength(0);
-                    nextTagCancels = false;
-                } else if(c == '\\') {
-                    isEscaping = true;
-                } else {
-                    if(inTag) {
-                        currentTag.append(c);
+                        builtString.append(update);
+                        currentTag.setLength(0);
+                        nextTagCancels = false;
+                    } else if (c == '\\') {
+                        isEscaping = true;
                     } else {
-                        builtString.append(c);
+                        if (inTag) {
+                            currentTag.append(c);
+                        } else {
+                            builtString.append(c);
+                        }
                     }
+                } else {
+                    isEscaping = false;
                 }
-            } else {
-                isEscaping = false;
             }
+            String out = builtString.toString();
+            initAndGetParseCache().put(string, out);
+            return out;
+        } catch(Throwable t) {
+            throw new IllegalArgumentException("Exception formatting input!", t);
         }
-        String out = builtString.toString();
-        initAndGetParseCache().put(string, out);
-        return out;
     }
 
     /**

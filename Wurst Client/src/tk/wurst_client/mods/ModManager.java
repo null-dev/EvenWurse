@@ -79,19 +79,24 @@ public class ModManager
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             throw new Module.ModuleLoadException("Unknown error loading mod!", e);
         }
-        try {
-            mod.onLoad();
-        } catch(Throwable t) {
-            throw new Module.ModuleLoadException("Module '" + mod.getName() + "' threw exception in onLoad()!", t);
-        }
         //Don't load mods that require a higher version than us
         if(mod.getMinVersion() > WurstClient.EW_VERSION_CODE) {
             throw new Module.InvalidVersionException(mod.getName(), mod.getMinVersion(), mod.getMaxVersion());
         }
+        //TODO Better way to do this
+        //We have to put this here or mods can't use the configuration in their onload method :/
         mods.put(mod.getName(), mod);
         modClasses.put(mod.getClass(), mod);
         if(custom)
             customMods.add(mod);
+        try {
+            mod.onLoad();
+        } catch(Throwable t) {
+            mods.remove(mod.getName());
+            modClasses.remove(mod.getClass());
+            customMods.remove(mod);
+            throw new Module.ModuleLoadException("Module '" + mod.getName() + "' threw exception in onLoad()!", t);
+        }
         mod.initSliders();
         return mod;
     }

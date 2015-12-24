@@ -115,6 +115,9 @@ public class ModuleUtils {
             URL[] urls = {new URL("jar:file:" + jar.getPath() + "!/")};
             URLClassLoader cl = new URLClassLoader(urls, ModuleUtils.class.getClassLoader());
 
+            //Load modules after all classes are loaded
+            ArrayList<Class<? extends Module>> toLoad = new ArrayList<>();
+
             while (e.hasMoreElements()) {
                 JarEntry je = (JarEntry) e.nextElement();
                 if (je.isDirectory() || !je.getName().endsWith(".class")) {
@@ -125,29 +128,32 @@ public class ModuleUtils {
                 className = className.replace('/', '.');
                 Class c = cl.loadClass(className);
                 if (Module.class.isAssignableFrom(c)) {
-                    if (Mod.class.isAssignableFrom(c)) {
-                        try {
-                            WurstClient.INSTANCE.mods.loadMod(c, true);
-                        } catch (Module.ModuleLoadException e1) {
-                            ModManager.handleModuleLoadException(e1, c.getSimpleName());
-                        }
-                    } else if (Cmd.class.isAssignableFrom(c)) {
-                        try {
-                            WurstClient.INSTANCE.commands.loadCommand(c, true);
-                        } catch (Module.ModuleLoadException e1) {
-                            CmdManager.handleModuleLoadException(e1, c.getSimpleName());
-                        }
-                    } else {
-                        Module module = (Module) c.getConstructor().newInstance();
-                        System.out.println("[EvenWurse] Loading misc module from class: '" + c.getSimpleName() + "'...");
-                        try {
-                            module.onLoad();
-                        } catch(Throwable t) {
-                            System.out.println("[EvenWurse] Module in class '" + c.getSimpleName() + "' threw exception in onLoad(), skipping!");
-                            t.printStackTrace();
-                            continue;
-                        }
+                    toLoad.add(c);
+                }
+            }
+            for(Class<? extends Module> c : toLoad) {
+                if (Mod.class.isAssignableFrom(c)) {
+                    try {
+                        WurstClient.INSTANCE.mods.loadMod((Class<? extends Mod>) c, true);
+                    } catch (Module.ModuleLoadException e1) {
+                        ModManager.handleModuleLoadException(e1, c.getSimpleName());
+                    }
+                } else if (Cmd.class.isAssignableFrom(c)) {
+                    try {
+                        WurstClient.INSTANCE.commands.loadCommand((Class<? extends Cmd>) c, true);
+                    } catch (Module.ModuleLoadException e1) {
+                        CmdManager.handleModuleLoadException(e1, c.getSimpleName());
+                    }
+                } else {
+                    Module module = c.getConstructor().newInstance();
+                    System.out.println("[EvenWurse] Loading misc module from class: '" + c.getSimpleName() + "'...");
+                    try {
                         miscModules.add(module);
+                        module.onLoad();
+                    } catch(Throwable t) {
+                        miscModules.remove(module);
+                        System.out.println("[EvenWurse] Module in class '" + c.getSimpleName() + "' threw exception in onLoad(), skipping!");
+                        t.printStackTrace();
                     }
                 }
             }

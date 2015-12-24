@@ -9,8 +9,8 @@
 package xyz.nulldev.ew.mods;
 
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.events.listeners.RenderListener;
-import tk.wurst_client.mods.ArenaBrawlMod;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
@@ -21,6 +21,7 @@ import xyz.nulldev.mcpwrapper.bukkit.World;
 
 import java.awt.*;
 
+@Module.ModuleInfo(version = 1.01f)
 @Info(category = Category.RENDER,
         description = "Draws a line to the world's spawn location.",
         name = "SpawnTracer")
@@ -32,6 +33,7 @@ public class SpawnTracerMod extends Mod implements RenderListener
         WurstClient.INSTANCE.events.add(RenderListener.class, this);
     }
 
+    //TODO Don't give seizures
     static int colorFromTime() {
         return Color.HSBtoRGB((float) (0.25 + 0.5*Math.sin(System.currentTimeMillis())), 1f, 1f);
     }
@@ -39,8 +41,6 @@ public class SpawnTracerMod extends Mod implements RenderListener
     @Override
     public void onRender()
     {
-        if(WurstClient.INSTANCE.mods.getModByClass(ArenaBrawlMod.class).isActive())
-            return;
         World world = MCPWorld.getInstace();
         Location spawnLoc = world.getSpawnLocation();
         RenderUtils.tracerLine(spawnLoc.getBlockX(), spawnLoc.getBlockY(), spawnLoc.getBlockZ(), new Color(colorFromTime()));

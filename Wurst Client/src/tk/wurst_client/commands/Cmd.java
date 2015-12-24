@@ -11,8 +11,8 @@ package tk.wurst_client.commands;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
-import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
@@ -23,13 +23,16 @@ import java.lang.annotation.RetentionPolicy;
 public abstract class Cmd extends Module
 {
 	private String name = getClass().getAnnotation(Info.class).name();
+	private String[] aliases = getClass().getAnnotation(Info.class).aliases();
 	private String help = getClass().getAnnotation(Info.class).help();
 	private String[] syntax = getClass().getAnnotation(Info.class).syntax();
-	
+
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Info
 	{
 		String name();
+
+		String[] aliases() default {};
 		
 		String help();
 		
@@ -61,17 +64,19 @@ public abstract class Cmd extends Module
 			super(message);
 		}
 	}
-	
+
 	public String getName()
 	{
 		return name;
 	}
-	
+
+	public String[] getAliases() { return aliases; }
+
 	public String getHelp()
 	{
 		return help;
 	}
-	
+
 	public String[] getSyntax()
 	{
 		return syntax;

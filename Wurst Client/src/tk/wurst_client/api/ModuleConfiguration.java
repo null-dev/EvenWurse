@@ -37,6 +37,7 @@ public class ModuleConfiguration {
     public void putString(String key, String value) {
         if(config.containsKey(key)) config.remove(key);
         config.put(key, value);
+        WurstClient.INSTANCE.files.saveModuleConfigs();
     }
 
     /**
@@ -55,7 +56,7 @@ public class ModuleConfiguration {
 
     void warnType(String key, String type) {
         WurstClient.INSTANCE.chat.warning(F.f("Module '<ITALIC>" + name + "</ITALIC>' requested configuration entry '<ITALIC>" + key
-                + "</ITALIC>' of type <UNDERLINE>" + type + "</UNDERLINE> but value was of different type! Please confirm the value is an <UNDERLINE>" + type + "</UNDERLINE>!"));
+                + "</ITALIC>' of type <UNDERLINE>" + type + "</UNDERLINE> but value was of different type! Please confirm the value is a/an <UNDERLINE>" + type + "</UNDERLINE>!"));
     }
 
     /**
@@ -103,13 +104,44 @@ public class ModuleConfiguration {
         String ret = getString(key, s);
         if(!ret.equals(s)) {
             try {
-                return Boolean.parseBoolean(ret);
+                return parseBoolean(ret);
             } catch(NumberFormatException e) {
                 warnType(key, "boolean");
                 return defaultValue;
             }
         }
         return defaultValue;
+    }
+
+    /**
+     * Better boolean parsing.
+     */
+    static boolean parseBoolean(String s) {
+        String upper = s.trim().toUpperCase();
+        switch(upper) {
+            case "YES":
+                return true;
+            case "NO":
+                return false;
+            case "TRUE":
+                return true;
+            case "FALSE":
+                return false;
+            case "SURE":
+                return true;
+            case "YEP":
+                return true;
+            case "NOPE":
+                return false;
+            case "YEAH":
+                return true;
+            case "NEVER":
+                return false;
+            case "NAH":
+                return false;
+            default:
+                throw new NumberFormatException("'" + s + "' is not a boolean!");
+        }
     }
 
     /**

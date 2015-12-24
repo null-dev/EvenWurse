@@ -321,8 +321,16 @@ public class MCPWorld implements World {
 
     @Override
     public Environment getEnvironment() {
-        //TODO
-        throw new NotImplementedException();
+        switch(Minecraft.getMinecraft().theWorld.provider.getDimensionId()) {
+            case -1:
+                return Environment.NETHER;
+            case 0:
+                return Environment.NORMAL;
+            case 1:
+                return Environment.THE_END;
+            default:
+                return null;
+        }
     }
 
     @Override
