@@ -1,7 +1,7 @@
 From f5f86b966f26c3bd3302ff4e16463d3421c662ba Mon Sep 17 00:00:00 2001
 From: nulldev <contactnulldev@gmail.com>
 Date: Mon, 21 Dec 2015 20:02:53 -0500
-Subject: [PATCH] Patched state.
+Subject: [PATCH 1/4] Patched state.
 
 ---
  src/net/minecraft/block/Block.java                 |  37 +-
@@ -11056,6 +11056,130 @@ index e39a8f2..9f3a45e 100644
  import net.minecraft.crash.CrashReport;
  import net.minecraft.crash.CrashReportCategory;
  import net.minecraft.nbt.NBTBase;
+-- 
+1.9.1
+
+
+From aeb7e2d6a36332830d474f0a5ac174fadae22ca6 Mon Sep 17 00:00:00 2001
+From: nulldev <contactnulldev@gmail.com>
+Date: Mon, 21 Dec 2015 21:05:55 -0500
+Subject: [PATCH 2/4] Add automatic EvenWurse depolyment script. Fix BaseFinder
+ encoding bug. Fix custom mods not loading state.
+
+---
+ src/META-INF/MANIFEST.MF | 3 +++
+ 1 file changed, 3 insertions(+)
+ create mode 100644 src/META-INF/MANIFEST.MF
+
+diff --git a/src/META-INF/MANIFEST.MF b/src/META-INF/MANIFEST.MF
+new file mode 100644
+index 0000000..54f165d
+--- /dev/null
++++ b/src/META-INF/MANIFEST.MF
+@@ -0,0 +1,3 @@
++Manifest-Version: 1.0
++Main-Class: net.minecraft.client.main.Main
++
+-- 
+1.9.1
+
+
+From 22f98d7929b2ead95429ce76ae9d4240bb3c175f Mon Sep 17 00:00:00 2001
+From: nulldev <contactnulldev@gmail.com>
+Date: Wed, 23 Dec 2015 16:17:30 -0500
+Subject: [PATCH 3/4] Make timer public.
+
+---
+ src/net/minecraft/client/Minecraft.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/net/minecraft/client/Minecraft.java b/src/net/minecraft/client/Minecraft.java
+index 0eb87e9..08accbd 100644
+--- a/src/net/minecraft/client/Minecraft.java
++++ b/src/net/minecraft/client/Minecraft.java
+@@ -159,7 +159,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
+     private CrashReport crashReporter;
+     public int displayWidth;
+     public int displayHeight;
+-    private Timer timer = new Timer(20.0F);
++    public Timer timer = new Timer(20.0F);
+ 
+     /** Instance of PlayerUsageSnooper. */
+     private PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("client", this, MinecraftServer.getCurrentTimeMillis());
+-- 
+1.9.1
+
+
+From 406a91da1e9e8ac5ea6a935835ee9aa7fb9db8bf Mon Sep 17 00:00:00 2001
+From: nulldev <contactnulldev@gmail.com>
+Date: Thu, 24 Dec 2015 16:18:12 -0500
+Subject: [PATCH 4/4] Text fields now have essentially unlimited length.
+ Encoding fixes.
+
+---
+ src/net/minecraft/client/gui/FontRenderer.java |  5 +++--
+ src/net/minecraft/client/gui/GuiTextField.java | 15 ++++++++-------
+ 2 files changed, 11 insertions(+), 9 deletions(-)
+
+diff --git a/src/net/minecraft/client/gui/FontRenderer.java b/src/net/minecraft/client/gui/FontRenderer.java
+index ca32ce6..8a354bb 100644
+--- a/src/net/minecraft/client/gui/FontRenderer.java
++++ b/src/net/minecraft/client/gui/FontRenderer.java
+@@ -18,6 +18,7 @@ import org.apache.commons.io.IOUtils;
+ import org.lwjgl.opengl.GL11;
+ import tk.wurst_client.WurstClient;
+ import tk.wurst_client.mods.NameProtectMod;
++import tk.wurst_client.utils.F;
+ 
+ import java.awt.image.BufferedImage;
+ import java.io.IOException;
+@@ -355,11 +356,11 @@ public class FontRenderer implements IResourceManagerReloadListener
+ 					p_175065_1_ =
+ 						p_175065_1_.replace(
+ 							Minecraft.getMinecraft().session.getUsername(),
+-							"�oMe�r");
++                                F.ITALIC + "Me" + F.RESET);
+ 				}else if(p_175065_1_.contains(name))
+     {
+ 					p_175065_1_ =
+-						p_175065_1_.replace(name, "�oPlayer" + i + "�r");
++						p_175065_1_.replace(name, F.ITALIC + "Player" + i + F.RESET);
+ 				}
+ 			}
+ 		}
+diff --git a/src/net/minecraft/client/gui/GuiTextField.java b/src/net/minecraft/client/gui/GuiTextField.java
+index 1df2388..d2e0af7 100644
+--- a/src/net/minecraft/client/gui/GuiTextField.java
++++ b/src/net/minecraft/client/gui/GuiTextField.java
+@@ -21,7 +21,7 @@ public class GuiTextField extends Gui
+ 
+     /** Has the current text being edited on the textbox. */
+     private String text = "";
+-    private int maxStringLength = 32;
++    private int maxStringLength = 999999;
+     private int cursorCounter;
+     private boolean enableBackgroundDrawing = true;
+ 
+@@ -639,12 +639,13 @@ public class GuiTextField extends Gui
+ 
+     public void setMaxStringLength(int p_146203_1_)
+     {
+-        this.maxStringLength = p_146203_1_;
+-
+-        if (this.text.length() > p_146203_1_)
+-        {
+-            this.text = this.text.substring(0, p_146203_1_);
+-        }
++        //TODO Client
++//        this.maxStringLength = p_146203_1_;
++//
++//        if (this.text.length() > p_146203_1_)
++//        {
++//            this.text = this.text.substring(0, p_146203_1_);
++//        }
+     }
+ 
+     /**
 -- 
 1.9.1
 
