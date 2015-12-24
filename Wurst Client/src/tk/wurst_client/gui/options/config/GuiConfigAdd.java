@@ -93,6 +93,10 @@ public class GuiConfigAdd extends GuiScreen
 	@Override
 	protected void keyTyped(char par1, int par2)
 	{
+		if(par2 == 1) {
+			actionPerformed((GuiButton)buttonList.get(1));
+			return;
+		}
 		keyBox.textboxKeyTyped(par1, par2);
 		valueBox.textboxKeyTyped(par1, par2);
 

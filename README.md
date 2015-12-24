@@ -11,7 +11,7 @@ Enhanced, neater and more optimized version of the Wurst hacking client by [Alex
 The EvenWurse Client is a Hacked Client for Minecraft based on the original [Wurst Client](https://github.com/Wurst-Imperium/Wurst-Client) by [Alexander01998](https://github.com/Alexander01998), packed full of the latest and most exciting mods, commands and other features. All of the mods and commands are instantly deployable at any moment, through buttons, keybinds and even automatic scripts. *You rule the game!*
 
 ## Download :page_facing_up:
-You can get the latest release right here: [Download EvenWurse 1.30](http://files.nulldev.xyz/Projects/EvenWurse/EvenWurse130.zip)
+You can get the latest binary release right here: [Download EvenWurse 1.30](http://files.nulldev.xyz/Projects/EvenWurse/EvenWurse130.zip)
 
 ## :sparkles::sparkles::sparkles: Special Features :sparkles::sparkles::sparkles:
 
@@ -29,7 +29,7 @@ EvenWurse is the only client containing an AutoBuild mod that is fully customiza
 ### Wurst-Bot :floppy_disk:
 Wurst-Bot allows you to automate everything! It can grief for you, fight for you, or just spam stuff in the chat. You can either run it from the command-line or make yourself a custom EvenWurse-Bot launcher in nearly any language. Since DarkBot is discontinued, this is yet another EvenWurse feature that you won't find in any other client.
 
-So what are you waiting for? Grab a [download](https://download.wurst-client.tk/), have a play and enjoy the smooth and relaxing gameplay.
+So what are you waiting for? Grab a [download](http://files.nulldev.xyz/Projects/EvenWurse/EvenWurse130.zip), have a play and enjoy the smooth and relaxing gameplay.
 
 ## Issues :worried:
 If you found a bug or you have a suggestion, use the GitHub Issue tracker. Keep the [contributing guidelines](/CONTRIBUTING.md) in mind - Issues that violate them will be removed with no mercy.

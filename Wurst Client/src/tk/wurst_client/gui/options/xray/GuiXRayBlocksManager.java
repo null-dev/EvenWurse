@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,13 +8,13 @@
  */
 package tk.wurst_client.gui.options.xray;
 
-import java.io.IOException;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.XRayMod;
+
+import java.io.IOException;
 
 public class GuiXRayBlocksManager extends GuiScreen
 {
@@ -81,6 +81,10 @@ public class GuiXRayBlocksManager extends GuiScreen
 	@Override
 	protected void keyTyped(char par1, int par2)
 	{
+		if(par2 == 1) {
+			actionPerformed((GuiButton)buttonList.get(2));
+			return;
+		}
 		if(par2 == 28 || par2 == 156)
 			actionPerformed((GuiButton)buttonList.get(0));
 	}

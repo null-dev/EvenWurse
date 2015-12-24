@@ -85,10 +85,11 @@ public class GuiConfigManager extends GuiScreen
 	 * KeyListener.keyTyped(KeyEvent e).
 	 */
 	@Override
-	protected void keyTyped(char par1, int par2)
-	{
-		if(par2 == 28 || par2 == 156)
+	protected void keyTyped(char par1, int par2) throws IOException {
+		if(par2 == 28 || par2 == 156) {
 			actionPerformed((GuiButton)buttonList.get(0));
+		}
+		super.keyTyped(par1, par2);
 	}
 
 	/**

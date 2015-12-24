@@ -49,8 +49,6 @@ public class CmdManager implements ChatOutputListener
 		String message = event.getMessage();
 		if(message.startsWith("."))
 		{
-			event.cancel();
-
 			boolean inDoubleQuotes = false;
 			boolean nextCharEscaped = false;
 			String input = message.substring(1);
@@ -93,7 +91,6 @@ public class CmdManager implements ChatOutputListener
 					args.add(curArg.toString());
 				}
 			}
-			System.out.println(Arrays.toString(args.toArray()));
 			try {
 				cmd.execute(args.toArray(new String[args.size()]));
 			} catch(SyntaxError e) {
