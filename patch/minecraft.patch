@@ -1,7 +1,7 @@
 From f5f86b966f26c3bd3302ff4e16463d3421c662ba Mon Sep 17 00:00:00 2001
 From: nulldev <contactnulldev@gmail.com>
 Date: Mon, 21 Dec 2015 20:02:53 -0500
-Subject: [PATCH 1/4] Patched state.
+Subject: [PATCH 1/5] Patched state.
 
 ---
  src/net/minecraft/block/Block.java                 |  37 +-
@@ -11063,7 +11063,7 @@ index e39a8f2..9f3a45e 100644
 From aeb7e2d6a36332830d474f0a5ac174fadae22ca6 Mon Sep 17 00:00:00 2001
 From: nulldev <contactnulldev@gmail.com>
 Date: Mon, 21 Dec 2015 21:05:55 -0500
-Subject: [PATCH 2/4] Add automatic EvenWurse depolyment script. Fix BaseFinder
+Subject: [PATCH 2/5] Add automatic EvenWurse depolyment script. Fix BaseFinder
  encoding bug. Fix custom mods not loading state.
 
 ---
@@ -11087,7 +11087,7 @@ index 0000000..54f165d
 From 22f98d7929b2ead95429ce76ae9d4240bb3c175f Mon Sep 17 00:00:00 2001
 From: nulldev <contactnulldev@gmail.com>
 Date: Wed, 23 Dec 2015 16:17:30 -0500
-Subject: [PATCH 3/4] Make timer public.
+Subject: [PATCH 3/5] Make timer public.
 
 ---
  src/net/minecraft/client/Minecraft.java | 2 +-
@@ -11113,7 +11113,7 @@ index 0eb87e9..08accbd 100644
 From 406a91da1e9e8ac5ea6a935835ee9aa7fb9db8bf Mon Sep 17 00:00:00 2001
 From: nulldev <contactnulldev@gmail.com>
 Date: Thu, 24 Dec 2015 16:18:12 -0500
-Subject: [PATCH 4/4] Text fields now have essentially unlimited length.
+Subject: [PATCH 4/5] Text fields now have essentially unlimited length.
  Encoding fixes.
 
 ---
@@ -11180,6 +11180,124 @@ index 1df2388..d2e0af7 100644
      }
  
      /**
+-- 
+1.9.1
+
+
+From 80ec3e7847432cc4741e03ae9f3a132980f77220 Mon Sep 17 00:00:00 2001
+From: nulldev <contactnulldev@gmail.com>
+Date: Mon, 28 Dec 2015 23:42:11 -0500
+Subject: [PATCH 5/5] Add recording mode.
+
+---
+ src/net/minecraft/client/gui/GuiIngameMenu.java | 70 +++++++++++++------------
+ 1 file changed, 37 insertions(+), 33 deletions(-)
+
+diff --git a/src/net/minecraft/client/gui/GuiIngameMenu.java b/src/net/minecraft/client/gui/GuiIngameMenu.java
+index e4e2d17..ec62077 100644
+--- a/src/net/minecraft/client/gui/GuiIngameMenu.java
++++ b/src/net/minecraft/client/gui/GuiIngameMenu.java
+@@ -1,11 +1,5 @@
+ package net.minecraft.client.gui;
+ 
+-import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+-import static org.lwjgl.opengl.GL11.glEnable;
+-
+-import java.io.IOException;
+-
+ import net.minecraft.client.gui.achievement.GuiAchievements;
+ import net.minecraft.client.gui.achievement.GuiStats;
+ import net.minecraft.client.multiplayer.WorldClient;
+@@ -14,11 +8,15 @@ import net.minecraft.client.renderer.Tessellator;
+ import net.minecraft.client.renderer.WorldRenderer;
+ import net.minecraft.client.resources.I18n;
+ import net.minecraft.util.ResourceLocation;
+-
+ import org.lwjgl.opengl.GL11;
+-
++import tk.wurst_client.WurstClient;
+ import tk.wurst_client.gui.main.GuiWurstMainMenu;
+ import tk.wurst_client.gui.options.GuiWurstOptions;
++import tk.wurst_client.mods.RecordingModeMod;
++
++import java.io.IOException;
++
++import static org.lwjgl.opengl.GL11.*;
+ 
+ public class GuiIngameMenu extends GuiScreen
+ {
+@@ -47,7 +45,10 @@ public class GuiIngameMenu extends GuiScreen
+         this.buttonList.add(new GuiButton(4, this.width / 2 - 100, this.height / 4 + 24 + var1, I18n.format("menu.returnToGame", new Object[0])));
+         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + var1, 98, 20, I18n.format("menu.options", new Object[0])));
+         //TODO: Client
+-        this.buttonList.add(new GuiButton(8, this.width / 2 - 100, this.height / 4 + 72 + var1, "            Options"));
++        if(!WurstClient.INSTANCE.mods.getModByClass(RecordingModeMod.class)
++                .hideOptionsButton()) {
++            this.buttonList.add(new GuiButton(8, this.width / 2 - 100, this.height / 4 + 72 + var1, "            Options"));
++        }
+         GuiButton var3;
+         this.buttonList.add(var3 = new GuiButton(7, this.width / 2 + 2, this.height / 4 + 96 + var1, 98, 20, I18n.format("menu.shareToLan", new Object[0])));
+         this.buttonList.add(new GuiButton(5, this.width / 2 - 100, this.height / 4 + 48 + var1, 98, 20, I18n.format("gui.achievements", new Object[0])));
+@@ -112,31 +113,34 @@ public class GuiIngameMenu extends GuiScreen
+     public void drawScreen(int mouseX, int mouseY, float partialTicks)
+     {
+         this.drawDefaultBackground();
+-        this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game", new Object[0]), this.width / 2, 40, 16777215);
++        this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game"), this.width / 2, 40, 16777215);
+         super.drawScreen(mouseX, mouseY, partialTicks);
+         //TODO: Client
+-		glEnable(GL_TEXTURE_2D);
+-		glEnable(GL_CULL_FACE);
+-        GL11.glDisable(GL11.GL_DEPTH_TEST);
+-        GL11.glDepthMask(false);
+-        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+-        this.mc.getTextureManager().bindTexture(wurstTextures);
+-        Tessellator var3 = Tessellator.getInstance();
+-        WorldRenderer var4 = var3.getWorldRenderer();
+-        double x = this.width / 2 - 68;
+-        double y = this.height / 4 + 73 - 14.5;
+-        double h = 16;
+-        double w = 63;
+-        double fw = 256;
+-        double fh = 256;
+-        double u1 = 0;
+-        double v1 = 0;
+-        var4.startDrawingQuads();
+-        var4.addVertexWithUV((double)x + 0, (double)y + h, (double)this.zLevel, (double)((float)(u1 + 0) * 0.00390625F), (double)((float)(v1 + fh) * 0.00390625F));
+-        var4.addVertexWithUV((double)x + w, (double)y + h, (double)this.zLevel, (double)((float)(u1 + fw) * 0.00390625F), (double)((float)(v1 + fh) * 0.00390625F));
+-        var4.addVertexWithUV((double)x + w, (double)y + 0, (double)this.zLevel, (double)((float)(u1 + fw) * 0.00390625F), (double)((float)(v1 + 0) * 0.00390625F));
+-        var4.addVertexWithUV((double)x + 0, (double)y + 0, (double)this.zLevel, (double)((float)(u1 + 0) * 0.00390625F), (double)((float)(v1 + 0) * 0.00390625F));
+-        var3.draw();
++        if(!WurstClient.INSTANCE.mods.getModByClass(RecordingModeMod.class)
++                .hideOptionsButton()) {
++            glEnable(GL_TEXTURE_2D);
++            glEnable(GL_CULL_FACE);
++            GL11.glDisable(GL11.GL_DEPTH_TEST);
++            GL11.glDepthMask(false);
++            OpenGlHelper.glBlendFunc(770, 771, 1, 0);
++            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
++            this.mc.getTextureManager().bindTexture(wurstTextures);
++            Tessellator var3 = Tessellator.getInstance();
++            WorldRenderer var4 = var3.getWorldRenderer();
++            double x = this.width / 2 - 68;
++            double y = this.height / 4 + 73 - 14.5;
++            double h = 16;
++            double w = 63;
++            double fw = 256;
++            double fh = 256;
++            double u1 = 0;
++            double v1 = 0;
++            var4.startDrawingQuads();
++            var4.addVertexWithUV((double) x + 0, (double) y + h, (double) this.zLevel, (double) ((float) (u1 + 0) * 0.00390625F), (double) ((float) (v1 + fh) * 0.00390625F));
++            var4.addVertexWithUV((double) x + w, (double) y + h, (double) this.zLevel, (double) ((float) (u1 + fw) * 0.00390625F), (double) ((float) (v1 + fh) * 0.00390625F));
++            var4.addVertexWithUV((double) x + w, (double) y + 0, (double) this.zLevel, (double) ((float) (u1 + fw) * 0.00390625F), (double) ((float) (v1 + 0) * 0.00390625F));
++            var4.addVertexWithUV((double) x + 0, (double) y + 0, (double) this.zLevel, (double) ((float) (u1 + 0) * 0.00390625F), (double) ((float) (v1 + 0) * 0.00390625F));
++            var3.draw();
++        }
+     }
+ }
 -- 
 1.9.1
 
