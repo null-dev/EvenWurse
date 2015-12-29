@@ -1,8 +1,10 @@
 package xyz.nulldev.ew.mods;
 
-import org.lwjgl.opengl.GL11;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.api.*;
+import tk.wurst_client.api.Chat;
+import tk.wurst_client.api.Module;
+import tk.wurst_client.api.ModuleConfiguration;
+import tk.wurst_client.api.World;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.utils.F;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * Waypoints mod from Colony hacked client
  */
-@Module.ModuleInfo(version = 1.00f, usesConfig = true, minVersion = 133)
+@Module.ModuleInfo(version = 1.02f, usesConfig = true, minVersion = 133)
 @Mod.Info(name = "Waypoints", description = "Highlights specified positions.", category = Mod.Category.RENDER)
 public class WaypointsMod extends Mod implements RenderListener {
 
@@ -76,10 +78,10 @@ public class WaypointsMod extends Mod implements RenderListener {
             possibleWaypoints.stream().forEach(w -> GLHelper.drawLightning(w.dX, w.dZ, w.red, w.green, w.blue));
         for(Waypoint w : possibleWaypoints) {
             w.update();
-            GL11.glDisable(2896 /*GL_LIGHTING*/);
+//            GL11.glDisable(2896 /*GL_LIGHTING*/);
             if(renderESP) GLHelper.drawESP(w.dX, w.dY, w.dZ, w.red, w.green, w.blue);
             if(renderLabel) GLHelper.drawTag(F.f(w.getName()), w.dX, w.dY, w.dZ, scale);
-            GL11.glEnable(2896 /*GL_LIGHTING*/);
+//            GL11.glEnable(2896 /*GL_LIGHTING*/);
             if(renderTracer) GLHelper.drawWayPointTracer(w);
         }
     }

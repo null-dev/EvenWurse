@@ -23,7 +23,7 @@ import xyz.nulldev.ew.GLHelper;
 /**
  * Trajectories mod based off of Colony hacked client's trajectories
  */
-@Module.ModuleInfo(version = 1.00f, minVersion = 131)
+@Module.ModuleInfo(version = 1.01f, minVersion = 131)
 @Mod.Info(name = "Trajectories", description = "Predicts the path of arrows and other throwable stuff.", category = Mod.Category.RENDER)
 public class Trajectories extends Mod implements UpdateListener, RenderListener {
 
@@ -46,7 +46,7 @@ public class Trajectories extends Mod implements UpdateListener, RenderListener 
     }
 
     public void enableDefaults( ) {
-        GL11.glDisable( GL11.GL_LIGHTING );
+//        GL11.glDisable( GL11.GL_LIGHTING );
         GL11.glEnable( GL11.GL_LINE_SMOOTH );
         GL11.glBlendFunc( 770, 771 );
         GL11.glEnable( 3042 );
@@ -63,7 +63,7 @@ public class Trajectories extends Mod implements UpdateListener, RenderListener 
         GL11.glDisable( GL13.GL_MULTISAMPLE );
         GL11.glDepthMask( true );
         GL11.glDisable( GL11.GL_LINE_SMOOTH );
-        GL11.glEnable( GL11.GL_LIGHTING );
+//        GL11.glEnable( GL11.GL_LIGHTING );
     }
 
     private double getGravity( Item item ) {

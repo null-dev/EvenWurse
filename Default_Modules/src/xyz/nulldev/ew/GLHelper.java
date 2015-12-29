@@ -95,7 +95,7 @@ public class GLHelper {
         Tessellator var10 = Tessellator.getInstance();
         WorldRenderer var11 = var10.getWorldRenderer();
         GlStateManager.func_179090_x();
-        GlStateManager.disableLighting();
+//        GlStateManager.disableLighting();
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(770, 1);
         GL11.glColor4f( 1.0F, 1.0F, 1.0F, 1.0F );
@@ -153,7 +153,7 @@ public class GLHelper {
         }
 
         GlStateManager.disableBlend();
-        GlStateManager.enableLighting();
+//        GlStateManager.enableLighting();
         GlStateManager.func_179098_w();
     }
 
@@ -176,7 +176,7 @@ public class GLHelper {
 
         GL11.glScalef( -scale, -scale, scale );
 
-        GL11.glDisable( GL11.GL_LIGHTING );
+//        GL11.glDisable( GL11.GL_LIGHTING );
         GL11.glDisable( GL11.GL_DEPTH_TEST );
         GL11.glEnable( GL11.GL_BLEND );
         GL11.glBlendFunc( 770, 771 );
@@ -185,7 +185,7 @@ public class GLHelper {
         fontrenderer.drawStringWithShadow( s, -fontrenderer.getStringWidth( s ) / 2, byte0, color );
         GL11.glDisable( GL11.GL_BLEND );
         GL11.glEnable( GL11.GL_DEPTH_TEST );
-        GL11.glEnable( GL11.GL_LIGHTING );
+//        GL11.glEnable( GL11.GL_LIGHTING );
         GlStateManager.color(1, 1, 1, 1);
         GL11.glColor4f( 1.0F, 1.0F, 1.0F, 1.0F );
         GL11.glPopMatrix( );
@@ -198,7 +198,7 @@ public class GLHelper {
         {
             GL11.glPushMatrix( );
             GL11.glEnable( GL11.GL_LINE_SMOOTH );
-            GL11.glDisable( GL11.GL_LIGHTING );
+//            GL11.glDisable( GL11.GL_LIGHTING );
             GL11.glDisable( GL11.GL_DEPTH_TEST );
             GL11.glColor4f( 1.0F, 1.0F, 1.0F, 1.0F );
             GL11.glDisable( GL11.GL_TEXTURE_2D );
@@ -218,7 +218,7 @@ public class GLHelper {
             GL11.glEnable( GL11.GL_TEXTURE_2D );
             GL11.glColor4f( 1.0F, 1.0F, 1.0F, 1.0F );
             GL11.glEnable( GL11.GL_DEPTH_TEST );
-            GL11.glEnable( GL11.GL_LIGHTING );
+//            GL11.glEnable( GL11.GL_LIGHTING );
             GL11.glDisable( GL11.GL_LINE_SMOOTH );
             GL11.glPopMatrix( );
         } catch ( Exception ignored) {
@@ -232,7 +232,7 @@ public class GLHelper {
         GL11.glEnable( 3042 );
         GL11.glBlendFunc( 770, 771 );
         GL11.glLineWidth( 1.5F );
-        GL11.glDisable( GL11.GL_LIGHTING );
+//        GL11.glDisable( GL11.GL_LIGHTING );
         GL11.glDisable( GL11.GL_TEXTURE_2D );
         GL11.glEnable( GL11.GL_LINE_SMOOTH );
         GL11.glDisable( 2929 );
@@ -244,7 +244,7 @@ public class GLHelper {
         GL11.glLineWidth( 2.0F );
         GL11.glDisable( GL11.GL_LINE_SMOOTH );
         GL11.glEnable( GL11.GL_TEXTURE_2D );
-        GL11.glEnable( GL11.GL_LIGHTING );
+//        GL11.glEnable( GL11.GL_LIGHTING );
         GL11.glEnable( 2929 );
         GL11.glDepthMask( true );
         GL11.glDisable( 3042 );
