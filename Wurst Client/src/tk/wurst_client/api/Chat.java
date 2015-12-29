@@ -1,6 +1,7 @@
 package tk.wurst_client.api;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
 import tk.wurst_client.WurstClient;
 
 /**
@@ -19,6 +20,20 @@ public class Chat {
      */
     public static void sendMessage(String message) {
         Minecraft.getMinecraft().thePlayer.sendAutomaticChatMessage(message);
+    }
+
+    /**
+     * Send client only message.
+     * Overrides recording mode!
+     * @param message The message to send
+     */
+    public static void sendClientOnlyMessage(String message) {
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
+                new ChatComponentText(message));
+    }
+
+    public static void clearChat() {
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().clearChatMessages();
     }
 
     public static void sendDebug(String debug) {

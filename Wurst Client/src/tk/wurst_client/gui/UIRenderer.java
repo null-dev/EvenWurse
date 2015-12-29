@@ -23,6 +23,7 @@ import tk.wurst_client.events.GUIRenderEvent;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.mods.ClickGuiMod;
 import tk.wurst_client.mods.Mod;
+import tk.wurst_client.mods.RecordingModeMod;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -74,6 +75,10 @@ public class UIRenderer
 	
 	public static void renderUI(float zLevel)
 	{
+		if(WurstClient.INSTANCE.mods.getModByClass(RecordingModeMod.class)
+				.hideInGameGUI()) {
+			return;
+		}
 		// GL settings
 		glEnable(GL_BLEND);
 		glDisable(GL_CULL_FACE);
