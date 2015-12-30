@@ -23,6 +23,7 @@ import xyz.nulldev.ew.GLHelper;
 /**
  * Trajectories mod based off of Colony hacked client's trajectories
  */
+//TODO PREDICT OTHER PLAYER'S ARROWS
 @Module.ModuleInfo(version = 1.01f, minVersion = 131)
 @Mod.Info(name = "Trajectories", description = "Predicts the path of arrows and other throwable stuff.", category = Mod.Category.RENDER)
 public class Trajectories extends Mod implements UpdateListener, RenderListener {
