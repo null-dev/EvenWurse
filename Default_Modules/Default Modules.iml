@@ -9,7 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Wurst Client" />
     <orderEntry type="module" module-name="MCPWrapper" />
-    <orderEntry type="module" module-name="Client" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -28,6 +27,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="Client" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">

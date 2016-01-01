@@ -72,7 +72,7 @@ public class Trajectories extends Mod implements UpdateListener, RenderListener 
     }
 
     private boolean isThrowable( Item item ) {
-        return ( item instanceof ItemBow ) || ( item instanceof ItemSnowball)
+        return ( item instanceof ItemBow) || ( item instanceof ItemSnowball)
                 || ( item instanceof ItemEgg) || ( item instanceof ItemEnderPearl);
     }
 

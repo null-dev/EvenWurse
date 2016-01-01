@@ -11,7 +11,6 @@
       <element id="module-output" name="Client" />
       <element id="module-output" name="Wurst Client" />
       <element id="module-output" name="MCPWrapper" />
-      <element id="module-output" name="EvenWurseTests" />
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/commons-codec/commons-codec/1.9/commons-codec-1.9.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/com/paulscode/codecjorbis/20101023/codecjorbis-20101023.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/com/paulscode/librarylwjglopenal/20100824/librarylwjglopenal-20100824.jar" path-in-jar="/" />

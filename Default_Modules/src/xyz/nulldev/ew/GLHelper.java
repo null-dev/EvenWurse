@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
+import tk.wurst_client.utils.RenderUtils;
 import xyz.nulldev.ew.waypoints.Waypoint;
 
 import java.awt.*;
@@ -19,72 +20,6 @@ import java.awt.*;
  * Author: nulldev
  */
 public class GLHelper {
-
-    public static void drawBoundingBox( AxisAlignedBB axisalignedbb ) {
-        Tessellator tessellator = Tessellator.getInstance();
-        tessellator.getWorldRenderer().startDrawingQuads( ); // starts x
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.draw( );
-        tessellator.getWorldRenderer().startDrawingQuads( );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.draw( ); // ends x
-        tessellator.getWorldRenderer().startDrawingQuads( ); // starts y
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.draw( );
-        tessellator.getWorldRenderer().startDrawingQuads( );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.draw( ); // ends y
-        tessellator.getWorldRenderer().startDrawingQuads( ); // starts z
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.draw( );
-        tessellator.getWorldRenderer().startDrawingQuads( );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.minX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.minZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.maxY, axisalignedbb.maxZ );
-        tessellator.getWorldRenderer().addVertex( axisalignedbb.maxX, axisalignedbb.minY, axisalignedbb.maxZ );
-        tessellator.draw( ); // ends z
-    }
-
-
 
     /**
      * Draw a lightning bolt at a pair of specified coordinates and color
@@ -238,7 +173,7 @@ public class GLHelper {
         GL11.glDisable( 2929 );
         GL11.glDepthMask( false );
         GL11.glColor4d( r, g, b, 0.1825F );
-        drawBoundingBox( new AxisAlignedBB( d, d1, d2, d + 1.0, d1 + 1.0, d2 + 1.0 ) );
+        RenderUtils.drawColorBox( new AxisAlignedBB( d, d1, d2, d + 1.0, d1 + 1.0, d2 + 1.0 ) );
         GL11.glColor4d( r, g, b, 1.0F );
         RenderGlobal.drawOutlinedBoundingBox( new AxisAlignedBB( d, d1, d2, d + 1.0, d1 + 1.0, d2 + 1.0 ), new Color(1f,0.25f,0.25f).getRGB());
         GL11.glLineWidth( 2.0F );

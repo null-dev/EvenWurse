@@ -12,7 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemBow;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.network.play.client.C07PacketPlayerDigging.Action;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import tk.wurst_client.WurstClient;
@@ -83,7 +82,7 @@ public class BowSpamMod extends Mod implements UpdateListener
 						.getMinecraft()
 						.getNetHandler()
 						.addToSendQueue(
-								new C07PacketPlayerDigging(Action.RELEASE_USE_ITEM,
+								new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM,
 										new BlockPos(0, 0, 0), EnumFacing.DOWN));
 				Minecraft.getMinecraft().thePlayer.inventory
 						.getCurrentItem()
