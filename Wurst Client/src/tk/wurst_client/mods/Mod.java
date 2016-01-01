@@ -241,7 +241,6 @@ public abstract class Mod extends Module implements NavigatorItem
 		}
 	}
 
-	//TODO Do I override anything?
 	@Deprecated
 	public final ArrayList<BasicSlider> getSliders()
 	{
