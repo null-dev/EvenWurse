@@ -23,14 +23,15 @@ import tk.wurst_client.options.FriendsList;
 import tk.wurst_client.options.KeybindManager;
 import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.update.Updater;
+import tk.wurst_client.navigator.Navigator;
 
 public class WurstClient
 {
 	public static WurstClient INSTANCE = new WurstClient();
 	
-	public static final String VERSION = "2.12";
+	public static final String VERSION = "2.13pre1";
 	public static final int EW_VERSION_CODE = 137;
-	public static final String EW_VERSION = "1.37 (Beta)";
+	public static final String EW_VERSION = "1.40 (Beta)";
 	public static final String BASE_VERSION = "1.8";
 	public boolean startupMessageDisabled = false;
 	
@@ -41,6 +42,7 @@ public class WurstClient
 	public FriendsList friends;
 	public GuiManager gui;
 	public ModManager mods;
+	public Navigator navigator;
 	public KeybindManager keybinds;
 	public OptionsManager options;
 	public Updater updater;
@@ -49,6 +51,7 @@ public class WurstClient
 	public void startClient()
 	{
 		events = new EventManager();
+		navigator = new Navigator();
 		mods = new ModManager();
 		gui = new GuiManager();
 		commands = new CmdManager();
@@ -58,8 +61,9 @@ public class WurstClient
 		keybinds = new KeybindManager();
 		options = new OptionsManager();
 		friends = new FriendsList();
-		
+
 		files.init();
+		navigator.sortFeatures();
 		Fonts.loadFonts();
 		gui.setTheme(new WurstTheme());
 		gui.setup();

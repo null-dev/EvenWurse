@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,11 +8,11 @@
  */
 package tk.wurst_client.commands;
 
-import java.util.Iterator;
-
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.utils.MiscUtils;
+
+import java.util.Iterator;
 
 @Info(help = "Shows the command list or the help for a command.",
 	name = "help",
@@ -45,7 +45,7 @@ public class HelpCmd extends Cmd
 			{
 				Cmd cmd = itr.next();
 				if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
-					WurstClient.INSTANCE.chat.message(cmd.getName());
+					WurstClient.INSTANCE.chat.message(cmd.getCmdName());
 			}
 		}else
 		{

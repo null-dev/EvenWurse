@@ -30,6 +30,7 @@ import tk.wurst_client.utils.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -48,6 +49,7 @@ public class FileManager
 	public final File friends = new File(wurstDir, "friends.json");
 	public final File gui = new File(wurstDir, "gui.json");
 	public final File modules = new File(wurstDir, "modules.json");
+	public final File navigatorData = new File(wurstDir, "navigator.json");
 	public final File keybinds = new File(wurstDir, "keybinds.json");
 	public final File sliders = new File(wurstDir, "sliders.json");
 	public final File options = new File(wurstDir, "options.json");
@@ -92,6 +94,10 @@ public class FileManager
 		else {
 			loadKeybinds();
 		}
+		if(!navigatorData.exists())
+			saveNavigatorData();
+		else
+			loadNavigatorData();
 		if(!alts.exists()) {
 			saveAlts();
 		}
@@ -291,6 +297,49 @@ public class FileManager
 		}
 	}
 
+	public void saveNavigatorData()
+	{
+		try
+		{
+			JsonObject json = new JsonObject();
+			Iterator<Entry<String, Long>> itr =
+					WurstClient.INSTANCE.navigator.getClicksIterator();
+			while(itr.hasNext())
+			{
+				Entry<String, Long> entry = itr.next();
+				json.addProperty(entry.getKey(), entry.getValue());
+			}
+			PrintWriter save = new PrintWriter(new FileWriter(navigatorData));
+			save.println(JsonUtils.prettyGson.toJson(json));
+			save.close();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void loadNavigatorData()
+	{
+		try
+		{
+			BufferedReader load =
+					new BufferedReader(new FileReader(navigatorData));
+			JsonObject json = (JsonObject)JsonUtils.jsonParser.parse(load);
+			load.close();
+			Iterator<Entry<String, JsonElement>> itr =
+					json.entrySet().iterator();
+			while(itr.hasNext())
+			{
+				Entry<String, JsonElement> entry = itr.next();
+				WurstClient.INSTANCE.navigator.setClicks(entry.getKey(), entry
+						.getValue().getAsLong());
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	public void saveOptions()
 	{
 		try
@@ -361,13 +410,13 @@ public class FileManager
 			JsonObject json = new JsonObject();
 			for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
 			{
-				if(mod.getSliders().isEmpty())
+				if(mod.getSettings().isEmpty())
 					continue;
 				JsonObject jsonModule = new JsonObject();
-				for(BasicSlider slider : mod.getSliders())
-					jsonModule.addProperty(slider.getText(),
-							(double)(Math.round(slider.getValue()
-									/ slider.getIncrement()) * 1000000 * (long)(slider
+				for(BasicSlider setting : mod.getSettings())
+					jsonModule.addProperty(setting.getText(),
+							(double)(Math.round(setting.getValue()
+									/ setting.getIncrement()) * 1000000 * (long)(setting
 									.getIncrement() * 1000000)) / 1000000 / 1000000);
 				json.add(mod.getName(), jsonModule);
 			}
@@ -392,9 +441,9 @@ public class FileManager
 						WurstClient.INSTANCE.mods.getModByName(entry.getKey());
 				if (mod != null) {
 					JsonObject jsonModule = (JsonObject) entry.getValue();
-					for (BasicSlider slider : mod.getSliders())
+					for (BasicSlider setting : mod.getSettings())
 						try {
-							slider.setValue(jsonModule.get(slider.getText())
+							setting.setValue(jsonModule.get(setting.getText())
 									.getAsDouble());
 						} catch (Exception e) {
 							e.printStackTrace();

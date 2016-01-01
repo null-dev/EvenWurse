@@ -42,7 +42,7 @@ public class FeaturesCmd extends Cmd
 			+ " keybinds in your current configuration");
 		ArrayList<BasicSlider> sliders = new ArrayList<>();
 		for(Mod mod : WurstClient.INSTANCE.mods.getAllMods())
-			sliders.addAll(mod.getSliders().stream().collect(Collectors.toList()));
+			sliders.addAll(mod.getSettings().stream().collect(Collectors.toList()));
 		WurstClient.INSTANCE.chat.message(">" + sliders.size()
 			+ " sliders in the Settings frame");
 	}

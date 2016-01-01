@@ -141,8 +141,8 @@ public class CmdManager implements ChatOutputListener
 		}
 	}
 
-	public void unloadCommands(Cmd... modsToRemove) {
-		for(Cmd cmd : modsToRemove) {
+	public void unloadCommands(Cmd... cmdsToRemove) {
+		for(Cmd cmd : cmdsToRemove) {
 			try {
 				cmd.onUnload();
 			} catch(Throwable t) {
@@ -152,6 +152,7 @@ public class CmdManager implements ChatOutputListener
 			}
 			removeCmdFromMaps(cmd);
 			customCommands.remove(cmd);
+			WurstClient.INSTANCE.navigator.getNavigatorList().remove(cmd);
 		}
 	}
 
@@ -186,22 +187,23 @@ public class CmdManager implements ChatOutputListener
 		}
 		//Don't load cmds that require a higher version than us
 		if(cmd.getMinVersion() > WurstClient.EW_VERSION_CODE) {
-			throw new Module.InvalidVersionException(cmd.getName(), cmd.getMinVersion(), WurstClient.EW_VERSION_CODE);
+			throw new Module.InvalidVersionException(cmd.getCmdName(), cmd.getMinVersion(), WurstClient.EW_VERSION_CODE);
 		}
 		//TODO Better way to do this
 		//We have to put this here or cmds can't use the configuration in their onload method :/
-		if(cmds.containsKey(cmd.getName())) {
-			System.out.println("[EvenWurse] Command '" + cmd.getName() + "' attempted to register it's name but failed as a command has already registered this name/alias!");
+		if(cmds.containsKey(cmd.getCmdName())) {
+			System.out.println("[EvenWurse] Command '" + cmd.getCmdName() + "' attempted to register it's name but failed as a command has already registered this name/alias!");
 		} else {
-			cmds.put(cmd.getName(), cmd);
+			cmds.put(cmd.getCmdName(), cmd);
 		}
 		for(String alias : cmd.getAliases()) {
 			if(cmds.containsKey(alias)) {
-				System.out.println("[EvenWurse] Command '" + cmd.getName() + "' attempted to register alias '" + alias + "' but failed as a command has already registered this name/alias!");
+				System.out.println("[EvenWurse] Command '" + cmd.getCmdName() + "' attempted to register alias '" + alias + "' but failed as a command has already registered this name/alias!");
 			} else {
 				cmds.put(alias, cmd);
 			}
 		}
+		WurstClient.INSTANCE.navigator.getNavigatorList().add(cmd);
 		cmdClasses.put(cmd.getClass(), cmd);
 		if(custom)
 			customCommands.add(cmd);
@@ -210,7 +212,8 @@ public class CmdManager implements ChatOutputListener
 		} catch(Throwable t) {
 			removeCmdFromMaps(cmd);
 			customCommands.remove(cmd);
-			throw new Module.ModuleLoadException("Module '" + cmd.getName() + "' threw exception in onLoad()!", t);
+			WurstClient.INSTANCE.navigator.getNavigatorList().remove(cmd);
+			throw new Module.ModuleLoadException("Module '" + cmd.getCmdName() + "' threw exception in onLoad()!", t);
 		}
 		return cmd;
 	}

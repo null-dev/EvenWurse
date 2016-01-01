@@ -87,6 +87,7 @@ public class ModManager
         //We have to put this here or mods can't use the configuration in their onload method :/
         mods.put(mod.getName(), mod);
         modClasses.put(mod.getClass(), mod);
+        WurstClient.INSTANCE.navigator.getNavigatorList().add(mod);
         if(custom)
             customMods.add(mod);
         try {
@@ -95,6 +96,7 @@ public class ModManager
             mods.remove(mod.getName());
             modClasses.remove(mod.getClass());
             customMods.remove(mod);
+            WurstClient.INSTANCE.navigator.getNavigatorList().remove(mod);
             throw new Module.ModuleLoadException("Module '" + mod.getName() + "' threw exception in onLoad()!", t);
         }
         mod.initSliders();
@@ -143,6 +145,7 @@ public class ModManager
                 }
             }
             customMods.remove(mod);
+            WurstClient.INSTANCE.navigator.getNavigatorList().remove(mod);
         }
     }
 

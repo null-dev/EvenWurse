@@ -41,6 +41,8 @@ public final class EventManager
 				fireLeftClick();
 			else if(type == DeathEvent.class)
 				fireDeath();
+			else if(type == ClientTickEvent.class)
+				fireClientTick();
 			else
 				throw new IllegalArgumentException("Invalid event type: "
 					+ type.getName());
@@ -73,6 +75,14 @@ public final class EventManager
 			if(event.isCancelled())
 				break;
 		}
+	}
+
+	private void fireClientTick()
+	{
+		Object[] listeners = listenerList.getListenerList();
+		for(int i = listeners.length - 2; i >= 0; i -= 2)
+			if(listeners[i] == ClientTickListener.class)
+				((ClientTickListener)listeners[i + 1]).onTick();
 	}
 	
 	private void fireDeath()

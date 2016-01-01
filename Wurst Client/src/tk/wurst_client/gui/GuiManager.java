@@ -146,12 +146,12 @@ public final class GuiManager extends AbstractGuiManager
 			};
 			button.addButtonListener(button1 -> mod.toggle());
 			frame.add(button);
-			if(!mod.getSliders().isEmpty())
-				for(BasicSlider slider : mod.getSliders())
+			if(!mod.getSettings().isEmpty())
+				for(BasicSlider slider : mod.getSettings())
 				{
 					slider.addSliderListener(slider1 -> {
                         ArrayList<BasicSlider> moduleSliders =
-                            mod.getSliders();
+                            mod.getSettings();
 						//No idea how this works but looks really weird
 						//FIXME later
                         if(moduleSliders.contains(slider1))
