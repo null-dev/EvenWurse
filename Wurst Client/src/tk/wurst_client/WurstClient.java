@@ -30,7 +30,7 @@ public class WurstClient
 	public static WurstClient INSTANCE = new WurstClient();
 	
 	public static final String VERSION = "2.13pre1";
-	public static final int EW_VERSION_CODE = 137;
+	public static final int EW_VERSION_CODE = 140;
 	public static final String EW_VERSION = "1.40 (Beta)";
 	public static final String BASE_VERSION = "1.8";
 	public boolean startupMessageDisabled = false;
