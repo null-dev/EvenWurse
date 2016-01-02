@@ -31,6 +31,7 @@ EvenWurse has some extra mods and features packed in:
 * SpawnTracer
 * Trajectories
 * Recording Mode
+* FastToggle (better version of Wurst Navigator)
 
 ## :sparkles::sparkles::sparkles: Special Features :sparkles::sparkles::sparkles:
 
