@@ -7,6 +7,7 @@ package tk.wurst_client.api;
  */
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.ClientTickListener;
@@ -25,14 +26,32 @@ public class GUI {
      *
      * Always use this method to display a GUI screen as the GUI screen will not be displayed
      * if run from other threads.
+     *
      * @param screen The GUIScreen to display.
      */
     public static synchronized void displayGuiScreen(GuiScreen screen) {
+        if(screen == null) {
+            Minecraft.getMinecraft().displayGuiScreen(null);
+            return;
+        }
         if(SCREEN_DISPLAYER == null) {
             SCREEN_DISPLAYER = new GUIScreenDisplayer();
             WurstClient.INSTANCE.events.add(ClientTickListener.class, SCREEN_DISPLAYER);
         }
         SCREEN_DISPLAYER.queue(screen);
+    }
+
+    /**
+     * Get the font renderer.
+     *
+     * NEVER USE tk.wurst_client.font.Fonts.
+     * The font it returns is buggy and ugly.
+     * Always use this method as it returns Minecraft's default font.
+     *
+     * @return Minecraft's default font (or resource pack font if loaded)
+     */
+    public static FontRenderer getFontRenderer() {
+        return Minecraft.getMinecraft().fontRendererObj;
     }
 }
 class GUIScreenDisplayer implements ClientTickListener {
