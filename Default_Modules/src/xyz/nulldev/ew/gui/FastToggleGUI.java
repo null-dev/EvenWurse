@@ -99,6 +99,12 @@ public class FastToggleGUI extends GuiScreen {
     }
 
     @Override
+    public final boolean doesGuiPauseGame()
+    {
+        return false;
+    }
+
+    @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         if(mouseButton == 0) {
