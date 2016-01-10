@@ -35,6 +35,11 @@ public class RecordingModeMod extends Mod {
                 && isActive();
     }
 
+    public boolean hideStealStoreButtons() {
+        return ModuleConfiguration.forModule(this).getBoolean("Hide Steal/Store Buttons", true)
+                && isActive();
+    }
+
     @Override
     public void onEnable() {
         super.onEnable();
