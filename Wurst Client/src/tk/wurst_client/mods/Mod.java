@@ -14,7 +14,7 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.api.Module;
 import tk.wurst_client.gui.error.GuiError;
 import tk.wurst_client.navigator.NavigatorItem;
-import tk.wurst_client.navigator.NavigatorPossibleKeybind;
+import tk.wurst_client.navigator.PossibleKeybind;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -94,12 +94,12 @@ public abstract class Mod extends Module implements NavigatorItem {
     }
 
     @Override
-    public final ArrayList<NavigatorPossibleKeybind> getPossibleKeybinds() {
+    public final ArrayList<PossibleKeybind> getPossibleKeybinds() {
         String dotT = ".t " + name.toLowerCase();
         return new ArrayList<>(Arrays.asList(
-                new NavigatorPossibleKeybind(dotT, "Toggle " + name),
-                new NavigatorPossibleKeybind(dotT + " on", "Enable " + name),
-                new NavigatorPossibleKeybind(dotT + " off", "Disable " + name)));
+                new PossibleKeybind(dotT, "Toggle " + name),
+                new PossibleKeybind(dotT + " on", "Enable " + name),
+                new PossibleKeybind(dotT + " off", "Disable " + name)));
     }
 
     @Override

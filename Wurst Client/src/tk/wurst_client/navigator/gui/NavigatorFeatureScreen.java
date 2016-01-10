@@ -16,7 +16,7 @@ import org.darkstorm.minecraft.gui.util.RenderUtil;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.navigator.NavigatorItem;
-import tk.wurst_client.navigator.NavigatorPossibleKeybind;
+import tk.wurst_client.navigator.PossibleKeybind;
 import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
 
@@ -147,7 +147,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         }
 
         // keybinds
-        ArrayList<NavigatorPossibleKeybind> possibleKeybinds =
+        ArrayList<PossibleKeybind> possibleKeybinds =
                 item.getPossibleKeybinds();
         if(!possibleKeybinds.isEmpty()) {
             // heading
@@ -169,10 +169,10 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
             // keybind list
             HashMap<String, String> possibleKeybindsMap = new HashMap<>();
-            for(NavigatorPossibleKeybind possibleKeybind : possibleKeybinds)
+            for(PossibleKeybind possibleKeybind : possibleKeybinds)
                 possibleKeybindsMap.put(possibleKeybind.getCommand(),
                         possibleKeybind.getDescription());
-            TreeMap<String, NavigatorPossibleKeybind> existingKeybinds =
+            TreeMap<String, PossibleKeybind> existingKeybinds =
                     new TreeMap<>();
             boolean noKeybindsSet = true;
             for(Entry<String, String> entry : WurstClient.INSTANCE.keybinds
@@ -184,7 +184,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
                         noKeybindsSet = false;
                     text += "\n" + entry.getKey() + ": " + keybindDescription;
                     existingKeybinds.put(entry.getKey(),
-                            new NavigatorPossibleKeybind(entry.getValue(),
+                            new PossibleKeybind(entry.getValue(),
                                     keybindDescription));
                 }
             }

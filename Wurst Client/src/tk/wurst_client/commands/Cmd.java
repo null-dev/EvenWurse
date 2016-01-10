@@ -17,7 +17,7 @@ import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.navigator.NavigatorItem;
-import tk.wurst_client.navigator.NavigatorPossibleKeybind;
+import tk.wurst_client.navigator.PossibleKeybind;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import java.util.ArrayList;
 
@@ -121,7 +121,7 @@ public abstract class Cmd extends Module implements NavigatorItem {
     }
 
     @Override
-    public final ArrayList<NavigatorPossibleKeybind> getPossibleKeybinds()
+    public final ArrayList<PossibleKeybind> getPossibleKeybinds()
     {
         return new ArrayList<>();
     }

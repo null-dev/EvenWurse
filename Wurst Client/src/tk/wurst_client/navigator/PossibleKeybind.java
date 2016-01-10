@@ -8,12 +8,12 @@
  */
 package tk.wurst_client.navigator;
 
-public class NavigatorPossibleKeybind
+public class PossibleKeybind
 {
 	private String command;
 	private String description;
 	
-	public NavigatorPossibleKeybind(String command, String description)
+	public PossibleKeybind(String command, String description)
 	{
 		this.command = command;
 		this.description = description;

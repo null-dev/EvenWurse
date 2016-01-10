@@ -13,7 +13,7 @@ import org.darkstorm.minecraft.gui.util.RenderUtil;
 import org.lwjgl.input.Keyboard;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
-import tk.wurst_client.navigator.NavigatorPossibleKeybind;
+import tk.wurst_client.navigator.PossibleKeybind;
 import tk.wurst_client.options.KeybindManager;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import static org.lwjgl.opengl.GL11.*;
 
 public class NavigatorNewKeybindScreen extends NavigatorScreen {
-    private ArrayList<NavigatorPossibleKeybind> possibleKeybinds;
+    private ArrayList<PossibleKeybind> possibleKeybinds;
     private NavigatorFeatureScreen parent;
     private int hoveredCommand = -1;
     private int selectedCommand = -1;
@@ -32,7 +32,7 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
     private boolean choosingKey;
 
     public NavigatorNewKeybindScreen(
-            ArrayList<NavigatorPossibleKeybind> possibleKeybinds,
+            ArrayList<PossibleKeybind> possibleKeybinds,
             NavigatorFeatureScreen parent) {
         this.possibleKeybinds = possibleKeybinds;
         this.parent = parent;
@@ -149,7 +149,7 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
             int yi = bgy1 - 12 + scroll;
             for(int i = 0; i < possibleKeybinds.size(); i++) {
                 yi += 24;
-                NavigatorPossibleKeybind possibleKeybind =
+                PossibleKeybind possibleKeybind =
                         possibleKeybinds.get(i);
 
                 // positions
