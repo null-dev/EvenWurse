@@ -33,22 +33,23 @@ public class ModeSetting implements NavigatorSetting {
             int x = featureScreen.getMiddleX();
             switch(i % 4) {
                 case 0:
-                    x -= 152;
+                    x -= 132;
                     featureScreen.addText("\n");
                     y = 60 + featureScreen.getTextHeight();
                     break;
                 case 1:
-                    x -= 76;
+                    x -= 61;
                     break;
                 case 2:
+                    x += 11;
                     break;
                 case 3:
-                    x += 76;
+                    x += 83;
                     break;
             }
             final int iFinal = i;
             ButtonData button =
-                    featureScreen.new ButtonData(x, y, 75, 8, modes[i],
+                    featureScreen.new ButtonData(x, y, 50, 10, modes[i],
                             i == selected ? 0x00ff00 : 0x404040) {
                         @Override
                         public void press() {
