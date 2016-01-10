@@ -63,4 +63,8 @@ public class Chat {
     public static void sendCmd(String cmd) {
         WurstClient.INSTANCE.chat.cmd(cmd);
     }
+
+    public static void sendClientWurstMessage(String message) {
+        WurstClient.INSTANCE.chat.message(message);
+    }
 }
