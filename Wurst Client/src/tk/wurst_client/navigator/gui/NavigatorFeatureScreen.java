@@ -14,9 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
 import tk.wurst_client.WurstClient;
-import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.font.Fonts;
-import tk.wurst_client.mods.Mod;
 import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.NavigatorPossibleKeybind;
 import tk.wurst_client.utils.F;
@@ -34,7 +32,6 @@ import static org.lwjgl.opengl.GL11.*;
 public class NavigatorFeatureScreen extends NavigatorScreen {
     private NavigatorItem item;
     private NavigatorMainScreen parent;
-    private String type;
     private ButtonData activeButton;
     private GuiButton primaryButton;
     private int sliding = -1;
@@ -45,13 +42,6 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     public NavigatorFeatureScreen(NavigatorItem item, NavigatorMainScreen parent) {
         this.item = item;
         this.parent = parent;
-
-        if(item instanceof Mod)
-            type = "Mod";
-        else if(item instanceof Cmd)
-            type = "Command";
-        else
-            type = "unknown";
     }
 
     @Override
@@ -98,7 +88,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
                     ? 149 : 302, 20, "Tutorial"));
 
         // type
-        text = "Type: " + type;
+        text = "Type: " + item.getType();
 
         // description
         String description = item.getDescription();

@@ -12,25 +12,26 @@ import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import java.util.ArrayList;
 
-public interface NavigatorItem
-{
-	public String getName();
-	
-	public String getDescription();
-	
-	public boolean isEnabled();
-	
-	public boolean isBlocked();
-	
-	public String[] getTags();
-	
-	public ArrayList<BasicSlider> getSettings();
-	
-	public ArrayList<NavigatorPossibleKeybind> getPossibleKeybinds();
-	
-	public String getPrimaryAction();
-	
-	public void doPrimaryAction();
-	
-	public String getTutorialPage();
+public interface NavigatorItem {
+    String getName();
+
+    String getType();
+
+    String getDescription();
+
+    boolean isEnabled();
+
+    boolean isBlocked();
+
+    String[] getTags();
+
+    ArrayList<BasicSlider> getSettings();
+
+    ArrayList<NavigatorPossibleKeybind> getPossibleKeybinds();
+
+    String getPrimaryAction();
+
+    void doPrimaryAction();
+
+    String getTutorialPage();
 }
