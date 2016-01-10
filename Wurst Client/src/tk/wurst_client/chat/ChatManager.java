@@ -25,7 +25,7 @@ public class ChatManager
 	{
 		if(enabled)
 			Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
-				new ChatComponentText(F.f("<RED>[<GOLD>Wurst</GOLD>]</RED> ") + message));
+				new ChatComponentText(F.f("<RED>[<GOLD>EvenWurse</GOLD>]</RED> ") + message));
 	}
 	
 	public void info(String message)
@@ -61,7 +61,7 @@ public class ChatManager
 	public void cmd(String message)
 	{
 		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
-			new ChatComponentText(F.f("<RED>[<GOLD>Wurst</GOLD>]</RED> <BLACK><BOLD><GREEN>\\<CMD\\></GREEN></BOLD></BLACK> ")
+			new ChatComponentText(F.f("<RED>[<GOLD>EvenWurse</GOLD>]</RED> <BLACK><BOLD><GREEN>\\<CMD\\></GREEN></BOLD></BLACK> ")
 				+ message));
 	}
 }
