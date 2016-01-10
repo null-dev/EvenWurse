@@ -25,52 +25,50 @@ import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.update.Updater;
 import tk.wurst_client.navigator.Navigator;
 
-public class WurstClient
-{
-	public static WurstClient INSTANCE = new WurstClient();
-	
-	public static final String VERSION = "2.13pre2";
-	public static final int EW_VERSION_CODE = 141;
-	public static final String EW_VERSION = "1.41 (Beta)";
-	public static final String BASE_VERSION = "1.8";
-	public boolean startupMessageDisabled = false;
-	
-	public ChatManager chat;
-	public CmdManager commands;
-	public EventManager events;
-	public FileManager files;
-	public FriendsList friends;
-	public GuiManager gui;
-	public ModManager mods;
-	public Navigator navigator;
-	public KeybindManager keybinds;
-	public OptionsManager options;
-	public Updater updater;
-	public AnalyticsManager analytics;
-	
-	public void startClient()
-	{
-		events = new EventManager();
-		navigator = new Navigator();
-		mods = new ModManager();
-		gui = new GuiManager();
-		commands = new CmdManager();
-		files = new FileManager();
-		updater = new Updater();
-		chat = new ChatManager();
-		keybinds = new KeybindManager();
-		options = new OptionsManager();
-		friends = new FriendsList();
+public class WurstClient {
+    public static WurstClient INSTANCE = new WurstClient();
 
-		files.init();
-		navigator.sortFeatures();
-		Fonts.loadFonts();
-		gui.setTheme(new WurstTheme());
-		gui.setup();
-		updater.checkForUpdate();
-		analytics = new DoNothingAnalyticsManagerImpl();
-		files.saveOptions();
+    public static final String VERSION = "2.13pre2";
+    public static final int EW_VERSION_CODE = 149;
+    public static final String EW_VERSION = "1.49 (Beta)";
+    public static final String BASE_VERSION = "1.8";
+    public boolean startupMessageDisabled = false;
 
-		FrameHook.maximize();
-	}
+    public ChatManager chat;
+    public CmdManager commands;
+    public EventManager events;
+    public FileManager files;
+    public FriendsList friends;
+    public GuiManager gui;
+    public ModManager mods;
+    public Navigator navigator;
+    public KeybindManager keybinds;
+    public OptionsManager options;
+    public Updater updater;
+    public AnalyticsManager analytics;
+
+    public void startClient() {
+        events = new EventManager();
+        navigator = new Navigator();
+        mods = new ModManager();
+        gui = new GuiManager();
+        commands = new CmdManager();
+        files = new FileManager();
+        updater = new Updater();
+        chat = new ChatManager();
+        keybinds = new KeybindManager();
+        options = new OptionsManager();
+        friends = new FriendsList();
+
+        files.init();
+        navigator.sortFeatures();
+        Fonts.loadFonts();
+        gui.setTheme(new WurstTheme());
+        gui.setup();
+        updater.checkForUpdate();
+        analytics = new DoNothingAnalyticsManagerImpl();
+        files.saveOptions();
+
+        FrameHook.maximize();
+    }
 }
