@@ -10,6 +10,7 @@ package tk.wurst_client.navigator.gui;
 
 import net.minecraft.client.gui.GuiTextField;
 import org.darkstorm.minecraft.gui.util.RenderUtil;
+import org.lwjgl.input.Keyboard;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.navigator.Navigator;
@@ -75,7 +76,10 @@ public class NavigatorMainScreen extends NavigatorScreen {
     @Override
     protected void onMouseClick(int x, int y, int button) {
         if (button == 0 && clickTimer == -1 && hoveredItem != 1)
-            expanding = true;
+            if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+                navigatorDisplayList.get(hoveredItem).doPrimaryAction();
+            else
+                expanding = true;
     }
 
     @Override
