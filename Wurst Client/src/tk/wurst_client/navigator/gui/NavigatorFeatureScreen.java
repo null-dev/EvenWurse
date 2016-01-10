@@ -409,6 +409,10 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         }
     }
 
+    public int getMiddleX() {
+        return middleX;
+    }
+
     public void addText(String text) {
         this.text += text;
     }
