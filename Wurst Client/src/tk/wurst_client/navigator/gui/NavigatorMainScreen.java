@@ -75,10 +75,14 @@ public class NavigatorMainScreen extends NavigatorScreen {
 
     @Override
     protected void onMouseClick(int x, int y, int button) {
-        if (button == 0 && clickTimer == -1 && hoveredItem != 1)
-            if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-                navigatorDisplayList.get(hoveredItem).doPrimaryAction();
-            else
+        if(button == 0 && clickTimer == -1 && hoveredItem != -1)
+            if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
+                NavigatorItem item = navigatorDisplayList.get(hoveredItem);
+                item.doPrimaryAction();
+                WurstClient wurst = WurstClient.INSTANCE;
+                wurst.navigator.addClick(item.getName());
+                wurst.files.saveNavigatorData();
+            } else
                 expanding = true;
     }
 

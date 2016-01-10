@@ -52,10 +52,6 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             type = "Command";
         else
             type = "unknown";
-
-        WurstClient wurst = WurstClient.INSTANCE;
-        wurst.navigator.addClick(item.getName());
-        wurst.files.saveNavigatorData();
     }
 
     @Override
@@ -73,6 +69,10 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
                         + item.getTutorialPage());
                 break;
         }
+
+        WurstClient wurst = WurstClient.INSTANCE;
+        wurst.navigator.addClick(item.getName());
+        wurst.files.saveNavigatorData();
     }
 
     @SuppressWarnings("unchecked")
@@ -277,9 +277,17 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     @Override
     protected void onMouseRelease(int x, int y, int button) {
         if(sliding != -1) {
-            WurstClient.INSTANCE.files.saveSliders();
+            WurstClient wurst = WurstClient.INSTANCE;
+            wurst.files.saveSliders();
             sliding = -1;
+
+            wurst.navigator.addClick(item.getName());
+            wurst.files.saveNavigatorData();
         }
+    }
+
+    public NavigatorItem getItem() {
+        return item;
     }
 
     @Override
