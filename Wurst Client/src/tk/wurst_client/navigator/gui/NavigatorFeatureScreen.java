@@ -17,6 +17,7 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.PossibleKeybind;
+import tk.wurst_client.navigator.settings.NavigatorSetting;
 import tk.wurst_client.utils.MiscUtils;
 
 import java.awt.*;
@@ -98,18 +99,21 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         Rectangle area = new Rectangle(middleX - 154, 60, 308, height - 103);
 
         // sliders
-        ArrayList<BasicSlider> settings = item.getSettings();
+        ArrayList<NavigatorSetting> settings = item.getSettings();
         if(!settings.isEmpty()) {
             text += "\n\nSettings:";
             sliderDatas.clear();
-            for(BasicSlider slider : settings) {
+            // text
+            settings.stream().filter(setting -> setting instanceof BasicSlider).forEach(setting -> {
+                BasicSlider slider = (BasicSlider) setting;
+
                 // text
                 text += "\n" + slider.getText() + ":\n";
 
                 // slider
                 sliderDatas.add(new SliderData(slider, area.y
                         + Fonts.segoe15.getStringHeight(text)));
-            }
+            });
         }
 
         // keybinds

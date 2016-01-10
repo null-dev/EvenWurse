@@ -8,7 +8,7 @@
  */
 package tk.wurst_client.navigator;
 
-import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
+import tk.wurst_client.navigator.settings.NavigatorSetting;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public interface NavigatorItem {
 
     String[] getTags();
 
-    ArrayList<BasicSlider> getSettings();
+    ArrayList<NavigatorSetting> getSettings();
 
     ArrayList<PossibleKeybind> getPossibleKeybinds();
 

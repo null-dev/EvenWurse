@@ -20,10 +20,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
- * Rewritten mod manager based on my dynamically loaded plugin system in my AI.
+ * Rewritten mod manager which uses a dynamically loaded plugin system
  */
-public class ModManager
-{
+public class ModManager {
     public static Class<? extends Mod>[] KNOWN_MODS = null;
 
     public ModManager() {
@@ -99,7 +98,7 @@ public class ModManager
             WurstClient.INSTANCE.navigator.getNavigatorList().remove(mod);
             throw new Module.ModuleLoadException("Module '" + mod.getName() + "' threw exception in onLoad()!", t);
         }
-        mod.initSliders();
+        mod.initSettings();
         return mod;
     }
 
@@ -161,8 +160,7 @@ public class ModManager
 
     //Really really stupid way of getting mods :/
     @Deprecated
-    public Mod getModByName(String name)
-    {
+    public Mod getModByName(String name) {
         return mods.get(name);
     }
 
@@ -180,13 +178,11 @@ public class ModManager
         }
     }
 
-    public Collection<Mod> getAllMods()
-    {
+    public Collection<Mod> getAllMods() {
         return mods.values();
     }
 
-    public int countMods()
-    {
+    public int countMods() {
         return mods.size();
     }
 }

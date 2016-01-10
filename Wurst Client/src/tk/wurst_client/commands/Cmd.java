@@ -13,12 +13,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockPos;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.api.Module;
+import tk.wurst_client.navigator.settings.NavigatorSetting;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
 import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.PossibleKeybind;
-import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import java.util.ArrayList;
 
 import java.lang.annotation.Retention;
@@ -116,7 +116,7 @@ public abstract class Cmd extends Module implements NavigatorItem {
     }
 
     @Override
-    public final ArrayList<BasicSlider> getSettings() {
+    public final ArrayList<NavigatorSetting> getSettings() {
         return new ArrayList<>();
     }
 

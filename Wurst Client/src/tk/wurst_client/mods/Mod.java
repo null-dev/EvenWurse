@@ -15,6 +15,7 @@ import tk.wurst_client.api.Module;
 import tk.wurst_client.gui.error.GuiError;
 import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.PossibleKeybind;
+import tk.wurst_client.navigator.settings.NavigatorSetting;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -32,7 +33,7 @@ public abstract class Mod extends Module implements NavigatorItem {
     private boolean enabled;
     private boolean blocked;
     private boolean active;
-    protected ArrayList<BasicSlider> sliders = new ArrayList<>();
+    protected ArrayList<NavigatorSetting> settings = new ArrayList<>();
     private long currentMS = 0L;
     protected long lastMS = -1L;
 
@@ -89,8 +90,8 @@ public abstract class Mod extends Module implements NavigatorItem {
     }
 
     @Override
-    public final ArrayList<BasicSlider> getSettings() {
-        return sliders;
+    public final ArrayList<NavigatorSetting> getSettings() {
+        return settings;
     }
 
     @Override
@@ -211,12 +212,6 @@ public abstract class Mod extends Module implements NavigatorItem {
         }
     }
 
-    @Deprecated
-    public final ArrayList<BasicSlider> getSliders() {
-        return sliders;
-    }
-
-
     public final void noCheatMessage() {
         WurstClient.INSTANCE.chat.warning(name + " cannot bypass NoCheat+.");
     }
@@ -237,17 +232,13 @@ public abstract class Mod extends Module implements NavigatorItem {
         return currentMS >= lastMS + (long)(1000 / speed);
     }
 
-    public void setSliders(ArrayList<BasicSlider> sliders) {
-        this.sliders = sliders;
-    }
-
     public void onToggle() {}
 
     public void onEnable() {}
 
     public void onDisable() {}
 
-    public void initSliders() {}
+    public void initSettings() {}
 
     public void updateSettings() {}
 }

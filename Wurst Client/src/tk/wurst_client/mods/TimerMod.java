@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,30 +9,27 @@
 package tk.wurst_client.mods;
 
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
-import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.settings.SliderSetting;
 
 @Info(category = Category.MOVEMENT,
-	description = "Changes the speed of almost everything.\n"
-		+ "Tip: Slow speeds make aiming easier and work well with\n"
-		+ "NoCheat+.",
-	name = "Timer")
-public class TimerMod extends Mod
-{
-	public float speed = 2.0F;// Minimum: 0.1F, maximum: 10.0F
-	
-	@Override
-	public void initSliders()
-	{
-		sliders.add(new BasicSlider("Timer speed", speed, 0.1, 10, 0.1,
-			ValueDisplay.DECIMAL));
-	}
-	
-	@Override
-	public void updateSettings()
-	{
-		speed = (float)sliders.get(0).getValue();
-	}
+        description = "Changes the speed of almost everything.\n"
+                + "Tip: Slow speeds make aiming easier and work well with\n"
+                + "NoCheat+.",
+        name = "Timer")
+public class TimerMod extends Mod {
+    public float speed = 2.0F;// Minimum: 0.1F, maximum: 10.0F
+
+    @Override
+    public void initSettings() {
+        settings.add(new SliderSetting("Timer speed", speed, 0.1, 10, 0.1,
+                ValueDisplay.DECIMAL));
+    }
+
+    @Override
+    public void updateSettings() {
+        speed = (float)((SliderSetting)settings.get(0)).getValue();
+    }
 }
