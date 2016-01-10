@@ -35,4 +35,9 @@ public class SliderSetting extends BasicSlider implements NavigatorSetting
     public SliderSetting(String text) {
         super(text);
     }
+
+    @Override
+    public double getValue() {
+        return super.getValue();
+    }
 }
