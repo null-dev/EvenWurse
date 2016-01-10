@@ -26,7 +26,7 @@ public class Updater {
     private JsonArray json;
 
     private int currentVersion = WurstClient.EW_VERSION_CODE;
-    private int latestVersion;
+    private int latestVersion = -1;
 
     public void checkForUpdate() {
         try {
