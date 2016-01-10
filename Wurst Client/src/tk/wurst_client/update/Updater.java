@@ -8,7 +8,6 @@
  */
 package tk.wurst_client.update;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +22,6 @@ import java.net.URL;
 public class Updater {
     private static final Logger logger = LogManager.getLogger();
     private boolean outdated;
-    private JsonArray json;
 
     private int currentVersion = WurstClient.EW_VERSION_CODE;
     private int latestVersion = -1;
@@ -33,7 +31,7 @@ public class Updater {
             outdated = false;
             HttpsURLConnection connection =
                     (HttpsURLConnection)new URL(
-                            "https://api.github.com/repos/null-dev/EvenWurse/releases")
+                            "https://api.github.com/repos/null-dev/EvenWurse/releases/latest")
                             .openConnection();
             BufferedReader load =
                     new BufferedReader(new InputStreamReader(
@@ -42,8 +40,7 @@ public class Updater {
             for(String line; (line = load.readLine()) != null;)
                 content += "\n" + line;
             load.close();
-            json = JsonUtils.jsonParser.parse(content).getAsJsonArray();
-            JsonObject latestRelease = new JsonObject();
+            JsonObject latestRelease = JsonUtils.jsonParser.parse(content).getAsJsonObject();
             try {
                 latestVersion = Integer.parseInt(latestRelease.get("tag_name").getAsString());
             } catch(NumberFormatException e) {
