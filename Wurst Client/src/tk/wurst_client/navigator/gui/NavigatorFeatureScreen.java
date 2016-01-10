@@ -17,7 +17,6 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.font.Fonts;
 import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.PossibleKeybind;
-import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
 
 import java.awt.*;
@@ -37,7 +36,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     private int sliding = -1;
     private String text;
     private ArrayList<ButtonData> buttonDatas = new ArrayList<>();
-    private SliderData[] sliderDatas = {};
+    private ArrayList<SliderData> sliderDatas = new ArrayList<>();
 
     public NavigatorFeatureScreen(NavigatorItem item, NavigatorMainScreen parent) {
         this.item = item;
@@ -96,53 +95,20 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             text += "\n\nDescription:\n" + description;
 
         // area
-        Rectangle area =
-                new Rectangle((width / 2 - 154), 60, 308, (height - 103));
+        Rectangle area = new Rectangle(middleX - 154, 60, 308, height - 103);
 
         // sliders
-        ArrayList<BasicSlider> sliders = item.getSettings();
-        if(!sliders.isEmpty()) {
+        ArrayList<BasicSlider> settings = item.getSettings();
+        if(!settings.isEmpty()) {
             text += "\n\nSettings:";
-            sliderDatas = new SliderData[sliders.size()];
-            for(int i = 0; i < sliders.size(); i++) {
-                BasicSlider slider = sliders.get(i);
-
+            sliderDatas.clear();
+            for(BasicSlider slider : settings) {
                 // text
                 text += "\n" + slider.getText() + ":\n";
 
-                // value
-                String value;
-                switch(slider.getValueDisplay()) {
-                    case DECIMAL:
-                        value = Double.toString(slider.getValue());
-                        break;
-                    case DEGREES:
-                        value = (int)slider.getValue() + "�";
-                        break;
-                    case INTEGER:
-                        value = Integer.toString((int)slider.getValue());
-                        break;
-                    case PERCENTAGE:
-                        value = (slider.getValue() * 100D) + "%";
-                        break;
-                    default:
-                    case NONE:
-                        value = "";
-                        break;
-                }
-
-                // percentage
-                float percentage =
-                        (float)((slider.getValue() - slider.getMinimumValue()) / (slider
-                                .getMaximumValue() - slider.getMinimumValue()));
-
-                // x
-                int x = area.x + (int)((area.width - 10) * percentage);
-
-                // y
-                int y = area.y + Fonts.segoe15.getStringHeight(text);
-
-                sliderDatas[i] = new SliderData(x, y, percentage, value);
+                // slider
+                sliderDatas.add(new SliderData(slider, area.y
+                        + Fonts.segoe15.getStringHeight(text)));
             }
         }
 
@@ -172,8 +138,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             for(PossibleKeybind possibleKeybind : possibleKeybinds)
                 possibleKeybindsMap.put(possibleKeybind.getCommand(),
                         possibleKeybind.getDescription());
-            TreeMap<String, PossibleKeybind> existingKeybinds =
-                    new TreeMap<>();
+            TreeMap<String, PossibleKeybind> existingKeybinds = new TreeMap<>();
             boolean noKeybindsSet = true;
             for(Entry<String, String> entry : WurstClient.INSTANCE.keybinds
                     .entrySet()) {
@@ -183,9 +148,8 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
                     if(noKeybindsSet)
                         noKeybindsSet = false;
                     text += "\n" + entry.getKey() + ": " + keybindDescription;
-                    existingKeybinds.put(entry.getKey(),
-                            new PossibleKeybind(entry.getValue(),
-                                    keybindDescription));
+                    existingKeybinds.put(entry.getKey(), new PossibleKeybind(
+                            entry.getValue(), keybindDescription));
                 }
             }
             if(noKeybindsSet)
@@ -230,13 +194,11 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         }
 
         // sliders
-        Rectangle area =
-                new Rectangle((width / 2 - 154), 60, 308, (height - 103));
+        Rectangle area = new Rectangle(width / 2 - 154, 60, 308, height - 103);
         if(area.contains(x, y)) {
             area.height = 12;
-            for(int i = 0; i < sliderDatas.length; i++) {
-                SliderData sliderData = sliderDatas[i];
-                area.y = sliderData.y + scroll;
+            for(int i = 0; i < sliderDatas.size(); i++) {
+                area.y = sliderDatas.get(i).y + scroll;
                 if(area.contains(x, y)) {
                     sliding = i;
                     return;
@@ -249,19 +211,8 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     protected void onMouseDrag(int x, int y, int button, long timeDragged) {
         if(button != 0)
             return;
-        if(sliding != -1) {
-            BasicSlider slider = item.getSettings().get(sliding);
-            float percentage = (x - (width / 2 - 154)) / 298F;
-
-            if(percentage > 1F)
-                percentage = 1F;
-            else if(percentage < 0F)
-                percentage = 0F;
-
-            slider.setValue((long)((slider.getMaximumValue() - slider
-                    .getMinimumValue()) * percentage / slider.getIncrement())
-                    * 1e6 * slider.getIncrement() / 1e6 + slider.getMinimumValue());
-        }
+        if(sliding != -1)
+            sliderDatas.get(sliding).slideTo(x);
     }
 
     @Override
@@ -281,49 +232,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     }
 
     @Override
-    protected void onUpdate() {
-        // area
-        Rectangle area =
-                new Rectangle((width / 2 - 154), 60, 308, (height - 103));
-
-        // slider data
-        ArrayList<BasicSlider> sliders = item.getSettings();
-        for(int i = 0; i < sliders.size(); i++) {
-            BasicSlider slider = sliders.get(i);
-            SliderData sliderData = sliderDatas[i];
-
-            // value
-            String value;
-            switch(slider.getValueDisplay()) {
-                case DECIMAL:
-                    value = Double.toString(slider.getValue());
-                    break;
-                case DEGREES:
-                    value = (int)slider.getValue() + F.DEGREE_SYMBOL_STRING;
-                    break;
-                case INTEGER:
-                    value = Integer.toString((int)slider.getValue());
-                    break;
-                case PERCENTAGE:
-                    value = (slider.getValue() * 100D) + "%";
-                    break;
-                default:
-                case NONE:
-                    value = "";
-                    break;
-            }
-            sliderData.value = value;
-
-            // percentage
-            sliderData.percentage =
-                    (float)((slider.getValue() - slider.getMinimumValue()) / (slider
-                            .getMaximumValue() - slider.getMinimumValue()));
-
-            // x
-            sliderData.x =
-                    area.x + (int)((area.width - 10) * sliderData.percentage);
-        }
-    }
+    protected void onUpdate() {}
 
     @Override
     protected void onRender(int mouseX, int mouseY, float partialTicks) {
@@ -352,7 +261,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             drawEngravedBox(x1, y1, x2, y2);
 
             // knob
-            x1 = sliderData.x + 1;
+            x1 = sliderData.x;
             x2 = x1 + 8;
             y1 -= 2;
             y2 += 2;
@@ -441,30 +350,74 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         glDisable(GL_BLEND);
     }
 
-    private class SliderData
-    {
+    private class SliderData {
+        public BasicSlider slider;
         public int x;
         public int y;
         public float percentage;
         public String value;
 
-        public SliderData(int x, int y, float percentage, String value)
-        {
-            this.x = x;
+        public SliderData(BasicSlider slider, int y) {
+            this.slider = slider;
             this.y = y;
-            this.percentage = percentage;
-            this.value = value;
+
+            update();
+        }
+
+        private void update() {
+            // display value
+            switch(slider.getValueDisplay()) {
+                case DECIMAL:
+                    value = Double.toString(slider.getValue());
+                    break;
+                case DEGREES:
+                    value = (int)slider.getValue() + "°";
+                    break;
+                case INTEGER:
+                    value = Integer.toString((int)slider.getValue());
+                    break;
+                case PERCENTAGE:
+                    value = slider.getValue() * 100D + "%";
+                    break;
+                case NONE:
+                default:
+                    value = "";
+                    break;
+            }
+
+            // percentage
+            percentage =
+                    (float)((slider.getValue() - slider.getMinimumValue()) / (slider
+                            .getMaximumValue() - slider.getMinimumValue()));
+
+            // x
+            x = middleX - 154 + (int)(percentage * 298) + 1;
+        }
+
+        public void slideTo(int mouseX) {
+            // percentage from mouse location (not the actual percentage!)
+            float mousePercentage = (mouseX - (middleX - 150)) / 298F;
+            if(mousePercentage > 1F)
+                mousePercentage = 1F;
+            else if(mousePercentage < 0F)
+                mousePercentage = 0F;
+
+            // update slider value
+            slider.setValue((long)((slider.getMaximumValue() - slider
+                    .getMinimumValue()) * mousePercentage / slider.getIncrement())
+                    * 1e6 * slider.getIncrement() / 1e6 + slider.getMinimumValue());
+
+            // update slider data
+            update();
         }
     }
 
-    private abstract class ButtonData extends Rectangle
-    {
+    private abstract class ButtonData extends Rectangle {
         public String displayString = "";
         public Color color;
 
         public ButtonData(int x, int y, int width, int height,
-                          String displayString, int color)
-        {
+                          String displayString, int color) {
             super(x, y, width, height);
             this.displayString = displayString;
             this.color = new Color(color);
