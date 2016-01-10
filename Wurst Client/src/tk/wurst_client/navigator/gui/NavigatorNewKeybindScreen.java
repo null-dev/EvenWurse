@@ -169,15 +169,7 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
                     glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
 
                 // button
-                glBegin(GL_QUADS);
-                {
-                    glVertex2i(x1, y1);
-                    glVertex2i(x2, y1);
-                    glVertex2i(x2, y2);
-                    glVertex2i(x1, y2);
-                }
-                glEnd();
-                RenderUtil.boxShadow(x1, y1, x2, y2);
+                drawBox(x1, y1, x2, y2);
 
                 // text
                 drawString(Fonts.segoe15, possibleKeybind.getDescription()
@@ -213,16 +205,7 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
                 glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
 
             // button
-            glDisable(GL_TEXTURE_2D);
-            glBegin(GL_QUADS);
-            {
-                glVertex2i(x1, y1);
-                glVertex2i(x2, y1);
-                glVertex2i(x2, y2);
-                glVertex2i(x1, y2);
-            }
-            glEnd();
-            RenderUtil.boxShadow(x1, y1, x2, y2);
+            drawBox(x1, y1, x2, y2);
 
             // text
             drawCenteredString(Fonts.segoe18, button.displayString,
