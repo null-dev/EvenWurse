@@ -136,7 +136,7 @@ public abstract class NavigatorScreen extends GuiScreen
             x2 -= 2;
             y1 += scrollKnobPosition;
             y2 = y1 + 24;
-            drawBackgroundBox(x1, y1, x2, y2);
+            drawForegroundBox(x1, y1, x2, y2);
             int i;
             for(x1++, x2--, y1 += 8, y2 -= 15, i = 0; i < 3; y1 += 4, y2 += 4, i++)
                 drawDownShadow(x1, y1, x2, y2);
