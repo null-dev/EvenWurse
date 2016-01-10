@@ -104,16 +104,9 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             text += "\n\nSettings:";
             sliderDatas.clear();
             // text
-            settings.stream().filter(setting -> setting instanceof BasicSlider).forEach(setting -> {
-                BasicSlider slider = (BasicSlider) setting;
-
-                // text
-                text += "\n" + slider.getText() + ":\n";
-
-                // slider
-                sliderDatas.add(new SliderData(slider, area.y
-                        + Fonts.segoe15.getStringHeight(text)));
-            });
+            for(NavigatorSetting setting : settings) {
+                setting.addToFeatureScreen(this);
+            }
         }
 
         // keybinds
@@ -354,7 +347,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         glDisable(GL_BLEND);
     }
 
-    private class SliderData {
+    public class SliderData {
         public BasicSlider slider;
         public int x;
         public int y;
@@ -416,7 +409,24 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         }
     }
 
-    private abstract class ButtonData extends Rectangle {
+    public void addText(String text) {
+        this.text += "\n" + text;
+    }
+
+    public int getTextHeight() {
+        return Fonts.segoe15.getStringHeight(text);
+    }
+
+    public void addButton(ButtonData button) {
+        buttonDatas.add(button);
+    }
+
+    public void addSlider(SliderData slider) {
+        sliderDatas.add(slider);
+    }
+
+
+    public abstract class ButtonData extends Rectangle {
         public String displayString = "";
         public Color color;
 
