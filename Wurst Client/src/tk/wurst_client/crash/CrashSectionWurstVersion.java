@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,9 +8,9 @@
  */
 package tk.wurst_client.crash;
 
-import java.util.concurrent.Callable;
-
 import tk.wurst_client.WurstClient;
+
+import java.util.concurrent.Callable;
 
 public class CrashSectionWurstVersion implements Callable
 {
@@ -19,8 +19,7 @@ public class CrashSectionWurstVersion implements Callable
 	{
 		return WurstClient.VERSION
 			+ " (latest: "
-			+ (WurstClient.INSTANCE.updater.getLatestVersion() == null
-				? "unknown" : WurstClient.INSTANCE.updater.getLatestVersion())
+			+ WurstClient.INSTANCE.updater.getLatestVersion()
 			+ ")";
 	}
 }
