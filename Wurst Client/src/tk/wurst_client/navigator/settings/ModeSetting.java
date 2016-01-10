@@ -61,4 +61,8 @@ public class ModeSetting implements NavigatorSetting {
             featureScreen.addButton(button);
         }
     }
+
+    public int getSelected() {
+        return selected;
+    }
 }
