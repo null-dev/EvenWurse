@@ -73,8 +73,7 @@ public class GuiError extends GuiScreen
 		switch(button.id)
 		{
 			case 0:
-				if(WurstClient.INSTANCE.updater.isOutdated()
-					|| WurstClient.INSTANCE.updater.getLatestVersion() == null)
+				if(WurstClient.INSTANCE.updater.isOutdated())
 				{
 					backToGame();
 					WurstClient.INSTANCE.chat

@@ -41,8 +41,7 @@ import java.util.ConcurrentModificationException;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class GuiWurstMainMenu extends GuiMainMenu
-{
+public class GuiWurstMainMenu extends GuiMainMenu {
     private static final ResourceLocation title = new ResourceLocation(
             "wurst/wurst_380.png");
     private static final ResourceLocation santaHat = new ResourceLocation(
@@ -54,8 +53,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
     private int newsWidth;
     GuiButton moduleButton;
 
-    public GuiWurstMainMenu()
-    {
+    public GuiWurstMainMenu() {
         super();
 
         if(WurstClient.INSTANCE.options.wurstNews)
@@ -64,11 +62,9 @@ public class GuiWurstMainMenu extends GuiMainMenu
         WurstClient.INSTANCE.analytics.trackPageView("/", "Main Menu");
     }
 
-    private void downloadWurstNews()
-    {
+    private void downloadWurstNews() {
         new Thread(() -> {
-            try
-            {
+            try {
                 HttpsURLConnection connection =
                         (HttpsURLConnection)new URL(
                                 "https://www.wurst-client.tk/news/feed.xml")
@@ -79,8 +75,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
                 news =
                         xml.getChildrenByName("channel").get(0)
                                 .getChildrenByName("item");
-            }catch(Exception e)
-            {
+            } catch(Exception e) {
                 e.printStackTrace();
             }
         }).start();
@@ -88,8 +83,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
 
     @SuppressWarnings("unchecked")
     @Override
-    public void initGui()
-    {
+    public void initGui() {
         super.initGui();
 
         // adjust position of options, quit & language buttons
@@ -120,24 +114,21 @@ public class GuiWurstMainMenu extends GuiMainMenu
         new Thread(() -> {
             // wait for news to load
             while(news == null)
-                try
-                {
+                try {
                     Thread.sleep(50);
-                }catch(InterruptedException e1)
-                {
+                } catch(InterruptedException e1) {
                     e1.printStackTrace();
                 }
 
             // build news ticker
-            try
-            {
+            try {
 //                for(int i = 0; i < news.size(); i++)
 //                    newsTicker +=
 //                        news.get(i).getChildrenByName("title").get(0)
 //                            .getContent()
 //                            + "�e+++�r";
                 newsTicker += F.f("EvenWurse: Fork of Alexander01998's Wurst Hacked Client - by: nulldev <YELLOW>+++</YELLOW> ");
-            }catch(ConcurrentModificationException ignored) {}
+            } catch(ConcurrentModificationException ignored) {}
             newsWidth = fontRendererObj.getStringWidth(newsTicker);
             // divide by zero fix
             if(newsWidth % 50 == 0)
@@ -149,8 +140,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException
-    {
+    protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
 
         if(button.equals(moduleButton)) {
@@ -159,8 +149,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
             return;
         }
 
-        switch(button.id)
-        {
+        switch(button.id) {
             case 3:
                 mc.displayGuiScreen(new GuiAlts(this));
                 break;
@@ -186,8 +175,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         // panorama
         GlStateManager.disableAlpha();
         renderSkybox(mouseX, mouseY, partialTicks);
@@ -211,8 +199,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
         double fh = 256;
         double u = 0;
         double v = 0;
-        if(GuiMainMenu.splashText.equals("umop-apisdn!"))
-        {
+        if(GuiMainMenu.splashText.equals("umop-apisdn!")) {
             GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
             GL11.glTranslatef(-width, (float)(-h - 60), 0.0F);
         }
@@ -227,8 +214,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
                 (v + 0) / 256D);
         tessellator.draw();
         //noinspection MagicConstant (I have no idea where this comes from :/)
-        if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER)
-        {
+        if(Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER) {
             mc.getTextureManager().bindTexture(santaHat);
             x = x + 112;
             y = y - 36;
@@ -249,8 +235,7 @@ public class GuiWurstMainMenu extends GuiMainMenu
                     (float)(u + 0) * 0.00390625F, (float)(v + 0) * 0.00390625F);
             tessellator.draw();
         }
-        if(GuiMainMenu.splashText.equals("umop-apisdn!"))
-        {
+        if(GuiMainMenu.splashText.equals("umop-apisdn!")) {
             GL11.glRotatef(-180.0F, 0.0F, 0.0F, 1.0F);
             GL11.glTranslatef(-width, (float)(-h - 60), 0.0F);
         }
@@ -388,7 +373,8 @@ public class GuiWurstMainMenu extends GuiMainMenu
                         "update to v"
                                 + WurstClient.INSTANCE.updater.getLatestVersion(),
                         "from " + WurstClient.INSTANCE.updater.getCurrentVersion());
-                WurstClient.INSTANCE.updater.update();
+                //TODO Finish auto-update
+//                WurstClient.INSTANCE.updater.update();
             }else
                 // emergency message
                 try
