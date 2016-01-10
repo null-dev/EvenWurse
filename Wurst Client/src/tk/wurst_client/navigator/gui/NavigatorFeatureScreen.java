@@ -220,8 +220,8 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     }
 
     @Override
-    protected void onKeyPress(int key) {
-        if(key == 1) {
+    protected void onKeyPress(char typedChar, int keyCode) {
+        if(keyCode == 1) {
             parent.setExpanding(false);
             mc.displayGuiScreen(parent);
         }
