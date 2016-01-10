@@ -127,14 +127,14 @@ public class NavigatorMainScreen extends NavigatorScreen {
                 .size(); i++) {
             // y position
             int y = 60 + i / 3 * 20 + scroll;
-            if(y < 40)
+            if (y < 40)
                 continue;
-            if(y > height - 40)
+            if (y > height - 40)
                 break;
 
             // x position
             int xi = 0;
-            switch(i % 3) {
+            switch (i % 3) {
                 case 0:
                     xi = x - 104;
                     break;
@@ -150,75 +150,57 @@ public class NavigatorMainScreen extends NavigatorScreen {
             NavigatorItem item = navigatorDisplayList.get(i);
             Rectangle area = new Rectangle(xi, y, 100, 16);
 
-            // color
-            boolean hovering =
-                    area.contains(mouseX, mouseY) && clickTimerNotRunning;
-            if(hovering)
-                hoveredItem = i;
-            if(item.isEnabled() && clickTimerNotRunning)
-                if(item.isBlocked())
-                    glColor4f(hovering ? 1F : 0.875F, 0F, 0F, 0.5F);
-                else
-                    glColor4f(0F, hovering ? 1F : 0.875F, 0F, 0.5F);
-            else if(hovering)
-                glColor4f(0.375F, 0.375F, 0.375F, 0.5F);
-            else
-                glColor4f(0.25F, 0.25F, 0.25F, 0.5F);
-
             // click animation
-            if(!clickTimerNotRunning) {
-                if(i != hoveredItem)
+            if (!clickTimerNotRunning) {
+                if (i != hoveredItem)
                     continue;
 
                 float factor;
-                if(expanding)
-                    if(clickTimer == 4)
+                if (expanding)
+                    if (clickTimer == 4)
                         factor = 1F;
                     else
                         factor = (clickTimer + partialTicks) / 4F;
-                else if(clickTimer == 0)
+                else if (clickTimer == 0)
                     factor = 0F;
                 else
                     factor = (clickTimer - partialTicks) / 4F;
                 float antiFactor = 1 - factor;
 
-                area.x = (int)(area.x * antiFactor + (middleX - 154) * factor);
-                area.y = (int)(area.y * antiFactor + 60 * factor);
-                area.width = (int)(area.width * antiFactor + 308 * factor);
+                area.x = (int) (area.x * antiFactor + (middleX - 154) * factor);
+                area.y = (int) (area.y * antiFactor + 60 * factor);
+                area.width = (int) (area.width * antiFactor + 308 * factor);
                 area.height =
-                        (int)(area.height * antiFactor + (height - 103) * factor);
-            }
+                        (int) (area.height * antiFactor + (height - 103) * factor);
+                drawBackgroundBox(area.x, area.y, area.x + area.width, area.y + area.height);
+            } else {
+                // color
+                boolean hovering = area.contains(mouseX, mouseY);
+                if (hovering)
+                    hoveredItem = i;
+                if (item.isEnabled())
+                    if (item.isBlocked())
+                        glColor4f(hovering ? 1F : 0.875F, 0F, 0F, 0.5F);
+                    else
+                        glColor4f(0F, hovering ? 1F : 0.875F, 0F, 0.5F);
+                else if (hovering)
+                    glColor4f(0.375F, 0.375F, 0.375F, 0.5F);
+                else
+                    glColor4f(0.25F, 0.25F, 0.25F, 0.5F);
+                // box & shadow
+                drawBox(area.x, area.y, area.x + area.width, area.y + area.height);
 
-            // box & shadow
-            glBegin(GL_QUADS);
-            {
-                glVertex2d(area.x, area.y);
-                glVertex2d(area.x + area.width, area.y);
-                glVertex2d(area.x + area.width, area.y + area.height);
-                glVertex2d(area.x, area.y + area.height);
+                // text
+                String buttonText = item.getName();
+                Fonts.segoe15.drawString(
+                        buttonText,
+                        area.x
+                                + (area.width - Fonts.segoe15
+                                .getStringWidth(buttonText)) / 2, area.y + 2,
+                        0xffffff);
             }
-            glEnd();
-            RenderUtil.boxShadow(area.x, area.y, area.x + area.width, area.y
-                    + area.height);
-
-            // text
-            if(clickTimerNotRunning) {
-                glEnable(GL_TEXTURE_2D);
-                try {
-                    String buttonText = item.getName();
-                    Fonts.segoe15.drawString(
-                            buttonText,
-                            area.x
-                                    + (area.width - Fonts.segoe15
-                                    .getStringWidth(buttonText)) / 2, area.y + 2,
-                            0xffffff);
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-                glDisable(GL_TEXTURE_2D);
-            }
+            glDisable(GL_SCISSOR_TEST);
         }
-        glDisable(GL_SCISSOR_TEST);
     }
 
     public void setExpanding(boolean expanding)
