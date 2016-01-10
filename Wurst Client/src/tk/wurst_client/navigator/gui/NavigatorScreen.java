@@ -331,13 +331,21 @@ public abstract class NavigatorScreen extends GuiScreen
         drawInvertedBoxShadow(x1, y1, x2, y2);
     }
 
-    protected final void drawBackgroundBox(int x1, int y1, int x2, int y2) {
+    protected final void setColorToBackground() {
         glColor4f(0.25F, 0.25F, 0.25F, 0.5F);
+    }
+
+    protected final void setColorToForeground() {
+        glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
+    }
+
+    protected final void drawBackgroundBox(int x1, int y1, int x2, int y2) {
+        setColorToBackground();
         drawBox(x1, y1, x2, y2);
     }
 
     protected final void drawForegroundBox(int x1, int y1, int x2, int y2) {
-        glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
+        setColorToForeground();
         drawBox(x1, y1, x2, y2);
     }
 }
