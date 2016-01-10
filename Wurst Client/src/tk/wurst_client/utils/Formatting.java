@@ -23,6 +23,10 @@ public class Formatting {
     public static String STRING_SECTION_SIGN = SS + "";
     public static String STRING_SS = STRING_SECTION_SIGN;
 
+    //Some other chars
+    public static char DEGREE_SYMBOL = '°';
+    public static String DEGREE_SYMBOL_STRING = DEGREE_SYMBOL + "";
+
     //Newline
     public static char NEWLINE = '\n';
     public static char NL = NEWLINE;

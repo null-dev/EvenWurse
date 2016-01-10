@@ -19,6 +19,7 @@ import tk.wurst_client.font.Fonts;
 import tk.wurst_client.mods.Mod;
 import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.NavigatorPossibleKeybind;
+import tk.wurst_client.utils.F;
 import tk.wurst_client.utils.MiscUtils;
 
 import java.awt.*;
@@ -230,8 +231,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     @Override
     protected void onMouseClick(int x, int y, int button) {
         // buttons
-        if(activeButton != null)
-        {
+        if(activeButton != null) {
             mc.getSoundHandler().playSound(
                     PositionedSoundRecord.createPositionedSoundRecord(
                             new ResourceLocation("gui.button.press"), 1.0F));
@@ -242,15 +242,12 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         // sliders
         Rectangle area =
                 new Rectangle((width / 2 - 154), 60, 308, (height - 103));
-        if(area.contains(x, y))
-        {
+        if(area.contains(x, y)) {
             area.height = 12;
-            for(int i = 0; i < sliderDatas.length; i++)
-            {
+            for(int i = 0; i < sliderDatas.length; i++) {
                 SliderData sliderData = sliderDatas[i];
                 area.y = sliderData.y + scroll;
-                if(area.contains(x, y))
-                {
+                if(area.contains(x, y)) {
                     sliding = i;
                     return;
                 }
@@ -259,8 +256,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     }
 
     @Override
-    protected void onMouseDrag(int x, int y, int button, long timeDragged)
-    {
+    protected void onMouseDrag(int x, int y, int button, long timeDragged) {
         if(button != 0)
             return;
         if(sliding != -1) {
@@ -305,7 +301,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
                     value = Double.toString(slider.getValue());
                     break;
                 case DEGREES:
-                    value = (int)slider.getValue() + "�";
+                    value = (int)slider.getValue() + F.DEGREE_SYMBOL_STRING;
                     break;
                 case INTEGER:
                     value = Integer.toString((int)slider.getValue());
@@ -348,23 +344,14 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         glEnable(GL_SCISSOR_TEST);
 
         // sliders
-        for(SliderData sliderData : sliderDatas)
-        {
+        for(SliderData sliderData : sliderDatas) {
             // rail
             int x1 = bgx1 + 2;
             int x2 = bgx2 - 2;
             int y1 = sliderData.y + scroll + 4;
             int y2 = y1 + 4;
-            glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
-            glBegin(GL_QUADS);
-            {
-                glVertex2i(x1, y1);
-                glVertex2i(x2, y1);
-                glVertex2i(x2, y2);
-                glVertex2i(x1, y2);
-            }
-            glEnd();
-            RenderUtil.invertedBoxShadow(x1, y1, x2, y2);
+            setColorToForeground();
+            drawEngravedBox(x1, y1, x2, y2);
 
             // knob
             x1 = sliderData.x + 1;
@@ -373,15 +360,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             y2 += 2;
             float percentage = sliderData.percentage;
             glColor4f(percentage, 1F - percentage, 0F, 0.75F);
-            glBegin(GL_QUADS);
-            {
-                glVertex2i(x1, y1);
-                glVertex2i(x2, y1);
-                glVertex2i(x2, y2);
-                glVertex2i(x1, y2);
-            }
-            glEnd();
-            RenderUtil.boxShadow(x1, y1, x2, y2);
+            drawBox(x1, y1, x2, y2);
 
             // value
             String value = sliderData.value;
@@ -393,8 +372,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
         // buttons
         activeButton = null;
-        for(ButtonData buttonData : buttonDatas)
-        {
+        for(ButtonData buttonData : buttonDatas) {
             // positions
             int x1 = buttonData.x;
             int x2 = x1 + buttonData.width;
@@ -413,15 +391,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             glColor4f(rgb[0], rgb[1], rgb[2], alpha);
 
             // button
-            glBegin(GL_QUADS);
-            {
-                glVertex2i(x1, y1);
-                glVertex2i(x2, y1);
-                glVertex2i(x2, y2);
-                glVertex2i(x1, y2);
-            }
-            glEnd();
-            RenderUtil.boxShadow(x1, y1, x2, y2);
+            drawBox(x1, y1, x2, y2);
 
             // text
             drawCenteredString(Fonts.segoe18, buttonData.displayString,
@@ -437,9 +407,8 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         glDisable(GL_SCISSOR_TEST);
 
         // buttons below scissor box
-        for(int i = 0; i < buttonList.size(); i++)
-        {
-            GuiButton button = (GuiButton)buttonList.get(i);
+        for (Object aButtonList : buttonList) {
+            GuiButton button = (GuiButton) aButtonList;
 
             // positions
             int x1 = button.xPosition;
@@ -450,27 +419,18 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             // color
             boolean hovering =
                     mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2;
-            if(item.isEnabled() && button.id == 0)
-                if(item.isBlocked())
+            if (item.isEnabled() && button.id == 0)
+                if (item.isBlocked())
                     glColor4f(hovering ? 1F : 0.875F, 0F, 0F, 0.25F);
                 else
                     glColor4f(0F, hovering ? 1F : 0.875F, 0F, 0.25F);
-            else if(hovering)
+            else if (hovering)
                 glColor4f(0.375F, 0.375F, 0.375F, 0.25F);
             else
                 glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
 
             // button
-            glDisable(GL_TEXTURE_2D);
-            glBegin(GL_QUADS);
-            {
-                glVertex2i(x1, y1);
-                glVertex2i(x2, y1);
-                glVertex2i(x2, y2);
-                glVertex2i(x1, y2);
-            }
-            glEnd();
-            RenderUtil.boxShadow(x1, y1, x2, y2);
+            drawBox(x1, y1, x2, y2);
 
             // text
             drawCenteredString(Fonts.segoe18, button.displayString,
