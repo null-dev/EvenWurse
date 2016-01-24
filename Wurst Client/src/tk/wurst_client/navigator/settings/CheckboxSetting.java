@@ -23,14 +23,15 @@ public class CheckboxSetting implements NavigatorSetting {
 
     @Override
     public final void addToFeatureScreen(NavigatorFeatureScreen featureScreen) {
-        featureScreen.addText("\n");
-        featureScreen.addCheckbox(featureScreen.new CheckboxData(name, checked, 60 + featureScreen.getTextHeight()) {
-            @Override
-            public void toggle() {
-                setChecked(checked);
-                WurstClient.INSTANCE.files.saveNavigatorData();
-            }
-        });
+        featureScreen.addText("\n\n");
+        featureScreen
+                .addCheckbox(featureScreen.new CheckboxData(name, checked, 60 + featureScreen.getTextHeight() - 8) {
+                    @Override
+                    public void toggle() {
+                        setChecked(checked);
+                        WurstClient.INSTANCE.files.saveNavigatorData();
+                    }
+                });
     }
 
     public final String getName() {
@@ -57,7 +58,5 @@ public class CheckboxSetting implements NavigatorSetting {
     }
 
     @Override
-    public void update() {
-
-    }
+    public void update() {}
 }
