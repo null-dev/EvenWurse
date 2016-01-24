@@ -77,11 +77,16 @@ public abstract class SpecialFeature implements NavigatorItem {
 
     @Override
     public ArrayList<PossibleKeybind> getPossibleKeybinds() {
-        return new ArrayList<PossibleKeybind>();
+        return new ArrayList<>();
     }
 
     @Override
     public final String getTutorialPage() {
         return tutorial;
+    }
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        return new NavigatorItem[0];
     }
 }

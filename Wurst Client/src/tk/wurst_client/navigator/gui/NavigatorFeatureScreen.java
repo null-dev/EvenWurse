@@ -156,6 +156,24 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             }
         }
 
+        // see also
+        NavigatorItem[] seeAlso = item.getSeeAlso();
+        if (seeAlso.length != 0) {
+            text += "\n\nSee also:";
+            for (NavigatorItem aSeeAlso : seeAlso) {
+                int y = 60 + getTextHeight() + 4;
+                String name = aSeeAlso.getName();
+                text += "\n- " + name;
+                buttonDatas
+                        .add(new ButtonData(middleX - 148, y, Fonts.segoe15.getStringWidth(name) + 3, 8, "", 0x404040) {
+                            @Override
+                            public void press() {
+                                mc.displayGuiScreen(new NavigatorFeatureScreen(aSeeAlso, parent));
+                            }
+                        });
+            }
+        }
+
         // text height
         setContentHeight(Fonts.segoe15.getStringHeight(text));
     }

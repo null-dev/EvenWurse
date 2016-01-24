@@ -102,6 +102,11 @@ public abstract class Cmd extends Module implements NavigatorItem {
         return tutorial;
     }
 
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        return new NavigatorItem[0];
+    }
+
     public void printHelp() {
         for (String line : help.split("\n")) {
             WurstClient.INSTANCE.chat.message(line);
