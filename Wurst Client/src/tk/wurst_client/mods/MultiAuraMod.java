@@ -14,6 +14,7 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.utils.EntityUtils;
 
 import java.util.ArrayList;
@@ -24,6 +25,14 @@ import java.util.ArrayList;
         noCheatCompatible = false)
 public class MultiAuraMod extends Mod implements UpdateListener {
     private static final float RANGE = 6F;
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.specialFeatures.targetFeature, wurst.mods.getModByClass(KillauraMod.class),
+                wurst.mods.getModByClass(KillauraLegitMod.class), wurst.mods.getModByClass(ClickAuraMod.class),
+                wurst.mods.getModByClass(TriggerBotMod.class)};
+    }
 
     @Override
     public void onEnable() {
