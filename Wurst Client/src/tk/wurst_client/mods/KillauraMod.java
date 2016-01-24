@@ -32,9 +32,9 @@ public class KillauraMod extends Mod implements UpdateListener {
 
     @Override
     public void initSettings() {
-        settings.add(new SliderSetting("Killaura speed", normalSpeed, 2, 20, 0.1, ValueDisplay.DECIMAL));
-        settings.add(new SliderSetting("Killaura range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
-        settings.add(new SliderSetting("Killaura FOV", fov, 30, 360, 10, ValueDisplay.DEGREES));
+        settings.add(new SliderSetting("Speed", normalSpeed, 2, 20, 0.1, ValueDisplay.DECIMAL));
+        settings.add(new SliderSetting("Range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
+        settings.add(new SliderSetting("FOV", fov, 30, 360, 10, ValueDisplay.DEGREES));
     }
 
     @Override

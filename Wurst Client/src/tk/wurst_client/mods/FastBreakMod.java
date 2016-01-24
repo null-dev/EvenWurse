@@ -21,7 +21,7 @@ public class FastBreakMod extends Mod {
 
     @Override
     public void initSettings() {
-        settings.add(new SliderSetting("FastBreak speed", speed, 1, 5, 0.05, ValueDisplay.DECIMAL));
+        settings.add(new SliderSetting("Speed", speed, 1, 5, 0.05, ValueDisplay.DECIMAL));
     }
 
     @Override

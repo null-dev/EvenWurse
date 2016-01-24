@@ -61,7 +61,7 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener, 
 
     @Override
     public void initSettings() {
-        settings.add(new SliderSetting("Nuker range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
+        settings.add(new SliderSetting("Range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
     }
 
     @Override

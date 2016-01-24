@@ -129,6 +129,7 @@ public final class GuiManager extends AbstractGuiManager {
             mod.getSettings().stream().filter(setting -> setting instanceof BasicSlider).forEach(setting -> {
                 BasicSlider slider = ((BasicSlider) setting);
                 slider.addSliderListener(slider1 -> mod.updateSettings());
+                slider.setModNamePrefix(mod.getName());
                 settingsFrame.add(slider);
             });
         }

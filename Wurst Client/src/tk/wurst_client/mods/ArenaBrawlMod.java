@@ -74,7 +74,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener, DeathListen
 
     @Override
     public void initSettings() {
-        settings.add(new SliderSetting("ArenaBrawl level", level, 20, 100, 10, ValueDisplay.INTEGER));
+        settings.add(new SliderSetting("Level", level, 20, 100, 10, ValueDisplay.INTEGER));
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.darkstorm.minecraft.gui.listener.ComponentListener;
 import org.darkstorm.minecraft.gui.listener.SliderListener;
 
 public class BasicSlider extends AbstractComponent implements Slider {
-    private String text, suffix;
+    private String text, suffix, modNamePrefix;
     private double value, minimum, maximum, increment;
     private ValueDisplay display;
     private boolean changing = false;
@@ -47,6 +47,15 @@ public class BasicSlider extends AbstractComponent implements Slider {
     @Override
     public String getText() {
         return text;
+    }
+
+    @Override
+    public String getTextWithModPrefix() {
+        return modNamePrefix + " " + text;
+    }
+
+    public void setModNamePrefix(String modNamePrefix) {
+        this.modNamePrefix = modNamePrefix;
     }
 
     @Override

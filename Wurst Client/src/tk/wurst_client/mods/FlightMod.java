@@ -26,7 +26,7 @@ public class FlightMod extends Mod implements UpdateListener {
 
     @Override
     public void initSettings() {
-        settings.add(new SliderSetting("Flight speed", speed, 0.05, 5, 0.05, ValueDisplay.DECIMAL));
+        settings.add(new SliderSetting("Speed", speed, 0.05, 5, 0.05, ValueDisplay.DECIMAL));
     }
 
     @Override
