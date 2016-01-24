@@ -178,6 +178,9 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             mc.getSoundHandler().playSound(
                     PositionedSoundRecord.createPositionedSoundRecord(new ResourceLocation("gui.button.press"), 1.0F));
             activeButton.press();
+            WurstClient wurst = WurstClient.INSTANCE;
+            wurst.navigator.addPreference(item.getName());
+            wurst.files.saveNavigatorData();
             return;
         }
 
@@ -192,12 +195,14 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         }
 
         // checkboxes
-        for (int i = 0; i < checkboxDatas.size(); i++) {
-            CheckboxData checkboxData = checkboxDatas.get(i);
+        for (CheckboxData checkboxData : checkboxDatas) {
             area.y = checkboxData.y + scroll;
             if (area.contains(x, y)) {
                 checkboxData.checked = !checkboxData.checked;
                 checkboxData.toggle();
+                WurstClient wurst = WurstClient.INSTANCE;
+                wurst.navigator.addPreference(item.getName());
+                wurst.files.saveNavigatorData();
                 return;
             }
         }
