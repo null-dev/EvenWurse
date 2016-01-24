@@ -49,14 +49,6 @@ public class OptionsManager {
     }
 
     public class Target {
-        public boolean players = true;
-        public boolean animals = true;
-        public boolean monsters = true;
-        public boolean golems = true;
-        public boolean sleeping_players = true;
-        public boolean invisible_players = true;
-        public boolean invisible_mobs = true;
-        public boolean teams = false;
         public boolean[] team_colors =
                 new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
                         true};

@@ -21,6 +21,8 @@ import java.util.Objects;
 /**
  * Extension to the teams feature by autoseting-up teams from the player's nametag
  */
+//FIXME Migrate to new targeting
+// STOPSHIP: 24/01/16 MIGRATE TO NEW TARGETING
 @Module.ModuleInfo(version = 1.00f, minVersion = 131, usesConfig = true)
 public class AutoTeamSetupModule extends Module implements UpdateListener {
 
