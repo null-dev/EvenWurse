@@ -15,6 +15,7 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.settings.SliderSetting;
 import tk.wurst_client.utils.EntityUtils;
 
@@ -35,6 +36,14 @@ public class KillauraMod extends Mod implements UpdateListener {
         settings.add(new SliderSetting("Speed", normalSpeed, 2, 20, 0.1, ValueDisplay.DECIMAL));
         settings.add(new SliderSetting("Range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
         settings.add(new SliderSetting("FOV", fov, 30, 360, 10, ValueDisplay.DEGREES));
+    }
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        //TODO THIS WILL BE AFFECTED BY THE SPECIAL FEATURES API MIGRATION
+        return new NavigatorItem[]{wurst.specialFeatures.targetFeature, wurst.mods.getModByClass(KillauraLegitMod.class),
+                wurst.mods.getModByClass(MultiAuraMod.class), wurst.mods.getModByClass(ClickAuraMod.class), wurst.mods.getModByClass(TriggerBotMod.class)};
     }
 
     @Override
