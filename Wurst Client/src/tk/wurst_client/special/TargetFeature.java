@@ -10,22 +10,32 @@ package tk.wurst_client.special;
 
 import tk.wurst_client.navigator.settings.CheckboxSetting;
 
-import java.lang.reflect.Field;
-
 @SpecialFeature.Info(description = "Controls what entities are targeted by " + "other features (e.g. Killaura).",
         name = "Target")
 public class TargetFeature extends SpecialFeature {
-    private boolean players = true;
-    private boolean animals = true;
-    private boolean monsters = true;
-    private boolean golems = true;
+    public final CheckboxSetting players = new CheckboxSetting("Players", true);
+    public final CheckboxSetting animals = new CheckboxSetting("Animals", true);
+    public final CheckboxSetting monsters = new CheckboxSetting("Monsters", true);
+    public final CheckboxSetting golems = new CheckboxSetting("Golems", true);
 
-    //Please note that these variables have been renamed to follow the official Java codestyle
-    private boolean sleepingPlayers = false;
-    private boolean invisiblePlayers = false;
-    private boolean invisibleMobs = false;
+    public final CheckboxSetting sleepingPlayers = new CheckboxSetting("Sleeping players", false);
+    public final CheckboxSetting invisiblePlayers = new CheckboxSetting("Invisible players", false);
+    public final CheckboxSetting invisibleMobs = new CheckboxSetting("Invisible mobs", false);
 
-    private boolean teams = false;
+    public final CheckboxSetting teams = new CheckboxSetting("Teams", false);
+
+    public TargetFeature() {
+        settings.add(players);
+        settings.add(animals);
+        settings.add(monsters);
+        settings.add(golems);
+
+        settings.add(sleepingPlayers);
+        settings.add(invisiblePlayers);
+        settings.add(invisibleMobs);
+
+        settings.add(teams);
+    }
 
     @Override
     public String getPrimaryAction() {
@@ -33,100 +43,5 @@ public class TargetFeature extends SpecialFeature {
     }
 
     @Override
-    public void doPrimaryAction() {
-
-    }
-
-    public TargetFeature() {
-        //FIXME Migrate to configuration API
-        for (Field field : TargetFeature.class.getFields()) {
-            if (!field.getType().equals(boolean.class)) continue;
-
-            //FIXME Fix prettyfication to be compatible with Java code style (or just migrate this to the config api again)
-            String name =
-                    field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1).replace("_", " ");
-
-            boolean checked = false;
-            try {
-                checked = field.getBoolean(this);
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-
-            settings.add(new CheckboxSetting(name, checked) {
-                @Override
-                public void update() {
-                    try {
-                        field.setBoolean(TargetFeature.this, isChecked());
-                    } catch (IllegalArgumentException | IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }
-
-    public boolean isPlayers() {
-        return players;
-    }
-
-    public void setPlayers(boolean players) {
-        this.players = players;
-    }
-
-    public boolean isAnimals() {
-        return animals;
-    }
-
-    public void setAnimals(boolean animals) {
-        this.animals = animals;
-    }
-
-    public boolean isMonsters() {
-        return monsters;
-    }
-
-    public void setMonsters(boolean monsters) {
-        this.monsters = monsters;
-    }
-
-    public boolean isGolems() {
-        return golems;
-    }
-
-    public void setGolems(boolean golems) {
-        this.golems = golems;
-    }
-
-    public boolean isSleepingPlayers() {
-        return sleepingPlayers;
-    }
-
-    public void setSleepingPlayers(boolean sleepingPlayers) {
-        this.sleepingPlayers = sleepingPlayers;
-    }
-
-    public boolean isInvisiblePlayers() {
-        return invisiblePlayers;
-    }
-
-    public void setInvisiblePlayers(boolean invisiblePlayers) {
-        this.invisiblePlayers = invisiblePlayers;
-    }
-
-    public boolean isInvisibleMobs() {
-        return invisibleMobs;
-    }
-
-    public void setInvisibleMobs(boolean invisibleMobs) {
-        this.invisibleMobs = invisibleMobs;
-    }
-
-    public boolean isTeams() {
-        return teams;
-    }
-
-    public void setTeams(boolean teams) {
-        this.teams = teams;
-    }
+    public void doPrimaryAction() {}
 }
