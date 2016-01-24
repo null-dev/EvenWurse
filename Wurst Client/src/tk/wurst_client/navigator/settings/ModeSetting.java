@@ -1,3 +1,11 @@
+/*
+ * Copyright � 2014 - 2016 | Alexander01998 and contributors
+ * All rights reserved.
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package tk.wurst_client.navigator.settings;
 
 import com.google.gson.JsonObject;
@@ -7,11 +15,6 @@ import tk.wurst_client.navigator.gui.NavigatorFeatureScreen.ButtonData;
 
 import java.awt.*;
 
-/**
- * Project: EvenWurse
- * Created: 10/01/16
- * Author: nulldev
- */
 public abstract class ModeSetting implements NavigatorSetting {
     private String name;
     private String[] modes;
@@ -55,9 +58,8 @@ public abstract class ModeSetting implements NavigatorSetting {
                         @Override
                         public void press() {
                             buttons[selected].color = new Color(0x404040);
-                            selected = iFinal;
                             color = new Color(0x00ff00);
-                            update();
+                            setSelected(iFinal);
                             WurstClient.INSTANCE.files.saveNavigatorData();
                         }
                     };
@@ -70,6 +72,11 @@ public abstract class ModeSetting implements NavigatorSetting {
         return selected;
     }
 
+    private void setSelected(int selected) {
+        this.selected = selected;
+        update();
+    }
+
     @Override
     public void save(JsonObject json) {
         json.addProperty(name, selected);
@@ -77,6 +84,6 @@ public abstract class ModeSetting implements NavigatorSetting {
 
     @Override
     public void load(JsonObject json) {
-        selected = json.get(name).getAsInt();
+        setSelected(json.get(name).getAsInt());
     }
 }
