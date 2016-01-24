@@ -15,15 +15,24 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.utils.EntityUtils;
 
 @Info(category = Category.COMBAT,
         description = "Automatically attacks the entity you're looking at.",
         name = "TriggerBot")
 public class TriggerBotMod extends Mod implements UpdateListener {
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.specialFeatures.targetFeature, wurst.mods.getModByClass(KillauraMod.class),
+                wurst.mods.getModByClass(KillauraLegitMod.class), wurst.mods.getModByClass(MultiAuraMod.class),
+                wurst.mods.getModByClass(ClickAuraMod.class)};
+    }
+
     @Override
     public void onEnable() {
-        // TODO: Clean up this mess!
         WurstClient.INSTANCE.mods
                 .disableModsByClass(KillauraMod.class, KillauraLegitMod.class, MultiAuraMod.class, ClickAuraMod.class);
         WurstClient.INSTANCE.events.add(UpdateListener.class, this);
