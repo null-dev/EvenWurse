@@ -31,14 +31,14 @@ public class SpeedNukerMod extends Mod implements LeftClickListener, UpdateListe
 
     @Override
     public String getRenderName() {
-        if (WurstClient.INSTANCE.options.nukerMode == 1) {
-            return "IDSpeedNuker [" + NukerMod.id + "]";
-        } else if (WurstClient.INSTANCE.options.nukerMode == 2) {
-            return "FlatSpeedNuker";
-        } else if (WurstClient.INSTANCE.options.nukerMode == 3) {
-            return "SmashSpeedNuker";
-        } else {
-            return "SpeedNuker";
+        NukerMod nuker = WurstClient.INSTANCE.mods.getModByClass(NukerMod.class);
+        switch (nuker.getMode()) {
+            case 0:
+                return "SpeedNuker";
+            case 1:
+                return "IDSpeedNuker [" + NukerMod.id + "]";
+            default:
+                return nuker.getModes()[nuker.getMode()] + "SpeedNuker";
         }
     }
 
@@ -106,7 +106,7 @@ public class SpeedNukerMod extends Mod implements LeftClickListener, UpdateListe
                 Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null) {
             return;
         }
-        if (WurstClient.INSTANCE.options.nukerMode == 1 &&
+        if (WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getMode() == 1 &&
                 Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos())
                         .getBlock().getMaterial() != Material.air) {
             NukerMod.id = Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
@@ -118,8 +118,9 @@ public class SpeedNukerMod extends Mod implements LeftClickListener, UpdateListe
     private BlockPos find() {
         BlockPos closest = null;
         float closestDistance = WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).yesCheatRange + 1;
+        int nukerMode = WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getMode();
         for (int y = (int) WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).yesCheatRange; y >=
-                (WurstClient.INSTANCE.options.nukerMode == 2 ? 0 :
+                (nukerMode == 2 ? 0 :
                         -WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).yesCheatRange); y--) {
             for (int x = (int) WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).yesCheatRange;
                  x >= -WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).yesCheatRange - 1; x--) {
@@ -141,10 +142,10 @@ public class SpeedNukerMod extends Mod implements LeftClickListener, UpdateListe
                     fakeObjectMouseOver.setBlockPos(blockPos);
                     if (Block.getIdFromBlock(block) != 0 && posY >= 0 &&
                             currentDistance <= WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).yesCheatRange) {
-                        if (WurstClient.INSTANCE.options.nukerMode == 1 && Block.getIdFromBlock(block) != NukerMod.id) {
+                        if (nukerMode == 1 && Block.getIdFromBlock(block) != NukerMod.id) {
                             continue;
                         }
-                        if (WurstClient.INSTANCE.options.nukerMode == 3 &&
+                        if (nukerMode == 3 &&
                                 block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer,
                                         Minecraft.getMinecraft().theWorld, blockPos) < 1) {
                             continue;
@@ -164,8 +165,9 @@ public class SpeedNukerMod extends Mod implements LeftClickListener, UpdateListe
     }
 
     private void nukeAll() {
+        int nukerMode = WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getMode();
         for (int y = (int) WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).normalRange; y >=
-                (WurstClient.INSTANCE.options.nukerMode == 2 ? 0 :
+                (nukerMode == 2 ? 0 :
                         -WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).normalRange); y--) {
             for (int x = (int) WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).normalRange;
                  x >= -WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).normalRange - 1; x--) {
@@ -185,10 +187,10 @@ public class SpeedNukerMod extends Mod implements LeftClickListener, UpdateListe
                     fakeObjectMouseOver.setBlockPos(new BlockPos(posX, posY, posZ));
                     if (Block.getIdFromBlock(block) != 0 && posY >= 0 &&
                             currentDistance <= WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).normalRange) {
-                        if (WurstClient.INSTANCE.options.nukerMode == 1 && Block.getIdFromBlock(block) != NukerMod.id) {
+                        if (nukerMode == 1 && Block.getIdFromBlock(block) != NukerMod.id) {
                             continue;
                         }
-                        if (WurstClient.INSTANCE.options.nukerMode == 3 &&
+                        if (nukerMode == 3 &&
                                 block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer,
                                         Minecraft.getMinecraft().theWorld, blockPos) < 1) {
                             continue;

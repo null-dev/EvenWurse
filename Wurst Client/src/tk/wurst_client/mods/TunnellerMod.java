@@ -150,7 +150,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener 
                     if (fakeObjectMouseOver == null) continue;
                     fakeObjectMouseOver.setBlockPos(blockPos);
                     if (Block.getIdFromBlock(block) != 0 && posY >= 0) {
-                        if (WurstClient.INSTANCE.options.nukerMode == 3 &&
+                        if (WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getMode() == 3 &&
                                 block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer,
                                         Minecraft.getMinecraft().theWorld, blockPos) < 1) {
                             continue;
@@ -182,7 +182,7 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener 
                     MovingObjectPosition fakeObjectMouseOver = Minecraft.getMinecraft().objectMouseOver;
                     fakeObjectMouseOver.setBlockPos(blockPos);
                     if (Block.getIdFromBlock(block) != 0 && posY >= 0) {
-                        if (WurstClient.INSTANCE.options.nukerMode == 3 &&
+                        if (WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getMode() == 3 &&
                                 block.getPlayerRelativeBlockHardness(Minecraft.getMinecraft().thePlayer,
                                         Minecraft.getMinecraft().theWorld, blockPos) < 1) {
                             continue;

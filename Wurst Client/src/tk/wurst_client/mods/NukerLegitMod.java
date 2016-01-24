@@ -43,15 +43,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener, RenderListe
 
     @Override
     public String getRenderName() {
-        if (WurstClient.INSTANCE.options.nukerMode == 1) {
-            return "IDNukerLegit [" + NukerMod.id + "]";
-        } else if (WurstClient.INSTANCE.options.nukerMode == 2) {
-            return "FlatNukerLegit";
-        } else if (WurstClient.INSTANCE.options.nukerMode == 3) {
-            return "SmashNukerLegit";
-        } else {
-            return "NukerLegit";
-        }
+        return WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getRenderName() + "Legit";
     }
 
     @Override
@@ -149,7 +141,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener, RenderListe
                 Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null) {
             return;
         }
-        if (WurstClient.INSTANCE.options.nukerMode == 1 &&
+        if (WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getMode() == 1 &&
                 Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos())
                         .getBlock().getMaterial() != Material.air) {
             NukerMod.id = Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
@@ -173,7 +165,7 @@ public class NukerLegitMod extends Mod implements LeftClickListener, RenderListe
             int currentID =
                     Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(currentPos).getBlock());
             if (currentID != 0) {
-                switch (WurstClient.INSTANCE.options.nukerMode) {
+                switch (WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getMode()) {
                     case 1:
                         if (currentID == NukerMod.id) return currentPos;
                         break;
