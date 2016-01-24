@@ -94,7 +94,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         // area
         Rectangle area = new Rectangle(middleX - 154, 60, 308, height - 103);
 
-        // sliders
+        // settings
         ArrayList<NavigatorSetting> settings = item.getSettings();
         if (!settings.isEmpty()) {
             text += "\n\nSettings:";
@@ -184,7 +184,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             return;
         }
 
-        // settings
+        // sliders
         area.height = 12;
         for (int i = 0; i < sliderDatas.size(); i++) {
             area.y = sliderDatas.get(i).y + scroll;
@@ -297,8 +297,8 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             drawBox(x1, y1, x2, y2);
 
             // text
-            drawCenteredString(Fonts.segoe18, buttonData.displayString, (x1 + x2) / 2 - 1,
-                    y1 + (buttonData.height - 12) / 2 - 1, 0xffffff);
+            drawCenteredString(Fonts.segoe18, buttonData.buttonText, (x1 + x2) / 2 - 1,
+                    y1 + (buttonData.height - 12) / 2 - 1, buttonData.textColor);
             glDisable(GL_TEXTURE_2D);
         }
 
@@ -428,12 +428,13 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     }
 
     public abstract class ButtonData extends Rectangle {
-        public String displayString = "";
+        public String buttonText;
         public Color color;
+        public int textColor = 0xffffff;
 
-        public ButtonData(int x, int y, int width, int height, String displayString, int color) {
+        public ButtonData(int x, int y, int width, int height, String buttonText, int color) {
             super(x, y, width, height);
-            this.displayString = displayString;
+            this.buttonText = buttonText;
             this.color = new Color(color);
         }
 
