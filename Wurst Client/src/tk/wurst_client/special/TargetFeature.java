@@ -9,7 +9,9 @@
 package tk.wurst_client.special;
 
 import tk.wurst_client.navigator.settings.CheckboxSetting;
+import tk.wurst_client.navigator.settings.ColorsSetting;
 
+//TODO Refactor
 @SpecialFeature.Info(description = "Controls what entities are targeted by " + "other features (e.g. Killaura).",
         name = "Target")
 public class TargetFeature extends SpecialFeature {
@@ -23,6 +25,9 @@ public class TargetFeature extends SpecialFeature {
     public final CheckboxSetting invisibleMobs = new CheckboxSetting("Invisible mobs", false);
 
     public final CheckboxSetting teams = new CheckboxSetting("Teams", false);
+    public final ColorsSetting teamColors = new ColorsSetting("Team Colors",
+            new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+                    true});
 
     public TargetFeature() {
         settings.add(players);
@@ -35,6 +40,7 @@ public class TargetFeature extends SpecialFeature {
         settings.add(invisibleMobs);
 
         settings.add(teams);
+        settings.add(teamColors);
     }
 
     @Override
@@ -43,5 +49,7 @@ public class TargetFeature extends SpecialFeature {
     }
 
     @Override
-    public void doPrimaryAction() {}
+    public void doPrimaryAction() {
+
+    }
 }
