@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.UpdateListener;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.utils.EntityUtils;
 
 @Mod.Info(category = Mod.Category.COMBAT,
@@ -20,6 +21,15 @@ import tk.wurst_client.utils.EntityUtils;
                 "and are easier to detect. It is recommended to use Killaura or\n" + "TriggerBot instead.",
         name = "ClickAura")
 public class ClickAuraMod extends Mod implements UpdateListener {
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.specialFeatures.targetFeature, wurst.mods.getModByClass(KillauraMod.class),
+                wurst.mods.getModByClass(KillauraLegitMod.class), wurst.mods.getModByClass(MultiAuraMod.class),
+                wurst.mods.getModByClass(TriggerBotMod.class)};
+    }
+
     @Override
     public void onEnable() {
         WurstClient.INSTANCE.mods
