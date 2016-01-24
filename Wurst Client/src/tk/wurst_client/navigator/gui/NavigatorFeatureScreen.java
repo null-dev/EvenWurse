@@ -304,15 +304,22 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
         // checkboxes
         for (CheckboxData checkboxData : checkboxDatas) {
-            // box
+            // positions
             int x1 = bgx1 + 2;
             int x2 = x1 + 10;
             int y1 = checkboxData.y + scroll + 2;
             int y2 = y1 + 10;
-            drawForegroundBox(x1, y1, x2, y2);
 
             // hovering
             boolean hovering = mouseX >= x1 && mouseX <= bgx2 - 2 && mouseY >= y1 && mouseY <= y2;
+
+            // box
+            if (hovering) {
+                glColor4f(0.375F, 0.375F, 0.375F, 0.25F);
+            } else {
+                glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
+            }
+            drawBox(x1, y1, x2, y2);
 
             // check
             if (checkboxData.checked) {
