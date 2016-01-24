@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 // STOPSHIP: 24/01/16 BROKEN
 public class Navigator {
@@ -82,19 +83,25 @@ public class Navigator {
         list.clear();
 
         // add search results
-        for (NavigatorItem mod : navigatorList) {
-            if (mod.getName().toLowerCase().contains(query) || mod.getDescription().toLowerCase().contains(query)) {
-                list.add(mod);
-            }
-        }
+        list.addAll(navigatorList.stream().filter(mod -> mod.getName().toLowerCase().contains(query) ||
+                mod.getTags().toLowerCase().contains(query) || mod.getDescription().toLowerCase().contains(query))
+                .collect(Collectors.toList()));
 
         // sort search results
         list.sort(new Comparator<NavigatorItem>() {
             @Override
             public int compare(NavigatorItem o1, NavigatorItem o2) {
+                // compare names
                 int result = compareNext(o1.getName(), o2.getName());
-                if (result != 0) return result;
+                if(result != 0)
+                    return result;
 
+                // compare tags
+                result = compareNext(o1.getTags(), o2.getTags());
+                if(result != 0)
+                    return result;
+
+                // compare descriptions
                 result = compareNext(o1.getDescription(), o2.getDescription());
                 return result;
             }
