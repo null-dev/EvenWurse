@@ -38,6 +38,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     private String text;
     private ArrayList<ButtonData> buttonDatas = new ArrayList<>();
     private ArrayList<SliderData> sliderDatas = new ArrayList<>();
+    private ArrayList<CheckboxData> checkboxDatas = new ArrayList<>();
 
     public NavigatorFeatureScreen(NavigatorItem item, NavigatorMainScreen parent) {
         this.item = item;
@@ -98,6 +99,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         if (!settings.isEmpty()) {
             text += "\n\nSettings:";
             sliderDatas.clear();
+            checkboxDatas.clear();
             for (NavigatorSetting setting : settings) {
                 setting.addToFeatureScreen(this);
             }
@@ -168,6 +170,9 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
     @Override
     protected void onMouseClick(int x, int y, int button) {
+        Rectangle area = new Rectangle(width / 2 - 154, 60, 308, height - 103);
+        if (!area.contains(x, y)) return;
+
         // buttons
         if (activeButton != null) {
             mc.getSoundHandler().playSound(
@@ -177,15 +182,23 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         }
 
         // sliders
-        Rectangle area = new Rectangle(width / 2 - 154, 60, 308, height - 103);
-        if (area.contains(x, y)) {
-            area.height = 12;
-            for (int i = 0; i < sliderDatas.size(); i++) {
-                area.y = sliderDatas.get(i).y + scroll;
-                if (area.contains(x, y)) {
-                    sliding = i;
-                    return;
-                }
+        area.height = 12;
+        for (int i = 0; i < sliderDatas.size(); i++) {
+            area.y = sliderDatas.get(i).y + scroll;
+            if (area.contains(x, y)) {
+                sliding = i;
+                return;
+            }
+        }
+
+        // checkboxes
+        for (int i = 0; i < checkboxDatas.size(); i++) {
+            CheckboxData checkboxData = checkboxDatas.get(i);
+            area.y = checkboxData.y + scroll;
+            if (area.contains(x, y)) {
+                checkboxData.checked = !checkboxData.checked;
+                checkboxData.toggle();
+                return;
             }
         }
     }
@@ -284,6 +297,59 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             glDisable(GL_TEXTURE_2D);
         }
 
+        // checkboxes
+        for (CheckboxData checkboxData : checkboxDatas) {
+            // box
+            int x1 = bgx1 + 2;
+            int x2 = x1 + 10;
+            int y1 = checkboxData.y + scroll + 2;
+            int y2 = y1 + 10;
+            drawForegroundBox(x1, y1, x2, y2);
+
+            // hovering
+            boolean hovering = mouseX >= x1 && mouseX <= bgx2 - 2 && mouseY >= y1 && mouseY <= y2;
+
+            // check
+            if (checkboxData.checked) {
+                // check
+                glColor4f(0F, 1F, 0F, hovering ? 0.75F : 0.375F);
+                glBegin(GL_QUADS);
+                {
+                    glVertex2i(x1 + 3, y1 + 5);
+                    glVertex2i(x1 + 4, y1 + 6);
+                    glVertex2i(x1 + 4, y1 + 8);
+                    glVertex2i(x1 + 2, y1 + 6);
+
+                    glVertex2i(x1 + 7, y1 + 2);
+                    glVertex2i(x1 + 8, y1 + 3);
+                    glVertex2i(x1 + 4, y1 + 6);
+                    glVertex2i(x1 + 4, y1 + 8);
+                }
+                glEnd();
+
+                // shadow
+                glColor4f(0.125F, 0.125F, 0.125F, hovering ? 0.75F : 0.375F);
+                glBegin(GL_LINE_LOOP);
+                {
+                    glVertex2i(x1 + 3, y1 + 5);
+                    glVertex2i(x1 + 4, y1 + 6);
+                    glVertex2i(x1 + 7, y1 + 2);
+                    glVertex2i(x1 + 8, y1 + 3);
+
+                    glVertex2i(x1 + 4, y1 + 8);
+                    glVertex2i(x1 + 2, y1 + 6);
+                }
+                glEnd();
+
+            }
+
+            // name
+            x1 += 12;
+            y1 -= 1;
+            drawString(Fonts.segoe15, checkboxData.name, x1, y1, 0xffffff);
+            glDisable(GL_TEXTURE_2D);
+        }
+
         // text
         drawString(Fonts.segoe15, text, bgx1 + 2, bgy1 + scroll, 0xffffff);
 
@@ -350,6 +416,10 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
     public void addSlider(SliderData slider) {
         sliderDatas.add(slider);
+    }
+
+    public void addCheckbox(CheckboxData checkbox) {
+        checkboxDatas.add(checkbox);
     }
 
     public abstract class ButtonData extends Rectangle {
@@ -422,5 +492,19 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             // update slider data
             update();
         }
+    }
+
+    public abstract class CheckboxData {
+        public String name;
+        public boolean checked;
+        public int y;
+
+        public CheckboxData(String name, boolean checked, int y) {
+            this.name = name;
+            this.checked = checked;
+            this.y = y;
+        }
+
+        public abstract void toggle();
     }
 }
