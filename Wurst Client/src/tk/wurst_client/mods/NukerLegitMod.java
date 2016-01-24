@@ -22,6 +22,7 @@ import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
@@ -44,6 +45,14 @@ public class NukerLegitMod extends Mod implements LeftClickListener, RenderListe
     @Override
     public String getRenderName() {
         return WurstClient.INSTANCE.mods.getModByClass(NukerMod.class).getRenderName() + "Legit";
+    }
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(NukerMod.class),
+                wurst.mods.getModByClass(SpeedNukerMod.class), wurst.mods.getModByClass(TunnellerMod.class),
+                wurst.mods.getModByClass(FastBreakMod.class), wurst.mods.getModByClass(AutoMineMod.class)};
     }
 
     @Override

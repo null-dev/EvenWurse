@@ -19,6 +19,7 @@ import net.minecraft.util.MovingObjectPosition;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.utils.BlockUtils;
 import tk.wurst_client.utils.RenderUtils;
 
@@ -33,6 +34,14 @@ public class TunnellerMod extends Mod implements RenderListener, UpdateListener 
     private BlockPos pos;
     private boolean shouldRenderESP;
     private int oldSlot = -1;
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(NukerMod.class),
+                wurst.mods.getModByClass(NukerLegitMod.class), wurst.mods.getModByClass(SpeedNukerMod.class),
+                wurst.mods.getModByClass(FastBreakMod.class), wurst.mods.getModByClass(AutoMineMod.class)};
+    }
 
     @Override
     public void onEnable() {

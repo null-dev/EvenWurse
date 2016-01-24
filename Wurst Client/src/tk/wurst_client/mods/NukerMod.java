@@ -24,6 +24,7 @@ import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.settings.ModeSetting;
 import tk.wurst_client.navigator.settings.SliderSetting;
 import tk.wurst_client.utils.BlockUtils;
@@ -76,6 +77,14 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener, 
     public void updateSliders() {
         normalRange = (float) ((SliderSetting) settings.get(0)).getValue();
         yesCheatRange = Math.min(normalRange, 4.25F);
+    }
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(NukerLegitMod.class),
+                wurst.mods.getModByClass(SpeedNukerMod.class), wurst.mods.getModByClass(TunnellerMod.class),
+                wurst.mods.getModByClass(FastBreakMod.class), wurst.mods.getModByClass(AutoMineMod.class)};
     }
 
     @Override
