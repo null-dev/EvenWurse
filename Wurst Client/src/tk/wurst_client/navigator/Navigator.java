@@ -14,8 +14,7 @@ import tk.wurst_client.analytics.DoNothingAnalyticsManagerImpl;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Navigator {
@@ -87,8 +86,8 @@ public class Navigator {
         clicksMap.put(feature, clicks);
     }
 
-    public Iterator<Entry<String, Long>> getClicksIterator() {
-        return clicksMap.entrySet().iterator();
+    public void forEach(Consumer<NavigatorItem> action) {
+        navigatorList.forEach(action);
     }
 
     public void sortFeatures() {

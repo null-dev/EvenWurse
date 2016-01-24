@@ -1,5 +1,6 @@
 package tk.wurst_client.navigator.settings;
 
+import com.google.gson.JsonObject;
 import tk.wurst_client.navigator.gui.NavigatorFeatureScreen;
 
 /**
@@ -9,4 +10,6 @@ import tk.wurst_client.navigator.gui.NavigatorFeatureScreen;
  */
 public interface NavigatorSetting {
     void addToFeatureScreen(NavigatorFeatureScreen featureScreen);
+    void save(JsonObject json);
+    void load(JsonObject json);
 }

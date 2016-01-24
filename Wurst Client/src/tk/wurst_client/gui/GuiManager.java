@@ -75,6 +75,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public final class GuiManager extends AbstractGuiManager {
     private final AtomicBoolean setup;
     private final Map<Category, ModuleFrame> categoryFrames = new HashMap<>();
+
     public GuiManager() {
         setup = new AtomicBoolean();
     }
@@ -144,11 +145,6 @@ public final class GuiManager extends AbstractGuiManager {
         // Target
         addFrame(new TargetFrame());
 
-        if (!WurstClient.INSTANCE.files.sliders.exists()) {
-            WurstClient.INSTANCE.files.saveSliders();
-        } else {
-            WurstClient.INSTANCE.files.loadSliders();
-        }
         resizeComponents();
         Minecraft minecraft = Minecraft.getMinecraft();
         int offsetX = 5, offsetY = 5;

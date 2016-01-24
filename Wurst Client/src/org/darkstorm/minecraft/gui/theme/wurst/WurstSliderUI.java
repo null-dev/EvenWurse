@@ -149,7 +149,7 @@ public class WurstSliderUI extends AbstractComponentUI<Slider> {
         if (component.isValueChanging()) {
             if (!Mouse.isButtonDown(0)) {
                 component.setValueChanging(false);
-                WurstClient.INSTANCE.files.saveSliders();
+                WurstClient.INSTANCE.files.saveNavigatorData();
                 return;
             }
             Point mouse = RenderUtil.calculateMouseLocation();
