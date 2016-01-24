@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,56 +14,48 @@ import net.minecraft.client.gui.GuiScreen;
 import tk.wurst_client.alts.LoginManager;
 import tk.wurst_client.gui.main.GuiWurstMainMenu;
 
-public class GuiAltLogin extends AltEditorScreen
-{
-	public GuiAltLogin(GuiScreen par1GuiScreen)
-	{
-		super(par1GuiScreen);
-	}
-	
-	@Override
-	protected String getDoneButtonText()
-	{
-		return "Login";
-	}
-	
-	@Override
-	protected String getEmailBoxText()
-	{
-		return Minecraft.getMinecraft().session.getUsername();
-	}
-	
-	@Override
-	protected String getPasswordBoxText()
-	{
-		return "";
-	}
-	
-	@Override
-	protected void onDoneButtonClick(GuiButton button)
-	{
-		if(passwordBox.getText().length() == 0)
-		{
-			LoginManager.changeCrackedName(emailBox.getText());
-			displayText = "";
-		}else
-			displayText =
-				LoginManager.login(emailBox.getText(), passwordBox.getText());
-		if(displayText.equals(""))
-			mc.displayGuiScreen(new GuiWurstMainMenu());
-		else
-			errorTimer = 8;
-	}
-	
-	@Override
-	protected String getUrl()
-	{
-		return "/alt-manager/direct-login";
-	}
-	
-	@Override
-	protected String getTitle()
-	{
-		return "Login";
-	}
+public class GuiAltLogin extends AltEditorScreen {
+    public GuiAltLogin(GuiScreen par1GuiScreen) {
+        super(par1GuiScreen);
+    }
+
+    @Override
+    protected String getDoneButtonText() {
+        return "Login";
+    }
+
+    @Override
+    protected String getEmailBoxText() {
+        return Minecraft.getMinecraft().session.getUsername();
+    }
+
+    @Override
+    protected String getPasswordBoxText() {
+        return "";
+    }
+
+    @Override
+    protected void onDoneButtonClick(GuiButton button) {
+        if (passwordBox.getText().length() == 0) {
+            LoginManager.changeCrackedName(emailBox.getText());
+            displayText = "";
+        } else {
+            displayText = LoginManager.login(emailBox.getText(), passwordBox.getText());
+        }
+        if (displayText.equals("")) {
+            mc.displayGuiScreen(new GuiWurstMainMenu());
+        } else {
+            errorTimer = 8;
+        }
+    }
+
+    @Override
+    protected String getUrl() {
+        return "/alt-manager/direct-login";
+    }
+
+    @Override
+    protected String getTitle() {
+        return "Login";
+    }
 }

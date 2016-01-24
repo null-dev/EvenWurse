@@ -11,8 +11,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class Utils {
     private static ScheduledExecutorService EXECUTOR_SERVICE = null;
+
     public static void schedule(Runnable runnable, int time, TimeUnit tu) {
-        if(EXECUTOR_SERVICE == null) EXECUTOR_SERVICE = Executors.newScheduledThreadPool(1);
+        if (EXECUTOR_SERVICE == null) EXECUTOR_SERVICE = Executors.newScheduledThreadPool(1);
         EXECUTOR_SERVICE.schedule(runnable, time, tu);
     }
 }

@@ -11,26 +11,35 @@ package tk.wurst_client.analytics;
  */
 public class DoNothingAnalyticsManagerImpl implements AnalyticsManager {
     @Override
-    public boolean shouldTrack() {return false;}
+    public boolean shouldTrack() {
+        return false;
+    }
 
     @Override
-    public void trackPageView(String url, String title) {}
+    public void trackPageView(String url, String title) {
+    }
 
     @Override
-    public void trackPageViewFromReferrer(String url, String title, String referrerSite, String referrerPage) {}
+    public void trackPageViewFromReferrer(String url, String title, String referrerSite, String referrerPage) {
+    }
 
     @Override
-    public void trackPageViewFromSearch(String url, String title, String searchSite, String keywords) {}
+    public void trackPageViewFromSearch(String url, String title, String searchSite, String keywords) {
+    }
 
     @Override
-    public void trackEvent(String category, String action) {}
+    public void trackEvent(String category, String action) {
+    }
 
     @Override
-    public void trackEvent(String category, String action, String label) {}
+    public void trackEvent(String category, String action, String label) {
+    }
 
     @Override
-    public void trackEvent(String category, String action, String label, int value) {}
+    public void trackEvent(String category, String action, String label, int value) {
+    }
 
     @Override
-    public void makeCustomRequest(AnalyticsRequestData data) {}
+    public void makeCustomRequest(AnalyticsRequestData data) {
+    }
 }

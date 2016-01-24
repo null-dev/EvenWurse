@@ -10,7 +10,6 @@ package tk.wurst_client.events.listeners;
 
 import tk.wurst_client.events.ChatInputEvent;
 
-public interface ChatInputListener extends Listener
-{
-	void onReceivedMessage(ChatInputEvent event);
+public interface ChatInputListener extends Listener {
+    void onReceivedMessage(ChatInputEvent event);
 }

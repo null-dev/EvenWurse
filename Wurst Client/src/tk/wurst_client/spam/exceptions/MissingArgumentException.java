@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,10 +10,8 @@ package tk.wurst_client.spam.exceptions;
 
 import tk.wurst_client.spam.tag.Tag;
 
-public class MissingArgumentException extends TagException
-{
-	public MissingArgumentException(String message, int line, Tag tag)
-	{
-		super(message, line, tag);
-	}
+public class MissingArgumentException extends TagException {
+    public MissingArgumentException(String message, int line, Tag tag) {
+        super(message, line, tag);
+    }
 }

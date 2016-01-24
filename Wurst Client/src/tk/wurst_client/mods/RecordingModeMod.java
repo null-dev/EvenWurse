@@ -16,37 +16,32 @@ import tk.wurst_client.api.ModuleConfiguration;
         category = Mod.Category.RENDER)
 public class RecordingModeMod extends Mod {
     public boolean hideInGameGUI() {
-        return ModuleConfiguration.forModule(this).getBoolean("Hide Mod List and Logo", true)
-                && isActive();
+        return ModuleConfiguration.forModule(this).getBoolean("Hide Mod List and Logo", true) && isActive();
     }
 
     public boolean hideOptionsButton() {
-        return ModuleConfiguration.forModule(this).getBoolean("Hide Options Button", true)
-                && isActive();
+        return ModuleConfiguration.forModule(this).getBoolean("Hide Options Button", true) && isActive();
     }
 
     public boolean clearChat() {
-        return ModuleConfiguration.forModule(this).getBoolean("Clear Chat", true)
-                && isActive();
+        return ModuleConfiguration.forModule(this).getBoolean("Clear Chat", true) && isActive();
     }
 
     public boolean disableWurstMessages() {
-        return ModuleConfiguration.forModule(this).getBoolean("Disable Wurst Messages", true)
-                && isActive();
+        return ModuleConfiguration.forModule(this).getBoolean("Disable Wurst Messages", true) && isActive();
     }
 
     public boolean hideStealStoreButtons() {
-        return ModuleConfiguration.forModule(this).getBoolean("Hide Steal/Store Buttons", true)
-                && isActive();
+        return ModuleConfiguration.forModule(this).getBoolean("Hide Steal/Store Buttons", true) && isActive();
     }
 
     @Override
     public void onEnable() {
         super.onEnable();
-        if(clearChat()) {
-//            for(int i = 0; i < 100; i++) {
-//                Chat.sendClientOnlyMessage("");
-//            }
+        if (clearChat()) {
+            //            for(int i = 0; i < 100; i++) {
+            //                Chat.sendClientOnlyMessage("");
+            //            }
             Chat.clearChat();
         }
     }

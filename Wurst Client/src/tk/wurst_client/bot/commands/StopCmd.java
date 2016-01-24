@@ -11,17 +11,14 @@ package tk.wurst_client.bot.commands;
 import net.minecraft.client.Minecraft;
 
 @Command.Info(help = "Stops Wurst-Bot.", name = "stop", syntax = {})
-public class StopCmd extends Command
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length != 0)
-			syntaxError();
-		System.out.println("Stopping Wurst-Bot...");
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+public class StopCmd extends Command {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length != 0) syntaxError();
+        System.out.println("Stopping Wurst-Bot...");
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Wurst-Bot stopped.");
         }));
-		Minecraft.getMinecraft().shutdown();
-	}
+        Minecraft.getMinecraft().shutdown();
+    }
 }

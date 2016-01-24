@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,10 +9,9 @@
 package tk.wurst_client.mods;
 
 @Mod.Info(category = Mod.Category.BLOCKS,
-	description = "Allows you to interact with liquid blocks.",
-	name = "Liquids",
-	noCheatCompatible = false)
-public class LiquidsMod extends Mod
-{
-	
+        description = "Allows you to interact with liquid blocks.",
+        name = "Liquids",
+        noCheatCompatible = false)
+public class LiquidsMod extends Mod {
+
 }

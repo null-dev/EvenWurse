@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,24 +15,21 @@ import net.minecraft.nbt.NBTTagString;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Changes the held book's author.",
-	name = "author",
-	syntax = {"<author>"})
-public class AuthorCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Cmd.Error
-	{
-		if(args.length == 0)
-			syntaxError();
-		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
-			error("Creative mode only.");
-		ItemStack item =
-			Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-		if(item == null || Item.getIdFromItem(item.getItem()) != 387)
-			error("You are not holding a written book in your hand.");
-		String author = args[0];
-		for(int i = 1; i < args.length; i++)
-			author += " " + args[i];
-		item.setTagInfo("author", new NBTTagString(author));
-	}
+        name = "author",
+        syntax = {"<author>"})
+public class AuthorCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Cmd.Error {
+        if (args.length == 0) syntaxError();
+        if (!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode) error("Creative mode only.");
+        ItemStack item = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
+        if (item == null || Item.getIdFromItem(item.getItem()) != 387) {
+            error("You are not holding a written book in your hand.");
+        }
+        String author = args[0];
+        for (int i = 1; i < args.length; i++) {
+            author += " " + args[i];
+        }
+        item.setTagInfo("author", new NBTTagString(author));
+    }
 }

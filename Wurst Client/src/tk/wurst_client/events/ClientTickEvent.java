@@ -8,11 +8,9 @@
  */
 package tk.wurst_client.events;
 
-public class ClientTickEvent extends Event
-{
-	@Override
-	public String getAction()
-	{
-		return "updating";
-	}
+public class ClientTickEvent extends Event {
+    @Override
+    public String getAction() {
+        return "updating";
+    }
 }

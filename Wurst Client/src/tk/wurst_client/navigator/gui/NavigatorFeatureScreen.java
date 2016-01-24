@@ -46,17 +46,15 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        if(!button.enabled)
-            return;
+        if (!button.enabled) return;
 
-        switch(button.id) {
+        switch (button.id) {
             case 0:
                 item.doPrimaryAction();
                 primaryButton.displayString = item.getPrimaryAction();
                 break;
             case 1:
-                MiscUtils.openLink("https://www.wurst-client.tk/wiki/"
-                        + item.getTutorialPage());
+                MiscUtils.openLink("https://www.wurst-client.tk/wiki/" + item.getTutorialPage());
                 break;
         }
 
@@ -74,93 +72,83 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         String primaryAction = item.getPrimaryAction();
         boolean hasPrimaryAction = !primaryAction.isEmpty();
         boolean hasTutorial = !item.getTutorialPage().isEmpty();
-        if(hasPrimaryAction) {
-            primaryButton =
-                    new GuiButton(0, width / 2 - 151, height - 65, hasTutorial
-                            ? 149 : 302, 18, primaryAction);
+        if (hasPrimaryAction) {
+            primaryButton = new GuiButton(0, width / 2 - 151, height - 65, hasTutorial ? 149 : 302, 18, primaryAction);
             buttonList.add(primaryButton);
         }
 
         // tutorial button
-        if(hasTutorial)
-            buttonList.add(new GuiButton(1, width / 2
-                    + (hasPrimaryAction ? 2 : -151), height - 65, hasPrimaryAction
-                    ? 149 : 302, 20, "Tutorial"));
+        if (hasTutorial) {
+            buttonList.add(new GuiButton(1, width / 2 + (hasPrimaryAction ? 2 : -151), height - 65,
+                    hasPrimaryAction ? 149 : 302, 20, "Tutorial"));
+        }
 
         // type
         text = "Type: " + item.getType();
 
         // description
         String description = item.getDescription();
-        if(!description.isEmpty())
-            text += "\n\nDescription:\n" + description;
+        if (!description.isEmpty()) text += "\n\nDescription:\n" + description;
 
         // area
         Rectangle area = new Rectangle(middleX - 154, 60, 308, height - 103);
 
         // sliders
         ArrayList<NavigatorSetting> settings = item.getSettings();
-        if(!settings.isEmpty()) {
+        if (!settings.isEmpty()) {
             text += "\n\nSettings:";
             sliderDatas.clear();
             // text
-            for(NavigatorSetting setting : settings) {
+            for (NavigatorSetting setting : settings) {
                 setting.addToFeatureScreen(this);
             }
         }
 
         // keybinds
-        ArrayList<PossibleKeybind> possibleKeybinds =
-                item.getPossibleKeybinds();
-        if(!possibleKeybinds.isEmpty()) {
+        ArrayList<PossibleKeybind> possibleKeybinds = item.getPossibleKeybinds();
+        if (!possibleKeybinds.isEmpty()) {
             // heading
             text += "\n\nKeybinds:";
 
             // add keybind button
             ButtonData addKeybindButton =
-                    new ButtonData(area.x + area.width - 16, area.y
-                            + Fonts.segoe15.getStringHeight(text) - 8, 12, 8, "+",
-                            0x00ff00) {
+                    new ButtonData(area.x + area.width - 16, area.y + Fonts.segoe15.getStringHeight(text) - 8, 12, 8,
+                            "+", 0x00ff00) {
                         @Override
                         public void press() {
                             // add keybind
-                            mc.displayGuiScreen(new NavigatorNewKeybindScreen(
-                                    possibleKeybinds, NavigatorFeatureScreen.this));
+                            mc.displayGuiScreen(
+                                    new NavigatorNewKeybindScreen(possibleKeybinds, NavigatorFeatureScreen.this));
                         }
                     };
             buttonDatas.add(addKeybindButton);
 
             // keybind list
             HashMap<String, String> possibleKeybindsMap = new HashMap<>();
-            for(PossibleKeybind possibleKeybind : possibleKeybinds)
-                possibleKeybindsMap.put(possibleKeybind.getCommand(),
-                        possibleKeybind.getDescription());
+            for (PossibleKeybind possibleKeybind : possibleKeybinds) {
+                possibleKeybindsMap.put(possibleKeybind.getCommand(), possibleKeybind.getDescription());
+            }
             TreeMap<String, PossibleKeybind> existingKeybinds = new TreeMap<>();
             boolean noKeybindsSet = true;
-            for(Entry<String, String> entry : WurstClient.INSTANCE.keybinds
-                    .entrySet()) {
-                String keybindDescription =
-                        possibleKeybindsMap.get(entry.getValue());
-                if(keybindDescription != null) {
-                    if(noKeybindsSet)
-                        noKeybindsSet = false;
+            for (Entry<String, String> entry : WurstClient.INSTANCE.keybinds.entrySet()) {
+                String keybindDescription = possibleKeybindsMap.get(entry.getValue());
+                if (keybindDescription != null) {
+                    if (noKeybindsSet) noKeybindsSet = false;
                     text += "\n" + entry.getKey() + ": " + keybindDescription;
-                    existingKeybinds.put(entry.getKey(), new PossibleKeybind(
-                            entry.getValue(), keybindDescription));
+                    existingKeybinds.put(entry.getKey(), new PossibleKeybind(entry.getValue(), keybindDescription));
                 }
             }
-            if(noKeybindsSet)
+            if (noKeybindsSet) {
                 text += "\nNone";
-            else {
+            } else {
                 // remove keybind button
-                buttonDatas.add(new ButtonData(addKeybindButton.x,
-                        addKeybindButton.y, addKeybindButton.width,
+                buttonDatas.add(new ButtonData(addKeybindButton.x, addKeybindButton.y, addKeybindButton.width,
                         addKeybindButton.height, "-", 0xff0000) {
                     @Override
                     public void press() {
                         // remove keybind
-                        mc.displayGuiScreen(new NavigatorRemoveKeybindScreen(
-                                existingKeybinds, NavigatorFeatureScreen.this));
+                        mc.displayGuiScreen(
+                                new NavigatorRemoveKeybindScreen(existingKeybinds, NavigatorFeatureScreen.this));
                     }
                 });
                 addKeybindButton.x -= 16;
@@ -173,7 +161,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
     @Override
     protected void onKeyPress(char typedChar, int keyCode) {
-        if(keyCode == 1) {
+        if (keyCode == 1) {
             parent.setExpanding(false);
             mc.displayGuiScreen(parent);
         }
@@ -182,21 +170,20 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     @Override
     protected void onMouseClick(int x, int y, int button) {
         // buttons
-        if(activeButton != null) {
+        if (activeButton != null) {
             mc.getSoundHandler().playSound(
-                    PositionedSoundRecord.createPositionedSoundRecord(
-                            new ResourceLocation("gui.button.press"), 1.0F));
+                    PositionedSoundRecord.createPositionedSoundRecord(new ResourceLocation("gui.button.press"), 1.0F));
             activeButton.press();
             return;
         }
 
         // sliders
         Rectangle area = new Rectangle(width / 2 - 154, 60, 308, height - 103);
-        if(area.contains(x, y)) {
+        if (area.contains(x, y)) {
             area.height = 12;
-            for(int i = 0; i < sliderDatas.size(); i++) {
+            for (int i = 0; i < sliderDatas.size(); i++) {
                 area.y = sliderDatas.get(i).y + scroll;
-                if(area.contains(x, y)) {
+                if (area.contains(x, y)) {
                     sliding = i;
                     return;
                 }
@@ -206,15 +193,13 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
     @Override
     protected void onMouseDrag(int x, int y, int button, long timeDragged) {
-        if(button != 0)
-            return;
-        if(sliding != -1)
-            sliderDatas.get(sliding).slideTo(x);
+        if (button != 0) return;
+        if (sliding != -1) sliderDatas.get(sliding).slideTo(x);
     }
 
     @Override
     protected void onMouseRelease(int x, int y, int button) {
-        if(sliding != -1) {
+        if (sliding != -1) {
             WurstClient wurst = WurstClient.INSTANCE;
             wurst.files.saveSliders();
             sliding = -1;
@@ -229,7 +214,8 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
     }
 
     @Override
-    protected void onUpdate() {}
+    protected void onUpdate() {
+    }
 
     @Override
     protected void onRender(int mouseX, int mouseY, float partialTicks) {
@@ -243,12 +229,11 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         int bgy1 = 60;
         int bgy2 = height - 43;
         // scissor box
-        RenderUtil.scissorBox(bgx1, bgy1, bgx2, bgy2
-                - (buttonList.isEmpty() ? 0 : 24));
+        RenderUtil.scissorBox(bgx1, bgy1, bgx2, bgy2 - (buttonList.isEmpty() ? 0 : 24));
         glEnable(GL_SCISSOR_TEST);
 
         // sliders
-        for(SliderData sliderData : sliderDatas) {
+        for (SliderData sliderData : sliderDatas) {
             // rail
             int x1 = bgx1 + 2;
             int x2 = bgx2 - 2;
@@ -276,7 +261,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
         // buttons
         activeButton = null;
-        for(ButtonData buttonData : buttonDatas) {
+        for (ButtonData buttonData : buttonDatas) {
             // positions
             int x1 = buttonData.x;
             int x2 = x1 + buttonData.width;
@@ -285,12 +270,12 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
             // color
             float alpha;
-            if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2)
-            {
+            if (mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) {
                 alpha = 0.75F;
                 activeButton = buttonData;
-            }else
+            } else {
                 alpha = 0.375F;
+            }
             float[] rgb = buttonData.color.getColorComponents(null);
             glColor4f(rgb[0], rgb[1], rgb[2], alpha);
 
@@ -298,9 +283,8 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             drawBox(x1, y1, x2, y2);
 
             // text
-            drawCenteredString(Fonts.segoe18, buttonData.displayString,
-                    (x1 + x2) / 2 - 1, y1 + (buttonData.height - 12) / 2 - 1,
-                    0xffffff);
+            drawCenteredString(Fonts.segoe18, buttonData.displayString, (x1 + x2) / 2 - 1,
+                    y1 + (buttonData.height - 12) / 2 - 1, 0xffffff);
             glDisable(GL_TEXTURE_2D);
         }
 
@@ -321,24 +305,24 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             int y2 = y1 + 18;
 
             // color
-            boolean hovering =
-                    mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2;
-            if (item.isEnabled() && button.id == 0)
-                if (item.isBlocked())
+            boolean hovering = mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2;
+            if (item.isEnabled() && button.id == 0) {
+                if (item.isBlocked()) {
                     glColor4f(hovering ? 1F : 0.875F, 0F, 0F, 0.25F);
-                else
+                } else {
                     glColor4f(0F, hovering ? 1F : 0.875F, 0F, 0.25F);
-            else if (hovering)
+                }
+            } else if (hovering) {
                 glColor4f(0.375F, 0.375F, 0.375F, 0.25F);
-            else
+            } else {
                 glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
+            }
 
             // button
             drawBox(x1, y1, x2, y2);
 
             // text
-            drawCenteredString(Fonts.segoe18, button.displayString,
-                    (x1 + x2) / 2, y1 + 2, 0xffffff);
+            drawCenteredString(Fonts.segoe18, button.displayString, (x1 + x2) / 2, y1 + 2, 0xffffff);
         }
 
         // GL resets
@@ -363,15 +347,15 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
 
         private void update() {
             // display value
-            switch(slider.getValueDisplay()) {
+            switch (slider.getValueDisplay()) {
                 case DECIMAL:
                     value = Double.toString(slider.getValue());
                     break;
                 case DEGREES:
-                    value = (int)slider.getValue() + "°";
+                    value = (int) slider.getValue() + "°";
                     break;
                 case INTEGER:
-                    value = Integer.toString((int)slider.getValue());
+                    value = Integer.toString((int) slider.getValue());
                     break;
                 case PERCENTAGE:
                     value = slider.getValue() * 100D + "%";
@@ -383,26 +367,23 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             }
 
             // percentage
-            percentage =
-                    (float)((slider.getValue() - slider.getMinimumValue()) / (slider
-                            .getMaximumValue() - slider.getMinimumValue()));
+            percentage = (float) ((slider.getValue() - slider.getMinimumValue()) /
+                    (slider.getMaximumValue() - slider.getMinimumValue()));
 
             // x
-            x = middleX - 154 + (int)(percentage * 298) + 1;
+            x = middleX - 154 + (int) (percentage * 298) + 1;
         }
 
         public void slideTo(int mouseX) {
             // percentage from mouse location (not the actual percentage!)
             float mousePercentage = (mouseX - (middleX - 150)) / 298F;
-            if(mousePercentage > 1F)
+            if (mousePercentage > 1F) {
                 mousePercentage = 1F;
-            else if(mousePercentage < 0F)
-                mousePercentage = 0F;
+            } else if (mousePercentage < 0F) mousePercentage = 0F;
 
             // update slider value
-            slider.setValue((long)((slider.getMaximumValue() - slider
-                    .getMinimumValue()) * mousePercentage / slider.getIncrement())
-                    * 1e6 * slider.getIncrement() / 1e6 + slider.getMinimumValue());
+            slider.setValue((long) ((slider.getMaximumValue() - slider.getMinimumValue()) * mousePercentage /
+                    slider.getIncrement()) * 1e6 * slider.getIncrement() / 1e6 + slider.getMinimumValue());
 
             // update slider data
             update();
@@ -429,13 +410,11 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         sliderDatas.add(slider);
     }
 
-
     public abstract class ButtonData extends Rectangle {
         public String displayString = "";
         public Color color;
 
-        public ButtonData(int x, int y, int width, int height,
-                          String displayString, int color) {
+        public ButtonData(int x, int y, int width, int height, String displayString, int color) {
             super(x, y, width, height);
             this.displayString = displayString;
             this.color = new Color(color);

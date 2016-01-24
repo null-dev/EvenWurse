@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,15 +11,11 @@ package tk.wurst_client.commands;
 import net.minecraft.client.Minecraft;
 
 @Cmd.Info(help = "Makes you jump once.", name = "jump", syntax = {})
-public class JumpCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length != 0)
-			syntaxError();
-		if(!Minecraft.getMinecraft().thePlayer.onGround)
-			error("Can't jump in mid-air.");
-		Minecraft.getMinecraft().thePlayer.jump();
-	}
+public class JumpCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length != 0) syntaxError();
+        if (!Minecraft.getMinecraft().thePlayer.onGround) error("Can't jump in mid-air.");
+        Minecraft.getMinecraft().thePlayer.jump();
+    }
 }

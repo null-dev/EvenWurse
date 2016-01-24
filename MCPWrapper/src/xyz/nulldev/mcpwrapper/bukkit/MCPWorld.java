@@ -24,8 +24,9 @@ import java.util.UUID;
 public class MCPWorld implements World {
 
     static MCPWorld INSTANCE = new MCPWorld();
+
     public static MCPWorld getInstace() {
-        if(INSTANCE == null) INSTANCE = new MCPWorld();
+        if (INSTANCE == null) INSTANCE = new MCPWorld();
         return INSTANCE;
     }
 
@@ -33,6 +34,7 @@ public class MCPWorld implements World {
     net.minecraft.world.chunk.Chunk asMCChunk(Chunk chunk) {
         return asMCChunk(chunk.getX(), chunk.getZ());
     }
+
     net.minecraft.world.chunk.Chunk asMCChunk(int x, int z) {
         return Minecraft.getMinecraft().theWorld.getChunkFromChunkCoords(x, z);
     }
@@ -64,8 +66,8 @@ public class MCPWorld implements World {
         }
         //Iterate all blocks top down
         int highest = 0;
-        for(int i = 255; i >= 0; i--) {
-            if(!Minecraft.getMinecraft().theWorld.isAirBlock(new BlockPos(x, i, z))) {
+        for (int i = 255; i >= 0; i--) {
+            if (!Minecraft.getMinecraft().theWorld.isAirBlock(new BlockPos(x, i, z))) {
                 highest = i;
                 break;
             }
@@ -218,8 +220,9 @@ public class MCPWorld implements World {
         BlockPos pos = new BlockPos(x, y, z);
         try {
             Minecraft.getMinecraft().theWorld.getWorldInfo().setSpawn(pos);
-        } catch(Throwable t) {
-            System.out.println("[MCPWrapper] Exception setting spawnpoint to: '" + BukkitBridge.toBukkit(pos).toString() + "'!");
+        } catch (Throwable t) {
+            System.out.println(
+                    "[MCPWrapper] Exception setting spawnpoint to: '" + BukkitBridge.toBukkit(pos).toString() + "'!");
             t.printStackTrace();
             return false;
         }
@@ -321,7 +324,7 @@ public class MCPWorld implements World {
 
     @Override
     public Environment getEnvironment() {
-        switch(Minecraft.getMinecraft().theWorld.provider.getDimensionId()) {
+        switch (Minecraft.getMinecraft().theWorld.provider.getDimensionId()) {
             case -1:
                 return Environment.NETHER;
             case 0:
@@ -435,13 +438,13 @@ public class MCPWorld implements World {
     }
 
     @Override
-    public void setDifficulty(Difficulty difficulty) {
-        Minecraft.getMinecraft().theWorld.getWorldInfo().setDifficulty(Difficulty.asMCDifficulty(difficulty));
+    public Difficulty getDifficulty() {
+        return Difficulty.fromMCDifficulty(Minecraft.getMinecraft().theWorld.getWorldInfo().getDifficulty());
     }
 
     @Override
-    public Difficulty getDifficulty() {
-        return Difficulty.fromMCDifficulty(Minecraft.getMinecraft().theWorld.getWorldInfo().getDifficulty());
+    public void setDifficulty(Difficulty difficulty) {
+        Minecraft.getMinecraft().theWorld.getWorldInfo().setDifficulty(Difficulty.asMCDifficulty(difficulty));
     }
 
     @Override
@@ -474,7 +477,8 @@ public class MCPWorld implements World {
     @Override
     public long getTicksPerMonsterSpawns() {
         //TODO
-        throw new NotImplementedException();    }
+        throw new NotImplementedException();
+    }
 
     @Override
     public void setTicksPerMonsterSpawns(int ticksPerMonsterSpawns) {
@@ -497,7 +501,8 @@ public class MCPWorld implements World {
     @Override
     public int getAnimalSpawnLimit() {
         //TODO
-        throw new NotImplementedException();    }
+        throw new NotImplementedException();
+    }
 
     @Override
     public void setAnimalSpawnLimit(int limit) {

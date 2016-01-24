@@ -28,20 +28,17 @@ public class NavigatorRemoveKeybindScreen extends NavigatorScreen {
     private String text = "Select the keybind you want to remove.";
     private GuiButton removeButton;
 
-    public NavigatorRemoveKeybindScreen(
-            TreeMap<String, PossibleKeybind> existingKeybinds,
-            NavigatorFeatureScreen parent) {
+    public NavigatorRemoveKeybindScreen(TreeMap<String, PossibleKeybind> existingKeybinds,
+                                        NavigatorFeatureScreen parent) {
         this.existingKeybinds = existingKeybinds;
         this.parent = parent;
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException
-    {
-        if(!button.enabled)
-            return;
+    protected void actionPerformed(GuiButton button) throws IOException {
+        if (!button.enabled) return;
 
-        switch(button.id) {
+        switch (button.id) {
             case 0:
                 WurstClient wurst = WurstClient.INSTANCE;
                 wurst.keybinds.remove(selectedKey);
@@ -61,7 +58,7 @@ public class NavigatorRemoveKeybindScreen extends NavigatorScreen {
     protected void onResize() {
         // Ok button
         removeButton = new GuiButton(0, width / 2 - 151, height - 65, 149, 18, "Remove");
-        removeButton.enabled = ! selectedKey.isEmpty();
+        removeButton.enabled = !selectedKey.isEmpty();
         buttonList.add(removeButton);
 
         // Cancel button
@@ -70,25 +67,26 @@ public class NavigatorRemoveKeybindScreen extends NavigatorScreen {
 
     @Override
     protected void onKeyPress(char typedChar, int keyCode) {
-        if(keyCode == 1)
-            mc.displayGuiScreen(parent);
+        if (keyCode == 1) mc.displayGuiScreen(parent);
     }
 
 
     @Override
     protected void onMouseClick(int x, int y, int button) {
         // commands
-        if(!hoveredKeybind.isEmpty()) {
+        if (!hoveredKeybind.isEmpty()) {
             selectedKey = hoveredKeybind;
             removeButton.enabled = true;
         }
     }
 
     @Override
-    protected void onMouseDrag(int x, int y, int button, long timeDragged) {}
+    protected void onMouseDrag(int x, int y, int button, long timeDragged) {
+    }
 
     @Override
-    protected void onMouseRelease(int x, int y, int button) {}
+    protected void onMouseRelease(int x, int y, int button) {
+    }
 
     @Override
     protected void onUpdate() {
@@ -99,8 +97,7 @@ public class NavigatorRemoveKeybindScreen extends NavigatorScreen {
     @Override
     protected void onRender(int mouseX, int mouseY, float partialTicks) {
         // title bar
-        drawCenteredString(Fonts.segoe22, "Remove Keybind", middleX, 32,
-                0xffffff);
+        drawCenteredString(Fonts.segoe22, "Remove Keybind", middleX, 32, 0xffffff);
         glDisable(GL_TEXTURE_2D);
 
         // background
@@ -110,15 +107,13 @@ public class NavigatorRemoveKeybindScreen extends NavigatorScreen {
         int bgy2 = height - 43;
 
         // scissor box
-        RenderUtil.scissorBox(bgx1, bgy1, bgx2, bgy2
-                - (buttonList.isEmpty() ? 0 : 24));
+        RenderUtil.scissorBox(bgx1, bgy1, bgx2, bgy2 - (buttonList.isEmpty() ? 0 : 24));
         glEnable(GL_SCISSOR_TEST);
 
         // possible keybinds
         hoveredKeybind = "";
         int yi = bgy1 - 12 + scroll;
-        for(Entry<String, PossibleKeybind> entry : existingKeybinds
-                .entrySet()) {
+        for (Entry<String, PossibleKeybind> entry : existingKeybinds.entrySet()) {
             String key = entry.getKey();
             PossibleKeybind keybind = entry.getValue();
             yi += 24;
@@ -130,23 +125,25 @@ public class NavigatorRemoveKeybindScreen extends NavigatorScreen {
             int y2 = y1 + 20;
 
             // color
-            if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) {
+            if (mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) {
                 hoveredKeybind = key;
-                if(key.equals(selectedKey))
+                if (key.equals(selectedKey)) {
                     glColor4f(0F, 1F, 0F, 0.375F);
-                else
+                } else {
                     glColor4f(0.25F, 0.25F, 0.25F, 0.375F);
-            } else if(key.equals(selectedKey))
+                }
+            } else if (key.equals(selectedKey)) {
                 glColor4f(0F, 1F, 0F, 0.25F);
-            else
+            } else {
                 glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
+            }
 
             // button
             drawBox(x1, y1, x2, y2);
 
             // text
-            drawString(Fonts.segoe15, key + ": " + keybind.getDescription()
-                    + "\n" + keybind.getCommand(), x1 + 1, y1 - 1, 0xffffff);
+            drawString(Fonts.segoe15, key + ": " + keybind.getDescription() + "\n" + keybind.getCommand(), x1 + 1,
+                    y1 - 1, 0xffffff);
             glDisable(GL_TEXTURE_2D);
         }
 
@@ -167,21 +164,20 @@ public class NavigatorRemoveKeybindScreen extends NavigatorScreen {
             int y2 = y1 + 18;
 
             // color
-            if (!button.enabled)
+            if (!button.enabled) {
                 glColor4f(0F, 0F, 0F, 0.25F);
-            else if (mouseX >= x1 && mouseX <= x2 && mouseY >= y1
-                    && mouseY <= y2)
+            } else if (mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) {
                 glColor4f(0.375F, 0.375F, 0.375F, 0.25F);
-            else
+            } else {
                 glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
+            }
 
             // button
             glDisable(GL_TEXTURE_2D);
             drawBox(x1, y1, x2, y2);
 
             // text
-            drawCenteredString(Fonts.segoe18, button.displayString,
-                    (x1 + x2) / 2, y1 + 2, 0xffffff);
+            drawCenteredString(Fonts.segoe18, button.displayString, (x1 + x2) / 2, y1 + 2, 0xffffff);
         }
     }
 }

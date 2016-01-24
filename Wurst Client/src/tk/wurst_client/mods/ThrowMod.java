@@ -15,45 +15,38 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
-	description = "Uses an item multiple times.\n"
-		+ "This can cause a lot of lag and even crash a server.\n"
-		+ "Works best with snowballs or eggs.\n"
-		+ "Use the .throw command to change the amount of uses per click.",
-	name = "Throw")
-public class ThrowMod extends Mod implements UpdateListener
-{
-	@Override
-	public String getRenderName()
-	{
-		return getName() + " [" + WurstClient.INSTANCE.options.throwAmount
-			+ "]";
-	}
-	
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if((Minecraft.getMinecraft().rightClickDelayTimer == 4 || WurstClient.INSTANCE.mods.getModByClass(FastPlaceMod.class)
-			.isActive())
-			&& Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed)
-		{
-			if(Minecraft.getMinecraft().objectMouseOver == null
-				|| Minecraft.getMinecraft().thePlayer.inventory
-					.getCurrentItem() == null)
-				return;
-			for(int i = 0; i < WurstClient.INSTANCE.options.throwAmount - 1; i++)
-				Minecraft.getMinecraft().rightClickMouse();
-		}
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Uses an item multiple times.\n" + "This can cause a lot of lag and even crash a server.\n" +
+                "Works best with snowballs or eggs.\n" +
+                "Use the .throw command to change the amount of uses per click.",
+        name = "Throw")
+public class ThrowMod extends Mod implements UpdateListener {
+    @Override
+    public String getRenderName() {
+        return getName() + " [" + WurstClient.INSTANCE.options.throwAmount + "]";
+    }
+
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if ((Minecraft.getMinecraft().rightClickDelayTimer == 4 ||
+                WurstClient.INSTANCE.mods.getModByClass(FastPlaceMod.class).isActive()) &&
+                Minecraft.getMinecraft().gameSettings.keyBindUseItem.pressed) {
+            if (Minecraft.getMinecraft().objectMouseOver == null ||
+                    Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem() == null) {
+                return;
+            }
+            for (int i = 0; i < WurstClient.INSTANCE.options.throwAmount - 1; i++) {
+                Minecraft.getMinecraft().rightClickMouse();
+            }
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

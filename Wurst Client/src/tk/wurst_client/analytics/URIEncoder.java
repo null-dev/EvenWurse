@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2010 Daniel Murphy
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -8,10 +8,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,25 +28,22 @@ package tk.wurst_client.analytics;
  *
  * @author Daniel Murphy
  */
-public class URIEncoder
-{
-	
-	private static final String MARK = "-_.!~*'()\"";
-	
-	public static String encodeURI(String argString)
-	{
-		StringBuilder uri = new StringBuilder(); // Encoded URL
-		
-		char[] chars = argString.toCharArray();
-		for(char c : chars)
-			if(c >= '0' && c <= '9' || c >= 'a' && c <= 'z' || c >= 'A'
-				&& c <= 'Z' || MARK.indexOf(c) != -1)
-				uri.append(c);
-			else
-			{
-				uri.append("%");
-				uri.append(Integer.toHexString(c));
-			}
-		return uri.toString();
-	}
+public class URIEncoder {
+
+    private static final String MARK = "-_.!~*'()\"";
+
+    public static String encodeURI(String argString) {
+        StringBuilder uri = new StringBuilder(); // Encoded URL
+
+        char[] chars = argString.toCharArray();
+        for (char c : chars) {
+            if (c >= '0' && c <= '9' || c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || MARK.indexOf(c) != -1) {
+                uri.append(c);
+            } else {
+                uri.append("%");
+                uri.append(Integer.toHexString(c));
+            }
+        }
+        return uri.toString();
+    }
 }

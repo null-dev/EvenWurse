@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,29 +15,24 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.EXPLOITS,
-	description = "Exploits a bug in NoCheat+ that allows you to glitch\n"
-		+ "through blocks.",
-	name = "Phase")
-public class PhaseMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		Minecraft.getMinecraft().thePlayer.noClip = true;
-		Minecraft.getMinecraft().thePlayer.fallDistance = 0;
-		Minecraft.getMinecraft().thePlayer.onGround = true;
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		Minecraft.getMinecraft().thePlayer.noClip = false;
-	}
+        description = "Exploits a bug in NoCheat+ that allows you to glitch\n" + "through blocks.",
+        name = "Phase")
+public class PhaseMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        Minecraft.getMinecraft().thePlayer.noClip = true;
+        Minecraft.getMinecraft().thePlayer.fallDistance = 0;
+        Minecraft.getMinecraft().thePlayer.onGround = true;
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+        Minecraft.getMinecraft().thePlayer.noClip = false;
+    }
 }

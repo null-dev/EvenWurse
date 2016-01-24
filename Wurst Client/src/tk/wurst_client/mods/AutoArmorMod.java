@@ -19,84 +19,68 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
-	description = "Manages your armor automatically.",
-	name = "AutoArmor")
-public class AutoArmorMod extends Mod implements UpdateListener
-{
+        description = "Manages your armor automatically.",
+        name = "AutoArmor")
+public class AutoArmorMod extends Mod implements UpdateListener {
 
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-			|| (Minecraft.getMinecraft().currentScreen instanceof GuiContainer && !(Minecraft
-				.getMinecraft().currentScreen instanceof GuiInventory)))
-			return;
-		updateMS();
-		if(hasTimePassedM(3000))
-		{
-			int[] bestArmor1 = new int[4];
-			for(int i = 0; i < bestArmor1.length; i++)
-				bestArmor1[i] = -1;
-			for(int i = 0; i < 36; i++)
-			{
-				ItemStack itemstack =
-					Minecraft.getMinecraft().thePlayer.inventory
-						.getStackInSlot(i);
-				if(itemstack != null
-					&& itemstack.getItem() instanceof ItemArmor)
-				{
-					ItemArmor armor = (ItemArmor)itemstack.getItem();
-					if(armor.damageReduceAmount > bestArmor1[3 - armor.armorType])
-						bestArmor1[3 - armor.armorType] = i;
-				}
-			}
-			for(int i = 0; i < 4; i++)
-			{
-				ItemStack itemstack =
-					Minecraft.getMinecraft().thePlayer.inventory
-						.armorItemInSlot(i);
-				ItemArmor currentArmor;
-				if(itemstack != null
-					&& itemstack.getItem() instanceof ItemArmor)
-					currentArmor = (ItemArmor)itemstack.getItem();
-				else
-					currentArmor = null;
-				ItemArmor bestArmor;
-				try
-				{
-					bestArmor =
-						(ItemArmor)Minecraft.getMinecraft().thePlayer.inventory
-							.getStackInSlot(bestArmor1[i]).getItem();
-				}catch(Exception e)
-				{
-					bestArmor = null;
-				}
-				if(bestArmor != null
-					&& (currentArmor == null || bestArmor.damageReduceAmount > currentArmor.damageReduceAmount))
-					if(Minecraft.getMinecraft().thePlayer.inventory
-						.getFirstEmptyStack() != -1 || currentArmor == null)
-					{
-						Minecraft.getMinecraft().playerController.windowClick(
-							0, 8 - i, 0, 1, Minecraft.getMinecraft().thePlayer);
-						Minecraft.getMinecraft().playerController.windowClick(
-							0, bestArmor1[i] < 9 ? 36 + bestArmor1[i]
-								: bestArmor1[i], 0, 1, Minecraft
-								.getMinecraft().thePlayer);
-					}
-			}
-			updateLastMS();
-		}
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode ||
+                (Minecraft.getMinecraft().currentScreen instanceof GuiContainer &&
+                        !(Minecraft.getMinecraft().currentScreen instanceof GuiInventory))) {
+            return;
+        }
+        updateMS();
+        if (hasTimePassedM(3000)) {
+            int[] bestArmor1 = new int[4];
+            for (int i = 0; i < bestArmor1.length; i++) {
+                bestArmor1[i] = -1;
+            }
+            for (int i = 0; i < 36; i++) {
+                ItemStack itemstack = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
+                if (itemstack != null && itemstack.getItem() instanceof ItemArmor) {
+                    ItemArmor armor = (ItemArmor) itemstack.getItem();
+                    if (armor.damageReduceAmount > bestArmor1[3 - armor.armorType]) bestArmor1[3 - armor.armorType] = i;
+                }
+            }
+            for (int i = 0; i < 4; i++) {
+                ItemStack itemstack = Minecraft.getMinecraft().thePlayer.inventory.armorItemInSlot(i);
+                ItemArmor currentArmor;
+                if (itemstack != null && itemstack.getItem() instanceof ItemArmor) {
+                    currentArmor = (ItemArmor) itemstack.getItem();
+                } else {
+                    currentArmor = null;
+                }
+                ItemArmor bestArmor;
+                try {
+                    bestArmor = (ItemArmor) Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(bestArmor1[i])
+                            .getItem();
+                } catch (Exception e) {
+                    bestArmor = null;
+                }
+                if (bestArmor != null &&
+                        (currentArmor == null || bestArmor.damageReduceAmount > currentArmor.damageReduceAmount)) {
+                    if (Minecraft.getMinecraft().thePlayer.inventory.getFirstEmptyStack() != -1 ||
+                            currentArmor == null) {
+                        Minecraft.getMinecraft().playerController
+                                .windowClick(0, 8 - i, 0, 1, Minecraft.getMinecraft().thePlayer);
+                        Minecraft.getMinecraft().playerController
+                                .windowClick(0, bestArmor1[i] < 9 ? 36 + bestArmor1[i] : bestArmor1[i], 0, 1,
+                                        Minecraft.getMinecraft().thePlayer);
+                    }
+                }
+            }
+            updateLastMS();
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

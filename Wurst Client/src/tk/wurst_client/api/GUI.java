@@ -21,20 +21,21 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class GUI {
 
     private static GUIScreenDisplayer SCREEN_DISPLAYER = null;
+
     /**
      * CORRECT way to display a GUI screen. Displays the screen on the next tick.
-     *
+     * <p>
      * Always use this method to display a GUI screen as the GUI screen will not be displayed
      * if run from other threads.
      *
      * @param screen The GUIScreen to display.
      */
     public static synchronized void displayGuiScreen(GuiScreen screen) {
-        if(screen == null) {
+        if (screen == null) {
             Minecraft.getMinecraft().displayGuiScreen(null);
             return;
         }
-        if(SCREEN_DISPLAYER == null) {
+        if (SCREEN_DISPLAYER == null) {
             SCREEN_DISPLAYER = new GUIScreenDisplayer();
             WurstClient.INSTANCE.events.add(ClientTickListener.class, SCREEN_DISPLAYER);
         }
@@ -43,7 +44,7 @@ public class GUI {
 
     /**
      * Get the font renderer.
-     *
+     * <p>
      * NEVER USE tk.wurst_client.font.Fonts.
      * The font it returns is buggy and ugly.
      * Always use this method as it returns Minecraft's default font.
@@ -54,13 +55,14 @@ public class GUI {
         return Minecraft.getMinecraft().fontRendererObj;
     }
 }
+
 class GUIScreenDisplayer implements ClientTickListener {
 
     private ConcurrentLinkedQueue<GuiScreen> screenQueue = new ConcurrentLinkedQueue<>();
 
     @Override
     public void onTick() {
-        if(!screenQueue.isEmpty()) {
+        if (!screenQueue.isEmpty()) {
             Iterator<GuiScreen> screenIterable = screenQueue.iterator();
             while (screenIterable.hasNext()) {
                 Minecraft.getMinecraft().displayGuiScreen(screenIterable.next());

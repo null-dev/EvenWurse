@@ -15,34 +15,30 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
-	description = "Allows you to step up full blocks.",
-	name = "Step")
-public class StepMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive())
-		{
-			Minecraft.getMinecraft().thePlayer.stepHeight = 0.5F;
-			if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally
-				&& Minecraft.getMinecraft().thePlayer.onGround)
-				Minecraft.getMinecraft().thePlayer.jump();
-		}else
-			Minecraft.getMinecraft().thePlayer.stepHeight =
-				isEnabled() ? 1.0F : 0.5F;
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		Minecraft.getMinecraft().thePlayer.stepHeight = 0.5F;
-	}
+        description = "Allows you to step up full blocks.",
+        name = "Step")
+public class StepMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive()) {
+            Minecraft.getMinecraft().thePlayer.stepHeight = 0.5F;
+            if (Minecraft.getMinecraft().thePlayer.isCollidedHorizontally &&
+                    Minecraft.getMinecraft().thePlayer.onGround) {
+                Minecraft.getMinecraft().thePlayer.jump();
+            }
+        } else {
+            Minecraft.getMinecraft().thePlayer.stepHeight = isEnabled() ? 1.0F : 0.5F;
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+        Minecraft.getMinecraft().thePlayer.stepHeight = 0.5F;
+    }
 }

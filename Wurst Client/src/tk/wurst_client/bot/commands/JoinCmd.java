@@ -14,19 +14,14 @@ import net.minecraft.client.multiplayer.ServerData;
 import tk.wurst_client.gui.main.GuiWurstMainMenu;
 
 @Command.Info(help = "Joins a server.", name = "join", syntax = {"<ip>"})
-public class JoinCmd extends Command
-{
-	@Override
-	public void execute(final String[] args) throws Error
-	{
-		if(args.length != 1)
-			syntaxError();
-		Minecraft.getMinecraft().addScheduledTask(() -> {
+public class JoinCmd extends Command {
+    @Override
+    public void execute(final String[] args) throws Error {
+        if (args.length != 1) syntaxError();
+        Minecraft.getMinecraft().addScheduledTask(() -> {
             Minecraft.getMinecraft().displayGuiScreen(
-                new GuiConnecting(new GuiWurstMainMenu(), Minecraft
-                    .getMinecraft(), new ServerData("", args[0])));
-            System.out.println("Joined " + args[0] + " as "
-                + Minecraft.getMinecraft().session.getUsername());
+                    new GuiConnecting(new GuiWurstMainMenu(), Minecraft.getMinecraft(), new ServerData("", args[0])));
+            System.out.println("Joined " + args[0] + " as " + Minecraft.getMinecraft().session.getUsername());
         });
-	}
+    }
 }

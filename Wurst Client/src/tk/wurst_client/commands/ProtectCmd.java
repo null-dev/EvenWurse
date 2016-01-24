@@ -14,25 +14,20 @@ import tk.wurst_client.mods.ProtectMod;
 import tk.wurst_client.utils.EntityUtils;
 
 @Cmd.Info(help = "Toggles Protect or makes it protect a specific entity.",
-	name = "protect",
-	syntax = {"[<entity>]"})
-public class ProtectCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length > 1)
-			syntaxError();
-		if(args.length == 0)
-			WurstClient.INSTANCE.mods.getModByClass(ProtectMod.class).toggle();
-		else
-		{
-			WurstClient.INSTANCE.mods.disableModsByClass(ProtectMod.class);
-			EntityLivingBase entity = EntityUtils.searchEntityByName(args[0]);
-			if(entity == null)
-				error("Entity \"" + args[0] + "\" could not be found.");
-			WurstClient.INSTANCE.mods.getModByClass(ProtectMod.class).setEnabled(true);
-			WurstClient.INSTANCE.mods.getModByClass(ProtectMod.class).setFriend(entity);
-		}
-	}
+        name = "protect",
+        syntax = {"[<entity>]"})
+public class ProtectCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length > 1) syntaxError();
+        if (args.length == 0) {
+            WurstClient.INSTANCE.mods.getModByClass(ProtectMod.class).toggle();
+        } else {
+            WurstClient.INSTANCE.mods.disableModsByClass(ProtectMod.class);
+            EntityLivingBase entity = EntityUtils.searchEntityByName(args[0]);
+            if (entity == null) error("Entity \"" + args[0] + "\" could not be found.");
+            WurstClient.INSTANCE.mods.getModByClass(ProtectMod.class).setEnabled(true);
+            WurstClient.INSTANCE.mods.getModByClass(ProtectMod.class).setFriend(entity);
+        }
+    }
 }

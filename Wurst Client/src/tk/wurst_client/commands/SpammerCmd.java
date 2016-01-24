@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,28 +15,21 @@ import tk.wurst_client.spam.SpamProcessor;
 import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Changes the delay of Spammer or spams spam from a file.",
-	name = "spammer",
-	syntax = {"delay <delay_in_ms>", "spam <file>"})
-public class SpammerCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length != 2)
-			syntaxError();
-		if(args[0].equalsIgnoreCase("delay"))
-		{
-			if(!MiscUtils.isInteger(args[1]))
-				syntaxError();
-			int newDelay = Integer.parseInt(args[1]);
-			if(newDelay % 50 > 0)
-				newDelay = newDelay - newDelay % 50;
-			WurstClient.INSTANCE.options.spamDelay = newDelay;
-			SpammerMod.updateDelaySpinner();
-			WurstClient.INSTANCE.chat.message("Spammer delay set to "
-				+ newDelay + "ms.");
-		}else if(args[0].equalsIgnoreCase("spam"))
-			if(!SpamProcessor.runSpam(args[1]))
-				WurstClient.INSTANCE.chat.error("File does not exist.");
-	}
+        name = "spammer",
+        syntax = {"delay <delay_in_ms>", "spam <file>"})
+public class SpammerCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length != 2) syntaxError();
+        if (args[0].equalsIgnoreCase("delay")) {
+            if (!MiscUtils.isInteger(args[1])) syntaxError();
+            int newDelay = Integer.parseInt(args[1]);
+            if (newDelay % 50 > 0) newDelay = newDelay - newDelay % 50;
+            WurstClient.INSTANCE.options.spamDelay = newDelay;
+            SpammerMod.updateDelaySpinner();
+            WurstClient.INSTANCE.chat.message("Spammer delay set to " + newDelay + "ms.");
+        } else if (args[0].equalsIgnoreCase("spam")) {
+            if (!SpamProcessor.runSpam(args[1])) WurstClient.INSTANCE.chat.error("File does not exist.");
+        }
+    }
 }

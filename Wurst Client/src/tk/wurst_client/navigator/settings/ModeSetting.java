@@ -29,9 +29,9 @@ public class ModeSetting implements NavigatorSetting {
         // buttons
         int y = 0;
         ButtonData[] buttons = new ButtonData[modes.length];
-        for(int i = 0; i < modes.length; i++) {
+        for (int i = 0; i < modes.length; i++) {
             int x = featureScreen.getMiddleX();
-            switch(i % 4) {
+            switch (i % 4) {
                 case 0:
                     x -= 132;
                     featureScreen.addText("\n");
@@ -49,8 +49,7 @@ public class ModeSetting implements NavigatorSetting {
             }
             final int iFinal = i;
             ButtonData button =
-                    featureScreen.new ButtonData(x, y, 50, 10, modes[i],
-                            i == selected ? 0x00ff00 : 0x404040) {
+                    featureScreen.new ButtonData(x, y, 50, 10, modes[i], i == selected ? 0x00ff00 : 0x404040) {
                         @Override
                         public void press() {
                             buttons[selected].color = new Color(0x404040);

@@ -1,8 +1,8 @@
 package tk.wurst_client.utils;
 
 import org.darkstorm.minecraft.gui.theme.wurst.WurstTheme;
-import tk.wurst_client.api.Module;
 import tk.wurst_client.WurstClient;
+import tk.wurst_client.api.Module;
 import tk.wurst_client.commands.Cmd;
 import tk.wurst_client.commands.CmdManager;
 import tk.wurst_client.gui.GuiManager;
@@ -28,31 +28,32 @@ public class ModuleUtils {
     public static ArrayList<Module> miscModules = new ArrayList<>();
 
     public static String getModuleName(Module m) {
-        if(m instanceof Mod) return ((Mod) m).getName();
-        if(m instanceof Cmd) return ((Cmd) m).getName();
+        if (m instanceof Mod) return ((Mod) m).getName();
+        if (m instanceof Cmd) return ((Cmd) m).getName();
         return m.getClass().getSimpleName();
     }
 
     public static ArrayList<Module> getAllModules() {
         ArrayList<Module> modules = new ArrayList<>();
         WurstClient.INSTANCE.mods.getAllMods().stream().filter(mod -> !modules.contains(mod)).forEach(modules::add);
-        WurstClient.INSTANCE.commands.getAllCommands().stream().filter(cmd -> !modules.contains(cmd)).forEach(modules::add);
+        WurstClient.INSTANCE.commands.getAllCommands().stream().filter(cmd -> !modules.contains(cmd))
+                .forEach(modules::add);
         ModuleUtils.miscModules.stream().filter(module -> !modules.contains(module)).forEach(modules::add);
         return modules;
     }
 
     public static Module moduleFromClass(Class c) {
-        if(!Module.class.isAssignableFrom(c)) {
+        if (!Module.class.isAssignableFrom(c)) {
             throw new IllegalArgumentException("Not a module class!");
         }
         Module module;
-        if((module = (Module) WurstClient.INSTANCE.mods.getModByClass(c)) != null) {
+        if ((module = (Module) WurstClient.INSTANCE.mods.getModByClass(c)) != null) {
             return module;
-        } else if((module = (Module) WurstClient.INSTANCE.commands.getCmdByClass(c)) != null) {
+        } else if ((module = (Module) WurstClient.INSTANCE.commands.getCmdByClass(c)) != null) {
             return module;
         }
-        for(Module module1 : miscModules) {
-            if(module1.getClass().getName().equals(c.getName())) {
+        for (Module module1 : miscModules) {
+            if (module1.getClass().getName().equals(c.getName())) {
                 return module1;
             }
         }
@@ -69,22 +70,21 @@ public class ModuleUtils {
         Cmd[] cmdsToRemove = cmdsToRemoveList.toArray(new Cmd[cmdsToRemoveList.size()]);
         modManager.unloadMods(modsToRemove);
         commandManager.unloadCommands(cmdsToRemove);
-        for(Module module : miscModules) {
+        for (Module module : miscModules) {
             try {
                 module.onUnload();
-            } catch(Throwable t) {
-                System.out.println("[EvenWurse] Module in class '"
-                        + module.getClass().getSimpleName()
-                        + "' threw exception in onUnload(), ignoring!");
+            } catch (Throwable t) {
+                System.out.println("[EvenWurse] Module in class '" + module.getClass().getSimpleName() +
+                        "' threw exception in onUnload(), ignoring!");
             }
         }
         miscModules.clear();
         modsToRemoveList.clear();
         cmdsToRemoveList.clear();
-        for(int i = 0; i < modsToRemove.length; i++) {
+        for (int i = 0; i < modsToRemove.length; i++) {
             modsToRemove[i] = null;
         }
-        for(int i = 0; i < cmdsToRemove.length; i++) {
+        for (int i = 0; i < cmdsToRemove.length; i++) {
             cmdsToRemove[i] = null;
         }
         int mods = modsToRemove.length;
@@ -131,7 +131,7 @@ public class ModuleUtils {
                     toLoad.add(c);
                 }
             }
-            for(Class<? extends Module> c : toLoad) {
+            for (Class<? extends Module> c : toLoad) {
                 if (Mod.class.isAssignableFrom(c)) {
                     try {
                         WurstClient.INSTANCE.mods.loadMod((Class<? extends Mod>) c, true);
@@ -150,15 +150,16 @@ public class ModuleUtils {
                     try {
                         miscModules.add(module);
                         module.onLoad();
-                    } catch(Throwable t) {
+                    } catch (Throwable t) {
                         miscModules.remove(module);
-                        System.out.println("[EvenWurse] Module in class '" + c.getSimpleName() + "' threw exception in onLoad(), skipping!");
+                        System.out.println("[EvenWurse] Module in class '" + c.getSimpleName() +
+                                "' threw exception in onLoad(), skipping!");
                         t.printStackTrace();
                     }
                 }
             }
             cl.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("[EvenWurse] Exception loading module from file: '" + jar.getName() + "'!");
             e.printStackTrace();
         }

@@ -30,253 +30,211 @@ import java.util.concurrent.TimeUnit;
 
 //TODO Clean up and error handling
 @Info(category = Category.CHAT,
-	description = "Cracks AuthMe passwords. Can be used to get OP.\n"
-		+ "If you want to know how to use this, press the\n"
-		+ "\"How to use\" button. That will open an online\n"
-		+ "tutorial explaining exactly how to use it.\n"
-		+ "Don't message me on this!",
-	name = "ForceOP")
-public class ForceOpMod extends Mod implements ChatInputListener
-{
-	private String[] defaultList = {"password", "passwort", "password1",
-		"passwort1", "password123", "passwort123", "pass", "pw", "pw1",
-		"pw123", "hallo", "Wurst", "wurst", "1234", "12345", "123456",
-		"1234567", "12345678", "123456789", "login", "register", "test",
-		"sicher", "me", "penis", "penis1", "penis123", "minecraft",
-		"minecraft1", "minecraft123", "mc", "admin", "server", "yourmom",
-		"tester", "account", "creeper", "gronkh", "lol", "auth", "authme",
-		"qwerty", "qwertz", "ficken", "ficken1", "ficken123", "fuck", "fuckme",
-		"fuckyou",};
-	private String[] passwords = {};
-	
-	private JDialog dialog;
-	private JLabel lPWList;
-	private JRadioButton rbDefaultList;
-	private JRadioButton rbTXTList;
-	private JButton bTXTList;
-	private JButton bHowTo;
-	private JSeparator sepListSpeed;
-	private JLabel lSpeed;
-	private JLabel lDelay1;
-	private JSpinner spDelay;
-	private JLabel lDelay2;
-	private JCheckBox cbDontWait;
-	private JSeparator sepSpeedStart;
-	private JLabel lName;
-	private JLabel lPasswords;
-	private JLabel lTime;
-	private JButton bStart;
-	
-	private boolean gotWrongPWMSG;
-	private int lastPW;
-	private JLabel lAttempts;
-	
-	@Override
-	public void onEnable()
-	{
-		new Thread()
-		{
-			@Override
-			public void run()
-			{
-				lastPW = -1;
-				WurstClient.INSTANCE.files.loadOptions();
-				dialog =
-					new JDialog((JFrame)null, ForceOpMod.this.getName(), false);
-				dialog.setAlwaysOnTop(true);
-				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-				dialog.setSize(512, 248);
-				dialog.setResizable(false);
-				dialog.setLocation((screen.width - dialog.getWidth()) / 2,
-					(screen.height - dialog.getHeight()) / 2);
-				dialog.setLayout(null);
-				dialog
-					.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-				dialog.addWindowListener(new WindowAdapter()
-				{
-					@Override
-					public void windowClosing(WindowEvent e)
-					{
-						WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class).setEnabled(false);
-					}
-				});
-				
-				lPWList = new JLabel("Password list");
-				lPWList.setLocation(4, 4);
-				lPWList.setSize(lPWList.getPreferredSize());
-				dialog.add(lPWList);
-				
-				rbDefaultList =
-					new JRadioButton("default",
-						WurstClient.INSTANCE.options.forceOPList
-							.equals(WurstClient.INSTANCE.files.wurstDir
-								.getPath()));
-				rbDefaultList.setLocation(4, 24);
-				rbDefaultList.setSize(rbDefaultList.getPreferredSize());
-				dialog.add(rbDefaultList);
-				
-				rbTXTList =
-					new JRadioButton("TXT file", !rbDefaultList.isSelected());
-				rbTXTList.setLocation(
-					rbDefaultList.getX() + rbDefaultList.getWidth() + 4, 24);
-				rbTXTList.setSize(rbTXTList.getPreferredSize());
-				rbTXTList.addChangeListener(e -> {
+        description = "Cracks AuthMe passwords. Can be used to get OP.\n" +
+                "If you want to know how to use this, press the\n" +
+                "\"How to use\" button. That will open an online\n" + "tutorial explaining exactly how to use it.\n" +
+                "Don't message me on this!",
+        name = "ForceOP")
+public class ForceOpMod extends Mod implements ChatInputListener {
+    private String[] defaultList =
+            {"password", "passwort", "password1", "passwort1", "password123", "passwort123", "pass", "pw", "pw1",
+                    "pw123", "hallo", "Wurst", "wurst", "1234", "12345", "123456", "1234567", "12345678", "123456789",
+                    "login", "register", "test", "sicher", "me", "penis", "penis1", "penis123", "minecraft",
+                    "minecraft1", "minecraft123", "mc", "admin", "server", "yourmom", "tester", "account", "creeper",
+                    "gronkh", "lol", "auth", "authme", "qwerty", "qwertz", "ficken", "ficken1", "ficken123", "fuck",
+                    "fuckme", "fuckyou",};
+    private String[] passwords = {};
+
+    private JDialog dialog;
+    private JLabel lPWList;
+    private JRadioButton rbDefaultList;
+    private JRadioButton rbTXTList;
+    private JButton bTXTList;
+    private JButton bHowTo;
+    private JSeparator sepListSpeed;
+    private JLabel lSpeed;
+    private JLabel lDelay1;
+    private JSpinner spDelay;
+    private JLabel lDelay2;
+    private JCheckBox cbDontWait;
+    private JSeparator sepSpeedStart;
+    private JLabel lName;
+    private JLabel lPasswords;
+    private JLabel lTime;
+    private JButton bStart;
+
+    private boolean gotWrongPWMSG;
+    private int lastPW;
+    private JLabel lAttempts;
+
+    @Override
+    public void onEnable() {
+        new Thread() {
+            @Override
+            public void run() {
+                lastPW = -1;
+                WurstClient.INSTANCE.files.loadOptions();
+                dialog = new JDialog((JFrame) null, ForceOpMod.this.getName(), false);
+                dialog.setAlwaysOnTop(true);
+                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+                dialog.setSize(512, 248);
+                dialog.setResizable(false);
+                dialog.setLocation((screen.width - dialog.getWidth()) / 2, (screen.height - dialog.getHeight()) / 2);
+                dialog.setLayout(null);
+                dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                dialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class).setEnabled(false);
+                    }
+                });
+
+                lPWList = new JLabel("Password list");
+                lPWList.setLocation(4, 4);
+                lPWList.setSize(lPWList.getPreferredSize());
+                dialog.add(lPWList);
+
+                rbDefaultList = new JRadioButton("default",
+                        WurstClient.INSTANCE.options.forceOPList.equals(WurstClient.INSTANCE.files.wurstDir.getPath()));
+                rbDefaultList.setLocation(4, 24);
+                rbDefaultList.setSize(rbDefaultList.getPreferredSize());
+                dialog.add(rbDefaultList);
+
+                rbTXTList = new JRadioButton("TXT file", !rbDefaultList.isSelected());
+                rbTXTList.setLocation(rbDefaultList.getX() + rbDefaultList.getWidth() + 4, 24);
+                rbTXTList.setSize(rbTXTList.getPreferredSize());
+                rbTXTList.addChangeListener(e -> {
                     bTXTList.setEnabled(rbTXTList.isSelected());
-                    if(!rbTXTList.isSelected())
-                    {
-                        WurstClient.INSTANCE.options.forceOPList =
-                            WurstClient.INSTANCE.files.wurstDir.getPath();
+                    if (!rbTXTList.isSelected()) {
+                        WurstClient.INSTANCE.options.forceOPList = WurstClient.INSTANCE.files.wurstDir.getPath();
                         WurstClient.INSTANCE.files.saveOptions();
                     }
                     loadPWList();
                     update();
                 });
-				dialog.add(rbTXTList);
-				
-				ButtonGroup bgList = new ButtonGroup();
-				bgList.add(rbDefaultList);
-				bgList.add(rbTXTList);
-				
-				bTXTList = new JButton("browse");
-				bTXTList.setLocation(rbTXTList.getX() + rbTXTList.getWidth()
-					+ 4, 24);
-				bTXTList.setSize(bTXTList.getPreferredSize());
-				bTXTList.setEnabled(rbTXTList.isSelected());
-				bTXTList.addActionListener(e -> {
+                dialog.add(rbTXTList);
+
+                ButtonGroup bgList = new ButtonGroup();
+                bgList.add(rbDefaultList);
+                bgList.add(rbTXTList);
+
+                bTXTList = new JButton("browse");
+                bTXTList.setLocation(rbTXTList.getX() + rbTXTList.getWidth() + 4, 24);
+                bTXTList.setSize(bTXTList.getPreferredSize());
+                bTXTList.setEnabled(rbTXTList.isSelected());
+                bTXTList.addActionListener(e -> {
                     JFileChooser fsTXTList = new JFileChooser();
                     fsTXTList.setAcceptAllFileFilterUsed(false);
-                    fsTXTList
-                        .addChoosableFileFilter(new FileNameExtensionFilter(
-                            "TXT files", "txt"));
+                    fsTXTList.addChoosableFileFilter(new FileNameExtensionFilter("TXT files", "txt"));
                     fsTXTList.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    fsTXTList.setCurrentDirectory(new File(
-                        WurstClient.INSTANCE.options.forceOPList));
+                    fsTXTList.setCurrentDirectory(new File(WurstClient.INSTANCE.options.forceOPList));
                     int action = fsTXTList.showOpenDialog(dialog);
-                    if(action == JFileChooser.APPROVE_OPTION)
-                        if(!fsTXTList.getSelectedFile().exists())
-                            JOptionPane.showMessageDialog(dialog,
-                                "File does not exist!", "Error",
-                                JOptionPane.ERROR_MESSAGE);
-                        else
-                        {
-                            WurstClient.INSTANCE.options.forceOPList =
-                                fsTXTList.getSelectedFile().getPath();
+                    if (action == JFileChooser.APPROVE_OPTION) {
+                        if (!fsTXTList.getSelectedFile().exists()) {
+                            JOptionPane.showMessageDialog(dialog, "File does not exist!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            WurstClient.INSTANCE.options.forceOPList = fsTXTList.getSelectedFile().getPath();
                             WurstClient.INSTANCE.files.saveOptions();
                         }
+                    }
                     loadPWList();
                     update();
                 });
-				dialog.add(bTXTList);
-				
-				bHowTo = new JButton("How to use");
-				bHowTo.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD,
-					16));
-				bHowTo.setSize(bHowTo.getPreferredSize());
-				bHowTo.setLocation(506 - bHowTo.getWidth() - 32, 12);
-				bHowTo.addActionListener(e -> {
-                    try
-                    {
-                        String howToLink =
-                            "http://www.wurst-client.tk/tutorials/forceop";
+                dialog.add(bTXTList);
+
+                bHowTo = new JButton("How to use");
+                bHowTo.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD, 16));
+                bHowTo.setSize(bHowTo.getPreferredSize());
+                bHowTo.setLocation(506 - bHowTo.getWidth() - 32, 12);
+                bHowTo.addActionListener(e -> {
+                    try {
+                        String howToLink = "http://www.wurst-client.tk/tutorials/forceop";
                         Desktop.getDesktop().browse(new URI(howToLink));
-                    }catch(Throwable var5)
-                    {
+                    } catch (Throwable var5) {
                         var5.printStackTrace();
                     }
                 });
-				dialog.add(bHowTo);
-				
-				sepListSpeed = new JSeparator();
-				sepListSpeed.setLocation(4, 56);
-				sepListSpeed.setSize(498, 4);
-				dialog.add(sepListSpeed);
-				
-				lSpeed = new JLabel("Speed");
-				lSpeed.setLocation(4, 64);
-				lSpeed.setSize(lSpeed.getPreferredSize());
-				dialog.add(lSpeed);
-				
-				lDelay1 = new JLabel("Delay between attempts:");
-				lDelay1.setLocation(4, 84);
-				lDelay1.setSize(lDelay1.getPreferredSize());
-				dialog.add(lDelay1);
-				
-				spDelay = new JSpinner();
-				spDelay
-					.setToolTipText("<html>"
-						+ "50ms: fastest, doesn't bypass AntiSpam plugins<br>"
-						+ "1.000ms: recommended, bypasses most AntiSpam plugins<br>"
-						+ "10.000ms: slowest, bypasses all AntiSpam plugins"
-						+ "</html>");
-				spDelay.setModel(new SpinnerNumberModel(
-					WurstClient.INSTANCE.options.forceOPDelay, 50, 10000, 50));
-				spDelay
-					.setLocation(lDelay1.getX() + lDelay1.getWidth() + 4, 84);
-				spDelay
-					.setSize(60, (int)spDelay.getPreferredSize().getHeight());
-				spDelay.addChangeListener(e -> {
-                    WurstClient.INSTANCE.options.forceOPDelay =
-                        (Integer)spDelay.getValue();
+                dialog.add(bHowTo);
+
+                sepListSpeed = new JSeparator();
+                sepListSpeed.setLocation(4, 56);
+                sepListSpeed.setSize(498, 4);
+                dialog.add(sepListSpeed);
+
+                lSpeed = new JLabel("Speed");
+                lSpeed.setLocation(4, 64);
+                lSpeed.setSize(lSpeed.getPreferredSize());
+                dialog.add(lSpeed);
+
+                lDelay1 = new JLabel("Delay between attempts:");
+                lDelay1.setLocation(4, 84);
+                lDelay1.setSize(lDelay1.getPreferredSize());
+                dialog.add(lDelay1);
+
+                spDelay = new JSpinner();
+                spDelay.setToolTipText("<html>" + "50ms: fastest, doesn't bypass AntiSpam plugins<br>" +
+                        "1.000ms: recommended, bypasses most AntiSpam plugins<br>" +
+                        "10.000ms: slowest, bypasses all AntiSpam plugins" + "</html>");
+                spDelay.setModel(new SpinnerNumberModel(WurstClient.INSTANCE.options.forceOPDelay, 50, 10000, 50));
+                spDelay.setLocation(lDelay1.getX() + lDelay1.getWidth() + 4, 84);
+                spDelay.setSize(60, (int) spDelay.getPreferredSize().getHeight());
+                spDelay.addChangeListener(e -> {
+                    WurstClient.INSTANCE.options.forceOPDelay = (Integer) spDelay.getValue();
                     WurstClient.INSTANCE.files.saveOptions();
                     update();
                 });
-				dialog.add(spDelay);
-				
-				lDelay2 = new JLabel("ms");
-				lDelay2
-					.setLocation(spDelay.getX() + spDelay.getWidth() + 4, 84);
-				lDelay2.setSize(lDelay2.getPreferredSize());
-				dialog.add(lDelay2);
-				
-				cbDontWait =
-					new JCheckBox(
-						"<html>Don't wait for \"<span style=\"color: rgb(192, 0, 0);\"><b>Wrong password!</b></span>\" messages</html>",
-						WurstClient.INSTANCE.options.forceOPDontWait);
-				cbDontWait
-					.setToolTipText("Increases the speed but can cause inaccuracy.");
-				cbDontWait.setLocation(4, 104);
-				cbDontWait.setSize(cbDontWait.getPreferredSize());
-				cbDontWait.addActionListener(e -> {
-                    WurstClient.INSTANCE.options.forceOPDontWait =
-                        cbDontWait.isSelected();
+                dialog.add(spDelay);
+
+                lDelay2 = new JLabel("ms");
+                lDelay2.setLocation(spDelay.getX() + spDelay.getWidth() + 4, 84);
+                lDelay2.setSize(lDelay2.getPreferredSize());
+                dialog.add(lDelay2);
+
+                cbDontWait = new JCheckBox(
+                        "<html>Don't wait for \"<span style=\"color: rgb(192, 0, 0);\"><b>Wrong " +
+                                "password!</b></span>\" messages</html>",
+                        WurstClient.INSTANCE.options.forceOPDontWait);
+                cbDontWait.setToolTipText("Increases the speed but can cause inaccuracy.");
+                cbDontWait.setLocation(4, 104);
+                cbDontWait.setSize(cbDontWait.getPreferredSize());
+                cbDontWait.addActionListener(e -> {
+                    WurstClient.INSTANCE.options.forceOPDontWait = cbDontWait.isSelected();
                     WurstClient.INSTANCE.files.saveOptions();
                     update();
                 });
-				dialog.add(cbDontWait);
-				
-				sepSpeedStart = new JSeparator();
-				sepSpeedStart.setLocation(4, 132);
-				sepSpeedStart.setSize(498, 4);
-				dialog.add(sepSpeedStart);
-				
-				lName =
-					new JLabel("Username: "
-						+ Minecraft.getMinecraft().session.getUsername());
-				lName.setLocation(4, 140);
-				lName.setSize(lName.getPreferredSize());
-				dialog.add(lName);
-				
-				lPasswords = new JLabel("Passwords: error");
-				lPasswords.setLocation(4, 160);
-				lPasswords.setSize(lPasswords.getPreferredSize());
-				dialog.add(lPasswords);
-				
-				lTime = new JLabel("Estimated time: error");
-				lTime.setLocation(4, 180);
-				lTime.setSize(lTime.getPreferredSize());
-				dialog.add(lTime);
-				
-				lAttempts = new JLabel("Attempts: error");
-				lAttempts.setLocation(4, 200);
-				lAttempts.setSize(lAttempts.getPreferredSize());
-				dialog.add(lAttempts);
-				
-				bStart = new JButton("Start");
-				bStart.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD,
-					18));
-				bStart.setLocation(506 - 192 - 12, 144);
-				bStart.setSize(192, 66);
-				bStart.addActionListener(e -> {
+                dialog.add(cbDontWait);
+
+                sepSpeedStart = new JSeparator();
+                sepSpeedStart.setLocation(4, 132);
+                sepSpeedStart.setSize(498, 4);
+                dialog.add(sepSpeedStart);
+
+                lName = new JLabel("Username: " + Minecraft.getMinecraft().session.getUsername());
+                lName.setLocation(4, 140);
+                lName.setSize(lName.getPreferredSize());
+                dialog.add(lName);
+
+                lPasswords = new JLabel("Passwords: error");
+                lPasswords.setLocation(4, 160);
+                lPasswords.setSize(lPasswords.getPreferredSize());
+                dialog.add(lPasswords);
+
+                lTime = new JLabel("Estimated time: error");
+                lTime.setLocation(4, 180);
+                lTime.setSize(lTime.getPreferredSize());
+                dialog.add(lTime);
+
+                lAttempts = new JLabel("Attempts: error");
+                lAttempts.setLocation(4, 200);
+                lAttempts.setSize(lAttempts.getPreferredSize());
+                dialog.add(lAttempts);
+
+                bStart = new JButton("Start");
+                bStart.setFont(new Font(bHowTo.getFont().getName(), Font.BOLD, 18));
+                bStart.setLocation(506 - 192 - 12, 144);
+                bStart.setSize(192, 66);
+                bStart.addActionListener(e -> {
                     lPWList.setEnabled(false);
                     rbDefaultList.setEnabled(false);
                     rbTXTList.setEnabled(false);
@@ -294,198 +252,150 @@ public class ForceOpMod extends Mod implements ChatInputListener
                     bStart.setEnabled(false);
                     new Thread(() -> {
                         Minecraft.getMinecraft().thePlayer
-                            .sendChatMessage("/login "
-                                + Minecraft.getMinecraft().session
-                                    .getUsername());
+                                .sendChatMessage("/login " + Minecraft.getMinecraft().session.getUsername());
                         lastPW = 0;
                         loadPWList();
                         update();
-                        for(int i = 0; i < passwords.length; i++)
-                        {
-                            if(!WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class)
-                                .isActive())
-                                return;
-                            if(!cbDontWait.isSelected())
-                                gotWrongPWMSG = false;
-                            while(!cbDontWait.isSelected()
-                                && !hasGotWrongPWMSG()
-                                || Minecraft.getMinecraft().thePlayer == null)
-                            {
-                                if(!WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class)
-                                    .isActive())
-                                    return;
-                                try
-                                {
+                        for (int i = 0; i < passwords.length; i++) {
+                            if (!WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class).isActive()) return;
+                            if (!cbDontWait.isSelected()) gotWrongPWMSG = false;
+                            while (!cbDontWait.isSelected() && !hasGotWrongPWMSG() ||
+                                    Minecraft.getMinecraft().thePlayer == null) {
+                                if (!WurstClient.INSTANCE.mods.getModByClass(ForceOpMod.class).isActive()) return;
+                                try {
                                     Thread.sleep(50);
-                                }catch(InterruptedException e1)
-                                {
+                                } catch (InterruptedException e1) {
                                     e1.printStackTrace();
                                 }
-                                if(Minecraft.getMinecraft().thePlayer == null)
-                                    gotWrongPWMSG = true;// If you get
+                                if (Minecraft.getMinecraft().thePlayer == null) gotWrongPWMSG = true;// If you get
                                 // kicked,
                                 // it won't
                                 // wait for
                                 // "Wrong password!".
                             }
-                            try
-                            {
-                                Thread
-                                    .sleep(WurstClient.INSTANCE.options.forceOPDelay);
-                            }catch(InterruptedException e1)
-                            {
+                            try {
+                                Thread.sleep(WurstClient.INSTANCE.options.forceOPDelay);
+                            } catch (InterruptedException e1) {
                                 e1.printStackTrace();
                             }
                             boolean sent = false;
-                            while(!sent)
-                                try
-                                {
-                                    Minecraft.getMinecraft().thePlayer
-                                        .sendChatMessage("/login "
-                                            + passwords[i]);
+                            while (!sent) {
+                                try {
+                                    Minecraft.getMinecraft().thePlayer.sendChatMessage("/login " + passwords[i]);
                                     sent = true;
-                                }catch(Exception e1)
-                                {
-                                    try
-                                    {
+                                } catch (Exception e1) {
+                                    try {
                                         Thread.sleep(50);
-                                    }catch(InterruptedException e2)
-                                    {
+                                    } catch (InterruptedException e2) {
                                         e2.printStackTrace();
                                     }
                                 }
+                            }
                             lastPW = i + 1;
                             update();
                         }
-                        WurstClient.INSTANCE.chat.failure("Tried "
-                            + (lastPW + 1) + " passwords. Giving up.");
+                        WurstClient.INSTANCE.chat.failure("Tried " + (lastPW + 1) + " passwords. Giving up.");
                     }, "AuthMeCracker").start();
                 });
-				dialog.add(bStart);
-				
-				loadPWList();
-				update();
-				Minecraft.getMinecraft().setIngameNotInFocus();
-				dialog.setVisible(true);
-				dialog.toFront();
-			}
-		}.start();
-		WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
-	}
-	
-	private void loadPWList()
-	{
-		if(rbTXTList.isSelected()
-			&& !WurstClient.INSTANCE.options.forceOPList
-				.equals(WurstClient.INSTANCE.files.wurstDir.getPath()))
-			try
-			{
-				File pwList =
-					new File(WurstClient.INSTANCE.options.forceOPList);
-				BufferedReader load =
-					new BufferedReader(new FileReader(pwList));
-				ArrayList<String> loadedPWs = new ArrayList<>();
-				for(String line; (line = load.readLine()) != null;)
-					loadedPWs.add(line);
-				load.close();
-				passwords = loadedPWs.toArray(new String[loadedPWs.size()]);
-			}catch(IOException e)
-			{
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(dialog,
-					"Error: " + e.getMessage(), "Error",
-					JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-		else
-			passwords = defaultList;
-		lPasswords.setText("Passwords: " + (passwords.length + 1));
-		lPasswords.setSize(lPasswords.getPreferredSize());
-	}
-	
-	private void update()
-	{
-		long timeMS =
-			(passwords.length + 1 - lastPW) * (Integer)spDelay.getValue();
-		timeMS = timeMS + (int)(timeMS / 30000 * 5000);
-		if(!cbDontWait.isSelected())
-			timeMS = timeMS + timeMS / (Integer)spDelay.getValue() * 50;
-		String timeString =
-			TimeUnit.MILLISECONDS.toDays(timeMS)
-				+ "d "
-				+ (TimeUnit.MILLISECONDS.toHours(timeMS) - TimeUnit.DAYS
-					.toHours(TimeUnit.MILLISECONDS.toDays(timeMS)))
-				+ "h "
-				+ (TimeUnit.MILLISECONDS.toMinutes(timeMS) - TimeUnit.HOURS
-					.toMinutes(TimeUnit.MILLISECONDS.toHours(timeMS)))
-				+ "m "
-				+ (TimeUnit.MILLISECONDS.toSeconds(timeMS) - TimeUnit.MINUTES
-					.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeMS))) + "s";
-		lTime.setText("Estimated time: " + timeString);
-		lTime.setSize(lTime.getPreferredSize());
-		lAttempts.setText("Attempts: " + (lastPW + 1) + "/"
-			+ (passwords.length + 1));
-		lAttempts.setSize(lAttempts.getPreferredSize());
-	}
-	
-	@Override
-	public void onReceivedMessage(ChatInputEvent event)
-	{
-		String message = event.getComponent().getUnformattedText();
-		if(message.startsWith("�c[�6Wurst�c]�f "))
-			return;
-		if(message.toLowerCase().contains("wrong")// English
-			|| message.toLowerCase().contains("falsch")// Deutsch!
-			|| message.toLowerCase().contains("incorrect")// English
-			|| message.toLowerCase().contains("mauvais")// French
-			|| message.toLowerCase().contains("mal")// Spanish
-			|| message.toLowerCase().contains("sbagliato")// Italian
-		)
-			gotWrongPWMSG = true;
-		else if(message.toLowerCase().contains("success")// English & Italian
-			|| message.toLowerCase().contains("erfolg")// Deutsch!
-			|| message.toLowerCase().contains("succ�s")// French
-			|| message.toLowerCase().contains("�xito")// Spanish
-		)
-		{
-			String password;
-			if(lastPW == -1)
-				return;
-			else if(lastPW == 0)
-				password = Minecraft.getMinecraft().session.getUsername();
-			else
-				password = passwords[lastPW - 1];
-			WurstClient.INSTANCE.chat.success("The password \"" + password
-				+ "\" worked.");
-			setEnabled(false);
-		}else if(message.toLowerCase().contains("/help")
-			|| message.toLowerCase().contains("permission"))
-			WurstClient.INSTANCE.chat
-				.warning("It looks like this server doesn't have AuthMe.");
-		else if(message.toLowerCase().contains("logged in")
-			|| message.toLowerCase().contains("eingeloggt")
-			|| message.toLowerCase().contains("eingelogt"))
-			WurstClient.INSTANCE.chat
-				.warning("It looks like you are already logged in.");
-	}
-	
-	private boolean hasGotWrongPWMSG()
-	{
-		return gotWrongPWMSG;
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
-		new Thread()
-		{
-			@Override
-			public void run()
-			{
-				if(dialog != null)
-					dialog.dispose();
-			}
-		}.start();
-	}
+                dialog.add(bStart);
+
+                loadPWList();
+                update();
+                Minecraft.getMinecraft().setIngameNotInFocus();
+                dialog.setVisible(true);
+                dialog.toFront();
+            }
+        }.start();
+        WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
+    }
+
+    private void loadPWList() {
+        if (rbTXTList.isSelected() &&
+                !WurstClient.INSTANCE.options.forceOPList.equals(WurstClient.INSTANCE.files.wurstDir.getPath())) {
+            try {
+                File pwList = new File(WurstClient.INSTANCE.options.forceOPList);
+                BufferedReader load = new BufferedReader(new FileReader(pwList));
+                ArrayList<String> loadedPWs = new ArrayList<>();
+                for (String line; (line = load.readLine()) != null; ) {
+                    loadedPWs.add(line);
+                }
+                load.close();
+                passwords = loadedPWs.toArray(new String[loadedPWs.size()]);
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(dialog, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            passwords = defaultList;
+        }
+        lPasswords.setText("Passwords: " + (passwords.length + 1));
+        lPasswords.setSize(lPasswords.getPreferredSize());
+    }
+
+    private void update() {
+        long timeMS = (passwords.length + 1 - lastPW) * (Integer) spDelay.getValue();
+        timeMS = timeMS + (int) (timeMS / 30000 * 5000);
+        if (!cbDontWait.isSelected()) timeMS = timeMS + timeMS / (Integer) spDelay.getValue() * 50;
+        String timeString = TimeUnit.MILLISECONDS.toDays(timeMS) + "d " +
+                (TimeUnit.MILLISECONDS.toHours(timeMS) - TimeUnit.DAYS.toHours(TimeUnit.MILLISECONDS.toDays(timeMS))) +
+                "h " + (TimeUnit.MILLISECONDS.toMinutes(timeMS) -
+                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeMS))) + "m " +
+                (TimeUnit.MILLISECONDS.toSeconds(timeMS) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeMS))) + "s";
+        lTime.setText("Estimated time: " + timeString);
+        lTime.setSize(lTime.getPreferredSize());
+        lAttempts.setText("Attempts: " + (lastPW + 1) + "/" + (passwords.length + 1));
+        lAttempts.setSize(lAttempts.getPreferredSize());
+    }
+
+    @Override
+    public void onReceivedMessage(ChatInputEvent event) {
+        String message = event.getComponent().getUnformattedText();
+        if (message.startsWith("�c[�6Wurst�c]�f ")) return;
+        if (message.toLowerCase().contains("wrong")// English
+                || message.toLowerCase().contains("falsch")// Deutsch!
+                || message.toLowerCase().contains("incorrect")// English
+                || message.toLowerCase().contains("mauvais")// French
+                || message.toLowerCase().contains("mal")// Spanish
+                || message.toLowerCase().contains("sbagliato")// Italian
+                ) {
+            gotWrongPWMSG = true;
+        } else if (message.toLowerCase().contains("success")// English & Italian
+                || message.toLowerCase().contains("erfolg")// Deutsch!
+                || message.toLowerCase().contains("succ�s")// French
+                || message.toLowerCase().contains("�xito")// Spanish
+                ) {
+            String password;
+            if (lastPW == -1) {
+                return;
+            } else if (lastPW == 0) {
+                password = Minecraft.getMinecraft().session.getUsername();
+            } else {
+                password = passwords[lastPW - 1];
+            }
+            WurstClient.INSTANCE.chat.success("The password \"" + password + "\" worked.");
+            setEnabled(false);
+        } else if (message.toLowerCase().contains("/help") || message.toLowerCase().contains("permission")) {
+            WurstClient.INSTANCE.chat.warning("It looks like this server doesn't have AuthMe.");
+        } else if (message.toLowerCase().contains("logged in") || message.toLowerCase().contains("eingeloggt") ||
+                message.toLowerCase().contains("eingelogt")) {
+            WurstClient.INSTANCE.chat.warning("It looks like you are already logged in.");
+        }
+    }
+
+    private boolean hasGotWrongPWMSG() {
+        return gotWrongPWMSG;
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
+        new Thread() {
+            @Override
+            public void run() {
+                if (dialog != null) dialog.dispose();
+            }
+        }.start();
+    }
 }

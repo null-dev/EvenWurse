@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,36 +15,27 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.EXPLOITS,
-	description = "Makes you invisible and invincible.\n"
-		+ "If you die and respawn near a certain player while\n"
-		+ "this mod is enabled, that player will be unable to see\n"
-		+ "you. Only works on vanilla servers!",
-	name = "Invisibility",
-	noCheatCompatible = false)
-public class InvisibilityMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(Minecraft.getMinecraft().thePlayer.getHealth() <= 0)
-			if(isEnabled())
-			{
-				// Respawning too early for server-side invisibility
-				Minecraft.getMinecraft().thePlayer.respawnPlayer();
-				WurstClient.INSTANCE.chat
-					.message("You should now be invisible.");
-			}else
-			{
-				WurstClient.INSTANCE.chat
-					.message("You are no longer invisible.");
-				WurstClient.INSTANCE.events.remove(UpdateListener.class,
-					this);
-			}
-	}
+        description = "Makes you invisible and invincible.\n" + "If you die and respawn near a certain player while\n" +
+                "this mod is enabled, that player will be unable to see\n" + "you. Only works on vanilla servers!",
+        name = "Invisibility",
+        noCheatCompatible = false)
+public class InvisibilityMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (Minecraft.getMinecraft().thePlayer.getHealth() <= 0) {
+            if (isEnabled()) {
+                // Respawning too early for server-side invisibility
+                Minecraft.getMinecraft().thePlayer.respawnPlayer();
+                WurstClient.INSTANCE.chat.message("You should now be invisible.");
+            } else {
+                WurstClient.INSTANCE.chat.message("You are no longer invisible.");
+                WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+            }
+        }
+    }
 }

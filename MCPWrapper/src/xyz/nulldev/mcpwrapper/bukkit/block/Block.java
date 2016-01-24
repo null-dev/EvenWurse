@@ -41,14 +41,14 @@ public interface Block {
      * <p>
      * For example, the following method places water at 100,102,100; two
      * blocks above 100,100,100.
-     *
+     * <p>
      * <pre>
      * Block block = world.getBlockAt(100, 100, 100);
      * Block shower = block.getRelative(BlockFace.UP, 2);
      * shower.setType(Material.WATER);
      * </pre>
      *
-     * @param face Face of this block to return
+     * @param face     Face of this block to return
      * @param distance Distance to get the block at
      * @return Block at the given face
      */
@@ -59,7 +59,7 @@ public interface Block {
      *
      * @return block type
      */
-//    Material getType();
+    //    Material getType();
 
     /**
      * Gets the type-id of this block
@@ -134,7 +134,7 @@ public interface Block {
      *
      * @param type Material to change this block to
      */
-//    void setType(Material type);
+    //    void setType(Material type);
 
     /**
      * Sets the type-id of this block
@@ -173,7 +173,7 @@ public interface Block {
      *
      * @return BlockState with the current state of this block.
      */
-//    BlockState getState();
+    //    BlockState getState();
 
     /**
      * Returns the biome that this block resides in
@@ -224,7 +224,7 @@ public interface Block {
      *
      * @return reaction
      */
-//    PistonMoveReaction getPistonMoveReaction();
+    //    PistonMoveReaction getPistonMoveReaction();
 
     /**
      * Breaks the block and spawns items as if a player had digged it
@@ -240,14 +240,14 @@ public interface Block {
      * @param tool The tool or item in hand used for digging
      * @return true if the block was destroyed
      */
-//    boolean breakNaturally(ItemStack tool);
+    //    boolean breakNaturally(ItemStack tool);
 
     /**
      * Returns a list of items which would drop by destroying this block
      *
      * @return a list of dropped items for this type of block
      */
-//    Collection<ItemStack> getDrops();
+    //    Collection<ItemStack> getDrops();
 
     /**
      * Returns a list of items which would drop by destroying this block with
@@ -256,6 +256,6 @@ public interface Block {
      * @param tool The tool or item in hand used for digging
      * @return a list of dropped items for this type of block
      */
-//    Collection<ItemStack> getDrops(ItemStack tool);
+    //    Collection<ItemStack> getDrops(ItemStack tool);
 
 }

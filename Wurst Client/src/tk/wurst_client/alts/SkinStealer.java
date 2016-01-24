@@ -17,36 +17,25 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 
-public class SkinStealer
-{
-	public static String stealSkin(String name)
-	{
-		String reply;
-		try
-		{
-			URL skinURL =
-				new URL("http://skins.minecraft.net/MinecraftSkins/" + name
-					+ ".png");
-			URLConnection skinCon = skinURL.openConnection();
-			BufferedInputStream skinputStream =
-				new BufferedInputStream(skinCon.getInputStream());
-			File skin =
-				new File(WurstClient.INSTANCE.files.skinDir, name
-					+ ".png");
-			FileOutputStream outputStream = new FileOutputStream(skin);
-			int i;
-			while((i = skinputStream.read()) != -1)
-				outputStream.write(i);
-			outputStream.close();
-			skinputStream.close();
-			reply = "�a�lSaved skin to wurst/skins/" + name + ".png.";
-		}catch(UnknownHostException e)
-		{
-			reply = "�4�lCannot contact skin server!";
-		}catch(Exception e)
-		{
-			reply = "�4�lUnable to steal skin.";
-		}
-		return reply;
-	}
+public class SkinStealer {
+    public static String stealSkin(String name) {
+        String reply;
+        try {
+            URL skinURL = new URL("http://skins.minecraft.net/MinecraftSkins/" + name + ".png");
+            URLConnection skinCon = skinURL.openConnection();
+            BufferedInputStream skinputStream = new BufferedInputStream(skinCon.getInputStream());
+            File skin = new File(WurstClient.INSTANCE.files.skinDir, name + ".png");
+            FileOutputStream outputStream = new FileOutputStream(skin);
+            int i;
+            while ((i = skinputStream.read()) != -1) outputStream.write(i);
+            outputStream.close();
+            skinputStream.close();
+            reply = "�a�lSaved skin to wurst/skins/" + name + ".png.";
+        } catch (UnknownHostException e) {
+            reply = "�4�lCannot contact skin server!";
+        } catch (Exception e) {
+            reply = "�4�lUnable to steal skin.";
+        }
+        return reply;
+    }
 }

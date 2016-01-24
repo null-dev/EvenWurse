@@ -15,26 +15,25 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.RENDER,
-	description = "Allows you to see in the dark.",
-	name = "Fullbright")
-public class FullbrightMod extends Mod implements UpdateListener
-{
-	public FullbrightMod()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(isEnabled() || WurstClient.INSTANCE.mods.getModByClass(XRayMod.class).isActive())
-		{
-			if(Minecraft.getMinecraft().gameSettings.gammaSetting < 16F)
-				Minecraft.getMinecraft().gameSettings.gammaSetting += 0.5F;
-		}else if(Minecraft.getMinecraft().gameSettings.gammaSetting > 0.5F)
-			if(Minecraft.getMinecraft().gameSettings.gammaSetting < 1F)
-				Minecraft.getMinecraft().gameSettings.gammaSetting = 0.5F;
-			else
-				Minecraft.getMinecraft().gameSettings.gammaSetting -= 0.5F;
-	}
+        description = "Allows you to see in the dark.",
+        name = "Fullbright")
+public class FullbrightMod extends Mod implements UpdateListener {
+    public FullbrightMod() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (isEnabled() || WurstClient.INSTANCE.mods.getModByClass(XRayMod.class).isActive()) {
+            if (Minecraft.getMinecraft().gameSettings.gammaSetting < 16F) {
+                Minecraft.getMinecraft().gameSettings.gammaSetting += 0.5F;
+            }
+        } else if (Minecraft.getMinecraft().gameSettings.gammaSetting > 0.5F) {
+            if (Minecraft.getMinecraft().gameSettings.gammaSetting < 1F) {
+                Minecraft.getMinecraft().gameSettings.gammaSetting = 0.5F;
+            } else {
+                Minecraft.getMinecraft().gameSettings.gammaSetting -= 0.5F;
+            }
+        }
+    }
 }

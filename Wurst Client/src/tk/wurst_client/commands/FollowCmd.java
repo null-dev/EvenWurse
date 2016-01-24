@@ -14,25 +14,20 @@ import tk.wurst_client.mods.FollowMod;
 import tk.wurst_client.utils.EntityUtils;
 
 @Cmd.Info(help = "Toggles Follow or makes it target a specific entity.",
-	name = "follow",
-	syntax = {"[<entity>]"})
-public class FollowCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length > 1)
-			syntaxError();
-		if(args.length == 0)
-			WurstClient.INSTANCE.mods.getModByClass(FollowMod.class).toggle();
-		else
-		{
-			WurstClient.INSTANCE.mods.disableModsByClass(FollowMod.class);
-			EntityLivingBase entity = EntityUtils.searchEntityByName(args[0]);
-			if(entity == null)
-				error("Entity \"" + args[0] + "\" could not be found.");
-			WurstClient.INSTANCE.mods.getModByClass(FollowMod.class).setEnabled(true);
-			WurstClient.INSTANCE.mods.getModByClass(FollowMod.class).setEntity(entity);
-		}
-	}
+        name = "follow",
+        syntax = {"[<entity>]"})
+public class FollowCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length > 1) syntaxError();
+        if (args.length == 0) {
+            WurstClient.INSTANCE.mods.getModByClass(FollowMod.class).toggle();
+        } else {
+            WurstClient.INSTANCE.mods.disableModsByClass(FollowMod.class);
+            EntityLivingBase entity = EntityUtils.searchEntityByName(args[0]);
+            if (entity == null) error("Entity \"" + args[0] + "\" could not be found.");
+            WurstClient.INSTANCE.mods.getModByClass(FollowMod.class).setEnabled(true);
+            WurstClient.INSTANCE.mods.getModByClass(FollowMod.class).setEntity(entity);
+        }
+    }
 }

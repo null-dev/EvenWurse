@@ -26,25 +26,24 @@ import tk.wurst_client.navigator.settings.SliderSetting;
 import tk.wurst_client.utils.BlockUtils;
 
 @Info(category = Category.BLOCKS,
-        description = "Breaks blocks around you like an explosion.\n"
-                + "This can be a lot faster than Nuker if the server\n"
-                + "doesn't have NoCheat+. It works best with fast tools\n"
-                + "and weak blocks.\n" + "Note that this is not an actual explosion.",
+        description = "Breaks blocks around you like an explosion.\n" +
+                "This can be a lot faster than Nuker if the server\n" +
+                "doesn't have NoCheat+. It works best with fast tools\n" + "and weak blocks.\n" +
+                "Note that this is not an actual explosion.",
         name = "Kaboom",
         noCheatCompatible = false)
 public class KaboomMod extends Mod implements UpdateListener {
-    private int range = 6;
     public int power = 128;
+    private int range = 6;
 
     @Override
     public void initSettings() {
-        settings.add(new SliderSetting("Kaboom power", power, 32, 512, 32,
-                ValueDisplay.INTEGER));
+        settings.add(new SliderSetting("Kaboom power", power, 32, 512, 32, ValueDisplay.INTEGER));
     }
 
     @Override
     public void updateSettings() {
-        power = (int)((SliderSetting)settings.get(0)).getValue();
+        power = (int) ((SliderSetting) settings.get(0)).getValue();
     }
 
     @Override
@@ -54,7 +53,7 @@ public class KaboomMod extends Mod implements UpdateListener {
 
     @Override
     public void onUpdate() {
-        if(Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode) {
+        if (Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode) {
             WurstClient.INSTANCE.chat.error("Surivival mode only.");
             setEnabled(false);
             return;
@@ -62,66 +61,40 @@ public class KaboomMod extends Mod implements UpdateListener {
         new Thread("Kaboom") {
             @Override
             public void run() {
-                for(int y = range; y >= -range; y--) {
-                    new Explosion(Minecraft.getMinecraft().theWorld,
-                            Minecraft.getMinecraft().thePlayer,
-                            Minecraft.getMinecraft().thePlayer.posX,
-                            Minecraft.getMinecraft().thePlayer.posY,
-                            Minecraft.getMinecraft().thePlayer.posZ, 6F, false,
-                            true).doExplosionB(true);
-                    for(int x = range; x >= -range - 1; x--)
-                        for(int z = range; z >= -range; z--) {
-                            int posX =
-                                    (int)(Math
-                                            .floor(Minecraft.getMinecraft().thePlayer.posX) + x);
-                            int posY =
-                                    (int)(Math
-                                            .floor(Minecraft.getMinecraft().thePlayer.posY) + y);
-                            int posZ =
-                                    (int)(Math
-                                            .floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
-                            if(x == 0 && y == -1 && z == 0)
-                                continue;
+                for (int y = range; y >= -range; y--) {
+                    new Explosion(Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft().thePlayer,
+                            Minecraft.getMinecraft().thePlayer.posX, Minecraft.getMinecraft().thePlayer.posY,
+                            Minecraft.getMinecraft().thePlayer.posZ, 6F, false, true).doExplosionB(true);
+                    for (int x = range; x >= -range - 1; x--) {
+                        for (int z = range; z >= -range; z--) {
+                            int posX = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posX) + x);
+                            int posY = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posY) + y);
+                            int posZ = (int) (Math.floor(Minecraft.getMinecraft().thePlayer.posZ) + z);
+                            if (x == 0 && y == -1 && z == 0) continue;
                             BlockPos pos = new BlockPos(posX, posY, posZ);
-                            Block block =
-                                    Minecraft.getMinecraft().theWorld
-                                            .getBlockState(pos).getBlock();
-                            float xDiff =
-                                    (float)(Minecraft.getMinecraft().thePlayer.posX - posX);
-                            float yDiff =
-                                    (float)(Minecraft.getMinecraft().thePlayer.posY - posY);
-                            float zDiff =
-                                    (float)(Minecraft.getMinecraft().thePlayer.posZ - posZ);
-                            float currentDistance =
-                                    BlockUtils
-                                            .getBlockDistance(xDiff, yDiff, zDiff);
-                            MovingObjectPosition fakeObjectMouseOver =
-                                    Minecraft.getMinecraft().objectMouseOver;
-                            fakeObjectMouseOver.setBlockPos(new BlockPos(posX,
-                                    posY, posZ));
-                            if(Block.getIdFromBlock(block) != 0 && posY >= 0
-                                    && currentDistance <= range) {
-                                if(!Minecraft.getMinecraft().thePlayer.onGround)
-                                    continue;
+                            Block block = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
+                            float xDiff = (float) (Minecraft.getMinecraft().thePlayer.posX - posX);
+                            float yDiff = (float) (Minecraft.getMinecraft().thePlayer.posY - posY);
+                            float zDiff = (float) (Minecraft.getMinecraft().thePlayer.posZ - posZ);
+                            float currentDistance = BlockUtils.getBlockDistance(xDiff, yDiff, zDiff);
+                            MovingObjectPosition fakeObjectMouseOver = Minecraft.getMinecraft().objectMouseOver;
+                            fakeObjectMouseOver.setBlockPos(new BlockPos(posX, posY, posZ));
+                            if (Block.getIdFromBlock(block) != 0 && posY >= 0 && currentDistance <= range) {
+                                if (!Minecraft.getMinecraft().thePlayer.onGround) continue;
                                 EnumFacing side = fakeObjectMouseOver.sideHit;
                                 BlockUtils.faceBlockPacket(pos);
-                                Minecraft.getMinecraft().thePlayer.sendQueue
-                                        .addToSendQueue(new C0APacketAnimation());
-                                Minecraft.getMinecraft().thePlayer.sendQueue
-                                        .addToSendQueue(new C07PacketPlayerDigging(
-                                                Action.START_DESTROY_BLOCK, pos, side));
-                                for(int i = 0; i < power; i++)
-                                    Minecraft.getMinecraft().thePlayer.sendQueue
-                                            .addToSendQueue(new C07PacketPlayerDigging(
-                                                    Action.STOP_DESTROY_BLOCK, pos,
-                                                    side));
-                                block
-                                        .onBlockDestroyedByPlayer(Minecraft
-                                                        .getMinecraft().theWorld, pos,
-                                                Minecraft.getMinecraft().theWorld
-                                                        .getBlockState(pos));
+                                Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
+                                Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
+                                        new C07PacketPlayerDigging(Action.START_DESTROY_BLOCK, pos, side));
+                                for (int i = 0; i < power; i++) {
+                                    Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
+                                            new C07PacketPlayerDigging(Action.STOP_DESTROY_BLOCK, pos, side));
+                                }
+                                block.onBlockDestroyedByPlayer(Minecraft.getMinecraft().theWorld, pos,
+                                        Minecraft.getMinecraft().theWorld.getBlockState(pos));
                             }
                         }
+                    }
                 }
             }
         }.start();

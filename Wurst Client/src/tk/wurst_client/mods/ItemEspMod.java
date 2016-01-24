@@ -18,25 +18,22 @@ import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
 @Info(category = Category.RENDER,
-	description = "Allows you to see items through walls.",
-	name = "ItemESP")
-public class ItemEspMod extends Mod implements RenderListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
-	}
-	
-	@Override
-	public void onRender()
-	{
-		Minecraft.getMinecraft().theWorld.loadedEntityList.stream().filter(entity -> entity instanceof EntityItem).forEach(entity -> RenderUtils.entityESPBox((Entity) entity, 2));
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
-	}
+        description = "Allows you to see items through walls.",
+        name = "ItemESP")
+public class ItemEspMod extends Mod implements RenderListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(RenderListener.class, this);
+    }
+
+    @Override
+    public void onRender() {
+        Minecraft.getMinecraft().theWorld.loadedEntityList.stream().filter(entity -> entity instanceof EntityItem)
+                .forEach(entity -> RenderUtils.entityESPBox((Entity) entity, 2));
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+    }
 }

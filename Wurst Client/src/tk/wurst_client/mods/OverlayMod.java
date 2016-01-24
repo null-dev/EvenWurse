@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,34 +20,29 @@ import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
 @Info(category = Category.RENDER,
-	description = "Renders the Nuker animation when you mine a block.",
-	name = "Overlay")
-public class OverlayMod extends Mod implements RenderListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
-	}
-	
-	@Override
-	public void onRender()
-	{
-		if(Minecraft.getMinecraft().objectMouseOver == null
-			|| Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK)
-			return;
-		BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
-		Block mouseOverBlock =
-			Minecraft.getMinecraft().theWorld.getBlockState(
-				Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-				.getBlock();
-		if(Block.getIdFromBlock(mouseOverBlock) != 0)
-			RenderUtils.nukerBox(pos, PlayerControllerMP.curBlockDamageMP);
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
-	}
+        description = "Renders the Nuker animation when you mine a block.",
+        name = "Overlay")
+public class OverlayMod extends Mod implements RenderListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(RenderListener.class, this);
+    }
+
+    @Override
+    public void onRender() {
+        if (Minecraft.getMinecraft().objectMouseOver == null ||
+                Minecraft.getMinecraft().objectMouseOver.typeOfHit != MovingObjectType.BLOCK) {
+            return;
+        }
+        BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
+        Block mouseOverBlock =
+                Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+                        .getBlock();
+        if (Block.getIdFromBlock(mouseOverBlock) != 0) RenderUtils.nukerBox(pos, PlayerControllerMP.curBlockDamageMP);
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+    }
 }

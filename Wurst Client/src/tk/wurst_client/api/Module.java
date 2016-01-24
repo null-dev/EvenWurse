@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * A module which can be loaded and unloaded dynamically.
- *
+ * <p>
  * DO NOT STORE STATIC REFERENCES TO THIS!
  * A module cannot be reloaded properly if there are still references to it!
  */
@@ -23,7 +23,7 @@ public class Module {
 
     public Module() {
         //Setup annotations
-        if(getClass().isAnnotationPresent(ModuleInfo.class)) {
+        if (getClass().isAnnotationPresent(ModuleInfo.class)) {
             version = getClass().getAnnotation(ModuleInfo.class).version();
             minVersion = getClass().getAnnotation(ModuleInfo.class).minVersion();
             maxVersion = getClass().getAnnotation(ModuleInfo.class).maxVersion();
@@ -48,23 +48,47 @@ public class Module {
     }
 
     //Overridable on unload
-    public void onUnload(){}
+    public void onUnload() {
+    }
 
     //Overridable on load
-    public void onLoad(){}
+    public void onLoad() {
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface ModuleInfo {
+        float version() default 1.00f;
+
+        int minVersion() default 0;
+
+        int maxVersion() default Integer.MAX_VALUE;
+
+        boolean usesConfig() default false;
+    }
 
     //Mod load exceptions
     public static class ModuleLoadException extends Exception {
-        public ModuleLoadException() {}
+        public ModuleLoadException() {
+        }
 
-        public ModuleLoadException(String message) {super(message);}
+        public ModuleLoadException(String message) {
+            super(message);
+        }
 
-        public ModuleLoadException(String message, Throwable cause) {super(message, cause);}
+        public ModuleLoadException(String message, Throwable cause) {
+            super(message, cause);
+        }
 
-        public ModuleLoadException(Throwable cause) {super(cause);}
+        public ModuleLoadException(Throwable cause) {
+            super(cause);
+        }
 
-        public ModuleLoadException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {super(message, cause, enableSuppression, writableStackTrace);}
+        public ModuleLoadException(String message, Throwable cause, boolean enableSuppression,
+                                   boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
+        }
     }
+
     public static class InvalidVersionException extends ModuleLoadException {
         String name;
         int minVersion;
@@ -87,17 +111,5 @@ public class Module {
         public int getMaxVersion() {
             return maxVersion;
         }
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface ModuleInfo
-    {
-        float version() default 1.00f;
-
-        int minVersion() default 0;
-
-        int maxVersion() default Integer.MAX_VALUE;
-
-        boolean usesConfig() default false;
     }
 }

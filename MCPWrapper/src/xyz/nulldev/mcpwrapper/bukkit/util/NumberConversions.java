@@ -4,7 +4,8 @@ package xyz.nulldev.mcpwrapper.bukkit.util;
  * Utils for casting number types to other number types
  */
 public final class NumberConversions {
-    private NumberConversions() {}
+    private NumberConversions() {
+    }
 
     public static int floor(double num) {
         final int floor = (int) num;
@@ -31,7 +32,8 @@ public final class NumberConversions {
 
         try {
             return Integer.valueOf(object.toString());
-        } catch (NumberFormatException | NullPointerException ignored) {}
+        } catch (NumberFormatException | NullPointerException ignored) {
+        }
         return 0;
     }
 
@@ -42,7 +44,8 @@ public final class NumberConversions {
 
         try {
             return Float.valueOf(object.toString());
-        } catch (NumberFormatException | NullPointerException ignored) {}
+        } catch (NumberFormatException | NullPointerException ignored) {
+        }
         return 0;
     }
 
@@ -53,7 +56,8 @@ public final class NumberConversions {
 
         try {
             return Double.valueOf(object.toString());
-        } catch (NumberFormatException | NullPointerException ignored) {}
+        } catch (NumberFormatException | NullPointerException ignored) {
+        }
         return 0;
     }
 
@@ -64,7 +68,8 @@ public final class NumberConversions {
 
         try {
             return Long.valueOf(object.toString());
-        } catch (NumberFormatException | NullPointerException ignored) {}
+        } catch (NumberFormatException | NullPointerException ignored) {
+        }
         return 0;
     }
 
@@ -75,7 +80,8 @@ public final class NumberConversions {
 
         try {
             return Short.valueOf(object.toString());
-        } catch (NumberFormatException | NullPointerException ignored) {}
+        } catch (NumberFormatException | NullPointerException ignored) {
+        }
         return 0;
     }
 
@@ -86,7 +92,8 @@ public final class NumberConversions {
 
         try {
             return Byte.valueOf(object.toString());
-        } catch (NumberFormatException | NullPointerException ignored) {}
+        } catch (NumberFormatException | NullPointerException ignored) {
+        }
         return 0;
     }
 }

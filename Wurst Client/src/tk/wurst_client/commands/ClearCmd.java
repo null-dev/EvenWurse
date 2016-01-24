@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,14 +12,13 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Clears the chat completely.", name = "clear", syntax = {})
-public class ClearCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length == 0)
-			Minecraft.getMinecraft().ingameGUI.getChatGUI().clearChatMessages();
-		else
-			syntaxError();
-	}
+public class ClearCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length == 0) {
+            Minecraft.getMinecraft().ingameGUI.getChatGUI().clearChatMessages();
+        } else {
+            syntaxError();
+        }
+    }
 }

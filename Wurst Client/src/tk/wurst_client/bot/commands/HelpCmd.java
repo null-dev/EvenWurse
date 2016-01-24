@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,56 +8,41 @@
  */
 package tk.wurst_client.bot.commands;
 
-import java.util.Iterator;
-
 import tk.wurst_client.bot.WurstBot;
 import tk.wurst_client.utils.MiscUtils;
 
+import java.util.Iterator;
+
 @Command.Info(help = "Shows the command list or the help for a command.",
-	name = "help",
-	syntax = {"[<page>]", "[<command>]"})
-public class HelpCmd extends Command
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length == 0)
-		{
-			execute(new String[]{"1"});
-			return;
-		}
-		int pages =
-			(int)Math.ceil(WurstBot.getBot().getCommandManager()
-				.countCommands() / 8D);
-		if(MiscUtils.isInteger(args[0]))
-		{
-			int page = Integer.valueOf(args[0]);
-			if(page > pages || page < 1)
-				syntaxError("Invalid page: " + page);
-			System.out.println("Available commands: "
-				+ WurstBot.getBot().getCommandManager().countCommands());
-			System.out.println("Command list (page " + page + "/" + pages
-				+ "):");
-			Iterator<Command> itr =
-				WurstBot.getBot().getCommandManager().getAllCommands()
-					.iterator();
-			for(int i = 0; itr.hasNext(); i++)
-			{
-				Command cmd = itr.next();
-				if(i >= (page - 1) * 8 && i < (page - 1) * 8 + 8)
-					System.out.println(cmd.getName());
-			}
-		}else
-		{
-			Command cmd =
-				WurstBot.getBot().getCommandManager().getCommandByName(args[0]);
-			if(cmd != null)
-			{
-				System.out.println("Available help for \"" + args[0] + "\":");
-				cmd.printHelp();
-				cmd.printSyntax();
-			}else
-				syntaxError();
-		}
-	}
+        name = "help",
+        syntax = {"[<page>]", "[<command>]"})
+public class HelpCmd extends Command {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length == 0) {
+            execute(new String[]{"1"});
+            return;
+        }
+        int pages = (int) Math.ceil(WurstBot.getBot().getCommandManager().countCommands() / 8D);
+        if (MiscUtils.isInteger(args[0])) {
+            int page = Integer.valueOf(args[0]);
+            if (page > pages || page < 1) syntaxError("Invalid page: " + page);
+            System.out.println("Available commands: " + WurstBot.getBot().getCommandManager().countCommands());
+            System.out.println("Command list (page " + page + "/" + pages + "):");
+            Iterator<Command> itr = WurstBot.getBot().getCommandManager().getAllCommands().iterator();
+            for (int i = 0; itr.hasNext(); i++) {
+                Command cmd = itr.next();
+                if (i >= (page - 1) * 8 && i < (page - 1) * 8 + 8) System.out.println(cmd.getName());
+            }
+        } else {
+            Command cmd = WurstBot.getBot().getCommandManager().getCommandByName(args[0]);
+            if (cmd != null) {
+                System.out.println("Available help for \"" + args[0] + "\":");
+                cmd.printHelp();
+                cmd.printSyntax();
+            } else {
+                syntaxError();
+            }
+        }
+    }
 }

@@ -42,37 +42,38 @@ public class AutoTeamSetupModule extends Module implements UpdateListener {
 
     @Override
     public void onUpdate() {
-        if(!ModuleConfiguration.forModule(this).getBoolean("Enabled", true)) return;
+        if (!ModuleConfiguration.forModule(this).getBoolean("Enabled", true)) return;
         String curTag = Minecraft.getMinecraft().thePlayer.getDisplayName().getFormattedText();
-        if(curTag == null || curTag.isEmpty() || curTag.equals(previousTag)) return;
+        if (curTag == null || curTag.isEmpty() || curTag.equals(previousTag)) return;
         boolean nextIsCode = false;
-        for(char c : curTag.toCharArray()) {
-            if(nextIsCode) {
+        for (char c : curTag.toCharArray()) {
+            if (nextIsCode) {
                 String code = F.STRING_SS + c;
-                if(F.isColorCode(code)) {
-                    if(WurstClient.INSTANCE.options.target.teams) {
-                        boolean[] teamColors =
-                                WurstClient.INSTANCE.options.target.getTeamColorsSafely();
-                        for(int i = 0; i < teamColors.length; i ++) {
+                if (F.isColorCode(code)) {
+                    if (WurstClient.INSTANCE.options.target.teams) {
+                        boolean[] teamColors = WurstClient.INSTANCE.options.target.getTeamColorsSafely();
+                        for (int i = 0; i < teamColors.length; i++) {
                             teamColors[i] = !Objects.equals(String.valueOf(c), EntityUtils.COLORS[i]);
                         }
                         teamColors[15] = false;
-                        if(ModuleConfiguration.forModule(this).getBoolean("Notify on Team Change", true)) {
+                        if (ModuleConfiguration.forModule(this).getBoolean("Notify on Team Change", true)) {
                             String english = "COLOR";
-                            for(Map.Entry<String, String> e : F.COLOR_MAP.entrySet()) {
-                                if(e.getValue().equals(code)) {
+                            for (Map.Entry<String, String> e : F.COLOR_MAP.entrySet()) {
+                                if (e.getValue().equals(code)) {
                                     english = e.getKey();
                                     break;
                                 }
                             }
-                            Chat.sendInfo("AutoTeamSetup has changed your team targeting settings to: \"Target all colors except: "
-                                    + code + english + F.RESET + " and " + F.WHITE + "WHITE" + F.RESET + "\"!");
+                            Chat.sendInfo(
+                                    "AutoTeamSetup has changed your team targeting settings to: \"Target all colors " +
+                                            "except: " +
+                                            code + english + F.RESET + " and " + F.WHITE + "WHITE" + F.RESET + "\"!");
                         }
                     }
                     break;
                 }
                 nextIsCode = false;
-            } else if(c == F.SS) {
+            } else if (c == F.SS) {
                 nextIsCode = true;
             }
         }

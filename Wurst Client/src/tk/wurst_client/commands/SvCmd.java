@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,18 +14,13 @@ import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.hooks.ServerHook;
 
 @Info(help = "Shows the version of the server you are currently playing on.",
-	name = "sv",
-	syntax = {})
-public class SvCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length != 0)
-			syntaxError();
-		if(Minecraft.getMinecraft().isSingleplayer())
-			error("Can't check server version in singleplayer.");
-		WurstClient.INSTANCE.chat.message("Server version: "
-			+ ServerHook.getLastServerData().gameVersion);
-	}
+        name = "sv",
+        syntax = {})
+public class SvCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length != 0) syntaxError();
+        if (Minecraft.getMinecraft().isSingleplayer()) error("Can't check server version in singleplayer.");
+        WurstClient.INSTANCE.chat.message("Server version: " + ServerHook.getLastServerData().gameVersion);
+    }
 }

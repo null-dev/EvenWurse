@@ -64,7 +64,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Minecraft GUI API
- *
+ * <p>
  * This class is not actually intended for use; rather, you should use this as a
  * template for your actual GuiManager, as the creation of frames is highly
  * implementation-specific.
@@ -73,24 +73,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author Alexander01998
  */
 public final class GuiManager extends AbstractGuiManager {
-    private class ModuleFrame extends BasicFrame {
-        private ModuleFrame(String title) {
-            super(title);
-        }
-    }
-
     private final AtomicBoolean setup;
-    private final Map<Category, ModuleFrame> categoryFrames =
-            new HashMap<>();
-
+    private final Map<Category, ModuleFrame> categoryFrames = new HashMap<>();
     public GuiManager() {
         setup = new AtomicBoolean();
     }
 
     @Override
     public void setup() {
-        if(!setup.compareAndSet(false, true))
-            return;
+        if (!setup.compareAndSet(false, true)) return;
 
         ModuleFrame settingsFrame = new ModuleFrame("Settings");
         settingsFrame.setTheme(theme);
@@ -100,16 +91,13 @@ public final class GuiManager extends AbstractGuiManager {
         settingsFrame.setMinimized(true);
         settingsFrame.setPinnable(true);
         addFrame(settingsFrame);
-        for(final Mod mod : WurstClient.INSTANCE.mods.getAllMods()) {
+        for (final Mod mod : WurstClient.INSTANCE.mods.getAllMods()) {
             ModuleFrame frame = categoryFrames.get(mod.getCategory());
-            if(frame == null) {
+            if (frame == null) {
                 String name = mod.getCategory().name().toLowerCase();
-                if(name.equalsIgnoreCase("HIDDEN"))
-                    continue;
-                name =
-                        Character.toUpperCase(name.charAt(0)) + name.substring(1);
-                if(name.equalsIgnoreCase("AUTOBUILD"))
-                    name = "AutoBuild";// Corrects the case.
+                if (name.equalsIgnoreCase("HIDDEN")) continue;
+                name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+                if (name.equalsIgnoreCase("AUTOBUILD")) name = "AutoBuild";// Corrects the case.
                 frame = new ModuleFrame(name);
                 frame.setTheme(theme);
                 frame.setLayoutManager(new GridLayoutManager(1, 0));
@@ -123,15 +111,16 @@ public final class GuiManager extends AbstractGuiManager {
             Button button = new BasicButton(mod) {
                 @Override
                 public void update() {
-                    setForegroundColor(mod.isEnabled() ? Color.BLACK
-                            : Color.WHITE);
-                    if(mod.isEnabled())
-                        if(mod.isBlocked())
+                    setForegroundColor(mod.isEnabled() ? Color.BLACK : Color.WHITE);
+                    if (mod.isEnabled()) {
+                        if (mod.isBlocked()) {
                             setBackgroundColor(new Color(255, 0, 0, 96));
-                        else
+                        } else {
                             setBackgroundColor(new Color(0, 255, 0, 96));
-                    else
+                        }
+                    } else {
                         setBackgroundColor(new Color(0, 0, 0, 0));
+                    }
                 }
             };
             button.addButtonListener(button1 -> mod.toggle());
@@ -145,54 +134,50 @@ public final class GuiManager extends AbstractGuiManager {
 
         // AutoBuild
         ModuleFrame autobuild = categoryFrames.get(Category.AUTOBUILD);
-        ComboBox autoBuildBox =
-                new BasicComboBox(
-                        AutoBuildMod.names.toArray(new String[AutoBuildMod.names.size()]));
-        autoBuildBox.addComboBoxListener(comboBox -> WurstClient.INSTANCE.options.autobuildMode =
-                comboBox.getSelectedIndex());
-        autoBuildBox
-                .setSelectedIndex(WurstClient.INSTANCE.options.autobuildMode);
+        ComboBox autoBuildBox = new BasicComboBox(AutoBuildMod.names.toArray(new String[AutoBuildMod.names.size()]));
+        autoBuildBox.addComboBoxListener(
+                comboBox -> WurstClient.INSTANCE.options.autobuildMode = comboBox.getSelectedIndex());
+        autoBuildBox.setSelectedIndex(WurstClient.INSTANCE.options.autobuildMode);
         autobuild.add(autoBuildBox, HorizontalGridConstraint.CENTER);
         categoryFrames.remove(Category.AUTOBUILD);
 
         // Target
         addFrame(new TargetFrame());
 
-        if(!WurstClient.INSTANCE.files.sliders.exists())
+        if (!WurstClient.INSTANCE.files.sliders.exists()) {
             WurstClient.INSTANCE.files.saveSliders();
-        else
+        } else {
             WurstClient.INSTANCE.files.loadSliders();
+        }
         resizeComponents();
         Minecraft minecraft = Minecraft.getMinecraft();
         int offsetX = 5, offsetY = 5;
         int scale = minecraft.gameSettings.guiScale;
-        if(scale == 0)
-            scale = 1000;
+        if (scale == 0) scale = 1000;
         int scaleFactor = 0;
-        while(scaleFactor < scale
-                && minecraft.displayWidth / (scaleFactor + 1) >= 320
-                && minecraft.displayHeight / (scaleFactor + 1) >= 240)
+        while (scaleFactor < scale && minecraft.displayWidth / (scaleFactor + 1) >= 320 &&
+                minecraft.displayHeight / (scaleFactor + 1) >= 240) {
             scaleFactor++;
-        for(Frame frame : getFrames()) {
+        }
+        for (Frame frame : getFrames()) {
             frame.setX(offsetX);
             frame.setY(offsetY);
             Dimension frameSize = frame.getSize();
             offsetX += frameSize.width + 5;
-            if(offsetX + frameSize.width + 5 > minecraft.displayWidth
-                    / scaleFactor) {
+            if (offsetX + frameSize.width + 5 > minecraft.displayWidth / scaleFactor) {
                 offsetX = 5;
                 int height = 0;
-                if(frame.isMinimized())
-                    for(Rectangle area : frame.getTheme()
-                            .getUIForComponent(frame).getInteractableRegions(frame))
+                if (frame.isMinimized()) {
+                    for (Rectangle area : frame.getTheme().getUIForComponent(frame).getInteractableRegions(frame)) {
                         height = Math.max(height, area.height);
-                else
+                    }
+                } else {
                     height = frameSize.height;
+                }
                 offsetY += height + 5;
             }
         }
-        if(WurstClient.INSTANCE.files.gui.exists())
-            WurstClient.INSTANCE.files.loadGUI(getFrames());
+        if (WurstClient.INSTANCE.files.gui.exists()) WurstClient.INSTANCE.files.loadGUI(getFrames());
     }
 
     @Override
@@ -201,49 +186,50 @@ public final class GuiManager extends AbstractGuiManager {
         Frame[] frames = getFrames();
         Button enable = new BasicButton("Enable", "");
         Button disable = new BasicButton("Disable", "");
-        Dimension enableSize =
-                theme.getUIForComponent(enable).getDefaultSize(enable);
-        Dimension disableSize =
-                theme.getUIForComponent(disable).getDefaultSize(disable);
+        Dimension enableSize = theme.getUIForComponent(enable).getDefaultSize(enable);
+        Dimension disableSize = theme.getUIForComponent(disable).getDefaultSize(disable);
         int buttonWidth = Math.max(enableSize.width, disableSize.width);
         int buttonHeight = Math.max(enableSize.height, disableSize.height);
-        for(Frame frame : frames)
-            if(frame instanceof ModuleFrame)
-                for(Component component : frame.getChildren())
-                    if(component instanceof Button) {
+        for (Frame frame : frames) {
+            if (frame instanceof ModuleFrame) {
+                for (Component component : frame.getChildren()) {
+                    if (component instanceof Button) {
                         component.setWidth(buttonWidth);
                         component.setHeight(buttonHeight);
                     }
+                }
+            }
+        }
         recalculateSizes();
     }
 
     private void recalculateSizes() {
         // set all frames to optimal width
         Frame[] frames = getFrames();
-        for(Frame frame : frames) {
-            Dimension defaultDimension =
-                    frame.getTheme().getUIForComponent(frame).getDefaultSize(frame);
+        for (Frame frame : frames) {
+            Dimension defaultDimension = frame.getTheme().getUIForComponent(frame).getDefaultSize(frame);
             frame.setWidth(defaultDimension.width);
             frame.setHeight(defaultDimension.height);
         }
 
         // ensure enough width for the title
-        for(Frame frame : frames) {
-            FontRenderer fontRenderer = ((WurstTheme)theme).getFontRenderer();
+        for (Frame frame : frames) {
+            FontRenderer fontRenderer = ((WurstTheme) theme).getFontRenderer();
             int minWidth =
-                    Math.max(fontRenderer.getStringWidth(frame.getTitle()),
-                            fontRenderer.getStringWidth("+++++")) + 6;
-            if(frame.isMinimizable())
-                minWidth += fontRenderer.FONT_HEIGHT + 2;
-            if(frame.isPinnable())
-                minWidth += fontRenderer.FONT_HEIGHT + 2;
-            if(frame.isClosable())
-                minWidth += fontRenderer.FONT_HEIGHT + 2;
-            if(frame.getWidth() < minWidth)
-                frame.setWidth(minWidth);
+                    Math.max(fontRenderer.getStringWidth(frame.getTitle()), fontRenderer.getStringWidth("+++++")) + 6;
+            if (frame.isMinimizable()) minWidth += fontRenderer.FONT_HEIGHT + 2;
+            if (frame.isPinnable()) minWidth += fontRenderer.FONT_HEIGHT + 2;
+            if (frame.isClosable()) minWidth += fontRenderer.FONT_HEIGHT + 2;
+            if (frame.getWidth() < minWidth) frame.setWidth(minWidth);
 
             // also update position & size of children
             frame.layoutChildren();
+        }
+    }
+
+    private class ModuleFrame extends BasicFrame {
+        private ModuleFrame(String title) {
+            super(title);
         }
     }
 }

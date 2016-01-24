@@ -20,89 +20,73 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
-	description = "Automatically uses the best weapon in your hotbar to attack\n"
-		+ "entities. Tip: This works with Killaura.",
-	name = "AutoSword",
-	noCheatCompatible = false)
-public class AutoSwordMod extends Mod implements LeftClickListener,
-	UpdateListener
-{
-	private int oldSlot;
-	private int timer;
-	
-	@Override
-	public void onEnable()
-	{
-		oldSlot = -1;
-		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(timer > 0)
-		{
-			timer--;
-			return;
-		}
-		Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
-	}
-	
-	@Override
-	public void onLeftClick()
-	{
-		if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive())
-		{
-			noCheatMessage();
-			setEnabled(false);
-			return;
-		}
-		if(Minecraft.getMinecraft().objectMouseOver != null
-			&& Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase)
-			setSlot();
-	}
-	
-	public static void setSlot()
-	{
-		if(WurstClient.INSTANCE.mods.getModByClass(AutoEatMod.class).isEating())
-			return;
-		float bestSpeed = 1F;
-		int bestSlot = -1;
-		for(int i = 0; i < 9; i++)
-		{
-			ItemStack item =
-				Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
-			if(item == null)
-				continue;
-			float speed = 0;
-			if(item.getItem() instanceof ItemSword)
-				speed = ((ItemSword)item.getItem()).func_150931_i();
-			else if(item.getItem() instanceof ItemTool)
-				speed =
-					((ItemTool)item.getItem()).getToolMaterial()
-						.getDamageVsEntity();
-			if(speed > bestSpeed)
-			{
-				bestSpeed = speed;
-				bestSlot = i;
-			}
-		}
-		if(bestSlot != -1
-			&& bestSlot != Minecraft.getMinecraft().thePlayer.inventory.currentItem)
-		{
-			WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).oldSlot =
-				Minecraft.getMinecraft().thePlayer.inventory.currentItem;
-			Minecraft.getMinecraft().thePlayer.inventory.currentItem = bestSlot;
-			WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).timer = 4;
-			WurstClient.INSTANCE.events.add(UpdateListener.class,
-				WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class));
-		}
-	}
+        description = "Automatically uses the best weapon in your hotbar to attack\n" +
+                "entities. Tip: This works with Killaura.",
+        name = "AutoSword",
+        noCheatCompatible = false)
+public class AutoSwordMod extends Mod implements LeftClickListener, UpdateListener {
+    private int oldSlot;
+    private int timer;
+
+    public static void setSlot() {
+        if (WurstClient.INSTANCE.mods.getModByClass(AutoEatMod.class).isEating()) return;
+        float bestSpeed = 1F;
+        int bestSlot = -1;
+        for (int i = 0; i < 9; i++) {
+            ItemStack item = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
+            if (item == null) continue;
+            float speed = 0;
+            if (item.getItem() instanceof ItemSword) {
+                speed = ((ItemSword) item.getItem()).func_150931_i();
+            } else if (item.getItem() instanceof ItemTool) {
+                speed = ((ItemTool) item.getItem()).getToolMaterial().getDamageVsEntity();
+            }
+            if (speed > bestSpeed) {
+                bestSpeed = speed;
+                bestSlot = i;
+            }
+        }
+        if (bestSlot != -1 && bestSlot != Minecraft.getMinecraft().thePlayer.inventory.currentItem) {
+            WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).oldSlot =
+                    Minecraft.getMinecraft().thePlayer.inventory.currentItem;
+            Minecraft.getMinecraft().thePlayer.inventory.currentItem = bestSlot;
+            WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).timer = 4;
+            WurstClient.INSTANCE.events
+                    .add(UpdateListener.class, WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class));
+        }
+    }
+
+    @Override
+    public void onEnable() {
+        oldSlot = -1;
+        WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (timer > 0) {
+            timer--;
+            return;
+        }
+        Minecraft.getMinecraft().thePlayer.inventory.currentItem = oldSlot;
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
+    }
+
+    @Override
+    public void onLeftClick() {
+        if (WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive()) {
+            noCheatMessage();
+            setEnabled(false);
+            return;
+        }
+        if (Minecraft.getMinecraft().objectMouseOver != null &&
+                Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase) {
+            setSlot();
+        }
+    }
 }

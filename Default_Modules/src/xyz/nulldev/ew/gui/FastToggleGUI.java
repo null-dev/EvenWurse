@@ -49,31 +49,31 @@ public class FastToggleGUI extends GuiScreen {
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
-        if(keyCode == KeyCode.RIGHT_ARROW || keyCode == KeyCode.LEFT_ARROW) {
+        if (keyCode == KeyCode.RIGHT_ARROW || keyCode == KeyCode.LEFT_ARROW) {
             return;
-        } else if(keyCode == KeyCode.UP_ARROW) {
-            if(selectionIndex > 0) selectionIndex--;
+        } else if (keyCode == KeyCode.UP_ARROW) {
+            if (selectionIndex > 0) selectionIndex--;
             updateSelection();
             return;
-        } else if(keyCode == KeyCode.DOWN_ARROW && filteredMods != null) {
-            if(selectionIndex < filteredMods.size() - 1) selectionIndex++;
+        } else if (keyCode == KeyCode.DOWN_ARROW && filteredMods != null) {
+            if (selectionIndex < filteredMods.size() - 1) selectionIndex++;
             updateSelection();
             return;
-        } else if(keyCode == KeyCode.BACKSPACE) {
+        } else if (keyCode == KeyCode.BACKSPACE) {
             deleteSelection();
-        } else if(keyCode == KeyCode.ENTER && filteredMods != null && selectionIndex != -1) {
+        } else if (keyCode == KeyCode.ENTER && filteredMods != null && selectionIndex != -1) {
             //Toggle highlighted mod
             filteredMods.get(selectionIndex).getValue().toggle();
             GUI.displayGuiScreen(null);
             return;
         }
         searchBar.textboxKeyTyped(typedChar, keyCode);
-        if(searchBar.getText().length() < 1) {
+        if (searchBar.getText().length() < 1) {
             filteredMods = null;
             selectionIndex = -1;
         } else {
             filteredMods = filterMods(searchBar.getText());
-            if(filteredMods.size() < 1) {
+            if (filteredMods.size() < 1) {
                 selectionIndex = -1;
             } else {
                 selectionIndex = 0;
@@ -83,11 +83,11 @@ public class FastToggleGUI extends GuiScreen {
     }
 
     void updateSelection() {
-        if(selectionIndex != -1 && filteredMods != null) {
+        if (selectionIndex != -1 && filteredMods != null) {
             String name = filteredMods.get(selectionIndex).getKey();
             String[] split = name.split("</GREEN>");
             String value = "";
-            if(split.length > 1) {
+            if (split.length > 1) {
                 value = split[1];
             }
             deleteSelection();
@@ -99,17 +99,16 @@ public class FastToggleGUI extends GuiScreen {
     }
 
     @Override
-    public final boolean doesGuiPauseGame()
-    {
+    public final boolean doesGuiPauseGame() {
         return false;
     }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        if(mouseButton == 0) {
-            for(Tuple<Rectangle, Mod> renderedMod : rendererdMods) {
-                if(renderedMod.getKey().contains(mouseX, mouseY)) {
+        if (mouseButton == 0) {
+            for (Tuple<Rectangle, Mod> renderedMod : rendererdMods) {
+                if (renderedMod.getKey().contains(mouseX, mouseY)) {
                     renderedMod.getValue().toggle();
                     break;
                 }
@@ -118,8 +117,8 @@ public class FastToggleGUI extends GuiScreen {
     }
 
     void deleteSelection() {
-        searchBar.setText(searchBar.getText().substring(0,
-                searchBar.getText().length() - searchBar.getSelectedText().length()));
+        searchBar.setText(
+                searchBar.getText().substring(0, searchBar.getText().length() - searchBar.getSelectedText().length()));
     }
 
     @Override
@@ -133,25 +132,22 @@ public class FastToggleGUI extends GuiScreen {
         glDisable(GL_TEXTURE_2D);
         glShadeModel(GL_SMOOTH);
         int x = width / 2/* - 50*/;
-//        RenderUtil.scissorBox(0, 59, width, height - 42);
-//        glEnable(GL_SCISSOR_TEST);
+        //        RenderUtil.scissorBox(0, 59, width, height - 42);
+        //        glEnable(GL_SCISSOR_TEST);
         rendererdMods.clear();
-        if(filteredMods != null) {
-            int maxMods = ModuleConfiguration.forModule(WurstClient.INSTANCE.mods
-                    .getModByClass(FastToggleMod.class))
+        if (filteredMods != null) {
+            int maxMods = ModuleConfiguration.forModule(WurstClient.INSTANCE.mods.getModByClass(FastToggleMod.class))
                     .getInt("Max Mods on Screen", 15);
             int i = 0;
             for (Tuple<String, Mod> mod : filteredMods) {
-                if(i - 1 > maxMods) break;
+                if (i - 1 > maxMods) break;
                 // y position
                 int y = 60 + i * 20;
-                if (y < 40)
-                    continue;
-                if (y > height - 40)
-                    break;
+                if (y < 40) continue;
+                if (y > height - 40) break;
 
                 Rectangle area;
-                if(i == selectionIndex) {
+                if (i == selectionIndex) {
                     area = new Rectangle(x - 109, y - 3, 218, 18);
                 } else {
                     area = new Rectangle(x - 100, y, 200, 12);
@@ -159,17 +155,18 @@ public class FastToggleGUI extends GuiScreen {
                 rendererdMods.add(new Tuple<>(area, mod.getValue()));
 
                 // color
-                boolean hovering =
-                        area.contains(mouseX, mouseY) || i == selectionIndex;
-                if (mod.getValue().isEnabled())
-                    if (mod.getValue().isBlocked())
+                boolean hovering = area.contains(mouseX, mouseY) || i == selectionIndex;
+                if (mod.getValue().isEnabled()) {
+                    if (mod.getValue().isBlocked()) {
                         glColor4f(hovering ? 1F : 0.875F, 0F, 0F, 0.5F);
-                    else
+                    } else {
                         glColor4f(0F, hovering ? 1F : 0.875F, 0F, 0.5F);
-                else if (hovering)
+                    }
+                } else if (hovering) {
                     glColor4f(0.375F, 0.375F, 0.375F, 0.5F);
-                else
+                } else {
                     glColor4f(0.25F, 0.25F, 0.25F, 0.5F);
+                }
 
                 // box & shadow
                 glBegin(GL_QUADS);
@@ -180,19 +177,15 @@ public class FastToggleGUI extends GuiScreen {
                     glVertex2d(area.x, area.y + area.height);
                 }
                 glEnd();
-                RenderUtil.boxShadow(area.x, area.y, area.x + area.width, area.y
-                        + area.height);
+                RenderUtil.boxShadow(area.x, area.y, area.x + area.width, area.y + area.height);
 
                 // text
                 glEnable(GL_TEXTURE_2D);
                 try {
                     String buttonText = F.f(mod.getKey());
-                    GUI.getFontRenderer().drawString(
-                            buttonText,
-                            area.x
-                                    + (area.width - GUI.getFontRenderer()
-                                    .getStringWidth(buttonText)) / 2, area.y +((area.height/2) - 4),
-                            0xffffff);
+                    GUI.getFontRenderer().drawString(buttonText,
+                            area.x + (area.width - GUI.getFontRenderer().getStringWidth(buttonText)) / 2,
+                            area.y + ((area.height / 2) - 4), 0xffffff);
                 } catch (Exception e) {
                     System.out.println("[EvenWurse] Exception filtering mods!");
                     e.printStackTrace();
@@ -202,7 +195,7 @@ public class FastToggleGUI extends GuiScreen {
             }
         }
         //RESET
-//        glDisable(GL_SCISSOR_TEST);
+        //        glDisable(GL_SCISSOR_TEST);
         glEnable(GL_CULL_FACE);
         glEnable(GL_TEXTURE_2D);
         glDisable(GL_BLEND);
@@ -210,9 +203,9 @@ public class FastToggleGUI extends GuiScreen {
 
     ArrayList<Tuple<String, Mod>> filterMods(String string) {
         ArrayList<Tuple<String, Mod>> out = new ArrayList<>();
-        for(Mod mod : WurstClient.INSTANCE.mods.getAllMods()) {
+        for (Mod mod : WurstClient.INSTANCE.mods.getAllMods()) {
             String name = mod.getName();
-            if(name.toUpperCase().startsWith(string.toUpperCase())) {
+            if (name.toUpperCase().startsWith(string.toUpperCase())) {
                 String begin = name.substring(0, string.length());
                 String sub = name.substring(string.length());
                 out.add(new Tuple<>("<GREEN>" + begin + "</GREEN>" + sub, mod));
@@ -221,23 +214,21 @@ public class FastToggleGUI extends GuiScreen {
         return out;
     }
 }
+
 class Tuple<Key, Value> {
     private Key key;
     private Value value;
 
-    public Tuple(Key key, Value value)
-    {
+    public Tuple(Key key, Value value) {
         this.key = key;
         this.value = value;
     }
 
-    public Key getKey()
-    {
+    public Key getKey() {
         return this.key;
     }
 
-    public Value getValue()
-    {
+    public Value getValue() {
         return this.value;
     }
 }

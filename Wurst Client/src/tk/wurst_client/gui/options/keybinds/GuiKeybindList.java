@@ -16,54 +16,42 @@ import tk.wurst_client.gui.GuiWurstSlot;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class GuiKeybindList extends GuiWurstSlot
-{
-	public GuiKeybindList(Minecraft par1Minecraft, GuiScreen prevMenu)
-	{
-		super(par1Minecraft, prevMenu.width, prevMenu.height, 36,
-			prevMenu.height - 56, 30);
-		mc = par1Minecraft;
-	}
-	
-	private int selectedSlot;
-	private Minecraft mc;
+public class GuiKeybindList extends GuiWurstSlot {
+    private int selectedSlot;
+    private Minecraft mc;
+    public GuiKeybindList(Minecraft par1Minecraft, GuiScreen prevMenu) {
+        super(par1Minecraft, prevMenu.width, prevMenu.height, 36, prevMenu.height - 56, 30);
+        mc = par1Minecraft;
+    }
 
-	@Override
-	protected boolean isSelected(int id)
-	{
-		return selectedSlot == id;
-	}
+    @Override
+    protected boolean isSelected(int id) {
+        return selectedSlot == id;
+    }
 
-	protected int getSelectedSlot()
-	{
-		return selectedSlot;
-	}
+    protected int getSelectedSlot() {
+        return selectedSlot;
+    }
 
-	@Override
-	protected int getSize()
-	{
-		return WurstClient.INSTANCE.keybinds.size();
-	}
-	
-	@Override
-	protected void elementClicked(int var1, boolean var2, int var3, int var4)
-	{
-		selectedSlot = var1;
-	}
-	
-	@Override
-	protected void drawBackground()
-	{}
-	
-	@Override
-	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
-	{
-		Entry entry =
-			WurstClient.INSTANCE.keybinds.entrySet().toArray(
-				new Map.Entry[WurstClient.INSTANCE.keybinds.size()])[id];
-		mc.fontRendererObj.drawString("Key: " + entry.getKey(), x + 3, y + 3,
-			10526880);
-		mc.fontRendererObj.drawString("Command: " + entry.getValue(), x + 3,
-			y + 15, 10526880);
-	}
+    @Override
+    protected int getSize() {
+        return WurstClient.INSTANCE.keybinds.size();
+    }
+
+    @Override
+    protected void elementClicked(int var1, boolean var2, int var3, int var4) {
+        selectedSlot = var1;
+    }
+
+    @Override
+    protected void drawBackground() {
+    }
+
+    @Override
+    protected void drawSlot(int id, int x, int y, int var4, int var5, int var6) {
+        Entry entry = WurstClient.INSTANCE.keybinds.entrySet()
+                .toArray(new Map.Entry[WurstClient.INSTANCE.keybinds.size()])[id];
+        mc.fontRendererObj.drawString("Key: " + entry.getKey(), x + 3, y + 3, 10526880);
+        mc.fontRendererObj.drawString("Command: " + entry.getValue(), x + 3, y + 15, 10526880);
+    }
 }

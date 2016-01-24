@@ -16,32 +16,31 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Info(category = Category.MISC,
-	description = "Makes other mods bypass NoCheat+ or blocks them if\n"
-		+ "they can't.",
-	name = "YesCheat+")
-public class YesCheatMod extends Mod
-{
-	private HashSet<Mod> blockedMods;
-	
-	@Override
-	public void onEnable()
-	{
-		if(WurstClient.INSTANCE.mods.getModByClass(AntiMacMod.class).isEnabled())
-			WurstClient.INSTANCE.mods.getModByClass(AntiMacMod.class).setEnabled(false);
-		if(blockedMods == null)
-		{
-			blockedMods = new HashSet<>();
-			blockedMods.addAll(WurstClient.INSTANCE.mods.getAllMods().stream().filter(mod -> !mod.getClass().getAnnotation(Info.class)
-					.noCheatCompatible()).collect(Collectors.toList()));
-		}
-		for(Mod mod : blockedMods)
-			mod.setBlocked(true);
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		for(Mod mod : blockedMods)
-			mod.setBlocked(false);
-	}
+        description = "Makes other mods bypass NoCheat+ or blocks them if\n" + "they can't.",
+        name = "YesCheat+")
+public class YesCheatMod extends Mod {
+    private HashSet<Mod> blockedMods;
+
+    @Override
+    public void onEnable() {
+        if (WurstClient.INSTANCE.mods.getModByClass(AntiMacMod.class).isEnabled()) {
+            WurstClient.INSTANCE.mods.getModByClass(AntiMacMod.class).setEnabled(false);
+        }
+        if (blockedMods == null) {
+            blockedMods = new HashSet<>();
+            blockedMods.addAll(WurstClient.INSTANCE.mods.getAllMods().stream()
+                    .filter(mod -> !mod.getClass().getAnnotation(Info.class).noCheatCompatible())
+                    .collect(Collectors.toList()));
+        }
+        for (Mod mod : blockedMods) {
+            mod.setBlocked(true);
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        for (Mod mod : blockedMods) {
+            mod.setBlocked(false);
+        }
+    }
 }

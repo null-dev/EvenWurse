@@ -30,18 +30,18 @@ public interface Entity {
     public Location getLocation(Location loc);
 
     /**
-     * Sets this entity's velocity
-     *
-     * @param velocity New velocity to travel with
-     */
-    public void setVelocity(Vector velocity);
-
-    /**
      * Gets this entity's current velocity
      *
      * @return Current travelling velocity of this entity
      */
     public Vector getVelocity();
+
+    /**
+     * Sets this entity's velocity
+     *
+     * @param velocity New velocity to travel with
+     */
+    public void setVelocity(Vector velocity);
 
     /**
      * Returns true if the entity is supported by a block. This value is a
@@ -104,19 +104,19 @@ public interface Entity {
     public int getFireTicks();
 
     /**
-     * Returns the entity's maximum fire ticks.
-     *
-     * @return int maxFireTicks
-     */
-    public int getMaxFireTicks();
-
-    /**
      * Sets the entity's current fire ticks (ticks before the entity stops
      * being on fire).
      *
      * @param ticks Current ticks remaining
      */
     public void setFireTicks(int ticks);
+
+    /**
+     * Returns the entity's maximum fire ticks.
+     *
+     * @return int maxFireTicks
+     */
+    public int getMaxFireTicks();
 
     /**
      * Mark the entity's removal.
@@ -214,7 +214,7 @@ public interface Entity {
      * @return The entity type.
      */
     //TODO
-//    public EntityType getType();
+    //    public EntityType getType();
 
     /**
      * Returns whether this entity is inside a vehicle.

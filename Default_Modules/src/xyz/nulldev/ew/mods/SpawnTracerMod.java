@@ -25,30 +25,27 @@ import java.awt.*;
 @Info(category = Category.RENDER,
         description = "Draws a line to the world's spawn location.",
         name = "SpawnTracer")
-public class SpawnTracerMod extends Mod implements RenderListener
-{
+public class SpawnTracerMod extends Mod implements RenderListener {
+    //TODO Don't give seizures
+    static int colorFromTime() {
+        return Color.HSBtoRGB((float) (0.25 + 0.5 * Math.sin(System.currentTimeMillis())), 1f, 1f);
+    }
+
     @Override
-    public void onEnable()
-    {
+    public void onEnable() {
         WurstClient.INSTANCE.events.add(RenderListener.class, this);
     }
 
-    //TODO Don't give seizures
-    static int colorFromTime() {
-        return Color.HSBtoRGB((float) (0.25 + 0.5*Math.sin(System.currentTimeMillis())), 1f, 1f);
-    }
-
     @Override
-    public void onRender()
-    {
+    public void onRender() {
         World world = MCPWorld.getInstace();
         Location spawnLoc = world.getSpawnLocation();
-        RenderUtils.tracerLine(spawnLoc.getBlockX(), spawnLoc.getBlockY(), spawnLoc.getBlockZ(), new Color(colorFromTime()));
+        RenderUtils.tracerLine(spawnLoc.getBlockX(), spawnLoc.getBlockY(), spawnLoc.getBlockZ(),
+                new Color(colorFromTime()));
     }
 
     @Override
-    public void onDisable()
-    {
+    public void onDisable() {
         WurstClient.INSTANCE.events.remove(RenderListener.class, this);
     }
 }

@@ -8,7 +8,6 @@
  */
 package tk.wurst_client.events.listeners;
 
-public interface UpdateListener extends Listener
-{
-	void onUpdate();
+public interface UpdateListener extends Listener {
+    void onUpdate();
 }

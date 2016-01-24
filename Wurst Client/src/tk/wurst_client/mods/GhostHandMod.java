@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,16 +11,12 @@ package tk.wurst_client.mods;
 import tk.wurst_client.WurstClient;
 
 @Mod.Info(category = Mod.Category.BLOCKS,
-	description = "Allows you to reach specific blocks through walls.\n"
-		+ "Use .ghosthand id <block id> or .ghosthand name <block name>\n"
-		+ "to specify it.",
-	name = "GhostHand")
-public class GhostHandMod extends Mod
-{
-	@Override
-	public String getRenderName()
-	{
-		return getName() + " [" + WurstClient.INSTANCE.options.ghostHandID
-			+ "]";
-	}
+        description = "Allows you to reach specific blocks through walls.\n" +
+                "Use .ghosthand id <block id> or .ghosthand name <block name>\n" + "to specify it.",
+        name = "GhostHand")
+public class GhostHandMod extends Mod {
+    @Override
+    public String getRenderName() {
+        return getName() + " [" + WurstClient.INSTANCE.options.ghostHandID + "]";
+    }
 }

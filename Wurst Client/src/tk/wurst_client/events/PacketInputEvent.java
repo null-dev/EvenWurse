@@ -10,35 +10,28 @@ package tk.wurst_client.events;
 
 import net.minecraft.network.Packet;
 
-public class PacketInputEvent extends CancellableEvent
-{
-	private Packet packet;
-	
-	public PacketInputEvent(Packet packet)
-	{
-		this.packet = packet;
-	}
-	
-	public Packet getPacket()
-	{
-		return packet;
-	}
-	
-	public void setPacket(Packet packet)
-	{
-		this.packet = packet;
-	}
-	
-	@Override
-	public String getAction()
-	{
-		return "receiving packet";
-	}
-	
-	@Override
-	public String getComment()
-	{
-		return "Packet: " + (packet != null ? packet.getClass().getSimpleName()
-			: "null");
-	}
+public class PacketInputEvent extends CancellableEvent {
+    private Packet packet;
+
+    public PacketInputEvent(Packet packet) {
+        this.packet = packet;
+    }
+
+    public Packet getPacket() {
+        return packet;
+    }
+
+    public void setPacket(Packet packet) {
+        this.packet = packet;
+    }
+
+    @Override
+    public String getAction() {
+        return "receiving packet";
+    }
+
+    @Override
+    public String getComment() {
+        return "Packet: " + (packet != null ? packet.getClass().getSimpleName() : "null");
+    }
 }

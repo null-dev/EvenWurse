@@ -34,7 +34,7 @@ import java.util.Objects;
 public class WaypointsCmd extends Cmd {
     @Override
     public void execute(String[] args) throws Error {
-        if(args.length < 1) {
+        if (args.length < 1) {
             Chat.sendError("No operation specified!");
             printHelp();
             return;
@@ -44,29 +44,27 @@ public class WaypointsCmd extends Cmd {
         System.arraycopy(args, 1, withoutArgs, 0, withoutArgs.length);
         int l = withoutArgs.length;
 
-        switch(args[0]) {
+        switch (args[0]) {
             case "add":
-                if(l == 1) {
+                if (l == 1) {
                     String name = withoutArgs[0];
-                    if(!checkExists(name) && checkTags(name)) {
+                    if (!checkExists(name) && checkTags(name)) {
                         Waypoint waypoint = fromPlayer(name);
                         Waypoint.WAYPOINTS.add(waypoint);
                         waypointAdded(waypoint);
                     } else {
                         alreadyExists(name);
                     }
-                } else if(l == 4) {
+                } else if (l == 4) {
                     String name = withoutArgs[0];
-                    if(!checkExists(name) && checkTags(name)) {
+                    if (!checkExists(name) && checkTags(name)) {
                         try {
-                            Waypoint waypoint = new Waypoint(name,
-                                    Double.parseDouble(withoutArgs[1]),
-                                    Double.parseDouble(withoutArgs[2]),
-                                    Double.parseDouble(withoutArgs[3]),
+                            Waypoint waypoint = new Waypoint(name, Double.parseDouble(withoutArgs[1]),
+                                    Double.parseDouble(withoutArgs[2]), Double.parseDouble(withoutArgs[3]),
                                     World.getUUID().toString());
                             Waypoint.WAYPOINTS.add(waypoint);
                             waypointAdded(waypoint);
-                        } catch(NumberFormatException e) {
+                        } catch (NumberFormatException e) {
                             invalidCoordinates();
                         }
                     } else {
@@ -79,9 +77,9 @@ public class WaypointsCmd extends Cmd {
             case "move":
                 //Alias to set
             case "set":
-                if(l == 1) {
+                if (l == 1) {
                     String name = withoutArgs[0];
-                    if(checkExists(name) && checkTags(name)) {
+                    if (checkExists(name) && checkTags(name)) {
                         Waypoint waypoint = fromPlayer(name);
                         removeWaypoint(name);
                         Waypoint.WAYPOINTS.add(waypoint);
@@ -89,18 +87,16 @@ public class WaypointsCmd extends Cmd {
                     } else {
                         doesNotExist(name);
                     }
-                } else if(l == 4) {
+                } else if (l == 4) {
                     String name = withoutArgs[0];
-                    if(checkExists(name) && checkTags(name)) {
+                    if (checkExists(name) && checkTags(name)) {
                         try {
-                            Waypoint waypoint = new Waypoint(name,
-                                    Double.parseDouble(withoutArgs[1]),
-                                    Double.parseDouble(withoutArgs[2]),
-                                    Double.parseDouble(withoutArgs[3]));
+                            Waypoint waypoint = new Waypoint(name, Double.parseDouble(withoutArgs[1]),
+                                    Double.parseDouble(withoutArgs[2]), Double.parseDouble(withoutArgs[3]));
                             removeWaypoint(name);
                             Waypoint.WAYPOINTS.add(waypoint);
                             waypointEdited(waypoint);
-                        } catch(NumberFormatException e) {
+                        } catch (NumberFormatException e) {
                             invalidCoordinates();
                         }
                     } else {
@@ -111,7 +107,7 @@ public class WaypointsCmd extends Cmd {
                 }
                 break;
             case "del":
-                if(l == 1) {
+                if (l == 1) {
                     String name = withoutArgs[0];
                     if (checkExists(name)) {
                         removeWaypoint(name);
@@ -125,21 +121,21 @@ public class WaypointsCmd extends Cmd {
                 }
                 break;
             case "delnear":
-                if(l != 0) {
+                if (l != 0) {
                     invalidNumberArgs("delnear");
                     break;
                 }
                 double smallestDiff = Double.MAX_VALUE;
                 Waypoint smallestDiffWp = null;
-                for(Waypoint waypoint : Waypoint.WAYPOINTS) {
-                    if(!Objects.equals(curWorld(), waypoint.getWorld())) continue;
+                for (Waypoint waypoint : Waypoint.WAYPOINTS) {
+                    if (!Objects.equals(curWorld(), waypoint.getWorld())) continue;
                     double dis = BlockUtils.getPlayerBlockDistance(waypoint.getX(), waypoint.getY(), waypoint.getZ());
-                    if(dis < smallestDiff) {
+                    if (dis < smallestDiff) {
                         smallestDiff = dis;
                         smallestDiffWp = waypoint;
                     }
                 }
-                if(smallestDiffWp != null) {
+                if (smallestDiffWp != null) {
                     Waypoint.WAYPOINTS.remove(smallestDiffWp);
                     Waypoint.saveAll();
                     waypointDeleted(smallestDiffWp.getName());
@@ -149,15 +145,17 @@ public class WaypointsCmd extends Cmd {
                 break;
             case "list":
                 Chat.sendCmd("Listing all waypoints in current world:");
-                for(Waypoint waypoint : Waypoint.WAYPOINTS) {
-                    if(!Objects.equals(curWorld(), waypoint.getWorld())) continue;
-                    Chat.sendCmd(F.f("<UNDERLINE>" + waypoint.getName() + "</UNDERLINE>: ") + waypoint.getX() + ", " + waypoint.getY() + ", " + waypoint.getZ());
+                for (Waypoint waypoint : Waypoint.WAYPOINTS) {
+                    if (!Objects.equals(curWorld(), waypoint.getWorld())) continue;
+                    Chat.sendCmd(F.f("<UNDERLINE>" + waypoint.getName() + "</UNDERLINE>: ") + waypoint.getX() + ", " +
+                            waypoint.getY() + ", " + waypoint.getZ());
                 }
                 break;
             case "listall":
                 Chat.sendCmd("Listing all waypoints:");
-                for(Waypoint waypoint : Waypoint.WAYPOINTS) {
-                    Chat.sendCmd(F.f("<UNDERLINE>" + waypoint.getName() + "</UNDERLINE>: ") + waypoint.getX() + ", " + waypoint.getY() + ", " + waypoint.getZ());
+                for (Waypoint waypoint : Waypoint.WAYPOINTS) {
+                    Chat.sendCmd(F.f("<UNDERLINE>" + waypoint.getName() + "</UNDERLINE>: ") + waypoint.getX() + ", " +
+                            waypoint.getY() + ", " + waypoint.getZ());
                 }
                 break;
             default:
@@ -167,9 +165,9 @@ public class WaypointsCmd extends Cmd {
 
     void removeWaypoint(String name) {
         Iterator<Waypoint> waypointIterator = Waypoint.WAYPOINTS.iterator();
-        while(waypointIterator.hasNext()) {
+        while (waypointIterator.hasNext()) {
             Waypoint next = waypointIterator.next();
-            if(next.getName().equals(name) && Objects.equals(curWorld(), next.getWorld())) {
+            if (next.getName().equals(name) && Objects.equals(curWorld(), next.getWorld())) {
                 waypointIterator.remove();
                 break;
             }
@@ -177,8 +175,8 @@ public class WaypointsCmd extends Cmd {
     }
 
     boolean checkExists(String name) {
-        for(Waypoint waypoint : Waypoint.WAYPOINTS) {
-            if(waypoint.getName().equals(name) && Objects.equals(curWorld(), waypoint.getWorld())) {
+        for (Waypoint waypoint : Waypoint.WAYPOINTS) {
+            if (waypoint.getName().equals(name) && Objects.equals(curWorld(), waypoint.getWorld())) {
                 return true;
             }
         }
@@ -186,7 +184,7 @@ public class WaypointsCmd extends Cmd {
     }
 
     String curWorld() {
-        if(Waypoint.getConfig().getBoolean("Per World/Server", true)) {
+        if (Waypoint.getConfig().getBoolean("Per World/Server", true)) {
             return World.getUUID().toString();
         } else {
             return null;
@@ -197,7 +195,7 @@ public class WaypointsCmd extends Cmd {
         try {
             F.f(name);
             return true;
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return false;
         }
     }
@@ -212,19 +210,13 @@ public class WaypointsCmd extends Cmd {
     }
 
     void waypointAdded(Waypoint waypoint) {
-        Chat.sendSuccess("Waypoint with name '"
-                + F.f(waypoint.getName()) + "' added at '"
-                + waypoint.getX() + ", "
-                + waypoint.getY() + ", "
-                + waypoint.getZ() + "'!");
+        Chat.sendSuccess("Waypoint with name '" + F.f(waypoint.getName()) + "' added at '" + waypoint.getX() + ", " +
+                waypoint.getY() + ", " + waypoint.getZ() + "'!");
     }
 
     void waypointEdited(Waypoint waypoint) {
-        Chat.sendSuccess("Waypoint with name '"
-                + F.f(waypoint.getName()) + "' moved to '"
-                + waypoint.getX() + ", "
-                + waypoint.getY() + ", "
-                + waypoint.getZ() + "'!");
+        Chat.sendSuccess("Waypoint with name '" + F.f(waypoint.getName()) + "' moved to '" + waypoint.getX() + ", " +
+                waypoint.getY() + ", " + waypoint.getZ() + "'!");
     }
 
     void noWaypoints() {
@@ -232,11 +224,11 @@ public class WaypointsCmd extends Cmd {
     }
 
     void alreadyExists(String name) {
-        Chat.sendError("A waypoint with the name '"+ F.f(name) + "' already exists!");
+        Chat.sendError("A waypoint with the name '" + F.f(name) + "' already exists!");
     }
 
     void doesNotExist(String name) {
-        Chat.sendError("No waypoint exists with the name '"+ F.f(name) + "'!");
+        Chat.sendError("No waypoint exists with the name '" + F.f(name) + "'!");
     }
 
     void invalidNumberArgs(String op) {

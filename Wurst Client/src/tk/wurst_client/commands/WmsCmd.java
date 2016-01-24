@@ -12,23 +12,19 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Enables/disables Wurst messages or sends a message.",
-	name = "wms",
-	syntax = {"(on | off)", "echo <message>"})
-public class WmsCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length == 0)
-			syntaxError();
-		if(args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off"))
-			WurstClient.INSTANCE.chat
-				.setEnabled(args[0].equalsIgnoreCase("on"));
-		else if(args[0].equalsIgnoreCase("echo") && args.length == 2)
-		{
-			String message = args[1];
-			WurstClient.INSTANCE.chat.cmd(message);
-		}else
-			syntaxError();
-	}
+        name = "wms",
+        syntax = {"(on | off)", "echo <message>"})
+public class WmsCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length == 0) syntaxError();
+        if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
+            WurstClient.INSTANCE.chat.setEnabled(args[0].equalsIgnoreCase("on"));
+        } else if (args[0].equalsIgnoreCase("echo") && args.length == 2) {
+            String message = args[1];
+            WurstClient.INSTANCE.chat.cmd(message);
+        } else {
+            syntaxError();
+        }
+    }
 }

@@ -50,6 +50,19 @@ public class Formatting {
     public static String WHITE = SS + "f";
 
     public static HashMap<String, String> COLOR_MAP = new HashMap<>();
+    //Formatting stuff
+    public static String OBSFUCATED = SS + "k";
+    public static String OBS = OBSFUCATED;
+    public static String BOLD = SS + "l";
+    public static String STRIKETHROUGH = SS + "m";
+    public static String STRIKE = STRIKETHROUGH;
+    public static String UNDERLINE = SS + "n";
+    public static String UNDER = UNDERLINE;
+    public static String ITALIC = SS + "o";
+    public static String RESET = SS + "r";
+    public static String R = RESET;
+    private static ConcurrentHashMap<String, String> PARSE_CACHE = null;
+
     static {
         COLOR_MAP.put("BLACK", BLACK);
         COLOR_MAP.put("DARK_BLUE", DARK_BLUE);
@@ -83,20 +96,9 @@ public class Formatting {
         COLOR_MAP.put("WHITE", WHITE);
     }
 
-    //Formatting stuff
-    public static String OBSFUCATED = SS + "k";
-    public static String OBS = OBSFUCATED;
-    public static String BOLD = SS + "l";
-    public static String STRIKETHROUGH = SS + "m";
-    public static String STRIKE = STRIKETHROUGH;
-    public static String UNDERLINE = SS + "n";
-    public static String UNDER = UNDERLINE;
-    public static String ITALIC = SS + "o";
-    public static String RESET = SS + "r";
-    public static String R = RESET;
-
     /**
      * Replace all &s in a string with section signs.
+     *
      * @param string The string to replace the '&' signs in.
      * @return The new string.
      */
@@ -104,9 +106,8 @@ public class Formatting {
         return string.replace('&', SS);
     }
 
-    private static ConcurrentHashMap<String, String> PARSE_CACHE = null;
     public static ConcurrentHashMap<String, String> initAndGetParseCache() {
-        if(PARSE_CACHE == null) PARSE_CACHE = new ConcurrentHashMap<>();
+        if (PARSE_CACHE == null) PARSE_CACHE = new ConcurrentHashMap<>();
         return PARSE_CACHE;
     }
 
@@ -131,12 +132,12 @@ public class Formatting {
     }
 
     public static String processTag(String string) {
-        if(COLOR_MAP.containsKey(string)) {
+        if (COLOR_MAP.containsKey(string)) {
             return COLOR_MAP.get(string);
         } else {
             try {
                 Field field = Formatting.class.getField(string);
-                if(field.getType().isPrimitive()) {
+                if (field.getType().isPrimitive()) {
                     return (char) field.get(null) + "";
                 }
                 return (String) field.get(null);
@@ -150,11 +151,11 @@ public class Formatting {
 
     /**
      * Converts human readable color codes to Minecraft color codes, DOM style! Examples:
-     *
+     * <p>
      * <RED>Test</RED> = §cTest§f
      * <RED>Alpha<GREEN>Beta</GREEN>Theta</RED> = §cAlpha§aBeta§cTheta§f
      * <OBSFUCATED><RED>Test</RED></OBSFUCATED> = §k§cTest§f§r§f
-     *
+     * <p>
      * DOM is awesome right? :P
      *
      * @param string The string to parse
@@ -190,12 +191,14 @@ public class Formatting {
                         if (nextTagCancels) {
                             if (isColor(tag)) {
                                 if (!tag.equals(currentColor.pop())) {
-                                    throw new IllegalArgumentException("Invalid input string (mismatched closing tag)!");
+                                    throw new IllegalArgumentException(
+                                            "Invalid input string (mismatched closing tag)!");
                                 }
                                 updateColor = true;
                             } else if (isFormatting(tag)) {
                                 if (!tag.equals(currentFormatting.pop())) {
-                                    throw new IllegalArgumentException("Invalid input string (mismatched closing tag)!");
+                                    throw new IllegalArgumentException(
+                                            "Invalid input string (mismatched closing tag)!");
                                 }
                                 updateFormatting = true;
                                 cancelProcess = true;
@@ -245,13 +248,14 @@ public class Formatting {
             String out = builtString.toString();
             initAndGetParseCache().put(string, out);
             return out;
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             throw new IllegalArgumentException("Exception formatting input!", t);
         }
     }
 
     /**
      * Alias to:
+     *
      * @see Formatting#format(String) format
      */
     public static String f(String string) {

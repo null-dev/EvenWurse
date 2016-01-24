@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,16 +12,12 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Types \"/gamemode <args>\".\nUseful for servers that don't support /gm.",
-	name = "gm",
-	syntax = {"<gamemode>"})
-public class GmCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length != 1)
-			syntaxError();
-		Minecraft.getMinecraft().thePlayer.sendChatMessage("/gamemode "
-			+ args[0]);
-	}
+        name = "gm",
+        syntax = {"<gamemode>"})
+public class GmCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length != 1) syntaxError();
+        Minecraft.getMinecraft().thePlayer.sendChatMessage("/gamemode " + args[0]);
+    }
 }

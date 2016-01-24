@@ -16,34 +16,30 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.BLOCKS,
-	description = "Automatically mines a block as soon as you look at it.",
-	name = "AutoMine")
-public class AutoMineMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(Minecraft.getMinecraft().objectMouseOver == null
-			|| Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null)
-			return;
-		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
-				.getBlockState(
-						Minecraft.getMinecraft().objectMouseOver.getBlockPos())
-				.getBlock()) != 0;
-		
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
-	}
+        description = "Automatically mines a block as soon as you look at it.",
+        name = "AutoMine")
+public class AutoMineMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (Minecraft.getMinecraft().objectMouseOver == null ||
+                Minecraft.getMinecraft().objectMouseOver.getBlockPos() == null) {
+            return;
+        }
+        Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = Block.getIdFromBlock(
+                Minecraft.getMinecraft().theWorld.getBlockState(Minecraft.getMinecraft().objectMouseOver.getBlockPos())
+                        .getBlock()) != 0;
+
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+        Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed = false;
+    }
 }

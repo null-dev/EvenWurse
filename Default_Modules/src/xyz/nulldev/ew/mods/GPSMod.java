@@ -53,14 +53,14 @@ public class GPSMod extends Mod implements ChatOutputListener {
     public void onSentMessage(ChatOutputEvent event) {
         event.cancel();
         String[] split = event.getMessage().split(" ");
-        if(split.length != 3) {
+        if (split.length != 3) {
             Chat.sendError("Invalid coordinate format!");
             return;
         }
         try {
             x = Integer.parseInt(split[0]);
             z = Integer.parseInt(split[2]);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             Chat.sendError("Invalid coordinates!");
             return;
         }
@@ -76,41 +76,40 @@ public class GPSMod extends Mod implements ChatOutputListener {
         EAST(1, 0),
         HERE(0, 0);
 
+        private int modX;
+        private int modZ;
+        Direction(int modX, int modZ) {
+            this.modX = modX;
+            this.modZ = modZ;
+        }
+
         static Direction directionFromDiff(BlockPos origin, BlockPos target) {
             int xDiff = origin.getX() - target.getX();
             int zDiff = origin.getZ() - target.getZ();
-            if(xDiff == 0 && zDiff == 0) {
+            if (xDiff == 0 && zDiff == 0) {
                 return HERE;
             }
             int absXDiff = Math.abs(xDiff);
             int absZDiff = Math.abs(zDiff);
-            if(absXDiff == absZDiff) {
-                if(xDiff < 0) {
+            if (absXDiff == absZDiff) {
+                if (xDiff < 0) {
                     return WEST;
                 } else {
                     return EAST;
                 }
-            } else if(absXDiff > absZDiff) {
-                if(xDiff > 0) {
+            } else if (absXDiff > absZDiff) {
+                if (xDiff > 0) {
                     return EAST;
                 } else {
                     return WEST;
                 }
             } else {
-                if(zDiff > 0) {
+                if (zDiff > 0) {
                     return SOUTH;
                 } else {
                     return NORTH;
                 }
             }
-        }
-
-        private int modX;
-        private int modZ;
-
-        Direction(int modX, int modZ) {
-            this.modX = modX;
-            this.modZ = modZ;
         }
 
         public int getModX() {

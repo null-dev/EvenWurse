@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,27 +15,22 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
-	description = "Allows you to climb up walls like a spider.",
-	name = "Spider",
-	noCheatCompatible = false)
-public class SpiderMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(Minecraft.getMinecraft().thePlayer.isCollidedHorizontally)
-			Minecraft.getMinecraft().thePlayer.motionY = 0.2;
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Allows you to climb up walls like a spider.",
+        name = "Spider",
+        noCheatCompatible = false)
+public class SpiderMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (Minecraft.getMinecraft().thePlayer.isCollidedHorizontally) Minecraft.getMinecraft().thePlayer.motionY = 0.2;
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

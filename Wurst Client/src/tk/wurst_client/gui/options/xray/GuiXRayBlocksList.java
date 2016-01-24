@@ -25,90 +25,75 @@ import java.util.stream.Collectors;
 import static org.lwjgl.opengl.GL11.GL_LIGHTING;
 import static org.lwjgl.opengl.GL11.glDisable;
 
-public class GuiXRayBlocksList extends GuiWurstSlot
-{
-	public GuiXRayBlocksList(Minecraft par1Minecraft, GuiScreen prevMenu)
-	{
-		super(par1Minecraft, prevMenu.width, prevMenu.height, 36,
-			prevMenu.height - 56, 30);
-		mc = par1Minecraft;
-	}
-	
-	private int selectedSlot;
-	private Minecraft mc;
-	public static ArrayList<Block> blocks = new ArrayList<>();
-	
-	public static void sortBlocks()
-	{
-		blocks = XRayMod.xrayBlocks;
-		Collections.sort(blocks, (o1, o2) -> o1.getLocalizedName().compareToIgnoreCase(
-            o2.getLocalizedName()));
-		ArrayList<Block> newBlocks = blocks.stream().filter(block -> XRayMod.xrayBlocks.contains(block)).collect(Collectors.toCollection(ArrayList::new));
-		newBlocks.addAll(blocks.stream().filter(block -> !XRayMod.xrayBlocks.contains(block)).collect(Collectors.toList()));
-		blocks = newBlocks;
-	}
-	
-	@Override
-	protected boolean isSelected(int id)
-	{
-		return selectedSlot == id;
-	}
-	
-	protected int getSelectedSlot()
-	{
-		return selectedSlot;
-	}
-	
-	@Override
-	protected int getSize()
-	{
-		return blocks.size();
-	}
-	
-	@Override
-	protected void elementClicked(int var1, boolean var2, int var3, int var4)
-	{
-		selectedSlot = var1;
-	}
-	
-	@Override
-	protected void drawBackground()
-	{}
-	
-	@Override
-	protected void drawSlot(int id, int x, int y, int var4, int var5, int var6)
-	{
-		Block block = blocks.get(id);
-		ItemStack itemStack = new ItemStack(Item.getItemFromBlock(block));
-		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableBlend();
-		RenderHelper.enableGUIStandardItemLighting();
-		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-		if(itemStack.getItem() != null)
-			try
-			{
-				Minecraft.getMinecraft().getRenderItem()
-					.renderItemAndEffectIntoGUI(itemStack, x + 4, y + 4);
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-		else
-			mc.fontRendererObj.drawString("?", x + 10, y + 9, 10526880);
-		Minecraft
-			.getMinecraft()
-			.getRenderItem()
-			.func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack,
-				x + 4, y + 4);
-		RenderHelper.disableStandardItemLighting();
-		GlStateManager.disableRescaleNormal();
-		GlStateManager.disableBlend();
-		glDisable(GL_LIGHTING);
-		mc.fontRendererObj.drawString("Name: "
-			+ (itemStack.getItem() == null ? block.getLocalizedName()
-				: itemStack.getDisplayName()), x + 31, y + 3, 10526880);
-		int blockID = Block.getIdFromBlock(block);
-		mc.fontRendererObj.drawString("ID: " + blockID, x + 31, y + 15,
-			10526880);
-	}
+public class GuiXRayBlocksList extends GuiWurstSlot {
+    public static ArrayList<Block> blocks = new ArrayList<>();
+    private int selectedSlot;
+    private Minecraft mc;
+    public GuiXRayBlocksList(Minecraft par1Minecraft, GuiScreen prevMenu) {
+        super(par1Minecraft, prevMenu.width, prevMenu.height, 36, prevMenu.height - 56, 30);
+        mc = par1Minecraft;
+    }
+
+    public static void sortBlocks() {
+        blocks = XRayMod.xrayBlocks;
+        Collections.sort(blocks, (o1, o2) -> o1.getLocalizedName().compareToIgnoreCase(o2.getLocalizedName()));
+        ArrayList<Block> newBlocks = blocks.stream().filter(block -> XRayMod.xrayBlocks.contains(block))
+                .collect(Collectors.toCollection(ArrayList::new));
+        newBlocks.addAll(blocks.stream().filter(block -> !XRayMod.xrayBlocks.contains(block))
+                .collect(Collectors.toList()));
+        blocks = newBlocks;
+    }
+
+    @Override
+    protected boolean isSelected(int id) {
+        return selectedSlot == id;
+    }
+
+    protected int getSelectedSlot() {
+        return selectedSlot;
+    }
+
+    @Override
+    protected int getSize() {
+        return blocks.size();
+    }
+
+    @Override
+    protected void elementClicked(int var1, boolean var2, int var3, int var4) {
+        selectedSlot = var1;
+    }
+
+    @Override
+    protected void drawBackground() {
+    }
+
+    @Override
+    protected void drawSlot(int id, int x, int y, int var4, int var5, int var6) {
+        Block block = blocks.get(id);
+        ItemStack itemStack = new ItemStack(Item.getItemFromBlock(block));
+        GlStateManager.enableRescaleNormal();
+        GlStateManager.enableBlend();
+        RenderHelper.enableGUIStandardItemLighting();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        if (itemStack.getItem() != null) {
+            try {
+                Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(itemStack, x + 4, y + 4);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            mc.fontRendererObj.drawString("?", x + 10, y + 9, 10526880);
+        }
+        Minecraft.getMinecraft().getRenderItem()
+                .func_175030_a(Minecraft.getMinecraft().fontRendererObj, itemStack, x + 4, y + 4);
+        RenderHelper.disableStandardItemLighting();
+        GlStateManager.disableRescaleNormal();
+        GlStateManager.disableBlend();
+        glDisable(GL_LIGHTING);
+        mc.fontRendererObj.drawString(
+                "Name: " + (itemStack.getItem() == null ? block.getLocalizedName() : itemStack.getDisplayName()),
+                x + 31, y + 3, 10526880);
+        int blockID = Block.getIdFromBlock(block);
+        mc.fontRendererObj.drawString("ID: " + blockID, x + 31, y + 15, 10526880);
+    }
 }

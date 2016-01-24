@@ -30,28 +30,27 @@ public class Updater {
         try {
             outdated = false;
             HttpsURLConnection connection =
-                    (HttpsURLConnection)new URL(
-                            "https://api.github.com/repos/null-dev/EvenWurse/releases/latest")
+                    (HttpsURLConnection) new URL("https://api.github.com/repos/null-dev/EvenWurse/releases/latest")
                             .openConnection();
-            BufferedReader load =
-                    new BufferedReader(new InputStreamReader(
-                            connection.getInputStream()));
+            BufferedReader load = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String content = load.readLine();
-            for(String line; (line = load.readLine()) != null;)
+            for (String line; (line = load.readLine()) != null; ) {
                 content += "\n" + line;
+            }
             load.close();
             JsonObject latestRelease = JsonUtils.jsonParser.parse(content).getAsJsonObject();
             try {
                 latestVersion = Integer.parseInt(latestRelease.get("tag_name").getAsString());
-            } catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 logger.warn("Latest version code is invalid!");
             }
             outdated = latestVersion > currentVersion;
-            if(outdated)
+            if (outdated) {
                 logger.info("Update found: " + latestVersion);
-            else
+            } else {
                 logger.info("No update found.");
-        } catch(Exception e) {
+            }
+        } catch (Exception e) {
             logger.error("Unable to check for updates!", e);
         }
     }
@@ -94,7 +93,8 @@ public class Updater {
                                         .parse(
                                                 new InputStreamReader(
                                                         new URL(
-                                                                "https://api.github.com/repos/null-dev/EvenWurse/releases/latest")
+                                                                "https://api.github
+                                                                .com/repos/null-dev/EvenWurse/releases/latest")
                                                                 .openStream())).getAsJsonObject()
                                         .get("id").getAsString();
                     ProcessBuilder pb =

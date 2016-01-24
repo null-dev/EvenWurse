@@ -12,26 +12,22 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.BlinkMod;
 
 @Cmd.Info(help = "Enables, disables or cancels Blink.",
-	name = "blink",
-	syntax = {"[(on|off|cancel)]"})
-public class BlinkCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length > 1)
-			syntaxError();
-		if(args.length == 0)
-			WurstClient.INSTANCE.mods.getModByClass(BlinkMod.class).toggle();
-		else if(args[0].equalsIgnoreCase("on"))
-		{
-			WurstClient.INSTANCE.mods.disableModsByClass(BlinkMod.class);
-		}else if(args[0].equalsIgnoreCase("off"))
-			WurstClient.INSTANCE.mods.getModByClass(BlinkMod.class).setEnabled(false);
-		else if(args[0].equalsIgnoreCase("cancel"))
-		{
-			WurstClient.INSTANCE.mods.disableModsByClass(BlinkMod.class);
-		}else
-			syntaxError();
-	}
+        name = "blink",
+        syntax = {"[(on|off|cancel)]"})
+public class BlinkCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length > 1) syntaxError();
+        if (args.length == 0) {
+            WurstClient.INSTANCE.mods.getModByClass(BlinkMod.class).toggle();
+        } else if (args[0].equalsIgnoreCase("on")) {
+            WurstClient.INSTANCE.mods.disableModsByClass(BlinkMod.class);
+        } else if (args[0].equalsIgnoreCase("off")) {
+            WurstClient.INSTANCE.mods.getModByClass(BlinkMod.class).setEnabled(false);
+        } else if (args[0].equalsIgnoreCase("cancel")) {
+            WurstClient.INSTANCE.mods.disableModsByClass(BlinkMod.class);
+        } else {
+            syntaxError();
+        }
+    }
 }

@@ -1,33 +1,31 @@
 package org.darkstorm.minecraft.gui.component;
 
-public interface BoundedRangeComponent extends Component
-{
-	enum ValueDisplay
-	{
-		DECIMAL,
-		INTEGER,
-		PERCENTAGE,
-		DEGREES,
-		NONE
-	}
-	
-	double getValue();
-	
-	double getMinimumValue();
-	
-	double getMaximumValue();
-	
-	double getIncrement();
-	
-	ValueDisplay getValueDisplay();
-	
-	void setValue(double value);
-	
-	void setMinimumValue(double minimumValue);
-	
-	void setMaximumValue(double maximumValue);
-	
-	void setIncrement(double increment);
-	
-	void setValueDisplay(ValueDisplay display);
+public interface BoundedRangeComponent extends Component {
+    double getValue();
+
+    void setValue(double value);
+
+    double getMinimumValue();
+
+    void setMinimumValue(double minimumValue);
+
+    double getMaximumValue();
+
+    void setMaximumValue(double maximumValue);
+
+    double getIncrement();
+
+    void setIncrement(double increment);
+
+    ValueDisplay getValueDisplay();
+
+    void setValueDisplay(ValueDisplay display);
+
+    enum ValueDisplay {
+        DECIMAL,
+        INTEGER,
+        PERCENTAGE,
+        DEGREES,
+        NONE
+    }
 }

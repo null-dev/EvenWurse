@@ -15,29 +15,23 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
-	description = "Allows you to jump in mid-air.\n"
-		+ "Looks as if you had a jetpack.",
-	name = "Jetpack",
-	noCheatCompatible = false)
-public class JetpackMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.mods.disableModsByClass(FlightMod.class);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
-			Minecraft.getMinecraft().thePlayer.jump();
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Allows you to jump in mid-air.\n" + "Looks as if you had a jetpack.",
+        name = "Jetpack",
+        noCheatCompatible = false)
+public class JetpackMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.mods.disableModsByClass(FlightMod.class);
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (Minecraft.getMinecraft().gameSettings.keyBindJump.pressed) Minecraft.getMinecraft().thePlayer.jump();
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,9 +12,8 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.RENDER,
-	description = "Allows you to see invisible entities.",
-	name = "TrueSight")
-public class TrueSightMod extends Mod
-{	
-	
+        description = "Allows you to see invisible entities.",
+        name = "TrueSight")
+public class TrueSightMod extends Mod {
+
 }

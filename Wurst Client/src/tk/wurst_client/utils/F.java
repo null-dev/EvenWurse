@@ -9,4 +9,5 @@ package tk.wurst_client.utils;
 /**
  * Alias to Formatting.java
  */
-public class F extends Formatting {}
+public class F extends Formatting {
+}

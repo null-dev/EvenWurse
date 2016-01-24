@@ -16,16 +16,15 @@ import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public abstract class NavigatorScreen extends GuiScreen
-{
+public abstract class NavigatorScreen extends GuiScreen {
     protected int scroll = 0;
-    private int scrollKnobPosition = 2;
-    private boolean scrolling;
-    private int maxScroll;
     protected boolean scrollbarLocked;
     protected int middleX;
     protected boolean hasBackground = true;
     protected int nonScrollableArea = 26;
+    private int scrollKnobPosition = 2;
+    private boolean scrolling;
+    private int maxScroll;
     private boolean showScrollbar;
 
     @Override
@@ -46,27 +45,24 @@ public abstract class NavigatorScreen extends GuiScreen
         super.mouseClicked(x, y, button);
 
         // scrollbar
-        if(new Rectangle(width / 2 + 170, 60, 12, height - 103).contains(x, y))
-            scrolling = true;
+        if (new Rectangle(width / 2 + 170, 60, 12, height - 103).contains(x, y)) scrolling = true;
 
         onMouseClick(x, y, button);
     }
 
     @Override
-    public final void mouseClickMove(int mouseX, int mouseY,
-                                     int clickedMouseButton, long timeSinceLastClick) {
+    public final void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
         // scrollbar
-        if(scrolling && !scrollbarLocked && clickedMouseButton == 0) {
-            if(maxScroll == 0)
+        if (scrolling && !scrollbarLocked && clickedMouseButton == 0) {
+            if (maxScroll == 0) {
                 scroll = 0;
-            else
-                scroll =
-                        (int)((mouseY - 72) * (float)maxScroll / (height - 131));
+            } else {
+                scroll = (int) ((mouseY - 72) * (float) maxScroll / (height - 131));
+            }
 
-            if(scroll > 0)
+            if (scroll > 0) {
                 scroll = 0;
-            else if(scroll < maxScroll)
-                scroll = maxScroll;
+            } else if (scroll < maxScroll) scroll = maxScroll;
         }
 
         onMouseDrag(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
@@ -88,19 +84,18 @@ public abstract class NavigatorScreen extends GuiScreen
         onUpdate();
 
         // scrollbar
-        if(!scrollbarLocked) {
+        if (!scrollbarLocked) {
             scroll += Mouse.getDWheel() / 10;
 
-            if(scroll > 0)
+            if (scroll > 0) {
                 scroll = 0;
-            else if(scroll < maxScroll)
-                scroll = maxScroll;
+            } else if (scroll < maxScroll) scroll = maxScroll;
 
-            if(maxScroll == 0)
+            if (maxScroll == 0) {
                 scrollKnobPosition = 0;
-            else
-                scrollKnobPosition =
-                        (int)((height - 131) * scroll / (float)maxScroll);
+            } else {
+                scrollKnobPosition = (int) ((height - 131) * scroll / (float) maxScroll);
+            }
             scrollKnobPosition += 2;
         }
     }
@@ -119,12 +114,12 @@ public abstract class NavigatorScreen extends GuiScreen
         int bgx2 = middleX + 154;
         int bgy1 = 60;
         int bgy2 = height - 43;
-        if(hasBackground) {
+        if (hasBackground) {
             drawBackgroundBox(bgx1, bgy1, bgx2, bgy2);
         }
 
         // scrollbar
-        if(showScrollbar) {
+        if (showScrollbar) {
             // bar
             int x1 = bgx2 + 16;
             int x2 = x1 + 12;
@@ -139,8 +134,9 @@ public abstract class NavigatorScreen extends GuiScreen
             y2 = y1 + 24;
             drawForegroundBox(x1, y1, x2, y2);
             int i;
-            for(x1++, x2--, y1 += 8, y2 -= 15, i = 0; i < 3; y1 += 4, y2 += 4, i++)
+            for (x1++, x2--, y1 += 8, y2 -= 15, i = 0; i < 3; y1 += 4, y2 += 4, i++) {
                 drawDownShadow(x1, y1, x2, y2);
+            }
         }
 
         onRender(mouseX, mouseY, partialTicks);
@@ -157,8 +153,7 @@ public abstract class NavigatorScreen extends GuiScreen
 
     protected abstract void onMouseClick(int x, int y, int button);
 
-    protected abstract void onMouseDrag(int x, int y, int button,
-                                        long timeDragged);
+    protected abstract void onMouseDrag(int x, int y, int button, long timeDragged);
 
     protected abstract void onMouseRelease(int x, int y, int button);
 
@@ -173,8 +168,7 @@ public abstract class NavigatorScreen extends GuiScreen
 
     protected final void setContentHeight(int contentHeight) {
         maxScroll = height - contentHeight - nonScrollableArea - 120;
-        if(maxScroll > 0)
-            maxScroll = 0;
+        if (maxScroll > 0) maxScroll = 0;
         showScrollbar = maxScroll != 0;
     }
 

@@ -5,7 +5,7 @@ import xyz.nulldev.mcpwrapper.bukkit.util.Vector;
 
 /**
  * Represents a 3-dimensional position in a world
- *
+ * <p>
  * Modified to not require a world
  */
 public class Location implements Cloneable {
@@ -29,10 +29,10 @@ public class Location implements Cloneable {
     /**
      * Constructs a new Location with the given coordinates and direction
      *
-     * @param x The x-coordinate of this new location
-     * @param y The y-coordinate of this new location
-     * @param z The z-coordinate of this new location
-     * @param yaw The absolute rotation on the x-plane, in degrees
+     * @param x     The x-coordinate of this new location
+     * @param y     The y-coordinate of this new location
+     * @param z     The z-coordinate of this new location
+     * @param yaw   The absolute rotation on the x-plane, in degrees
      * @param pitch The absolute rotation on the y-plane, in degrees
      */
     public Location(final double x, final double y, final double z, final float yaw, final float pitch) {
@@ -44,12 +44,14 @@ public class Location implements Cloneable {
     }
 
     /**
-     * Sets the x-coordinate of this location
+     * Safely converts a double (location coordinate) to an int (block
+     * coordinate)
      *
-     * @param x X-coordinate
+     * @param loc Precise coordinate
+     * @return Block coordinate
      */
-    public void setX(double x) {
-        this.x = x;
+    public static int locToBlock(double loc) {
+        return NumberConversions.floor(loc);
     }
 
     /**
@@ -59,6 +61,15 @@ public class Location implements Cloneable {
      */
     public double getX() {
         return x;
+    }
+
+    /**
+     * Sets the x-coordinate of this location
+     *
+     * @param x X-coordinate
+     */
+    public void setX(double x) {
+        this.x = x;
     }
 
     /**
@@ -72,21 +83,21 @@ public class Location implements Cloneable {
     }
 
     /**
-     * Sets the y-coordinate of this location
-     *
-     * @param y y-coordinate
-     */
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    /**
      * Gets the y-coordinate of this location
      *
      * @return y-coordinate
      */
     public double getY() {
         return y;
+    }
+
+    /**
+     * Sets the y-coordinate of this location
+     *
+     * @param y y-coordinate
+     */
+    public void setY(double y) {
+        this.y = y;
     }
 
     /**
@@ -100,21 +111,21 @@ public class Location implements Cloneable {
     }
 
     /**
-     * Sets the z-coordinate of this location
-     *
-     * @param z z-coordinate
-     */
-    public void setZ(double z) {
-        this.z = z;
-    }
-
-    /**
      * Gets the z-coordinate of this location
      *
      * @return z-coordinate
      */
     public double getZ() {
         return z;
+    }
+
+    /**
+     * Sets the z-coordinate of this location
+     *
+     * @param z z-coordinate
+     */
+    public void setZ(double z) {
+        this.z = z;
     }
 
     /**
@@ -125,24 +136,6 @@ public class Location implements Cloneable {
      */
     public int getBlockZ() {
         return locToBlock(z);
-    }
-
-    /**
-     * Sets the yaw of this location, measured in degrees.
-     * <ul>
-     * <li>A yaw of 0 or 360 represents the positive z direction.
-     * <li>A yaw of 180 represents the negative z direction.
-     * <li>A yaw of 90 represents the negative x direction.
-     * <li>A yaw of 270 represents the positive x direction.
-     * </ul>
-     * Increasing yaw values are the equivalent of turning to your
-     * right-facing, increasing the scale of the next respective axis, and
-     * decreasing the scale of the previous axis.
-     *
-     * @param yaw new rotation's yaw
-     */
-    public void setYaw(float yaw) {
-        this.yaw = yaw;
     }
 
     /**
@@ -164,19 +157,21 @@ public class Location implements Cloneable {
     }
 
     /**
-     * Sets the pitch of this location, measured in degrees.
+     * Sets the yaw of this location, measured in degrees.
      * <ul>
-     * <li>A pitch of 0 represents level forward facing.
-     * <li>A pitch of 90 represents downward facing, or negative y
-     *     direction.
-     * <li>A pitch of -90 represents upward facing, or positive y direction.
-     * <ul>
-     * Increasing pitch values the equivalent of looking down.
+     * <li>A yaw of 0 or 360 represents the positive z direction.
+     * <li>A yaw of 180 represents the negative z direction.
+     * <li>A yaw of 90 represents the negative x direction.
+     * <li>A yaw of 270 represents the positive x direction.
+     * </ul>
+     * Increasing yaw values are the equivalent of turning to your
+     * right-facing, increasing the scale of the next respective axis, and
+     * decreasing the scale of the previous axis.
      *
-     * @param pitch new incline's pitch
+     * @param yaw new rotation's yaw
      */
-    public void setPitch(float pitch) {
-        this.pitch = pitch;
+    public void setYaw(float yaw) {
+        this.yaw = yaw;
     }
 
     /**
@@ -184,7 +179,7 @@ public class Location implements Cloneable {
      * <ul>
      * <li>A pitch of 0 represents level forward facing.
      * <li>A pitch of 90 represents downward facing, or negative y
-     *     direction.
+     * direction.
      * <li>A pitch of -90 represents upward facing, or positive y direction.
      * <ul>
      * Increasing pitch values the equivalent of looking down.
@@ -196,11 +191,27 @@ public class Location implements Cloneable {
     }
 
     /**
+     * Sets the pitch of this location, measured in degrees.
+     * <ul>
+     * <li>A pitch of 0 represents level forward facing.
+     * <li>A pitch of 90 represents downward facing, or negative y
+     * direction.
+     * <li>A pitch of -90 represents upward facing, or positive y direction.
+     * <ul>
+     * Increasing pitch values the equivalent of looking down.
+     *
+     * @param pitch new incline's pitch
+     */
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
+    }
+
+    /**
      * Gets a unit-vector pointing in the direction that this Location is
      * facing.
      *
      * @return a vector pointing the direction of this location's {@link
-     *     #getPitch() pitch} and {@link #getYaw() yaw}
+     * #getPitch() pitch} and {@link #getYaw() yaw}
      */
     public Vector getDirection() {
         Vector vector = new Vector();
@@ -254,10 +265,10 @@ public class Location implements Cloneable {
     /**
      * Adds the location by another.
      *
-     * @see Vector
      * @param vec The other location
      * @return the same location
      * @throws IllegalArgumentException for differing worlds
+     * @see Vector
      */
     public Location add(Location vec) {
         if (vec == null) {
@@ -273,9 +284,9 @@ public class Location implements Cloneable {
     /**
      * Adds the location by a vector.
      *
-     * @see Vector
      * @param vec Vector to use
      * @return the same location
+     * @see Vector
      */
     public Location add(Vector vec) {
         this.x += vec.getX();
@@ -287,11 +298,11 @@ public class Location implements Cloneable {
     /**
      * Adds the location by another. Not world-aware.
      *
-     * @see Vector
      * @param x X coordinate
      * @param y Y coordinate
      * @param z Z coordinate
      * @return the same location
+     * @see Vector
      */
     public Location add(double x, double y, double z) {
         this.x += x;
@@ -303,10 +314,10 @@ public class Location implements Cloneable {
     /**
      * Subtracts the location by another.
      *
-     * @see Vector
      * @param vec The other location
      * @return the same location
      * @throws IllegalArgumentException for differing worlds
+     * @see Vector
      */
     public Location subtract(Location vec) {
         if (vec == null) {
@@ -322,9 +333,9 @@ public class Location implements Cloneable {
     /**
      * Subtracts the location by a vector.
      *
-     * @see Vector
      * @param vec The vector to use
      * @return the same location
+     * @see Vector
      */
     public Location subtract(Vector vec) {
         this.x -= vec.getX();
@@ -337,11 +348,11 @@ public class Location implements Cloneable {
      * Subtracts the location by another. Not world-aware and
      * orientation independent.
      *
-     * @see Vector
      * @param x X coordinate
      * @param y Y coordinate
      * @param z Z coordinate
      * @return the same location
+     * @see Vector
      */
     public Location subtract(double x, double y, double z) {
         this.x -= x;
@@ -358,8 +369,8 @@ public class Location implements Cloneable {
      * function overflows, which will be caused if the length is too long. Not
      * world-aware and orientation independent.
      *
-     * @see Vector
      * @return the magnitude
+     * @see Vector
      */
     public double length() {
         return Math.sqrt(NumberConversions.square(x) + NumberConversions.square(y) + NumberConversions.square(z));
@@ -369,8 +380,8 @@ public class Location implements Cloneable {
      * Gets the magnitude of the location squared. Not world-aware and
      * orientation independent.
      *
-     * @see Vector
      * @return the magnitude
+     * @see Vector
      */
     public double lengthSquared() {
         return NumberConversions.square(x) + NumberConversions.square(y) + NumberConversions.square(z);
@@ -383,10 +394,10 @@ public class Location implements Cloneable {
      * be returned if the inner result of the sqrt() function overflows, which
      * will be caused if the distance is too long.
      *
-     * @see Vector
      * @param o The other location
      * @return the distance
      * @throws IllegalArgumentException for differing worlds
+     * @see Vector
      */
     public double distance(Location o) {
         return Math.sqrt(distanceSquared(o));
@@ -395,17 +406,18 @@ public class Location implements Cloneable {
     /**
      * Get the squared distance between this location and another.
      *
-     * @see Vector
      * @param o The other location
      * @return the distance
      * @throws IllegalArgumentException for differing worlds
+     * @see Vector
      */
     public double distanceSquared(Location o) {
         if (o == null) {
             throw new IllegalArgumentException("Cannot measure distance to a null location");
         }
 
-        return NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y) + NumberConversions.square(z - o.z);
+        return NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y) +
+                NumberConversions.square(z - o.z);
     }
 
     /**
@@ -413,8 +425,8 @@ public class Location implements Cloneable {
      * scalar. Not world-aware.
      *
      * @param m The factor
-     * @see Vector
      * @return the same location
+     * @see Vector
      */
     public Location multiply(double m) {
         x *= m;
@@ -426,8 +438,8 @@ public class Location implements Cloneable {
     /**
      * Zero this location's components. Not world-aware.
      *
-     * @see Vector
      * @return the same location
+     * @see Vector
      */
     public Location zero() {
         x = 0;
@@ -485,7 +497,7 @@ public class Location implements Cloneable {
      * Constructs a new {@link Vector} based on this Location
      *
      * @return New Vector containing the coordinates represented by this
-     *     Location
+     * Location
      */
     public Vector toVector() {
         return new Vector(x, y, z);
@@ -498,16 +510,5 @@ public class Location implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new Error(e);
         }
-    }
-
-    /**
-     * Safely converts a double (location coordinate) to an int (block
-     * coordinate)
-     *
-     * @param loc Precise coordinate
-     * @return Block coordinate
-     */
-    public static int locToBlock(double loc) {
-        return NumberConversions.floor(loc);
     }
 }

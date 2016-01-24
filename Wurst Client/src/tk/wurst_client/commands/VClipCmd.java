@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,23 +12,19 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.utils.MiscUtils;
 
-@Info(help = "Teleports you up/down. Can glitch you through floors & "
-	+ "ceilings.\nThe maximum distance is 100 blocks on vanilla servers and "
-	+ "10 blocks on Bukkit servers.", name = "vclip", syntax = {"<height>"})
-public class VClipCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length != 1)
-			syntaxError();
-		if(MiscUtils.isInteger(args[0]))
-			Minecraft.getMinecraft().thePlayer.setPosition(
-				Minecraft.getMinecraft().thePlayer.posX,
-				Minecraft.getMinecraft().thePlayer.posY
-					+ Integer.valueOf(args[0]),
-				Minecraft.getMinecraft().thePlayer.posZ);
-		else
-			syntaxError();
-	}
+@Info(help = "Teleports you up/down. Can glitch you through floors & " +
+        "ceilings.\nThe maximum distance is 100 blocks on vanilla servers and " + "10 blocks on Bukkit servers.",
+        name = "vclip", syntax = {"<height>"})
+public class VClipCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length != 1) syntaxError();
+        if (MiscUtils.isInteger(args[0])) {
+            Minecraft.getMinecraft().thePlayer.setPosition(Minecraft.getMinecraft().thePlayer.posX,
+                    Minecraft.getMinecraft().thePlayer.posY + Integer.valueOf(args[0]),
+                    Minecraft.getMinecraft().thePlayer.posZ);
+        } else {
+            syntaxError();
+        }
+    }
 }

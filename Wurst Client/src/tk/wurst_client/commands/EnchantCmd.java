@@ -15,53 +15,43 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Enchants items with everything.",
-	name = "enchant",
-	syntax = {"[all]"})
-public class EnchantCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
-			error("Creative mode only.");
-		if(args.length == 0)
-		{
-			ItemStack currentItem =
-				Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
-			if(currentItem == null)
-				error("There is no item in your hand.");
-			for(Enchantment enchantment : Enchantment.enchantmentsList)
-				try
-				{
-					if(enchantment == Enchantment.silkTouch)
-						continue;
-					currentItem.addEnchantment(enchantment, 127);
-				}catch(Exception ignored) {}
-		}else if(args[0].equals("all"))
-		{
-			int items = 0;
-			for(int i = 0; i < 40; i++)
-			{
-				ItemStack currentItem =
-					Minecraft.getMinecraft().thePlayer.inventory
-						.getStackInSlot(i);
-				if(currentItem == null)
-					continue;
-				items++;
-				for(Enchantment enchantment : Enchantment.enchantmentsList)
-					try
-					{
-						if(enchantment == Enchantment.silkTouch)
-							continue;
-						currentItem.addEnchantment(enchantment, 127);
-					}catch(Exception ignored) {}
-			}
-			if(items == 1)
-				WurstClient.INSTANCE.chat.message("Enchanted 1 item.");
-			else
-				WurstClient.INSTANCE.chat.message("Enchanted " + items
-					+ " items.");
-		}else
-			syntaxError();
-	}
+        name = "enchant",
+        syntax = {"[all]"})
+public class EnchantCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode) error("Creative mode only.");
+        if (args.length == 0) {
+            ItemStack currentItem = Minecraft.getMinecraft().thePlayer.inventory.getCurrentItem();
+            if (currentItem == null) error("There is no item in your hand.");
+            for (Enchantment enchantment : Enchantment.enchantmentsList) {
+                try {
+                    if (enchantment == Enchantment.silkTouch) continue;
+                    currentItem.addEnchantment(enchantment, 127);
+                } catch (Exception ignored) {
+                }
+            }
+        } else if (args[0].equals("all")) {
+            int items = 0;
+            for (int i = 0; i < 40; i++) {
+                ItemStack currentItem = Minecraft.getMinecraft().thePlayer.inventory.getStackInSlot(i);
+                if (currentItem == null) continue;
+                items++;
+                for (Enchantment enchantment : Enchantment.enchantmentsList) {
+                    try {
+                        if (enchantment == Enchantment.silkTouch) continue;
+                        currentItem.addEnchantment(enchantment, 127);
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+            if (items == 1) {
+                WurstClient.INSTANCE.chat.message("Enchanted 1 item.");
+            } else {
+                WurstClient.INSTANCE.chat.message("Enchanted " + items + " items.");
+            }
+        } else {
+            syntaxError();
+        }
+    }
 }

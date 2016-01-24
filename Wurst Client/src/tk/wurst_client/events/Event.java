@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,12 +8,10 @@
  */
 package tk.wurst_client.events;
 
-public abstract class Event
-{
-	public abstract String getAction();
-	
-	public String getComment()
-	{
-		return "";
-	}
+public abstract class Event {
+    public abstract String getAction();
+
+    public String getComment() {
+        return "";
+    }
 }

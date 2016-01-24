@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,18 +13,16 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.BLOCKS,
-	description = "Instantly writes whatever text you want on every sign\n"
-		+ "you place. Once activated, you can write normally on\n"
-		+ "one sign to specify the text for all other signs.",
-	name = "AutoSign",
-	noCheatCompatible = false)
-public class AutoSignMod extends Mod
-{
-	public IChatComponent[] signText;
-	
-	@Override
-	public void onEnable()
-	{
-		signText = null;
-	}
+        description = "Instantly writes whatever text you want on every sign\n" +
+                "you place. Once activated, you can write normally on\n" +
+                "one sign to specify the text for all other signs.",
+        name = "AutoSign",
+        noCheatCompatible = false)
+public class AutoSignMod extends Mod {
+    public IChatComponent[] signText;
+
+    @Override
+    public void onEnable() {
+        signText = null;
+    }
 }

@@ -18,60 +18,43 @@ import tk.wurst_client.WurstClient;
 
 import java.lang.reflect.Field;
 
-public class TargetFrame extends BasicFrame
-{
-	public TargetFrame()
-	{
-		setTitle("Target");
-		setTheme(WurstClient.INSTANCE.gui.getTheme());
-		setLayoutManager(new GridLayoutManager(1, 0));
-		setVisible(true);
-		setClosable(false);
-		setMinimized(true);
-		setPinnable(true);
-		
-		for(Field option : WurstClient.INSTANCE.options.target.getClass()
-			.getFields())
-		{
-			if(!option.getType().equals(boolean.class))
-				continue;
-			String title =
-				option.getName().substring(0, 1).toUpperCase()
-					+ option.getName().substring(1).replace("_", " ");
-			BasicCheckButton checkbox = new BasicCheckButton(title);
-			checkbox.addButtonListener(button -> {
-                try
-                {
-                    option.setBoolean(WurstClient.INSTANCE.options.target,
-                        ((BasicCheckButton)button).isSelected());
+public class TargetFrame extends BasicFrame {
+    public TargetFrame() {
+        setTitle("Target");
+        setTheme(WurstClient.INSTANCE.gui.getTheme());
+        setLayoutManager(new GridLayoutManager(1, 0));
+        setVisible(true);
+        setClosable(false);
+        setMinimized(true);
+        setPinnable(true);
+
+        for (Field option : WurstClient.INSTANCE.options.target.getClass().getFields()) {
+            if (!option.getType().equals(boolean.class)) continue;
+            String title =
+                    option.getName().substring(0, 1).toUpperCase() + option.getName().substring(1).replace("_", " ");
+            BasicCheckButton checkbox = new BasicCheckButton(title);
+            checkbox.addButtonListener(button -> {
+                try {
+                    option.setBoolean(WurstClient.INSTANCE.options.target, ((BasicCheckButton) button).isSelected());
                     WurstClient.INSTANCE.files.saveOptions();
-                }catch(Exception e)
-                {
-                    System.err
-                        .println("[Wurst] Failed to save option \"target."
-                            + option.getName() + "\"!");
+                } catch (Exception e) {
+                    System.err.println("[Wurst] Failed to save option \"target." + option.getName() + "\"!");
                     e.printStackTrace();
                 }
             });
-			try
-			{
-				checkbox.setSelected(option
-					.getBoolean(WurstClient.INSTANCE.options.target));
-			}catch(Exception e)
-			{
-				System.err.println("[Wurst] Failed to load option \"target."
-					+ option.getName() + "\"!");
-				e.printStackTrace();
-				checkbox.setSelected(false);
-			}
-			add(checkbox, HorizontalGridConstraint.FILL);
-		}
-		
-		BasicButton advancedBtn = new BasicButton("Team Settings", null);
-		advancedBtn.addButtonListener(button -> Minecraft.getMinecraft()
-            .displayGuiScreen(
-                new GuiTeamSettings(
-                    Minecraft.getMinecraft().currentScreen)));
-		add(advancedBtn);
-	}
+            try {
+                checkbox.setSelected(option.getBoolean(WurstClient.INSTANCE.options.target));
+            } catch (Exception e) {
+                System.err.println("[Wurst] Failed to load option \"target." + option.getName() + "\"!");
+                e.printStackTrace();
+                checkbox.setSelected(false);
+            }
+            add(checkbox, HorizontalGridConstraint.FILL);
+        }
+
+        BasicButton advancedBtn = new BasicButton("Team Settings", null);
+        advancedBtn.addButtonListener(button -> Minecraft.getMinecraft()
+                .displayGuiScreen(new GuiTeamSettings(Minecraft.getMinecraft().currentScreen)));
+        add(advancedBtn);
+    }
 }

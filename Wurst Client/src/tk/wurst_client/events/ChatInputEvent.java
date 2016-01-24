@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,46 +8,39 @@
  */
 package tk.wurst_client.events;
 
-import java.util.List;
-
 import net.minecraft.client.gui.ChatLine;
 import net.minecraft.util.IChatComponent;
 
-public class ChatInputEvent extends CancellableEvent
-{
-	private IChatComponent component;
-	private List<ChatLine> chatLines;
-	
-	public ChatInputEvent(IChatComponent component, List<ChatLine> chatLines)
-	{
-		this.component = component;
-		this.chatLines = chatLines;
-	}
-	
-	public IChatComponent getComponent()
-	{
-		return component;
-	}
-	
-	public void setComponent(IChatComponent component)
-	{
-		this.component = component;
-	}
-	
-	public List<ChatLine> getChatLines()
-	{
-		return chatLines;
-	}
-	
-	@Override
-	public String getAction()
-	{
-		return "receiving chat message";
-	}
-	
-	@Override
-	public String getComment()
-	{
-		return "Message: `" + component.getUnformattedText() + "`";
-	}
+import java.util.List;
+
+public class ChatInputEvent extends CancellableEvent {
+    private IChatComponent component;
+    private List<ChatLine> chatLines;
+
+    public ChatInputEvent(IChatComponent component, List<ChatLine> chatLines) {
+        this.component = component;
+        this.chatLines = chatLines;
+    }
+
+    public IChatComponent getComponent() {
+        return component;
+    }
+
+    public void setComponent(IChatComponent component) {
+        this.component = component;
+    }
+
+    public List<ChatLine> getChatLines() {
+        return chatLines;
+    }
+
+    @Override
+    public String getAction() {
+        return "receiving chat message";
+    }
+
+    @Override
+    public String getComment() {
+        return "Message: `" + component.getUnformattedText() + "`";
+    }
 }

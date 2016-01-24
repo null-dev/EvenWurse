@@ -15,61 +15,46 @@ import tk.wurst_client.events.ChatInputEvent;
 import tk.wurst_client.events.listeners.ChatInputListener;
 
 @Info(help = "Annoys a player by repeating everything he says.",
-	name = "annoy",
-	syntax = {"[<player>]"})
-public class AnnoyCmd extends Cmd implements ChatInputListener
-{
-	private boolean toggled;
-	private String name;
-	
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		toggled = !toggled;
-		if(toggled)
-		{
-			if(args.length == 1)
-			{
-				name = args[0];
-				WurstClient.INSTANCE.chat.message("Now annoying " + name + ".");
-				if(name.equals(Minecraft.getMinecraft().thePlayer.getName()))
-					WurstClient.INSTANCE.chat
-						.warning("Annoying yourself is a bad idea!");
-				WurstClient.INSTANCE.events.add(ChatInputListener.class,
-					this);
-			}else
-			{
-				toggled = false;
-				syntaxError();
-			}
-		}else
-		{
-			WurstClient.INSTANCE.events.remove(ChatInputListener.class,
-				this);
-			if(name != null)
-			{
-				WurstClient.INSTANCE.chat.message("No longer annoying " + name
-					+ ".");
-				name = null;
-			}
-		}
-	}
-	
-	@Override
-	public void onReceivedMessage(ChatInputEvent event)
-	{
-		String message = event.getComponent().getUnformattedText();
-		if(message.startsWith("�c[�6Wurst�c]�f "))
-			return;
-		if(message.startsWith("<" + name + ">") || message.contains(name + ">"))
-		{
-			String repeatMessage = message.substring(message.indexOf(">") + 1);
-			Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);
-		}else if(message.contains("] " + name + ":")
-			|| message.contains("]" + name + ":"))
-		{
-			String repeatMessage = message.substring(message.indexOf(":") + 1);
-			Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);
-		}
-	}
+        name = "annoy",
+        syntax = {"[<player>]"})
+public class AnnoyCmd extends Cmd implements ChatInputListener {
+    private boolean toggled;
+    private String name;
+
+    @Override
+    public void execute(String[] args) throws Error {
+        toggled = !toggled;
+        if (toggled) {
+            if (args.length == 1) {
+                name = args[0];
+                WurstClient.INSTANCE.chat.message("Now annoying " + name + ".");
+                if (name.equals(Minecraft.getMinecraft().thePlayer.getName())) {
+                    WurstClient.INSTANCE.chat.warning("Annoying yourself is a bad idea!");
+                }
+                WurstClient.INSTANCE.events.add(ChatInputListener.class, this);
+            } else {
+                toggled = false;
+                syntaxError();
+            }
+        } else {
+            WurstClient.INSTANCE.events.remove(ChatInputListener.class, this);
+            if (name != null) {
+                WurstClient.INSTANCE.chat.message("No longer annoying " + name + ".");
+                name = null;
+            }
+        }
+    }
+
+    @Override
+    public void onReceivedMessage(ChatInputEvent event) {
+        String message = event.getComponent().getUnformattedText();
+        if (message.startsWith("�c[�6Wurst�c]�f ")) return;
+        if (message.startsWith("<" + name + ">") || message.contains(name + ">")) {
+            String repeatMessage = message.substring(message.indexOf(">") + 1);
+            Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);
+        } else if (message.contains("] " + name + ":") || message.contains("]" + name + ":")) {
+            String repeatMessage = message.substring(message.indexOf(":") + 1);
+            Minecraft.getMinecraft().thePlayer.sendChatMessage(repeatMessage);
+        }
+    }
 }

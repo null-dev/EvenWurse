@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,11 +8,9 @@
  */
 package tk.wurst_client.events;
 
-public class UpdateEvent extends Event
-{
-	@Override
-	public String getAction()
-	{
-		return "updating";
-	}
+public class UpdateEvent extends Event {
+    @Override
+    public String getAction() {
+        return "updating";
+    }
 }

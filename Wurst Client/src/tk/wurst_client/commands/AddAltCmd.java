@@ -17,45 +17,36 @@ import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.gui.alts.GuiAltList;
 
 @Info(help = "Adds a player or all players on a server to your alt list.",
-	name = "addalt",
-	syntax = {"<player>", "all"})
-public class AddAltCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length != 1)
-			syntaxError();
-		if(args[0].equals("all"))
-		{
-			int alts = 0;
-			for (Object o : Minecraft.getMinecraft().getNetHandler().getPlayerInfo()) {
-				NetworkPlayerInfo info = (NetworkPlayerInfo) o;
-				String crackedName =
-						StringUtils.stripControlCodes(info.getPlayerNameForReal());
-				if (crackedName.equals(Minecraft.getMinecraft().thePlayer
-						.getName())
-						|| crackedName.equals("Alexander01998")
-						|| GuiAltList.alts.contains(new Alt(crackedName)))
-					continue;
-				GuiAltList.alts.add(new Alt(crackedName));
-				alts++;
-			}
-			if(alts == 1)
-				WurstClient.INSTANCE.chat
-					.message("Added 1 alt to the alt list.");
-			else
-				WurstClient.INSTANCE.chat.message("Added " + alts
-					+ " alts to the alt list.");
-			GuiAltList.sortAlts();
-			WurstClient.INSTANCE.files.saveAlts();
-		}else if(!args[0].equals("Alexander01998"))
-		{
-			GuiAltList.alts.add(new Alt(args[0]));
-			GuiAltList.sortAlts();
-			WurstClient.INSTANCE.files.saveAlts();
-			WurstClient.INSTANCE.chat.message("Added \"" + args[0]
-				+ "\" to the alt list.");
-		}
-	}
+        name = "addalt",
+        syntax = {"<player>", "all"})
+public class AddAltCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length != 1) syntaxError();
+        if (args[0].equals("all")) {
+            int alts = 0;
+            for (Object o : Minecraft.getMinecraft().getNetHandler().getPlayerInfo()) {
+                NetworkPlayerInfo info = (NetworkPlayerInfo) o;
+                String crackedName = StringUtils.stripControlCodes(info.getPlayerNameForReal());
+                if (crackedName.equals(Minecraft.getMinecraft().thePlayer.getName()) ||
+                        crackedName.equals("Alexander01998") || GuiAltList.alts.contains(new Alt(crackedName))) {
+                    continue;
+                }
+                GuiAltList.alts.add(new Alt(crackedName));
+                alts++;
+            }
+            if (alts == 1) {
+                WurstClient.INSTANCE.chat.message("Added 1 alt to the alt list.");
+            } else {
+                WurstClient.INSTANCE.chat.message("Added " + alts + " alts to the alt list.");
+            }
+            GuiAltList.sortAlts();
+            WurstClient.INSTANCE.files.saveAlts();
+        } else if (!args[0].equals("Alexander01998")) {
+            GuiAltList.alts.add(new Alt(args[0]));
+            GuiAltList.sortAlts();
+            WurstClient.INSTANCE.files.saveAlts();
+            WurstClient.INSTANCE.chat.message("Added \"" + args[0] + "\" to the alt list.");
+        }
+    }
 }

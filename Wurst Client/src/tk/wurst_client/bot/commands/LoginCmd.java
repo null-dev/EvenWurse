@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,27 +12,22 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.alts.LoginManager;
 
 @Command.Info(help = "Logs you in with a premium or cracked account.",
-	name = "login",
-	syntax = {"<email> <password>", "<name>"})
-public class LoginCmd extends Command
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length < 1 || args.length > 2)
-			syntaxError();
-		if(args.length == 1)
-		{
-			LoginManager.changeCrackedName(args[0]);
-			System.out.println("Changed name to \"" + args[0] + "\".");
-		}else
-		{
-			String error = LoginManager.login(args[0], args[1]);
-			if(error.isEmpty())
-				System.out.println("Logged in as "
-					+ Minecraft.getMinecraft().session.getUsername());
-			else
-				error(error);
-		}
-	}
+        name = "login",
+        syntax = {"<email> <password>", "<name>"})
+public class LoginCmd extends Command {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length < 1 || args.length > 2) syntaxError();
+        if (args.length == 1) {
+            LoginManager.changeCrackedName(args[0]);
+            System.out.println("Changed name to \"" + args[0] + "\".");
+        } else {
+            String error = LoginManager.login(args[0], args[1]);
+            if (error.isEmpty()) {
+                System.out.println("Logged in as " + Minecraft.getMinecraft().session.getUsername());
+            } else {
+                error(error);
+            }
+        }
+    }
 }

@@ -15,51 +15,39 @@ import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.utils.EntityUtils;
 
 @Mod.Info(category = Mod.Category.COMBAT,
-	description = "Automatically attacks the closest valid entity whenever you\n"
-		+ "click.\n"
-		+ "Warning: ClickAuras generally look more suspicious than Killauras\n"
-		+ "and are easier to detect. It is recommended to use Killaura or\n"
-		+ "TriggerBot instead.",
-	name = "ClickAura")
-public class ClickAuraMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.mods.disableModsByClass(KillauraMod.class,
-				KillauraLegitMod.class,
-				MultiAuraMod.class,
-				TriggerBotMod.class);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		updateMS();
-		EntityLivingBase en = EntityUtils.getClosestEntity(true);
-		if(hasTimePassedS(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).realSpeed)
-			&& en != null
-			&& Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed)
-		{
-			if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).realRange)
-			{
-				if(WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).isActive())
-					AutoSwordMod.setSlot();
-				CriticalsMod.doCritical();
-				WurstClient.INSTANCE.mods.getModByClass(BlockHitMod.class).doBlock();
-				EntityUtils.faceEntityPacket(en);
-				Minecraft.getMinecraft().thePlayer.swingItem();
-				Minecraft.getMinecraft().playerController.attackEntity(
-					Minecraft.getMinecraft().thePlayer, en);
-				updateLastMS();
-			}
-		}
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Automatically attacks the closest valid entity whenever you\n" + "click.\n" +
+                "Warning: ClickAuras generally look more suspicious than Killauras\n" +
+                "and are easier to detect. It is recommended to use Killaura or\n" + "TriggerBot instead.",
+        name = "ClickAura")
+public class ClickAuraMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.mods
+                .disableModsByClass(KillauraMod.class, KillauraLegitMod.class, MultiAuraMod.class, TriggerBotMod.class);
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        updateMS();
+        EntityLivingBase en = EntityUtils.getClosestEntity(true);
+        if (hasTimePassedS(WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).realSpeed) && en != null &&
+                Minecraft.getMinecraft().gameSettings.keyBindAttack.pressed) {
+            if (Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <=
+                    WurstClient.INSTANCE.mods.getModByClass(KillauraMod.class).realRange) {
+                if (WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).isActive()) AutoSwordMod.setSlot();
+                CriticalsMod.doCritical();
+                WurstClient.INSTANCE.mods.getModByClass(BlockHitMod.class).doBlock();
+                EntityUtils.faceEntityPacket(en);
+                Minecraft.getMinecraft().thePlayer.swingItem();
+                Minecraft.getMinecraft().playerController.attackEntity(Minecraft.getMinecraft().thePlayer, en);
+                updateLastMS();
+            }
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

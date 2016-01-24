@@ -16,59 +16,53 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.RENDER,
-	description = "Allows you to fly out of your body.\n"
-		+ "Looks similar to spectator mode.",
-	name = "Freecam")
-public class FreecamMod extends Mod implements UpdateListener
-{
-	private EntityOtherPlayerMP fakePlayer = null;
-	private double oldX;
-	private double oldY;
-	private double oldZ;
-	
-	@Override
-	public void onEnable()
-	{
-		oldX = Minecraft.getMinecraft().thePlayer.posX;
-		oldY = Minecraft.getMinecraft().thePlayer.posY;
-		oldZ = Minecraft.getMinecraft().thePlayer.posZ;
-		fakePlayer =
-			new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld,
-				Minecraft.getMinecraft().thePlayer.getGameProfile());
-		fakePlayer.clonePlayer(Minecraft.getMinecraft().thePlayer, true);
-		fakePlayer
-			.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
-		fakePlayer.rotationYawHead =
-			Minecraft.getMinecraft().thePlayer.rotationYawHead;
-		Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		Minecraft.getMinecraft().thePlayer.motionX = 0;
-		Minecraft.getMinecraft().thePlayer.motionY = 0;
-		Minecraft.getMinecraft().thePlayer.motionZ = 0;
-		Minecraft.getMinecraft().thePlayer.jumpMovementFactor =
-				WurstClient.INSTANCE.mods.getModByClass(FlightMod.class).speed / 10;
-		if(Minecraft.getMinecraft().gameSettings.keyBindJump.pressed)
-			Minecraft.getMinecraft().thePlayer.motionY +=
-					WurstClient.INSTANCE.mods.getModByClass(FlightMod.class).speed;
-		if(Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed)
-			Minecraft.getMinecraft().thePlayer.motionY -=
-					WurstClient.INSTANCE.mods.getModByClass(FlightMod.class).speed;
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		Minecraft.getMinecraft().thePlayer.setPositionAndRotation(oldX, oldY,
-			oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
-			Minecraft.getMinecraft().thePlayer.rotationPitch);
-		Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
-		fakePlayer = null;
-		Minecraft.getMinecraft().renderGlobal.loadRenderers();
-	}
+        description = "Allows you to fly out of your body.\n" + "Looks similar to spectator mode.",
+        name = "Freecam")
+public class FreecamMod extends Mod implements UpdateListener {
+    private EntityOtherPlayerMP fakePlayer = null;
+    private double oldX;
+    private double oldY;
+    private double oldZ;
+
+    @Override
+    public void onEnable() {
+        oldX = Minecraft.getMinecraft().thePlayer.posX;
+        oldY = Minecraft.getMinecraft().thePlayer.posY;
+        oldZ = Minecraft.getMinecraft().thePlayer.posZ;
+        fakePlayer = new EntityOtherPlayerMP(Minecraft.getMinecraft().theWorld,
+                Minecraft.getMinecraft().thePlayer.getGameProfile());
+        fakePlayer.clonePlayer(Minecraft.getMinecraft().thePlayer, true);
+        fakePlayer.copyLocationAndAnglesFrom(Minecraft.getMinecraft().thePlayer);
+        fakePlayer.rotationYawHead = Minecraft.getMinecraft().thePlayer.rotationYawHead;
+        Minecraft.getMinecraft().theWorld.addEntityToWorld(-69, fakePlayer);
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        Minecraft.getMinecraft().thePlayer.motionX = 0;
+        Minecraft.getMinecraft().thePlayer.motionY = 0;
+        Minecraft.getMinecraft().thePlayer.motionZ = 0;
+        Minecraft.getMinecraft().thePlayer.jumpMovementFactor =
+                WurstClient.INSTANCE.mods.getModByClass(FlightMod.class).speed / 10;
+        if (Minecraft.getMinecraft().gameSettings.keyBindJump.pressed) {
+            Minecraft.getMinecraft().thePlayer.motionY +=
+                    WurstClient.INSTANCE.mods.getModByClass(FlightMod.class).speed;
+        }
+        if (Minecraft.getMinecraft().gameSettings.keyBindSneak.pressed) {
+            Minecraft.getMinecraft().thePlayer.motionY -=
+                    WurstClient.INSTANCE.mods.getModByClass(FlightMod.class).speed;
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+        Minecraft.getMinecraft().thePlayer
+                .setPositionAndRotation(oldX, oldY, oldZ, Minecraft.getMinecraft().thePlayer.rotationYaw,
+                        Minecraft.getMinecraft().thePlayer.rotationPitch);
+        Minecraft.getMinecraft().theWorld.removeEntityFromWorld(-69);
+        fakePlayer = null;
+        Minecraft.getMinecraft().renderGlobal.loadRenderers();
+    }
 }

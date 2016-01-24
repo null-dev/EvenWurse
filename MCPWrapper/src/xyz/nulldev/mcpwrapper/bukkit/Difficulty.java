@@ -34,15 +34,28 @@ public enum Difficulty {
      */
     HARD(3);
 
+    private final static Map<Integer, Difficulty> BY_ID = Maps.newHashMap();
+
+    static {
+        for (Difficulty diff : values()) {
+            BY_ID.put(diff.value, diff);
+        }
+    }
+
+    private final int value;
+    private Difficulty(final int value) {
+        this.value = value;
+    }
+
     public static EnumDifficulty asMCDifficulty(Difficulty difficulty) {
-        if(difficulty == null) return null;
-        if(difficulty.equals(Difficulty.PEACEFUL)) {
+        if (difficulty == null) return null;
+        if (difficulty.equals(Difficulty.PEACEFUL)) {
             return EnumDifficulty.PEACEFUL;
-        } else if(difficulty.equals(Difficulty.EASY)) {
+        } else if (difficulty.equals(Difficulty.EASY)) {
             return EnumDifficulty.EASY;
-        } else if(difficulty.equals(Difficulty.NORMAL)) {
+        } else if (difficulty.equals(Difficulty.NORMAL)) {
             return EnumDifficulty.NORMAL;
-        } else if(difficulty.equals(Difficulty.HARD)) {
+        } else if (difficulty.equals(Difficulty.HARD)) {
             return EnumDifficulty.HARD;
         } else {
             throw new IllegalArgumentException("Unknown difficulty!");
@@ -50,25 +63,31 @@ public enum Difficulty {
     }
 
     public static Difficulty fromMCDifficulty(EnumDifficulty difficulty) {
-        if(difficulty == null) return null;
-        if(difficulty.equals(EnumDifficulty.PEACEFUL)) {
+        if (difficulty == null) return null;
+        if (difficulty.equals(EnumDifficulty.PEACEFUL)) {
             return Difficulty.PEACEFUL;
-        } else if(difficulty.equals(EnumDifficulty.EASY)) {
+        } else if (difficulty.equals(EnumDifficulty.EASY)) {
             return Difficulty.EASY;
-        } else if(difficulty.equals(EnumDifficulty.NORMAL)) {
+        } else if (difficulty.equals(EnumDifficulty.NORMAL)) {
             return Difficulty.NORMAL;
-        } else if(difficulty.equals(EnumDifficulty.HARD)) {
+        } else if (difficulty.equals(EnumDifficulty.HARD)) {
             return Difficulty.HARD;
         } else {
             throw new IllegalArgumentException("Unknown difficulty!");
         }
     }
 
-    private final int value;
-    private final static Map<Integer, Difficulty> BY_ID = Maps.newHashMap();
-
-    private Difficulty(final int value) {
-        this.value = value;
+    /**
+     * Gets the Difficulty represented by the specified value
+     *
+     * @param value Value to check
+     * @return Associative {@link Difficulty} with the given value, or null if
+     * it doesn't exist
+     * @deprecated Magic value
+     */
+    @Deprecated
+    public static Difficulty getByValue(final int value) {
+        return BY_ID.get(value);
     }
 
     /**
@@ -80,24 +99,5 @@ public enum Difficulty {
     @Deprecated
     public int getValue() {
         return value;
-    }
-
-    /**
-     * Gets the Difficulty represented by the specified value
-     *
-     * @param value Value to check
-     * @return Associative {@link Difficulty} with the given value, or null if
-     *     it doesn't exist
-     * @deprecated Magic value
-     */
-    @Deprecated
-    public static Difficulty getByValue(final int value) {
-        return BY_ID.get(value);
-    }
-
-    static {
-        for (Difficulty diff : values()) {
-            BY_ID.put(diff.value, diff);
-        }
     }
 }

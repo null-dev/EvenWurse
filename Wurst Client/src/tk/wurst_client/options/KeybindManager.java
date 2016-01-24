@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,23 +10,21 @@ package tk.wurst_client.options;
 
 import java.util.TreeMap;
 
-public class KeybindManager extends TreeMap<String, String>
-{
-	public KeybindManager()
-	{
-		put("B", ".t fastbreak");
-		put("C", ".t fullbright");
-		put("F", ".t fastplace");
-		put("G", ".t flight");
-		put("GRAVE", ".t speednuker");
-		put("H", ".t /home");
-		put("J", ".t phase");
-		put("K", ".t multiaura");
-		put("L", ".t nuker");
-		put("LCONTROL", ".t clickgui");
-		put("R", ".t killaura");
-		put("U", ".t freecam");
-		put("X", ".t x-ray");
-		put("Z", ".t sneak");
-	}
+public class KeybindManager extends TreeMap<String, String> {
+    public KeybindManager() {
+        put("B", ".t fastbreak");
+        put("C", ".t fullbright");
+        put("F", ".t fastplace");
+        put("G", ".t flight");
+        put("GRAVE", ".t speednuker");
+        put("H", ".t /home");
+        put("J", ".t phase");
+        put("K", ".t multiaura");
+        put("L", ".t nuker");
+        put("LCONTROL", ".t clickgui");
+        put("R", ".t killaura");
+        put("U", ".t freecam");
+        put("X", ".t x-ray");
+        put("Z", ".t sneak");
+    }
 }

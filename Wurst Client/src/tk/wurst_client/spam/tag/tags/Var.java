@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,28 +15,23 @@ import tk.wurst_client.spam.exceptions.SpamException;
 import tk.wurst_client.spam.tag.Tag;
 import tk.wurst_client.spam.tag.TagData;
 
-public class Var extends Tag
-{
-	public Var()
-	{
-		super("var", "Defines a new variable.", "<var name>value</var>",
-			"<var link>example.com</var><!--\n"
-				+ "-->Check out my website: §link;");
-	}
-	
-	@Override
-	public String process(TagData tagData) throws SpamException
-	{
-		if(tagData.getTagArgs().length == 0)
-			throw new MissingArgumentException(
-				"The <var> tag requires at least one argument.",
-				tagData.getTagLine(), this);
-		if(tagData.getTagArgs()[0].startsWith("_"))
-			throw new InvalidArgumentException(
-				"You cannot define variables that start with \"_\".",
-				tagData.getTagLine(), this);
-		SpamProcessor.varManager.addUserVar(tagData.getTagArgs()[0],
-			tagData.getTagContent());
-		return "";
-	}
+public class Var extends Tag {
+    public Var() {
+        super("var", "Defines a new variable.", "<var name>value</var>",
+                "<var link>example.com</var><!--\n" + "-->Check out my website: ï¿½link;");
+    }
+
+    @Override
+    public String process(TagData tagData) throws SpamException {
+        if (tagData.getTagArgs().length == 0) {
+            throw new MissingArgumentException("The <var> tag requires at least one argument.", tagData.getTagLine(),
+                    this);
+        }
+        if (tagData.getTagArgs()[0].startsWith("_")) {
+            throw new InvalidArgumentException("You cannot define variables that start with \"_\".",
+                    tagData.getTagLine(), this);
+        }
+        SpamProcessor.varManager.addUserVar(tagData.getTagArgs()[0], tagData.getTagContent());
+        return "";
+    }
 }

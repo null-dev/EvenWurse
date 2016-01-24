@@ -15,25 +15,22 @@ import org.lwjgl.input.Keyboard;
 import tk.wurst_client.navigator.gui.NavigatorScreen;
 
 @Mod.Info(category = Mod.Category.MOVEMENT,
-        description = "Allows you to walk while viewing a menu (e.g. the inventory\n"
-                + "menu).",
+        description = "Allows you to walk while viewing a menu (e.g. the inventory\n" + "menu).",
         name = "MenuWalk")
 public class MenuWalkMod extends Mod {
     public boolean shouldAllowWalking() {
         // check if mod is active
-        if(!isActive())
-            return false;
+        if (!isActive()) return false;
 
         // check if there is a player to move
         Minecraft mc = Minecraft.getMinecraft();
-        if(mc.thePlayer == null)
-            return false;
+        if (mc.thePlayer == null) return false;
 
         // check if player is viewing chat
-        if((mc.currentScreen instanceof GuiChat)
-                || (mc.currentScreen instanceof GuiIngameMenu)
-                || (mc.currentScreen instanceof NavigatorScreen))
+        if ((mc.currentScreen instanceof GuiChat) || (mc.currentScreen instanceof GuiIngameMenu) ||
+                (mc.currentScreen instanceof NavigatorScreen)) {
             return false;
+        }
 
         // check if inventory key is pressed
         return !Keyboard.isKeyDown(mc.gameSettings.keyBindInventory.getKeyCode());

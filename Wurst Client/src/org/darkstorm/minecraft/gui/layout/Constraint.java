@@ -1,6 +1,5 @@
 package org.darkstorm.minecraft.gui.layout;
 
-public interface Constraint
-{	
-	
+public interface Constraint {
+
 }

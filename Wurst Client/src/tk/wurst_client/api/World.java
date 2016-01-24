@@ -17,10 +17,11 @@ import java.util.UUID;
 public class World {
     public static String getName() {
         String dim = Minecraft.getMinecraft().theWorld.provider.getDimensionName();
-        if(!Server.inServer())
+        if (!Server.inServer()) {
             return Minecraft.getMinecraft().getIntegratedServer().getWorldName() + " (" + dim + ")";
-        else
+        } else {
             return Minecraft.getMinecraft().theWorld.getWorldInfo().getWorldName() + " (" + dim + ")";
+        }
     }
 
     public static EnumDifficulty getDifficulty() {
@@ -29,8 +30,7 @@ public class World {
 
     public static UUID getUUID() {
         String ip = "SP";
-        if(Server.inServer())
-            ip = Server.getIP();
+        if (Server.inServer()) ip = Server.getIP();
         return UUID.nameUUIDFromBytes((ip + ":" + World.getName()).getBytes());
     }
 }

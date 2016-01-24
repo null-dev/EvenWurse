@@ -14,26 +14,23 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
-	description = "Instantly turns off all enabled mods.\n"
-		+ "Be careful with this!",
-	name = "Panic")
-public class PanicMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		WurstClient.INSTANCE.mods.getAllMods().stream().filter(mod -> mod.getCategory() != Category.HIDDEN && mod.isEnabled()).forEach(mod -> mod.setEnabled(false));
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Instantly turns off all enabled mods.\n" + "Be careful with this!",
+        name = "Panic")
+public class PanicMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        WurstClient.INSTANCE.mods.getAllMods().stream()
+                .filter(mod -> mod.getCategory() != Category.HIDDEN && mod.isEnabled())
+                .forEach(mod -> mod.setEnabled(false));
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

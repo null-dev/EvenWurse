@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,12 +8,9 @@
  */
 package tk.wurst_client.spam.exceptions;
 
-public class UnreadableElementException extends ExceptionWithDefaultHelp
-{
-	public UnreadableElementException(String element, int line)
-	{
-		super("This could not be read: "
-			+ (element.contains("\n") ? element.substring(0,
-				element.indexOf("\n")) : element), line);
-	}
+public class UnreadableElementException extends ExceptionWithDefaultHelp {
+    public UnreadableElementException(String element, int line) {
+        super("This could not be read: " +
+                (element.contains("\n") ? element.substring(0, element.indexOf("\n")) : element), line);
+    }
 }

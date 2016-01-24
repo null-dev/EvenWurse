@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,31 +9,26 @@
 package org.darkstorm.minecraft.gui.theme.wurst;
 
 import net.minecraft.client.gui.FontRenderer;
-
 import org.darkstorm.minecraft.gui.theme.AbstractTheme;
-
 import tk.wurst_client.font.Fonts;
 
-public class WurstTheme extends AbstractTheme
-{
-	private final FontRenderer fontRenderer;
-	
-	public WurstTheme()
-	{
-		fontRenderer = Fonts.segoe15;
-		
-		installUI(new WurstFrameUI(this));
-		installUI(new WurstPanelUI(this));
-		installUI(new WurstLabelUI(this));
-		installUI(new WurstButtonUI(this));
-		installUI(new WurstCheckButtonUI(this));
-		installUI(new WurstComboBoxUI(this));
-		installUI(new WurstSliderUI(this));
-		installUI(new WurstProgressBarUI(this));
-	}
-	
-	public FontRenderer getFontRenderer()
-	{
-		return fontRenderer;
-	}
+public class WurstTheme extends AbstractTheme {
+    private final FontRenderer fontRenderer;
+
+    public WurstTheme() {
+        fontRenderer = Fonts.segoe15;
+
+        installUI(new WurstFrameUI(this));
+        installUI(new WurstPanelUI(this));
+        installUI(new WurstLabelUI(this));
+        installUI(new WurstButtonUI(this));
+        installUI(new WurstCheckButtonUI(this));
+        installUI(new WurstComboBoxUI(this));
+        installUI(new WurstSliderUI(this));
+        installUI(new WurstProgressBarUI(this));
+    }
+
+    public FontRenderer getFontRenderer() {
+        return fontRenderer;
+    }
 }

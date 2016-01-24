@@ -28,17 +28,6 @@ public enum BlockFace {
     private final int modY;
     private final int modZ;
 
-    public static BlockFace fromMod(int modX, int modY, int modZ) {
-        for(BlockFace face : values()) {
-            if(face.modX == modX
-                    && face.modY == modY
-                    && face.modZ == modZ) {
-                return face;
-            }
-        }
-        return null;
-    }
-
     private BlockFace(final int modX, final int modY, final int modZ) {
         this.modX = modX;
         this.modY = modY;
@@ -49,6 +38,15 @@ public enum BlockFace {
         this.modX = face1.getModX() + face2.getModX();
         this.modY = face1.getModY() + face2.getModY();
         this.modZ = face1.getModZ() + face2.getModZ();
+    }
+
+    public static BlockFace fromMod(int modX, int modY, int modZ) {
+        for (BlockFace face : values()) {
+            if (face.modX == modX && face.modY == modY && face.modZ == modZ) {
+                return face;
+            }
+        }
+        return null;
     }
 
     /**
@@ -80,62 +78,62 @@ public enum BlockFace {
 
     public BlockFace getOppositeFace() {
         switch (this) {
-        case NORTH:
-            return BlockFace.SOUTH;
+            case NORTH:
+                return BlockFace.SOUTH;
 
-        case SOUTH:
-            return BlockFace.NORTH;
+            case SOUTH:
+                return BlockFace.NORTH;
 
-        case EAST:
-            return BlockFace.WEST;
+            case EAST:
+                return BlockFace.WEST;
 
-        case WEST:
-            return BlockFace.EAST;
+            case WEST:
+                return BlockFace.EAST;
 
-        case UP:
-            return BlockFace.DOWN;
+            case UP:
+                return BlockFace.DOWN;
 
-        case DOWN:
-            return BlockFace.UP;
+            case DOWN:
+                return BlockFace.UP;
 
-        case NORTH_EAST:
-            return BlockFace.SOUTH_WEST;
+            case NORTH_EAST:
+                return BlockFace.SOUTH_WEST;
 
-        case NORTH_WEST:
-            return BlockFace.SOUTH_EAST;
+            case NORTH_WEST:
+                return BlockFace.SOUTH_EAST;
 
-        case SOUTH_EAST:
-            return BlockFace.NORTH_WEST;
+            case SOUTH_EAST:
+                return BlockFace.NORTH_WEST;
 
-        case SOUTH_WEST:
-            return BlockFace.NORTH_EAST;
+            case SOUTH_WEST:
+                return BlockFace.NORTH_EAST;
 
-        case WEST_NORTH_WEST:
-            return BlockFace.EAST_SOUTH_EAST;
+            case WEST_NORTH_WEST:
+                return BlockFace.EAST_SOUTH_EAST;
 
-        case NORTH_NORTH_WEST:
-            return BlockFace.SOUTH_SOUTH_EAST;
+            case NORTH_NORTH_WEST:
+                return BlockFace.SOUTH_SOUTH_EAST;
 
-        case NORTH_NORTH_EAST:
-            return BlockFace.SOUTH_SOUTH_WEST;
+            case NORTH_NORTH_EAST:
+                return BlockFace.SOUTH_SOUTH_WEST;
 
-        case EAST_NORTH_EAST:
-            return BlockFace.WEST_SOUTH_WEST;
+            case EAST_NORTH_EAST:
+                return BlockFace.WEST_SOUTH_WEST;
 
-        case EAST_SOUTH_EAST:
-            return BlockFace.WEST_NORTH_WEST;
+            case EAST_SOUTH_EAST:
+                return BlockFace.WEST_NORTH_WEST;
 
-        case SOUTH_SOUTH_EAST:
-            return BlockFace.NORTH_NORTH_WEST;
+            case SOUTH_SOUTH_EAST:
+                return BlockFace.NORTH_NORTH_WEST;
 
-        case SOUTH_SOUTH_WEST:
-            return BlockFace.NORTH_NORTH_EAST;
+            case SOUTH_SOUTH_WEST:
+                return BlockFace.NORTH_NORTH_EAST;
 
-        case WEST_SOUTH_WEST:
-            return BlockFace.EAST_NORTH_EAST;
+            case WEST_SOUTH_WEST:
+                return BlockFace.EAST_NORTH_EAST;
 
-        case SELF:
-            return BlockFace.SELF;
+            case SELF:
+                return BlockFace.SELF;
         }
 
         return BlockFace.SELF;

@@ -55,7 +55,7 @@ public class WaypointsMod extends Mod implements RenderListener {
     @Override
     public void onRender() {
         float scale = ModuleConfiguration.forModule(this).getFloat("Label Scale", 0.5f);
-        if(scale < 0) {
+        if (scale < 0) {
             Chat.sendError("Label scale was negative, changing back to default!");
             ModuleConfiguration.forModule(this).putString("Label Scale", String.valueOf(0.5f));
         }
@@ -65,24 +65,25 @@ public class WaypointsMod extends Mod implements RenderListener {
         boolean renderTracer = ModuleConfiguration.forModule(this).getBoolean("Render Tracer", true);
         boolean perWorld = ModuleConfiguration.forModule(this).getBoolean("Per World/Server", true);
         String curWorld;
-        if(perWorld) {
+        if (perWorld) {
             curWorld = World.getUUID().toString();
         } else {
             curWorld = null;
         }
-        List<Waypoint> possibleWaypoints = Waypoint.WAYPOINTS.parallelStream()
-                .filter(w -> Objects.equals(curWorld, w.getWorld()))
-                .collect(Collectors.toList());
+        List<Waypoint> possibleWaypoints =
+                Waypoint.WAYPOINTS.parallelStream().filter(w -> Objects.equals(curWorld, w.getWorld()))
+                        .collect(Collectors.toList());
         //I render lightning bolts by themselves as they seem to bug out if rendered with the others...
-        if(renderBolt)
+        if (renderBolt) {
             possibleWaypoints.stream().forEach(w -> GLHelper.drawLightning(w.dX, w.dZ, w.red, w.green, w.blue));
-        for(Waypoint w : possibleWaypoints) {
+        }
+        for (Waypoint w : possibleWaypoints) {
             w.update();
-//            GL11.glDisable(2896 /*GL_LIGHTING*/);
-            if(renderESP) GLHelper.drawESP(w.dX, w.dY, w.dZ, w.red, w.green, w.blue);
-            if(renderLabel) GLHelper.drawTag(F.f(w.getName()), w.dX, w.dY, w.dZ, scale);
-//            GL11.glEnable(2896 /*GL_LIGHTING*/);
-            if(renderTracer) GLHelper.drawWayPointTracer(w);
+            //            GL11.glDisable(2896 /*GL_LIGHTING*/);
+            if (renderESP) GLHelper.drawESP(w.dX, w.dY, w.dZ, w.red, w.green, w.blue);
+            if (renderLabel) GLHelper.drawTag(F.f(w.getName()), w.dX, w.dY, w.dZ, scale);
+            //            GL11.glEnable(2896 /*GL_LIGHTING*/);
+            if (renderTracer) GLHelper.drawWayPointTracer(w);
         }
     }
 }

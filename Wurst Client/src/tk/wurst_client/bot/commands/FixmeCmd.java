@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,18 +11,14 @@ package tk.wurst_client.bot.commands;
 import net.minecraft.client.Minecraft;
 
 @Command.Info(help = "Fixes you if you get stuck in a menu.",
-	name = "fixme",
-	syntax = {})
-public class FixmeCmd extends Command
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length != 0)
-			syntaxError();
-		if(Minecraft.getMinecraft().thePlayer == null)
-			error("Not connected to any server.");
-		Minecraft.getMinecraft().displayGuiScreen(null);
-		System.out.println("Closed all open menus.");
-	}
+        name = "fixme",
+        syntax = {})
+public class FixmeCmd extends Command {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length != 0) syntaxError();
+        if (Minecraft.getMinecraft().thePlayer == null) error("Not connected to any server.");
+        Minecraft.getMinecraft().displayGuiScreen(null);
+        System.out.println("Closed all open menus.");
+    }
 }

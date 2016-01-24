@@ -9,7 +9,6 @@
 package tk.wurst_client.mods;
 
 import net.minecraft.client.Minecraft;
-import org.darkstorm.minecraft.gui.component.basic.BasicSlider;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.api.Module;
 import tk.wurst_client.gui.error.GuiError;
@@ -24,46 +23,16 @@ import java.util.Arrays;
 
 public abstract class Mod extends Module implements NavigatorItem {
     private final String name = getClass().getAnnotation(Info.class).name();
-    private final String description = getClass().getAnnotation(Info.class)
-            .description();
-    private final Category category = getClass().getAnnotation(Info.class)
-            .category();
+    private final String description = getClass().getAnnotation(Info.class).description();
+    private final Category category = getClass().getAnnotation(Info.class).category();
     private final String[] tags = getClass().getAnnotation(Info.class).tags();
     private final String tutorial = getClass().getAnnotation(Info.class).tutorial();
+    protected ArrayList<NavigatorSetting> settings = new ArrayList<>();
+    protected long lastMS = -1L;
     private boolean enabled;
     private boolean blocked;
     private boolean active;
-    protected ArrayList<NavigatorSetting> settings = new ArrayList<>();
     private long currentMS = 0L;
-    protected long lastMS = -1L;
-
-    public enum Category {
-        AUTOBUILD,
-        BLOCKS,
-        CHAT,
-        COMBAT,
-        EXPLOITS,
-        FUN,
-        HIDDEN,
-        RENDER,
-        MISC,
-        MOVEMENT
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface Info {
-        String name();
-
-        String description();
-
-        Category category();
-
-        boolean noCheatCompatible() default true;
-
-        String[] tags() default {};
-
-        String tutorial() default "";
-    }
 
     @Override
     public final String getName() {
@@ -97,8 +66,7 @@ public abstract class Mod extends Module implements NavigatorItem {
     @Override
     public final ArrayList<PossibleKeybind> getPossibleKeybinds() {
         String dotT = ".t " + name.toLowerCase();
-        return new ArrayList<>(Arrays.asList(
-                new PossibleKeybind(dotT, "Toggle " + name),
+        return new ArrayList<>(Arrays.asList(new PossibleKeybind(dotT, "Toggle " + name),
                 new PossibleKeybind(dotT + " on", "Enable " + name),
                 new PossibleKeybind(dotT + " off", "Disable " + name)));
     }
@@ -127,38 +95,34 @@ public abstract class Mod extends Module implements NavigatorItem {
         return enabled;
     }
 
-    public final boolean isActive() {
-        return active;
-    }
-
     public final void setEnabled(boolean enabled) {
         this.enabled = enabled;
         active = enabled && !blocked;
-        if(blocked && enabled)
-            return;
+        if (blocked && enabled) return;
         try {
             onToggle();
-        } catch(Exception e) {
+        } catch (Exception e) {
             Minecraft.getMinecraft().displayGuiScreen(
-                    new GuiError(e, this, "toggling", "Mod was toggled "
-                            + (enabled ? "on" : "off") + "."));
+                    new GuiError(e, this, "toggling", "Mod was toggled " + (enabled ? "on" : "off") + "."));
         }
-        if(enabled)
+        if (enabled) {
             try {
                 onEnable();
-            } catch(Exception e) {
-                Minecraft.getMinecraft().displayGuiScreen(
-                        new GuiError(e, this, "enabling", ""));
+            } catch (Exception e) {
+                Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "enabling", ""));
             }
-        else
+        } else {
             try {
                 onDisable();
-            } catch(Exception e) {
-                Minecraft.getMinecraft().displayGuiScreen(
-                        new GuiError(e, this, "disabling", ""));
+            } catch (Exception e) {
+                Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "disabling", ""));
             }
-        if(!WurstClient.INSTANCE.files.isModBlacklisted(this))
-            WurstClient.INSTANCE.files.saveMods();
+        }
+        if (!WurstClient.INSTANCE.files.isModBlacklisted(this)) WurstClient.INSTANCE.files.saveMods();
+    }
+
+    public final boolean isActive() {
+        return active;
     }
 
     public final void enableOnStartup() {
@@ -166,16 +130,14 @@ public abstract class Mod extends Module implements NavigatorItem {
         active = !blocked;
         try {
             onToggle();
-        } catch(Exception e) {
+        } catch (Exception e) {
             Minecraft.getMinecraft().displayGuiScreen(
-                    new GuiError(e, this, "toggling", "Mod was toggled "
-                            + (enabled ? "on" : "off") + "."));
+                    new GuiError(e, this, "toggling", "Mod was toggled " + (enabled ? "on" : "off") + "."));
         }
         try {
             onEnable();
-        } catch(Exception e) {
-            Minecraft.getMinecraft().displayGuiScreen(
-                    new GuiError(e, this, "enabling", ""));
+        } catch (Exception e) {
+            Minecraft.getMinecraft().displayGuiScreen(new GuiError(e, this, "enabling", ""));
         }
     }
 
@@ -191,23 +153,22 @@ public abstract class Mod extends Module implements NavigatorItem {
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
         active = enabled && !blocked;
-        if(enabled) {
+        if (enabled) {
             try {
                 onToggle();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 Minecraft.getMinecraft().displayGuiScreen(
-                        new GuiError(e, this, "toggling", "Mod was toggled "
-                                + (blocked ? "off" : "on") + "."));
+                        new GuiError(e, this, "toggling", "Mod was toggled " + (blocked ? "off" : "on") + "."));
             }
             try {
-                if(blocked)
+                if (blocked) {
                     onDisable();
-                else
+                } else {
                     onEnable();
-            } catch(Exception e) {
-                Minecraft.getMinecraft().displayGuiScreen(
-                        new GuiError(e, this, blocked ? "disabling" : "enabling",
-                                ""));
+                }
+            } catch (Exception e) {
+                Minecraft.getMinecraft()
+                        .displayGuiScreen(new GuiError(e, this, blocked ? "disabling" : "enabling", ""));
             }
         }
     }
@@ -229,16 +190,49 @@ public abstract class Mod extends Module implements NavigatorItem {
     }
 
     public final boolean hasTimePassedS(float speed) {
-        return currentMS >= lastMS + (long)(1000 / speed);
+        return currentMS >= lastMS + (long) (1000 / speed);
     }
 
-    public void onToggle() {}
+    public void onToggle() {
+    }
 
-    public void onEnable() {}
+    public void onEnable() {
+    }
 
-    public void onDisable() {}
+    public void onDisable() {
+    }
 
-    public void initSettings() {}
+    public void initSettings() {
+    }
 
-    public void updateSettings() {}
+    public void updateSettings() {
+    }
+
+    public enum Category {
+        AUTOBUILD,
+        BLOCKS,
+        CHAT,
+        COMBAT,
+        EXPLOITS,
+        FUN,
+        HIDDEN,
+        RENDER,
+        MISC,
+        MOVEMENT
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Info {
+        String name();
+
+        String description();
+
+        Category category();
+
+        boolean noCheatCompatible() default true;
+
+        String[] tags() default {};
+
+        String tutorial() default "";
+    }
 }

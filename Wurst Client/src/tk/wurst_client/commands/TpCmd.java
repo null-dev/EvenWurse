@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,14 +12,12 @@ import net.minecraft.client.Minecraft;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Teleports you up to 100 blocks away.\nOnly works on vanilla servers!",
-	name = "tp",
-	syntax = {"<x> <y> <z>", "<entity>"})
-public class TpCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		int[] pos = argsToPos(args);
-		Minecraft.getMinecraft().thePlayer.setPosition(pos[0], pos[1], pos[2]);
-	}
+        name = "tp",
+        syntax = {"<x> <y> <z>", "<entity>"})
+public class TpCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        int[] pos = argsToPos(args);
+        Minecraft.getMinecraft().thePlayer.setPosition(pos[0], pos[1], pos[2]);
+    }
 }

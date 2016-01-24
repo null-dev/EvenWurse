@@ -19,19 +19,18 @@ import tk.wurst_client.font.Fonts;
 import tk.wurst_client.gui.GuiManager;
 import tk.wurst_client.hooks.FrameHook;
 import tk.wurst_client.mods.ModManager;
+import tk.wurst_client.navigator.Navigator;
 import tk.wurst_client.options.FriendsList;
 import tk.wurst_client.options.KeybindManager;
 import tk.wurst_client.options.OptionsManager;
 import tk.wurst_client.update.Updater;
-import tk.wurst_client.navigator.Navigator;
 
 public class WurstClient {
-    public static WurstClient INSTANCE = new WurstClient();
-
     public static final String VERSION = "2.13pre2";
     public static final int EW_VERSION_CODE = 150;
     public static final String EW_VERSION = "1.5 (Beta)";
     public static final String BASE_VERSION = "1.8";
+    public static WurstClient INSTANCE = new WurstClient();
     public boolean startupMessageDisabled = false;
 
     public ChatManager chat;

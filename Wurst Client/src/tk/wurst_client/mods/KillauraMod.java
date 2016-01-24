@@ -32,35 +32,30 @@ public class KillauraMod extends Mod implements UpdateListener {
 
     @Override
     public void initSettings() {
-        settings.add(new SliderSetting("Killaura speed", normalSpeed, 2, 20, 0.1,
-                ValueDisplay.DECIMAL));
-        settings.add(new SliderSetting("Killaura range", normalRange, 1, 6, 0.05,
-                ValueDisplay.DECIMAL));
-        settings.add(new SliderSetting("Killaura FOV", fov, 30, 360, 10,
-                ValueDisplay.DEGREES));
+        settings.add(new SliderSetting("Killaura speed", normalSpeed, 2, 20, 0.1, ValueDisplay.DECIMAL));
+        settings.add(new SliderSetting("Killaura range", normalRange, 1, 6, 0.05, ValueDisplay.DECIMAL));
+        settings.add(new SliderSetting("Killaura FOV", fov, 30, 360, 10, ValueDisplay.DEGREES));
     }
 
     @Override
     public void updateSettings() {
-        normalSpeed = (float)((SliderSetting)settings.get(0)).getValue();
+        normalSpeed = (float) ((SliderSetting) settings.get(0)).getValue();
         yesCheatSpeed = Math.min(normalSpeed, 12F);
-        normalRange = (float)((SliderSetting)settings.get(1)).getValue();
+        normalRange = (float) ((SliderSetting) settings.get(1)).getValue();
         yesCheatRange = Math.min(normalRange, 4.25F);
-        fov = (int)((SliderSetting)settings.get(2)).getValue();
+        fov = (int) ((SliderSetting) settings.get(2)).getValue();
     }
 
     @Override
     public void onEnable() {
-        WurstClient.INSTANCE.mods.disableModsByClass(KillauraLegitMod.class,
-                MultiAuraMod.class,
-                ClickAuraMod.class,
+        WurstClient.INSTANCE.mods.disableModsByClass(KillauraLegitMod.class, MultiAuraMod.class, ClickAuraMod.class,
                 TriggerBotMod.class);
         WurstClient.INSTANCE.events.add(UpdateListener.class, this);
     }
 
     @Override
     public void onUpdate() {
-        if(WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive()) {
+        if (WurstClient.INSTANCE.mods.getModByClass(YesCheatMod.class).isActive()) {
             realSpeed = yesCheatSpeed;
             realRange = yesCheatRange;
         } else {
@@ -69,16 +64,14 @@ public class KillauraMod extends Mod implements UpdateListener {
         }
         updateMS();
         EntityLivingBase en = EntityUtils.getClosestEntity(true);
-        if(hasTimePassedS(realSpeed) && en != null) {
-            if(Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange) {
-                if(WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).isActive())
-                    AutoSwordMod.setSlot();
+        if (hasTimePassedS(realSpeed) && en != null) {
+            if (Minecraft.getMinecraft().thePlayer.getDistanceToEntity(en) <= realRange) {
+                if (WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class).isActive()) AutoSwordMod.setSlot();
                 CriticalsMod.doCritical();
                 WurstClient.INSTANCE.mods.getModByClass(BlockHitMod.class).doBlock();
                 EntityUtils.faceEntityPacket(en);
                 Minecraft.getMinecraft().thePlayer.swingItem();
-                Minecraft.getMinecraft().playerController.attackEntity(
-                        Minecraft.getMinecraft().thePlayer, en);
+                Minecraft.getMinecraft().playerController.attackEntity(Minecraft.getMinecraft().thePlayer, en);
                 updateLastMS();
             }
         }

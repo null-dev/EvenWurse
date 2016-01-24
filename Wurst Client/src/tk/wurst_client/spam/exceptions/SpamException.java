@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,18 +8,15 @@
  */
 package tk.wurst_client.spam.exceptions;
 
-public class SpamException extends Exception
-{
-	public final int line;
-	
-	public SpamException(String message, int line)
-	{
-		super(message);
-		this.line = line;
-	}
-	
-	public String getHelp()
-	{
-		return "<html><center>Error! No help available.<br>Please report this at <a href=\"\">wurst-client.tk/bugs</a>!";
-	}
+public class SpamException extends Exception {
+    public final int line;
+
+    public SpamException(String message, int line) {
+        super(message);
+        this.line = line;
+    }
+
+    public String getHelp() {
+        return "<html><center>Error! No help available.<br>Please report this at <a href=\"\">wurst-client.tk/bugs</a>!";
+    }
 }

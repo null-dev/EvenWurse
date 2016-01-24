@@ -41,88 +41,79 @@ import static org.lwjgl.opengl.GL11.*;
  *
  * @author DarkStorm (darkstorm@evilminecraft.net)
  */
-public abstract class AbstractGuiManager implements GuiManager
-{
-	private final List<Frame> frames;
-	
-	protected Theme theme;
-	
-	public AbstractGuiManager()
-	{
-		frames = new CopyOnWriteArrayList<>();
-	}
-	
-	@Override
-	public abstract void setup();
-	
-	@Override
-	public void addFrame(Frame frame)
-	{
-		frame.setTheme(theme);
-		frames.add(0, frame);
-	}
-	
-	@Override
-	public void removeFrame(Frame frame)
-	{
-		frames.remove(frame);
-	}
-	
-	@Override
-	public Frame[] getFrames()
-	{
-		return frames.toArray(new Frame[frames.size()]);
-	}
-	
-	@Override
-	public void bringForward(Frame frame)
-	{
-		if(frames.remove(frame))
-			frames.add(0, frame);
-	}
-	
-	@Override
-	public Theme getTheme()
-	{
-		return theme;
-	}
-	
-	@Override
-	public void setTheme(Theme theme)
-	{
-		this.theme = theme;
-		for(Frame frame : frames)
-			frame.setTheme(theme);
-		resizeComponents();
-	}
-	
-	protected abstract void resizeComponents();
-	
-	@Override
-	public void render()
-	{
-		Frame[] frames = getFrames();
-		for(int i = frames.length - 1; i >= 0; i--)
-			frames[i].render();
-		glEnable(GL_CULL_FACE);
-		glEnable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	}
-	
-	@Override
-	public void renderPinned()
-	{
-		Frame[] frames = getFrames();
-		for(int i = frames.length - 1; i >= 0; i--)
-			if(frames[i].isPinned())
-				frames[i].render();
-	}
-	
-	@Override
-	public void update()
-	{
-		Frame[] frames = getFrames();
-		for(int i = frames.length - 1; i >= 0; i--)
-			frames[i].update();
-	}
+public abstract class AbstractGuiManager implements GuiManager {
+    private final List<Frame> frames;
+
+    protected Theme theme;
+
+    public AbstractGuiManager() {
+        frames = new CopyOnWriteArrayList<>();
+    }
+
+    @Override
+    public abstract void setup();
+
+    @Override
+    public void addFrame(Frame frame) {
+        frame.setTheme(theme);
+        frames.add(0, frame);
+    }
+
+    @Override
+    public void removeFrame(Frame frame) {
+        frames.remove(frame);
+    }
+
+    @Override
+    public Frame[] getFrames() {
+        return frames.toArray(new Frame[frames.size()]);
+    }
+
+    @Override
+    public void bringForward(Frame frame) {
+        if (frames.remove(frame)) frames.add(0, frame);
+    }
+
+    @Override
+    public Theme getTheme() {
+        return theme;
+    }
+
+    @Override
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+        for (Frame frame : frames) {
+            frame.setTheme(theme);
+        }
+        resizeComponents();
+    }
+
+    protected abstract void resizeComponents();
+
+    @Override
+    public void render() {
+        Frame[] frames = getFrames();
+        for (int i = frames.length - 1; i >= 0; i--) {
+            frames[i].render();
+        }
+        glEnable(GL_CULL_FACE);
+        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_BLEND);
+    }
+
+    @Override
+    public void renderPinned() {
+        Frame[] frames = getFrames();
+        for (int i = frames.length - 1; i >= 0; i--) {
+            if (frames[i].isPinned()) frames[i].render();
+        }
+    }
+
+    @Override
+    public void update() {
+        Frame[] frames = getFrames();
+        for (int i = frames.length - 1; i >= 0; i--) {
+            frames[i].update();
+        }
+    }
 }

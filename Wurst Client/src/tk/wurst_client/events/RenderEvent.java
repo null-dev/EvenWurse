@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,24 +10,20 @@ package tk.wurst_client.events;
 
 import net.minecraft.client.Minecraft;
 
-public class RenderEvent extends Event
-{
-	@Override
-	public String getAction()
-	{
-		return "rendering GUI";
-	}
-	
-	@Override
-	public String getComment()
-	{
-		String comment = "GUI screen: ";
-		if(Minecraft.getMinecraft().currentScreen != null)
-			comment +=
-				Minecraft.getMinecraft().currentScreen.getClass()
-					.getSimpleName();
-		else
-			comment += "null";
-		return comment;
-	}
+public class RenderEvent extends Event {
+    @Override
+    public String getAction() {
+        return "rendering GUI";
+    }
+
+    @Override
+    public String getComment() {
+        String comment = "GUI screen: ";
+        if (Minecraft.getMinecraft().currentScreen != null) {
+            comment += Minecraft.getMinecraft().currentScreen.getClass().getSimpleName();
+        } else {
+            comment += "null";
+        }
+        return comment;
+    }
 }

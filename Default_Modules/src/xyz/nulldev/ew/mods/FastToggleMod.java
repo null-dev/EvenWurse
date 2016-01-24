@@ -18,7 +18,8 @@ import xyz.nulldev.ew.gui.FastToggleGUI;
 public class FastToggleMod extends Mod {
     @Override
     public void onToggle() {
-        if(!(Minecraft.getMinecraft().currentScreen instanceof FastToggleGUI))
+        if (!(Minecraft.getMinecraft().currentScreen instanceof FastToggleGUI)) {
             GUI.displayGuiScreen(new FastToggleGUI());
+        }
     }
 }

@@ -24,10 +24,11 @@ import java.util.Random;
  */
 public class Waypoint {
 
-    public static final Type TYPE = new TypeToken<List<Waypoint>>(){}.getType();
-
+    public static final Type TYPE = new TypeToken<List<Waypoint>>() {
+    }.getType();
+    private static final String CONFIG_KEY = "Waypoints";
     public static List<Waypoint> WAYPOINTS = new ArrayList<>();
-
+    static Random RANDOM = null;
     public final String name;
     private final double posX;
     private final double posY;
@@ -36,64 +37,33 @@ public class Waypoint {
     public transient double dX;
     public transient double dY;
     public transient double dZ;
-
     public float red, green, blue;
 
-    static Random RANDOM = null;
-    static Random initAndGetRandom() {
-        if(RANDOM == null) RANDOM = new Random();
-        return RANDOM;
-    }
-
-    public Waypoint( String name, double x, double y, double z) {
+    public Waypoint(String name, double x, double y, double z) {
         this(name, x, y, z, null);
     }
 
-    public Waypoint( String name, double x, double y, double z, String world) {
+    public Waypoint(String name, double x, double y, double z, String world) {
         this.name = name;
         this.posX = x;
         this.posY = y;
         this.posZ = z;
-        if(getConfig().getBoolean("Per World/Server", true)) {
+        if (getConfig().getBoolean("Per World/Server", true)) {
             this.world = world;
         } else {
             this.world = null;
         }
-        this.red = ( initAndGetRandom().nextInt( 255 ) ) / 255F;
-        this.green = ( initAndGetRandom().nextInt( 255 ) ) / 255F;
-        this.blue = ( initAndGetRandom().nextInt( 255 ) ) / 255F;
-        update( );
+        this.red = (initAndGetRandom().nextInt(255)) / 255F;
+        this.green = (initAndGetRandom().nextInt(255)) / 255F;
+        this.blue = (initAndGetRandom().nextInt(255)) / 255F;
+        update();
         saveAll();
     }
 
-    public void update( ) {
-        RenderManager manager = Minecraft.getMinecraft().getRenderManager();
-        dX = (int) posX - manager.renderPosX;
-        dY = (int) posY - manager.renderPosY;
-        dZ = (int) posZ - manager.renderPosZ;
+    static Random initAndGetRandom() {
+        if (RANDOM == null) RANDOM = new Random();
+        return RANDOM;
     }
-
-    public String getName( ) {
-        return name;
-    }
-
-    public double getX( ) {
-        return posX;
-    }
-
-    public double getY( ) {
-        return posY;
-    }
-
-    public double getZ( ) {
-        return posZ;
-    }
-
-    public String getWorld() {
-        return world;
-    }
-
-    private static final String CONFIG_KEY = "Waypoints";
 
     public static ModuleConfiguration getConfig() {
         return ModuleConfiguration.forModule(WurstClient.INSTANCE.mods.getModByClass(WaypointsMod.class));
@@ -105,8 +75,35 @@ public class Waypoint {
 
     public static void loadAll() {
         ModuleConfiguration configuration = getConfig();
-        if(configuration.contains(CONFIG_KEY)) {
+        if (configuration.contains(CONFIG_KEY)) {
             WAYPOINTS = GsonUtils.getGson().fromJson(configuration.getString(CONFIG_KEY, ""), TYPE);
         }
+    }
+
+    public void update() {
+        RenderManager manager = Minecraft.getMinecraft().getRenderManager();
+        dX = (int) posX - manager.renderPosX;
+        dY = (int) posY - manager.renderPosY;
+        dZ = (int) posZ - manager.renderPosZ;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getX() {
+        return posX;
+    }
+
+    public double getY() {
+        return posY;
+    }
+
+    public double getZ() {
+        return posZ;
+    }
+
+    public String getWorld() {
+        return world;
     }
 }

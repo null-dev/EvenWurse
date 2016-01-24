@@ -36,25 +36,24 @@ import org.darkstorm.minecraft.gui.theme.Theme;
  *
  * @author DarkStorm (darkstorm@evilminecraft.net)
  */
-public interface GuiManager
-{
-	void setup();
-	
-	void addFrame(Frame frame);
-	
-	void removeFrame(Frame frame);
-	
-	Frame[] getFrames();
-	
-	void bringForward(Frame frame);
-	
-	Theme getTheme();
-	
-	void setTheme(Theme theme);
-	
-	void render();
-	
-	void renderPinned();
-	
-	void update();
+public interface GuiManager {
+    void setup();
+
+    void addFrame(Frame frame);
+
+    void removeFrame(Frame frame);
+
+    Frame[] getFrames();
+
+    void bringForward(Frame frame);
+
+    Theme getTheme();
+
+    void setTheme(Theme theme);
+
+    void render();
+
+    void renderPinned();
+
+    void update();
 }

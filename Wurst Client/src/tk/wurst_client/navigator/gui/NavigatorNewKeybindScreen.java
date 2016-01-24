@@ -31,24 +31,20 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
     private GuiButton okButton;
     private boolean choosingKey;
 
-    public NavigatorNewKeybindScreen(
-            ArrayList<PossibleKeybind> possibleKeybinds,
-            NavigatorFeatureScreen parent) {
+    public NavigatorNewKeybindScreen(ArrayList<PossibleKeybind> possibleKeybinds, NavigatorFeatureScreen parent) {
         this.possibleKeybinds = possibleKeybinds;
         this.parent = parent;
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
-        if (!button.enabled)
-            return;
+        if (!button.enabled) return;
 
         switch (button.id) {
             case 0:
                 if (choosingKey) {
                     WurstClient wurst = WurstClient.INSTANCE;
-                    wurst.keybinds.put(selectedKey,
-                            possibleKeybinds.get(selectedCommand).getCommand());
+                    wurst.keybinds.put(selectedKey, possibleKeybinds.get(selectedCommand).getCommand());
                     wurst.files.saveKeybinds();
                     mc.displayGuiScreen(parent);
                     wurst.navigator.addClick(parent.getItem().getName());
@@ -68,62 +64,62 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
     @Override
     protected void onResize() {
         // OK button
-        okButton =
-                new GuiButton(0, width / 2 - 151, height - 65, 149, 18, "OK");
+        okButton = new GuiButton(0, width / 2 - 151, height - 65, 149, 18, "OK");
         okButton.enabled = selectedCommand != -1;
         buttonList.add(okButton);
 
         // cancel button
-        buttonList.add(new GuiButton(1, width / 2 + 2, height - 65, 149, 18,
-                "Cancel"));
+        buttonList.add(new GuiButton(1, width / 2 + 2, height - 65, 149, 18, "Cancel"));
     }
 
     @Override
     protected void onKeyPress(char typedChar, int keyCode) {
-        if(choosingKey) {
+        if (choosingKey) {
             selectedKey = Keyboard.getKeyName(keyCode);
             okButton.enabled = !selectedKey.equals("NONE");
-        } else if(keyCode == 1)
-            mc.displayGuiScreen(parent);
+        } else if (keyCode == 1) mc.displayGuiScreen(parent);
     }
 
     @Override
     protected void onMouseClick(int x, int y, int button) {
         //commands
-        if(hoveredCommand != -1) {
+        if (hoveredCommand != -1) {
             selectedCommand = hoveredCommand;
             okButton.enabled = true;
         }
     }
 
     @Override
-    protected void onMouseDrag(int x, int y, int button, long timeDragged) {}
+    protected void onMouseDrag(int x, int y, int button, long timeDragged) {
+    }
 
     @Override
-    protected void onMouseRelease(int x, int y, int button) {}
+    protected void onMouseRelease(int x, int y, int button) {
+    }
 
     @Override
-    protected void onUpdate()
-    {
+    protected void onUpdate() {
         // text
-        if(choosingKey) {
+        if (choosingKey) {
             text = "Now press the key that should trigger this keybind.";
-            if(!selectedKey.equals("NONE")) {
+            if (!selectedKey.equals("NONE")) {
                 text += "\n\nKey: " + selectedKey;
                 KeybindManager keybinds = WurstClient.INSTANCE.keybinds;
-                if(keybinds.containsKey(selectedKey))
-                    text +=
-                            "\n\nWARNING! This will overwrite an existing keybind:\n"
-                                    + selectedKey + ": " + keybinds.get(selectedKey);
+                if (keybinds.containsKey(selectedKey)) {
+                    text += "\n\nWARNING! This will overwrite an existing keybind:\n" + selectedKey + ": " +
+                            keybinds.get(selectedKey);
+                }
             }
-        } else
+        } else {
             text = "Select what this keybind should do.";
+        }
 
         // content height
-        if(choosingKey)
+        if (choosingKey) {
             setContentHeight(Fonts.segoe15.getStringHeight(text));
-        else
+        } else {
             setContentHeight(possibleKeybinds.size() * 24 - 10);
+        }
     }
 
     @Override
@@ -139,18 +135,16 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
         int bgy2 = height - 43;
 
         // scissor box
-        RenderUtil.scissorBox(bgx1, bgy1, bgx2, bgy2
-                - (buttonList.isEmpty() ? 0 : 24));
+        RenderUtil.scissorBox(bgx1, bgy1, bgx2, bgy2 - (buttonList.isEmpty() ? 0 : 24));
         glEnable(GL_SCISSOR_TEST);
 
         // possible keybinds
-        if(!choosingKey) {
+        if (!choosingKey) {
             hoveredCommand = -1;
             int yi = bgy1 - 12 + scroll;
-            for(int i = 0; i < possibleKeybinds.size(); i++) {
+            for (int i = 0; i < possibleKeybinds.size(); i++) {
                 yi += 24;
-                PossibleKeybind possibleKeybind =
-                        possibleKeybinds.get(i);
+                PossibleKeybind possibleKeybind = possibleKeybinds.get(i);
 
                 // positions
                 int x1 = bgx1 + 2;
@@ -159,24 +153,25 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
                 int y2 = y1 + 20;
 
                 // color
-                if(mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) {
+                if (mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) {
                     hoveredCommand = i;
-                    if(i == selectedCommand)
+                    if (i == selectedCommand) {
                         glColor4f(0F, 1F, 0F, 0.375F);
-                    else
+                    } else {
                         glColor4f(0.25F, 0.25F, 0.25F, 0.375F);
-                } else if(i == selectedCommand)
+                    }
+                } else if (i == selectedCommand) {
                     glColor4f(0F, 1F, 0F, 0.25F);
-                else
+                } else {
                     glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
+                }
 
                 // button
                 drawBox(x1, y1, x2, y2);
 
                 // text
-                drawString(Fonts.segoe15, possibleKeybind.getDescription()
-                                + "\n" + possibleKeybind.getCommand(), x1 + 1, y1 - 1,
-                        0xffffff);
+                drawString(Fonts.segoe15, possibleKeybind.getDescription() + "\n" + possibleKeybind.getCommand(),
+                        x1 + 1, y1 - 1, 0xffffff);
                 glDisable(GL_TEXTURE_2D);
             }
         }
@@ -198,20 +193,19 @@ public class NavigatorNewKeybindScreen extends NavigatorScreen {
             int y2 = y1 + 18;
 
             // color
-            if (!button.enabled)
+            if (!button.enabled) {
                 glColor4f(0F, 0F, 0F, 0.25F);
-            else if (mouseX >= x1 && mouseX <= x2 && mouseY >= y1
-                    && mouseY <= y2)
+            } else if (mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) {
                 glColor4f(0.375F, 0.375F, 0.375F, 0.25F);
-            else
+            } else {
                 glColor4f(0.25F, 0.25F, 0.25F, 0.25F);
+            }
 
             // button
             drawBox(x1, y1, x2, y2);
 
             // text
-            drawCenteredString(Fonts.segoe18, button.displayString,
-                    (x1 + x2) / 2, y1 + 2, 0xffffff);
+            drawCenteredString(Fonts.segoe18, button.displayString, (x1 + x2) / 2, y1 + 2, 0xffffff);
         }
     }
 }

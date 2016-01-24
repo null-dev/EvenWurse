@@ -18,31 +18,25 @@ import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.utils.RenderUtils;
 
 @Info(category = Category.RENDER,
-	description = "Allows you to see players through walls.",
-	name = "PlayerESP")
-public class PlayerEspMod extends Mod implements RenderListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
-	}
-	
-	@Override
-	public void onRender()
-	{
-		if(WurstClient.INSTANCE.mods.getModByClass(ArenaBrawlMod.class).isActive())
-			return;
-		Minecraft.getMinecraft().theWorld.loadedEntityList.stream().filter(entity -> entity instanceof EntityPlayer
-				&& !((Entity) entity).getName().equals(
-				Minecraft.getMinecraft().getSession().getUsername())).forEach(entity -> RenderUtils.entityESPBox((Entity) entity,
-				WurstClient.INSTANCE.friends
-						.contains(((EntityPlayer) entity).getName()) ? 1 : 0));
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
-	}
+        description = "Allows you to see players through walls.",
+        name = "PlayerESP")
+public class PlayerEspMod extends Mod implements RenderListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(RenderListener.class, this);
+    }
+
+    @Override
+    public void onRender() {
+        if (WurstClient.INSTANCE.mods.getModByClass(ArenaBrawlMod.class).isActive()) return;
+        Minecraft.getMinecraft().theWorld.loadedEntityList.stream().filter(entity -> entity instanceof EntityPlayer &&
+                !((Entity) entity).getName().equals(Minecraft.getMinecraft().getSession().getUsername())).forEach(
+                entity -> RenderUtils.entityESPBox((Entity) entity,
+                        WurstClient.INSTANCE.friends.contains(((EntityPlayer) entity).getName()) ? 1 : 0));
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+    }
 }

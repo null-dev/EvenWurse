@@ -25,106 +25,81 @@ import tk.wurst_client.utils.RenderUtils;
 import java.util.ArrayList;
 
 @Info(category = Category.RENDER,
-	description = "Allows you to see chests through walls.\n"
-		+ "Tip: This works with the piston crates on HiveMC.",
-	name = "ChestESP")
-public class ChestEspMod extends Mod implements UpdateListener, RenderListener
-{
-	private static final int RANGE = 50;
-	private static final int MAX_CHESTS = 1000;
-	public boolean shouldInform = true;
-	private ArrayList<BlockPos> matchingBlocks = new ArrayList<>();
-	
-	@Override
-	public void onEnable()
-	{
-		shouldInform = true;
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.add(RenderListener.class, this);
-	}
-	
-	@Override
-	public void onRender()
-	{
-		int i = 0;
-		for(Object o : Minecraft.getMinecraft().theWorld.loadedTileEntityList)
-		{
-			if(i >= MAX_CHESTS)
-				break;
-			if(o instanceof TileEntityChest)
-			{
-				i++;
-				RenderUtils.blockESPBox(((TileEntityChest)o).getPos());
-			}else if(o instanceof TileEntityEnderChest)
-			{
-				i++;
-				RenderUtils.blockESPBox(((TileEntityEnderChest)o).getPos());
-			}
-		}
-		for(Object o : Minecraft.getMinecraft().theWorld.loadedEntityList)
-		{
-			if(i >= MAX_CHESTS)
-				break;
-			if(o instanceof EntityMinecartChest)
-			{
-				i++;
-				RenderUtils.blockESPBox(((EntityMinecartChest)o).getPosition());
-			}
-		}
-		for(BlockPos blockPos : matchingBlocks)
-		{
-			if(i >= MAX_CHESTS)
-				break;
-			i++;
-			RenderUtils.blockESPBox(blockPos);
-		}
-		if(i >= MAX_CHESTS && shouldInform)
-		{
-			WurstClient.INSTANCE.chat.warning(getName()
-				+ " found �lA LOT�r of chests.");
-			WurstClient.INSTANCE.chat
-				.message("To prevent lag, it will only show the first "
-					+ MAX_CHESTS + " chests.");
-			shouldInform = false;
-		}else if(i < MAX_CHESTS)
-			shouldInform = true;
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		updateMS();
-		if(hasTimePassedM(3000))
-		{
-			matchingBlocks.clear();
-			for(int y = RANGE; y >= -RANGE; y--)
-				for(int x = RANGE; x >= -RANGE; x--)
-					for(int z = RANGE; z >= -RANGE; z--)
-					{
-						int posX =
-							(int)(Minecraft.getMinecraft().thePlayer.posX + x);
-						int posY =
-							(int)(Minecraft.getMinecraft().thePlayer.posY + y);
-						int posZ =
-							(int)(Minecraft.getMinecraft().thePlayer.posZ + z);
-						BlockPos pos = new BlockPos(posX, posY, posZ);
-						IBlockState state =
-							Minecraft.getMinecraft().theWorld
-								.getBlockState(pos);
-						Block block = state.getBlock();
-						int metadata = block.getMetaFromState(state);
-						if(Block.getIdFromBlock(block) == 33
-							&& (metadata == 6 || metadata == 7 || metadata == 15))
-							matchingBlocks.add(pos);
-					}
-			updateLastMS();
-		}
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		WurstClient.INSTANCE.events.remove(RenderListener.class, this);
-	}
+        description = "Allows you to see chests through walls.\n" + "Tip: This works with the piston crates on HiveMC.",
+        name = "ChestESP")
+public class ChestEspMod extends Mod implements UpdateListener, RenderListener {
+    private static final int RANGE = 50;
+    private static final int MAX_CHESTS = 1000;
+    public boolean shouldInform = true;
+    private ArrayList<BlockPos> matchingBlocks = new ArrayList<>();
+
+    @Override
+    public void onEnable() {
+        shouldInform = true;
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+        WurstClient.INSTANCE.events.add(RenderListener.class, this);
+    }
+
+    @Override
+    public void onRender() {
+        int i = 0;
+        for (Object o : Minecraft.getMinecraft().theWorld.loadedTileEntityList) {
+            if (i >= MAX_CHESTS) break;
+            if (o instanceof TileEntityChest) {
+                i++;
+                RenderUtils.blockESPBox(((TileEntityChest) o).getPos());
+            } else if (o instanceof TileEntityEnderChest) {
+                i++;
+                RenderUtils.blockESPBox(((TileEntityEnderChest) o).getPos());
+            }
+        }
+        for (Object o : Minecraft.getMinecraft().theWorld.loadedEntityList) {
+            if (i >= MAX_CHESTS) break;
+            if (o instanceof EntityMinecartChest) {
+                i++;
+                RenderUtils.blockESPBox(((EntityMinecartChest) o).getPosition());
+            }
+        }
+        for (BlockPos blockPos : matchingBlocks) {
+            if (i >= MAX_CHESTS) break;
+            i++;
+            RenderUtils.blockESPBox(blockPos);
+        }
+        if (i >= MAX_CHESTS && shouldInform) {
+            WurstClient.INSTANCE.chat.warning(getName() + " found �lA LOT�r of chests.");
+            WurstClient.INSTANCE.chat.message("To prevent lag, it will only show the first " + MAX_CHESTS + " chests.");
+            shouldInform = false;
+        } else if (i < MAX_CHESTS) shouldInform = true;
+    }
+
+    @Override
+    public void onUpdate() {
+        updateMS();
+        if (hasTimePassedM(3000)) {
+            matchingBlocks.clear();
+            for (int y = RANGE; y >= -RANGE; y--) {
+                for (int x = RANGE; x >= -RANGE; x--) {
+                    for (int z = RANGE; z >= -RANGE; z--) {
+                        int posX = (int) (Minecraft.getMinecraft().thePlayer.posX + x);
+                        int posY = (int) (Minecraft.getMinecraft().thePlayer.posY + y);
+                        int posZ = (int) (Minecraft.getMinecraft().thePlayer.posZ + z);
+                        BlockPos pos = new BlockPos(posX, posY, posZ);
+                        IBlockState state = Minecraft.getMinecraft().theWorld.getBlockState(pos);
+                        Block block = state.getBlock();
+                        int metadata = block.getMetaFromState(state);
+                        if (Block.getIdFromBlock(block) == 33 && (metadata == 6 || metadata == 7 || metadata == 15)) {
+                            matchingBlocks.add(pos);
+                        }
+                    }
+                }
+            }
+            updateLastMS();
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+        WurstClient.INSTANCE.events.remove(RenderListener.class, this);
+    }
 }

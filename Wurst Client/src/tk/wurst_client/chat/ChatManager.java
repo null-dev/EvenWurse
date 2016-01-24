@@ -12,56 +12,47 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import tk.wurst_client.utils.F;
 
-public class ChatManager
-{
-	private boolean enabled = true;
-	
-	public void setEnabled(boolean enabled)
-	{
-		this.enabled = enabled;
-	}
-	
-	public void message(String message)
-	{
-		if(enabled)
-			Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
-				new ChatComponentText(F.f("<RED>[<GOLD>EvenWurse</GOLD>]</RED> ") + message));
-	}
-	
-	public void info(String message)
-	{
-		message(F.f("<DARK-GRAY>[<GRAY><BOLD>INFO</BOLD></GRAY>]</DARK-GRAY> ") + message);
-	}
-	
-	public void debug(String message)
-	{
-		message(F.f("<DARK-GRAY>[<GRAY><BOLD>DEBUG-INFO</BOLD></GRAY>]</DARK-GRAY> ") + message);
-	}
-	
-	public void warning(String message)
-	{
-		message(F.f("<RED>[<GOLD><BOLD>WARNING</BOLD></GOLD>]</RED> ") + message);
-	}
-	
-	public void error(String message)
-	{
-		message(F.f("<RED>[<DARK-RED><BOLD>ERROR</BOLD></DARK-RED>]</RED> ") + message);
-	}
-	
-	public void success(String message)
-	{
-		message(F.f("<GREEN>[<DARK-GREEN><BOLD>SUCCESS</BOLD></DARK-GREEN>]</GREEN> ") + message);
-	}
-	
-	public void failure(String message)
-	{
-		message(F.f("<RED>[<DARK-RED><BOLD>FAILURE</BOLD></DARK-RED>]</RED> ") + message);
-	}
-	
-	public void cmd(String message)
-	{
-		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
-			new ChatComponentText(F.f("<RED>[<GOLD>EvenWurse</GOLD>]</RED> <BLACK><BOLD><GREEN>\\<CMD\\></GREEN></BOLD></BLACK> ")
-				+ message));
-	}
+public class ChatManager {
+    private boolean enabled = true;
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void message(String message) {
+        if (enabled) {
+            Minecraft.getMinecraft().ingameGUI.getChatGUI()
+                    .printChatMessage(new ChatComponentText(F.f("<RED>[<GOLD>EvenWurse</GOLD>]</RED> ") + message));
+        }
+    }
+
+    public void info(String message) {
+        message(F.f("<DARK-GRAY>[<GRAY><BOLD>INFO</BOLD></GRAY>]</DARK-GRAY> ") + message);
+    }
+
+    public void debug(String message) {
+        message(F.f("<DARK-GRAY>[<GRAY><BOLD>DEBUG-INFO</BOLD></GRAY>]</DARK-GRAY> ") + message);
+    }
+
+    public void warning(String message) {
+        message(F.f("<RED>[<GOLD><BOLD>WARNING</BOLD></GOLD>]</RED> ") + message);
+    }
+
+    public void error(String message) {
+        message(F.f("<RED>[<DARK-RED><BOLD>ERROR</BOLD></DARK-RED>]</RED> ") + message);
+    }
+
+    public void success(String message) {
+        message(F.f("<GREEN>[<DARK-GREEN><BOLD>SUCCESS</BOLD></DARK-GREEN>]</GREEN> ") + message);
+    }
+
+    public void failure(String message) {
+        message(F.f("<RED>[<DARK-RED><BOLD>FAILURE</BOLD></DARK-RED>]</RED> ") + message);
+    }
+
+    public void cmd(String message) {
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(
+                F.f("<RED>[<GOLD>EvenWurse</GOLD>]</RED> <BLACK><BOLD><GREEN>\\<CMD\\></GREEN></BOLD></BLACK> ") +
+                        message));
+    }
 }

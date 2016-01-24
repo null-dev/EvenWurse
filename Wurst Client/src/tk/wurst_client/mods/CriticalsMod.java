@@ -17,42 +17,35 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
-	description = "Changes all your hits to critical hits.",
-	name = "Criticals")
-public class CriticalsMod extends Mod implements LeftClickListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
-	}
-	
-	@Override
-	public void onLeftClick()
-	{
-		if(Minecraft.getMinecraft().objectMouseOver != null
-			&& Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase)
-			doCritical();
-	}
-	
-	public static void doCritical()
-	{
-		if(!WurstClient.INSTANCE.mods.getModByClass(CriticalsMod.class).isActive())
-			return;
-		if(!Minecraft.getMinecraft().thePlayer.isInWater()
-			&& !Minecraft.getMinecraft().thePlayer
-				.isInsideOfMaterial(Material.lava)
-			&& Minecraft.getMinecraft().thePlayer.onGround)
-		{
-			Minecraft.getMinecraft().thePlayer.motionY = 0.1F;
-			Minecraft.getMinecraft().thePlayer.fallDistance = 0.1F;
-			Minecraft.getMinecraft().thePlayer.onGround = false;
-		}
-	}
+        description = "Changes all your hits to critical hits.",
+        name = "Criticals")
+public class CriticalsMod extends Mod implements LeftClickListener {
+    public static void doCritical() {
+        if (!WurstClient.INSTANCE.mods.getModByClass(CriticalsMod.class).isActive()) return;
+        if (!Minecraft.getMinecraft().thePlayer.isInWater() &&
+                !Minecraft.getMinecraft().thePlayer.isInsideOfMaterial(Material.lava) &&
+                Minecraft.getMinecraft().thePlayer.onGround) {
+            Minecraft.getMinecraft().thePlayer.motionY = 0.1F;
+            Minecraft.getMinecraft().thePlayer.fallDistance = 0.1F;
+            Minecraft.getMinecraft().thePlayer.onGround = false;
+        }
+    }
+
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
+    }
+
+    @Override
+    public void onLeftClick() {
+        if (Minecraft.getMinecraft().objectMouseOver != null &&
+                Minecraft.getMinecraft().objectMouseOver.entityHit instanceof EntityLivingBase) {
+            doCritical();
+        }
+    }
 }

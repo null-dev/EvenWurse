@@ -9,27 +9,24 @@
 package tk.wurst_client.mods;
 
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
-
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.navigator.settings.SliderSetting;
 
 @Info(category = Category.MOVEMENT,
-        description = "Changes the speed of almost everything.\n"
-                + "Tip: Slow speeds make aiming easier and work well with\n"
-                + "NoCheat+.",
+        description = "Changes the speed of almost everything.\n" +
+                "Tip: Slow speeds make aiming easier and work well with\n" + "NoCheat+.",
         name = "Timer")
 public class TimerMod extends Mod {
     public float speed = 2.0F;// Minimum: 0.1F, maximum: 10.0F
 
     @Override
     public void initSettings() {
-        settings.add(new SliderSetting("Timer speed", speed, 0.1, 10, 0.1,
-                ValueDisplay.DECIMAL));
+        settings.add(new SliderSetting("Timer speed", speed, 0.1, 10, 0.1, ValueDisplay.DECIMAL));
     }
 
     @Override
     public void updateSettings() {
-        speed = (float)((SliderSetting)settings.get(0)).getValue();
+        speed = (float) ((SliderSetting) settings.get(0)).getValue();
     }
 }

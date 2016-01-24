@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,30 +16,25 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.FUN,
-	description = "While this is active, other people will think you are\n"
-		+ "extremely tired and about to fall asleep!",
-	name = "Tired")
-public class TiredMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		Minecraft.getMinecraft().thePlayer.sendQueue
-			.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(Minecraft
-				.getMinecraft().thePlayer.rotationYaw,
-				Minecraft.getMinecraft().thePlayer.ticksExisted % 100,
-				Minecraft.getMinecraft().thePlayer.onGround));
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "While this is active, other people will think you are\n" +
+                "extremely tired and about to fall asleep!",
+        name = "Tired")
+public class TiredMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(
+                new C03PacketPlayer.C05PacketPlayerLook(Minecraft.getMinecraft().thePlayer.rotationYaw,
+                        Minecraft.getMinecraft().thePlayer.ticksExisted % 100,
+                        Minecraft.getMinecraft().thePlayer.onGround));
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

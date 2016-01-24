@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,27 +15,24 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
-	description = "Automatically walks all the time.",
-	name = "AutoWalk")
-public class AutoWalkMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(!Minecraft.getMinecraft().gameSettings.keyBindForward.pressed)
-			Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-		Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
-	}
+        description = "Automatically walks all the time.",
+        name = "AutoWalk")
+public class AutoWalkMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (!Minecraft.getMinecraft().gameSettings.keyBindForward.pressed) {
+            Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = true;
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+        Minecraft.getMinecraft().gameSettings.keyBindForward.pressed = false;
+    }
 }

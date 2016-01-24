@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,30 +15,27 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
-	description = "Switches the item in your hand all the time.\n"
-		+ "Tip: Use this in combination with BuildRandom while\n"
-		+ "having a lot of different colored wool blocks in your\n" + "hotbar.",
-	name = "AutoSwitch")
-public class AutoSwitchMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(Minecraft.getMinecraft().thePlayer.inventory.currentItem == 8)
-			Minecraft.getMinecraft().thePlayer.inventory.currentItem = 0;
-		else
-			Minecraft.getMinecraft().thePlayer.inventory.currentItem++;
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Switches the item in your hand all the time.\n" +
+                "Tip: Use this in combination with BuildRandom while\n" +
+                "having a lot of different colored wool blocks in your\n" + "hotbar.",
+        name = "AutoSwitch")
+public class AutoSwitchMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (Minecraft.getMinecraft().thePlayer.inventory.currentItem == 8) {
+            Minecraft.getMinecraft().thePlayer.inventory.currentItem = 0;
+        } else {
+            Minecraft.getMinecraft().thePlayer.inventory.currentItem++;
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

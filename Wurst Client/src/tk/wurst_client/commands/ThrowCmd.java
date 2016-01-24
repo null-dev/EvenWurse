@@ -14,33 +14,25 @@ import tk.wurst_client.mods.ThrowMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Changes the amount of Throw or toggles it.",
-	name = "throw",
-	syntax = {"[amount <amount>]"})
-public class ThrowCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length == 0)
-		{
-			WurstClient.INSTANCE.mods.getModByClass(ThrowMod.class).toggle();
-			WurstClient.INSTANCE.chat.message("Throw turned "
-				+ (WurstClient.INSTANCE.mods.getModByClass(ThrowMod.class).isEnabled()
-					? "on" : "off") + ".");
-		}else if(args.length == 2 && args[0].equalsIgnoreCase("amount")
-			&& MiscUtils.isInteger(args[1]))
-		{
-			if(Integer.valueOf(args[1]) < 1)
-			{
-				WurstClient.INSTANCE.chat
-					.error("Throw amount must be at least 1.");
-				return;
-			}
-			WurstClient.INSTANCE.options.throwAmount = Integer.valueOf(args[1]);
-			WurstClient.INSTANCE.files.saveOptions();
-			WurstClient.INSTANCE.chat.message("Throw amount set to " + args[1]
-				+ ".");
-		}else
-			syntaxError();
-	}
+        name = "throw",
+        syntax = {"[amount <amount>]"})
+public class ThrowCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length == 0) {
+            WurstClient.INSTANCE.mods.getModByClass(ThrowMod.class).toggle();
+            WurstClient.INSTANCE.chat.message("Throw turned " +
+                    (WurstClient.INSTANCE.mods.getModByClass(ThrowMod.class).isEnabled() ? "on" : "off") + ".");
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("amount") && MiscUtils.isInteger(args[1])) {
+            if (Integer.valueOf(args[1]) < 1) {
+                WurstClient.INSTANCE.chat.error("Throw amount must be at least 1.");
+                return;
+            }
+            WurstClient.INSTANCE.options.throwAmount = Integer.valueOf(args[1]);
+            WurstClient.INSTANCE.files.saveOptions();
+            WurstClient.INSTANCE.chat.message("Throw amount set to " + args[1] + ".");
+        } else {
+            syntaxError();
+        }
+    }
 }

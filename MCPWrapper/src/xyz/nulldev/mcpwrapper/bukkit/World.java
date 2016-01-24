@@ -21,7 +21,7 @@ public interface World {
      * @param z Z-coordinate of the block
      * @return Block at the given coordinates
      * @see #getBlockTypeIdAt(int, int, int) Returns the current type ID of
-     *     the block
+     * the block
      */
     public Block getBlockAt(int x, int y, int z);
 
@@ -31,7 +31,7 @@ public interface World {
      * @param location Location of the block
      * @return Block at the given location
      * @see #getBlockTypeIdAt(xyz.nulldev.mcpwrapper.bukkit.Location) Returns the current type ID
-     *     of the block
+     * of the block
      */
     public Block getBlockAt(Location location);
 
@@ -43,7 +43,7 @@ public interface World {
      * @param z Z-coordinate of the block
      * @return Type ID of the block at the given coordinates
      * @see #getBlockAt(int, int, int) Returns a live Block object at the
-     *     given location
+     * given location
      * @deprecated Magic value
      */
     @Deprecated
@@ -55,7 +55,7 @@ public interface World {
      * @param location Location of the block
      * @return Type ID of the block at the given location
      * @see #getBlockAt(xyz.nulldev.mcpwrapper.bukkit.Location) Returns a live Block object at
-     *     the given location
+     * the given location
      * @deprecated Magic value
      */
     @Deprecated
@@ -158,7 +158,7 @@ public interface World {
      * @param x X-coordinate of the chunk
      * @param z Z-coordinate of the chunk
      * @return true if the chunk is loaded and in use by one or more players,
-     *     otherwise false
+     * otherwise false
      */
     public boolean isChunkInUse(int x, int z);
 
@@ -178,10 +178,10 @@ public interface World {
     /**
      * Loads the {@link Chunk} at the specified coordinates
      *
-     * @param x X-coordinate of the chunk
-     * @param z Z-coordinate of the chunk
+     * @param x        X-coordinate of the chunk
+     * @param z        Z-coordinate of the chunk
      * @param generate Whether or not to generate a chunk if it doesn't
-     *     already exist
+     *                 already exist
      * @return true if the chunk has loaded successfully, otherwise false
      */
     public boolean loadChunk(int x, int z, boolean generate);
@@ -216,8 +216,8 @@ public interface World {
      * This method is analogous to {@link #unloadChunk(int, int, boolean,
      * boolean)} where save is true
      *
-     * @param x X-coordinate of the chunk
-     * @param z Z-coordinate of the chunk
+     * @param x    X-coordinate of the chunk
+     * @param z    Z-coordinate of the chunk
      * @param save Whether or not to save the chunk
      * @return true if the chunk has unloaded successfully, otherwise false
      */
@@ -227,11 +227,11 @@ public interface World {
      * Unloads and optionally saves the {@link Chunk} at the specified
      * coordinates
      *
-     * @param x X-coordinate of the chunk
-     * @param z Z-coordinate of the chunk
+     * @param x    X-coordinate of the chunk
+     * @param z    Z-coordinate of the chunk
      * @param save Controls whether the chunk is saved
      * @param safe Controls whether to unload the chunk when players are
-     *     nearby
+     *             nearby
      * @return true if the chunk has unloaded successfully, otherwise false
      */
     public boolean unloadChunk(int x, int z, boolean save, boolean safe);
@@ -252,8 +252,8 @@ public interface World {
     /**
      * Queues the {@link Chunk} at the specified coordinates for unloading
      *
-     * @param x X-coordinate of the chunk
-     * @param z Z-coordinate of the chunk
+     * @param x    X-coordinate of the chunk
+     * @param z    Z-coordinate of the chunk
      * @param safe Controls whether to queue the chunk when players are nearby
      * @return Whether the chunk was actually queued
      */
@@ -284,7 +284,7 @@ public interface World {
      * @param item ItemStack to drop
      * @return ItemDrop entity created as a result of this method
      */
-//    public Item dropItem(Location location, ItemStack item);
+    //    public Item dropItem(Location location, ItemStack item);
 
     /**
      * Drops an item at the specified {@link Location} with a random offset
@@ -293,7 +293,7 @@ public interface World {
      * @param item ItemStack to drop
      * @return ItemDrop entity created as a result of this method
      */
-//    public Item dropItemNaturally(Location location, ItemStack item);
+    //    public Item dropItemNaturally(Location location, ItemStack item);
 
     /**
      * Creates an {@link Arrow} entity at the given {@link Location}
@@ -304,7 +304,7 @@ public interface World {
      * @param spread Spread of the arrow. A recommend spread is 12
      * @return Arrow entity spawned as a result of this method
      */
-//    public Arrow spawnArrow(Location location, Vector direction, float speed, float spread);
+    //    public Arrow spawnArrow(Location location, Vector direction, float speed, float spread);
 
     /**
      * Creates a tree at the given {@link Location}
@@ -313,7 +313,7 @@ public interface World {
      * @param type Type of the tree to create
      * @return true if the tree was created successfully, otherwise false
      */
-//    public boolean generateTree(Location location, TreeType type);
+    //    public boolean generateTree(Location location, TreeType type);
 
     /**
      * Creates a tree at the given {@link Location}
@@ -324,7 +324,7 @@ public interface World {
      *     this method
      * @return true if the tree was created successfully, otherwise false
      */
-//    public boolean generateTree(Location loc, TreeType type, BlockChangeDelegate delegate);
+    //    public boolean generateTree(Location loc, TreeType type, BlockChangeDelegate delegate);
 
     /**
      * Creates a entity at the given {@link Location}
@@ -334,7 +334,7 @@ public interface World {
      * @return Resulting Entity of this method, or null if it was unsuccessful
      */
     //TODO
-//    public Entity spawnEntity(Location loc, EntityType type);
+    //    public Entity spawnEntity(Location loc, EntityType type);
 
     /**
      * Strikes lightning at the given {@link Location}
@@ -342,7 +342,7 @@ public interface World {
      * @param loc The location to strike lightning
      * @return The lightning entity.
      */
-//    public LightningStrike strikeLightning(Location loc);
+    //    public LightningStrike strikeLightning(Location loc);
 
     /**
      * Strikes lightning at the given {@link Location} without doing damage
@@ -350,7 +350,7 @@ public interface World {
      * @param loc The location to strike lightning
      * @return The lightning entity.
      */
-//    public LightningStrike strikeLightningEffect(Location loc);
+    //    public LightningStrike strikeLightningEffect(Location loc);
 
     /**
      * Get a list of all entities in this World
@@ -365,7 +365,7 @@ public interface World {
      *
      * @param cls The class representing the type of entity to match
      * @return A List of all Entities currently residing in this world that
-     *     match the given class/interface
+     * match the given class/interface
      */
     public <T extends Entity> Collection<T> getEntitiesByClass(Class<T> cls);
 
@@ -375,7 +375,7 @@ public interface World {
      *
      * @param classes The classes representing the types of entity to match
      * @return A List of all Entities currently residing in this world that
-     *     match one or more of the given classes/interfaces
+     * match one or more of the given classes/interfaces
      */
     public Collection<Entity> getEntitiesByClasses(Class<?>... classes);
 
@@ -430,7 +430,7 @@ public interface World {
      * time, please see {@link #setFullTime(long)}
      *
      * @param time The new relative time to set the in-game time to (in
-     *     hours*1000)
+     *             hours*1000)
      * @see #setFullTime(long) Sets the absolute time of this world
      */
     public void setTime(long time);
@@ -514,9 +514,9 @@ public interface World {
     /**
      * Creates explosion at given coordinates with given power
      *
-     * @param x X coordinate
-     * @param y Y coordinate
-     * @param z Z coordinate
+     * @param x     X coordinate
+     * @param y     Y coordinate
+     * @param z     Z coordinate
      * @param power The power of explosion, where 4F is TNT
      * @return false if explosion was canceled, otherwise true
      */
@@ -526,10 +526,10 @@ public interface World {
      * Creates explosion at given coordinates with given power and optionally
      * setting blocks on fire.
      *
-     * @param x X coordinate
-     * @param y Y coordinate
-     * @param z Z coordinate
-     * @param power The power of explosion, where 4F is TNT
+     * @param x       X coordinate
+     * @param y       Y coordinate
+     * @param z       Z coordinate
+     * @param power   The power of explosion, where 4F is TNT
      * @param setFire Whether or not to set blocks on fire
      * @return false if explosion was canceled, otherwise true
      */
@@ -539,11 +539,11 @@ public interface World {
      * Creates explosion at given coordinates with given power and optionally
      * setting blocks on fire or breaking blocks.
      *
-     * @param x X coordinate
-     * @param y Y coordinate
-     * @param z Z coordinate
-     * @param power The power of explosion, where 4F is TNT
-     * @param setFire Whether or not to set blocks on fire
+     * @param x           X coordinate
+     * @param y           Y coordinate
+     * @param z           Z coordinate
+     * @param power       The power of explosion, where 4F is TNT
+     * @param setFire     Whether or not to set blocks on fire
      * @param breakBlocks Whether or not to have blocks be destroyed
      * @return false if explosion was canceled, otherwise true
      */
@@ -552,7 +552,7 @@ public interface World {
     /**
      * Creates explosion at given coordinates with given power
      *
-     * @param loc Location to blow up
+     * @param loc   Location to blow up
      * @param power The power of explosion, where 4F is TNT
      * @return false if explosion was canceled, otherwise true
      */
@@ -562,8 +562,8 @@ public interface World {
      * Creates explosion at given coordinates with given power and optionally
      * setting blocks on fire.
      *
-     * @param loc Location to blow up
-     * @param power The power of explosion, where 4F is TNT
+     * @param loc     Location to blow up
+     * @param power   The power of explosion, where 4F is TNT
      * @param setFire Whether or not to set blocks on fire
      * @return false if explosion was canceled, otherwise true
      */
@@ -606,11 +606,11 @@ public interface World {
      * Spawn an entity of a specific class at the given {@link Location}
      *
      * @param location the {@link Location} to spawn the entity at
-     * @param clazz the class of the {@link Entity} to spawn
-     * @param <T> the class of the {@link Entity} to spawn
+     * @param clazz    the class of the {@link Entity} to spawn
+     * @param <T>      the class of the {@link Entity} to spawn
      * @return an instance of the spawned {@link Entity}
      * @throws IllegalArgumentException if either parameter is null or the
-     *     {@link Entity} requested cannot be spawned
+     *                                  {@link Entity} requested cannot be spawned
      */
     public <T extends Entity> T spawn(Location location, Class<T> clazz) throws IllegalArgumentException;
 
@@ -618,9 +618,9 @@ public interface World {
      * Sets the spawn flags for this.
      *
      * @param allowMonsters - if true, monsters are allowed to spawn in this
-     *     world.
-     * @param allowAnimals - if true, animals are allowed to spawn in this
-     *     world.
+     *                      world.
+     * @param allowAnimals  - if true, animals are allowed to spawn in this
+     *                      world.
      */
     public void setSpawnFlags(boolean allowMonsters, boolean allowAnimals);
 
@@ -650,8 +650,8 @@ public interface World {
     /**
      * Sets the biome for the given block coordinates
      *
-     * @param x X coordinate of the block
-     * @param z Z coordinate of the block
+     * @param x   X coordinate of the block
+     * @param z   Z coordinate of the block
      * @param bio new Biome type for this block
      */
     void setBiome(int x, int z, Biome bio);
@@ -711,7 +711,7 @@ public interface World {
      * or not.
      *
      * @param keepLoaded if true then the world's spawn area will be kept
-     *     loaded into memory.
+     *                   loaded into memory.
      */
     public void setKeepSpawnInMemory(boolean keepLoaded);
 
@@ -726,16 +726,9 @@ public interface World {
      * Sets whether or not the world will automatically save
      *
      * @param value true if the world should automatically save, otherwise
-     *     false
+     *              false
      */
     public void setAutoSave(boolean value);
-
-    /**
-     * Sets the Difficulty of the world.
-     *
-     * @param difficulty the new difficulty you want to set the world to
-     */
-    public void setDifficulty(Difficulty difficulty);
 
     /**
      * Gets the Difficulty of the world.
@@ -743,6 +736,13 @@ public interface World {
      * @return The difficulty of the world.
      */
     public Difficulty getDifficulty();
+
+    /**
+     * Sets the Difficulty of the world.
+     *
+     * @param difficulty the new difficulty you want to set the world to
+     */
+    public void setDifficulty(Difficulty difficulty);
 
     /**
      * Gets the folder of this world on disk.
@@ -774,9 +774,9 @@ public interface World {
      * <b>Example Usage:</b>
      * <ul>
      * <li>A value of 1 will mean the server will attempt to spawn animals in
-     *     this world every tick.
+     * this world every tick.
      * <li>A value of 400 will mean the server will attempt to spawn animals
-     *     in this world every 400th tick.
+     * in this world every 400th tick.
      * <li>A value below 0 will be reset back to Minecraft's default.
      * </ul>
      * <p>
@@ -800,9 +800,9 @@ public interface World {
      * <b>Example Usage:</b>
      * <ul>
      * <li>A value of 1 will mean the server will attempt to spawn animals in
-     *     this world every tick.
+     * this world every tick.
      * <li>A value of 400 will mean the server will attempt to spawn animals
-     *     in this world every 400th tick.
+     * in this world every 400th tick.
      * <li>A value below 0 will be reset back to Minecraft's default.
      * </ul>
      * <p>
@@ -814,7 +814,7 @@ public interface World {
      * Minecraft default: 400.
      *
      * @param ticksPerAnimalSpawns the ticks per animal spawns value you want
-     *     to set the world to
+     *                             to set the world to
      */
     public void setTicksPerAnimalSpawns(int ticksPerAnimalSpawns);
 
@@ -827,9 +827,9 @@ public interface World {
      * <b>Example Usage:</b>
      * <ul>
      * <li>A value of 1 will mean the server will attempt to spawn monsters in
-     *     this world every tick.
+     * this world every tick.
      * <li>A value of 400 will mean the server will attempt to spawn monsters
-     *     in this world every 400th tick.
+     * in this world every 400th tick.
      * <li>A value below 0 will be reset back to Minecraft's default.
      * </ul>
      * <p>
@@ -853,9 +853,9 @@ public interface World {
      * <b>Example Usage:</b>
      * <ul>
      * <li>A value of 1 will mean the server will attempt to spawn monsters in
-     *     this world on every tick.
+     * this world on every tick.
      * <li>A value of 400 will mean the server will attempt to spawn monsters
-     *     in this world every 400th tick.
+     * in this world every 400th tick.
      * <li>A value below 0 will be reset back to Minecraft's default.
      * </ul>
      * <p>
@@ -867,7 +867,7 @@ public interface World {
      * Minecraft default: 1.
      *
      * @param ticksPerMonsterSpawns the ticks per monster spawns value you
-     *     want to set the world to
+     *                              want to set the world to
      */
     public void setTicksPerMonsterSpawns(int ticksPerMonsterSpawns);
 
@@ -964,7 +964,7 @@ public interface World {
      * <p>
      * If rule is null, the function will return false.
      *
-     * @param rule Rule to set
+     * @param rule  Rule to set
      * @param value Value to set rule to
      * @return True if rule was set
      */
@@ -996,22 +996,18 @@ public interface World {
          */
         THE_END(1);
 
-        private final int id;
         private static final Map<Integer, Environment> lookup = new HashMap<Integer, Environment>();
+
+        static {
+            for (Environment env : values()) {
+                lookup.put(env.getId(), env);
+            }
+        }
+
+        private final int id;
 
         private Environment(int id) {
             this.id = id;
-        }
-
-        /**
-         * Gets the dimension ID of this environment
-         *
-         * @return dimension ID
-         * @deprecated Magic value
-         */
-        @Deprecated
-        public int getId() {
-            return id;
         }
 
         /**
@@ -1026,10 +1022,15 @@ public interface World {
             return lookup.get(id);
         }
 
-        static {
-            for (Environment env : values()) {
-                lookup.put(env.getId(), env);
-            }
+        /**
+         * Gets the dimension ID of this environment
+         *
+         * @return dimension ID
+         * @deprecated Magic value
+         */
+        @Deprecated
+        public int getId() {
+            return id;
         }
     }
 }

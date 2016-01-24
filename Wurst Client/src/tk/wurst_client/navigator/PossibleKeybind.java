@@ -8,24 +8,20 @@
  */
 package tk.wurst_client.navigator;
 
-public class PossibleKeybind
-{
-	private String command;
-	private String description;
-	
-	public PossibleKeybind(String command, String description)
-	{
-		this.command = command;
-		this.description = description;
-	}
-	
-	public String getCommand()
-	{
-		return command;
-	}
-	
-	public String getDescription()
-	{
-		return description;
-	}
+public class PossibleKeybind {
+    private String command;
+    private String description;
+
+    public PossibleKeybind(String command, String description) {
+        this.command = command;
+        this.description = description;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

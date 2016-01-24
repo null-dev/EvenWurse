@@ -20,63 +20,45 @@ import java.util.Base64;
 /**
  * TODO Is this seriously needed? I believe old version of Java will not even run Java 8 bytecode :/
  */
-public class Java8Checker
-{
-	public static void checkJavaVersion()
-	{
-		try
-		{
-			// new Java 8 method
-			Base64.getEncoder();
-		}catch(Throwable e)
-		{
-			// fallback message
-			String message = "Your Java is outdated!";
-			
-			// html message
-			try
-			{
-				InputStream input =
-					Java8Checker.class.getResourceAsStream("index.html");
-				BufferedReader reader =
-					new BufferedReader(new InputStreamReader(input));
-				message = reader.readLine();
-				for(String line; (line = reader.readLine()) != null;)
-					message += line;
-				reader.close();
-				
-				message =
-					message.replace("�currentjava",
-						System.getProperty("java.version"));
-			}catch(IOException e1)
-			{
-				e1.printStackTrace();
-			}
-			
-			// message dialog
-			int action =
-				JOptionPane.showOptionDialog(null, message, "Outdated Java",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE,
-					null, new String[]{"Get Help", "I know what to do"}, 0);
-			
-			// learn more link
-			if(action == 0)
-			{
-				try
-				{
-					Desktop
-						.getDesktop()
-						.browse(
-							new URI(
-								"https://www.wurst-client.tk/redirect/outdated-java-help/"));
-				}catch(Exception e1)
-				{
-					System.err.println("Failed to open link");
-					e1.printStackTrace();
-				}
-			}
-			
-			System.exit(0);
-		}
-	}
+public class Java8Checker {
+    public static void checkJavaVersion() {
+        try {
+            // new Java 8 method
+            Base64.getEncoder();
+        } catch (Throwable e) {
+            // fallback message
+            String message = "Your Java is outdated!";
+
+            // html message
+            try {
+                InputStream input = Java8Checker.class.getResourceAsStream("index.html");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                message = reader.readLine();
+                for (String line; (line = reader.readLine()) != null; ) {
+                    message += line;
+                }
+                reader.close();
+
+                message = message.replace("�currentjava", System.getProperty("java.version"));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            // message dialog
+            int action = JOptionPane.showOptionDialog(null, message, "Outdated Java", JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.ERROR_MESSAGE, null, new String[]{"Get Help", "I know what to do"}, 0);
+
+            // learn more link
+            if (action == 0) {
+                try {
+                    Desktop.getDesktop().browse(new URI("https://www.wurst-client.tk/redirect/outdated-java-help/"));
+                } catch (Exception e1) {
+                    System.err.println("Failed to open link");
+                    e1.printStackTrace();
+                }
+            }
+
+            System.exit(0);
+        }
+    }
 }

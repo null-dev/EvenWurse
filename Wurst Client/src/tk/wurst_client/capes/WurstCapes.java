@@ -20,65 +20,54 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 
-public class WurstCapes
-{
-	private static JsonObject capes;
-	private static CapeFetcher capeFetcher;
-	
-	/**
-	 * @see net.minecraft.client.resources.SkinManager#func_152790_a(GameProfile,
-	 *      SkinAvailableCallback, boolean)
-	 */
-	@SuppressWarnings("unchecked")
-	public static void checkCape(GameProfile player, HashMap skinManagerMap,
-		SkinAvailableCallback callback)
-	{
-		if(capes == null)
-			try
-			{
-				HttpsURLConnection connection =
-					(HttpsURLConnection)new URL(
-						"https://www.wurst-client.tk/api/v1/capes.json")
-						.openConnection();
-				connection.connect();
-				capes =
-					JsonUtils.jsonParser.parse(
-						new InputStreamReader(connection.getInputStream()))
-						.getAsJsonObject();
-			}catch(Exception e)
-			{
-				System.err
-					.println("[Wurst] Failed to load capes from wurst-client.tk!");
-				e.printStackTrace();
-				return;
-			}
-		
-		if(capes.has("use_new_server")
-			&& capes.get("use_new_server").getAsBoolean())
-			// get cape from new server
-			try
-			{
-				String uuid = player.getId().toString().replace("-", "");
-				if(capeFetcher == null || !capeFetcher.addUUID(uuid, callback))
-				{
-					capeFetcher = new CapeFetcher();
-					capeFetcher.addUUID(uuid, callback);
-					new Thread(capeFetcher).start();
-				}
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-		else
-			// get cape from old server
-			try
-			{
-				if(capes.has(player.getName()))
-					skinManagerMap.put(Type.CAPE, new MinecraftProfileTexture(
-						capes.get(player.getName()).getAsString(), null));
-			}catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-	}
+public class WurstCapes {
+    private static JsonObject capes;
+    private static CapeFetcher capeFetcher;
+
+    /**
+     * @see net.minecraft.client.resources.SkinManager#func_152790_a(GameProfile,
+     * SkinAvailableCallback, boolean)
+     */
+    @SuppressWarnings("unchecked")
+    public static void checkCape(GameProfile player, HashMap skinManagerMap, SkinAvailableCallback callback) {
+        if (capes == null) {
+            try {
+                HttpsURLConnection connection =
+                        (HttpsURLConnection) new URL("https://www.wurst-client.tk/api/v1/capes.json").openConnection();
+                connection.connect();
+                capes = JsonUtils.jsonParser.parse(new InputStreamReader(connection.getInputStream()))
+                        .getAsJsonObject();
+            } catch (Exception e) {
+                System.err.println("[Wurst] Failed to load capes from wurst-client.tk!");
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        if (capes.has("use_new_server") && capes.get("use_new_server").getAsBoolean())
+        // get cape from new server
+        {
+            try {
+                String uuid = player.getId().toString().replace("-", "");
+                if (capeFetcher == null || !capeFetcher.addUUID(uuid, callback)) {
+                    capeFetcher = new CapeFetcher();
+                    capeFetcher.addUUID(uuid, callback);
+                    new Thread(capeFetcher).start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else
+        // get cape from old server
+        {
+            try {
+                if (capes.has(player.getName())) {
+                    skinManagerMap.put(Type.CAPE,
+                            new MinecraftProfileTexture(capes.get(player.getName()).getAsString(), null));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

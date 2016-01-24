@@ -15,13 +15,12 @@ import tk.wurst_client.mods.Mod.Info;
 import tk.wurst_client.navigator.gui.NavigatorMainScreen;
 
 @Info(category = Category.HIDDEN, description = "", name = "Navigator")
-public class NavigatorMod extends Mod
-{
-	@Override
-	public void onToggle()
-	{
-		if(!(Minecraft.getMinecraft().currentScreen instanceof NavigatorMainScreen))
-			GUI.displayGuiScreen(new NavigatorMainScreen());
-//			Minecraft.getMinecraft().displayGuiScreen(new NavigatorMainScreen());
-	}
+public class NavigatorMod extends Mod {
+    @Override
+    public void onToggle() {
+        if (!(Minecraft.getMinecraft().currentScreen instanceof NavigatorMainScreen)) {
+            GUI.displayGuiScreen(new NavigatorMainScreen());
+        }
+        //			Minecraft.getMinecraft().displayGuiScreen(new NavigatorMainScreen());
+    }
 }

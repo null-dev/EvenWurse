@@ -8,7 +8,6 @@
  */
 package tk.wurst_client.events.listeners;
 
-public interface GUIRenderListener extends Listener
-{
-	void onRenderGUI();
+public interface GUIRenderListener extends Listener {
+    void onRenderGUI();
 }

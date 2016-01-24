@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,33 +16,28 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
-	description = "Blocks damage from catching on fire.\n"
-		+ "Does NOT block damage from standing inside of fire.\n"
-		+ "Requires a full hunger bar.",
-	name = "AntiFire",
-	noCheatCompatible = false)
-public class AntiFireMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode
-			&& Minecraft.getMinecraft().thePlayer.onGround
-			&& Minecraft.getMinecraft().thePlayer.isBurning())
-			for(int i = 0; i < 100; i++)
-				Minecraft.getMinecraft().thePlayer.sendQueue
-					.addToSendQueue(new C03PacketPlayer());
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Blocks damage from catching on fire.\n" +
+                "Does NOT block damage from standing inside of fire.\n" + "Requires a full hunger bar.",
+        name = "AntiFire",
+        noCheatCompatible = false)
+public class AntiFireMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (!Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode &&
+                Minecraft.getMinecraft().thePlayer.onGround && Minecraft.getMinecraft().thePlayer.isBurning()) {
+            for (int i = 0; i < 100; i++) {
+                Minecraft.getMinecraft().thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer());
+            }
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

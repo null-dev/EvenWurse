@@ -14,14 +14,11 @@ import java.util.Random;
  */
 public class Vector implements Cloneable {
     private static final long serialVersionUID = -2657651106777219169L;
-
-    private static Random random = new Random();
-
     /**
      * Threshold for fuzzy equals().
      */
     private static final double epsilon = 0.000001;
-
+    private static Random random = new Random();
     protected double x;
     protected double y;
     protected double z;
@@ -72,6 +69,65 @@ public class Vector implements Cloneable {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    /**
+     * Get the threshold used for equals().
+     *
+     * @return The epsilon.
+     */
+    public static double getEpsilon() {
+        return epsilon;
+    }
+
+    /**
+     * Gets the minimum components of two vectors.
+     *
+     * @param v1 The first vector.
+     * @param v2 The second vector.
+     * @return minimum
+     */
+    public static Vector getMinimum(Vector v1, Vector v2) {
+        return new Vector(Math.min(v1.x, v2.x), Math.min(v1.y, v2.y), Math.min(v1.z, v2.z));
+    }
+
+    /**
+     * Gets the maximum components of two vectors.
+     *
+     * @param v1 The first vector.
+     * @param v2 The second vector.
+     * @return maximum
+     */
+    public static Vector getMaximum(Vector v1, Vector v2) {
+        return new Vector(Math.max(v1.x, v2.x), Math.max(v1.y, v2.y), Math.max(v1.z, v2.z));
+    }
+
+    /**
+     * Gets a random vector with components having a random value between 0
+     * and 1.
+     *
+     * @return A random vector.
+     */
+    public static Vector getRandom() {
+        return new Vector(random.nextDouble(), random.nextDouble(), random.nextDouble());
+    }
+
+    public static Vector deserialize(Map<String, Object> args) {
+        double x = 0;
+        double y = 0;
+        double z = 0;
+
+        if (args.containsKey("x")) {
+            x = (Double) args.get("x");
+        }
+        if (args.containsKey("y")) {
+            y = (Double) args.get("y");
+        }
+        if (args.containsKey("z")) {
+            z = (Double) args.get("z");
+        }
+
+        return new Vector(x, y, z);
     }
 
     /**
@@ -172,7 +228,8 @@ public class Vector implements Cloneable {
      * @return the distance
      */
     public double distance(Vector o) {
-        return Math.sqrt(NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y) + NumberConversions.square(z - o.z));
+        return Math.sqrt(NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y) +
+                NumberConversions.square(z - o.z));
     }
 
     /**
@@ -182,7 +239,8 @@ public class Vector implements Cloneable {
      * @return the distance
      */
     public double distanceSquared(Vector o) {
-        return NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y) + NumberConversions.square(z - o.z);
+        return NumberConversions.square(x - o.x) + NumberConversions.square(y - o.y) +
+                NumberConversions.square(z - o.z);
     }
 
     /**
@@ -348,7 +406,8 @@ public class Vector implements Cloneable {
      * @return whether this vector is in the sphere
      */
     public boolean isInSphere(Vector origin, double radius) {
-        return (NumberConversions.square(origin.x - x) + NumberConversions.square(origin.y - y) + NumberConversions.square(origin.z - z)) <= NumberConversions.square(radius);
+        return (NumberConversions.square(origin.x - x) + NumberConversions.square(origin.y - y) +
+                NumberConversions.square(origin.z - z)) <= NumberConversions.square(radius);
     }
 
     /**
@@ -358,6 +417,17 @@ public class Vector implements Cloneable {
      */
     public double getX() {
         return x;
+    }
+
+    /**
+     * Set the X component.
+     *
+     * @param x The new X component.
+     * @return This vector.
+     */
+    public Vector setX(float x) {
+        this.x = x;
+        return this;
     }
 
     /**
@@ -380,6 +450,17 @@ public class Vector implements Cloneable {
     }
 
     /**
+     * Set the Y component.
+     *
+     * @param y The new Y component.
+     * @return This vector.
+     */
+    public Vector setY(float y) {
+        this.y = y;
+        return this;
+    }
+
+    /**
      * Gets the floored value of the Y component, indicating the block that
      * this vector is contained with.
      *
@@ -396,6 +477,17 @@ public class Vector implements Cloneable {
      */
     public double getZ() {
         return z;
+    }
+
+    /**
+     * Set the Z component.
+     *
+     * @param z The new Z component.
+     * @return This vector.
+     */
+    public Vector setZ(float z) {
+        this.z = z;
+        return this;
     }
 
     /**
@@ -431,17 +523,6 @@ public class Vector implements Cloneable {
     }
 
     /**
-     * Set the X component.
-     *
-     * @param x The new X component.
-     * @return This vector.
-     */
-    public Vector setX(float x) {
-        this.x = x;
-        return this;
-    }
-
-    /**
      * Set the Y component.
      *
      * @param y The new Y component.
@@ -459,17 +540,6 @@ public class Vector implements Cloneable {
      * @return This vector.
      */
     public Vector setY(double y) {
-        this.y = y;
-        return this;
-    }
-
-    /**
-     * Set the Y component.
-     *
-     * @param y The new Y component.
-     * @return This vector.
-     */
-    public Vector setY(float y) {
         this.y = y;
         return this;
     }
@@ -497,17 +567,6 @@ public class Vector implements Cloneable {
     }
 
     /**
-     * Set the Z component.
-     *
-     * @param z The new Z component.
-     * @return This vector.
-     */
-    public Vector setZ(float z) {
-        this.z = z;
-        return this;
-    }
-
-    /**
      * Checks to see if two objects are equal.
      * <p>
      * Only two Vectors can ever return true. This method uses a fuzzy match
@@ -522,7 +581,8 @@ public class Vector implements Cloneable {
 
         Vector other = (Vector) obj;
 
-        return Math.abs(x - other.x) < epsilon && Math.abs(y - other.y) < epsilon && Math.abs(z - other.z) < epsilon && (this.getClass().equals(obj.getClass()));
+        return Math.abs(x - other.x) < epsilon && Math.abs(y - other.y) < epsilon && Math.abs(z - other.z) < epsilon &&
+                (this.getClass().equals(obj.getClass()));
     }
 
     /**
@@ -574,53 +634,12 @@ public class Vector implements Cloneable {
     /**
      * Gets a Location version of this vector.
      *
-     * @param yaw The desired yaw.
+     * @param yaw   The desired yaw.
      * @param pitch The desired pitch.
      * @return the location
      */
     public Location toLocation(float yaw, float pitch) {
         return new Location(x, y, z, yaw, pitch);
-    }
-
-    /**
-     * Get the threshold used for equals().
-     *
-     * @return The epsilon.
-     */
-    public static double getEpsilon() {
-        return epsilon;
-    }
-
-    /**
-     * Gets the minimum components of two vectors.
-     *
-     * @param v1 The first vector.
-     * @param v2 The second vector.
-     * @return minimum
-     */
-    public static Vector getMinimum(Vector v1, Vector v2) {
-        return new Vector(Math.min(v1.x, v2.x), Math.min(v1.y, v2.y), Math.min(v1.z, v2.z));
-    }
-
-    /**
-     * Gets the maximum components of two vectors.
-     *
-     * @param v1 The first vector.
-     * @param v2 The second vector.
-     * @return maximum
-     */
-    public static Vector getMaximum(Vector v1, Vector v2) {
-        return new Vector(Math.max(v1.x, v2.x), Math.max(v1.y, v2.y), Math.max(v1.z, v2.z));
-    }
-
-    /**
-     * Gets a random vector with components having a random value between 0
-     * and 1.
-     *
-     * @return A random vector.
-     */
-    public static Vector getRandom() {
-        return new Vector(random.nextDouble(), random.nextDouble(), random.nextDouble());
     }
 
     public Map<String, Object> serialize() {
@@ -631,23 +650,5 @@ public class Vector implements Cloneable {
         result.put("z", getZ());
 
         return result;
-    }
-
-    public static Vector deserialize(Map<String, Object> args) {
-        double x = 0;
-        double y = 0;
-        double z = 0;
-
-        if (args.containsKey("x")) {
-            x = (Double) args.get("x");
-        }
-        if (args.containsKey("y")) {
-            y = (Double) args.get("y");
-        }
-        if (args.containsKey("z")) {
-            z = (Double) args.get("z");
-        }
-
-        return new Vector(x, y, z);
     }
 }

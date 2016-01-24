@@ -8,7 +8,6 @@
  */
 package tk.wurst_client.gui.options;
 
-public interface GuiPressAKeyCallback
-{	
-	void setKey(String key);
+public interface GuiPressAKeyCallback {
+    void setKey(String key);
 }

@@ -11,10 +11,10 @@ package tk.wurst_client.commands;
 import tk.wurst_client.commands.Cmd.Info;
 
 @Info(help = "Does nothing. Useful for scripting.",
-	name = "nothing",
-	syntax = {})
-public class NothingCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error {}
+        name = "nothing",
+        syntax = {})
+public class NothingCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,41 +8,34 @@
  */
 package tk.wurst_client.events;
 
-public class ChatOutputEvent extends CancellableEvent
-{
-	private String message;
-	private boolean automatic;
-	
-	public ChatOutputEvent(String message, boolean automatic)
-	{
-		this.message = message;
-		this.automatic = automatic;
-	}
-	
-	public String getMessage()
-	{
-		return message;
-	}
-	
-	public void setMessage(String message)
-	{
-		this.message = message;
-	}
-	
-	@Override
-	public String getAction()
-	{
-		return "sending chat message";
-	}
-	
-	@Override
-	public String getComment()
-	{
-		return "Message: `" + message + "`";
-	}
-	
-	public boolean isAutomatic()
-	{
-		return automatic;
-	}
+public class ChatOutputEvent extends CancellableEvent {
+    private String message;
+    private boolean automatic;
+
+    public ChatOutputEvent(String message, boolean automatic) {
+        this.message = message;
+        this.automatic = automatic;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String getAction() {
+        return "sending chat message";
+    }
+
+    @Override
+    public String getComment() {
+        return "Message: `" + message + "`";
+    }
+
+    public boolean isAutomatic() {
+        return automatic;
+    }
 }

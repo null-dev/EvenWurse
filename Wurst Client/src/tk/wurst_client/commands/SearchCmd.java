@@ -15,45 +15,35 @@ import tk.wurst_client.mods.SearchMod;
 import tk.wurst_client.utils.MiscUtils;
 
 @Info(help = "Changes the settings of Search or toggles it.",
-	name = "search",
-	syntax = {"id <block_id>", "name <block_name>"})
-public class SearchCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length == 0)
-		{
-			WurstClient.INSTANCE.mods.getModByClass(SearchMod.class).toggle();
-			WurstClient.INSTANCE.chat.message("Search turned "
-				+ (WurstClient.INSTANCE.mods.getModByClass(SearchMod.class).isEnabled()
-					? "on" : "off") + ".");
-		}else if(args.length == 2)
-		{
-			if(args[0].toLowerCase().equals("id"))
-			{
-				if(MiscUtils.isInteger(args[1]))
-					WurstClient.INSTANCE.options.searchID =
-						Integer.valueOf(args[1]);
-				else
-					syntaxError("ID must be a number.");
-				WurstClient.INSTANCE.files.saveOptions();
-				WurstClient.INSTANCE.mods.getModByClass(SearchMod.class).notify = true;
-				WurstClient.INSTANCE.chat.message("Search ID set to " + args[1]
-					+ ".");
-			}else if(args[0].equalsIgnoreCase("name"))
-			{
-				int newID =
-					Block.getIdFromBlock(Block.getBlockFromName(args[1]));
-				if(newID == -1)
-					error("Block \"" + args[1] + "\" could not be found.");
-				WurstClient.INSTANCE.options.searchID = newID;
-				WurstClient.INSTANCE.files.saveOptions();
-				WurstClient.INSTANCE.mods.getModByClass(SearchMod.class).notify = true;
-				WurstClient.INSTANCE.chat.message("Search ID set to " + newID
-					+ " (" + args[1] + ").");
-			}
-		}else
-			syntaxError();
-	}
+        name = "search",
+        syntax = {"id <block_id>", "name <block_name>"})
+public class SearchCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length == 0) {
+            WurstClient.INSTANCE.mods.getModByClass(SearchMod.class).toggle();
+            WurstClient.INSTANCE.chat.message("Search turned " +
+                    (WurstClient.INSTANCE.mods.getModByClass(SearchMod.class).isEnabled() ? "on" : "off") + ".");
+        } else if (args.length == 2) {
+            if (args[0].toLowerCase().equals("id")) {
+                if (MiscUtils.isInteger(args[1])) {
+                    WurstClient.INSTANCE.options.searchID = Integer.valueOf(args[1]);
+                } else {
+                    syntaxError("ID must be a number.");
+                }
+                WurstClient.INSTANCE.files.saveOptions();
+                WurstClient.INSTANCE.mods.getModByClass(SearchMod.class).notify = true;
+                WurstClient.INSTANCE.chat.message("Search ID set to " + args[1] + ".");
+            } else if (args[0].equalsIgnoreCase("name")) {
+                int newID = Block.getIdFromBlock(Block.getBlockFromName(args[1]));
+                if (newID == -1) error("Block \"" + args[1] + "\" could not be found.");
+                WurstClient.INSTANCE.options.searchID = newID;
+                WurstClient.INSTANCE.files.saveOptions();
+                WurstClient.INSTANCE.mods.getModByClass(SearchMod.class).notify = true;
+                WurstClient.INSTANCE.chat.message("Search ID set to " + newID + " (" + args[1] + ").");
+            }
+        } else {
+            syntaxError();
+        }
+    }
 }

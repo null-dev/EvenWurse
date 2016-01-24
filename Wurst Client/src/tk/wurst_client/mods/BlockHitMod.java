@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -18,62 +18,47 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.COMBAT,
-	description = "Automatically blocks whenever you hit something with a\n"
-		+ "sword. Some say that you will receive less damage in PVP when doing\n"
-		+ "this.",
-	name = "BlockHit")
-public class BlockHitMod extends Mod implements LeftClickListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
-	}
-	
-	@Override
-	public void onLeftClick()
-	{
-		ItemStack stack = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
-			
-		if(stack != null && stack.getItem() instanceof ItemSword)
-			doBlock();
-	}
-	
-	public void doBlock()
-	{
-		if(!isActive())
-			return;
-		new Thread("BlockHit")
-		{
-			@Override
-			public void run()
-			{
-				KeyBinding keybindUseItem =
-					Minecraft.getMinecraft().gameSettings.keyBindUseItem;
-				keybindUseItem.pressed = false;
-				try
-				{
-					Thread.sleep(50);
-				}catch(InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-				keybindUseItem.pressed = true;
-				try
-				{
-					Thread.sleep(100);
-				}catch(InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-				keybindUseItem.pressed = false;
-			}
-		}.start();
-	}
+        description = "Automatically blocks whenever you hit something with a\n" +
+                "sword. Some say that you will receive less damage in PVP when doing\n" + "this.",
+        name = "BlockHit")
+public class BlockHitMod extends Mod implements LeftClickListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(LeftClickListener.class, this);
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(LeftClickListener.class, this);
+    }
+
+    @Override
+    public void onLeftClick() {
+        ItemStack stack = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
+
+        if (stack != null && stack.getItem() instanceof ItemSword) doBlock();
+    }
+
+    public void doBlock() {
+        if (!isActive()) return;
+        new Thread("BlockHit") {
+            @Override
+            public void run() {
+                KeyBinding keybindUseItem = Minecraft.getMinecraft().gameSettings.keyBindUseItem;
+                keybindUseItem.pressed = false;
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                keybindUseItem.pressed = true;
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                keybindUseItem.pressed = false;
+            }
+        }.start();
+    }
 }

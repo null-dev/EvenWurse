@@ -42,9 +42,7 @@ public class MCPBlock implements Block {
 
     @Override
     public Block getRelative(BlockFace face, int distance) {
-        return getRelative(face.getModX() * distance,
-                face.getModY() * distance,
-                face.getModZ() * distance);
+        return getRelative(face.getModX() * distance, face.getModY() * distance, face.getModZ() * distance);
     }
 
     @Override
@@ -85,7 +83,7 @@ public class MCPBlock implements Block {
 
     @Override
     public Location getLocation(Location loc) {
-        if(loc == null) return null;
+        if (loc == null) return null;
         loc.setX(getX());
         loc.setY(getY());
         loc.setZ(getZ());
@@ -110,7 +108,7 @@ public class MCPBlock implements Block {
         int x = diff.getBlockX();
         int y = diff.getBlockY();
         int z = diff.getBlockZ();
-        if(Math.abs(x) > 1 || Math.abs(y) > 1 || Math.abs(z) > 1) {
+        if (Math.abs(x) > 1 || Math.abs(y) > 1 || Math.abs(z) > 1) {
             throw null;
         }
         return BlockFace.fromMod(x, y, z);

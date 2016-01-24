@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,35 +16,27 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MOVEMENT,
-	description = "Makes you fall like if you had a hang glider.",
-	name = "Glide",
-	noCheatCompatible = false)
-public class GlideMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		if(Minecraft.getMinecraft().thePlayer.motionY < 0
-			&& Minecraft.getMinecraft().thePlayer.isAirBorne
-			&& !Minecraft.getMinecraft().thePlayer.isInWater()
-			&& !Minecraft.getMinecraft().thePlayer.isOnLadder()
-			&& !Minecraft.getMinecraft().thePlayer
-				.isInsideOfMaterial(Material.lava))
-		{
-			Minecraft.getMinecraft().thePlayer.motionY = -0.125f;
-			Minecraft.getMinecraft().thePlayer.jumpMovementFactor *= 1.21337f;
-		}
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Makes you fall like if you had a hang glider.",
+        name = "Glide",
+        noCheatCompatible = false)
+public class GlideMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        if (Minecraft.getMinecraft().thePlayer.motionY < 0 && Minecraft.getMinecraft().thePlayer.isAirBorne &&
+                !Minecraft.getMinecraft().thePlayer.isInWater() && !Minecraft.getMinecraft().thePlayer.isOnLadder() &&
+                !Minecraft.getMinecraft().thePlayer.isInsideOfMaterial(Material.lava)) {
+            Minecraft.getMinecraft().thePlayer.motionY = -0.125f;
+            Minecraft.getMinecraft().thePlayer.jumpMovementFactor *= 1.21337f;
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

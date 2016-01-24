@@ -18,19 +18,19 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-public class Navigator
-{
-    private ArrayList<NavigatorItem> navigatorList = new ArrayList<>();
+public class Navigator {
     private final HashMap<String, Long> clicksMap = new HashMap<>();
     //FIXME No analytics
-//	public AnalyticsManager analytics = new GoogleAnalyticsManagerImpl("UA-52838431-7",
-//		"navigator.client.wurst-client.tk");
+    //	public AnalyticsManager analytics = new GoogleAnalyticsManagerImpl("UA-52838431-7",
+    //		"navigator.client.wurst-client.tk");
     public AnalyticsManager analytics = new DoNothingAnalyticsManagerImpl();
+    private ArrayList<NavigatorItem> navigatorList = new ArrayList<>();
 
-    public Navigator() {}
+    public Navigator() {
+    }
 
     public void copyNavigatorList(ArrayList<NavigatorItem> list) {
-        if(!list.equals(navigatorList)) {
+        if (!list.equals(navigatorList)) {
             list.clear();
             list.addAll(navigatorList);
         }
@@ -40,15 +40,14 @@ public class Navigator
         //Clear display list
         list.clear();
         //Add search results
-        list.addAll(navigatorList.stream().filter(mod -> mod.getName().toLowerCase().contains(query)
-                || mod.getDescription().toLowerCase().contains(query)).collect(Collectors.toList()));
+        list.addAll(navigatorList.stream().filter(mod -> mod.getName().toLowerCase().contains(query) ||
+                mod.getDescription().toLowerCase().contains(query)).collect(Collectors.toList()));
         //Sort search results
         list.sort(new Comparator<NavigatorItem>() {
             @Override
             public int compare(NavigatorItem o1, NavigatorItem o2) {
                 int result = compareNext(o1.getName(), o2.getName());
-                if(result != 0)
-                    return result;
+                if (result != 0) return result;
 
                 result = compareNext(o1.getDescription(), o2.getDescription());
                 return result;
@@ -58,29 +57,28 @@ public class Navigator
                 int index1 = o1.toLowerCase().indexOf(query);
                 int index2 = o2.toLowerCase().indexOf(query);
 
-                if(index1 == index2)
+                if (index1 == index2) {
                     return 0;
-                else if(index1 == -1)
+                } else if (index1 == -1) {
                     return 1;
-                else if(index2 == -1)
+                } else if (index2 == -1) {
                     return -1;
-                else
+                } else {
                     return index1 - index2;
+                }
             }
         });
     }
 
     public long getClicks(String feature) {
         Long clicks = clicksMap.get(feature);
-        if(clicks == null)
-            clicks = 0L;
+        if (clicks == null) clicks = 0L;
         return clicks;
     }
 
     public void addClick(String feature) {
         Long clicks = clicksMap.get(feature);
-        if(clicks == null)
-            clicks = 0L;
+        if (clicks == null) clicks = 0L;
         clicks++;
         clicksMap.put(feature, clicks);
     }
@@ -97,12 +95,13 @@ public class Navigator
         navigatorList.sort((o1, o2) -> {
             long clicks1 = getClicks(o1.getName());
             long clicks2 = getClicks(o2.getName());
-            if(clicks1 < clicks2)
+            if (clicks1 < clicks2) {
                 return 1;
-            else if(clicks1 > clicks2)
+            } else if (clicks1 > clicks2) {
                 return -1;
-            else
+            } else {
                 return 0;
+            }
         });
     }
 

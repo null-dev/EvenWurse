@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -18,39 +18,33 @@ import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
 
 @Info(category = Category.MISC,
-	description = "Blocks bad potion effects.",
-	name = "AntiPotion",
-	noCheatCompatible = false)
-public class AntiPotionMod extends Mod implements UpdateListener
-{
-	@Override
-	public void onEnable()
-	{
-		WurstClient.INSTANCE.events.add(UpdateListener.class, this);
-	}
-	
-	@Override
-	public void onUpdate()
-	{
-		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-		if(!player.capabilities.isCreativeMode && player.onGround
-			&& !player.getActivePotionEffects().isEmpty())
-			if(player.isPotionActive(Potion.hunger)
-				|| player.isPotionActive(Potion.moveSlowdown)
-				|| player.isPotionActive(Potion.digSlowdown)
-				|| player.isPotionActive(Potion.harm)
-				|| player.isPotionActive(Potion.confusion)
-				|| player.isPotionActive(Potion.blindness)
-				|| player.isPotionActive(Potion.weakness)
-				|| player.isPotionActive(Potion.wither)
-				|| player.isPotionActive(Potion.poison))
-				for(int i = 0; i < 1000; i++)
-					player.sendQueue.addToSendQueue(new C03PacketPlayer());
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
-	}
+        description = "Blocks bad potion effects.",
+        name = "AntiPotion",
+        noCheatCompatible = false)
+public class AntiPotionMod extends Mod implements UpdateListener {
+    @Override
+    public void onEnable() {
+        WurstClient.INSTANCE.events.add(UpdateListener.class, this);
+    }
+
+    @Override
+    public void onUpdate() {
+        EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+        if (!player.capabilities.isCreativeMode && player.onGround && !player.getActivePotionEffects().isEmpty()) {
+            if (player.isPotionActive(Potion.hunger) || player.isPotionActive(Potion.moveSlowdown) ||
+                    player.isPotionActive(Potion.digSlowdown) || player.isPotionActive(Potion.harm) ||
+                    player.isPotionActive(Potion.confusion) || player.isPotionActive(Potion.blindness) ||
+                    player.isPotionActive(Potion.weakness) || player.isPotionActive(Potion.wither) ||
+                    player.isPotionActive(Potion.poison)) {
+                for (int i = 0; i < 1000; i++) {
+                    player.sendQueue.addToSendQueue(new C03PacketPlayer());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        WurstClient.INSTANCE.events.remove(UpdateListener.class, this);
+    }
 }

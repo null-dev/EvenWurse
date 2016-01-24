@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,10 +8,8 @@
  */
 package tk.wurst_client.spam.exceptions;
 
-public class UnreadableVariableException extends UnreadableElementException
-{
-	public UnreadableVariableException(String var, int line)
-	{
-		super(var, line);
-	}
+public class UnreadableVariableException extends UnreadableElementException {
+    public UnreadableVariableException(String var, int line) {
+        super(var, line);
+    }
 }

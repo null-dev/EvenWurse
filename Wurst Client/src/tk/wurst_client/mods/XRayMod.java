@@ -16,21 +16,18 @@ import tk.wurst_client.mods.Mod.Info;
 import java.util.ArrayList;
 
 @Info(category = Category.RENDER,
-	description = "Allows you to see ores through walls.",
-	name = "X-Ray")
-public class XRayMod extends Mod
-{
-	public static ArrayList<Block> xrayBlocks = new ArrayList<>();
-	
-	@Override
-	public String getRenderName()
-	{
-		return "X-Wurst";
-	}
-	
-	@Override
-	public void onToggle()
-	{
-		Minecraft.getMinecraft().renderGlobal.loadRenderers();
-	}
+        description = "Allows you to see ores through walls.",
+        name = "X-Ray")
+public class XRayMod extends Mod {
+    public static ArrayList<Block> xrayBlocks = new ArrayList<>();
+
+    @Override
+    public String getRenderName() {
+        return "X-Wurst";
+    }
+
+    @Override
+    public void onToggle() {
+        Minecraft.getMinecraft().renderGlobal.loadRenderers();
+    }
 }

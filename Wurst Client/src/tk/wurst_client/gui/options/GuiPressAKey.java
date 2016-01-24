@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 - 2015 Alexander01998 and contributors
+ * Copyright ï¿½ 2014 - 2015 Alexander01998 and contributors
  * All rights reserved.
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,41 +9,35 @@
 package tk.wurst_client.gui.options;
 
 import net.minecraft.client.gui.GuiScreen;
-
 import org.lwjgl.input.Keyboard;
 
-public class GuiPressAKey extends GuiScreen
-{
-	private GuiPressAKeyCallback prevMenu;
-	
-	public GuiPressAKey(GuiPressAKeyCallback prevMenu)
-	{
-		if(!(prevMenu instanceof GuiScreen))
-			throw new IllegalArgumentException(
-				"prevMenu is not an instance of GuiScreen");
-		this.prevMenu = prevMenu;
-	}
-	
-	/**
-	 * Fired when a key is typed. This is the equivalent of
-	 * KeyListener.keyTyped(KeyEvent e).
-	 */
-	@Override
-	protected void keyTyped(char par1, int par2)
-	{
-		prevMenu.setKey(Keyboard.getKeyName(par2));
-		mc.displayGuiScreen((GuiScreen)prevMenu);
-	}
-	
-	/**
-	 * Draws the screen and all the components in it.
-	 */
-	@Override
-	public void drawScreen(int par1, int par2, float par3)
-	{
-		drawBackground(0);
-		drawCenteredString(fontRendererObj, "Press a key", width / 2,
-			height / 4 + 48, 16777215);
-		super.drawScreen(par1, par2, par3);
-	}
+public class GuiPressAKey extends GuiScreen {
+    private GuiPressAKeyCallback prevMenu;
+
+    public GuiPressAKey(GuiPressAKeyCallback prevMenu) {
+        if (!(prevMenu instanceof GuiScreen)) {
+            throw new IllegalArgumentException("prevMenu is not an instance of GuiScreen");
+        }
+        this.prevMenu = prevMenu;
+    }
+
+    /**
+     * Fired when a key is typed. This is the equivalent of
+     * KeyListener.keyTyped(KeyEvent e).
+     */
+    @Override
+    protected void keyTyped(char par1, int par2) {
+        prevMenu.setKey(Keyboard.getKeyName(par2));
+        mc.displayGuiScreen((GuiScreen) prevMenu);
+    }
+
+    /**
+     * Draws the screen and all the components in it.
+     */
+    @Override
+    public void drawScreen(int par1, int par2, float par3) {
+        drawBackground(0);
+        drawCenteredString(fontRendererObj, "Press a key", width / 2, height / 4 + 48, 16777215);
+        super.drawScreen(par1, par2, par3);
+    }
 }

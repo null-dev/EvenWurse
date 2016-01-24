@@ -27,8 +27,7 @@ public class BlockWrapper {
     }
 
     public int getId() {
-        return Block.getIdFromBlock(Minecraft.getMinecraft().theWorld
-                .getBlockState(pos).getBlock());
+        return Block.getIdFromBlock(Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock());
     }
 
     public BlockWrapper getRelative(int x, int y, int z) {

@@ -10,8 +10,9 @@ import com.google.gson.GsonBuilder;
  */
 public class GsonUtils {
     static Gson GSON = null;
+
     public static Gson getGson() {
-        if(GSON == null) {
+        if (GSON == null) {
             GSON = new GsonBuilder().setPrettyPrinting().create();
         }
         return GSON;

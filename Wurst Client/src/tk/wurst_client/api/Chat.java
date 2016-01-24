@@ -16,6 +16,7 @@ import tk.wurst_client.WurstClient;
 public class Chat {
     /**
      * Send a message (chat message or command if it starts with '/')
+     *
      * @param message The message to send.
      */
     public static void sendMessage(String message) {
@@ -25,11 +26,11 @@ public class Chat {
     /**
      * Send client only message.
      * Overrides recording mode!
+     *
      * @param message The message to send
      */
     public static void sendClientOnlyMessage(String message) {
-        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(
-                new ChatComponentText(message));
+        Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessage(new ChatComponentText(message));
     }
 
     public static void clearChat() {

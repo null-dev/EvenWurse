@@ -12,19 +12,17 @@ import tk.wurst_client.commands.Cmd.Info;
 import tk.wurst_client.mods.RemoteViewMod;
 
 @Info(help = "Toggles RemoteView or makes it target a specific entity.",
-	name = "rv",
-	syntax = {"[<Player>]"})
-public class RvCmd extends Cmd
-{
-	@Override
-	public void execute(String[] args) throws Error
-	{
-		if(args.length == 0)
-		{
-			RemoteViewMod.onEnabledByCommand("");
-		}else if(args.length == 1)
-			RemoteViewMod.onEnabledByCommand(args[0]);
-		else
-			syntaxError("too many arguments.");
-	}
+        name = "rv",
+        syntax = {"[<Player>]"})
+public class RvCmd extends Cmd {
+    @Override
+    public void execute(String[] args) throws Error {
+        if (args.length == 0) {
+            RemoteViewMod.onEnabledByCommand("");
+        } else if (args.length == 1) {
+            RemoteViewMod.onEnabledByCommand(args[0]);
+        } else {
+            syntaxError("too many arguments.");
+        }
+    }
 }
