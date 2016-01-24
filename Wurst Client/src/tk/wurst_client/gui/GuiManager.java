@@ -138,8 +138,8 @@ public final class GuiManager extends AbstractGuiManager {
         ModuleFrame autobuild = categoryFrames.get(Category.AUTOBUILD);
         ComboBox autoBuildBox = new BasicComboBox(AutoBuildMod.names.toArray(new String[AutoBuildMod.names.size()]));
         autoBuildBox.addComboBoxListener(
-                comboBox -> WurstClient.INSTANCE.options.autobuildMode = comboBox.getSelectedIndex());
-        autoBuildBox.setSelectedIndex(WurstClient.INSTANCE.options.autobuildMode);
+                comboBox -> WurstClient.INSTANCE.mods.getModByClass(AutoBuildMod.class).setTemplate(comboBox.getSelectedIndex()));
+        autoBuildBox.setSelectedIndex(WurstClient.INSTANCE.mods.getModByClass(AutoBuildMod.class).getTemplate());
         autobuild.add(autoBuildBox, HorizontalGridConstraint.CENTER);
         categoryFrames.remove(Category.AUTOBUILD);
 

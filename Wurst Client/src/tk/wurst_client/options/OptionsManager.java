@@ -25,7 +25,6 @@ public class OptionsManager {
 
     public int autoLeaveMode = 0;
     public int modListMode = 0;
-    public int autobuildMode = 1;
     public int fastbreakMode = 0;
     public int forceOPDelay = 1000;
     public int ghostHandID = 54;
