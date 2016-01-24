@@ -13,3 +13,7 @@ hs_err_pid*
 
 /releases
 /_site
+
+# Intellij compile outputs
+out/
+build/

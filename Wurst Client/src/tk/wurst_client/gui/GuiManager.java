@@ -74,8 +74,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public final class GuiManager extends AbstractGuiManager {
     private class ModuleFrame extends BasicFrame {
-        private ModuleFrame(String title)
-        {
+        private ModuleFrame(String title) {
             super(title);
         }
     }
@@ -123,8 +122,7 @@ public final class GuiManager extends AbstractGuiManager {
             }
             Button button = new BasicButton(mod) {
                 @Override
-                public void update()
-                {
+                public void update() {
                     setForegroundColor(mod.isEnabled() ? Color.BLACK
                             : Color.WHITE);
                     if(mod.isEnabled())
@@ -212,8 +210,7 @@ public final class GuiManager extends AbstractGuiManager {
         for(Frame frame : frames)
             if(frame instanceof ModuleFrame)
                 for(Component component : frame.getChildren())
-                    if(component instanceof Button)
-                    {
+                    if(component instanceof Button) {
                         component.setWidth(buttonWidth);
                         component.setHeight(buttonHeight);
                     }

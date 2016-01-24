@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$MCP_LOC$/eclipse/Client/Client.iml" filepath="$MCP_LOC$/eclipse/Client/Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Default_Modules/Default Modules.iml" filepath="$PROJECT_DIR$/Default_Modules/Default Modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MCPWrapper/MCPWrapper.iml" filepath="$PROJECT_DIR$/MCPWrapper/MCPWrapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Wurst Client/Wurst Client.iml" filepath="$PROJECT_DIR$/Wurst Client/Wurst Client.iml" />
+    </modules>
+  </component>
+</project>
