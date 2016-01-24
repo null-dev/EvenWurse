@@ -37,7 +37,6 @@ public class OptionsManager {
     public String forceOPList = WurstClient.INSTANCE.files.wurstDir.getPath();
 
     public OptionsManager.GoogleAnalytics google_analytics = new OptionsManager.GoogleAnalytics();
-    public OptionsManager.Target target = new OptionsManager.Target();
     public OptionsManager.Zoom zoom = new OptionsManager.Zoom();
 
     public class GoogleAnalytics {
@@ -46,17 +45,6 @@ public class OptionsManager {
         public long first_launch = System.currentTimeMillis() / 1000L;
         public long last_launch = System.currentTimeMillis() / 1000L;
         public int launches = 0;
-    }
-
-    public class Target {
-        public boolean[] team_colors =
-                new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
-                        true};
-
-        public boolean[] getTeamColorsSafely() {
-            if (team_colors == null) team_colors = new Target().team_colors;
-            return team_colors;
-        }
     }
 
     public class Zoom {

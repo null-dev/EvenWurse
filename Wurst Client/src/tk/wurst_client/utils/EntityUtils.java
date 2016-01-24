@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class EntityUtils {
+    //TODO Get from formatting class
     public static final String[] COLORS =
             {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
     public static boolean lookChanged;
@@ -133,21 +134,17 @@ public class EntityUtils {
         }
 
         // golems
-        if (o instanceof EntityGolem) {
-            return targetFeature.golems.isChecked() &&
-                    (!targetFeature.teams.isChecked() || !((Entity) o).hasCustomName() ||
-                            checkName(((Entity) o).getCustomNameTag()));
-        }
-
-        return false;
+        return o instanceof EntityGolem && targetFeature.golems.isChecked() &&
+                (!targetFeature.teams.isChecked() || !((Entity) o).hasCustomName() ||
+                        checkName(((Entity) o).getCustomNameTag()));
     }
 
     private static boolean checkName(String name) {
-        String[] colors = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
-        boolean[] teamColors = WurstClient.INSTANCE.options.target.getTeamColorsSafely();
+        //FIXME THIS WILL BE AFFECTED AFTER THE API IS ADDED TO THE SPECIAL FEATURES MANAGER
+        boolean[] teamColors = WurstClient.INSTANCE.specialFeatures.targetFeature.teamColors.getSelected();
         boolean hasKnownColor = false;
         for (int i = 0; i < 16; i++) {
-            if (name.contains("§" + colors[i])) {
+            if (name.contains(F.SECTION_SIGN + COLORS[i])) {
                 hasKnownColor = true;
                 if (teamColors[i]) return true;
             }
