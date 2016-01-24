@@ -13,6 +13,7 @@ import tk.wurst_client.analytics.AnalyticsManager;
 import tk.wurst_client.analytics.DoNothingAnalyticsManagerImpl;
 import tk.wurst_client.commands.CmdManager;
 import tk.wurst_client.mods.ModManager;
+import tk.wurst_client.special.SpecialFeatureManager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
+// STOPSHIP: 24/01/16 BROKEN
 public class Navigator {
     private ArrayList<NavigatorItem> navigatorList = new ArrayList<>();
     private final HashMap<String, Long> preferences = new HashMap<>();
@@ -28,6 +30,7 @@ public class Navigator {
 
     public Navigator() {
         // add mods
+        //FIXME WARNING THESE BROKE IN THE LAST UPSTREAM MERGE
         Field[] modFields = ModManager.class.getFields();
         try {
             for (Field field : modFields) {
@@ -40,11 +43,26 @@ public class Navigator {
         }
 
         // add commands
+        //FIXME WARNING THESE BROKE IN THE LAST UPSTREAM MERGE
         Field[] cmdFields = CmdManager.class.getFields();
         try {
             for (Field field : cmdFields) {
                 if (field.getName().endsWith("Cmd")) {
                     navigatorList.add((NavigatorItem) field.get(WurstClient.INSTANCE.commands));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // add special features
+        //FIXME WARNING NEEDS REFACTORING
+        Field[] specialFields = SpecialFeatureManager.class.getFields();
+        try {
+            for (int i = 0; i < specialFields.length; i++) {
+                Field field = specialFields[i];
+                if (field.getName().endsWith("Feature")) {
+                    navigatorList.add((NavigatorItem) field.get(WurstClient.INSTANCE.specialFeatures));
                 }
             }
         } catch (Exception e) {

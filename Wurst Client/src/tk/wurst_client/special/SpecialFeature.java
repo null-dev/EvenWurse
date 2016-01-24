@@ -17,6 +17,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 //TODO Look through and consider adding API to it
+// STOPSHIP: 24/01/16 NEEDS API
 public abstract class SpecialFeature implements NavigatorItem {
     private final String name = getClass().getAnnotation(Info.class).name();
     private final String description = getClass().getAnnotation(Info.class).description();

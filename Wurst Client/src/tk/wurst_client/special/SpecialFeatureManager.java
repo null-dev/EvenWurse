@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.TreeMap;
 
 //TODO Refactor into module based (and add API)
+// STOPSHIP: 24/01/16 NEEDS REFACTORING
 public class SpecialFeatureManager {
     private final TreeMap<String, SpecialFeature> features =
             new TreeMap<String, SpecialFeature>(new Comparator<String>() {
