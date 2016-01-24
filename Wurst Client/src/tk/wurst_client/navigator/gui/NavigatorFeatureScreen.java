@@ -184,7 +184,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             return;
         }
 
-        // sliders
+        // settings
         area.height = 12;
         for (int i = 0; i < sliderDatas.size(); i++) {
             area.y = sliderDatas.get(i).y + scroll;
