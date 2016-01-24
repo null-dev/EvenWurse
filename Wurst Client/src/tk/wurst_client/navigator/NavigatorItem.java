@@ -23,7 +23,7 @@ public interface NavigatorItem {
 
     boolean isBlocked();
 
-    String[] getTags();
+    String getTags();
 
     ArrayList<NavigatorSetting> getSettings();
 

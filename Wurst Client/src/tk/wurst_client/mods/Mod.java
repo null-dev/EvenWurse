@@ -25,7 +25,7 @@ public abstract class Mod extends Module implements NavigatorItem {
     private final String name = getClass().getAnnotation(Info.class).name();
     private final String description = getClass().getAnnotation(Info.class).description();
     private final Category category = getClass().getAnnotation(Info.class).category();
-    private final String[] tags = getClass().getAnnotation(Info.class).tags();
+    private final String tags = getClass().getAnnotation(Info.class).tags();
     private final String tutorial = getClass().getAnnotation(Info.class).tutorial();
     protected ArrayList<NavigatorSetting> settings = new ArrayList<>();
     protected long lastMS = -1L;
@@ -54,7 +54,7 @@ public abstract class Mod extends Module implements NavigatorItem {
     }
 
     @Override
-    public final String[] getTags() {
+    public final String getTags() {
         return tags;
     }
 
@@ -231,7 +231,7 @@ public abstract class Mod extends Module implements NavigatorItem {
 
         boolean noCheatCompatible() default true;
 
-        String[] tags() default {};
+        String tags() default "";
 
         String tutorial() default "";
     }
