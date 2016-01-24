@@ -9,6 +9,7 @@
 package tk.wurst_client.navigator.settings;
 
 import com.google.gson.JsonObject;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.navigator.gui.NavigatorFeatureScreen;
 
 public abstract class CheckboxSetting implements NavigatorSetting {
@@ -26,7 +27,9 @@ public abstract class CheckboxSetting implements NavigatorSetting {
         featureScreen.addCheckbox(featureScreen.new CheckboxData(name, checked, 60 + featureScreen.getTextHeight()) {
             @Override
             public void toggle() {
+                CheckboxSetting.this.checked = checked;
                 update();
+                WurstClient.INSTANCE.files.saveNavigatorData();
             }
         });
     }
