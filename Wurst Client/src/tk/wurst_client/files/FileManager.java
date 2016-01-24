@@ -271,7 +271,12 @@ public class FileManager {
                 if (!item.getSettings().isEmpty()) {
                     JsonObject jsonSettings = new JsonObject();
                     for (NavigatorSetting setting : item.getSettings()) {
-                        setting.save(jsonSettings);
+                        try {
+                            setting.save(jsonSettings);
+                        } catch(Exception e) {
+                            //TODO Better logging :/
+                            e.printStackTrace();
+                        }
                     }
                     jsonFeature.add("settings", jsonSettings);
                 }
@@ -306,7 +311,12 @@ public class FileManager {
                 if (jsonFeature.has("settings")) {
                     JsonObject jsonSettings = jsonFeature.get("settings").getAsJsonObject();
                     for (NavigatorSetting setting : item.getSettings()) {
-                        setting.load(jsonSettings);
+                        try {
+                            setting.load(jsonSettings);
+                        } catch(Exception e) {
+                            //TODO Better logging :/
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
