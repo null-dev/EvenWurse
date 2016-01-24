@@ -23,6 +23,7 @@ import tk.wurst_client.navigator.Navigator;
 import tk.wurst_client.options.FriendsList;
 import tk.wurst_client.options.KeybindManager;
 import tk.wurst_client.options.OptionsManager;
+import tk.wurst_client.special.SpecialFeatureManager;
 import tk.wurst_client.update.Updater;
 
 public class WurstClient {
@@ -45,6 +46,7 @@ public class WurstClient {
     public OptionsManager options;
     public Updater updater;
     public AnalyticsManager analytics;
+    public SpecialFeatureManager specialFeatures;
 
     public void startClient() {
         events = new EventManager();
@@ -52,6 +54,7 @@ public class WurstClient {
         mods = new ModManager();
         gui = new GuiManager();
         commands = new CmdManager();
+        specialFeatures = new SpecialFeatureManager();
         files = new FileManager();
         updater = new Updater();
         chat = new ChatManager();
