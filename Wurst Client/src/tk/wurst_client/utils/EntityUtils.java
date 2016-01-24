@@ -20,7 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.KillauraMod;
-import tk.wurst_client.options.OptionsManager;
+import tk.wurst_client.special.TargetFeature;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -102,37 +102,44 @@ public class EntityUtils {
             if (WurstClient.INSTANCE.friends.contains(((EntityPlayer) o).getName())) return false;
         }
 
-        OptionsManager.Target targetOptions = WurstClient.INSTANCE.options.target;
+        TargetFeature targetFeature = WurstClient.INSTANCE.specialFeatures.targetFeature;
 
         // invisible entities
         if (((Entity) o).isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer)) {
-            return targetOptions.invisible_mobs && o instanceof EntityLiving ||
-                    targetOptions.invisible_players && o instanceof EntityPlayer;
+            return targetFeature.invisibleMobs.isChecked() && o instanceof EntityLiving ||
+                    targetFeature.invisiblePlayers.isChecked() && o instanceof EntityPlayer;
         }
 
         // players
         if (o instanceof EntityPlayer) {
-            return (((EntityPlayer) o).isPlayerSleeping() && targetOptions.sleeping_players ||
-                    !((EntityPlayer) o).isPlayerSleeping() && targetOptions.players) &&
-                    (!targetOptions.teams || checkName(((EntityPlayer) o).getDisplayName().getFormattedText()));
+            return (((EntityPlayer) o).isPlayerSleeping() && targetFeature.sleepingPlayers.isChecked() ||
+                    !((EntityPlayer) o).isPlayerSleeping() && targetFeature.players.isChecked()) &&
+                    (!targetFeature.teams.isChecked() ||
+                            checkName(((EntityPlayer) o).getDisplayName().getFormattedText()));
         }
 
         // animals
         if (o instanceof EntityAgeable || o instanceof EntityAmbientCreature || o instanceof EntityWaterMob) {
-            return targetOptions.animals && (!targetOptions.teams || !((Entity) o).hasCustomName() ||
-                    checkName(((Entity) o).getCustomNameTag()));
+            return targetFeature.animals.isChecked() &&
+                    (!targetFeature.teams.isChecked() || !((Entity) o).hasCustomName() ||
+                            checkName(((Entity) o).getCustomNameTag()));
         }
 
         // monsters
         if (o instanceof EntityMob || o instanceof EntitySlime || o instanceof EntityFlying) {
-            return targetOptions.monsters && (!targetOptions.teams || !((Entity) o).hasCustomName() ||
-                    checkName(((Entity) o).getCustomNameTag()));
+            return targetFeature.monsters.isChecked() &&
+                    (!targetFeature.teams.isChecked() || !((Entity) o).hasCustomName() ||
+                            checkName(((Entity) o).getCustomNameTag()));
         }
 
         // golems
-        return o instanceof EntityGolem && targetOptions.golems &&
-                (!targetOptions.teams || !((Entity) o).hasCustomName() || checkName(((Entity) o).getCustomNameTag()));
+        if (o instanceof EntityGolem) {
+            return targetFeature.golems.isChecked() &&
+                    (!targetFeature.teams.isChecked() || !((Entity) o).hasCustomName() ||
+                            checkName(((Entity) o).getCustomNameTag()));
+        }
 
+        return false;
     }
 
     private static boolean checkName(String name) {

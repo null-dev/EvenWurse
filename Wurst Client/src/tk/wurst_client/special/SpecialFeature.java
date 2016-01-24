@@ -18,6 +18,10 @@ import java.util.ArrayList;
 
 //TODO Look through and consider adding API to it
 // STOPSHIP: 24/01/16 NEEDS API
+/*
+Let's think about this a little, it looks like almost all the functionality in special features
+is covered in a regular module. Maybe migrate to that?
+ */
 public abstract class SpecialFeature implements NavigatorItem {
     private final String name = getClass().getAnnotation(Info.class).name();
     private final String description = getClass().getAnnotation(Info.class).description();
