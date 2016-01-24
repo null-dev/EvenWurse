@@ -8,6 +8,9 @@
  */
 package tk.wurst_client.special;
 
+import tk.wurst_client.WurstClient;
+import tk.wurst_client.mods.*;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.settings.CheckboxSetting;
 import tk.wurst_client.navigator.settings.ColorsSetting;
 
@@ -30,6 +33,15 @@ public class TargetFeature extends SpecialFeature {
     public final ColorsSetting teamColors = new ColorsSetting("Team Colors",
             new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
                     true});
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(KillauraMod.class),
+                wurst.mods.getModByClass(KillauraLegitMod.class), wurst.mods.getModByClass(MultiAuraMod.class),
+                wurst.mods.getModByClass(ClickAuraMod.class), wurst.mods.getModByClass(TriggerBotMod.class),
+                wurst.mods.getModByClass(BowAimbotMod.class)};
+    }
 
     public TargetFeature() {
         settings.add(players);
