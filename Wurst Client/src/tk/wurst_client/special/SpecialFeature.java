@@ -23,6 +23,7 @@ public abstract class SpecialFeature implements NavigatorItem {
     private final String description = getClass().getAnnotation(Info.class).description();
     private final String[] tags = getClass().getAnnotation(Info.class).tags();
     private final String tutorial = getClass().getAnnotation(Info.class).tutorial();
+    protected ArrayList<NavigatorSetting> settings = new ArrayList<>();
 
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Info {
@@ -66,8 +67,8 @@ public abstract class SpecialFeature implements NavigatorItem {
     }
 
     @Override
-    public ArrayList<NavigatorSetting> getSettings() {
-        return new ArrayList<NavigatorSetting>();
+    public final ArrayList<NavigatorSetting> getSettings() {
+        return settings;
     }
 
     @Override
