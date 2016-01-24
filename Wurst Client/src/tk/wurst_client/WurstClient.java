@@ -27,7 +27,7 @@ import tk.wurst_client.special.SpecialFeatureManager;
 import tk.wurst_client.update.Updater;
 
 public class WurstClient {
-    public static final String VERSION = "2.13pre2";
+    public static final String VERSION = "2.13pre3";
     public static final int EW_VERSION_CODE = 150;
     public static final String EW_VERSION = "1.5 (Beta)";
     public static final String BASE_VERSION = "1.8";
