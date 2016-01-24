@@ -43,7 +43,6 @@ public class ColorsSetting implements NavigatorSetting {
                 featureScreen.super(x, y, 12, 12, displayString, color);
 
                 this.index = index;
-                //FIXME Wut?
                 textColor = color;
 
                 updateColor();
