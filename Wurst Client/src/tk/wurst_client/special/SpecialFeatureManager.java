@@ -16,13 +16,10 @@ import java.util.TreeMap;
 //TODO Refactor into module based (and add API)
 // STOPSHIP: 24/01/16 NEEDS REFACTORING
 public class SpecialFeatureManager {
-    private final TreeMap<String, SpecialFeature> features =
-            new TreeMap<String, SpecialFeature>(new Comparator<String>() {
-                @Override
-                public int compare(String o1, String o2) {
-                    return o1.compareToIgnoreCase(o2);
-                }
-            });
+    private final TreeMap<String, SpecialFeature> features = new TreeMap<>((Comparator<String>) String
+            ::compareToIgnoreCase);
+
+    public final TargetFeature targetFeature = new TargetFeature();
 
     public SpecialFeatureManager() {
         try {
