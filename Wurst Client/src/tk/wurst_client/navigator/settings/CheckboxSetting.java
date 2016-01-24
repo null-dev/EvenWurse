@@ -43,4 +43,8 @@ public abstract class CheckboxSetting implements NavigatorSetting {
     public void load(JsonObject json) {
         checked = json.get(name).getAsBoolean();
     }
+
+    protected boolean isChecked() {
+        return checked;
+    }
 }
