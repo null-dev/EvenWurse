@@ -78,7 +78,7 @@ public class ArenaBrawlMod extends Mod implements ChatInputListener, DeathListen
     }
 
     @Override
-    public void updateSettings() {
+    public void updateSliders() {
         level = (int) ((SliderSetting) settings.get(0)).getValue();
     }
 

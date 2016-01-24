@@ -12,4 +12,5 @@ public interface NavigatorSetting {
     void addToFeatureScreen(NavigatorFeatureScreen featureScreen);
     void save(JsonObject json);
     void load(JsonObject json);
+    void update();
 }

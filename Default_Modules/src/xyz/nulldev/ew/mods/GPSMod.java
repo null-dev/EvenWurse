@@ -45,8 +45,8 @@ public class GPSMod extends Mod implements ChatOutputListener {
     }
 
     @Override
-    public void updateSettings() {
-        super.updateSettings();
+    public void updateSliders() {
+        super.updateSliders();
     }
 
     @Override

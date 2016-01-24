@@ -25,7 +25,7 @@ public class FastBreakMod extends Mod {
     }
 
     @Override
-    public void updateSettings() {
+    public void updateSliders() {
         speed = (int) ((SliderSetting) settings.get(0)).getValue();
     }
 }

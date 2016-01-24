@@ -1,6 +1,7 @@
 package tk.wurst_client.navigator.settings;
 
 import com.google.gson.JsonObject;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.navigator.gui.NavigatorFeatureScreen;
 import tk.wurst_client.navigator.gui.NavigatorFeatureScreen.ButtonData;
 
@@ -11,7 +12,7 @@ import java.awt.*;
  * Created: 10/01/16
  * Author: nulldev
  */
-public class ModeSetting implements NavigatorSetting {
+public abstract class ModeSetting implements NavigatorSetting {
     private String name;
     private String[] modes;
     private int selected;
@@ -56,6 +57,8 @@ public class ModeSetting implements NavigatorSetting {
                             buttons[selected].color = new Color(0x404040);
                             selected = iFinal;
                             color = new Color(0x00ff00);
+                            update();
+                            WurstClient.INSTANCE.files.saveNavigatorData();
                         }
                     };
             buttons[i] = button;
@@ -63,7 +66,7 @@ public class ModeSetting implements NavigatorSetting {
         }
     }
 
-    public int getSelected() {
+    protected int getSelected() {
         return selected;
     }
 

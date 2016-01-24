@@ -42,7 +42,7 @@ public class KaboomMod extends Mod implements UpdateListener {
     }
 
     @Override
-    public void updateSettings() {
+    public void updateSliders() {
         power = (int) ((SliderSetting) settings.get(0)).getValue();
     }
 

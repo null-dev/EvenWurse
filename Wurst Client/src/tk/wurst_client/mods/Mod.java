@@ -205,7 +205,7 @@ public abstract class Mod extends Module implements NavigatorItem {
     public void initSettings() {
     }
 
-    public void updateSettings() {
+    public void updateSliders() {
     }
 
     public enum Category {
