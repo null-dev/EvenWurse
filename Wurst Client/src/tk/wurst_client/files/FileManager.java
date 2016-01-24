@@ -116,8 +116,10 @@ public class FileManager {
             createDefaultAutoBuildTemplates();
         }
         loadAutoBuildTemplates();
-        if (WurstClient.INSTANCE.mods.getModByClass(AutoBuildMod.class).getTemplate() >= AutoBuildMod.names.size()) {
-            WurstClient.INSTANCE.mods.getModByClass(AutoBuildMod.class).setTemplate(0);
+        AutoBuildMod autoBuildMod = WurstClient.INSTANCE.mods.getModByClass(AutoBuildMod.class);
+        autoBuildMod.initTemplateSetting();
+        if (autoBuildMod.getTemplate() >= AutoBuildMod.names.size()) {
+            autoBuildMod.setTemplate(0);
             saveNavigatorData();
         }
     }
@@ -273,7 +275,7 @@ public class FileManager {
                     for (NavigatorSetting setting : item.getSettings()) {
                         try {
                             setting.save(jsonSettings);
-                        } catch(Exception e) {
+                        } catch (Exception e) {
                             //TODO Better logging :/
                             e.printStackTrace();
                         }
@@ -313,7 +315,7 @@ public class FileManager {
                     for (NavigatorSetting setting : item.getSettings()) {
                         try {
                             setting.load(jsonSettings);
-                        } catch(Exception e) {
+                        } catch (Exception e) {
                             //TODO Better logging :/
                             e.printStackTrace();
                         }
