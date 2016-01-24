@@ -9,8 +9,10 @@
 package tk.wurst_client.mods;
 
 import org.darkstorm.minecraft.gui.component.BoundedRangeComponent.ValueDisplay;
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.settings.SliderSetting;
 
 @Info(category = Category.BLOCKS,
@@ -18,6 +20,13 @@ import tk.wurst_client.navigator.settings.SliderSetting;
         name = "FastBreak")
 public class FastBreakMod extends Mod {
     public float speed = 2;
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(FastPlaceMod.class),
+                wurst.mods.getModByClass(AutoMineMod.class), wurst.mods.getModByClass(NukerMod.class)};
+    }
 
     @Override
     public void initSettings() {
