@@ -59,7 +59,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         }
 
         WurstClient wurst = WurstClient.INSTANCE;
-        wurst.navigator.addClick(item.getName());
+        wurst.navigator.addPreference(item.getName());
         wurst.files.saveNavigatorData();
     }
 
@@ -98,7 +98,6 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         if (!settings.isEmpty()) {
             text += "\n\nSettings:";
             sliderDatas.clear();
-            // text
             for (NavigatorSetting setting : settings) {
                 setting.addToFeatureScreen(this);
             }
@@ -203,17 +202,14 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             WurstClient wurst = WurstClient.INSTANCE;
             sliding = -1;
 
-            wurst.navigator.addClick(item.getName());
+            wurst.navigator.addPreference(item.getName());
             wurst.files.saveNavigatorData();
         }
     }
 
-    public NavigatorItem getItem() {
-        return item;
-    }
-
     @Override
     protected void onUpdate() {
+
     }
 
     @Override
@@ -227,6 +223,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         int bgx2 = middleX + 154;
         int bgy1 = 60;
         int bgy2 = height - 43;
+
         // scissor box
         RenderUtil.scissorBox(bgx1, bgy1, bgx2, bgy2 - (buttonList.isEmpty() ? 0 : 24));
         glEnable(GL_SCISSOR_TEST);
@@ -318,6 +315,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             }
 
             // button
+            glDisable(GL_TEXTURE_2D);
             drawBox(x1, y1, x2, y2);
 
             // text
@@ -328,6 +326,43 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
         glEnable(GL_CULL_FACE);
         glEnable(GL_TEXTURE_2D);
         glDisable(GL_BLEND);
+    }
+
+    public NavigatorItem getItem() {
+        return item;
+    }
+
+    public int getMiddleX() {
+        return middleX;
+    }
+
+    public void addText(String text) {
+        this.text += text;
+    }
+
+    public int getTextHeight() {
+        return Fonts.segoe15.getStringHeight(text);
+    }
+
+    public void addButton(ButtonData button) {
+        buttonDatas.add(button);
+    }
+
+    public void addSlider(SliderData slider) {
+        sliderDatas.add(slider);
+    }
+
+    public abstract class ButtonData extends Rectangle {
+        public String displayString = "";
+        public Color color;
+
+        public ButtonData(int x, int y, int width, int height, String displayString, int color) {
+            super(x, y, width, height);
+            this.displayString = displayString;
+            this.color = new Color(color);
+        }
+
+        public abstract void press();
     }
 
     public class SliderData {
@@ -351,7 +386,7 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
                     value = Double.toString(slider.getValue());
                     break;
                 case DEGREES:
-                    value = (int) slider.getValue() + "°";
+                    value = (int) slider.getValue() + "�";
                     break;
                 case INTEGER:
                     value = Integer.toString((int) slider.getValue());
@@ -387,38 +422,5 @@ public class NavigatorFeatureScreen extends NavigatorScreen {
             // update slider data
             update();
         }
-    }
-
-    public int getMiddleX() {
-        return middleX;
-    }
-
-    public void addText(String text) {
-        this.text += text;
-    }
-
-    public int getTextHeight() {
-        return Fonts.segoe15.getStringHeight(text);
-    }
-
-    public void addButton(ButtonData button) {
-        buttonDatas.add(button);
-    }
-
-    public void addSlider(SliderData slider) {
-        sliderDatas.add(slider);
-    }
-
-    public abstract class ButtonData extends Rectangle {
-        public String displayString = "";
-        public Color color;
-
-        public ButtonData(int x, int y, int width, int height, String displayString, int color) {
-            super(x, y, width, height);
-            this.displayString = displayString;
-            this.color = new Color(color);
-        }
-
-        public abstract void press();
     }
 }

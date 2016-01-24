@@ -23,7 +23,6 @@ import tk.wurst_client.gui.alts.GuiAltList;
 import tk.wurst_client.mods.*;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.navigator.Navigator;
-import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.navigator.settings.NavigatorSetting;
 import tk.wurst_client.options.FriendsList;
 import tk.wurst_client.options.OptionsManager;
@@ -34,7 +33,6 @@ import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Consumer;
 
 public class FileManager {
     public final File wurstDir = new File(Minecraft.getMinecraft().mcDataDir, "wurst");
@@ -267,8 +265,8 @@ public class FileManager {
             navigator.forEach(item -> {
                 JsonObject jsonFeature = new JsonObject();
 
-                long clicks = navigator.getClicks(item.getName());
-                if (clicks != 0L) jsonFeature.addProperty("clicks", clicks);
+                long preference = navigator.getPreference(item.getName());
+                if (preference != 0L) jsonFeature.addProperty("preference", preference);
 
                 if (!item.getSettings().isEmpty()) {
                     JsonObject jsonSettings = new JsonObject();
@@ -296,12 +294,14 @@ public class FileManager {
             load.close();
 
             Navigator navigator = WurstClient.INSTANCE.navigator;
-            navigator.forEach((Consumer<NavigatorItem>) item -> {
+            navigator.forEach(item -> {
                 String itemName = item.getName();
                 if (!json.has(itemName)) return;
                 JsonObject jsonFeature = json.get(itemName).getAsJsonObject();
 
-                if (jsonFeature.has("clicks")) navigator.setClicks(itemName, jsonFeature.get("clicks").getAsLong());
+                if (jsonFeature.has("preference")) {
+                    navigator.setPreference(itemName, jsonFeature.get("preference").getAsLong());
+                }
 
                 if (jsonFeature.has("settings")) {
                     JsonObject jsonSettings = jsonFeature.get("settings").getAsJsonObject();

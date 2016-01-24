@@ -77,7 +77,7 @@ public class NavigatorMainScreen extends NavigatorScreen {
                 NavigatorItem item = navigatorDisplayList.get(hoveredItem);
                 item.doPrimaryAction();
                 WurstClient wurst = WurstClient.INSTANCE;
-                wurst.navigator.addClick(item.getName());
+                wurst.navigator.addPreference(item.getName());
                 wurst.files.saveNavigatorData();
             } else {
                 expanding = true;

@@ -8,24 +8,48 @@
  */
 package tk.wurst_client.navigator;
 
+import tk.wurst_client.WurstClient;
 import tk.wurst_client.analytics.AnalyticsManager;
 import tk.wurst_client.analytics.DoNothingAnalyticsManagerImpl;
+import tk.wurst_client.commands.CmdManager;
+import tk.wurst_client.mods.ModManager;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class Navigator {
-    private final HashMap<String, Long> clicksMap = new HashMap<>();
-    //FIXME No analytics
-    //	public AnalyticsManager analytics = new GoogleAnalyticsManagerImpl("UA-52838431-7",
-    //		"navigator.client.wurst-client.tk");
-    public AnalyticsManager analytics = new DoNothingAnalyticsManagerImpl();
     private ArrayList<NavigatorItem> navigatorList = new ArrayList<>();
+    private final HashMap<String, Long> preferences = new HashMap<>();
+    //TODO No analytics
+    public AnalyticsManager analytics = new DoNothingAnalyticsManagerImpl();
 
     public Navigator() {
+        // add mods
+        Field[] modFields = ModManager.class.getFields();
+        try {
+            for (Field field : modFields) {
+                if (field.getName().endsWith("Mod")) {
+                    navigatorList.add((NavigatorItem) field.get(WurstClient.INSTANCE.mods));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // add commands
+        Field[] cmdFields = CmdManager.class.getFields();
+        try {
+            for (Field field : cmdFields) {
+                if (field.getName().endsWith("Cmd")) {
+                    navigatorList.add((NavigatorItem) field.get(WurstClient.INSTANCE.commands));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void copyNavigatorList(ArrayList<NavigatorItem> list) {
@@ -36,12 +60,17 @@ public class Navigator {
     }
 
     public void getSearchResults(ArrayList<NavigatorItem> list, String query) {
-        //Clear display list
+        // clear display list
         list.clear();
-        //Add search results
-        list.addAll(navigatorList.stream().filter(mod -> mod.getName().toLowerCase().contains(query) ||
-                mod.getDescription().toLowerCase().contains(query)).collect(Collectors.toList()));
-        //Sort search results
+
+        // add search results
+        for (NavigatorItem mod : navigatorList) {
+            if (mod.getName().toLowerCase().contains(query) || mod.getDescription().toLowerCase().contains(query)) {
+                list.add(mod);
+            }
+        }
+
+        // sort search results
         list.sort(new Comparator<NavigatorItem>() {
             @Override
             public int compare(NavigatorItem o1, NavigatorItem o2) {
@@ -69,21 +98,21 @@ public class Navigator {
         });
     }
 
-    public long getClicks(String feature) {
-        Long clicks = clicksMap.get(feature);
-        if (clicks == null) clicks = 0L;
-        return clicks;
+    public long getPreference(String feature) {
+        Long preference = preferences.get(feature);
+        if (preference == null) preference = 0L;
+        return preference;
     }
 
-    public void addClick(String feature) {
-        Long clicks = clicksMap.get(feature);
-        if (clicks == null) clicks = 0L;
-        clicks++;
-        clicksMap.put(feature, clicks);
+    public void addPreference(String feature) {
+        Long preference = preferences.get(feature);
+        if (preference == null) preference = 0L;
+        preference++;
+        preferences.put(feature, preference);
     }
 
-    public void setClicks(String feature, long clicks) {
-        clicksMap.put(feature, clicks);
+    public void setPreference(String feature, long preference) {
+        preferences.put(feature, preference);
     }
 
     public void forEach(Consumer<NavigatorItem> action) {
@@ -92,19 +121,15 @@ public class Navigator {
 
     public void sortFeatures() {
         navigatorList.sort((o1, o2) -> {
-            long clicks1 = getClicks(o1.getName());
-            long clicks2 = getClicks(o2.getName());
-            if (clicks1 < clicks2) {
+            long preference1 = getPreference(o1.getName());
+            long preference2 = getPreference(o2.getName());
+            if (preference1 < preference2) {
                 return 1;
-            } else if (clicks1 > clicks2) {
+            } else if (preference1 > preference2) {
                 return -1;
             } else {
                 return 0;
             }
         });
-    }
-
-    public ArrayList<NavigatorItem> getNavigatorList() {
-        return navigatorList;
     }
 }
