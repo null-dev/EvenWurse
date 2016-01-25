@@ -68,7 +68,6 @@ public class GuiCleanUp extends GuiScreen {
         WurstClient.INSTANCE.analytics.trackPageView("/multiplayer/clean-up", "Clean Up");
     }
 
-    //TODO Shouldn't this be in utils?
     private String yesOrNo(boolean bool) {
         return bool ? "Yes" : "No";
     }

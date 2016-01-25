@@ -83,7 +83,6 @@ public class GuiConfigList extends GuiWurstSlot {
             name = ModuleUtils.getModuleName(module);
         } catch (ClassNotFoundException e) {
             unloaded = true;
-            //TODO Just don't draw the slot at all :/
             System.out.println("[EvenWurse] Could not find module associated with config class: '" + name +
                     "', using class name!");
             e.printStackTrace();

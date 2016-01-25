@@ -146,24 +146,7 @@ public class RenderUtils {
         GL11.glLineWidth(2.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL_DEPTH_TEST);
-        //FIXME What is the point of the static fields if ur not going to use them :/
-        if (mode == 0)// Enemy
-        {
-            GL11.glColor4d(1 - Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40,
-                    Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40, 0, 0.5F);
-        } else if (mode == 1)// Friend
-        {
-            GL11.glColor4d(0, 0, 1, 0.5F);
-        } else if (mode == 2)// Other
-        {
-            GL11.glColor4d(1, 1, 0, 0.5F);
-        } else if (mode == 3)// Target
-        {
-            GL11.glColor4d(1, 0, 0, 0.5F);
-        } else if (mode == 4)// Team
-        {
-            GL11.glColor4d(0, 1, 0, 0.5F);
-        }
+        updateColorFromTargetType(mode, entity);
         Minecraft.getMinecraft().getRenderManager();
         RenderGlobal.drawOutlinedBoundingBox(new AxisAlignedBB(entity.boundingBox.minX - 0.05 - entity.posX +
                 (entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX),
@@ -293,6 +276,26 @@ public class RenderUtils {
         ts.draw();// Ends Z.
     }
 
+    public static void updateColorFromTargetType(int mode, Entity entity) {
+        if (mode == ENEMY)// Enemy
+        {
+            GL11.glColor4d(1 - Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40,
+                    Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40, 0, 0.5F);
+        } else if (mode == FRIEND)// Friend
+        {
+            GL11.glColor4d(0, 0, 1, 0.5F);
+        } else if (mode == OTHER)// Other
+        {
+            GL11.glColor4d(1, 1, 0, 0.5F);
+        } else if (mode == TARGET)// Target
+        {
+            GL11.glColor4d(1, 0, 0, 0.5F);
+        } else if (mode == TEAM)// Team
+        {
+            GL11.glColor4d(0, 1, 0, 0.5F);
+        }
+    }
+
     public static void tracerLine(Entity entity, int mode) {
         double x = entity.posX - Minecraft.getMinecraft().getRenderManager().renderPosX;
         double y = entity.posY + entity.height / 2 - Minecraft.getMinecraft().getRenderManager().renderPosY;
@@ -303,23 +306,7 @@ public class RenderUtils {
         glDisable(GL11.GL_TEXTURE_2D);
         glDisable(GL_DEPTH_TEST);
         glDepthMask(false);
-        if (mode == 0)// Enemy
-        {
-            GL11.glColor4d(1 - Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40,
-                    Minecraft.getMinecraft().thePlayer.getDistanceToEntity(entity) / 40, 0, 0.5F);
-        } else if (mode == 1)// Friend
-        {
-            GL11.glColor4d(0, 0, 1, 0.5F);
-        } else if (mode == 2)// Other
-        {
-            GL11.glColor4d(1, 1, 0, 0.5F);
-        } else if (mode == 3)// Target
-        {
-            GL11.glColor4d(1, 0, 0, 0.5F);
-        } else if (mode == 4)// Team
-        {
-            GL11.glColor4d(0, 1, 0, 0.5F);
-        }
+        updateColorFromTargetType(mode, entity);
         glBegin(GL_LINES);
         {
             glVertex3d(0, Minecraft.getMinecraft().thePlayer.getEyeHeight(), 0);
