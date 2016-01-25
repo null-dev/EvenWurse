@@ -34,7 +34,8 @@ import java.util.concurrent.TimeUnit;
                 "If you want to know how to use this, press the\n" +
                 "\"How to use\" button. That will open an online\n" + "tutorial explaining exactly how to use it.\n" +
                 "Don't message me on this!",
-        name = "ForceOP")
+        name = "ForceOP",
+        tutorial = "Mods/Force_OP_(AuthMeCracker)")
 public class ForceOpMod extends Mod implements ChatInputListener {
     private String[] defaultList =
             {"password", "passwort", "password1", "passwort1", "password123", "passwort123", "pass", "pw", "pw1",
