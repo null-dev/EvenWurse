@@ -14,6 +14,8 @@ import java.util.Comparator;
 import java.util.TreeMap;
 
 //TODO Refactor into module based (and add API)
+//TODO This is starting to look like advertising about how many features Wurst has, maybe it will be removed in
+// EvenWurse
 // STOPSHIP: 24/01/16 NEEDS REFACTORING
 public class SpecialFeatureManager {
     private final TreeMap<String, SpecialFeature> features = new TreeMap<>((Comparator<String>) String
@@ -21,6 +23,7 @@ public class SpecialFeatureManager {
 
     public final TargetFeature targetFeature = new TargetFeature();
     public final BookHackFeature bookHackFeature = new BookHackFeature();
+    public final ServerFinderFeature serverFinderFeature = new ServerFinderFeature();
 
     public SpecialFeatureManager() {
         try {
