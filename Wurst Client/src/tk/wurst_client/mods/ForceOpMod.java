@@ -35,6 +35,7 @@ import java.util.concurrent.TimeUnit;
                 "\"How to use\" button. That will open an online\n" + "tutorial explaining exactly how to use it.\n" +
                 "Don't message me on this!",
         name = "ForceOP",
+        tags = "Force OP,AuthMe Cracker,AuthMeCracker,auth me cracker,admin hack,AuthMe password cracker",
         tutorial = "Mods/Force_OP_(AuthMeCracker)")
 public class ForceOpMod extends Mod implements ChatInputListener {
     private String[] defaultList =
@@ -192,10 +193,8 @@ public class ForceOpMod extends Mod implements ChatInputListener {
                 lDelay2.setSize(lDelay2.getPreferredSize());
                 dialog.add(lDelay2);
 
-                cbDontWait = new JCheckBox(
-                        "<html>Don't wait for \"<span style=\"color: rgb(192, 0, 0);\"><b>Wrong " +
-                                "password!</b></span>\" messages</html>",
-                        WurstClient.INSTANCE.options.forceOPDontWait);
+                cbDontWait = new JCheckBox("<html>Don't wait for \"<span style=\"color: rgb(192, 0, 0);\"><b>Wrong " +
+                        "password!</b></span>\" messages</html>", WurstClient.INSTANCE.options.forceOPDontWait);
                 cbDontWait.setToolTipText("Increases the speed but can cause inaccuracy.");
                 cbDontWait.setLocation(4, 104);
                 cbDontWait.setSize(cbDontWait.getPreferredSize());
