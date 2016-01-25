@@ -11,8 +11,6 @@ package tk.wurst_client.navigator;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.analytics.AnalyticsManager;
 import tk.wurst_client.analytics.DoNothingAnalyticsManagerImpl;
-import tk.wurst_client.commands.CmdManager;
-import tk.wurst_client.mods.ModManager;
 import tk.wurst_client.special.SpecialFeatureManager;
 
 import java.lang.reflect.Field;
@@ -30,32 +28,6 @@ public class Navigator {
     public AnalyticsManager analytics = new DoNothingAnalyticsManagerImpl();
 
     public Navigator() {
-        // add mods
-        //FIXME WARNING THESE BROKE IN THE LAST UPSTREAM MERGE
-        Field[] modFields = ModManager.class.getFields();
-        try {
-            for (Field field : modFields) {
-                if (field.getName().endsWith("Mod")) {
-                    navigatorList.add((NavigatorItem) field.get(WurstClient.INSTANCE.mods));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // add commands
-        //FIXME WARNING THESE BROKE IN THE LAST UPSTREAM MERGE
-        Field[] cmdFields = CmdManager.class.getFields();
-        try {
-            for (Field field : cmdFields) {
-                if (field.getName().endsWith("Cmd")) {
-                    navigatorList.add((NavigatorItem) field.get(WurstClient.INSTANCE.commands));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         // add special features
         //FIXME WARNING NEEDS REFACTORING
         Field[] specialFields = SpecialFeatureManager.class.getFields();
@@ -156,5 +128,9 @@ public class Navigator {
                 return 0;
             }
         });
+    }
+
+    public ArrayList<NavigatorItem> getNavigatorList() {
+        return navigatorList;
     }
 }
