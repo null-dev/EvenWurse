@@ -21,6 +21,7 @@ import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.utils.EntityUtils;
 import tk.wurst_client.utils.RenderUtils;
 
@@ -34,6 +35,12 @@ import static org.lwjgl.opengl.GL11.*;
 public class BowAimbotMod extends Mod implements UpdateListener, RenderListener, GUIRenderListener {
     private Entity target;
     private float velocity;
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(FastBowMod.class)};
+    }
 
     @Override
     public void onEnable() {
