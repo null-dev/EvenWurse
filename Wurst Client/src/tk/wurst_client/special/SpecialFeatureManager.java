@@ -24,6 +24,7 @@ public class SpecialFeatureManager {
     public final TargetFeature targetFeature = new TargetFeature();
     public final BookHackFeature bookHackFeature = new BookHackFeature();
     public final ServerFinderFeature serverFinderFeature = new ServerFinderFeature();
+    public final ServerFinderFeature sessionStealFeature = new ServerFinderFeature();
 
     public SpecialFeatureManager() {
         try {
