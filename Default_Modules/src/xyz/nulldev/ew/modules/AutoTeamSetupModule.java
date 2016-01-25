@@ -52,8 +52,9 @@ public class AutoTeamSetupModule extends Module implements UpdateListener {
             if (nextIsCode) {
                 String code = F.STRING_SS + c;
                 if (F.isColorCode(code)) {
-                    if (WurstClient.INSTANCE.options.target.teams) {
-                        boolean[] teamColors = WurstClient.INSTANCE.options.target.getTeamColorsSafely();
+                    //TODO REFACTOR ON SPECIAL FEATURE API CHANGE
+                    if (WurstClient.INSTANCE.specialFeatures.targetFeature.teams.isChecked()) {
+                        boolean[] teamColors = WurstClient.INSTANCE.specialFeatures.targetFeature.teamColors.getSelected();
                         for (int i = 0; i < teamColors.length; i++) {
                             teamColors[i] = !Objects.equals(String.valueOf(c), EntityUtils.COLORS[i]);
                         }
