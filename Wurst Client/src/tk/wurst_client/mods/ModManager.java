@@ -15,6 +15,7 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import tk.wurst_client.WurstClient;
 import tk.wurst_client.api.Module;
+import tk.wurst_client.utils.ModuleUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -100,9 +101,7 @@ public class ModManager {
             throw new Module.ModuleLoadException("Unknown error loading mod!", e);
         }
         //Don't load mods that require a higher version than us
-        if (mod.getMinVersion() > WurstClient.EW_VERSION_CODE) {
-            throw new Module.InvalidVersionException(mod.getName(), mod.getMinVersion(), mod.getMaxVersion());
-        }
+        ModuleUtils.validateModule(mod);
         //TODO Better way to do this
         //We have to put this here or mods can't use the configuration in their onload method :/
         mods.put(mod.getName(), mod);

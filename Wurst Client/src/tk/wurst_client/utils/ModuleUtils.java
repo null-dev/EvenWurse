@@ -60,6 +60,18 @@ public class ModuleUtils {
         return null;
     }
 
+    /**
+     * Validate that a module is allowed to be loaded on the current EvenWurse version.
+     * @param module The module to check
+     * @throws Module.InvalidVersionException EvenWurse version is incompatible.
+     */
+    public static void validateModule(Module module) throws Module.InvalidVersionException {
+        if(module.getMinVersion() > WurstClient.EW_VERSION_CODE
+                || module.getMaxVersion() < WurstClient.EW_VERSION_CODE) {
+            throw new Module.InvalidVersionException(module.getName(), module.getMinVersion(), module.getMaxVersion());
+        }
+    }
+
     public static void reloadModules() {
         System.out.println("[EvenWurse] Reloading modules...");
         ModManager modManager = WurstClient.INSTANCE.mods;
@@ -147,7 +159,9 @@ public class ModuleUtils {
                 } else {
                     Module module = c.getConstructor().newInstance();
                     System.out.println("[EvenWurse] Loading misc module from class: '" + c.getSimpleName() + "'...");
+                    //Don't load modules that require a higher version than us
                     try {
+                        ModuleUtils.validateModule(module);
                         miscModules.add(module);
                         module.onLoad();
                     } catch (Throwable t) {

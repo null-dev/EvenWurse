@@ -19,6 +19,7 @@ import tk.wurst_client.commands.Cmd.SyntaxError;
 import tk.wurst_client.events.ChatOutputEvent;
 import tk.wurst_client.events.listeners.ChatOutputListener;
 import tk.wurst_client.utils.F;
+import tk.wurst_client.utils.ModuleUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -194,10 +195,7 @@ public class CmdManager implements ChatOutputListener {
             throw new Module.ModuleLoadException("Unknown error loading cmd!", e);
         }
         //Don't load cmds that require a higher version than us
-        if (cmd.getMinVersion() > WurstClient.EW_VERSION_CODE) {
-            throw new Module.InvalidVersionException(cmd.getCmdName(), cmd.getMinVersion(),
-                    WurstClient.EW_VERSION_CODE);
-        }
+        ModuleUtils.validateModule(cmd);
         //TODO Better way to do this
         //We have to put this here or cmds can't use the configuration in their onload method :/
         if (cmds.containsKey(cmd.getCmdName())) {

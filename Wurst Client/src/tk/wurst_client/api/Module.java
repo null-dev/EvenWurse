@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
 public class Module {
     private float version = 1.00f;
     private int minVersion = 0;
-    private int maxVersion = 0;
+    private int maxVersion = Integer.MAX_VALUE;
     private boolean usesConfig = false;
 
     public Module() {
@@ -29,6 +29,10 @@ public class Module {
             maxVersion = getClass().getAnnotation(ModuleInfo.class).maxVersion();
             usesConfig = getClass().getAnnotation(ModuleInfo.class).usesConfig();
         }
+    }
+
+    public String getName() {
+        return getClass().getSimpleName();
     }
 
     public float getVersion() {
