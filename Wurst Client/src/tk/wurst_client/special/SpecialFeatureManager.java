@@ -20,6 +20,7 @@ public class SpecialFeatureManager {
             ::compareToIgnoreCase);
 
     public final TargetFeature targetFeature = new TargetFeature();
+    public final BookHackFeature bookHackFeature = new BookHackFeature();
 
     public SpecialFeatureManager() {
         try {
