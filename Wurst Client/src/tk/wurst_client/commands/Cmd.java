@@ -60,7 +60,12 @@ public abstract class Cmd extends Module implements NavigatorItem {
 
     @Override
     public final String getDescription() {
-        return help;
+        String description = help;
+        if (syntax.length > 0) description += "\n\nSyntax:";
+        for (String aSyntax : syntax) {
+            description += "\n  ." + name + " " + aSyntax;
+        }
+        return description;
     }
 
     @Override
