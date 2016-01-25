@@ -18,6 +18,7 @@ import tk.wurst_client.events.listeners.LeftClickListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 
 @Info(category = Category.COMBAT,
         description = "Automatically uses the best weapon in your hotbar to attack\n" +
@@ -54,6 +55,12 @@ public class AutoSwordMod extends Mod implements LeftClickListener, UpdateListen
             WurstClient.INSTANCE.events
                     .add(UpdateListener.class, WurstClient.INSTANCE.mods.getModByClass(AutoSwordMod.class));
         }
+    }
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(AutoToolMod.class)};
     }
 
     @Override
