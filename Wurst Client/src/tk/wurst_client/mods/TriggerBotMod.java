@@ -28,7 +28,7 @@ public class TriggerBotMod extends Mod implements UpdateListener {
         WurstClient wurst = WurstClient.INSTANCE;
         return new NavigatorItem[]{wurst.specialFeatures.targetFeature, wurst.mods.getModByClass(KillauraMod.class),
                 wurst.mods.getModByClass(KillauraLegitMod.class), wurst.mods.getModByClass(MultiAuraMod.class),
-                wurst.mods.getModByClass(ClickAuraMod.class)};
+                wurst.mods.getModByClass(ClickAuraMod.class), wurst.mods.getModByClass(CriticalsMod.class)};
     }
 
     @Override

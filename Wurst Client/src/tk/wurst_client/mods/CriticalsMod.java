@@ -15,11 +15,13 @@ import tk.wurst_client.WurstClient;
 import tk.wurst_client.events.listeners.LeftClickListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 
 @Info(category = Category.COMBAT,
         description = "Changes all your hits to critical hits.",
         name = "Criticals")
 public class CriticalsMod extends Mod implements LeftClickListener {
+
     public static void doCritical() {
         if (!WurstClient.INSTANCE.mods.getModByClass(CriticalsMod.class).isActive()) return;
         if (!Minecraft.getMinecraft().thePlayer.isInWater() &&
@@ -29,6 +31,13 @@ public class CriticalsMod extends Mod implements LeftClickListener {
             Minecraft.getMinecraft().thePlayer.fallDistance = 0.1F;
             Minecraft.getMinecraft().thePlayer.onGround = false;
         }
+    }
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(KillauraMod.class),
+                wurst.mods.getModByClass(TriggerBotMod.class)};
     }
 
     @Override

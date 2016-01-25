@@ -44,7 +44,8 @@ public class KillauraMod extends Mod implements UpdateListener {
         //TODO THIS WILL BE AFFECTED BY THE SPECIAL FEATURES API MIGRATION
         return new NavigatorItem[]{wurst.specialFeatures.targetFeature,
                 wurst.mods.getModByClass(KillauraLegitMod.class), wurst.mods.getModByClass(MultiAuraMod.class),
-                wurst.mods.getModByClass(ClickAuraMod.class), wurst.mods.getModByClass(TriggerBotMod.class)};
+                wurst.mods.getModByClass(ClickAuraMod.class), wurst.mods.getModByClass(TriggerBotMod.class),
+                wurst.mods.getModByClass(CriticalsMod.class)};
     }
 
     @Override
