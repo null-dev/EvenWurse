@@ -19,7 +19,8 @@ import tk.wurst_client.mods.Mod.Info;
                 "Can also be used to run any other command.\n" +
                 "Only works on servers running Minecraft 1.8 - 1.8.5 without Spigot!\n" +
                 "Type .sv to check the server version.",
-        name = "OP-Sign", tutorial = "Mods/OP-Sign_(Force_OP)")
+        name = "OP-Sign", tags = "Force OP,OP Sign,Sign OP,sign hack,admin hack,OpSign",
+        tutorial = "Mods/OP-Sign_(Force_OP)")
 public class OpSignMod extends Mod {
     public String command;
 
