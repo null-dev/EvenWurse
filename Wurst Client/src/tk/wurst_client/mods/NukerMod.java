@@ -84,7 +84,8 @@ public class NukerMod extends Mod implements LeftClickListener, RenderListener, 
         WurstClient wurst = WurstClient.INSTANCE;
         return new NavigatorItem[]{wurst.mods.getModByClass(NukerLegitMod.class),
                 wurst.mods.getModByClass(SpeedNukerMod.class), wurst.mods.getModByClass(TunnellerMod.class),
-                wurst.mods.getModByClass(FastBreakMod.class), wurst.mods.getModByClass(AutoMineMod.class)};
+                wurst.mods.getModByClass(FastBreakMod.class), wurst.mods.getModByClass(AutoMineMod.class),
+                wurst.mods.getModByClass(OverlayMod.class)};
     }
 
     @Override
