@@ -20,6 +20,7 @@ import tk.wurst_client.events.listeners.RenderListener;
 import tk.wurst_client.events.listeners.UpdateListener;
 import tk.wurst_client.mods.Mod.Category;
 import tk.wurst_client.mods.Mod.Info;
+import tk.wurst_client.navigator.NavigatorItem;
 import tk.wurst_client.utils.RenderUtils;
 
 import java.util.ArrayList;
@@ -32,6 +33,13 @@ public class ChestEspMod extends Mod implements UpdateListener, RenderListener {
     private static final int MAX_CHESTS = 1000;
     public boolean shouldInform = true;
     private ArrayList<BlockPos> matchingBlocks = new ArrayList<>();
+
+    @Override
+    public NavigatorItem[] getSeeAlso() {
+        WurstClient wurst = WurstClient.INSTANCE;
+        return new NavigatorItem[]{wurst.mods.getModByClass(ItemEspMod.class),
+                wurst.mods.getModByClass(SearchMod.class), wurst.mods.getModByClass(XRayMod.class)};
+    }
 
     @Override
     public void onEnable() {
