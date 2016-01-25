@@ -56,14 +56,4 @@ public class TargetFeature extends SpecialFeature {
         settings.add(teams);
         settings.add(teamColors);
     }
-
-    @Override
-    public String getPrimaryAction() {
-        return "";
-    }
-
-    @Override
-    public void doPrimaryAction() {
-
-    }
 }

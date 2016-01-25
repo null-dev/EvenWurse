@@ -22,7 +22,7 @@ import java.util.ArrayList;
 Let's think about this a little, it looks like almost all the functionality in special features
 is covered in a regular module. Maybe migrate to that?
  */
-public abstract class SpecialFeature implements NavigatorItem {
+public class SpecialFeature implements NavigatorItem {
     private final String name = getClass().getAnnotation(Info.class).name();
     private final String description = getClass().getAnnotation(Info.class).description();
     private final String tags = getClass().getAnnotation(Info.class).tags();
@@ -89,4 +89,12 @@ public abstract class SpecialFeature implements NavigatorItem {
     public NavigatorItem[] getSeeAlso() {
         return new NavigatorItem[0];
     }
+
+    @Override
+    public String getPrimaryAction() {
+        return "";
+    }
+
+    @Override
+    public void doPrimaryAction() {}
 }
