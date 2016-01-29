@@ -28,8 +28,8 @@ import tk.wurst_client.update.Updater;
 
 public class WurstClient {
     public static final String VERSION = "2.13";
-    public static final int EW_VERSION_CODE = 150;
-    public static final String EW_VERSION = "1.5 (Beta)";
+    public static final int EW_VERSION_CODE = 151;
+    public static final String EW_VERSION = "1.51 (Beta)";
     public static final String BASE_VERSION = "1.8";
     public static WurstClient INSTANCE = new WurstClient();
     public boolean startupMessageDisabled = false;
@@ -50,11 +50,11 @@ public class WurstClient {
 
     public void startClient() {
         events = new EventManager();
+        specialFeatures = new SpecialFeatureManager();
         navigator = new Navigator();
         mods = new ModManager();
         gui = new GuiManager();
         commands = new CmdManager();
-        specialFeatures = new SpecialFeatureManager();
         files = new FileManager();
         updater = new Updater();
         chat = new ChatManager();
