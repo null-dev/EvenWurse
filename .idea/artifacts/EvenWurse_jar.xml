@@ -2,10 +2,7 @@
   <artifact type="jar" name="EvenWurse:jar">
     <output-path>$PROJECT_DIR$/../build</output-path>
     <properties id="ant-postprocessing">
-      <options enabled="true">
-        <file>file://$PROJECT_DIR$/dist/build.xml</file>
-        <target>dist</target>
-      </options>
+      <options enabled="true" />
     </properties>
     <root id="archive" name="EvenWurse.jar">
       <element id="module-output" name="Client" />
@@ -19,7 +16,6 @@
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/tv/twitch/twitch/6.5/twitch-6.5.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/com/google/guava/guava/17.0/guava-17.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MCP_LOC$/jars/versions/1.8/1.8.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/com/mojang/authlib/1.5.21/authlib-1.5.21.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/com/paulscode/libraryjavasound/20101123/libraryjavasound-20101123.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MCP_LOC$/jars/libraries/com/ibm/icu/icu4j-core-mojang/51.2/icu4j-core-mojang-51.2.jar" path-in-jar="/" />
@@ -56,6 +52,25 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jogg-0.0.7.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/lwjgl.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/javassist.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MCP_LOC$/jars/versions/1.8/1.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/ibxm.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/jnlp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/lwjgl.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/slick.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/jinput.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/jogg-0.0.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/lwjgl_util.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/tinylinepp.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/natives-mac.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/jorbis-0.0.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/natives-linux.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/slick-examples.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/natives-windows.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../lib/lib/lwjgl_util_applet.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/reflections/reflections/0.9.10/reflections-0.9.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/guava/guava/15.0/guava-15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/javassist/javassist/3.19.0-GA/javassist-3.19.0-GA.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/findbugs/annotations/2.0.1/annotations-2.0.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
